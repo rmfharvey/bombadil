@@ -1,0 +1,1667 @@
+{
+  "fields":[
+    {
+      "description":"Reset open-drain fault output if there are no active faults in the system. Note that this bit is write-only. Any reads of this register return 0 in the FPINRST bit location. 0 = Do not care, 1 = Reset open-drain fault output",
+      "name":"FPINRST",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":7,
+          "register_address":0
+        }
+      ]
+    },
+    {
+      "description":"PWM phase shift setting for internal PWM generator",
+      "digital_physical_map":{
+        "0":"180\u00b0 phase shift between internally generated PWM signals",
+        "1":"0\u00b0 phase shift between internally generated PWM signals"
+      },
+      "name":"PWMPH",
+      "register_location":[
+        {
+          "reg_end_bit":6,
+          "reg_start_bit":6,
+          "register_address":0
+        }
+      ]
+    },
+    {
+      "description":"Software limp-home mode. The limp-home mode can be activated by writing to the register. The bit is also set high in case of communication failure. The bit has to be written to zero to return to normal operation.",
+      "digital_physical_map":{
+        "0":"Normal Operation",
+        "1":"Operation in limp-home state"
+      },
+      "name":"LHSW",
+      "register_location":[
+        {
+          "reg_end_bit":5,
+          "reg_start_bit":5,
+          "register_address":0
+        }
+      ]
+    },
+    {
+      "description":"Communication watch dog timer",
+      "digital_physical_map":{
+        "0":"Disable communication watch dog timer",
+        "1":"Enable communication watch dog timer"
+      },
+      "name":"CMWEN",
+      "register_location":[
+        {
+          "reg_end_bit":4,
+          "reg_start_bit":4,
+          "register_address":0
+        }
+      ]
+    },
+    {
+      "description":"This bit is used to enable internal PWM generator function for channel 2.",
+      "digital_physical_map":{
+        "0":"LED current duty cycle of channel 2 controlled by the external signal connected to UDIM2 input",
+        "1":"LED current duty cycle of channel 2 controlled by the internal PWM generator (registers PWMDIV and CH2PWM). UDIM2 input must be above VUDIM2(UVLO)."
+      },
+      "name":"CH2INTPWM",
+      "register_location":[
+        {
+          "reg_end_bit":3,
+          "reg_start_bit":3,
+          "register_address":0
+        }
+      ]
+    },
+    {
+      "description":"CH2 enable. This bit controls the operation of channel 2.",
+      "digital_physical_map":{
+        "0":"Disable LED channel 2",
+        "1":"Enable LED channel 2"
+      },
+      "name":"CH2EN",
+      "register_location":[
+        {
+          "reg_end_bit":2,
+          "reg_start_bit":2,
+          "register_address":0
+        }
+      ]
+    },
+    {
+      "description":"This bit is used to enable internal PWM generator function for channel 1.",
+      "digital_physical_map":{
+        "0":"LED current duty cycle of channel 1 controlled by external signal connected to UDIM1 input",
+        "1":"LED current duty cycle of channel 1 controlled by internal PWM generator (registers PWMDIV and CH1PWM). UDIM1 input must be above VUDIM1(UVLO)."
+      },
+      "name":"CH1INTPWM",
+      "register_location":[
+        {
+          "reg_end_bit":1,
+          "reg_start_bit":1,
+          "register_address":0
+        }
+      ]
+    },
+    {
+      "description":"CH1 enable. This bit controls the operation of channel 1.",
+      "digital_physical_map":{
+        "0":"Disable LED channel 1",
+        "1":"Enable LED channel 1"
+      },
+      "name":"CH1EN",
+      "register_location":[
+        {
+          "reg_end_bit":0,
+          "reg_start_bit":0,
+          "register_address":0
+        }
+      ]
+    },
+    {
+      "description":"IFT sets the counter limit for the fault timer.",
+      "digital_physical_map":{
+        "0":"3.6 ms fault timer",
+        "1":"7.2 ms fault timer",
+        "2":"14.4 ms fault timer",
+        "3":"28.8 ms fault timer"
+      },
+      "name":"IFT",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":6,
+          "register_address":1
+        }
+      ]
+    },
+    {
+      "name":"RESERVED_1_5",
+      "register_location":[
+        {
+          "reg_end_bit":5,
+          "reg_start_bit":5,
+          "register_address":1
+        }
+      ],
+      "reserved":true
+    },
+    {
+      "description":"Channel 2 thermal shutdown fault response",
+      "digital_physical_map":{
+        "0":"Channel 2 auto-restarts based on internal temperature hysteresis.",
+        "1":"Channel 2 is latched off; CH2EN bit is reset and channel 2 is disabled until the CH2EN bit is programmed high by SPI command."
+      },
+      "name":"CH2TSFL",
+      "register_location":[
+        {
+          "reg_end_bit":4,
+          "reg_start_bit":4,
+          "register_address":1
+        }
+      ]
+    },
+    {
+      "description":"Channel 2 high-side FET current limit fault response",
+      "digital_physical_map":{
+        "0":"Channel 2 auto-restarts after the ILIM fault timer has expired.",
+        "1":"Channel 2 is latched off; CH2EN bit is reset and channel 2 is disabled until the CH2EN bit is programmed high by SPI command."
+      },
+      "name":"CH2HSILIMFL",
+      "register_location":[
+        {
+          "reg_end_bit":3,
+          "reg_start_bit":3,
+          "register_address":1
+        }
+      ]
+    },
+    {
+      "description":"Channel 2 low-side FET current limit fault response",
+      "digital_physical_map":{
+        "0":"Channel 2 auto-restarts after the ILIM fault timer has expired.",
+        "1":"Channel 2 is latched off; CH2EN bit is reset and channel 2 is disabled until the CH2EN bit is programmed high by SPI command."
+      },
+      "name":"CH2LSILIMFL",
+      "register_location":[
+        {
+          "reg_end_bit":2,
+          "reg_start_bit":2,
+          "register_address":1
+        }
+      ]
+    },
+    {
+      "description":"Channel 1 thermal shutdown fault response",
+      "digital_physical_map":{
+        "0":"Channel 1 auto-restarts based on internal temperature hysteresis.",
+        "1":"Channel 1 is latched off; CH1EN bit is reset and channel 1 is disabled until the CH1EN bit is programmed high by SPI command."
+      },
+      "name":"CH1TSFL",
+      "register_location":[
+        {
+          "reg_end_bit":1,
+          "reg_start_bit":1,
+          "register_address":1
+        }
+      ]
+    },
+    {
+      "description":"Channel 1 high side FET current limit fault response",
+      "digital_physical_map":{
+        "0":"Channel 1 auto-restarts after the ILIM fault timer has expired.",
+        "1":"Channel 1 is latched off; CH1EN bit is reset and channel 1 is disabled until the CH1EN bit is programmed high by SPI command."
+      },
+      "name":"CH1HSILIMFL",
+      "register_location":[
+        {
+          "reg_end_bit":0,
+          "reg_start_bit":0,
+          "register_address":1
+        }
+      ]
+    },
+    {
+      "description":"Channel 1 low side FET current limit fault response",
+      "digital_physical_map":{
+        "0":"Channel 1 auto-restarts after the ILIM fault timer has expired.",
+        "1":"Channel 1 is latched off; CH1EN bit is reset and channel 1 is disabled until the CH1EN bit is programmed high by SPI command."
+      },
+      "name":"CH1LSILIMFL",
+      "register_location":[
+        {
+          "reg_end_bit":0,
+          "reg_start_bit":0,
+          "register_address":1
+        }
+      ]
+    },
+    {
+      "name":"RESERVED_2_7_4",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":4,
+          "register_address":2
+        }
+      ],
+      "reserved":true
+    },
+    {
+      "description":"Mapping of CMWTAP bits to the tap points of the 25-bit communication watchdog timer.",
+      "digital_physical_map":{
+        "0":"Tap point set to bit 16 corresponding to 6.1 ms (typical) watch dog period.",
+        "1":"Tap point set to bit 17 corresponding to 12.1 ms (typical) watch dog period.",
+        "10":"Tap point set to bit 24 corresponding to 1.52 s (typical) watchdog period.",
+        "11":"Tap point set to bit 24 corresponding to 1.52 s (typical) watchdog period.",
+        "12":"Tap point set to bit 24 corresponding to 1.52 s (typical) watchdog period.",
+        "13":"Tap point set to bit 24 corresponding to 1.52 s (typical) watchdog period.",
+        "14":"Tap point set to bit 24 corresponding to 1.52 s (typical) watchdog period.",
+        "15":"Tap point set to bit 24 corresponding to 1.52 s (typical) watchdog period.",
+        "2":"Tap point set to bit 18 corresponding to 24.3 ms (typical) watch dog period.",
+        "3":"Tap point set to bit 19 corresponding to 48.5 ms (typical) watch dog period.",
+        "4":"Tap point set to bit 20 corresponding to 97.1 ms (typical) watch dog period.",
+        "5":"Tap point set to bit 21 corresponding to 194.2 ms (typical) watch dog period.",
+        "6":"Tap point set to bit 22 corresponding to 388.3 ms (typical) watch dog period.",
+        "7":"Tap point set to bit 23 corresponding to 776.7 ms (typical) watch dog period.",
+        "8":"Tap point set to bit 24 corresponding to 1.52 s (typical) watchdog period.",
+        "9":"Tap point set to bit 24 corresponding to 1.52 s (typical) watchdog period."
+      },
+      "name":"CMWTAP_FIELD",
+      "register_location":[
+        {
+          "reg_end_bit":3,
+          "reg_start_bit":0,
+          "register_address":2
+        }
+      ]
+    },
+    {
+      "description":"Indicates low-side switch current limit fault on channel 2. Low-side switch current is greater than 1.5 A (typical).",
+      "name":"CH2LSILIM",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":7,
+          "register_address":3
+        }
+      ]
+    },
+    {
+      "description":"Indicates high-side switch current limit fault on channel 2. High-side switch current is greater than 2.7 A (typical).",
+      "name":"CH2HSILIM",
+      "register_location":[
+        {
+          "reg_end_bit":6,
+          "reg_start_bit":6,
+          "register_address":3
+        }
+      ]
+    },
+    {
+      "description":"Indicates output short circuit fault on channel 2. CSP pin voltage is below 2.45 V.",
+      "name":"CH2SHORT",
+      "register_location":[
+        {
+          "reg_end_bit":5,
+          "reg_start_bit":5,
+          "register_address":3
+        }
+      ]
+    },
+    {
+      "description":"Indicates overvoltage condition on COMP2 pin. COMP2 pin voltage is greater than 3.2 V.",
+      "name":"CH2COMPOV",
+      "register_location":[
+        {
+          "reg_end_bit":4,
+          "reg_start_bit":4,
+          "register_address":3
+        }
+      ]
+    },
+    {
+      "description":"Indicates low-side switch current limit fault on channel 1. Low-side switch current is greater than 1.5 A (typical).",
+      "name":"CH1LSILIM",
+      "register_location":[
+        {
+          "reg_end_bit":3,
+          "reg_start_bit":3,
+          "register_address":3
+        }
+      ]
+    },
+    {
+      "description":"Indicates high-side switch current limit fault on channel 1. High-side switch current is greater than 2.7 A (typical).",
+      "name":"CH1HSILIM",
+      "register_location":[
+        {
+          "reg_end_bit":2,
+          "reg_start_bit":2,
+          "register_address":3
+        }
+      ]
+    },
+    {
+      "description":"Indicates output short circuit fault on channel 1. CSP pin voltage is below 2.45 V.",
+      "name":"CH1SHORT",
+      "register_location":[
+        {
+          "reg_end_bit":1,
+          "reg_start_bit":1,
+          "register_address":3
+        }
+      ]
+    },
+    {
+      "description":"Indicates overvoltage condition on COMP1 pin. COMP1 pin voltage is greater than 3.2 V.",
+      "name":"CH1COMPOV",
+      "register_location":[
+        {
+          "reg_end_bit":0,
+          "reg_start_bit":0,
+          "register_address":3
+        }
+      ]
+    },
+    {
+      "name":"RESERVED_4_7_6",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":6,
+          "register_address":4
+        }
+      ],
+      "reserved":true
+    },
+    {
+      "description":"Indicates overtemperature thermal protection for channel 2. The channel automatically restarts when the bit is cleared to 0.",
+      "name":"CH2TP",
+      "register_location":[
+        {
+          "reg_end_bit":5,
+          "reg_start_bit":5,
+          "register_address":4
+        }
+      ]
+    },
+    {
+      "description":"Indicates bootstrap undervoltage fault condition on channel 2. BST2 pin voltage is less than 2.95 V.",
+      "name":"CH2BSTUV",
+      "register_location":[
+        {
+          "reg_end_bit":4,
+          "reg_start_bit":4,
+          "register_address":4
+        }
+      ]
+    },
+    {
+      "description":"Indicates channel 2 operation at maximum duty cycle.",
+      "name":"CH2TOFFMIN",
+      "register_location":[
+        {
+          "reg_end_bit":3,
+          "reg_start_bit":3,
+          "register_address":4
+        }
+      ]
+    },
+    {
+      "description":"Indicates overtemperature thermal protection for channel 1. The channel automatically restarts when the bit is cleared to 0.",
+      "name":"CH1TP",
+      "register_location":[
+        {
+          "reg_end_bit":2,
+          "reg_start_bit":2,
+          "register_address":4
+        }
+      ]
+    },
+    {
+      "description":"Indicates bootstrap undervoltage fault condition on channel 1. BST1 pin voltage is less than 2.95 V.",
+      "name":"CH1BSTUV",
+      "register_location":[
+        {
+          "reg_end_bit":1,
+          "reg_start_bit":1,
+          "register_address":4
+        }
+      ]
+    },
+    {
+      "description":"Indicates channel 1 operation at maximum duty cycle.",
+      "name":"CH1TOFFMIN",
+      "register_location":[
+        {
+          "reg_end_bit":0,
+          "reg_start_bit":0,
+          "register_address":4
+        }
+      ]
+    },
+    {
+      "description":"Indicates standalone mode. This bit can be cleared by issuing the RESET or DETECT command (see RESET register).",
+      "name":"STANDALONE",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":7,
+          "register_address":5
+        }
+      ]
+    },
+    {
+      "description":"Indicates V5A undervoltage fault condition.",
+      "name":"V5AUV",
+      "register_location":[
+        {
+          "reg_end_bit":6,
+          "reg_start_bit":6,
+          "register_address":5
+        }
+      ]
+    },
+    {
+      "description":"Indicates the number of times the communication watchdog timer has expired.",
+      "digital_physical_map":{
+        "0":"Default (normal operation)",
+        "1":"Watchdog has expired 1 time.",
+        "2":"Watchdog has expired 2 times.",
+        "3":"Watchdog has expired 3 times. Device transitions into limp-home mode."
+      },
+      "name":"CMWTO",
+      "register_location":[
+        {
+          "reg_end_bit":5,
+          "reg_start_bit":4,
+          "register_address":5
+        }
+      ]
+    },
+    {
+      "description":"Indicates overtemperature thermal warning",
+      "name":"TW",
+      "register_location":[
+        {
+          "reg_end_bit":3,
+          "reg_start_bit":3,
+          "register_address":5
+        }
+      ]
+    },
+    {
+      "description":"Power cycle bit is set at power up and is considered a fault. The PC bit must be cleared before the channels can be enabled.",
+      "name":"PC",
+      "register_location":[
+        {
+          "reg_end_bit":2,
+          "reg_start_bit":2,
+          "register_address":5
+        }
+      ]
+    },
+    {
+      "description":"Logic OR of the fault bits for channel 2 excluding over temperature thermal warning.",
+      "name":"CH2STATUS",
+      "register_location":[
+        {
+          "reg_end_bit":1,
+          "reg_start_bit":1,
+          "register_address":5
+        }
+      ]
+    },
+    {
+      "description":"Logic OR of the fault bits for channel 1 excluding over temperature thermal warning.",
+      "name":"CH1STATUS",
+      "register_location":[
+        {
+          "reg_end_bit":0,
+          "reg_start_bit":0,
+          "register_address":5
+        }
+      ]
+    },
+    {
+      "description":"Threshold for bits [9:2] of internal temperature ADC reading. TWLMT[9:2] sets the Thermal Warning (TW) bit when the most significant 8 bits of the ADC reading of the TEMP value exceed the programmed value. The default value is 138 decimal, or 0x8Ah (corresponding to a temperature of 125\u00b0C).",
+      "name":"TWLMT_THRESHOLD",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":6
+        }
+      ]
+    },
+    {
+      "name":"RESERVED_7_7_2",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":2,
+          "register_address":7
+        }
+      ],
+      "reserved":true
+    },
+    {
+      "description":"Device sleep mode. The low-power sleep mode can be activated by writing to the register.",
+      "digital_physical_map":{
+        "0":"Exit sleep mode and return to normal operation (SLEEP OFF).",
+        "1":"Enter sleep mode (SLEEP ON).",
+        "2":"No effect",
+        "3":"No effect"
+      },
+      "name":"SLEEP_FIELD",
+      "register_location":[
+        {
+          "reg_end_bit":1,
+          "reg_start_bit":0,
+          "register_address":7
+        }
+      ]
+    },
+    {
+      "name":"RESERVED_8_7_2",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":2,
+          "register_address":8
+        }
+      ],
+      "reserved":true
+    },
+    {
+      "description":"Channel 1 analog current control. 10-bit value sets the IADJ DAC reference. ILED = (V_DAC(FS) * CH1IADJ / 1024) / (14 * R_CS). V_DAC(FS) typ 2.45V.",
+      "name":"CH1IADJ",
+      "register_location":[
+        {
+          "field_end_bit":1,
+          "field_start_bit":0,
+          "reg_end_bit":1,
+          "reg_start_bit":0,
+          "register_address":8
+        },
+        {
+          "field_end_bit":9,
+          "field_start_bit":2,
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":9
+        }
+      ]
+    },
+    {
+      "name":"RESERVED_10_7_2",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":2,
+          "register_address":10
+        }
+      ],
+      "reserved":true
+    },
+    {
+      "description":"Channel 2 analog current control. 10-bit value sets the IADJ DAC reference. ILED = (V_DAC(FS) * CH2IADJ / 1024) / (14 * R_CS). V_DAC(FS) typ 2.45V.",
+      "name":"CH2IADJ",
+      "register_location":[
+        {
+          "field_end_bit":1,
+          "field_start_bit":0,
+          "reg_end_bit":1,
+          "reg_start_bit":0,
+          "register_address":10
+        },
+        {
+          "field_end_bit":9,
+          "field_start_bit":2,
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":11
+        }
+      ]
+    },
+    {
+      "name":"RESERVED_12_7_3",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":3,
+          "register_address":12
+        }
+      ],
+      "reserved":true
+    },
+    {
+      "description":"This 3-bit value selects the clock divider for the internal PWM generator. The PWM clock is derived based on typical oscillator frequency of 10.8 MHz.",
+      "digital_physical_map":{
+        "0":"Divide oscillator clock by 7 (fPWM = 1507 Hz)",
+        "1":"Divide oscillator clock by 8 (fPWM = 1318 Hz)",
+        "2":"Divide oscillator clock by 10 (fPWM = 1055 Hz)",
+        "3":"Divide oscillator clock by 12 (fPWM = 879 Hz)",
+        "4":"Divide oscillator clock by 16 (fPWM = 659 Hz)",
+        "5":"Divide oscillator clock by 24 (fPWM = 439 Hz)",
+        "6":"Divide oscillator clock by 49 (fPWM = 215 Hz)",
+        "7":"Divide oscillator clock by 98 (fPWM = 108 Hz)"
+      },
+      "name":"PWMDIV_FIELD",
+      "register_location":[
+        {
+          "reg_end_bit":2,
+          "reg_start_bit":0,
+          "register_address":12
+        }
+      ]
+    },
+    {
+      "description":"Channel 1 PWM width control. 10-bit value sets the PWM duty cycle. Duty Cycle = CH1PWM / 1024.",
+      "name":"CH1PWM",
+      "register_location":[
+        {
+          "field_end_bit":7,
+          "field_start_bit":0,
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":13
+        },
+        {
+          "field_end_bit":9,
+          "field_start_bit":8,
+          "reg_end_bit":1,
+          "reg_start_bit":0,
+          "register_address":14
+        }
+      ]
+    },
+    {
+      "name":"RESERVED_14_7_2",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":2,
+          "register_address":14
+        }
+      ],
+      "reserved":true
+    },
+    {
+      "description":"Channel 2 PWM width control. 10-bit value sets the PWM duty cycle. Duty Cycle = CH2PWM / 1024.",
+      "name":"CH2PWM",
+      "register_location":[
+        {
+          "field_end_bit":7,
+          "field_start_bit":0,
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":15
+        },
+        {
+          "field_end_bit":9,
+          "field_start_bit":8,
+          "reg_end_bit":1,
+          "reg_start_bit":0,
+          "register_address":16
+        }
+      ]
+    },
+    {
+      "name":"RESERVED_16_7_2",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":2,
+          "register_address":16
+        }
+      ],
+      "reserved":true
+    },
+    {
+      "name":"RESERVED_17_7_6",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":6,
+          "register_address":17
+        }
+      ],
+      "reserved":true
+    },
+    {
+      "description":"Channel 1 on-time control. The pseudo-fixed switching frequency for channel 1 is set by writing to this register. Default value is set to ensure 437-kHz switching frequency.",
+      "digital_physical_map":{
+        "value":"fSW = (value + 1) / ((4e-8 * (value + 1)) + 18e-6) Hz"
+      },
+      "name":"CH1TON_FIELD",
+      "register_location":[
+        {
+          "reg_end_bit":5,
+          "reg_start_bit":0,
+          "register_address":17
+        }
+      ]
+    },
+    {
+      "name":"RESERVED_18_7_6",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":6,
+          "register_address":18
+        }
+      ],
+      "reserved":true
+    },
+    {
+      "description":"Channel 2 on-time control. The pseudo-fixed switching frequency for channel 2 is set by writing to this register. Default value is set to ensure 437 kHz switching frequency.",
+      "digital_physical_map":{
+        "value":"fSW = (value + 1) / ((4e-8 * (value + 1)) + 18e-6) Hz"
+      },
+      "name":"CH2TON_FIELD",
+      "register_location":[
+        {
+          "reg_end_bit":5,
+          "reg_start_bit":0,
+          "register_address":18
+        }
+      ]
+    },
+    {
+      "description":"ADC measurement of the drain voltage node for channel 1. The VIN1 pin voltage is internally attenuated by 0.037.",
+      "digital_physical_map":{
+        "value":"(value * 65 / 255) V"
+      },
+      "name":"CH1VIN_ADC",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":19
+        }
+      ]
+    },
+    {
+      "description":"ADC measurement of the CSN1 node for channel 1. The CSN1 pin voltage is internally attenuated by 0.037.",
+      "digital_physical_map":{
+        "value":"(value * 65 / 255) V"
+      },
+      "name":"CH1VLED_ADC",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":20
+        }
+      ]
+    },
+    {
+      "description":"ADC measurement of the CSN1 node for channel 1 before falling edge of PWM signal.",
+      "digital_physical_map":{
+        "value":"(value * 65 / 255) V"
+      },
+      "name":"CH1VLEDON_ADC",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":21
+        }
+      ]
+    },
+    {
+      "description":"ADC measurement of the CSN1 node for channel 1 before rising edge of PWM signal.",
+      "digital_physical_map":{
+        "value":"(value * 65 / 255) V"
+      },
+      "name":"CH1VLEDOFF_ADC",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":22
+        }
+      ]
+    },
+    {
+      "description":"ADC measurement of the drain voltage node for channel 2. The VIN2 pin voltage is internally attenuated by 0.037.",
+      "digital_physical_map":{
+        "value":"(value * 65 / 255) V"
+      },
+      "name":"CH2VIN_ADC",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":23
+        }
+      ]
+    },
+    {
+      "description":"ADC measurement of the CSN2 node for channel 2. The CSN2 pin voltage is internally attenuated by 0.037.",
+      "digital_physical_map":{
+        "value":"(value * 65 / 255) V"
+      },
+      "name":"CH2VLED_ADC",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":24
+        }
+      ]
+    },
+    {
+      "description":"ADC measurement of the CSN2 node for channel 2 before falling edge of PWM signal.",
+      "digital_physical_map":{
+        "value":"(value * 65 / 255) V"
+      },
+      "name":"CH2VLEDON_ADC",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":25
+        }
+      ]
+    },
+    {
+      "description":"ADC measurement of the CSN2 node for channel 2 before rising edge of PWM signal.",
+      "digital_physical_map":{
+        "value":"(value * 65 / 255) V"
+      },
+      "name":"CH2VLEDOFF_ADC",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":26
+        }
+      ]
+    },
+    {
+      "name":"RESERVED_27_7_2",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":2,
+          "register_address":27
+        }
+      ],
+      "reserved":true
+    },
+    {
+      "description":"ADC measurement of the junction temperature. 10-bit value.",
+      "digital_physical_map":{
+        "value":"(0.7168 * value - 271.51) degC"
+      },
+      "name":"TEMP",
+      "register_location":[
+        {
+          "field_end_bit":1,
+          "field_start_bit":0,
+          "reg_end_bit":1,
+          "reg_start_bit":0,
+          "register_address":27
+        },
+        {
+          "field_end_bit":9,
+          "field_start_bit":2,
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":28
+        }
+      ]
+    },
+    {
+      "description":"ADC measurement of the 5-V bias supply. The V5D pin voltage is internally attenuated by 0.45.",
+      "digital_physical_map":{
+        "value":"(value * 5.33 / 255) V"
+      },
+      "name":"V5D_ADC_FIELD",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":29
+        }
+      ]
+    },
+    {
+      "description":"PWM phase shift setting for internal PWM generator in limp-home mode.",
+      "digital_physical_map":{
+        "0":"180\u00b0 phase shift between internally-generated PWM signals",
+        "1":"0\u00b0 phase shift between internally generated PWM signals"
+      },
+      "name":"LHPWMPH",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":7,
+          "register_address":30
+        }
+      ]
+    },
+    {
+      "description":"This bit is used to select between internal or external current reference set point in limp-home mode. The external reference is set by voltage on LHI pin.",
+      "digital_physical_map":{
+        "0":"Use internal LHxIADJ register as the CHxIADJ setting in limp-home mode.",
+        "1":"Use external LHI reference as the CHxIADJ setting in limp-home mode."
+      },
+      "name":"LHEXTIADJ",
+      "register_location":[
+        {
+          "reg_end_bit":6,
+          "reg_start_bit":6,
+          "register_address":30
+        }
+      ]
+    },
+    {
+      "description":"Set channel 2 PWM duty cycle to 100% in limp-home mode.",
+      "digital_physical_map":{
+        "0":"LED current duty cycle based on internal or external command",
+        "1":"LED current duty cycle set to 100%"
+      },
+      "name":"LH2100DC",
+      "register_location":[
+        {
+          "reg_end_bit":5,
+          "reg_start_bit":5,
+          "register_address":30
+        }
+      ]
+    },
+    {
+      "description":"This bit is used to enable internal PWM generator function for channel 2 in limp- home mode.",
+      "digital_physical_map":{
+        "0":"LED current duty cycle of channel 2 controlled by an external signal connected to UDIM2 input",
+        "1":"LED current duty cycle of channel 2 controlled by an internal PWM generator (registers PWMDIV and LH2PWM). UDIM2 input must be above VUDIM2(UVLO) threshold."
+      },
+      "name":"LH2INTPWM",
+      "register_location":[
+        {
+          "reg_end_bit":4,
+          "reg_start_bit":4,
+          "register_address":30
+        }
+      ]
+    },
+    {
+      "description":"CH2 enable. This bit controls the operation of channel 2 in limp-home mode.",
+      "digital_physical_map":{
+        "0":"Disable LED channel 2.",
+        "1":"Enable LED channel 2."
+      },
+      "name":"LH2EN",
+      "register_location":[
+        {
+          "reg_end_bit":3,
+          "reg_start_bit":3,
+          "register_address":30
+        }
+      ]
+    },
+    {
+      "description":"Set channel 1 PWM duty cycle to 100% in limp-home mode.",
+      "digital_physical_map":{
+        "0":"LED current duty cycle based on internal or external command",
+        "1":"LED current duty cycle set to 100%"
+      },
+      "name":"LH1100DC",
+      "register_location":[
+        {
+          "reg_end_bit":2,
+          "reg_start_bit":2,
+          "register_address":30
+        }
+      ]
+    },
+    {
+      "description":"This bit is used to enable internal PWM generator function for channel 1 in limp- home mode.",
+      "digital_physical_map":{
+        "0":"LED current duty cycle of channel 1controlled by external signal connected to UDIM1 input",
+        "1":"LED current duty cycle of channel 1 controlled by internal PWM generator (registers PWMDIV and LH1PWM). UDIM1 input must be above VUDIM1(UVLO) threshold."
+      },
+      "name":"LH1INTPWM",
+      "register_location":[
+        {
+          "reg_end_bit":1,
+          "reg_start_bit":1,
+          "register_address":30
+        }
+      ]
+    },
+    {
+      "description":"CH1 enable. This bit controls the operation of channel 1 in limp-home mode.",
+      "digital_physical_map":{
+        "0":"Disable LED channel 1.",
+        "1":"Enable LED channel 1."
+      },
+      "name":"LH1EN",
+      "register_location":[
+        {
+          "reg_end_bit":0,
+          "reg_start_bit":0,
+          "register_address":30
+        }
+      ]
+    },
+    {
+      "description":"LHIFT sets the counter limit for the ILIM fault timer in limp-home mode.",
+      "digital_physical_map":{
+        "0":"3.6 ms fault timer",
+        "1":"7.2 ms fault timer",
+        "2":"14.4 ms fault timer",
+        "3":"28.8 ms fault timer"
+      },
+      "name":"LHIFT",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":6,
+          "register_address":31
+        }
+      ]
+    },
+    {
+      "description":"Channel 2 thermal shutdown fault response in limp-home mode",
+      "digital_physical_map":{
+        "0":"Channel 2 auto-restarts based on internal temperature hysteresis.",
+        "1":"Channel 2 is latched off; CH2EN bit is reset and channel 2 is disabled until the CH2EN bit is programmed high by SPI command."
+      },
+      "name":"LH2TSFL",
+      "register_location":[
+        {
+          "reg_end_bit":5,
+          "reg_start_bit":5,
+          "register_address":31
+        }
+      ]
+    },
+    {
+      "description":"Channel 2 high-side FET current limit fault response in limp-home mode",
+      "digital_physical_map":{
+        "0":"Channel 2 auto-restarts after the ILIM fault timer has expired.",
+        "1":"Channel 2 is latched off; CH2EN bit is reset and channel 2 is disabled until the CH2EN bit is programmed high by SPI command."
+      },
+      "name":"LH2HSILIMFL",
+      "register_location":[
+        {
+          "reg_end_bit":4,
+          "reg_start_bit":4,
+          "register_address":31
+        }
+      ]
+    },
+    {
+      "description":"Channel 2 low-side FET current limit fault response in limp-home mode",
+      "digital_physical_map":{
+        "0":"Channel 2 auto-restarts after the ILIM fault timer has expired.",
+        "1":"Channel 2 is latched off; CH2EN bit is reset and channel 2 is disabled until the CH2EN bit is programmed high by SPI command."
+      },
+      "name":"LH2LSILIMFL",
+      "register_location":[
+        {
+          "reg_end_bit":3,
+          "reg_start_bit":3,
+          "register_address":31
+        }
+      ]
+    },
+    {
+      "description":"Channel 1 thermal shutdown fault response in limp-home mode",
+      "digital_physical_map":{
+        "0":"Channel 1 auto-restarts based on internal temperature hysteresis.",
+        "1":"Channel 1 is latched off; CH1EN bit is reset and channel 1 is disabled until the CH1EN bit is programmed high by SPI command."
+      },
+      "name":"LH1TSFL",
+      "register_location":[
+        {
+          "reg_end_bit":2,
+          "reg_start_bit":2,
+          "register_address":31
+        }
+      ]
+    },
+    {
+      "description":"Channel 1 high-side FET current limit fault response in limp-home mode",
+      "digital_physical_map":{
+        "0":"Channel 1 auto-restarts after the ILIM fault timer has expired.",
+        "1":"Channel 1 is latched off; CH1EN bit is reset and channel 1 is disabled until the CH1EN bit is programmed high by SPI command."
+      },
+      "name":"LH1HSILIMFL",
+      "register_location":[
+        {
+          "reg_end_bit":1,
+          "reg_start_bit":1,
+          "register_address":31
+        }
+      ]
+    },
+    {
+      "description":"Channel 1 low-side FET current limit fault response in limp-home mode",
+      "digital_physical_map":{
+        "0":"Channel 1 auto-restarts after the ILIM fault timer has expired.",
+        "1":"Channel 1 is latched off; CH1EN bit is reset and channel 1 is disabled until the CH1EN bit is programmed high by SPI command."
+      },
+      "name":"LH1LSILIMFL",
+      "register_location":[
+        {
+          "reg_end_bit":0,
+          "reg_start_bit":0,
+          "register_address":31
+        }
+      ]
+    },
+    {
+      "name":"RESERVED_32_7_2",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":2,
+          "register_address":32
+        }
+      ],
+      "reserved":true
+    },
+    {
+      "description":"External current reference set point in limp-home mode. The LHI input voltage is digitized to achieve a 10-bit reference with resolution of 2.45/1023 (V/dec). ILED = V_LHI / (14 * R_CS).",
+      "digital_physical_map":{
+        "value":"(value * 2.45 / 1023) V"
+      },
+      "name":"LHI",
+      "register_location":[
+        {
+          "field_end_bit":1,
+          "field_start_bit":0,
+          "reg_end_bit":1,
+          "reg_start_bit":0,
+          "register_address":32
+        },
+        {
+          "field_end_bit":9,
+          "field_start_bit":2,
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":33
+        }
+      ]
+    },
+    {
+      "name":"RESERVED_34_7_2",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":2,
+          "register_address":34
+        }
+      ],
+      "reserved":true
+    },
+    {
+      "description":"Filtered ADC measurement of LHI input. 10-bit value.",
+      "name":"LHIFILT",
+      "register_location":[
+        {
+          "field_end_bit":1,
+          "field_start_bit":0,
+          "reg_end_bit":1,
+          "reg_start_bit":0,
+          "register_address":34
+        },
+        {
+          "field_end_bit":9,
+          "field_start_bit":2,
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":35
+        }
+      ]
+    },
+    {
+      "name":"RESERVED_36_7_2",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":2,
+          "register_address":36
+        }
+      ],
+      "reserved":true
+    },
+    {
+      "description":"Channel 1 analog current control in limp-home mode. 10-bit IADJ DAC setting.",
+      "name":"LH1IADJ",
+      "register_location":[
+        {
+          "field_end_bit":1,
+          "field_start_bit":0,
+          "reg_end_bit":1,
+          "reg_start_bit":0,
+          "register_address":36
+        },
+        {
+          "field_end_bit":9,
+          "field_start_bit":2,
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":37
+        }
+      ]
+    },
+    {
+      "name":"RESERVED_38_7_2",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":2,
+          "register_address":38
+        }
+      ],
+      "reserved":true
+    },
+    {
+      "description":"Channel 2 analog current control in limp-home mode. 10-bit IADJ DAC setting.",
+      "name":"LH2IADJ",
+      "register_location":[
+        {
+          "field_end_bit":1,
+          "field_start_bit":0,
+          "reg_end_bit":1,
+          "reg_start_bit":0,
+          "register_address":38
+        },
+        {
+          "field_end_bit":9,
+          "field_start_bit":2,
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":39
+        }
+      ]
+    },
+    {
+      "description":"Channel 1 PWM width control in limp-home mode. 10-bit PWM WIDTH setting.",
+      "name":"LH1PWM",
+      "register_location":[
+        {
+          "field_end_bit":7,
+          "field_start_bit":0,
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":40
+        },
+        {
+          "field_end_bit":9,
+          "field_start_bit":8,
+          "reg_end_bit":1,
+          "reg_start_bit":0,
+          "register_address":41
+        }
+      ]
+    },
+    {
+      "name":"RESERVED_41_7_2",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":2,
+          "register_address":41
+        }
+      ],
+      "reserved":true
+    },
+    {
+      "description":"Channel 2 PWM width control in limp-home mode. 10-bit PWM WIDTH setting.",
+      "name":"LH2PWM",
+      "register_location":[
+        {
+          "field_end_bit":7,
+          "field_start_bit":0,
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":42
+        },
+        {
+          "field_end_bit":9,
+          "field_start_bit":8,
+          "reg_end_bit":1,
+          "reg_start_bit":0,
+          "register_address":43
+        }
+      ]
+    },
+    {
+      "name":"RESERVED_43_7_2",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":2,
+          "register_address":43
+        }
+      ],
+      "reserved":true
+    },
+    {
+      "name":"RESERVED_44_7_6",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":6,
+          "register_address":44
+        }
+      ],
+      "reserved":true
+    },
+    {
+      "description":"Channel 1 on-time control in limp-home mode. The pseudo-fixed switching frequency for channel 1 is set by writing to this register. Default value is set to ensure 437-kHz switching frequency.",
+      "digital_physical_map":{
+        "value":"fSW = (value + 1) / ((4e-8 * (value + 1)) + 18e-6) Hz"
+      },
+      "name":"LH1TON_FIELD",
+      "register_location":[
+        {
+          "reg_end_bit":5,
+          "reg_start_bit":0,
+          "register_address":44
+        }
+      ]
+    },
+    {
+      "name":"RESERVED_45_7_6",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":6,
+          "register_address":45
+        }
+      ],
+      "reserved":true
+    },
+    {
+      "description":"Channel 2 on-time control in limp-home mode. The pseudo-fixed switching frequency for channel 2 is set by writing to this register. Default value is set to ensure 437-kHz switching frequency.",
+      "digital_physical_map":{
+        "value":"fSW = (value + 1) / ((4e-8 * (value + 1)) + 18e-6) Hz"
+      },
+      "name":"LH2TON_FIELD",
+      "register_location":[
+        {
+          "reg_end_bit":5,
+          "reg_start_bit":0,
+          "register_address":45
+        }
+      ]
+    },
+    {
+      "description":"Write 0xC3 to reset all writable registers to default, state=LOAD, watchdog disabled. Write 0xD4 to reset all writable registers to default, state=DETECT (after STATUS3 read), watchdog enabled. This register is write-only. Reads return 0.",
+      "digital_physical_map":{
+        "195":"Reset registers to default, return state machine to LOAD",
+        "212":"Reset registers to default, return state machine to DETECT (after STATUS3 read)"
+      },
+      "name":"RESET_CMD",
+      "register_location":[
+        {
+          "reg_end_bit":7,
+          "reg_start_bit":0,
+          "register_address":46
+        }
+      ]
+    }
+  ],
+  "registers":[
+    {
+      "address":0,
+      "init_value":16,
+      "name":"SYSCFG1"
+    },
+    {
+      "address":1,
+      "init_value":0,
+      "name":"SYSCFG2"
+    },
+    {
+      "address":2,
+      "init_value":8,
+      "name":"CMWTAP"
+    },
+    {
+      "address":3,
+      "init_value":0,
+      "name":"STATUS1",
+      "read_only":true
+    },
+    {
+      "address":4,
+      "init_value":0,
+      "name":"STATUS2",
+      "read_only":true
+    },
+    {
+      "address":5,
+      "init_value":4,
+      "name":"STATUS3",
+      "read_only":true
+    },
+    {
+      "address":6,
+      "init_value":138,
+      "name":"TWLMT"
+    },
+    {
+      "address":7,
+      "init_value":0,
+      "name":"SLEEP"
+    },
+    {
+      "address":8,
+      "init_value":0,
+      "name":"CH1IADJL"
+    },
+    {
+      "address":9,
+      "init_value":0,
+      "name":"CH1IADJH"
+    },
+    {
+      "address":10,
+      "init_value":0,
+      "name":"CH2IADJL"
+    },
+    {
+      "address":11,
+      "init_value":0,
+      "name":"CH2IADJH"
+    },
+    {
+      "address":12,
+      "init_value":4,
+      "name":"PWMDIV"
+    },
+    {
+      "address":13,
+      "init_value":0,
+      "name":"CH1PWML"
+    },
+    {
+      "address":14,
+      "init_value":0,
+      "name":"CH1PWMH"
+    },
+    {
+      "address":15,
+      "init_value":0,
+      "name":"CH2PWML"
+    },
+    {
+      "address":16,
+      "init_value":0,
+      "name":"CH2PWMH"
+    },
+    {
+      "address":17,
+      "init_value":7,
+      "name":"CH1TON"
+    },
+    {
+      "address":18,
+      "init_value":7,
+      "name":"CH2TON"
+    },
+    {
+      "address":19,
+      "init_value":0,
+      "name":"CH1VIN",
+      "read_only":true
+    },
+    {
+      "address":20,
+      "init_value":0,
+      "name":"CH1VLED",
+      "read_only":true
+    },
+    {
+      "address":21,
+      "init_value":0,
+      "name":"CH1VLEDON",
+      "read_only":true
+    },
+    {
+      "address":22,
+      "init_value":0,
+      "name":"CH1VLEDOFF",
+      "read_only":true
+    },
+    {
+      "address":23,
+      "init_value":0,
+      "name":"CH2VIN",
+      "read_only":true
+    },
+    {
+      "address":24,
+      "init_value":0,
+      "name":"CH2VLED",
+      "read_only":true
+    },
+    {
+      "address":25,
+      "init_value":0,
+      "name":"CH2VLEDON",
+      "read_only":true
+    },
+    {
+      "address":26,
+      "init_value":0,
+      "name":"CH2VLEDOFF",
+      "read_only":true
+    },
+    {
+      "address":27,
+      "init_value":0,
+      "name":"TEMPL",
+      "read_only":true
+    },
+    {
+      "address":28,
+      "init_value":0,
+      "name":"TEMPH",
+      "read_only":true
+    },
+    {
+      "address":29,
+      "init_value":0,
+      "name":"V5D_ADC",
+      "read_only":true
+    },
+    {
+      "address":30,
+      "init_value":0,
+      "name":"LHCFG1"
+    },
+    {
+      "address":31,
+      "init_value":0,
+      "name":"LHCFG2"
+    },
+    {
+      "address":32,
+      "init_value":0,
+      "name":"LHIL",
+      "read_only":true
+    },
+    {
+      "address":33,
+      "init_value":0,
+      "name":"LHIH",
+      "read_only":true
+    },
+    {
+      "address":34,
+      "init_value":0,
+      "name":"LHIFILTL",
+      "read_only":true
+    },
+    {
+      "address":35,
+      "init_value":0,
+      "name":"LHIFILTH",
+      "read_only":true
+    },
+    {
+      "address":36,
+      "init_value":0,
+      "name":"LH1IADJL"
+    },
+    {
+      "address":37,
+      "init_value":0,
+      "name":"LH1IADJH"
+    },
+    {
+      "address":38,
+      "init_value":0,
+      "name":"LH2IADJL"
+    },
+    {
+      "address":39,
+      "init_value":0,
+      "name":"LH2IADJH"
+    },
+    {
+      "address":40,
+      "init_value":0,
+      "name":"LH1PWML"
+    },
+    {
+      "address":41,
+      "init_value":0,
+      "name":"LH1PWMH"
+    },
+    {
+      "address":42,
+      "init_value":0,
+      "name":"LH2PWML"
+    },
+    {
+      "address":43,
+      "init_value":0,
+      "name":"LH2PWMH"
+    },
+    {
+      "address":44,
+      "init_value":7,
+      "name":"LH1TON"
+    },
+    {
+      "address":45,
+      "init_value":7,
+      "name":"LH2TON"
+    },
+    {
+      "address":46,
+      "init_value":0,
+      "name":"RESET"
+    }
+  ]
+}
