@@ -47,7 +47,7 @@ class ColoredFormatter(logging.Formatter):
         return result
 
 
-def setup_colored_logger(name=None, level=logging.INFO):
+def colored_logger(name=None, level=logging.INFO):
     """Set up and return a logger with colored output and fixed width level names"""
     # Create logger
     logger = logging.getLogger(name)

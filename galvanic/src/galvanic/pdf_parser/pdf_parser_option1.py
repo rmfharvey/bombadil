@@ -4,7 +4,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 # Replace with your PDF file path
 _root = os.path.dirname(__file__)
-pdf_path = os.path.join(_root, "tps92520-q1.pdf")
+pdf_path = os.path.join(_root, "../../_test_scripts/datasheet_converter/tps92520-q1.pdf")
 
 # Open the PDF
 with open(pdf_path, 'rb') as file:

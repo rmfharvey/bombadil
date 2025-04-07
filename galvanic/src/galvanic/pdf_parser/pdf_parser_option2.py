@@ -6,7 +6,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 # Replace with your PDF file path
 _root = os.path.dirname(__file__)
-pdf_path = os.path.join(_root, "tps92520-q1.pdf")
+pdf_path = os.path.join(_root, "../../_test_scripts/datasheet_converter/tps92520-q1.pdf")
 
 GEMINI_KEY = "AIzaSyAj8BET-U5yrjnfODhO7v6GDkB_LS3zK0U"
 

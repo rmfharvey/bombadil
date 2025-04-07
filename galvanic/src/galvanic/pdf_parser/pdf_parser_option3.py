@@ -10,7 +10,7 @@ from embedded_design_tools.protobuf import PROTOBUF
 
 GEMINI_KEY = "AIzaSyAj8BET-U5yrjnfODhO7v6GDkB_LS3zK0U"
 
-filename = "tps92520-q1.pdf"
+filename = "../../_test_scripts/datasheet_converter/tps92520-q1.pdf"
 
 ### Generate a markdwon version of this datasheet
 # print(f"Generating markdown from {filename}")
