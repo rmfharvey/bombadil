@@ -10,14 +10,14 @@ from embedded_design_tools.protobuf import PROTOBUF
 
 GEMINI_KEY = "AIzaSyAj8BET-U5yrjnfODhO7v6GDkB_LS3zK0U"
 
-filename = "../../_test_scripts/datasheet_converter/tps92520-q1.pdf"
+filename = "../../_test_scripts/datasheet_converter/tps92520/datasheet.pdf"
 
 ### Generate a markdwon version of this datasheet
 # print(f"Generating markdown from {filename}")
 # md_text = pymupdf4llm.to_markdown(filename)
 # pathlib.Path(filename.replace('.pdf', '.md')).write_bytes(md_text.encode())
 ### Or open previously generated
-with open(filename.replace('.pdf', '.md'), 'r') as f:
+with open(filename.replace(".pdf", ".md"), "r") as f:
     md_text = f.read()
 
 prompt = """
@@ -48,27 +48,28 @@ protobuf = PROTOBUF.serial_bus.register
 
 
 print(f"Analyzing {filename} to {prompt}")
+
+
 def gemini():
     client = genai.Client(api_key=GEMINI_KEY)
     response = client.models.generate_content(
         # model='gemini-1.5-flash', # Misses a lot of info
         # model='gemini-2.0-flash-001', # Gets more info but limits response length due to output token restrictions
-        model='gemini-2.5-pro-exp-03-25',
+        model="gemini-2.5-pro-exp-03-25",
         # model='gemini-2.0-flash',
-        contents=list({
-            "prompt": prompt,
-            "datasheet": md_text,
-            "protobuf": protobuf
-        }.values()),
+        contents=list({"prompt": prompt, "datasheet": md_text, "protobuf": protobuf}.values()),
         config={
-            'response_mime_type': 'application/json',
+            "response_mime_type": "application/json",
         },
     )
     registers = json.loads(response.text.strip(" shame\n```json").strip("```"))
     return registers
 
+
 def open_ai():
-    client = OpenAI(api_key='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')
+    client = OpenAI(
+        api_key="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"
+    )
 
     response = client.responses.create(
         model="gpt-4o",
@@ -76,16 +77,17 @@ def open_ai():
             {"role": "system", "content": prompt},
             {"role": "user", "content": md_text},
             # {"role": "user", "content": protobuf},
-        ]
+        ],
     )
     registers = json.loads(response.output_text)
     return registers
 
+
 registers = gemini()
 # registers = open_ai()
 
-with open(filename.replace('.pdf', '.json'), 'w') as f:
-    f.write(json.dumps(registers, sort_keys=True, separators=(',', ':'), indent=2))
+with open(filename.replace(".pdf", ".json"), "w") as f:
+    f.write(json.dumps(registers, sort_keys=True, separators=(",", ":"), indent=2))
 print()
 
 # TODO next steps.  Split up into multiple queries to get around token limits
