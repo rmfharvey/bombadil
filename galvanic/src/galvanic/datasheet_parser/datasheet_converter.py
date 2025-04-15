@@ -27,13 +27,17 @@ class DatasheetConverter:
         self.output_directory = output_directory
 
         # Set up LLM API
-        self._llm = genai.Client(api_key=os.environ["GEMINI_KEY"])
+        self._llm_client = genai.Client(api_key=os.environ["GEMINI_KEY"])
 
         # Load source file
         self.load_source(source_path)
 
-        #
+        self.analyze_datasheet()
+
+    def analyze_datasheet(self):
+        # AI Model Calls
         self._json["serial_bus"] = self.AI_PARSER_get_comms_register_map()
+        self._json["pins"] = self.AI_PARSER_get_pin_info()
 
     def load_source(self, source_path):
         ### Get source file, based on input type
@@ -64,7 +68,7 @@ class DatasheetConverter:
         """
         self.logger.info("Analyzing markdown datasheet to extract serial comms register maps.")
 
-        response = self._llm.models.generate_content(
+        response = self._llm_client.models.generate_content(
             model=self._GEMINI_MODEL,
             contents=list(
                 {
@@ -79,6 +83,31 @@ class DatasheetConverter:
         )
         registers = self._remove_gemini_shittalking(response.text)
         return registers
+
+    def AI_PARSER_get_pin_info(self):
+        """Get IC pin info
+
+        :return: Dictionary with pin info.
+        :rtype: dict
+        """
+        self.logger.info("Analyzing markdown datasheet to extract pin info.")
+
+        response = self._llm_client.models.generate_content(
+            model=self._GEMINI_MODEL,
+            contents=list(
+                {
+                    "prompt": self._prompts["ic_pins"],
+                    "datasheet": self.md_datasheet,
+                    "protobuf_pin_schema": PROTOBUF.ic_pins.ic_pins,
+                    "protobuf_pin_enums": PROTOBUF.misc.pin_enums,
+                }.values()
+            ),
+            config={
+                "response_mime_type": "application/json",
+            },
+        )
+        pins = self._remove_gemini_shittalking(response.text)
+        return pins
 
     ####################################################################################################################
     ### Private Functions
@@ -130,11 +159,42 @@ class DatasheetConverter:
     def _remove_gemini_shittalking(self, response_str):
         """Removes weird shit talking that Gemini seems to do for some reason."""
         lines = response_str.split("\n")
-        idx = lines.index("```json")
-        sanitized_str = "\n".join(lines[idx + 1 :]).strip("```")
+        START_KEY = "```json"
+        if START_KEY in lines:  # If using markdown formatting
+            idx = lines.index(START_KEY)
+            sanitized_str = "\n".join(lines[idx + 1 :]).strip("```")
+        else:
+            sanitized_str = response_str
         d_val = json.loads(sanitized_str)
 
         # Sometimes this gets returned as a list for some reason
         if isinstance(d_val, list):
             d_val = d_val[0]
         return d_val
+
+
+class MicroDatasheetConverter(DatasheetConverter):
+    def analyze_datasheet(self):
+        self._json["pins"] = self.AI_PARSER_get_pin_muxing()
+
+    ####################################################################################################################
+    ### AI Parser calls
+    ####################################################################################################################
+    def AI_PARSER_get_pin_muxing(self):
+        self.logger.info("Analyzing markdown datasheet to extract pin muxing info.")
+
+        response = self._llm_client.models.generate_content(
+            model=self._GEMINI_MODEL,
+            contents=list(
+                {
+                    "prompt": self._prompts["micro_pin_muxing"],
+                    "datasheet": self.md_datasheet,
+                    "protobuf_pin_schema": PROTOBUF.microcontroller.micro_pin,
+                }.values()
+            ),
+            config={
+                "response_mime_type": "application/json",
+            },
+        )
+        pins = self._remove_gemini_shittalking(response.text)
+        return pins
