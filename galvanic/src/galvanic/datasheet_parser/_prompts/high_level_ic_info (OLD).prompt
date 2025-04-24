@@ -1,0 +1,33 @@
+Use the following datasheet to figure out high level parameters for the device that is described.
+
+Return the following JSON dictionary with values filled in.
+
+{
+  "base_part_number": str,
+  "part_numbers": {str: {parameters}}
+  "manufacturer": str,
+  "device_type": str,
+  "has_serial_bus": bool,
+  "packages": list[str, ...],
+}
+
+A description of each entry is given below:
+
+part_numbers:
+    - Each individual part number that this datasheet references should be given here.
+    - Often this is information is in a table called "Orderable Information".
+        - If possible, return all parameters associated with the given part number which are specified in the orderable information table
+base_part_number:
+    - Base part number of the device.
+    - If multiple part numbers are listed in part_numbers, try to reduce this part number down as much as possible so that
+        - Example: If DRV8B43J37A2 and DRV8B43J1S9 are given in the datasheet, reduce this to DRV8B43J
+manufacturer:
+    - Manufacturer of the device
+device_type:
+    - Basic device type
+    - Ex, Microcontroller, HSD, Motor Driver, Voltage Regulator, etc
+has_serial_bus:
+    - If the device uses a serial bus like SPI, I2C, etc this should be True, otherwise False.
+    - A device which has a serial bus will often have some sort of reference to a register map, digital comms, etc
+packages:
+    - Available packages, e.g. QFN32, SO8, etc

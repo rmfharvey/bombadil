@@ -55,9 +55,11 @@ class DatasheetConverter:
 
     def analyze_datasheet(self):
         # AI Model Calls
-        self._json["high_level"] = self.AI_PARSER_get_high_level_info()
-        # self._json["serial_bus"] = self.AI_PARSER_get_comms_register_map()
-        # self._json["pins"] = self.AI_PARSER_get_pin_info()
+        # self._json["high_level"] = self.AI_PARSER_get_high_level_info()
+        self._json["pins"] = self.AI_PARSER_get_pin_info()
+
+        if self.has_serial_bus:
+            self._json["serial_bus"] = self.AI_PARSER_get_comms_register_map()
 
     def load_source(self, source_path):
         ### Get source file, based on input type
@@ -99,6 +101,8 @@ class DatasheetConverter:
                 {
                     "prompt": self._prompts["high_level_ic_info"],
                     "datasheet": self.md_datasheet,
+                    "proto1": PROTOBUF.device.high_level,
+                    "proto2": PROTOBUF.serial_bus.register,
                 }.values()
             ),
             config={
@@ -148,6 +152,7 @@ class DatasheetConverter:
                     "datasheet": self.md_datasheet,
                     "protobuf_pin_schema": PROTOBUF.ic_pins.ic_pins,
                     "protobuf_pin_enums": PROTOBUF.misc.pin_enums,
+                    "protobuf_pin_pull": PROTOBUF.misc.numbers,
                 }.values()
             ),
             config={
@@ -248,12 +253,17 @@ class DatasheetConverter:
         with open(ds_path, "w") as f:
             f.write(json.dumps(cfg, sort_keys=True, separators=(",", ":"), indent=2))
 
+    @property
+    def has_serial_bus(self):
+        return bool(len(self._json.get("high_level", {}).get("serial_busses", [])))
+
 
 class MicroDatasheetConverter(DatasheetConverter):
-    # def analyze_datasheet(self):
-    #     self._json["cores"] = self.AI_PARSER_get_cores_and_memory()
-    #     self._json["pads"] = self.AI_PARSER_get_pin_muxing()
-    #     self._json["pin_pad_mapping"] = self.AI_PARSER_get_pin_pad_mapping()
+    def analyze_datasheet(self):
+        self._json["high_level"] = self.AI_PARSER_get_high_level_info()
+        self._json["cores"] = self.AI_PARSER_get_cores_and_memory()
+        self._json["pads"] = self.AI_PARSER_get_pin_muxing()
+        self._json["pin_pad_mapping"] = self.AI_PARSER_get_pin_pad_mapping()
 
     ####################################################################################################################
     ### AI Parser calls
@@ -315,3 +325,8 @@ class MicroDatasheetConverter(DatasheetConverter):
             },
         )
         return response
+
+    @property
+    def has_serial_bus(self):
+        """Override this to always return False since we don't want to"""
+        return False
