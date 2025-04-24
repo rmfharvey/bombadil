@@ -1,10 +1,28 @@
+import copy
 import os
 import json
+from copy import deepcopy
 import pymupdf4llm
 from google import genai
 import pathlib
 from embedded_design_tools.protobuf import PROTOBUF
 from galvanic import colored_logger
+
+_root = os.path.dirname(__file__)
+
+
+def sanitize_raw_output(func):
+    def wrapper(*args, **kwargs):
+        response = func(*args, **kwargs)
+        try:
+            sanitized = DatasheetConverter.remove_gemini_shittalking(response.text)
+        except:
+            with open(os.path.join(_root, f"{func.__name__}.txt"), "w") as f:
+                f.write(response.text)
+            sanitized = False
+        return sanitized
+
+    return wrapper
 
 
 class DatasheetConverter:
@@ -36,8 +54,9 @@ class DatasheetConverter:
 
     def analyze_datasheet(self):
         # AI Model Calls
-        self._json["serial_bus"] = self.AI_PARSER_get_comms_register_map()
-        self._json["pins"] = self.AI_PARSER_get_pin_info()
+        self._json["high_level"] = self.AI_PARSER_get_high_level_info()
+        # self._json["serial_bus"] = self.AI_PARSER_get_comms_register_map()
+        # self._json["pins"] = self.AI_PARSER_get_pin_info()
 
     def load_source(self, source_path):
         ### Get source file, based on input type
@@ -49,17 +68,45 @@ class DatasheetConverter:
             with open(source_path, "r") as f:
                 self.md_datasheet = f.read()
 
+    def get_config(self):
+        return copy.deepcopy(self._json)
+
     def save_config(self, output_path):
         """Save JSON config
 
         :param str output_path: Output path to save json config to
         """
+        cfg = self.get_config()
         with open(output_path, "w") as f:
-            f.write(json.dumps(self._json, sort_keys=True, separators=(",", ":"), indent=2))
+            f.write(json.dumps(cfg, sort_keys=True, separators=(",", ":"), indent=2))
 
     ####################################################################################################################
     ### AI Parser calls
     ####################################################################################################################
+    @sanitize_raw_output
+    def AI_PARSER_get_high_level_info(self):
+        """Get high level device info
+
+        :return: Dictionary with high level device info.
+        :rtype: dict
+        """
+        self.logger.info("Analyzing markdown datasheet to extract high level device information.")
+
+        response = self._llm_client.models.generate_content(
+            model=self._GEMINI_MODEL,
+            contents=list(
+                {
+                    "prompt": self._prompts["high_level_ic_info"],
+                    "datasheet": self.md_datasheet,
+                }.values()
+            ),
+            config={
+                "response_mime_type": "application/json",
+            },
+        )
+        return response
+
+    @sanitize_raw_output
     def AI_PARSER_get_comms_register_map(self):
         """Get register map for comms bus
 
@@ -81,9 +128,9 @@ class DatasheetConverter:
                 "response_mime_type": "application/json",
             },
         )
-        registers = self._remove_gemini_shittalking(response.text)
-        return registers
+        return response
 
+    @sanitize_raw_output
     def AI_PARSER_get_pin_info(self):
         """Get IC pin info
 
@@ -106,8 +153,7 @@ class DatasheetConverter:
                 "response_mime_type": "application/json",
             },
         )
-        pins = self._remove_gemini_shittalking(response.text)
-        return pins
+        return response
 
     ####################################################################################################################
     ### Private Functions
@@ -156,7 +202,8 @@ class DatasheetConverter:
         return md_text
 
     ###
-    def _remove_gemini_shittalking(self, response_str):
+    @staticmethod
+    def remove_gemini_shittalking(response_str):
         """Removes weird shit talking that Gemini seems to do for some reason."""
         lines = response_str.split("\n")
         START_KEY = "```json"
@@ -172,14 +219,45 @@ class DatasheetConverter:
             d_val = d_val[0]
         return d_val
 
+    def update_config(self, ds_path):
+        """Utility function to append information to an existing datasheet.  This is used mainly for testing where we
+        want to test out a new function and add existing information without wiping everything else.
+
+        :param str ds_path: Path to current datasheet
+        """
+        ds = {}
+        if os.path.exists(ds_path):
+            with open(ds_path, "r") as f:
+                ds = json.load(f)
+
+        cfg = self.get_config()
+        ds.update(cfg)
+
+        with open(ds_path, "w") as f:
+            f.write(json.dumps(ds, sort_keys=True, separators=(",", ":"), indent=2))
+
+    def save_config(self, ds_path):
+        """Utility function to append information to an existing datasheet.  This is used mainly for testing where we
+        want to test out a new function and add existing information without wiping everything else.
+
+        :param str ds_path: Path to current datasheet
+        """
+        cfg = self.get_config()
+
+        with open(ds_path, "w") as f:
+            f.write(json.dumps(cfg, sort_keys=True, separators=(",", ":"), indent=2))
+
 
 class MicroDatasheetConverter(DatasheetConverter):
-    def analyze_datasheet(self):
-        self._json["pins"] = self.AI_PARSER_get_pin_muxing()
+    # def analyze_datasheet(self):
+    #     self._json["cores"] = self.AI_PARSER_get_cores_and_memory()
+    #     self._json["pads"] = self.AI_PARSER_get_pin_muxing()
+    #     self._json["pin_pad_mapping"] = self.AI_PARSER_get_pin_pad_mapping()
 
     ####################################################################################################################
     ### AI Parser calls
     ####################################################################################################################
+    @sanitize_raw_output
     def AI_PARSER_get_pin_muxing(self):
         self.logger.info("Analyzing markdown datasheet to extract pin muxing info.")
 
@@ -190,11 +268,49 @@ class MicroDatasheetConverter(DatasheetConverter):
                     "prompt": self._prompts["micro_pin_muxing"],
                     "datasheet": self.md_datasheet,
                     "protobuf_pin_schema": PROTOBUF.microcontroller.micro_pin,
+                    "protobuf_pin_enums": PROTOBUF.misc.pin_enums,
                 }.values()
             ),
             config={
                 "response_mime_type": "application/json",
             },
         )
-        pins = self._remove_gemini_shittalking(response.text)
-        return pins
+        return response
+        # pins = self._remove_gemini_shittalking(response.text)
+        # return pins
+
+    @sanitize_raw_output
+    def AI_PARSER_get_pin_pad_mapping(self):
+        self.logger.info("Analyzing markdown datasheet to extract mapping between pin/pad for each package.")
+
+        response = self._llm_client.models.generate_content(
+            model=self._GEMINI_MODEL,
+            contents=list(
+                {
+                    "prompt": self._prompts["micro_pin_pad_mapping"],
+                    "datasheet": self.md_datasheet,
+                }.values()
+            ),
+            config={
+                "response_mime_type": "application/json",
+            },
+        )
+        return response
+
+    @sanitize_raw_output
+    def AI_PARSER_get_cores_and_memory(self):
+        self.logger.info("Analyzing markdown datasheet to extract core and memory info.")
+
+        response = self._llm_client.models.generate_content(
+            model=self._GEMINI_MODEL,
+            contents=list(
+                {
+                    "prompt": self._prompts["micro_memory_compute"],
+                    "datasheet": self.md_datasheet,
+                }.values()
+            ),
+            config={
+                "response_mime_type": "application/json",
+            },
+        )
+        return response
