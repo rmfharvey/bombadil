@@ -35,6 +35,7 @@ class DatasheetConverter:
     # _GEMINI_MODEL = 'gemini-2.0-flash-001', # Gets more info but limits response length due to output token restrictions
     # _GEMINI_MODEL = 'gemini-2.0-flash',
     _GEMINI_MODEL = "gemini-2.5-pro-exp-03-25"
+    # _GEMINI_MODEL = "gemini-1.5-pro-latest"
 
     logger = colored_logger("DatasheetReader")
 
