@@ -47,6 +47,7 @@ class DatasheetConverter:
 
         # Set up LLM API
         self._llm_client = genai.Client(api_key=os.environ["GEMINI_KEY"])
+        # self._llm_client = genai.Client(api_key=os.environ["GEMINI_KEY_2"])
 
         # Load source file
         self.load_source(source_path)
@@ -56,10 +57,10 @@ class DatasheetConverter:
     def analyze_datasheet(self):
         # AI Model Calls
         # self._json["high_level"] = self.AI_PARSER_get_high_level_info()
-        self._json["pins"] = self.AI_PARSER_get_pin_info()
-
-        if self.has_serial_bus:
-            self._json["serial_bus"] = self.AI_PARSER_get_comms_register_map()
+        # self._json["pins"] = self.AI_PARSER_get_pin_info()
+        #
+        # if self.has_serial_bus:
+        self._json["serial_bus"] = self.AI_PARSER_get_comms_register_map()
 
     def load_source(self, source_path):
         ### Get source file, based on input type

@@ -1,7 +1,7 @@
 Use the following datasheet to compile register information for this device's serial communication bus (SPI, I2C, etc) and then format that as a json file.
 Register map information is generally given in a section titled "Register Maps" or something similar.
 
-Digital to physical mappings are often in other sections of the datasheets.  Look through the entire datasheet to find these.
+Digital to physical mappings are often in other sections of the datasheets.  Look through the entire datasheet to find these if needed.
 These should be similar in form to a look up table, where each digital value corresponds to a unique physical value, or sometimes are in the form of an equation.
 If they are in the form of an equation, make sure to still include this equation as a string.
 All physical values should be given units, if provided.
