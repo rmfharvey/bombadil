@@ -1,0 +1,14 @@
+Use the following datasheet to compile mappings between physical pins and pads.
+First, determine the name of each individual package that this datasheet defines.
+Next, determine pin to pad mapping for each package individually.
+
+Return data as a JSON file in the following format:
+{
+  {package_name}: {
+    {pin_name}: {pad_name}
+  }
+}
+
+Return this information in a JSON file and do not format this as markdown (i.e. it should start and end with curly or square braces)
+Each JSON pin object should match the form of the protobuf message that it corresponds to.
+The JSON file should be a dictionary indexed by pad_name.

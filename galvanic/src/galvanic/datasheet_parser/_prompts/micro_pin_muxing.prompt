@@ -1,0 +1,10 @@
+Use the following datasheet to compile pin muxing information.
+
+Return this information in a JSON file and do not format this as markdown (i.e. it should start and end with curly or square braces)
+Each JSON pin object should match the form of the protobuf message that it corresponds to.
+The JSON file should be a dictionary indexed by pad_name.
+
+The schema and datatypes for each type of data is defined in the protobuf files.  Use this to determine the json schema.
+When compiling the JSON object for each pin, do not make up new keys which are not present in the protobuf file that defines the schema.  Try to map everything to existing keys.
+
+Return the raw json and do not format as a markdown code block or add any of your editorializing or explanation.
