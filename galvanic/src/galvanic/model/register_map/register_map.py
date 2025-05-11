@@ -17,7 +17,7 @@ class RegisterMap:
         :param dict config: Configuration information
         """
         for addr, reg in config.get("registers", {}).items():
-            self.registers[addr] = Register(reg)
+            self.registers[int(addr)] = Register(reg)
 
         for field in config.get("fields", []):
             self.fields.append(Field(field))
@@ -35,21 +35,24 @@ class RegisterMap:
                     registers[addr] = []
                 registers[addr].append(f)
 
-        fields_dict = self._organize_fields()
-        for addr, fields in fields_dict.items():
+        for addr, fields in registers.items():
             target_reg = self.registers[addr]
             target_reg.add_fields(fields)
 
 
 class Register:
-    name: str
-    read_only: bool = False
-    address: int
-    bit_width: int
-    init_value: int = 0
-    fields: list = []
+    # name: str
+    # read_only: bool = False
+    # address: int
+    # bit_width: int
+    # init_value: int = 0
+    # fields: dict = {}
 
     def __init__(self, config):
+        self.read_only = False
+        self.init_value = 0
+        self.fields = {}
+
         self.load_config(config)
         self.ui_object = RegisterWidget(self)
 
@@ -61,6 +64,20 @@ class Register:
         self.init_value = config.get("init_value", self.init_value)
 
     def add_fields(self, fields_list):
+        """Add fields (ordered) to Register object.
+
+        :param list fields_list: List of individual fields in register:
+        """
+        # Compile fields with sortable keys
+        temp_fields = {}  # Indexed by start bit
+        for f in fields_list:
+            loc = f.register_location_by_addr[self.address]
+            temp_fields[loc["reg_start_bit"]] = f
+
+        sorted_fields = sorted(temp_fields.keys())
+        for addr in sorted_fields:
+            self.fields[addr] = temp_fields[addr]
+
         print()
 
     @property
@@ -69,13 +86,16 @@ class Register:
 
 
 class Field:
-    description: str
-    digital_physical_map: dict = {}
-    name: str
-    register_location: list
-    parent_register: Register = None
+    # description: str
+    # digital_physical_map: dict = {}
+    # name: str
+    # register_location: list
+    # parent_register: Register = None
 
     def __init__(self, config):
+        self.parent_register = None
+        self.digital_physical_map = {}
+
         self.load_config(config)
         self.ui_object = FieldWidget(self)
 
