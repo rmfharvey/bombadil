@@ -1,4 +1,4 @@
 PyQt6
 pymupdf4llm
-google
+google-genai
 colorama

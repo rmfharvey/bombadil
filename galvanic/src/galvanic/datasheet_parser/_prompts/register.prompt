@@ -6,7 +6,9 @@ These should be similar in form to a look up table, where each digital value cor
 If they are in the form of an equation, make sure to still include this equation as a string.
 All physical values should be given units, if provided.
 
-The json file should have two main sections, fields and registers.
+The json file should have two main sections, 'fields' and 'registers'.
+'fields' fields should be a list.
+'registers' section should be a dictionary indexed by register address.
 
 It's possible that a field can span two different registers.  This is often indicated in a datasheet by having a field name which includes the 'field_start_bit' and 'field_end_bit' appended to the end, usually in braces.  e.g. SOME_FIELD[7:9].
 In this instance, '7' and '9' are the field start and end bits and they should not be included in the field name, but should be used to indicate that the field spans multiple registers.
