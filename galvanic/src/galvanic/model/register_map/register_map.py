@@ -41,13 +41,6 @@ class RegisterMap:
 
 
 class Register:
-    # name: str
-    # read_only: bool = False
-    # address: int
-    # bit_width: int
-    # init_value: int = 0
-    # fields: dict = {}
-
     def __init__(self, config):
         self.read_only = False
         self.init_value = 0
@@ -86,12 +79,6 @@ class Register:
 
 
 class Field:
-    # description: str
-    # digital_physical_map: dict = {}
-    # name: str
-    # register_location: list
-    # parent_register: Register = None
-
     def __init__(self, config):
         self.parent_register = None
         self.digital_physical_map = {}
@@ -104,6 +91,19 @@ class Field:
         self.digital_physical_map = config.get("digital_physical_map", self.digital_physical_map)
         self.name = config.get("name")
         self.register_location = config.get("register_location")
+
+    def get_bit_widths(self):
+        """Get widths of all individual segments, if the field is split up across multiple registers.
+
+        :return: Dictionary of total field width and widths for all segments
+        :rtype: dict
+        """
+        widths = {"total": 0}
+        for seg in self.register_location:
+            seg_width = seg["field_end_bit"] - seg["field_start_bit"] + 1
+            widths[seg["register_address"]] = seg_width
+            widths["total"] += seg_width
+        return widths
 
     @property
     def register_location_by_addr(self):
