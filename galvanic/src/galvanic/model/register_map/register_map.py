@@ -71,7 +71,7 @@ class Register:
         for addr in sorted_fields:
             self.fields[addr] = temp_fields[addr]
 
-        print()
+        self.ui_object.refresh_fields_in_ui()
 
     @property
     def hex_address(self):
