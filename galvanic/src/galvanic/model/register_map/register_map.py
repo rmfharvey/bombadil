@@ -1,4 +1,4 @@
-from galvanic.ui.register_map.register_map_ui import RegisterWidget, FieldWidget
+from galvanic.ui.register_map.register_map_ui import RegisterMapWidget, RegisterWidget, FieldWidget
 
 
 class RegisterMap:
@@ -9,14 +9,17 @@ class RegisterMap:
         self.registers = {}
         self.fields = []
         self.load_config(config)
-        print()
+
+        self.ui_object = RegisterMapWidget(self)
 
     def load_config(self, config):
         """Load from configuration
 
         :param dict config: Configuration information
         """
-        for addr, reg in config.get("registers", {}).items():
+        registers = config.get("registers", {})
+        for addr in sorted(registers.keys()):
+            reg = registers[addr]
             self.registers[int(addr)] = Register(reg)
 
         for field in config.get("fields", []):
@@ -84,7 +87,12 @@ class Field:
         self.digital_physical_map = {}
 
         self.load_config(config)
-        self.ui_object = FieldWidget(self)
+
+        # Set up UI
+        bw = self.get_bit_widths()
+        bw.pop("total")
+        width = max(bw.values())
+        self.ui_object = FieldWidget(self, width)
 
     def load_config(self, config):
         self.description = config.get("description")
@@ -100,7 +108,7 @@ class Field:
         """
         widths = {"total": 0}
         for seg in self.register_location:
-            seg_width = seg["field_end_bit"] - seg["field_start_bit"] + 1
+            seg_width = seg["reg_end_bit"] - seg["reg_start_bit"] + 1
             widths[seg["register_address"]] = seg_width
             widths["total"] += seg_width
         return widths
