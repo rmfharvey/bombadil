@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>910</width>
-    <height>343</height>
+    <width>1381</width>
+    <height>453</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,14 +27,21 @@
     <number>5</number>
    </property>
    <item>
-    <widget class="QFrame" name="register_map_frame">
-     <property name="frameShape">
-      <enum>QFrame::Shape::StyledPanel</enum>
+    <widget class="QScrollArea" name="register_map_scrollarea">
+     <property name="widgetResizable">
+      <bool>true</bool>
      </property>
-     <property name="frameShadow">
-      <enum>QFrame::Shadow::Raised</enum>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout"/>
+     <widget class="QWidget" name="register_map_scrollarea_contents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1369</width>
+        <height>441</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="register_map_scrollarea_layout"/>
+     </widget>
     </widget>
    </item>
   </layout>

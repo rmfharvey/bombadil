@@ -1,4 +1,5 @@
-from galvanic.ui.register_map.register_map_ui import RegisterWidget, FieldWidget
+from galvanic.ui.register_map.register_map_ui import RegisterMapWidget, RegisterWidget, FieldWidget, FieldWidgetDummy
+from galvanic import global_logger
 
 
 class RegisterMap:
@@ -9,14 +10,17 @@ class RegisterMap:
         self.registers = {}
         self.fields = []
         self.load_config(config)
-        print()
+
+        self.ui_object = RegisterMapWidget(self)
 
     def load_config(self, config):
         """Load from configuration
 
         :param dict config: Configuration information
         """
-        for addr, reg in config.get("registers", {}).items():
+        registers = config.get("registers", {})
+        for addr in sorted(registers.keys()):
+            reg = registers[addr]
             self.registers[int(addr)] = Register(reg)
 
         for field in config.get("fields", []):
@@ -38,6 +42,14 @@ class RegisterMap:
         for addr, fields in registers.items():
             target_reg = self.registers[addr]
             target_reg.add_fields(fields)
+
+    @property
+    def field_dict(self):
+        field_count = len(self.fields)
+        fdict = {f.name: f for f in self.fields}
+        if field_count != len(fdict):
+            global_logger.warning("Some field names are repeated based on list/dict lengths")
+        return fdict
 
 
 class Register:
@@ -84,7 +96,38 @@ class Field:
         self.digital_physical_map = {}
 
         self.load_config(config)
-        self.ui_object = FieldWidget(self)
+
+        # Set up UI
+        bw = self.get_bit_widths()
+        bw.pop("total")
+        width = max(bw.values())
+        if self.reserved_field:
+            self.ui_object = FieldWidgetDummy(self, width)
+        else:
+            self.ui_object = FieldWidget(self, width)
+
+        # Determine if a dummy widget is needed and link widgets to register locations
+        reg_dict = self.register_location_by_addr
+        for loc in reg_dict.values():
+            loc["width"] = loc["reg_end_bit"] - loc["reg_start_bit"] + 1
+            loc["master"] = False
+
+        # Determine which field fragment is that largest, therefore 'master'
+        max_width = max([r["width"] for r in reg_dict.values()])
+        for r in reg_dict.values():
+            if r["width"] == max_width:
+                r["master"] = True
+                break  # Break from loop to avoid
+
+        # Assign UI objects
+        for r in self.register_location:
+            target = reg_dict[r["register_address"]]
+            is_master = target["master"]
+            if is_master:
+                r["ui_object"] = self.ui_object
+            else:
+                width = target["reg_end_bit"] - target["reg_start_bit"] + 1
+                r["ui_object"] = FieldWidgetDummy(self, width)
 
     def load_config(self, config):
         self.description = config.get("description")
@@ -100,10 +143,14 @@ class Field:
         """
         widths = {"total": 0}
         for seg in self.register_location:
-            seg_width = seg["field_end_bit"] - seg["field_start_bit"] + 1
+            seg_width = seg["reg_end_bit"] - seg["reg_start_bit"] + 1
             widths[seg["register_address"]] = seg_width
             widths["total"] += seg_width
         return widths
+
+    @property
+    def reserved_field(self):
+        return self.name.startswith("RESERVED_0x")
 
     @property
     def register_location_by_addr(self):
