@@ -34,9 +34,9 @@ class RegisterWidget(GWidget):
 
 
 class FieldWidget(GWidget):
-    BITWIDTH = 166
-    SPACING = 3
-    HEIGHT = 67
+    BITWIDTH = 150
+    SPACING = 2
+    HEIGHT = 55
 
     def __init__(self, field, width=1):
         super().__init__(FieldForm)
@@ -77,11 +77,11 @@ class FieldWidget(GWidget):
     def _handler_combobox_changed(self):
         value = self.ui.value_combobox.currentText()
         pd_map = {v: k for k, v in self.field.digital_physical_map.items()}
-        self.field.value = pd_map[value]
+        self.field.value = int(pd_map[value])
 
     def _handler_lineedit_changed(self):
-        value = self.ui.value_lineedit.currentText()
-        self.field.value = value
+        value = self.ui.value_lineedit.text()
+        self.field.value = int(value)
 
 
 class FieldWidgetDummy(FieldWidget):
