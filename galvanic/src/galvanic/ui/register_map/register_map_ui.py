@@ -1,3 +1,4 @@
+from PyQt6 import QtCore
 from galvanic.ui import GWidget
 from galvanic.ui.register_map.forms.register_map_ui import Ui_Form as RegisterMapForm
 from galvanic.ui.register_map.forms.register_ui import Ui_Form as RegisterForm
@@ -23,15 +24,22 @@ class RegisterWidget(GWidget):
         self._setup()
 
     def _setup(self):
-        self.ui.register_groupbox.setTitle(self.register.name)
+        title = f"{self.register.name} ({self.register.hex_address})"
+        self.ui.register_groupbox.setTitle(title)
 
     def refresh_fields_in_ui(self):
         for f in self.register.fields.values():
-            self.ui.register_layout.addWidget(f.ui_object)
+            split_register = len(f.register_location) > 1
+            if split_register:  # TODO Actually, move this logic to field init
+                pass
+            else:
+                self.ui.register_layout.insertWidget(0, f.ui_object)
 
 
 class FieldWidget(GWidget):
-    BITWIDTH = 2016
+    BITWIDTH = 166
+    SPACING = 3
+    HEIGHT = 67
 
     def __init__(self, field, width=1):
         super().__init__(FieldForm)
@@ -53,7 +61,10 @@ class FieldWidget(GWidget):
             self.ui.value_combobox.hide()
             self.ui.value_lineedit.show()
 
-        self.resize(self._bit_width * self.BITWIDTH, 70)
+        width = (self._bit_width - 1) * (self.BITWIDTH + self.SPACING) + self.BITWIDTH
+
+        self.ui.frame.setMinimumSize(QtCore.QSize(width, self.HEIGHT))
+        self.ui.frame.setMaximumSize(QtCore.QSize(width, self.HEIGHT))
 
     def _connect_signals(self):
         self.ui.value_combobox.currentIndexChanged.connect(self._handler_combobox_changed)

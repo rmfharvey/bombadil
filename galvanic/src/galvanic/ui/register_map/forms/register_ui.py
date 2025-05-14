@@ -19,6 +19,8 @@ class Ui_Form(object):
         self.register_groupbox = QtWidgets.QGroupBox(parent=Form)
         self.register_groupbox.setObjectName("register_groupbox")
         self.register_layout = QtWidgets.QHBoxLayout(self.register_groupbox)
+        self.register_layout.setContentsMargins(3, 3, 3, 3)
+        self.register_layout.setSpacing(2)
         self.register_layout.setObjectName("register_layout")
         self.horizontalLayout.addWidget(self.register_groupbox)
 

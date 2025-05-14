@@ -1,4 +1,5 @@
-from galvanic.ui.register_map.register_map_ui import RegisterMapWidget, RegisterWidget, FieldWidget
+from galvanic.ui.register_map.register_map_ui import RegisterMapWidget, RegisterWidget, FieldWidget, FieldWidgetDummy
+from galvanic import global_logger
 
 
 class RegisterMap:
@@ -41,6 +42,14 @@ class RegisterMap:
         for addr, fields in registers.items():
             target_reg = self.registers[addr]
             target_reg.add_fields(fields)
+
+    @property
+    def field_dict(self):
+        field_count = len(self.fields)
+        fdict = {f.name: f for f in self.fields}
+        if field_count != len(fdict):
+            global_logger.warning("Some field names are repeated based on list/dict lengths")
+        return fdict
 
 
 class Register:
@@ -94,6 +103,25 @@ class Field:
         width = max(bw.values())
         self.ui_object = FieldWidget(self, width)
 
+        # Determine if a dummy widget is needed and link widgets to register locations
+        reg_dict = self.register_location_by_addr
+        for loc in reg_dict.values():
+            loc["width"] = loc["reg_end_bit"] - loc["reg_start_bit"] + 1
+            loc["master"] = False
+
+        # Determine which field fragment is that largest, therefore 'master'
+        max_width = max([r["width"] for r in reg_dict.values()])
+        for r in reg_dict.values():
+            if r["width"] == max_width:
+                r["master"] = True
+                break  # Break from loop to avoid
+
+        # Assign UI objects
+        for r in self.register_location:
+            target = reg_dict[r["register_address"]]
+            print()
+        print()
+
     def load_config(self, config):
         self.description = config.get("description")
         self.digital_physical_map = config.get("digital_physical_map", self.digital_physical_map)
@@ -112,6 +140,10 @@ class Field:
             widths[seg["register_address"]] = seg_width
             widths["total"] += seg_width
         return widths
+
+    @property
+    def reserved_field(self):
+        return self.name.startswith("RESERVED_0x")
 
     @property
     def register_location_by_addr(self):
