@@ -101,7 +101,10 @@ class Field:
         bw = self.get_bit_widths()
         bw.pop("total")
         width = max(bw.values())
-        self.ui_object = FieldWidget(self, width)
+        if self.reserved_field:
+            self.ui_object = FieldWidget(self, width)
+        else:
+            self.ui_object = FieldWidget(self, width)
 
         # Determine if a dummy widget is needed and link widgets to register locations
         reg_dict = self.register_location_by_addr
@@ -119,8 +122,12 @@ class Field:
         # Assign UI objects
         for r in self.register_location:
             target = reg_dict[r["register_address"]]
-            print()
-        print()
+            is_master = target["master"]
+            if is_master:
+                r["ui_object"] = self.ui_object
+            else:
+                width = target["reg_end_bit"] - target["reg_start_bit"] + 1
+                r["ui_object"] = FieldWidgetDummy(self, width)
 
     def load_config(self, config):
         self.description = config.get("description")

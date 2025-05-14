@@ -29,11 +29,8 @@ class RegisterWidget(GWidget):
 
     def refresh_fields_in_ui(self):
         for f in self.register.fields.values():
-            split_register = len(f.register_location) > 1
-            if split_register:  # TODO Actually, move this logic to field init
-                pass
-            else:
-                self.ui.register_layout.insertWidget(0, f.ui_object)
+            ui_obj = f.register_location_by_addr[self.register.address]["ui_object"]
+            self.ui.register_layout.insertWidget(0, ui_obj)
 
 
 class FieldWidget(GWidget):
@@ -83,7 +80,7 @@ class FieldWidget(GWidget):
 
 class FieldWidgetDummy(FieldWidget):
     def _setup(self):
+        super()._setup()
         self.ui.field_name_label.setText(self.field.name)
         self.ui.value_lineedit.hide()
         self.ui.value_combobox.hide()
-        self.resize(self._bit_width * self.BITWIDTH, 70)
