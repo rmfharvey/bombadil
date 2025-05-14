@@ -102,7 +102,7 @@ class Field:
         bw.pop("total")
         width = max(bw.values())
         if self.reserved_field:
-            self.ui_object = FieldWidget(self, width)
+            self.ui_object = FieldWidgetDummy(self, width)
         else:
             self.ui_object = FieldWidget(self, width)
 

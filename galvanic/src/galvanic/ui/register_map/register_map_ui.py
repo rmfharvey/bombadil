@@ -58,10 +58,16 @@ class FieldWidget(GWidget):
             self.ui.value_combobox.hide()
             self.ui.value_lineedit.show()
 
-        width = (self._bit_width - 1) * (self.BITWIDTH + self.SPACING) + self.BITWIDTH
+        # Increase UI entry element widths if in a larger field
+        if self._bit_width > 1:
+            for obj in [self.ui.value_combobox, self.ui.value_lineedit]:
+                pxwidth = obj.width() * 2
+                pxheight = obj.height()
+                obj.setMinimumSize(QtCore.QSize(pxwidth, pxheight))
 
-        self.ui.frame.setMinimumSize(QtCore.QSize(width, self.HEIGHT))
-        self.ui.frame.setMaximumSize(QtCore.QSize(width, self.HEIGHT))
+        pxwidth = (self._bit_width - 1) * (self.BITWIDTH + self.SPACING) + self.BITWIDTH
+        self.ui.frame.setMinimumSize(QtCore.QSize(pxwidth, self.HEIGHT))
+        self.ui.frame.setMaximumSize(QtCore.QSize(pxwidth, self.HEIGHT))
 
     def _connect_signals(self):
         self.ui.value_combobox.currentIndexChanged.connect(self._handler_combobox_changed)
