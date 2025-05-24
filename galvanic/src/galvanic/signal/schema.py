@@ -8,10 +8,23 @@ class _Signal:
 
     SEPARATOR = "."
     SUFFIX = {}
+    SUFFIX_MAPPING = {}
 
     def __init__(self, signal_name, direction):
         self.signal_name = signal_name
         self.direction = direction
+
+    @staticmethod
+    def get_suffix_mapping(suffixes):
+        "Returns a mapping of suffixes to directions"
+        mapping = {}
+        for dir, sfxs in suffixes.items():
+            if isinstance(sfxs, str):
+                mapping[sfxs] = dir
+            else:
+                for sfx in sfxs.values():
+                    mapping[sfx] = dir
+        return mapping
 
     @property
     def polarity(self):
@@ -31,6 +44,7 @@ class DigitalSignal(_Signal):
         DIRECTION.OUTPUT: "DO",
         DIRECTION.INPUT: "DI",
     }
+    SUFFIX_MAPPING = _Signal.get_suffix_mapping(SUFFIX)
 
 
 class AnalogSignal(_Signal):
@@ -38,6 +52,7 @@ class AnalogSignal(_Signal):
         DIRECTION.OUTPUT: "AO",
         DIRECTION.INPUT: "AI",
     }
+    SUFFIX_MAPPING = _Signal.get_suffix_mapping(SUFFIX)
 
 
 class PwmSignal(_Signal):
@@ -51,6 +66,7 @@ class PwmSignal(_Signal):
             PWM_INPUT_TYPE.COUNT: "PWMIN_COUNT",
         },
     }
+    SUFFIX_MAPPING = _Signal.get_suffix_mapping(SUFFIX)
 
     def __init__(self, signal_name, direction, pwm_in_type=None):
         super().__init__(signal_name=signal_name, direction=direction)
