@@ -6,7 +6,7 @@ import pymupdf4llm
 from google import genai
 import pathlib
 from embedded_design_tools.protobuf import PROTOBUF
-from galvanic import colored_logger
+from galvanic import colored_logger, global_logger
 
 _root = os.path.dirname(__file__)
 
@@ -37,7 +37,8 @@ class DatasheetConverter:
     _GEMINI_MODEL = "gemini-2.5-pro-exp-03-25"
     # _GEMINI_MODEL = "gemini-1.5-pro-latest"
 
-    logger = colored_logger("DatasheetReader")
+    logger = global_logger
+    # logger = colored_logger("DatasheetReader")
 
     def __init__(self, source_path, output_directory):
         self._json = {}
@@ -56,11 +57,11 @@ class DatasheetConverter:
 
     def analyze_datasheet(self):
         # AI Model Calls
-        # self._json["high_level"] = self.AI_PARSER_get_high_level_info()
-        # self._json["pins"] = self.AI_PARSER_get_pin_info()
-        #
-        # if self.has_serial_bus:
-        self._json["serial_bus"] = self.AI_PARSER_get_comms_register_map()
+        self._json["high_level"] = self.AI_PARSER_get_high_level_info()
+        self._json["pins"] = self.AI_PARSER_get_pin_info()
+
+        if self.has_serial_bus:
+            self._json["serial_bus"] = self.AI_PARSER_get_comms_register_map()
 
     def load_source(self, source_path):
         ### Get source file, based on input type
