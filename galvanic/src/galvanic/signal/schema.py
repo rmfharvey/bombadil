@@ -1,4 +1,4 @@
-from galvanic.utils.enums import DIRECTION, POLARITY, PWM_INPUT_TYPE
+from galvanic.utils.enums import DIRECTION, POLARITY, PWM_INPUT_TYPE, BUS_TYPES
 
 
 class _Signal:
@@ -6,7 +6,7 @@ class _Signal:
     signal_name: str
     polarity: str  # POLARITY
 
-    SEPARATOR = "."
+    _SEPARATOR = "."
     SUFFIX = {}
     SUFFIX_MAPPING = {}
 
@@ -28,14 +28,14 @@ class _Signal:
 
     @property
     def polarity(self):
-        return POLARITY.ACTIVE_LOW if "_n" in self.signal_name else POLARITY.ACTIVE_HIGH
+        return POLARITY.ACTIVE_LOW if "_n" in self.name else POLARITY.ACTIVE_HIGH
 
     @property
     def name(self):
         components = [self.signal_name, self.SUFFIX.get(self.direction)]
         name = None
         if all(components):
-            name = self.SEPARATOR.join(components)
+            name = self._SEPARATOR.join(components)
         return name
 
 
@@ -82,5 +82,57 @@ class PwmSignal(_Signal):
 
         name = None
         if all(components):
-            name = self.SEPARATOR.join(components)
+            name = self._SEPARATOR.join(components)
         return name
+
+
+class _SignalBus:
+    bus_name: str
+    bus_type: str  # BUS_TYPE
+    _SIGNALS = []
+    child_signals: dict[str]
+
+    def __init__(self, bus_name):
+        self.bus_name = bus_name
+        self.child_signals = {subusage: CommsSignal(subusage, self) for subusage in self._SIGNALS}
+
+
+class CommsSignal(_Signal):
+    subusage: str
+    parent_bus: _SignalBus
+    signal_name: str
+
+    def __init__(self, subusage, parent_bus, signal_name=None):
+        self.signal_name = signal_name
+        self.subusage = subusage
+        self.parent_bus = parent_bus
+
+    @property
+    def name(self):
+        signame = self.parent_bus.bus_name
+        if self.signal_name:
+            signame = f"{signame}_{self.signal_name}"
+        components = [self.parent_bus.bus_type, signame, self.subusage]
+
+        name = None
+        if all(components):
+            name = self._SEPARATOR.join(components)
+        return name
+
+
+class UartBus(_SignalBus):
+    _SIGNALS = ["RX", "TX"]
+    bus_type = BUS_TYPES.UART
+
+
+class I2cBus(_SignalBus):
+    _SIGNALS = ["SCL", "SDA"]
+    bus_type = BUS_TYPES.I2C
+
+
+COLORS = {
+    DigitalSignal: "#FFFF33",
+    AnalogSignal: "#FFCC00",
+    PwmSignal: {DIRECTION.INPUT: "#9966FF", DIRECTION.OUTPUT: "#99CCFF"},
+    CommsSignal: "#CCCCCC",
+}
