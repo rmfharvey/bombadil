@@ -2,10 +2,12 @@ import copy
 import os
 import json
 from datetime import datetime
-from copy import deepcopy
+import pathlib
+
 import pymupdf4llm
 from google import genai
-import pathlib
+from google.genai import types
+
 from embedded_design_tools.protobuf import PROTOBUF
 from galvanic import colored_logger, global_logger
 
@@ -73,6 +75,7 @@ class DatasheetConverter:
 
     def __init__(self, source_path, output_directory):
         self._json = {}
+        self._cache = None
         self._token_logger = TokenLogger()
         self.output_directory = output_directory
         self._prompts = self._get_prompts()
@@ -119,6 +122,18 @@ class DatasheetConverter:
             with open(source_path, "r") as f:
                 self.md_datasheet = f.read()
 
+        # Explicit caching
+        self.logger.info("Caching datasheet info")
+        self._cache = self._llm_client.caches.create(
+            model=self._GEMINI_MODEL,
+            config=types.CreateCachedContentConfig(
+                display_name="markdown datasheet",  # used to identify the cache
+                system_instruction=("Answer subsequent queries using this cached datasheet data"),
+                contents=[self.md_datasheet],
+                ttl="3600s",  # Cache for 1hr
+            ),
+        )
+
     def get_config(self):
         return copy.deepcopy(self._json)
 
@@ -149,14 +164,13 @@ class DatasheetConverter:
             contents=list(
                 {
                     "prompt": self._prompts["high_level_ic_info"],
-                    "datasheet": self.md_datasheet,
+                    # "datasheet": self.md_datasheet,
                     "proto1": PROTOBUF.device.high_level,
                     "proto2": PROTOBUF.serial_bus.register,
                 }.values()
             ),
-            config={
-                "response_mime_type": "application/json",
-            },
+            config=types.GenerateContentConfig(cached_content=self._cache.name),
+            # config = {"response_mime_type": "application/json"},
         )
         return response
 
@@ -175,13 +189,14 @@ class DatasheetConverter:
             contents=list(
                 {
                     "prompt": self._prompts["register"],
-                    "datasheet": self.md_datasheet,
+                    # "datasheet": self.md_datasheet,
                     "protobuf": PROTOBUF.serial_bus.register,
                 }.values()
             ),
-            config={
-                "response_mime_type": "application/json",
-            },
+            config=types.GenerateContentConfig(cached_content=self._cache.name),
+            # config={
+            #     "response_mime_type": "application/json",
+            # },
         )
         return response
 
@@ -200,15 +215,16 @@ class DatasheetConverter:
             contents=list(
                 {
                     "prompt": self._prompts["ic_pins"],
-                    "datasheet": self.md_datasheet,
+                    # "datasheet": self.md_datasheet,
                     "protobuf_pin_schema": PROTOBUF.ic_pins.ic_pins,
                     "protobuf_pin_enums": PROTOBUF.misc.pin_enums,
                     "protobuf_pin_pull": PROTOBUF.misc.numbers,
                 }.values()
             ),
-            config={
-                "response_mime_type": "application/json",
-            },
+            config=types.GenerateContentConfig(cached_content=self._cache.name),
+            # config={
+            #     "response_mime_type": "application/json",
+            # },
         )
         return response
 
@@ -311,10 +327,10 @@ class DatasheetConverter:
 
 class MicroDatasheetConverter(DatasheetConverter):
     def analyze_datasheet(self):
-        # self._json["high_level"] = self.AI_PARSER_get_high_level_info()
-        # self._json["cores"] = self.AI_PARSER_get_cores_and_memory()
-        self._json["pads"] = self.AI_PARSER_get_pin_muxing()
-        # self._json["pin_pad_mapping"] = self.AI_PARSER_get_pin_pad_mapping()
+        self._json["high_level"] = self.AI_PARSER_get_high_level_info()
+        self._json["cores"] = self.AI_PARSER_get_cores_and_memory()
+        # self._json["pads"] = self.AI_PARSER_get_pin_muxing()
+        self._json["pin_pad_mapping"] = self.AI_PARSER_get_pin_pad_mapping()
 
     def _get_pin_pad_mapping_iteratively(self):
         pass
@@ -332,14 +348,15 @@ class MicroDatasheetConverter(DatasheetConverter):
             contents=list(
                 {
                     "prompt": self._prompts["micro_pin_muxing"],
-                    "datasheet": self.md_datasheet,
+                    # "datasheet": self.md_datasheet,
                     "protobuf_pin_schema": PROTOBUF.microcontroller.micro_pin,
                     "protobuf_pin_enums": PROTOBUF.misc.pin_enums,
                 }.values()
             ),
-            config={
-                "response_mime_type": "application/json",
-            },
+            config=types.GenerateContentConfig(cached_content=self._cache.name),
+            # config={
+            #     "response_mime_type": "application/json",
+            # },
         )
         return response
         # pins = self._remove_gemini_shittalking(response.text)
@@ -355,12 +372,13 @@ class MicroDatasheetConverter(DatasheetConverter):
             contents=list(
                 {
                     "prompt": self._prompts["micro_pin_pad_mapping"],
-                    "datasheet": self.md_datasheet,
+                    # "datasheet": self.md_datasheet,
                 }.values()
             ),
-            config={
-                "response_mime_type": "application/json",
-            },
+            config=types.GenerateContentConfig(cached_content=self._cache.name),
+            # config={
+            #     "response_mime_type": "application/json",
+            # },
         )
         return response
 
@@ -374,12 +392,12 @@ class MicroDatasheetConverter(DatasheetConverter):
             contents=list(
                 {
                     "prompt": self._prompts["micro_memory_compute"],
-                    "datasheet": self.md_datasheet,
+                    # "datasheet": self.md_datasheet,
                 }.values()
             ),
-            config={
-                "response_mime_type": "application/json",
-            },
+            config=types.GenerateContentConfig(cached_content=self._cache.name),  # config={
+            #     "response_mime_type": "application/json",
+            # },
         )
         return response
 
