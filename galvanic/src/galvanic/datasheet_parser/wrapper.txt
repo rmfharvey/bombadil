@@ -1,0 +1,7582 @@
+{
+  "BOOT0": {
+    "pad_name": "BOOT0",
+    "functions": [
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "BOOT0"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "VPP"
+      }
+    ]
+  },
+  "NRST": {
+    "pad_name": "NRST",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "NRST"
+      }
+    ]
+  },
+  "PA0": {
+    "pad_name": "PA0",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "A",
+        "peripheral_subusage": "PIN_0",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "ETR"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "ETR"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "15",
+        "peripheral_subusage": "BKIN"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "NSS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "WS"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CTS"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "NSS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CMD"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SD_B"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "MII_CRS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A19"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP16"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "WKUP1"
+      }
+    ]
+  },
+  "PA0_C": {
+    "pad_name": "PA0_C",
+    "functions": [
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INN1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INN1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP0"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INP0"
+      }
+    ]
+  },
+  "PA1": {
+    "pad_name": "PA1",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "A",
+        "peripheral_subusage": "PIN_1",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CH2"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "CH2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LPTIM",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "OUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "15",
+        "peripheral_subusage": "CH1N"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "RTS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "DE"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "MCLK_B"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "MII_RX_CLK"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "RMII_REF_CLK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "DQS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "R2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INN16"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP17"
+      }
+    ]
+  },
+  "PA1_C": {
+    "pad_name": "PA1_C",
+    "functions": [
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INP1"
+      }
+    ]
+  },
+  "PA2": {
+    "pad_name": "PA2",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "A",
+        "peripheral_subusage": "PIN_2",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CH3"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "CH3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LPTIM",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "OUT"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "15",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO0"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SCK_B"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "MDIO"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "MDIOS",
+        "peripheral_subusage": "MDIO"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "R1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP14"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INP14"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "WKUP2"
+      }
+    ]
+  },
+  "PA3": {
+    "pad_name": "PA3",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "A",
+        "peripheral_subusage": "PIN_3",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CH4"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "CH4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LPTIM",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "OUT"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "15",
+        "peripheral_subusage": "CH2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "MCK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "B2"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OTG_HS",
+        "peripheral_subusage": "ULPI_D0"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "MII_COL"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "CLK"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "B5"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP15"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INP15"
+      }
+    ]
+  },
+  "PA4": {
+    "pad_name": "PA4",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "A",
+        "peripheral_subusage": "PIN_4",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "D1PWREN"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "ETR"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "NSS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "WS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "NSS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "WS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "USART",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "NSS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "WS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D8"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD8"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "HSYNC"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "DE"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "VSYNC"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP18"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INP18"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "DAC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "OUT1"
+      }
+    ]
+  },
+  "PA5": {
+    "pad_name": "PA5",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "A",
+        "peripheral_subusage": "PIN_5",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "D2PWREN"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "ETR"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "CH1N"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "SCK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "SCK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "OTG_HS",
+        "peripheral_subusage": "ULPI_CK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D9"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD9"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D14"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "R4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INN18"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INN18"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP19"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INP19"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "DAC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "OUT2"
+      }
+    ]
+  },
+  "PA6": {
+    "pad_name": "PA6",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "A",
+        "peripheral_subusage": "PIN_6",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "BKIN"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "BKIN"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "MISO"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "SDI"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "MISO"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "SDI"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "13",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "BKIN_COMP12"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "MDIOS",
+        "peripheral_subusage": "MDC"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "BKIN_COMP12"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "PIXCLK"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "PDCK"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "G2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INP3"
+      }
+    ]
+  },
+  "PA7": {
+    "pad_name": "PA7",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "A",
+        "peripheral_subusage": "PIN_7",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CH1N"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "CH2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "CH1N"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "MOSI"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "SDO"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "MOSI"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "SDO"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "14",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "MII_RX_DV"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "RMII_CRS_DV"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "SDNWE"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "VSYNC"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INN3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INN3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP7"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INP7"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "OPAMP",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "VINM"
+      }
+    ]
+  },
+  "PA8": {
+    "pad_name": "PA8",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "A",
+        "peripheral_subusage": "PIN_8",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "RCC",
+        "peripheral_subusage": "MCO1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "BKIN2"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "SCL"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "SCL"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "USART",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "OTG_HS",
+        "peripheral_subusage": "SOF"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "7",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "BKIN2_COMP12"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "B3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "R6"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PA9": {
+    "pad_name": "PA9",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "A",
+        "peripheral_subusage": "PIN_9",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CH2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LPUART",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "SMBA"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "SCK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "SMBA"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "TX_ER"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D0"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D0"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "R5"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OTG_HS",
+        "peripheral_subusage": "VBUS"
+      }
+    ]
+  },
+  "PA10": {
+    "pad_name": "PA10",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "A",
+        "peripheral_subusage": "PIN_10",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CH3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "LPUART",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OTG_HS",
+        "peripheral_subusage": "ID"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "MDIOS",
+        "peripheral_subusage": "MDIO"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "B4"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "B1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PA11": {
+    "pad_name": "PA11",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "A",
+        "peripheral_subusage": "PIN_11",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CH4"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "LPUART",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CTS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "NSS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "WS"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CTS"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "NSS"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "FDCAN",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "R4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OTG_HS",
+        "peripheral_subusage": "DM"
+      }
+    ]
+  },
+  "PA12": {
+    "pad_name": "PA12",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "A",
+        "peripheral_subusage": "PIN_12",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "ETR"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LPUART",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "RTS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LPUART",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DE"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "SCK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "RTS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DE"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "FS_B"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FDCAN",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "BKIN2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "R5"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OTG_HS",
+        "peripheral_subusage": "DP"
+      }
+    ]
+  },
+  "PA13": {
+    "pad_name": "PA13",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "A",
+        "peripheral_subusage": "PIN_13",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "JTMS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "SWDIO"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PA14": {
+    "pad_name": "PA14",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "A",
+        "peripheral_subusage": "PIN_14",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "JTCK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "SWCLK"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PA15": {
+    "pad_name": "PA15",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "A",
+        "peripheral_subusage": "PIN_15",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "JTDI"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "ETR"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "HDMI_CEC",
+        "peripheral_subusage": "CEC"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "NSS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "WS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "NSS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "WS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "NSS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "WS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "RTS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "DE"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "R3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "7",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "B6"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PB0": {
+    "pad_name": "PB0",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "B",
+        "peripheral_subusage": "PIN_0",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CH2N"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "CH3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "CH2N"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "CTS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "R3"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OTG_HS",
+        "peripheral_subusage": "ULPI_D1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "MII_RXD2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "G1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INN5"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INN5"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP9"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INP9"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "OPAMP",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "VINP"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "COMP",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP"
+      }
+    ]
+  },
+  "PB1": {
+    "pad_name": "PB1",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "B",
+        "peripheral_subusage": "PIN_1",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CH3N"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "CH4"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "CH3N"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO0"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "R6"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OTG_HS",
+        "peripheral_subusage": "ULPI_D2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "MII_RXD3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "G0"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP5"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INP5"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "COMP",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INM"
+      }
+    ]
+  },
+  "PB2": {
+    "pad_name": "PB2",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "B",
+        "peripheral_subusage": "PIN_2",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "RTC",
+        "peripheral_subusage": "OUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "D1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "D1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "SDO"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "SD_A"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "MOSI"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "SDO"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SD_A"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "CLK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "DQS"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "TX_ER"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "23",
+        "peripheral_subusage": "ETR"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "COMP",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP"
+      }
+    ]
+  },
+  "PB3": {
+    "pad_name": "PB3",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "B",
+        "peripheral_subusage": "PIN_3",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "JTDO"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "TRACESWO"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CH2"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "SCK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "SCK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "SCK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "D2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "CRS",
+        "peripheral_subusage": "SYNC"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "7",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "24",
+        "peripheral_subusage": "ETR"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PB4": {
+    "pad_name": "PB4",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "B",
+        "peripheral_subusage": "PIN_4",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "NJTRST"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "16",
+        "peripheral_subusage": "BKIN"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "MISO"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "SDI"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "MISO"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "SDI"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "NSS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "WS"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "MISO"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "SDI"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "D3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "7",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PB5": {
+    "pad_name": "PB5",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "B",
+        "peripheral_subusage": "PIN_5",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "17",
+        "peripheral_subusage": "BKIN"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "CH2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "B5"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "SMBA"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "MOSI"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "SDO"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SMBA"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "MOSI"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "SDO"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "MOSI"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "SDO"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "FDCAN",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OTG_HS",
+        "peripheral_subusage": "ULPI_D7"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "PPS_OUT"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "SDCKE1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D10"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D10"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PB6": {
+    "pad_name": "PB6",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "B",
+        "peripheral_subusage": "PIN_6",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "16",
+        "peripheral_subusage": "CH1N"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "SCL"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "HDMI_CEC",
+        "peripheral_subusage": "CEC"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SCL"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LPUART",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FDCAN",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "NCS"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN5"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "SDNE1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D5"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D5"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PB7": {
+    "pad_name": "PB7",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "B",
+        "peripheral_subusage": "PIN_7",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "17",
+        "peripheral_subusage": "CH1N"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "CH2"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "SDA"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SDA"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "LPUART",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN5"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "NL"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "VSYNC"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "RDY"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PWR",
+        "peripheral_subusage": "PVD_IN"
+      }
+    ]
+  },
+  "PB8": {
+    "pad_name": "PB8",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "B",
+        "peripheral_subusage": "PIN_8",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "16",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "CH3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN7"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "SCL"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SCL"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "FDCAN",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "D4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "MII_TXD3"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "D4"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D6"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D6"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "B6"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PB9": {
+    "pad_name": "PB9",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "B",
+        "peripheral_subusage": "PIN_9",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "17",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "CH4"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN7"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "SDA"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "NSS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "WS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SDA"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CDIR"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FDCAN",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "D5"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SMBA"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "D5"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D7"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D7"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "B7"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PB10": {
+    "pad_name": "PB10",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "B",
+        "peripheral_subusage": "PIN_10",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CH3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "LPTIM",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "IN1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "SCL"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "SCK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN7"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "NCS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OTG_HS",
+        "peripheral_subusage": "ULPI_D3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "MII_RX_ER"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "G4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PB11": {
+    "pad_name": "PB11",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "B",
+        "peripheral_subusage": "PIN_11",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CH4"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "LPTIM",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "ETR"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "SDA"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN7"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OTG_HS",
+        "peripheral_subusage": "ULPI_D4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "MII_TX_EN"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "RMII_TX_EN"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "G5"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PB12": {
+    "pad_name": "PB12",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "B",
+        "peripheral_subusage": "PIN_12",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "BKIN"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "NCLK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "SMBA"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "NSS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "WS"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "USART",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "FDCAN",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OTG_HS",
+        "peripheral_subusage": "ULPI_D5"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "MII_TXD0"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "RMII_TXD0"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO0"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "BKIN_COMP12"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PB13": {
+    "pad_name": "PB13",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "B",
+        "peripheral_subusage": "PIN_13",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CH1N"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LPTIM",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "OUT"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO2"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "SCK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "CTS"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "NSS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FDCAN",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OTG_HS",
+        "peripheral_subusage": "ULPI_D6"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "MII_TXD1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "RMII_TXD1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "D0"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PB14": {
+    "pad_name": "PB14",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "B",
+        "peripheral_subusage": "PIN_14",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CH2N"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "12",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "CH2N"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "MISO"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "SDI"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "RTS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "DE"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "RTS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "DE"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "D0"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D10"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD10"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "CLK"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PB15": {
+    "pad_name": "PB15",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "B",
+        "peripheral_subusage": "PIN_15",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "RTC",
+        "peripheral_subusage": "REFIN"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CH3N"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "12",
+        "peripheral_subusage": "CH2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "CH3N"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "MOSI"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "SDO"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "CTS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "D1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D11"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD11"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "G7"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PC0": {
+    "pad_name": "PC0",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "C",
+        "peripheral_subusage": "PIN_0",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D12"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD12"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN0"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN4"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "FS_B"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A25"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "OTG_HS",
+        "peripheral_subusage": "ULPI_STP"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "G2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "SDNWE"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "R5"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP10"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INP10"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "INP10"
+      }
+    ]
+  },
+  "PC1": {
+    "pad_name": "PC1",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "C",
+        "peripheral_subusage": "PIN_1",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "TRACED0"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "D1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "D1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN0"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "MOSI"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "SDO"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "SD_A"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SD_A"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "MDC"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "MDIOS",
+        "peripheral_subusage": "MDC"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "G5"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INN10"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INN10"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "INN10"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP11"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INP11"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "INP11"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "RTC",
+        "peripheral_subusage": "TAMP3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "WKUP6"
+      }
+    ]
+  },
+  "PC2": {
+    "pad_name": "PC2",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "C",
+        "peripheral_subusage": "PIN_2",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "PWR",
+        "peripheral_subusage": "DEEPSLEEP"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO5"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "MISO"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "SDI"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKOUT"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "OTG_HS",
+        "peripheral_subusage": "ULPI_DIR"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "MII_TXD2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "SDNE0"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INN11"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INN11"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "INN11"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP12"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INP12"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "INP12"
+      }
+    ]
+  },
+  "PC2_C": {
+    "pad_name": "PC2_C",
+    "functions": [
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "INN1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "INP0"
+      }
+    ]
+  },
+  "PC3": {
+    "pad_name": "PC3",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "C",
+        "peripheral_subusage": "PIN_3",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "PWR",
+        "peripheral_subusage": "SLEEP"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO6"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "MOSI"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "SDO"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO0"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "OTG_HS",
+        "peripheral_subusage": "ULPI_NXT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "MII_TX_CLK"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "SDCKE0"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INN12"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INN12"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP13"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INP13"
+      }
+    ]
+  },
+  "PC3_C": {
+    "pad_name": "PC3_C",
+    "functions": [
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "INP1"
+      }
+    ]
+  },
+  "PC4": {
+    "pad_name": "PC4",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "C",
+        "peripheral_subusage": "PIN_4",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "PWR",
+        "peripheral_subusage": "DEEPSLEEP"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A22"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "MCK"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SPDIFRX",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "IN3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CKIN"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "MII_RXD0"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "RMII_RXD0"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "SDNE0"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "R7"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP4"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INP4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "OPAMP",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "VOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "COMP",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INM"
+      }
+    ]
+  },
+  "PC5": {
+    "pad_name": "PC5",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "C",
+        "peripheral_subusage": "PIN_5",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "PWR",
+        "peripheral_subusage": "SLEEP"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "D3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "D3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D15"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SPDIFRX",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "IN4"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "DQS"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "MII_RXD1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "RMII_RXD1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "SDCKE0"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "COMP",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "OUT"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "DE"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INN4"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INN4"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP8"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INP8"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "OPAMP",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "VINM"
+      }
+    ]
+  },
+  "PC6": {
+    "pad_name": "PC6",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "C",
+        "peripheral_subusage": "PIN_6",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "MCK"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "D0DIR"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "NWAIT"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "D6"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "D6"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D0"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D0"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "HSYNC"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SWPMI",
+        "peripheral_subusage": "IO"
+      }
+    ]
+  },
+  "PC7": {
+    "pad_name": "PC7",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "C",
+        "peripheral_subusage": "PIN_7",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "DBTRGIO"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "CH2"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "CH2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "MCK"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "D123DIR"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "NE1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "D7"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SWPMI",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "D7"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "G6"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PC8": {
+    "pad_name": "PC8",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "C",
+        "peripheral_subusage": "PIN_8",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "TRACED1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "CH3"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "CH3"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "USART",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "RTS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "DE"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "NE2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "NCE"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "INT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SWPMI",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "D0"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PC9": {
+    "pad_name": "PC9",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "C",
+        "peripheral_subusage": "PIN_9",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "RCC",
+        "peripheral_subusage": "MCO2"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "CH4"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "CH4"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "SDA"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "I2S_CKIN",
+        "peripheral_subusage": "I2S_CKIN"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "SDA"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "CTS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO0"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "G3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SWPMI",
+        "peripheral_subusage": "SUSPEND"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "D1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "B2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PC10": {
+    "pad_name": "PC10",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "C",
+        "peripheral_subusage": "PIN_10",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN5"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "SDA"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "SCK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "B1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SWPMI",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "D2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D8"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D8"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "R2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PC11": {
+    "pad_name": "PC11",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "C",
+        "peripheral_subusage": "PIN_11",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN5"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "SCL"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "MISO"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "SDI"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "NCS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "D3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D4"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "B4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PC12": {
+    "pad_name": "PC12",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "C",
+        "peripheral_subusage": "PIN_12",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "TRACED3"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D6"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD6"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "15",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "SMBA"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "SCK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "6",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "MOSI"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "SDO"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "USART",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D9"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D9"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "R6"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PC13": {
+    "pad_name": "PC13",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "C",
+        "peripheral_subusage": "PIN_13",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "RTC",
+        "peripheral_subusage": "TAMP1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "RTC",
+        "peripheral_subusage": "TS"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "WKUP4"
+      }
+    ]
+  },
+  "PC14": {
+    "pad_name": "PC14",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "C",
+        "peripheral_subusage": "PIN_14",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "RCC",
+        "peripheral_subusage": "OSC32_IN"
+      }
+    ]
+  },
+  "PC15": {
+    "pad_name": "PC15",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "C",
+        "peripheral_subusage": "PIN_15",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "RCC",
+        "peripheral_subusage": "OSC32_OUT"
+      }
+    ]
+  },
+  "PD0": {
+    "pad_name": "PD0",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "D",
+        "peripheral_subusage": "PIN_0",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN6"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "FDCAN",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "9",
+        "peripheral_subusage": "CTS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D2"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "B1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PD1": {
+    "pad_name": "PD1",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "D",
+        "peripheral_subusage": "PIN_1",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN6"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FDCAN",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D3"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PD2": {
+    "pad_name": "PD2",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "D",
+        "peripheral_subusage": "PIN_2",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "TRACED2"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D7"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD7"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "ETR"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "15",
+        "peripheral_subusage": "BKIN"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "B7"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CMD"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D11"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D11"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "B2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PD3": {
+    "pad_name": "PD3",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "D",
+        "peripheral_subusage": "PIN_3",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKOUT"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "SCK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CTS"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "NSS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "CLK"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D5"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D5"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "G7"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PD4": {
+    "pad_name": "PD4",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "D",
+        "peripheral_subusage": "PIN_4",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "RTS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "DE"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO4"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "NOE"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PD5": {
+    "pad_name": "PD5",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "D",
+        "peripheral_subusage": "PIN_5",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO5"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "NWE"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PD6": {
+    "pad_name": "PD6",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "D",
+        "peripheral_subusage": "PIN_6",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "D1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "D1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN4"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "MOSI"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "SDO"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "SD_A"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SD_A"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO6"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "NWAIT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D10"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D10"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "B2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PD7": {
+    "pad_name": "PD7",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "D",
+        "peripheral_subusage": "PIN_7",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "MOSI"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "I2S",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "SDO"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "USART",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SPDIFRX",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "IN1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO7"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SDMMC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "CMD"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "NE1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PD8": {
+    "pad_name": "PD8",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "D",
+        "peripheral_subusage": "PIN_8",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SPDIFRX",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "IN2"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D13"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD13"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PD9": {
+    "pad_name": "PD9",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "D",
+        "peripheral_subusage": "PIN_9",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D14"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD14"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PD10": {
+    "pad_name": "PD10",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "D",
+        "peripheral_subusage": "PIN_10",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKOUT"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "USART",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D15"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD15"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "B3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PD11": {
+    "pad_name": "PD11",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "D",
+        "peripheral_subusage": "PIN_11",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "LPTIM",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "IN2"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SMBA"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "CTS"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "NSS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO0"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SD_A"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A16"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "CLE"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PD12": {
+    "pad_name": "PD12",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "D",
+        "peripheral_subusage": "PIN_12",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "LPTIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "IN1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "LPTIM",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "IN1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SCL"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "FDCAN",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "RTS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "DE"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "FS_A"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A17"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "ALE"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D12"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D12"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PD13": {
+    "pad_name": "PD13",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "D",
+        "peripheral_subusage": "PIN_13",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LPTIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "OUT"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "CH2"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SDA"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FDCAN",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SCK_A"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "9",
+        "peripheral_subusage": "RTS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "9",
+        "peripheral_subusage": "DE"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A18"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D13"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D13"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PD14": {
+    "pad_name": "PD14",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "D",
+        "peripheral_subusage": "PIN_14",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "CH3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "CTS"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "9",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D0"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD0"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PD15": {
+    "pad_name": "PD15",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "D",
+        "peripheral_subusage": "PIN_15",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "CH4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "RTS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "DE"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "9",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PE0": {
+    "pad_name": "PE0",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "E",
+        "peripheral_subusage": "PIN_0",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "LPTIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "ETR"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "ETR"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "LPTIM",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "ETR"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "MCLK_A"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "NBL0"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "R0"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PE1": {
+    "pad_name": "PE1",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "E",
+        "peripheral_subusage": "PIN_1",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "LPTIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "IN2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "NBL1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "R6"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PE2": {
+    "pad_name": "PE2",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "E",
+        "peripheral_subusage": "PIN_2",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "TRACECLK"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CK1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "10",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SCK"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "MCLK_A"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "MCLK_A"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "CK1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "ETH",
+        "peripheral_subusage": "MII_TXD3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A23"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PE3": {
+    "pad_name": "PE3",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "E",
+        "peripheral_subusage": "PIN_3",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "TRACED0"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "15",
+        "peripheral_subusage": "BKIN"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "SD_B"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SD_B"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "USART",
+        "peripheral_instance": "10",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A19"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PE4": {
+    "pad_name": "PE4",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "E",
+        "peripheral_subusage": "PIN_4",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "TRACED1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "D2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "15",
+        "peripheral_subusage": "CH1N"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "NSS"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "FS_A"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "FS_A"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "D2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A20"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D4"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "B0"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PE5": {
+    "pad_name": "PE5",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "E",
+        "peripheral_subusage": "PIN_5",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "TRACED2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CK2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN3"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "15",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "MISO"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "SCK_A"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SCK_A"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "CK2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A21"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D6"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D6"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "G0"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PE6": {
+    "pad_name": "PE6",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "E",
+        "peripheral_subusage": "PIN_6",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "TRACED3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "BKIN2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "D1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "15",
+        "peripheral_subusage": "CH2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "MOSI"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "SD_A"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SD_A"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "D1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "MCLK_B"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "BKIN2_COMP12"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A22"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D7"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D7"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "G1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PE7": {
+    "pad_name": "PE7",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "E",
+        "peripheral_subusage": "PIN_7",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "ETR"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "7",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO4"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D4"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "OPAMP",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "VOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "COMP",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INM"
+      }
+    ]
+  },
+  "PE8": {
+    "pad_name": "PE8",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "E",
+        "peripheral_subusage": "PIN_8",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CH1N"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "7",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO5"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D5"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD5"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "COMP",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "OUT"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "OPAMP",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "VINM"
+      }
+    ]
+  },
+  "PE9": {
+    "pad_name": "PE9",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "E",
+        "peripheral_subusage": "PIN_9",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKOUT"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "7",
+        "peripheral_subusage": "RTS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "7",
+        "peripheral_subusage": "DE"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO6"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D6"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD6"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "OPAMP",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "VINP"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "COMP",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INP"
+      }
+    ]
+  },
+  "PE10": {
+    "pad_name": "PE10",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "E",
+        "peripheral_subusage": "PIN_10",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CH2N"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN4"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "7",
+        "peripheral_subusage": "CTS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO7"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D7"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD7"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "COMP",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INM"
+      }
+    ]
+  },
+  "PE11": {
+    "pad_name": "PE11",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "E",
+        "peripheral_subusage": "PIN_11",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CH2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN4"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "NSS"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SD_B"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "NCS"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D8"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD8"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "G3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "COMP",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INP"
+      }
+    ]
+  },
+  "PE12": {
+    "pad_name": "PE12",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "E",
+        "peripheral_subusage": "PIN_12",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CH3N"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN5"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SCK"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SCK_B"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D9"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD9"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "COMP",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "OUT"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "B4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PE13": {
+    "pad_name": "PE13",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "E",
+        "peripheral_subusage": "PIN_13",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CH3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN5"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "MISO"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "FS_B"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D10"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD10"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "COMP",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "OUT"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "DE"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PE14": {
+    "pad_name": "PE14",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "E",
+        "peripheral_subusage": "PIN_14",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CH4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "MOSI"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "MCLK_B"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D11"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD11"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "CLK"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PE15": {
+    "pad_name": "PE15",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "E",
+        "peripheral_subusage": "PIN_15",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "BKIN"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "USART",
+        "peripheral_instance": "10",
+        "peripheral_subusage": "CK"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "D12"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "AD12"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "BKIN_COMP12"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "R7"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PF0": {
+    "pad_name": "PF0",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "F",
+        "peripheral_subusage": "PIN_0",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "SDA"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "SDA"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P2",
+        "peripheral_subusage": "IO0"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A0"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "23",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PF1": {
+    "pad_name": "PF1",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "F",
+        "peripheral_subusage": "PIN_1",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "SCL"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "SCL"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P2",
+        "peripheral_subusage": "IO1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "23",
+        "peripheral_subusage": "CH2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PF2": {
+    "pad_name": "PF2",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "F",
+        "peripheral_subusage": "PIN_2",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "SMBA"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "SMBA"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P2",
+        "peripheral_subusage": "IO2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A2"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "23",
+        "peripheral_subusage": "CH3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PF3": {
+    "pad_name": "PF3",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "F",
+        "peripheral_subusage": "PIN_3",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P2",
+        "peripheral_subusage": "IO3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A3"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "23",
+        "peripheral_subusage": "CH4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "INP5"
+      }
+    ]
+  },
+  "PF4": {
+    "pad_name": "PF4",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "F",
+        "peripheral_subusage": "PIN_4",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P2",
+        "peripheral_subusage": "CLK"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "INN5"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "INP9"
+      }
+    ]
+  },
+  "PF5": {
+    "pad_name": "PF5",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "F",
+        "peripheral_subusage": "PIN_5",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P2",
+        "peripheral_subusage": "NCLK"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A5"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "INP4"
+      }
+    ]
+  },
+  "PF6": {
+    "pad_name": "PF6",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "F",
+        "peripheral_subusage": "PIN_6",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "16",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "FDCAN",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "NSS"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "SD_B"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "7",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SD_B"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO3"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "23",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "INN4"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "INP8"
+      }
+    ]
+  },
+  "PF7": {
+    "pad_name": "PF7",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "F",
+        "peripheral_subusage": "PIN_7",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "17",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FDCAN",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "SCK"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "MCLK_B"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "7",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "MCLK_B"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO2"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "23",
+        "peripheral_subusage": "CH2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "INP3"
+      }
+    ]
+  },
+  "PF8": {
+    "pad_name": "PF8",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "F",
+        "peripheral_subusage": "PIN_8",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "16",
+        "peripheral_subusage": "CH1N"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "MISO"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "SCK_B"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "7",
+        "peripheral_subusage": "RTS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "7",
+        "peripheral_subusage": "DE"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SCK_B"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "13",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO0"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "23",
+        "peripheral_subusage": "CH3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "INN3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "INP7"
+      }
+    ]
+  },
+  "PF9": {
+    "pad_name": "PF9",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "F",
+        "peripheral_subusage": "PIN_9",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "17",
+        "peripheral_subusage": "CH1N"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "MOSI"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "FS_B"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "7",
+        "peripheral_subusage": "CTS"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "FS_B"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "14",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "IO1"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "23",
+        "peripheral_subusage": "CH4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "INP2"
+      }
+    ]
+  },
+  "PF10": {
+    "pad_name": "PF10",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "F",
+        "peripheral_subusage": "PIN_10",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "16",
+        "peripheral_subusage": "BKIN"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "D3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D15"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "CLK"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "D3"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D11"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D11"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "LCD",
+        "peripheral_subusage": "DE"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "INN2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "3",
+        "peripheral_subusage": "INP6"
+      }
+    ]
+  },
+  "PF11": {
+    "pad_name": "PF11",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "F",
+        "peripheral_subusage": "PIN_11",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SPI",
+        "peripheral_instance": "5",
+        "peripheral_subusage": "MOSI"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P1",
+        "peripheral_subusage": "NCLK"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "SAI",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SD_B"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "NRAS"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DCMI",
+        "peripheral_subusage": "D12"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "PSSI",
+        "peripheral_subusage": "D12"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "24",
+        "peripheral_subusage": "CH1"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP2"
+      }
+    ]
+  },
+  "PF12": {
+    "pad_name": "PF12",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "F",
+        "peripheral_subusage": "PIN_12",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P2",
+        "peripheral_subusage": "DQS"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A6"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "24",
+        "peripheral_subusage": "CH2"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INN2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "INP6"
+      }
+    ]
+  },
+  "PF13": {
+    "pad_name": "PF13",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "F",
+        "peripheral_subusage": "PIN_13",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "DATIN6"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SMBA"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A7"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "24",
+        "peripheral_subusage": "CH3"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INP2"
+      }
+    ]
+  },
+  "PF14": {
+    "pad_name": "PF14",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "F",
+        "peripheral_subusage": "PIN_14",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "DFSDM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "CKIN6"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SCL"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A8"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "24",
+        "peripheral_subusage": "CH4"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INN2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "ADC",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "INP6"
+      }
+    ]
+  },
+  "PF15": {
+    "pad_name": "PF15",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "F",
+        "peripheral_subusage": "PIN_15",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "I2C",
+        "peripheral_instance": "4",
+        "peripheral_subusage": "SDA"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A9"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PG0": {
+    "pad_name": "PG0",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "G",
+        "peripheral_subusage": "PIN_0",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P2",
+        "peripheral_subusage": "IO4"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "9",
+        "peripheral_subusage": "RX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A10"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PG1": {
+    "pad_name": "PG1",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "G",
+        "peripheral_subusage": "PIN_1",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "OCTOSPIM",
+        "peripheral_instance": "P2",
+        "peripheral_subusage": "IO5"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "UART",
+        "peripheral_instance": "9",
+        "peripheral_subusage": "TX"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A11"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "OPAMP",
+        "peripheral_instance": "2",
+        "peripheral_subusage": "VINM"
+      }
+    ]
+  },
+  "PG2": {
+    "pad_name": "PG2",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "G",
+        "peripheral_subusage": "PIN_2",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "BKIN"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "BKIN_COMP12"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A12"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "24",
+        "peripheral_subusage": "ETR"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PG3": {
+    "pad_name": "PG3",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "G",
+        "peripheral_subusage": "PIN_3",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "BKIN2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "8",
+        "peripheral_subusage": "BKIN2_COMP12"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A13"
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "23",
+        "peripheral_subusage": "ETR"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PG4": {
+    "pad_name": "PG4",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "G",
+        "peripheral_subusage": "PIN_4",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "BKIN2"
+      },
+      {
+        "direction": "INPUT",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "BKIN2_COMP12"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A14"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "BA0"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "SYS",
+        "peripheral_subusage": "EVENTOUT"
+      }
+    ]
+  },
+  "PG5": {
+    "pad_name": "PG5",
+    "functions": [
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "GPIO",
+        "peripheral_instance": "G",
+        "peripheral_subusage": "PIN_5",
+        "variable_slew_capable": true,
+        "open_drain_capable": true
+      },
+      {
+        "direction": "BIDIRECTIONAL",
+        "peripheral_name": "TIM",
+        "peripheral_instance": "1",
+        "peripheral_subusage": "ETR"
+      },
+      {
+        "direction": "OUTPUT",
+        "peripheral_name": "FMC",
+        "peripheral_subusage": "A15"
+      },
+      {
+        "direction

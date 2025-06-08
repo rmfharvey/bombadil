@@ -1,6 +1,7 @@
 import copy
 import os
 import json
+from datetime import datetime
 from copy import deepcopy
 import pymupdf4llm
 from google import genai
@@ -11,9 +12,24 @@ from galvanic import colored_logger, global_logger
 _root = os.path.dirname(__file__)
 
 
+def log_token_usage(func):
+    def wrapper(*args, **kwargs):
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        response = func(*args, **kwargs)
+
+        # Log token usage
+        usage_meta = response.usage_metadata
+        args[0].log_transaction_tokens(usage_meta)
+
+        return response
+
+    return wrapper
+
+
 def sanitize_raw_output(func):
     def wrapper(*args, **kwargs):
         response = func(*args, **kwargs)
+
         try:
             sanitized = DatasheetConverter.remove_gemini_shittalking(response.text)
         except:
@@ -25,30 +41,45 @@ def sanitize_raw_output(func):
     return wrapper
 
 
+class TokenLogger:
+    def __init__(self):
+        self._transactions = []
+
+    def add_transaction(self, usage_meta, timestamp):
+        token_info = {
+            "timestamp": timestamp,
+            "total_tokens": usage_meta.total_token_count,
+            "prompt_tokens": usage_meta.prompt_token_count,
+            "cached_tokens": usage_meta.cached_content_token_count,
+            "output_tokens": usage_meta.thoughts_token_count,
+        }
+        self._transactions.append(token_info)
+        return token_info
+
+
 class DatasheetConverter:
     """Class to convert datasheet from PDF to JSON.
 
     :param str source_path: Path to datasheet.  Either PDF or Markdown
     """
 
-    # _GEMINI_MODEL = 'gemini-1.5-flash', # Misses a lot of info
-    # _GEMINI_MODEL = 'gemini-2.0-flash-001', # Gets more info but limits response length due to output token restrictions
-    # _GEMINI_MODEL = 'gemini-2.0-flash',
-    _GEMINI_MODEL = "gemini-2.5-pro-exp-03-25"
-    # _GEMINI_MODEL = "gemini-1.5-pro-latest"
+    _GEMINI_MODEL = "gemini-2.5-pro-preview-06-05"
+
+    _GEMINI_KEY = api_key = os.environ["GEMINI_KEY"]
+    # _GEMINI_KEY = api_key = os.environ["GEMINI_KEY_2"]
+    # _GEMINI_KEY = api_key = os.environ["GEMINI_KEY_3"]
 
     logger = global_logger
-    # logger = colored_logger("DatasheetReader")
 
     def __init__(self, source_path, output_directory):
         self._json = {}
+        self._token_logger = TokenLogger()
         self.output_directory = output_directory
         self._prompts = self._get_prompts()
         self.output_directory = output_directory
 
         # Set up LLM API
-        self._llm_client = genai.Client(api_key=os.environ["GEMINI_KEY"])
-        # self._llm_client = genai.Client(api_key=os.environ["GEMINI_KEY_2"])
+        self._llm_client = genai.Client(api_key=self._GEMINI_KEY)
 
         # Load source file
         self.load_source(source_path)
@@ -58,10 +89,25 @@ class DatasheetConverter:
     def analyze_datasheet(self):
         # AI Model Calls
         self._json["high_level"] = self.AI_PARSER_get_high_level_info()
+        return None
         self._json["pins"] = self.AI_PARSER_get_pin_info()
 
         if self.has_serial_bus:
             self._json["serial_bus"] = self.AI_PARSER_get_comms_register_map()
+
+    def log_transaction_tokens(self, usage_meta, timestamp=None):
+        """Logs tokens required for a query
+
+        :param GenerateContentResponseUsageMetadata usage_meta:  Usage metadata
+        """
+        if timestamp is None:
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        token_info = self._token_logger.add_transaction(usage_meta, timestamp)
+        self.logger.info(
+            "Total Token Count: {t[total_tokens]}\n\tInput: {t[prompt_tokens]}\n\tOutput: {t[output_tokens]}\n\tCached: {t[cached_tokens]}".format(
+                t=token_info
+            )
+        )
 
     def load_source(self, source_path):
         ### Get source file, based on input type
@@ -89,6 +135,7 @@ class DatasheetConverter:
     ### AI Parser calls
     ####################################################################################################################
     @sanitize_raw_output
+    @log_token_usage
     def AI_PARSER_get_high_level_info(self):
         """Get high level device info
 
@@ -114,6 +161,7 @@ class DatasheetConverter:
         return response
 
     @sanitize_raw_output
+    @log_token_usage
     def AI_PARSER_get_comms_register_map(self):
         """Get register map for comms bus
 
@@ -138,6 +186,7 @@ class DatasheetConverter:
         return response
 
     @sanitize_raw_output
+    @log_token_usage
     def AI_PARSER_get_pin_info(self):
         """Get IC pin info
 
@@ -262,15 +311,19 @@ class DatasheetConverter:
 
 class MicroDatasheetConverter(DatasheetConverter):
     def analyze_datasheet(self):
-        self._json["high_level"] = self.AI_PARSER_get_high_level_info()
-        self._json["cores"] = self.AI_PARSER_get_cores_and_memory()
+        # self._json["high_level"] = self.AI_PARSER_get_high_level_info()
+        # self._json["cores"] = self.AI_PARSER_get_cores_and_memory()
         self._json["pads"] = self.AI_PARSER_get_pin_muxing()
-        self._json["pin_pad_mapping"] = self.AI_PARSER_get_pin_pad_mapping()
+        # self._json["pin_pad_mapping"] = self.AI_PARSER_get_pin_pad_mapping()
+
+    def _get_pin_pad_mapping_iteratively(self):
+        pass
 
     ####################################################################################################################
     ### AI Parser calls
     ####################################################################################################################
     @sanitize_raw_output
+    @log_token_usage
     def AI_PARSER_get_pin_muxing(self):
         self.logger.info("Analyzing markdown datasheet to extract pin muxing info.")
 
@@ -293,6 +346,7 @@ class MicroDatasheetConverter(DatasheetConverter):
         # return pins
 
     @sanitize_raw_output
+    @log_token_usage
     def AI_PARSER_get_pin_pad_mapping(self):
         self.logger.info("Analyzing markdown datasheet to extract mapping between pin/pad for each package.")
 
@@ -311,6 +365,7 @@ class MicroDatasheetConverter(DatasheetConverter):
         return response
 
     @sanitize_raw_output
+    @log_token_usage
     def AI_PARSER_get_cores_and_memory(self):
         self.logger.info("Analyzing markdown datasheet to extract core and memory info.")
 
