@@ -130,6 +130,24 @@ class I2cBus(_SignalBus):
     bus_type = BUS_TYPES.I2C
 
 
+class SpiBus(_SignalBus):
+    _SIGNALS = ["SCK", "MOSI", "MISO"]
+    bus_type = BUS_TYPES.SPI
+
+    def add_cs(self, signal_name=None):
+        if signal_name is None:
+            signal_name = f"CS{self.cs_count+1}"
+        self.child_signals[f"CS_{signal_name}"] = CommsSignal("CS", self, signal_name)
+
+    @property
+    def cs_count(self):
+        c = 0
+        for name in self.child_signals:
+            if name not in self._SIGNALS:
+                c += 1
+        return c
+
+
 COLORS = {
     DigitalSignal: "#FFFF33",
     AnalogSignal: "#FFCC00",
