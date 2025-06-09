@@ -157,7 +157,7 @@ class DatasheetConverter:
     ####################################################################################################################
     ### AI Parser calls
     ####################################################################################################################
-    @sanitize_raw_output
+    @sanitize_raw_output()
     @log_token_usage
     def AI_PARSER_get_high_level_info(self):
         """Get high level device info
@@ -182,7 +182,7 @@ class DatasheetConverter:
         )
         return response
 
-    @sanitize_raw_output
+    @sanitize_raw_output()
     @log_token_usage
     def AI_PARSER_get_comms_register_map(self):
         """Get register map for comms bus
@@ -208,7 +208,7 @@ class DatasheetConverter:
         )
         return response
 
-    @sanitize_raw_output
+    @sanitize_raw_output()
     @log_token_usage
     def AI_PARSER_get_pin_info(self):
         """Get IC pin info
@@ -417,7 +417,7 @@ class MicroDatasheetConverter(DatasheetConverter):
         )
         return response
 
-    @sanitize_raw_output
+    @sanitize_raw_output()
     @log_token_usage
     def AI_PARSER_get_pin_pad_mapping(self):
         self.logger.info("Analyzing markdown datasheet to extract mapping between pin/pad for each package.")
@@ -436,7 +436,7 @@ class MicroDatasheetConverter(DatasheetConverter):
         )
         return response
 
-    @sanitize_raw_output(external_fault_handler=False)
+    @sanitize_raw_output()
     @log_token_usage
     def AI_PARSER_get_cores_and_memory(self):
         self.logger.info("Analyzing markdown datasheet to extract core and memory info.")
