@@ -1,5 +1,6 @@
 import copy
 import os
+import functools
 import json
 from datetime import datetime
 import pathlib
@@ -28,19 +29,26 @@ def log_token_usage(func):
     return wrapper
 
 
-def sanitize_raw_output(func):
-    def wrapper(*args, **kwargs):
-        response = func(*args, **kwargs)
+def sanitize_raw_output(external_fault_handler=False):
+    def outer_wrapper(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            response = func(*args, **kwargs)
 
-        try:
-            sanitized = DatasheetConverter.remove_gemini_shittalking(response.text)
-        except:
-            with open(os.path.join(_root, f"{func.__name__}.txt"), "w") as f:
-                f.write(response.text)
-            sanitized = False
-        return sanitized
+            try:
+                sanitized = DatasheetConverter.remove_gemini_shittalking(response.text)
+            except:
+                if external_fault_handler:
+                    sanitized = response
+                else:
+                    with open(os.path.join(_root, f"{func.__name__}.txt"), "w") as f:
+                        f.write(response.text)
+                    sanitized = False
+            return sanitized
 
-    return wrapper
+        return wrapper
+
+    return outer_wrapper
 
 
 class TokenLogger:
@@ -301,6 +309,7 @@ class DatasheetConverter:
             in_func_lines.append("  " * (i - 1) + "}")
         try:
             return reconstitute(in_func_lines)
+        # Else yolo!
         except:
             for i in range(int(leading_ws / 2), 0, -1):
                 lines.append("  " * (i - 1) + "}")
@@ -359,29 +368,31 @@ class DatasheetConverter:
 
 class MicroDatasheetConverter(DatasheetConverter):
     def analyze_datasheet(self):
-        # self._json["high_level"] = self.AI_PARSER_get_high_level_info()
-        # self._json["cores"] = self.AI_PARSER_get_cores_and_memory()
+        self._json["high_level"] = self.AI_PARSER_get_high_level_info()
+        self._json["cores"] = self.AI_PARSER_get_cores_and_memory()
         self._json["pads"] = self._get_pin_pad_mapping_iteratively()
-        # self._json["pin_pad_mapping"] = self.AI_PARSER_get_pin_pad_mapping()
+        self._json["pin_pad_mapping"] = self.AI_PARSER_get_pin_pad_mapping()
 
         # self._json["pads"] = self.AI_PARSER_get_pin_muxing()
 
     def _get_pin_pad_mapping_iteratively(self):
         finished = False
-        completed_pins = []
+        wip_dict = {}
         while not finished:
-            response = self.AI_PARSER_get_pin_muxing(completed_pins)
+            response = self.AI_PARSER_get_pin_muxing(list(wip_dict.keys()))
 
-            try:
-
-            except json.JSONDecodeError:
-                pass
-
+            if isinstance(response, dict):  # Success
+                finished = True
+                temp_dict = response
+            else:  # JSON must've been truncated, repair
+                temp_dict = self.repair_truncated_json(response.text)
+            wip_dict.update(temp_dict)
+        return wip_dict
 
     ####################################################################################################################
     ### AI Parser calls
     ####################################################################################################################
-    @sanitize_raw_output
+    @sanitize_raw_output(external_fault_handler=True)
     @log_token_usage
     def AI_PARSER_get_pin_muxing(self, completed_pins=[]):
         self.logger.info("Analyzing markdown datasheet to extract pin muxing info.")
@@ -425,7 +436,7 @@ class MicroDatasheetConverter(DatasheetConverter):
         )
         return response
 
-    @sanitize_raw_output
+    @sanitize_raw_output(external_fault_handler=False)
     @log_token_usage
     def AI_PARSER_get_cores_and_memory(self):
         self.logger.info("Analyzing markdown datasheet to extract core and memory info.")
