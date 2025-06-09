@@ -274,6 +274,38 @@ class DatasheetConverter:
 
         return md_text
 
+    @staticmethod
+    def repair_truncated_json(json_string):
+        reconstitute = lambda lines: json.loads("\n".join(lines))
+
+        lines = json_string.split("\n")
+        if lines[0] == "```json":
+            lines.pop(0)
+
+        # Find last close brackets and truncate to there
+        for i in range(len(lines) - 1, 0, -1):
+            if lines[i].endswith("}") or lines[i].endswith("},"):
+                last_term_idx = i
+                break
+        lines = lines[: last_term_idx + 1]
+        lines[-1] = lines[-1].strip(",")
+
+        # Strip comma and add closing braces
+        ll = lines[-1]
+        leading_ws = len(ll) - len(ll.lstrip())
+
+        # If in functions
+        in_func_lines = copy.deepcopy(lines)
+        in_func_lines.append("  " * int(leading_ws / 2 - 1) + "]")
+        for i in range(int(leading_ws / 2) - 1, 0, -1):
+            in_func_lines.append("  " * (i - 1) + "}")
+        try:
+            return reconstitute(in_func_lines)
+        except:
+            for i in range(int(leading_ws / 2), 0, -1):
+                lines.append("  " * (i - 1) + "}")
+            return reconstitute(lines)
+
     ###
     @staticmethod
     def remove_gemini_shittalking(response_str):
@@ -329,7 +361,7 @@ class MicroDatasheetConverter(DatasheetConverter):
     def analyze_datasheet(self):
         self._json["high_level"] = self.AI_PARSER_get_high_level_info()
         self._json["cores"] = self.AI_PARSER_get_cores_and_memory()
-        # self._json["pads"] = self.AI_PARSER_get_pin_muxing()
+        self._json["pads"] = self.AI_PARSER_get_pin_muxing()
         self._json["pin_pad_mapping"] = self.AI_PARSER_get_pin_pad_mapping()
 
     def _get_pin_pad_mapping_iteratively(self):
