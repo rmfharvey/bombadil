@@ -359,40 +359,52 @@ class DatasheetConverter:
 
 class MicroDatasheetConverter(DatasheetConverter):
     def analyze_datasheet(self):
-        self._json["high_level"] = self.AI_PARSER_get_high_level_info()
-        self._json["cores"] = self.AI_PARSER_get_cores_and_memory()
-        self._json["pads"] = self.AI_PARSER_get_pin_muxing()
-        self._json["pin_pad_mapping"] = self.AI_PARSER_get_pin_pad_mapping()
+        # self._json["high_level"] = self.AI_PARSER_get_high_level_info()
+        # self._json["cores"] = self.AI_PARSER_get_cores_and_memory()
+        self._json["pads"] = self._get_pin_pad_mapping_iteratively()
+        # self._json["pin_pad_mapping"] = self.AI_PARSER_get_pin_pad_mapping()
+
+        # self._json["pads"] = self.AI_PARSER_get_pin_muxing()
 
     def _get_pin_pad_mapping_iteratively(self):
-        pass
+        finished = False
+        completed_pins = []
+        while not finished:
+            response = self.AI_PARSER_get_pin_muxing(completed_pins)
+
+            try:
+
+            except json.JSONDecodeError:
+                pass
+
 
     ####################################################################################################################
     ### AI Parser calls
     ####################################################################################################################
     @sanitize_raw_output
     @log_token_usage
-    def AI_PARSER_get_pin_muxing(self):
+    def AI_PARSER_get_pin_muxing(self, completed_pins=[]):
         self.logger.info("Analyzing markdown datasheet to extract pin muxing info.")
+
+        skip_clause = ""
+        if len(completed_pins) > 0:
+            skip_clause = "The following pins have already been parsed and should be ignored: {}".format(
+                ", ".join(completed_pins)
+            )
 
         response = self._llm_client.models.generate_content(
             model=self._GEMINI_MODEL,
             contents=list(
                 {
                     "prompt": self._prompts["micro_pin_muxing"],
-                    # "datasheet": self.md_datasheet,
+                    "exempt_pins": skip_clause,
                     "protobuf_pin_schema": PROTOBUF.microcontroller.micro_pin,
                     "protobuf_pin_enums": PROTOBUF.misc.pin_enums,
                 }.values()
             ),
             config=types.GenerateContentConfig(cached_content=self._cache.name),
-            # config={
-            #     "response_mime_type": "application/json",
-            # },
         )
         return response
-        # pins = self._remove_gemini_shittalking(response.text)
-        # return pins
 
     @sanitize_raw_output
     @log_token_usage
@@ -404,7 +416,6 @@ class MicroDatasheetConverter(DatasheetConverter):
             contents=list(
                 {
                     "prompt": self._prompts["micro_pin_pad_mapping"],
-                    # "datasheet": self.md_datasheet,
                 }.values()
             ),
             config=types.GenerateContentConfig(cached_content=self._cache.name),
