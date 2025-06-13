@@ -1,4 +1,6 @@
 import re
+from sys import prefix
+
 
 # TODO check some returns on units
 
@@ -56,6 +58,29 @@ class MetricValue:
             result += units
 
         return result
+
+    @staticmethod
+    def num_to_prefix_as_decimal_str(num, default_decimal=".", str_length=4):
+        """Convert number to a string that uses the metric prefix as decimal.
+
+        :param float num: Number to convert
+        :param str default_decimal: Default decimal value to use if no metric prefix is present
+        :param ndigits: Number of decimal digits to use
+        :return: Prefix-as-Decimal formatted string.
+        """
+        # Get the standard metric string representation
+        base_str = MetricValue.num_to_str(num)
+        if base_str[-1].isalpha():
+            decimal = base_str[-1]
+            base_str = base_str[:-1]
+
+        # Split number string into before and after decimal
+        match = re.match(r"^([^.]*)(\.(.*))?$", base_str)
+        before = match.group(1)
+        after = match.group(3) or "0"
+
+        pasd_str = f"{before}{decimal}{after}"[:str_length].upper()
+        return pasd_str
 
     @staticmethod
     def str_to_num(metric_string):
@@ -134,3 +159,40 @@ class MetricValue:
         units = units.strip() if units else ""
 
         return {"value": value, "units": units}
+
+
+if __name__ == "__main__":
+    print(MetricValue.num_to_prefix_as_decimal_str(10266))  # "10K3
+    # test_strings = [
+    #     "1uF",
+    #     "1.5kHz",
+    #     "4.7mF",
+    #     "2.2MHz",
+    #     "0V",
+    #     "-50mV",
+    #     "1000Ohm",
+    #     "12.3",
+    #     "88.1pF",
+    #     "47nH",
+    #     "2.7GHz",
+    #     "100",
+    #     "",
+    #     "invalid",
+    #     # Test prefix-as-decimal format
+    #     "1k00",  # 1.00k = 1000
+    #     "1K00",  # 1.00k = 1000
+    #     "4M7",  # 4.7M = 4700000
+    #     "2k2",  # 2.2k = 2200
+    #     "2K2",  # 2.2k = 2200
+    #     "10k0",  # 10.0k = 10000
+    #     "1M0Ohm",  # 1.0MOhm = 1000000
+    #     "470pF",  # Standard format for comparison
+    #     "47p0F",  # 47.0p = 47e-12
+    #     "3n3H",  # 3.3nH = 3.3e-9
+    #     "22uF",  # Standard format
+    #     "22u0F",  # 22.0u = 22e-6
+    # ]
+    # for t in test_strings:
+    #     num = MetricValue.str_to_num(t)
+    #     str = MetricValue.num_to_str(num['value'], units=num['units'])
+    #     print(t, str, num)
