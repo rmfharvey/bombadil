@@ -82,6 +82,10 @@ class MetricValue:
         after = match.group(3) or "0"
 
         pasd_str = f"{before}{decimal}{after}"[:str_length].upper()
+        # Pad with trailing zeros if needed
+        padding = str_length - len(pasd_str)
+        if padding:
+            pasd_str += "0" * padding
         return pasd_str
 
     @staticmethod

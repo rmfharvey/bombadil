@@ -32,6 +32,15 @@ class VISHAY_CRCW:
             400: "X",
             "JUMPER": "0",
         },
+        "reel": {
+            "0201": ["ED", "EI", "EE"],
+            "0402": ["ED", "EE"],
+            "0603": ["ED", "EI", "EE"],
+            "0805": ["EA", "EC"],
+            "1206": ["EA", "EC"],
+            "2010": ["EF"],
+            "2512": ["EG", "EH"],
+        },
     }
 
     @staticmethod
@@ -39,6 +48,7 @@ class VISHAY_CRCW:
         series = VISHAY_CRCW._PN_MAPPING["type/size"][resistor.package]
 
         resistance = resistor.resistance
+        reel_str = VISHAY_CRCW._PN_MAPPING["reel"][resistor.package][0]
         if resistance == 0:
             res_str = "0000"
             tol_str = VISHAY_CRCW._PN_MAPPING["tolerance"]["JUMPER"]
@@ -48,7 +58,7 @@ class VISHAY_CRCW:
             tol_str = VISHAY_CRCW._PN_MAPPING["tolerance"][resistor.tolerance]
             temp_co_str = VISHAY_CRCW._PN_MAPPING["temp_coeff"][resistor.temp_coefficient]
 
-        return f"{series}{res_str}{tol_str}{temp_co_str}"  # TODO decide on how to handle packaging
+        return f"{series}{res_str}{tol_str}{temp_co_str}{reel_str}"  # TODO decide on how to handle packaging
 
 
 class YAGEO_AC:
@@ -388,27 +398,24 @@ def compile_resistor_pn_list():
             add_resistor(res, resistor_dict[PACKAGE])
 
         ###################################################################################
-        ### 1206                                                                        ###
+        packages = ["1206", "2010", "2512"]
         ###################################################################################
-        PACKAGE = "1206"
+        for PACKAGE in packages:
+            kw = {
+                "package": PACKAGE,
+                "tolerance": 1,
+                "temp_coefficient": 100,
+                "manufacturer": "Vishay",
+            }
 
-        kw = {
-            "package": PACKAGE,
-            "tolerance": 1,
-            "temp_coefficient": 100,
-            "manufacturer": "Vishay",
-            "rated_voltage": 200,
-            "power": 0.25,
-        }
-
-        ### 0R
-        res = Resistor(resistance=0, **kw)
-        add_resistor(res, resistor_dict[PACKAGE])
-
-        # 1R-10M
-        for r in ESeries.get_values(1, 10e6, ESeries.E96):
-            res = Resistor(resistance=r, **kw)
+            ### 0R
+            res = Resistor(resistance=0, **kw)
             add_resistor(res, resistor_dict[PACKAGE])
+
+            # 1R-10M
+            for r in ESeries.get_values(1, 10e6, ESeries.E96):
+                res = Resistor(resistance=r, **kw)
+                add_resistor(res, resistor_dict[PACKAGE])
 
         # TODO add larger packages
 
