@@ -38,10 +38,10 @@ class VISHAY_CRCW:
             res_str = "0000"
             tol_str = VISHAY_CRCW._PN_MAPPING["tolerance"]["JUMPER"]
             temp_co_str = VISHAY_CRCW._PN_MAPPING["temp_coeff"]["JUMPER"]
-
-        res_str = MetricValue.num_to_prefix_as_decimal_str(resistance, default_decimal="R", str_length=4)
-        tol_str = VISHAY_CRCW._PN_MAPPING["tolerance"][resistor.tolerance]
-        temp_co_str = VISHAY_CRCW._PN_MAPPING["temp_coeff"][resistor.temp_coefficient]
+        else:
+            res_str = MetricValue.num_to_prefix_as_decimal_str(resistance, default_decimal="R", str_length=4)
+            tol_str = VISHAY_CRCW._PN_MAPPING["tolerance"][resistor.tolerance]
+            temp_co_str = VISHAY_CRCW._PN_MAPPING["temp_coeff"][resistor.temp_coefficient]
 
         return f"{series}{res_str}{tol_str}{temp_co_str}"  # TODO decide on how to handle packaging
 
@@ -126,11 +126,139 @@ class ResistorSet:
 if __name__ == "__main__":
 
     def add_resistor(resistor, target):
-        if resistor.resistance not in resistors[PACKAGE]:
+        if resistor.resistance not in target:
             target[resistor.resistance] = {}
-        pn = res.part_number
+        pn = resistor.part_number
         if pn:
-            target[resistor.resistance][pn] = res
+            target[resistor.resistance][pn] = resistor
+
+    def add_vishay(resistor_dict):
+        ###################################################################################
+        ### 0201                                                                        ###
+        ###################################################################################
+        PACKAGE = "0201"
+
+        kw = {
+            "package": PACKAGE,
+            "tolerance": 1,
+            "temp_coefficient": 100,
+            "manufacturer": "Vishay",
+            "rated_voltage": 30,
+        }
+
+        ### 0R
+        res = Resistor(resistance=0, **kw)
+        add_resistor(res, resistor_dict[PACKAGE])
+
+        # 47R-1M
+        for r in ESeries.get_values(47, 1e6, ESeries.E96):
+            res = Resistor(resistance=r, **kw)
+            add_resistor(res, resistor_dict[PACKAGE])
+
+        ### 10R-47R, 1M-10M
+        rvals = ESeries.get_values(10, 46.99, ESeries.E96) + ESeries.get_values(1.0001e6, 10e6, ESeries.E96)
+        for r in rvals:
+            kw["temp_coefficient"] = 200
+            res = Resistor(resistance=r, **kw)
+            add_resistor(res, resistor_dict[PACKAGE])
+
+        ### 1R-9.76R
+        for r in ESeries.get_values(1, 9.76, ESeries.E96):
+            kw["temp_coefficient"] = 400
+            res = Resistor(resistance=r, **kw)
+            add_resistor(res, resistor_dict[PACKAGE])
+
+        ###################################################################################
+        ### 0402                                                                        ###
+        ###################################################################################
+        PACKAGE = "0402"
+
+        kw = {
+            "package": PACKAGE,
+            "tolerance": 1,
+            "temp_coefficient": 100,
+            "manufacturer": "Vishay",
+            "rated_voltage": 75,
+            "power": 0.1,
+        }
+
+        ### 0R
+        res = Resistor(resistance=0, **kw)
+        add_resistor(res, resistor_dict[PACKAGE])
+
+        # 1R-10M
+        for r in ESeries.get_values(1, 10e6, ESeries.E96):
+            res = Resistor(resistance=r, **kw)
+            add_resistor(res, resistor_dict[PACKAGE])
+
+        ###################################################################################
+        ### 0603                                                                        ###
+        ###################################################################################
+        PACKAGE = "0603"
+
+        kw = {
+            "package": PACKAGE,
+            "tolerance": 1,
+            "temp_coefficient": 100,
+            "manufacturer": "Vishay",
+            "rated_voltage": 75,
+            "power": 0.125,
+        }
+
+        ### 0R
+        res = Resistor(resistance=0, **kw)
+        add_resistor(res, resistor_dict[PACKAGE])
+
+        # 1R-10M
+        for r in ESeries.get_values(1, 10e6, ESeries.E96):
+            res = Resistor(resistance=r, **kw)
+            add_resistor(res, resistor_dict[PACKAGE])
+
+        ###################################################################################
+        ### 0805                                                                        ###
+        ###################################################################################
+        PACKAGE = "0805"
+
+        kw = {
+            "package": PACKAGE,
+            "tolerance": 1,
+            "temp_coefficient": 100,
+            "manufacturer": "Vishay",
+            "rated_voltage": 125,
+            "power": 0.15,
+        }
+
+        ### 0R
+        res = Resistor(resistance=0, **kw)
+        add_resistor(res, resistor_dict[PACKAGE])
+
+        # 1R-10M
+        for r in ESeries.get_values(1, 10e6, ESeries.E96):
+            res = Resistor(resistance=r, **kw)
+            add_resistor(res, resistor_dict[PACKAGE])
+
+        ###################################################################################
+        ### 1206                                                                        ###
+        ###################################################################################
+        PACKAGE = "1206"
+
+        kw = {
+            "package": PACKAGE,
+            "tolerance": 1,
+            "temp_coefficient": 100,
+            "manufacturer": "Vishay",
+            "rated_voltage": 200,
+            "power": 0.25,
+        }
+
+        ### 0R
+        res = Resistor(resistance=0, **kw)
+        add_resistor(res, resistor_dict[PACKAGE])
+
+        # 1R-10M
+        for r in ESeries.get_values(1, 10e6, ESeries.E96):
+            res = Resistor(resistance=r, **kw)
+            add_resistor(res, resistor_dict[PACKAGE])
 
     resistors = {
         "0201": {},
@@ -139,125 +267,7 @@ if __name__ == "__main__":
         "0805": {},
         "1206": {},
     }
-    ###################################################################################
-    ### 0201                                                                        ###
-    ###################################################################################
-    PACKAGE = "0201"
 
-    kw = {"package": PACKAGE, "tolerance": 1, "temp_coefficient": 100, "manufacturer": "Vishay", "rated_voltage": 30}
-
-    ### 0R
-    res = Resistor(resistance=0, **kw)
-    add_resistor(res, resistors[PACKAGE])
-
-    # 47R-1M
-    for r in ESeries.get_values(47, 1e6, ESeries.E96):
-        res = Resistor(resistance=r, **kw)
-        add_resistor(res, resistors[PACKAGE])
-
-    ### 10R-47R, 1M-10M
-    rvals = ESeries.get_values(10, 46.99, ESeries.E96) + ESeries.get_values(1.0001e6, 10e6, ESeries.E96)
-    for r in rvals:
-        kw["temp_coefficient"] = 200
-        res = Resistor(resistance=r, **kw)
-        add_resistor(res, resistors[PACKAGE])
-
-    ### 1R-9.76R
-    for r in ESeries.get_values(1, 9.76, ESeries.E96):
-        kw["temp_coefficient"] = 400
-        res = Resistor(resistance=r, **kw)
-        add_resistor(res, resistors[PACKAGE])
-
-    ###################################################################################
-    ### 0402                                                                        ###
-    ###################################################################################
-    PACKAGE = "0402"
-
-    kw = {
-        "package": PACKAGE,
-        "tolerance": 1,
-        "temp_coefficient": 100,
-        "manufacturer": "Vishay",
-        "rated_voltage": 75,
-        "power": 0.1,
-    }
-
-    ### 0R
-    res = Resistor(resistance=0, **kw)
-    add_resistor(res, resistors[PACKAGE])
-
-    # 1R-10M
-    for r in ESeries.get_values(1, 10e6, ESeries.E96):
-        res = Resistor(resistance=r, **kw)
-        add_resistor(res, resistors[PACKAGE])
-
-    ###################################################################################
-    ### 0603                                                                        ###
-    ###################################################################################
-    PACKAGE = "0603"
-
-    kw = {
-        "package": PACKAGE,
-        "tolerance": 1,
-        "temp_coefficient": 100,
-        "manufacturer": "Vishay",
-        "rated_voltage": 75,
-        "power": 0.125,
-    }
-
-    ### 0R
-    res = Resistor(resistance=0, **kw)
-    add_resistor(res, resistors[PACKAGE])
-
-    # 1R-10M
-    for r in ESeries.get_values(1, 10e6, ESeries.E96):
-        res = Resistor(resistance=r, **kw)
-        add_resistor(res, resistors[PACKAGE])
-
-    ###################################################################################
-    ### 0805                                                                        ###
-    ###################################################################################
-    PACKAGE = "0805"
-
-    kw = {
-        "package": PACKAGE,
-        "tolerance": 1,
-        "temp_coefficient": 100,
-        "manufacturer": "Vishay",
-        "rated_voltage": 125,
-        "power": 0.15,
-    }
-
-    ### 0R
-    res = Resistor(resistance=0, **kw)
-    add_resistor(res, resistors[PACKAGE])
-
-    # 1R-10M
-    for r in ESeries.get_values(1, 10e6, ESeries.E96):
-        res = Resistor(resistance=r, **kw)
-        add_resistor(res, resistors[PACKAGE])
-
-    ###################################################################################
-    ### 1206                                                                        ###
-    ###################################################################################
-    PACKAGE = "1206"
-
-    kw = {
-        "package": PACKAGE,
-        "tolerance": 1,
-        "temp_coefficient": 100,
-        "manufacturer": "Vishay",
-        "rated_voltage": 200,
-        "power": 0.25,
-    }
-
-    ### 0R
-    res = Resistor(resistance=0, **kw)
-    add_resistor(res, resistors[PACKAGE])
-
-    # 1R-10M
-    for r in ESeries.get_values(1, 10e6, ESeries.E96):
-        res = Resistor(resistance=r, **kw)
-        add_resistor(res, resistors[PACKAGE])
+    add_vishay(resistors)
 
     print()
