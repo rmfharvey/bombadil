@@ -1,6 +1,7 @@
 import json
 import os
 
+import requests.packages
 from mypy_extensions import KwArg
 
 from galvanic.utils.passive_naming_schema.series import ESeries
@@ -284,9 +285,64 @@ class Resistor:
 class ResistorSet:
     def __init__(self, resistors={}):
         self.resistors = resistors
+        self._validate_components()
 
-    def add_resistor(self, part_number, resistor):
-        self.resistors[part_number] = resistor
+    def _validate_components(self):
+        """Brute force shcek to make sure there
+        are no fatal errors"""
+        vals = self._get_component_vals_dict()
+
+        all_same = lambda k: len(list(set(vals[k]))) == 1
+
+        assert all_same("package")
+        assert all_same("resistance")
+
+    def _get_component_vals_dict(self):
+        """Compile a dictionary opf all component values"""
+        vals = {}
+        for k in list(self.resistors.values())[0].__dict__.keys():
+            vals[k] = [getattr(r, k) for r in self.resistors.values()]
+        return vals
+
+    @property
+    def set_name(self):
+        vals = self._get_component_vals_dict()
+
+        return f"RES,{self.package},{self.resistance_str_prefix_delimited},{self.tolerance}%,{self.power}W,{self.rated_voltage}V,{self.temp_coefficient}ppm"
+
+    @property
+    def resistance_str_prefix_delimited(self):
+        return list(self.resistors.values())[0].resistance_str_prefix_delimited
+
+    @property
+    def tolerance(self):
+        vals = self._get_component_vals_dict()
+        tolerance = max(vals["tolerance"])
+        return tolerance
+
+    @property
+    def temp_coefficient(self):
+        vals = self._get_component_vals_dict()
+        temp_coeff = max(vals["temp_coefficient"])
+        return temp_coeff
+
+    @property
+    def power(self):
+        vals = self._get_component_vals_dict()
+        power = min(vals["power"])
+        return power
+
+    @property
+    def rated_voltage(self):
+        vals = self._get_component_vals_dict()
+        voltage = min(vals["rated_voltage"])
+        return voltage
+
+    @property
+    def package(self):
+        vals = self._get_component_vals_dict()
+        package = vals["package"][0]
+        return package
 
 
 def compile_resistor_pn_list():
@@ -754,8 +810,6 @@ def compile_resistor_pn_list():
         "0603": {},
         "0805": {},
         "1206": {},
-        # "1210": {},
-        # "1218": {},
         "2010": {},
         "2512": {},
     }
@@ -764,7 +818,14 @@ def compile_resistor_pn_list():
     add_yageo(resistors)
     add_koa(resistors)
 
-    return resistors
+    # Convert to multisourced
+    resistor_sets = {}
+    for package, instances in resistors.items():
+        resistor_sets[package] = {}
+        for name, entry in instances.items():
+            resistor_sets[package][name] = ResistorSet(entry)
+
+    return resistor_sets
 
 
 if __name__ == "__main__":
