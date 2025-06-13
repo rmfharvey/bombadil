@@ -73,6 +73,8 @@ class MetricValue:
         if base_str[-1].isalpha():
             decimal = base_str[-1]
             base_str = base_str[:-1]
+        else:
+            decimal = default_decimal
 
         # Split number string into before and after decimal
         match = re.match(r"^([^.]*)(\.(.*))?$", base_str)
