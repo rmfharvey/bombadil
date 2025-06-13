@@ -45,10 +45,61 @@ class VISHAY_CRCW:
 
         return f"{series}{res_str}{tol_str}{temp_co_str}"  # TODO decide on how to handle packaging
 
-    # @staticmethod
-    # def (resistance_string):
-    #     resistance = None
-    #     return resistance
+
+class YAGEO_AC:
+    _PN_MAPPING = {
+        "type/size": {
+            "0201": "0201",
+            "0402": "0402",
+            "0603": "0603",
+            "0805": "0805",
+            "1206": "1206",
+            "1210": "1210",
+            "1218": "1218",
+            "2010": "2010",
+            "2512": "2512",
+        },
+        "tolerance": {
+            0.1: "B",
+            0.5: "D",
+            1: "F",
+            5: "J",
+        },
+        "packaging": {
+            "paper_reel": "R",
+            "embossed_reel": "K",
+        },
+        "temp_coeff": {
+            "spec": "-",
+            50: "E",
+        },
+        "reel": {
+            "7in standard power": "07",
+            "13in standard power": "13",
+            "7in standard 2x power": "7W",
+            "13in standard 2x power": "3W",
+        },
+    }
+
+    PACKAGING = "paper_reel"
+    REEL = "7in standard power"
+    TEMP_CO = "spec"
+
+    @staticmethod
+    def get_pn(resistor):
+        series = YAGEO_AC._PN_MAPPING["type/size"][resistor.package]
+
+        resistance = resistor.resistance
+        res_str = MetricValue.num_to_prefix_as_decimal_str(resistance, default_decimal="R", str_length=4).rstrip("0")
+        tol_str = YAGEO_AC._PN_MAPPING["tolerance"][resistor.tolerance]
+        temp_co_str = YAGEO_AC._PN_MAPPING["temp_coeff"][YAGEO_AC.TEMP_CO]
+        if resistor.package in ["1218", "2010", "2512"]:
+            packaging = YAGEO_AC._PN_MAPPING["packaging"]["embossed_reel"]
+        else:
+            packaging = YAGEO_AC._PN_MAPPING["packaging"]["paper_reel"]
+        reel_str = YAGEO_AC._PN_MAPPING["reel"][YAGEO_AC.REEL]
+
+        return f"AC{series}{tol_str}{packaging}{temp_co_str}{reel_str}{res_str}L"
 
 
 class Resistor:
@@ -58,6 +109,8 @@ class Resistor:
     resistance: float
     temp_coefficient: float
     tolerance: float
+    temp_min: float
+    temp_max: float
 
     PACKAGE_DEFAULTS = {
         "0201": {
@@ -80,9 +133,36 @@ class Resistor:
             "power": 0.25,
             "voltage": 200,
         },
+        "1210": {
+            "power": 0.5,
+            "voltage": 200,
+        },
+        "1218": {
+            "power": 1,
+            "voltage": 200,
+        },
+        "2010": {
+            "power": 0.75,
+            "voltage": 200,
+        },
+        "2512": {
+            "power": 1,
+            "voltage": 200,
+        },
     }
 
-    def __init__(self, package, resistance, tolerance, temp_coefficient, manufacturer, power=None, rated_voltage=None):
+    def __init__(
+        self,
+        package,
+        resistance,
+        tolerance,
+        temp_coefficient,
+        manufacturer,
+        power=None,
+        rated_voltage=None,
+        temp_min=-55,
+        temp_max=155,
+    ):
         self.package = package
         self.resistance = resistance
         self.tolerance = tolerance
@@ -99,15 +179,23 @@ class Resistor:
 
     @property
     def name(self):
-        return f"RES,{self.package},{self.resistance},{self.power},{self.rated_voltage}"
+        return f"RES,{self.package},{self.resistance_str_prefix_delimited},{self.tolerance}%,{self.power},{self.rated_voltage}"
+
+    @property
+    def name_short(self):
+        return f"RES,{self.package},{self.resistance_str_prefix_delimited},{self.tolerance}%"
 
     @property
     def resistance_str(self):
         return MetricValue.num_to_str(self.resistance, units="Ohm")
 
     @property
+    def resistance_str_prefix_delimited(self):
+        return MetricValue.num_to_prefix_as_decimal_str(self.resistance, default_decimal="R", str_length=4)
+
+    @property
     def part_number(self):
-        mfg_mapping = {"Vishay": VISHAY_CRCW.get_pn}
+        mfg_mapping = {"Vishay": VISHAY_CRCW.get_pn, "Yageo": YAGEO_AC.get_pn}
         pn_func = mfg_mapping.get(self.manufacturer)
         if pn_func is None:
             logger.warning("Could not derive a PN")
@@ -126,11 +214,13 @@ class ResistorSet:
 if __name__ == "__main__":
 
     def add_resistor(resistor, target):
-        if resistor.resistance not in target:
-            target[resistor.resistance] = {}
+        key = resistor.name_short
+        # key = resistor.resistance
+        if key not in target:
+            target[key] = {}
         pn = resistor.part_number
         if pn:
-            target[resistor.resistance][pn] = resistor
+            target[key][pn] = resistor
 
     def add_vishay(resistor_dict):
         ###################################################################################
@@ -141,9 +231,9 @@ if __name__ == "__main__":
         kw = {
             "package": PACKAGE,
             "tolerance": 1,
-            "temp_coefficient": 100,
+            "temp_coefficient": 200,
             "manufacturer": "Vishay",
-            "rated_voltage": 30,
+            "rated_voltage": 25,
         }
 
         ### 0R
@@ -151,16 +241,20 @@ if __name__ == "__main__":
         add_resistor(res, resistor_dict[PACKAGE])
 
         # 47R-1M
-        for r in ESeries.get_values(47, 1e6, ESeries.E96):
+        # for r in ESeries.get_values(47, 1e6, ESeries.E96):
+        #     res = Resistor(resistance=r, **kw)
+        #     add_resistor(res, resistor_dict[PACKAGE])
+        # 10R-10M
+        for r in ESeries.get_values(10, 10e6, ESeries.E96):
             res = Resistor(resistance=r, **kw)
             add_resistor(res, resistor_dict[PACKAGE])
 
-        ### 10R-47R, 1M-10M
-        rvals = ESeries.get_values(10, 46.99, ESeries.E96) + ESeries.get_values(1.0001e6, 10e6, ESeries.E96)
-        for r in rvals:
-            kw["temp_coefficient"] = 200
-            res = Resistor(resistance=r, **kw)
-            add_resistor(res, resistor_dict[PACKAGE])
+        # ### 10R-47R, 1M-10M
+        # rvals = ESeries.get_values(10, 46.99, ESeries.E96) + ESeries.get_values(1.0001e6, 10e6, ESeries.E96)
+        # for r in rvals:
+        #     kw["temp_coefficient"] = 200
+        #     res = Resistor(resistance=r, **kw)
+        #     add_resistor(res, resistor_dict[PACKAGE])
 
         ### 1R-9.76R
         for r in ESeries.get_values(1, 9.76, ESeries.E96):
@@ -260,14 +354,70 @@ if __name__ == "__main__":
             res = Resistor(resistance=r, **kw)
             add_resistor(res, resistor_dict[PACKAGE])
 
+    def add_yageo(resistor_dict):
+        ###################################################################################
+        ### 0201                                                                        ###
+        ###################################################################################
+        PACKAGE = "0201"
+
+        kw = {
+            "package": PACKAGE,
+            "tolerance": 1,
+            "temp_coefficient": 200,
+            "manufacturer": "Yageo",
+            "rated_voltage": 30,
+        }
+
+        # ### 0R
+        # res = Resistor(resistance=0, **kw)
+        # add_resistor(res, resistor_dict[PACKAGE])
+
+        # 1R-10M, 1%
+        for r in ESeries.get_values(1, 10e6, ESeries.E96):
+            res = Resistor(resistance=r, **kw)
+            add_resistor(res, resistor_dict[PACKAGE])
+        # 10R-1M, 0.5%
+        kw["tolerance"] = 0.5
+        for r in ESeries.get_values(10, 1e6, ESeries.E96):
+            res = Resistor(resistance=r, **kw)
+            add_resistor(res, resistor_dict[PACKAGE])
+
+        ###################################################################################
+        ### Others                                                                      ###
+        ###################################################################################
+        for package in ["0402", "0603", "0805", "1206"]:  # , "1210", "1218", "2010", "2512"]:
+            kw = {
+                "package": package,
+                "temp_coefficient": 100,
+                "manufacturer": "Yageo",
+            }
+
+            ### 0R
+            res = Resistor(resistance=0, tolerance=1, **kw)
+            add_resistor(res, resistor_dict[package])
+
+            # 1R-10M
+            for r in ESeries.get_values(1, 10e6, ESeries.E96):
+                # 1%
+                res = Resistor(resistance=r, tolerance=1, **kw)
+                add_resistor(res, resistor_dict[package])
+                # 0.5%
+                res = Resistor(resistance=r, tolerance=0.5, **kw)
+                add_resistor(res, resistor_dict[package])
+
     resistors = {
         "0201": {},
         "0402": {},
         "0603": {},
         "0805": {},
         "1206": {},
+        "1210": {},
+        "1218": {},
+        "2010": {},
+        "2512": {},
     }
 
     add_vishay(resistors)
+    add_yageo(resistors)
 
     print()
