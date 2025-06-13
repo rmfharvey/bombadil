@@ -1,5 +1,8 @@
 import json
 import os
+
+from mypy_extensions import KwArg
+
 from galvanic.utils.passive_naming_schema.series import ESeries
 from galvanic.utils.metric_formatting import MetricValue
 from galvanic import colored_logger
@@ -102,6 +105,69 @@ class YAGEO_AC:
         return f"AC{series}{tol_str}{packaging}{temp_co_str}{reel_str}{res_str}L"
 
 
+class KOA_RK73H:
+
+    _PN_MAPPING = {
+        "type/size": {
+            "0201": "1H",
+            "0402": "1E",
+            "0603": "1J",
+            "0805": "2A",
+            "1206": "2B",
+            "1210": "2E",
+            "2010": "2H",
+            "2512": "3A",
+        },
+        "tolerance": {
+            0.5: "D",
+            1: "F",
+        },
+        "reel": {
+            "0201": "TC",
+            "0402": "TP",
+            "2010": "TE",
+            "2512": "TE",
+            "all others": "TD",
+        },
+    }
+    SERIES = "RK73H"
+    PACKAGING = "paper_reel"
+    REEL = "2mm pitch punch paper"
+    TEMP_CO = "spec"
+
+    @staticmethod
+    def get_pn(resistor):
+
+        resistance = resistor.resistance
+
+        if resistance == 0:
+            jumper_mapping = {
+                "0201": "RK73Z1HTTC",
+                "0402": "RK73Z1ETTP",
+                "0603": "RK73Z1JTTD",
+                "0805": "RK73Z2ATTD",
+                "1206": "RK73Z2BTTD",
+                "2010": "RK73Z2HTTE",
+                "2512": "RK73Z3ATTE",
+            }
+            return jumper_mapping[resistor.package]
+
+        package_str = KOA_RK73H._PN_MAPPING["type/size"][resistor.package]
+        tol_str = KOA_RK73H._PN_MAPPING["tolerance"][resistor.tolerance]
+
+        if resistance < 100:
+            res_str = "{:2.2f}".format(resistance).replace(".", "R")[:4]
+        else:
+            res_str = str(resistance)
+            num = res_str[:3]
+            multiplier = len(res_str[3:])
+            res_str = f"{num}{multiplier}"
+
+        reel_str = KOA_RK73H._PN_MAPPING["reel"].get(resistor.package, "TD")
+
+        return f"RK73H{package_str}T{reel_str}{res_str}{tol_str}"
+
+
 class Resistor:
     package: str
     power: float
@@ -195,7 +261,7 @@ class Resistor:
 
     @property
     def part_number(self):
-        mfg_mapping = {"Vishay": VISHAY_CRCW.get_pn, "Yageo": YAGEO_AC.get_pn}
+        mfg_mapping = {"Vishay": VISHAY_CRCW.get_pn, "Yageo": YAGEO_AC.get_pn, "KOA Speer": KOA_RK73H.get_pn}
         pn_func = mfg_mapping.get(self.manufacturer)
         if pn_func is None:
             logger.warning("Could not derive a PN")
@@ -211,8 +277,7 @@ class ResistorSet:
         self.resistors[part_number] = resistor
 
 
-if __name__ == "__main__":
-
+def compile_resistor_pn_list():
     def add_resistor(resistor, target):
         key = resistor.name_short
         # key = resistor.resistance
@@ -240,21 +305,10 @@ if __name__ == "__main__":
         res = Resistor(resistance=0, **kw)
         add_resistor(res, resistor_dict[PACKAGE])
 
-        # 47R-1M
-        # for r in ESeries.get_values(47, 1e6, ESeries.E96):
-        #     res = Resistor(resistance=r, **kw)
-        #     add_resistor(res, resistor_dict[PACKAGE])
         # 10R-10M
         for r in ESeries.get_values(10, 10e6, ESeries.E96):
             res = Resistor(resistance=r, **kw)
             add_resistor(res, resistor_dict[PACKAGE])
-
-        # ### 10R-47R, 1M-10M
-        # rvals = ESeries.get_values(10, 46.99, ESeries.E96) + ESeries.get_values(1.0001e6, 10e6, ESeries.E96)
-        # for r in rvals:
-        #     kw["temp_coefficient"] = 200
-        #     res = Resistor(resistance=r, **kw)
-        #     add_resistor(res, resistor_dict[PACKAGE])
 
         ### 1R-9.76R
         for r in ESeries.get_values(1, 9.76, ESeries.E96):
@@ -354,6 +408,8 @@ if __name__ == "__main__":
             res = Resistor(resistance=r, **kw)
             add_resistor(res, resistor_dict[PACKAGE])
 
+        # TODO add larger packages
+
     def add_yageo(resistor_dict):
         ###################################################################################
         ### 0201                                                                        ###
@@ -405,6 +461,284 @@ if __name__ == "__main__":
                 res = Resistor(resistance=r, tolerance=0.5, **kw)
                 add_resistor(res, resistor_dict[package])
 
+    def add_koa(resistor_dict):
+        ### Add 0R resistors
+        for PACKAGE in ["0201", "0402", "0603", "0805", "1206", "2010", "2512"]:
+            res = Resistor(
+                resistance=0,
+                package=PACKAGE,
+                tolerance=1,
+                temp_coefficient=400,
+                manufacturer="KOA Speer",
+            )
+            add_resistor(res, resistor_dict[PACKAGE])
+
+        #########################################################################
+        PACKAGE = "0201"
+        #########################################################################
+        # 10R-10M, 1%
+        for r in ESeries.get_values(10, 1e6, ESeries.E96):
+            res = Resistor(
+                resistance=r,
+                package=PACKAGE,
+                tolerance=1,
+                temp_coefficient=200,
+                manufacturer="KOA Speer",
+                rated_voltage=25,
+            )
+            add_resistor(res, resistor_dict[PACKAGE])
+        for r in ESeries.get_values(1.02e6, 10e6, ESeries.E24):
+            res = Resistor(
+                resistance=r,
+                package=PACKAGE,
+                tolerance=1,
+                temp_coefficient=200,
+                manufacturer="KOA Speer",
+                rated_voltage=25,
+            )
+            add_resistor(res, resistor_dict[PACKAGE])
+        # 1R-9.1R, 1%
+        for r in ESeries.get_values(1, 9.1, ESeries.E24):
+            res = Resistor(
+                resistance=r,
+                package=PACKAGE,
+                tolerance=1,
+                temp_coefficient=400,
+                manufacturer="KOA Speer",
+                rated_voltage=25,
+            )
+            add_resistor(res, resistor_dict[PACKAGE])
+        # 10R-1M, 0.5%
+        for r in ESeries.get_values(10, 1e6, ESeries.E96):
+            res = Resistor(
+                resistance=r,
+                package=PACKAGE,
+                tolerance=0.5,
+                temp_coefficient=200,
+                manufacturer="KOA Speer",
+                rated_voltage=25,
+            )
+            add_resistor(res, resistor_dict[PACKAGE])
+
+        #########################################################################
+        PACKAGE = "0402"
+        #########################################################################
+        # 10R-10M, 1%
+        for r in ESeries.get_values(10, 1e6, ESeries.E96):
+            res = Resistor(
+                resistance=r,
+                package=PACKAGE,
+                tolerance=1,
+                temp_coefficient=100,
+                manufacturer="KOA Speer",
+                rated_voltage=75,
+            )
+            add_resistor(res, resistor_dict[PACKAGE])
+        # 1R-9.1R, 1.02M-10M 1%
+        for r in ESeries.get_values(1, 9.1, ESeries.E24) + ESeries.get_values(1.02e6, 10e6, ESeries.E24):
+            res = Resistor(
+                resistance=r,
+                package=PACKAGE,
+                tolerance=1,
+                temp_coefficient=200,
+                manufacturer="KOA Speer",
+                rated_voltage=75,
+            )
+            add_resistor(res, resistor_dict[PACKAGE])
+        # 10R-1M, 0.5%
+        for r in ESeries.get_values(10, 1e6, ESeries.E96):
+            res = Resistor(
+                resistance=r,
+                package=PACKAGE,
+                tolerance=0.5,
+                temp_coefficient=200,
+                manufacturer="KOA Speer",
+                rated_voltage=75,
+            )
+            add_resistor(res, resistor_dict[PACKAGE])
+        # 10R-1M, 0.5%
+        for r in ESeries.get_values(10, 1e6, ESeries.E96):
+            res = Resistor(
+                resistance=r,
+                package=PACKAGE,
+                tolerance=0.5,
+                temp_coefficient=100,
+                manufacturer="KOA Speer",
+                rated_voltage=75,
+            )
+            add_resistor(res, resistor_dict[PACKAGE])
+
+        #########################################################################
+        PACKAGE = "0603"
+        #########################################################################
+        # 1.02k-1M, 1%
+        for r in ESeries.get_values(1.02e3, 1e6, ESeries.E96):
+            res = Resistor(
+                resistance=r,
+                package=PACKAGE,
+                tolerance=1,
+                temp_coefficient=100,
+                manufacturer="KOA Speer",
+                rated_voltage=75,
+            )
+            add_resistor(res, resistor_dict[PACKAGE])
+        # 1.02M-10M 1%
+        for r in ESeries.get_values(1.02e6, 10e6, ESeries.E24):
+            res = Resistor(
+                resistance=r,
+                package=PACKAGE,
+                tolerance=1,
+                temp_coefficient=200,
+                manufacturer="KOA Speer",
+                rated_voltage=75,
+            )
+            add_resistor(res, resistor_dict[PACKAGE])
+        # 10R-1k 1%
+        for r in ESeries.get_values(10, 1e3, ESeries.E96):
+            res = Resistor(
+                resistance=r,
+                package=PACKAGE,
+                tolerance=1,
+                temp_coefficient=100,
+                manufacturer="KOA Speer",
+                rated_voltage=75,
+                power=0.125,
+            )
+            add_resistor(res, resistor_dict[PACKAGE])
+        # 1R-9.76k 1%
+        for r in ESeries.get_values(1, 9.76, ESeries.E24):
+            res = Resistor(
+                resistance=r,
+                package=PACKAGE,
+                tolerance=1,
+                temp_coefficient=200,
+                manufacturer="KOA Speer",
+                rated_voltage=75,
+                power=0.125,
+            )
+            add_resistor(res, resistor_dict[PACKAGE])
+
+        # 1.02k-1M, 0.5%
+        for r in ESeries.get_values(1.02e3, 1e6, ESeries.E96):
+            res = Resistor(
+                resistance=r,
+                package=PACKAGE,
+                tolerance=0.5,
+                temp_coefficient=100,
+                manufacturer="KOA Speer",
+                rated_voltage=75,
+            )
+            add_resistor(res, resistor_dict[PACKAGE])
+        # 10R-1k, 0.5%
+        for r in ESeries.get_values(10, 1e3, ESeries.E96):
+            res = Resistor(
+                resistance=r,
+                package=PACKAGE,
+                tolerance=0.5,
+                temp_coefficient=100,
+                manufacturer="KOA Speer",
+                rated_voltage=75,
+                power=0.125,
+            )
+            add_resistor(res, resistor_dict[PACKAGE])
+
+        #########################################################################
+        PACKAGE = "0805"
+        #########################################################################
+        # 10-1M
+        for r in ESeries.get_values(10, 1e6, ESeries.E96):
+            # 1%
+            res = Resistor(
+                resistance=r,
+                package=PACKAGE,
+                tolerance=1,
+                temp_coefficient=100,
+                manufacturer="KOA Speer",
+                rated_voltage=150,
+            )
+            add_resistor(res, resistor_dict[PACKAGE])
+            # 0.5%
+            res = Resistor(
+                resistance=r,
+                package=PACKAGE,
+                tolerance=0.5,
+                temp_coefficient=100,
+                manufacturer="KOA Speer",
+                rated_voltage=150,
+            )
+            add_resistor(res, resistor_dict[PACKAGE])
+        # 1-9.76 1%
+        for r in ESeries.get_values(1, 9.76, ESeries.E24):
+            res = Resistor(
+                resistance=r,
+                package=PACKAGE,
+                tolerance=1,
+                temp_coefficient=200,
+                manufacturer="KOA Speer",
+                rated_voltage=150,
+            )
+            add_resistor(res, resistor_dict[PACKAGE])
+        # 1.02M-10M 1%
+        for r in ESeries.get_values(1.02e6, 10e6, ESeries.E24):
+            res = Resistor(
+                resistance=r,
+                package=PACKAGE,
+                tolerance=1,
+                temp_coefficient=400,
+                manufacturer="KOA Speer",
+                rated_voltage=150,
+            )
+            add_resistor(res, resistor_dict[PACKAGE])
+
+        #########################################################################
+        packages = ["1206", "1210", "2010", "2512"]
+        #########################################################################
+        for PACKAGE in packages:
+            # 10-1M
+            for r in ESeries.get_values(10, 1e6, ESeries.E96):
+                # 1%
+                res = Resistor(
+                    resistance=r,
+                    package=PACKAGE,
+                    tolerance=1,
+                    temp_coefficient=100,
+                    manufacturer="KOA Speer",
+                    rated_voltage=200,
+                )
+                add_resistor(res, resistor_dict[PACKAGE])
+                # 0.5%
+                res = Resistor(
+                    resistance=r,
+                    package=PACKAGE,
+                    tolerance=0.5,
+                    temp_coefficient=100,
+                    manufacturer="KOA Speer",
+                    rated_voltage=200,
+                )
+                add_resistor(res, resistor_dict[PACKAGE])
+            # 1-9.76 1%
+            for r in ESeries.get_values(1, 9.76, ESeries.E24) + ESeries.get_values(1.02e6, 5.6e6, ESeries.E24):
+                res = Resistor(
+                    resistance=r,
+                    package=PACKAGE,
+                    tolerance=1,
+                    temp_coefficient=200,
+                    manufacturer="KOA Speer",
+                    rated_voltage=200,
+                )
+                add_resistor(res, resistor_dict[PACKAGE])
+            # 5.62M-10M 1%
+            for r in ESeries.get_values(5.62e6, 10e6, ESeries.E24):
+                res = Resistor(
+                    resistance=r,
+                    package=PACKAGE,
+                    tolerance=1,
+                    temp_coefficient=400,
+                    manufacturer="KOA Speer",
+                    rated_voltage=200,
+                )
+                add_resistor(res, resistor_dict[PACKAGE])
+
     resistors = {
         "0201": {},
         "0402": {},
@@ -419,5 +753,11 @@ if __name__ == "__main__":
 
     add_vishay(resistors)
     add_yageo(resistors)
+    add_koa(resistors)
 
+    return resistors
+
+
+if __name__ == "__main__":
+    resistors = compile_resistor_pn_list()
     print()
