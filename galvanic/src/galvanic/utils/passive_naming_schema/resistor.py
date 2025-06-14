@@ -249,6 +249,8 @@ class Resistor:
         self.manufacturer = manufacturer
         self.power = power
         self.rated_voltage = rated_voltage
+        self.temperature_min = temp_min
+        self.temperature_max = temp_max
 
         defaults = self.PACKAGE_DEFAULTS.get(self.package, {})
         if self.power is None:
@@ -305,7 +307,7 @@ class ResistorSet:
         return vals
 
     @property
-    def set_name(self):
+    def name(self):
         vals = self._get_component_vals_dict()
 
         return f"RES,{self.package},{self.resistance_str_prefix_delimited},{self.tolerance}%,{self.power}W,{self.rated_voltage}V,{self.temp_coefficient}ppm"
@@ -339,10 +341,28 @@ class ResistorSet:
         return voltage
 
     @property
+    def temperature_max(self):
+        vals = self._get_component_vals_dict()
+        temp_max = min(vals["temperature_max"])
+        return temp_max
+
+    @property
+    def temperature_min(self):
+        vals = self._get_component_vals_dict()
+        temp_min = min(vals["temperature_min"])
+        return temp_min
+
+    @property
     def package(self):
         vals = self._get_component_vals_dict()
         package = vals["package"][0]
         return package
+
+    @property
+    def resistance(self):
+        vals = self._get_component_vals_dict()
+        resistance = vals["resistance"][0]
+        return resistance
 
 
 def compile_resistor_pn_list():
