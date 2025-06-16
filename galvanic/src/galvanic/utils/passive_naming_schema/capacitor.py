@@ -49,11 +49,11 @@ class Capacitor:
 
     @property
     def name(self):
-        return f"CAP,{self.package},{self.capacitance_str_prefix_delimited},{self.rated_voltage}V,{self.tolerance}%,"
+        return f"CAP,{self.package},{self.capacitance_str},{self.rated_voltage}V,{self.tolerance}%,"
 
     @property
     def name_short(self):
-        return f"CAP,{self.package},{self.capacitance_str_prefix_delimited}"
+        return f"CAP,{self.package},{self.capacitance_str}"
 
     @property
     def capacitance_str(self):
@@ -171,25 +171,37 @@ def create_gcm_cap(pn):
     tolerance, pn = str_pop_to(1, pn)
     packaging = pn[-1]
 
-    capacitance = None
-    dielectric = mapping["temp_characteristic"][temp_characteristic]["dielectric"]
-    temp_max = mapping["temp_characteristic"][temp_characteristic]["temp_max"]
-    temp_min = mapping["temp_characteristic"][temp_characteristic]["temp_min"]
+    try:
+        # Get capacitance
+        if "R" in capacitance:
+            capacitance = float(capacitance.replace("R", "."))
+        else:
+            val = float(capacitance[:-1])
+            exponent = int(capacitance[-1])
+            capacitance = val * 10**exponent
+        capacitance *= 1e-12  # Convert from pF
 
-    info = {
-        "package": mapping["package"][package],
-        "capacitance": capacitance,
-        "rated_voltage": mapping["voltage"],
-        "dielectric": dielectric,
-        "tolerance": mapping["tolerance"][tolerance],
-        "manufacturer": "Murata",
-        "height": mapping["height"][height],
-        "temp_min": temp_min,
-        "temp_max": temp_max,
-        "part_number": pn_copy,
-    }
+        dielectric = mapping["temp_characteristic"][temp_characteristic]["dielectric"]
+        temp_max = mapping["temp_characteristic"][temp_characteristic]["temp_max"]
+        temp_min = mapping["temp_characteristic"][temp_characteristic]["temp_min"]
 
-    return info
+        info = {
+            "package": mapping["package"][package],
+            "capacitance": capacitance,
+            "rated_voltage": mapping["voltage"],
+            "dielectric": dielectric,
+            "tolerance": mapping["tolerance"][tolerance],
+            "manufacturer": "Murata",
+            "height": mapping["height"][height],
+            "temp_min": temp_min,
+            "temp_max": temp_max,
+            "part_number": pn_copy,
+        }
+
+        return Capacitor(**info)
+    except KeyError as err:
+        logger.warning(f"Failed to parse {pn_copy}.  Failed with error: {err}")
+        return None
 
 
 class CapacitorSet:
@@ -739,6 +751,8 @@ def compile_capacitor_pn_list():
             reader = DictReader(f)
             for cfg in reader:
                 cap = create_gcm_cap(cfg["Part Number"])
+                if cap is None:
+                    continue
                 add_capacitor(cap, cap_dict[cap.package])
                 print()
 
@@ -748,6 +762,7 @@ def compile_capacitor_pn_list():
         "0603": {},
         "0805": {},
         "1206": {},
+        "1210": {},
         "2010": {},
         "2512": {},
     }
