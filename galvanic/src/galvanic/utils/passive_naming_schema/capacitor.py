@@ -53,7 +53,7 @@ class Capacitor:
 
     @property
     def name_short(self):
-        return f"CAP,{self.package},{self.capacitance_str}"
+        return f"CAP,{self.package},{self.capacitance_str},{self.rated_voltage}V"
 
     @property
     def capacitance_str(self):
@@ -66,13 +66,6 @@ class Capacitor:
     @property
     def part_number(self):
         return self._part_number
-
-    #     mfg_mapping = {"Murata": MURATA_GCM.get_pn}  # , "Yageo": YAGEO_AC.get_pn, "KOA Speer": KOA_RK73H.get_pn}
-    #     pn_func = mfg_mapping.get(self.manufacturer)
-    #     if pn_func is None:
-    #         logger.warning("Could not derive a PN")
-    #         return False
-    #     return pn_func(self)
 
 
 def create_gcm_cap(pn):
