@@ -86,6 +86,9 @@ def create_gcm_cap(pn):
             "32": "1210",
         },
         "voltage": {
+            "0G": 2,
+            "0E": 2.2,
+            "0D": 4.0,
             "0J": 6.3,
             "1A": 10,
             "1C": 16,
@@ -188,7 +191,7 @@ def create_gcm_cap(pn):
         info = {
             "package": mapping["package"][package],
             "capacitance": capacitance,
-            "rated_voltage": mapping["voltage"],
+            "rated_voltage": mapping["voltage"][voltage],
             "dielectric": dielectric,
             "tolerance": mapping["tolerance"][tolerance],
             "manufacturer": "Murata",
