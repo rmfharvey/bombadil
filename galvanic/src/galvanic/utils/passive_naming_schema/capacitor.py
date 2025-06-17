@@ -50,11 +50,13 @@ class Capacitor:
 
     @property
     def name(self):
-        return f"CAP,{self.package},{self.capacitance_str},{self.rated_voltage}V,{self.dielectric},{self.tolerance}%,"
+        return (
+            f"CAP,{self.package},{self.capacitance_str},{self.rated_voltage_str},{self.dielectric},{self.tolerance}%,"
+        )
 
     @property
     def name_short(self):
-        return f"CAP,{self.package},{self.capacitance_str},{self.rated_voltage}V,{self.dielectric}"
+        return f"CAP,{self.package},{self.capacitance_str},{self.rated_voltage_str}"
 
     @property
     def capacitance_str(self):
@@ -65,8 +67,30 @@ class Capacitor:
         return MetricValue.num_to_prefix_as_decimal_str(self.capacitance, default_decimal=".", str_length=3)
 
     @property
+    def rated_voltage_str(self):
+        if int(self.rated_voltage) == self.rated_voltage:
+            return f"{int(self.rated_voltage)}V"
+        else:
+            return "{:3.1f}V".format(self.rated_voltage)
+
+    @property
     def part_number(self):
         return self._part_number
+
+
+DIELECTRICS = [
+    "C0G",
+    "X6S",
+    "X6T",
+    "X7R",
+    "X7S",
+    "X7T",
+    "X7U",
+    "X8L",
+    "X8M",
+    "X8N",
+    "X8R",
+]
 
 
 def create_gcm_cap(pn):
@@ -177,7 +201,7 @@ def create_gcm_cap(pn):
             val = float(capacitance[:-1])
             exponent = int(capacitance[-1])
             capacitance = val * 10**exponent
-        capacitance *= 1e-12  # Convert from pF
+        capacitance = round(capacitance * 1e-12, 15)  # Convert from pF
 
         dielectric = mapping["temp_characteristic"][temp_characteristic]["dielectric"]
         temp_max = mapping["temp_characteristic"][temp_characteristic]["temp_max"]
@@ -187,7 +211,7 @@ def create_gcm_cap(pn):
             if abs(capacitance) == "D" and capacitance >= 10e-12:
                 tolerance = mapping["tolerance"][tolerance]
             else:
-                tolerance = round(mapping["tolerance"][tolerance] * 1e-12 / capacitance, 2)
+                tolerance = round(100 * mapping["tolerance"][tolerance] * 1e-12 / capacitance, 2)
 
         info = {
             "package": mapping["package"][package],
@@ -209,26 +233,57 @@ def create_gcm_cap(pn):
 
 
 def create_tdk_cap(cfg):
-    print()
-    # Package
-    idx = cfg["L x W Size"].index("[EIA ") + 5
-    package = cfg["L x W Size"][idx:].replace("]", "")
+    def split_chars(s):
+        digits = float("".join(c for c in s if (c.isdigit() or c == ".")))
+        nondigits = "".join(c for c in s if not c.isdigit())
+        return digits, nondigits.strip(".")
 
-    # Capacitance
-    capacitance = MetricValue(cfg["Capacitance"])
+    pn = cfg["Part No."]
+    if " " in pn:
+        part_number = pn[: pn.index(" ")]
+    else:
+        part_number = pn
+    try:
+        # Package
+        idx = cfg["L x W Size"].index("[EIA ") + 5
+        package = cfg["L x W Size"][idx:].replace("]", "")
+
+        # Capacitance
+        c_str = cfg["Capacitance"].replace("Î¼", "u")
+        capacitance = round(MetricValue.str_to_num(c_str)["value"], 15)
+        voltage = float(cfg["Rated Voltage [DC] / V"])
+        dielectric = cfg["Temp. Chara."]
+        height = cfg["T(Max.) / mm"]
+
+        # Tolerance
+        tol_str = cfg["Tolerance"].replace("Â±", "")
+        tolerance, units = split_chars(tol_str)
+        if units != "%":
+            tolerance = round(100 * MetricValue.str_to_num(tol_str)["value"] / capacitance, 2)
+
+        # Temp
+        temp_min, temp_max = cfg["Operating Temp. Range / Â°C"].split("to")
+        temp_min = float(temp_min)
+        temp_max = float(temp_max)
+
+        assert dielectric in DIELECTRICS, f"{dielectric} not in supported types"
+    except Exception as err:
+        logger.warning(f"Failed to parse {part_number}.  Failed with error: {err}")
+        return None
 
     cap = Capacitor(
         package=package,
-        capacitance=None,
-        rated_voltage=None,
-        dielectric=None,
-        tolerance=None,
-        height=None,
-        temp_min=None,
-        temp_max=None,
-        manufacturer=None,
-        part_number=None,
+        capacitance=capacitance,
+        rated_voltage=voltage,
+        dielectric=dielectric,
+        tolerance=tolerance,
+        height=height,
+        temp_min=temp_min,
+        temp_max=temp_max,
+        manufacturer="TDK",
+        part_number=part_number,
     )
+    cap.source = cfg["source"]
     return cap
 
 
@@ -272,8 +327,28 @@ def create_tdk_cap(cfg):
 
 class CapacitorSet:
     def __init__(self, capacitors={}):
-        self.capacitors = capacitors
+        self.capacitors = self._assign_caps(capacitors)
         self._validate_components()
+
+    def _assign_caps(self, capacitors):
+        """Sort to make sure all manufacturers are represented it this gets truncated"""
+        by_mfg = {}
+        for c_name, c in capacitors.items():
+            if c.manufacturer not in by_mfg:
+                by_mfg[c.manufacturer] = {}
+            by_mfg[c.manufacturer][c_name] = c
+
+        # Round robin popping
+        caps = {}
+        parts_exist = {m: True for m in by_mfg}
+        while any(parts_exist.values()):
+            for m, parts in by_mfg.items():
+                if len(parts) == 0:
+                    parts_exist[m] = False
+                    continue
+                key = list(parts.keys())[0]
+                caps[key] = parts.pop(key)
+        return list(caps.values())
 
     def _validate_components(self):
         """Brute force shcek to make sure there
@@ -285,13 +360,13 @@ class CapacitorSet:
         assert all_same("package")
         assert all_same("capacitance")
         assert all_same("rated_voltage")
-        assert all_same("dielectric")
         assert all_same("capacitance")
 
     def _get_component_vals_dict(self):
         """Compile a dictionary opf all component values"""
         vals = {}
         for k in list(self.capacitors.values())[0].__dict__.keys():
+            # for k in list(self.capacitors.values())[0].__dict__.keys():
             vals[k] = [getattr(r, k) for r in self.capacitors.values()]
         return vals
 
@@ -338,14 +413,15 @@ class CapacitorSet:
     @property
     def capacitance(self):
         vals = self._get_component_vals_dict()
-        capacitance = round(vals["capacitance"][0], 14)
+        capacitance = round(vals["capacitance"][0], 15)
         return capacitance
 
     @property
     def dielectric(self):
         vals = self._get_component_vals_dict()
-        dielectric = vals["dielectric"][0]
-        return dielectric
+        supported_dielectrics = [DIELECTRICS.index(d) for d in vals["dielectric"]]
+        min_dielectric = min(supported_dielectrics)
+        return DIELECTRICS[min_dielectric]
 
     @property
     def capacitance_str(self):
@@ -356,11 +432,14 @@ def compile_capacitor_pn_list():
     def add_capacitor(capacitor, target):
         key = capacitor.name_short
         # key = capacitor.capacitance
+        entry_added = False
         if key not in target:
             target[key] = {}
+            entry_added = True
         pn = capacitor.part_number
         if pn:
             target[key][pn] = capacitor
+        return int(entry_added)
 
     def create_gcm_cap(pn):
         mapping = {
@@ -469,7 +548,7 @@ def compile_capacitor_pn_list():
                 val = float(capacitance[:-1])
                 exponent = int(capacitance[-1])
                 capacitance = val * 10**exponent
-            capacitance *= 1e-12  # Convert from pF
+            capacitance = round(capacitance * 1e-12, 15)  # Convert from pF
 
             dielectric = mapping["temp_characteristic"][temp_characteristic]["dielectric"]
             temp_max = mapping["temp_characteristic"][temp_characteristic]["temp_max"]
@@ -944,30 +1023,37 @@ def compile_capacitor_pn_list():
 
     def add_murata(cap_dict):
         _root = os.path.dirname(__file__)
-
+        unique_pn_count = 0
         with open(os.path.join(_root, "docs/Murata GCM Parts List.csv"), "r") as f:
             reader = DictReader(f)
             for cfg in reader:
                 cap = create_gcm_cap(cfg["Part Number"])
                 if cap is None:
                     continue
-                add_capacitor(cap, cap_dict[cap.package])
-                print()
+                new_entry = add_capacitor(cap, cap_dict[cap.package])
+                unique_pn_count += new_entry
+        return unique_pn_count
 
     def add_tdk(cap_dict):
         _root = os.path.dirname(__file__)
-
+        unique_pn_count = 0
         tdk_ref_list = []
         csv_path = os.path.join(_root, "docs/tdk_csvs")
         ref_files = os.listdir(csv_path)
         for doc in ref_files:
             with open(os.path.join(csv_path, doc), "r") as f:
                 temp = csv.DictReader(f)
-                tdk_ref_list += list(temp)
+                for item in temp:
+                    item["source"] = doc
+                    tdk_ref_list.append(item)
+                # tdk_ref_list += list(temp)
         for cap_cfg in tdk_ref_list:
             cap = create_tdk_cap(cap_cfg)
-            add_capacitor(cap, cap_dict[cap.package])
-        print()
+            if cap is None:
+                continue
+            new_entry = add_capacitor(cap, cap_dict[cap.package])
+            unique_pn_count += new_entry
+        return unique_pn_count
 
     capacitors = {
         "0201": {},
@@ -983,8 +1069,11 @@ def compile_capacitor_pn_list():
     # add_vishay(capacitors)
     # add_yageo(capacitors)
     # add_koa(capacitors)
-    add_murata(capacitors)
-    add_tdk(capacitors)
+    new_entries = add_murata(capacitors)
+    # print(f"New Murata Entries: {new_entries}")
+
+    new_entries = add_tdk(capacitors)
+    print(f"New TDK Entries: {new_entries}")
 
     # for package, cap_options in capacitors.items():
     #     for cap_name, caps in cap_options.items():
