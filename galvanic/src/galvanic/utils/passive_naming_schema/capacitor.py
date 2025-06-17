@@ -17,6 +17,7 @@ class Capacitor:
     capacitance: float
     rated_voltage: float
     dielectric: str
+    tolerance: float
     height: float
     temp_min: float
     temp_max: float
