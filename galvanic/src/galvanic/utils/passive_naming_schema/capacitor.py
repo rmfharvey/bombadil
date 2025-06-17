@@ -365,9 +365,9 @@ class CapacitorSet:
     def _get_component_vals_dict(self):
         """Compile a dictionary opf all component values"""
         vals = {}
-        for k in list(self.capacitors.values())[0].__dict__.keys():
+        for k in self.capacitors[0].__dict__.keys():
             # for k in list(self.capacitors.values())[0].__dict__.keys():
-            vals[k] = [getattr(r, k) for r in self.capacitors.values()]
+            vals[k] = [getattr(r, k) for r in self.capacitors]
         return vals
 
     @property
