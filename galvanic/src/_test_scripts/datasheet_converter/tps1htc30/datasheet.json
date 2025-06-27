@@ -1,0 +1,183 @@
+{
+  "high_level":{
+    "base_part_number":"TPS1HTC30-Q1",
+    "device_type":"HIGH_SIDE_DRIVER",
+    "manufacturer":"Texas Instruments",
+    "packages":[
+      "PWP (HTSSOP, 14)"
+    ],
+    "part_numbers":{
+      "TPS1HTC30AQPWPRQ1":{
+        "options":{}
+      }
+    },
+    "serial_busses":[]
+  },
+  "pins":{
+    "DIAG_EN":{
+      "description":"Enable-disable pin for diagnostics, internal pulldown",
+      "direction":"INPUT",
+      "input_voltage":{
+        "max":5.5,
+        "min":-1.0,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"DOWN",
+        "pull_value":{
+          "max":500.0,
+          "min":200.0,
+          "nom":350.0,
+          "units":"k\u03a9"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"DIAG_EN",
+      "pin_id":"3",
+      "type":"DIGITAL",
+      "vih":{
+        "min":1.5,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.8,
+        "units":"V"
+      }
+    },
+    "EN":{
+      "description":"Input control for channel activation, internal pulldown",
+      "direction":"INPUT",
+      "input_voltage":{
+        "max":5.5,
+        "min":-1.0,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"DOWN",
+        "pull_value":{
+          "max":500.0,
+          "min":200.0,
+          "nom":350.0,
+          "units":"k\u03a9"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"EN",
+      "pin_id":"2",
+      "type":"DIGITAL",
+      "vih":{
+        "min":1.5,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.8,
+        "units":"V"
+      }
+    },
+    "FAULT":{
+      "description":"Open drain global fault output. Referred to FLT, or fault pin",
+      "direction":"OUTPUT",
+      "name":"FAULT",
+      "output_type":"OPEN_DRAIN",
+      "pin_id":"4",
+      "type":"DIGITAL",
+      "vol":{
+        "max":0.5,
+        "units":"V"
+      }
+    },
+    "GND":{
+      "description":"Ground of device. Connect to resistor- diode ground network to have reverse battery protection",
+      "direction":"INPUT",
+      "name":"GND",
+      "pin_id":"1",
+      "type":"POWER"
+    },
+    "ILIM":{
+      "description":"Adjustable current limit. Short to ground or leave floating if external current limit is not used",
+      "direction":"INPUT",
+      "name":"ILIM",
+      "pin_id":"7",
+      "type":"ANALOG"
+    },
+    "LATCH":{
+      "description":"Thermal shutdown behavior, latch off or auto retry, internal pull down",
+      "direction":"INPUT",
+      "input_voltage":{
+        "max":5.5,
+        "min":-1.0,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"DOWN",
+        "pull_value":{
+          "max":1400.0,
+          "min":700.0,
+          "nom":1000.0,
+          "units":"k\u03a9"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"LATCH",
+      "pin_id":"5",
+      "type":"DIGITAL",
+      "vih":{
+        "min":1.5,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.8,
+        "units":"V"
+      }
+    },
+    "NC":{
+      "description":"No internal connection",
+      "direction":"INPUT",
+      "name":"NC",
+      "pin_id":"11",
+      "type":"OTHER"
+    },
+    "Pad":{
+      "description":"Thermal Pad, internally shorted to ground",
+      "direction":"INPUT",
+      "name":"Pad",
+      "pin_id":"Thermal Pad",
+      "type":"POWER"
+    },
+    "SNS":{
+      "description":"Output corresponding sense value based on sense ratio",
+      "direction":"OUTPUT",
+      "name":"SNS",
+      "pin_id":"6",
+      "type":"ANALOG"
+    },
+    "VOUT":{
+      "description":"Output of high side switch, connected to load",
+      "direction":"OUTPUT",
+      "name":"VOUT",
+      "output_current":{
+        "nom":6.0,
+        "units":"A"
+      },
+      "output_voltage":{
+        "max":64.0,
+        "min":-60.0,
+        "units":"V"
+      },
+      "pin_id":"[8, 9, 10]",
+      "type":"POWER"
+    },
+    "VS":{
+      "description":"Power supply",
+      "direction":"INPUT",
+      "input_voltage":{
+        "max":60.0,
+        "min":6.0,
+        "units":"V"
+      },
+      "name":"VS",
+      "pin_id":"[12, 13, 14]",
+      "type":"POWER"
+    }
+  }
+}

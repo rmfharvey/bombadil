@@ -174,4 +174,4 @@ cython_debug/
 .pypirc
 
 # Other
-galvanic/src/_test_scripts/*
+#galvanic/src/_test_scripts/*

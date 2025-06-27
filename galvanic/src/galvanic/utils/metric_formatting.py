@@ -11,6 +11,7 @@ class MetricValue:
         "p": 1e-12,
         "n": 1e-9,
         "u": 1e-6,
+        "μ": 1e-6,
         "m": 1e-3,
         "k": 1e3,
         "M": 1e6,
@@ -50,7 +51,7 @@ class MetricValue:
                 best_value = scaled_value
                 break
 
-        formatted_num = str(best_value).rstrip("0").rstrip(".")
+        formatted_num = "{:3.2f}".format(best_value).rstrip("0").rstrip(".")
 
         # Construct the final string
         result = f"{sign}{formatted_num}{best_prefix}"
