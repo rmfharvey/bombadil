@@ -2,6 +2,7 @@ class DIRECTION:
     INPUT = "Input"
     OUTPUT = "Output"
     IO = "IO"
+    NONE = "None"
 
 
 class POLARITY:

@@ -1,4 +1,7 @@
 from galvanic.utils.enums import DIRECTION, POLARITY, PWM_INPUT_TYPE, BUS_TYPES
+from galvanic import colored_logger
+
+logger = colored_logger(__file__, level="DEBUG")
 
 
 class _Signal:
@@ -45,6 +48,10 @@ class DigitalSignal(_Signal):
         DIRECTION.INPUT: "DI",
     }
     SUFFIX_MAPPING = _Signal.get_suffix_mapping(SUFFIX)
+    REGEX = {
+        DIRECTION.OUTPUT: r"^(.+)\.DO$",
+        DIRECTION.INPUT: r"^(.+)\.DI$",
+    }
 
 
 class AnalogSignal(_Signal):
@@ -53,6 +60,10 @@ class AnalogSignal(_Signal):
         DIRECTION.INPUT: "AI",
     }
     SUFFIX_MAPPING = _Signal.get_suffix_mapping(SUFFIX)
+    REGEX = {
+        DIRECTION.OUTPUT: r"^(.+)\.AO$",
+        DIRECTION.INPUT: r"^(.+)\.AI$",
+    }
 
 
 class PwmSignal(_Signal):
@@ -67,6 +78,10 @@ class PwmSignal(_Signal):
         },
     }
     SUFFIX_MAPPING = _Signal.get_suffix_mapping(SUFFIX)
+    REGEX = {
+        DIRECTION.OUTPUT: r"^(.+)\.PWM$",
+        DIRECTION.INPUT: r"^(.+)\.PWMIN_(.+)$",
+    }
 
     def __init__(self, signal_name, direction, pwm_in_type=None):
         super().__init__(signal_name=signal_name, direction=direction)
@@ -147,6 +162,44 @@ class SpiBus(_SignalBus):
                 c += 1
         return c
 
+
+class PowerRail(_Signal):
+    REGULATION_PREFIX = {
+        True: "PWR",
+        False: "VBUS",
+    }
+    _SEPARATOR = "_"
+
+    def __init__(self, voltage, signal_name=None, regulated=True, switched=False):
+        super().__init__(signal_name=signal_name, direction=DIRECTION.NONE)
+        self.voltage = voltage
+        self.regulated = regulated
+        self.switched = switched
+
+    @property
+    def name(self):
+        # Determine Voltage string
+        if self.regulated:
+            vstr = f"{round(self.voltage, 2)}".replace(".", "V")
+        else:
+            vstr = f"{int(self.voltage)}V"
+        if float(vstr.replace("V", ".")) != self.voltage:
+            logger.warning(f"Voltage {vstr} is overdefined.")
+
+        components = [self.REGULATION_PREFIX[self.regulated], vstr]
+
+        if self.signal_name is not None:
+            components.append(self.signal_name)
+        if self.switched:
+            components.append("SW")
+
+        name = self._SEPARATOR.join(components)
+        return name
+
+
+ALL_SIGNALS = {
+    cls.__name__: cls for cls in (DigitalSignal, AnalogSignal, PwmSignal, UartBus, I2cBus, SpiBus, PowerRail)
+}
 
 COLORS = {
     DigitalSignal: "#FFFF33",
