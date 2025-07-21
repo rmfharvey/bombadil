@@ -1,0 +1,26 @@
+Use the following datasheet to compile a table of available core types and memory sizes for each package and part number option.
+This usually appears in a table towards the front of the datasheet title "Family Comparison" or something similar.
+
+Return data as a JSON file in the following format:
+{
+  parent_part_number: {
+    package_name: {
+      cores: [
+        {
+          "name": human_readable_core_name,
+          "architecture": core_architecture,
+          "clock_speed": max_clock_speed_in_Hz,
+          "mips_per_mhz": number_of_mips_per_mhz
+        },
+        ...
+      ]
+      memory: {
+        data_type: size_in_MB,
+        ...
+      }
+    }
+  }
+}
+
+data_type will be named like code_flash, sram, ram, etc
+Format all keys in lower case with underscores instead of whitespace.

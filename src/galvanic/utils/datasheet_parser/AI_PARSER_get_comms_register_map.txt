@@ -1,0 +1,766 @@
+{
+  "fields": [
+    {
+      "register_location": [
+        {
+          "register_address": 0
+        }
+      ],
+      "name": "WHO_AM_I",
+      "description": "Register to indicate to user which device is being accessed. The value for ICM-20948 is 0xEA."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 3
+        }
+      ],
+      "name": "DMP_EN",
+      "description": "1 – Enables DMP features. 0 – DMP features are disabled after the current processing round has completed."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 3
+        }
+      ],
+      "name": "FIFO_EN",
+      "description": "1 – Enable FIFO operation mode. 0 – Disable FIFO access from serial interface. To disable FIFO writes by DMA, use FIFO_EN register. To disable possible FIFO writes from DMP, disable the DMP."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 3
+        }
+      ],
+      "name": "I2C_MST_EN",
+      "description": "1 – Enable the I2C Master I/F module; pins ES_DA and ES_SCL are isolated from pins SDA/SDI and SCL/ SCLK. 0 – Disable I2C Master I/F module; pins ES_DA and ES_SCL are logically driven by pins SDA/SDI and SCL/ SCLK."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 3
+        }
+      ],
+      "name": "I2C_IF_DIS",
+      "description": "1 – Reset I2C Slave module and put the serial interface in SPI mode only."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 3
+        }
+      ],
+      "name": "DMP_RST",
+      "description": "1 – Reset DMP module. Reset is asynchronous. This bit auto clears after one clock cycle of the internal 20 MHz clock."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 3
+        }
+      ],
+      "name": "SRAM_RST",
+      "description": "1 – Reset SRAM module. Reset is asynchronous. This bit auto clears after one clock cycle of the internal 20 MHz clock."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 3
+        }
+      ],
+      "name": "I2C_MST_RST",
+      "description": "1 – Reset I2C Master module. Reset is asynchronous. This bit auto clears after one clock cycle of the internal 20 MHz clock. NOTE: This bit should only be set when the I2C master has hung. If this bit is set during an active I2C master transaction, the I2C slave will hang, which will require the host to reset the slave."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 5
+        }
+      ],
+      "name": "I2C_MST_CYCLE",
+      "description": "1 - Operate I2C master in duty cycled mode. ODR is determined by I2C_MST_ODR_CONFIG register. 0 – Disable I2C master duty cycled mode."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 5
+        }
+      ],
+      "name": "ACCEL_CYCLE",
+      "description": "1 – Operate ACCEL in duty cycled mode. ODR is determined by ACCEL_SMPLRT_DIV register. 0 – Disable ACCEL duty cycled mode."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 5
+        }
+      ],
+      "name": "GYRO_CYCLE",
+      "description": "1 – Operate GYRO in duty cycled mode. ODR is determined by GYRO_SMPLRT_DIV register. 0 – Disable GYRO duty cycled mode."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 6
+        }
+      ],
+      "name": "DEVICE_RESET",
+      "description": "1 – Reset the internal registers and restores the default settings. Write a 1 to set the reset, the bit will auto clear."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 6
+        }
+      ],
+      "name": "SLEEP",
+      "description": "When set, the chip is set to sleep mode (in sleep mode all analog is powered off). Clearing the bit wakes the chip from sleep mode."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 6
+        }
+      ],
+      "name": "LP_EN",
+      "description": "The LP_EN only affects the digital circuitry, it helps to reduce the digital current when sensors are in LP mode. Please note that the sensors themselves are set in LP mode by the LP_CONFIG register settings. Sensors in LP mode, and use of LP_EN bit together help to reduce overall current. The bit settings are: 1: Turn on low power feature. 0: Turn off low power feature. LP_EN has no effect when the sensors are in low-noise mode."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 6
+        }
+      ],
+      "name": "TEMP_DIS",
+      "description": "When set to 1, this bit disables the temperature sensor."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 7
+        }
+      ],
+      "name": "DISABLE_ACCEL",
+      "description": "Only the following values are applicable: 111 – Accelerometer (all axes) disabled. 000 – Accelerometer (all axes) on."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 7
+        }
+      ],
+      "name": "DISABLE_GYRO",
+      "description": "Only the following values are applicable: 111 – Gyroscope (all axes) disabled. 000 – Gyroscope (all axes) on."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 15
+        }
+      ],
+      "name": "INT1_ACTL",
+      "description": "1 – The logic level for INT1 pin is active low. 0 – The logic level for INT1 pin is active high."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 15
+        }
+      ],
+      "name": "INT1_OPEN",
+      "description": "1 – INT1 pin is configured as open drain. 0 – INT1 pin is configured as push-pull."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 15
+        }
+      ],
+      "name": "INT1_LATCH__EN",
+      "description": "1 – INT1 pin level held until interrupt status is cleared. 0 – INT1 pin indicates interrupt pulse is width 50 µs."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 15
+        }
+      ],
+      "name": "INT_ANYRD_2CLEAR",
+      "description": "1 – Interrupt status in INT_STATUS is cleared (set to 0) if any read operation is performed. 0 – Interrupt status in INT_STATUS is cleared (set to 0) only by reading INT_STATUS register. This bit only affects the interrupt status bits that are contained in the register INT_STATUS, and the corresponding hardware interrupt. This bit does not affect the interrupt status bits that are contained in registers INT_STATUS_1, INT_STATUS_2, INT_STATUS_3, and the corresponding hardware interrupt."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 15
+        }
+      ],
+      "name": "ACTL_FSYNC",
+      "description": "1 – The logic level for the FSYNC pin as an interrupt to the ICM-20948 is active low. 0 – The logic level for the FSYNC pin as an interrupt to the ICM-20948 is active high."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 15
+        }
+      ],
+      "name": "FSYNC_INT_MODE_EN",
+      "description": "1 – This enables the FSYNC pin to be used as an interrupt. A transition to the active level described by the ACTL_FSYNC bit will cause an interrupt. The status of the interrupt is read in the I2C Master Status register PASS_THROUGH bit. 0 – This disables the FSYNC pin from causing an interrupt."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 15
+        }
+      ],
+      "name": "BYPASS_EN",
+      "description": "When asserted, the I2C_MASTER interface pins (ES_CL and ES_DA) will go into ‘bypass mode’ when the I2C master interface is disabled."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 16
+        }
+      ],
+      "name": "REG_WOF_EN",
+      "description": "1 – Enable wake on FSYNC interrupt. 0 – Function is disabled."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 16
+        }
+      ],
+      "name": "WOM_INT_EN",
+      "description": "1 – Enable interrupt for wake on motion to propagate to interrupt pin 1. 0 – Function is disabled."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 16
+        }
+      ],
+      "name": "PLL_RDY_EN",
+      "description": "1 – Enable PLL RDY interrupt (PLL RDY means PLL is running and in use as the clock source for the system) to propagate to interrupt pin 1. 0 – Function is disabled."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 16
+        }
+      ],
+      "name": "DMP_INT1_EN",
+      "description": "1 – Enable DMP interrupt to propagate to interrupt pin 1. 0 – Function is disabled."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 16
+        }
+      ],
+      "name": "I2C_MST_INT_EN",
+      "description": "1 – Enable I2C master interrupt to propagate to interrupt pin 1. 0 – Function is disabled."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 17
+        }
+      ],
+      "name": "RAW_DATA_0_RDY_EN",
+      "description": "1 – Enable raw data ready interrupt from any sensor to propagate to interrupt pin 1. 0 – Function is disabled."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 18
+        }
+      ],
+      "name": "FIFO_OVERFLOW_EN",
+      "description": "1 – Enable interrupt for FIFO overflow to propagate to interrupt pin 1. 0 – Function is disabled."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 19
+        }
+      ],
+      "name": "FIFO_WM_EN",
+      "description": "1 – Enable interrupt for FIFO watermark to propagate to interrupt pin 1. 0 – Function is disabled."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 23
+        }
+      ],
+      "name": "PASS_THROUGH",
+      "description": "Status of FSYNC interrupt – used as a way to pass an external interrupt through this chip to the host. If enabled in the INT_PIN_CFG register by asserting bit FSYNC_INT_MODE_EN, this will cause an interrupt. A read of this register clears all status bits in this register."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 23
+        }
+      ],
+      "name": "I2C_SLV4_DONE",
+      "description": "Asserted when I2C slave 4’s transfer is complete, will cause an interrupt if bit I2C_MST_INT_EN in the INT_ENABLE register is asserted, and if the SLV4_DONE_INT_EN bit is asserted in the I2C_SLV4_CTRL register."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 23
+        }
+      ],
+      "name": "I2C_LOST_ARB",
+      "description": "Asserted when I2C slave loses arbitration of the I2C bus, will cause an interrupt if bit I2C_MST_INT_EN in the INT_ENABLE register is asserted."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 23
+        }
+      ],
+      "name": "I2C_SLV4_NACK",
+      "description": "Asserted when slave 4 receives a NACK, will cause an interrupt if bit I2C_MST_INT_EN in the INT_ENABLE register is asserted."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 23
+        }
+      ],
+      "name": "I2C_SLV3_NACK",
+      "description": "Asserted when slave 3 receives a NACK, will cause an interrupt if bit I2C_MST_INT_EN in the INT_ENABLE register is asserted."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 23
+        }
+      ],
+      "name": "I2C_SLV2_NACK",
+      "description": "Asserted when slave 2 receives a NACK, will cause an interrupt if bit I2C_MST_INT_EN in the INT_ENABLE register is asserted."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 23
+        }
+      ],
+      "name": "I2C_SLV1_NACK",
+      "description": "Asserted when slave 1 receives a NACK, will cause an interrupt if bit I2C_MST_INT_EN in the INT_ENABLE register is asserted."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 23
+        }
+      ],
+      "name": "I2C_SLV0_NACK",
+      "description": "Asserted when slave 0 receives a NACK, will cause an interrupt if bit I2C_MST_INT_EN in the INT_ENABLE register is asserted."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 25
+        }
+      ],
+      "name": "WOM_INT",
+      "description": "1 – Wake on motion interrupt occurred."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 25
+        }
+      ],
+      "name": "PLL_RDY_INT",
+      "description": "1 – Indicates that the PLL has been enabled and is ready (delay of 4 ms ensures lock)."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 25
+        }
+      ],
+      "name": "DMP_INT1",
+      "description": "1 – Indicates the DMP has generated INT1 interrupt."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 25
+        }
+      ],
+      "name": "I2C_MST_INT",
+      "description": "1 – Indicates I2C master has generated an interrupt."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 26
+        }
+      ],
+      "name": "RAW_DATA_0_RDY_INT",
+      "description": "1 – Sensor Register Raw Data, from all sensors, is updated and ready to be read."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 27
+        }
+      ],
+      "name": "FIFO_OVERFLOW_INT",
+      "description": "1 – FIFO Overflow interrupt occurred."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 28
+        }
+      ],
+      "name": "FIFO_WM_INT",
+      "description": "1 – Watermark interrupt for FIFO occurred."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 40
+        }
+      ],
+      "name": "DELAY_TIMEH",
+      "description": "High-byte of delay time between FSYNC event and the 1st gyro ODR event (after the FSYNC event). Reading DELAY_TIMEH will lock DELAY_TIMEH and DELAY_TIMEL from the next update. Reading DELAY_TIMEL will unlock DELAY_TIMEH and DELAY_TIMEL to take the next update due to an FSYNC event."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 41
+        }
+      ],
+      "name": "DELAY_TIMEL",
+      "description": "Low-byte of delay time between FSYNC event and the 1st gyro ODR event (after the FSYNC event). Reading DELAY_TIMEH will lock DELAY_TIMEH and DELAY_TIMEL from the next update. Reading DELAY_TIMEL will unlock DELAY_TIMEH and DELAY_TIMEL to take the next update due to an FSYNC event. Delay time in µs = (DELAY_TIMEH * 256 + DELAY_TIMEL) * 0.9645"
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 45
+        }
+      ],
+      "name": "ACCEL_XOUT_H",
+      "description": "High Byte of Accelerometer X-axis data."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 46
+        }
+      ],
+      "name": "ACCEL_XOUT_L",
+      "description": "Low Byte of Accelerometer X-axis data. To convert the output of the accelerometer to acceleration measurement use the formula below: X_acceleration = ACCEL_XOUT/Accel_Sensitivity"
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 47
+        }
+      ],
+      "name": "ACCEL_YOUT_H",
+      "description": "High Byte of Accelerometer Y-axis data."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 48
+        }
+      ],
+      "name": "ACCEL_YOUT_L",
+      "description": "Low Byte of Accelerometer Y-axis data. To convert the output of the accelerometer to acceleration measurement use the formula below: Y_acceleration = ACCEL_YOUT/Accel_Sensitivity"
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 49
+        }
+      ],
+      "name": "ACCEL_ZOUT_H",
+      "description": "High Byte of Accelerometer Z-axis data."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 50
+        }
+      ],
+      "name": "ACCEL_ZOUT_L",
+      "description": "Low Byte of Accelerometer Z-axis data. To convert the output of the accelerometer to acceleration measurement use the formula below: Z_acceleration = ACCEL_ZOUT/Accel_Sensitivity"
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 51
+        }
+      ],
+      "name": "GYRO_XOUT_H",
+      "description": "High Byte of Gyroscope X-axis data."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 52
+        }
+      ],
+      "name": "GYRO_XOUT_L",
+      "description": "Low Byte of Gyroscope X-axis data. To convert the output of the gyroscope to angular rate measurement use the formula below: X_angular_rate = GYRO_XOUT/Gyro_Sensitivity"
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 53
+        }
+      ],
+      "name": "GYRO_YOUT_H",
+      "description": "High Byte of Gyroscope Y-axis data."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 54
+        }
+      ],
+      "name": "GYRO_YOUT_L",
+      "description": "Low Byte of Gyroscope Y-axis data. To convert the output of the gyroscope to angular rate measurement use the formula below: Y_angular_rate = GYRO_YOUT/Gyro_Sensitivity"
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 55
+        }
+      ],
+      "name": "GYRO_ZOUT_H",
+      "description": "High Byte of Gyroscope Z-axis data."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 56
+        }
+      ],
+      "name": "GYRO_ZOUT_L",
+      "description": "Low Byte of Gyroscope Z-axis data. To convert the output of the gyroscope to angular rate measurement use the formula below: Z_angular_rate = GYRO_ZOUT/Gyro_Sensitivity"
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 57
+        }
+      ],
+      "name": "TEMP_OUT_H",
+      "description": "High Byte of Temp sensor data."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 58
+        }
+      ],
+      "name": "TEMP_OUT_L",
+      "description": "Low Byte of Temp sensor data. To convert the output of the temperature sensor to degrees C use the following formula: TEMP_degC = ((TEMP_OUT – RoomTemp_Offset)/Temp_Sensitivity) + 21degC"
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 59
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_00",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 60
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_01",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 61
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_02",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 62
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_03",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 63
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_04",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 64
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_05",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 65
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_06",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 66
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_07",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 67
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_08",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 68
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_09",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 69
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_10",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 70
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_11",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 71
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_12",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 72
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_13",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 73
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_14",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 74
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_15",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 75
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_16",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 76
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_17",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 77
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_18",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 78
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_19",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 79
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_20",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2C_SLV(0- 4)_CTRL registers."
+    },
+    {
+      "register_location": [
+        {
+          "register_address": 80
+        }
+      ],
+      "name": "EXT_SLV_SENS_DATA_21",
+      "description": "Sensor data read from external I2C devices via the I2C master interface. The data stored is controlled by the I2C_SLV(0-4)_ADDR, I2C_SLV(0-4)_REG, and I2

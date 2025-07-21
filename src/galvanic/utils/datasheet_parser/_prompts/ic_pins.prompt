@@ -1,0 +1,18 @@
+Use the following datasheet to compile pin information, including electrical characteristics, for all of this device's physical pins.
+General pin information can usually be found in a table towards the begginning of the datasheet.  Electrical parameters usually will be defined after this table.
+
+All engineering ranges and values should be given units, if provided.
+The units are stored in the 'units' field.  'min', 'nom', and 'max' values should be floats unless they're expressed as an equation based on other pin values.
+If there are multiple min/max values for EngineeringRange or EngineeringValue data, use the most extreme.  This
+
+Return this information in a JSON file and do not format this as markdown (i.e. it should start and end with curly or square braces)
+Each JSON pin object should match the form of the protobuf message that it corresponds to.
+The JSON file should be a dictionary indexed by pin 'name'.  This name should indicate function, i.e. VOUT, VIN, PAD, etc
+
+It's possible that multiple pins have the same name.  If this happens, it means that the pins are all assigned to the same function.
+In this case, all individual pin names should be joined together and enclosed in square braces.  Example: "[1, 3, 7]".
+
+The schema and datatypes for each type of data is defined in the protobuf files.  Use this to determine the json schema.
+When compiling the JSON object for each pin, do not make up new keys which are not present in the protobuf file that defines the schema.  Try to map everything to existing keys.
+
+Return the raw json and do not format as a markdown code block or add any of your editorializing or explanation.

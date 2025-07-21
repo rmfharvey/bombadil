@@ -1,9 +1,10 @@
-from pathlib import Path
+"""Top-level package for galvanic."""
 
+__author__ = """Ross Harvey"""
+__email__ = "rmfharvey@gmail.com"
+__version__ = "0.1.0"
 
-class PATHS:
-    ROOT = Path(__file__).parent
-    ALTIUM = ROOT / "galvanic_altium"
-    DESIGN = ROOT.parent / "galvanic_design"
-    SCHEMAS = ROOT.parent / "galvanic_schemas"
-    VALIDATION = ROOT.parent / "galvanic_validation"
+from galvanic.utils.colored_logger import colored_logger
+from galvanic.ui import MainApp
+
+global_logger = colored_logger("global")
