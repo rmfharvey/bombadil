@@ -8,7 +8,7 @@ logger = colored_logger(__file__, level="DEBUG")
 
 
 def regex(cls):
-    cls.REGEX = {sig: r"^{}\.(.+)\.{}$".format(cls.bus_type, sig) for sig in cls._SIGNALS}
+    cls.REGEX = {sig: r"^{}\.(.+){}$".format(cls.bus_type, sig) for sig in cls._SIGNALS}
     return cls
 
 

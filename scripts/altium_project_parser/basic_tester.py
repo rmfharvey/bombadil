@@ -1,5 +1,5 @@
 import json
-
+from galvanic.signal import determine_signal_type
 from galvanic_altium.altium_server_api import AltiumServerAPI, AltiumProject
 
 if __name__ == "__main__":
@@ -18,4 +18,8 @@ if __name__ == "__main__":
     with open(f"{PRJ_NAME}.json", "w") as f:
         json.dump(cfg, f, indent=2, separators=(",", ": "))
 
+    # Try to determine all signal types
+    nets = {}
+    for n in project.nets:
+        nets[n] = determine_signal_type(n)
     print()
