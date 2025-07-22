@@ -1,7 +1,15 @@
+import re
+from turtledemo.sorting_animate import start_ssort
+
 from galvanic.utils.enums import DIRECTION, POLARITY, PWM_INPUT_TYPE, BUS_TYPES
 from galvanic import colored_logger
 
 logger = colored_logger(__file__, level="DEBUG")
+
+
+def regex(cls):
+    cls.REGEX = {sig: r"^{}\.(.+)\.{}$".format(cls.bus_type, sig) for sig in cls._SIGNALS}
+    return cls
 
 
 class _Signal:
@@ -12,10 +20,23 @@ class _Signal:
     _SEPARATOR = "."
     SUFFIX = {}
     SUFFIX_MAPPING = {}
+    REGEX = {}
 
     def __init__(self, signal_name, direction):
         self.signal_name = signal_name
         self.direction = direction
+
+    @staticmethod
+    def regex_match(regex, string):
+        direction, is_match = None, None
+
+        for dir, regex in regex.items():
+            match = re.match(regex, string)
+            if match:
+                direction = dir
+                is_match = True  # match.group(1)
+                break
+        return direction, is_match
 
     @staticmethod
     def get_suffix_mapping(suffixes):
@@ -111,6 +132,18 @@ class _SignalBus:
         self.bus_name = bus_name
         self.child_signals = {subusage: CommsSignal(subusage, self) for subusage in self._SIGNALS}
 
+    @staticmethod
+    def regex_match(regex, string):
+        subusage, is_match = None, None
+
+        for subusage, regex in regex.items():
+            match = re.match(regex, string)
+            if match:
+                direction = subusage
+                is_match = True  # match.group(1)
+                break
+        return subusage, is_match
+
 
 class CommsSignal(_Signal):
     subusage: str
@@ -135,18 +168,21 @@ class CommsSignal(_Signal):
         return name
 
 
+@regex
 class UartBus(_SignalBus):
     _SIGNALS = ["RX", "TX"]
     bus_type = BUS_TYPES.UART
 
 
+@regex
 class I2cBus(_SignalBus):
     _SIGNALS = ["SCL", "SDA"]
     bus_type = BUS_TYPES.I2C
 
 
+@regex
 class SpiBus(_SignalBus):
-    _SIGNALS = ["SCK", "MOSI", "MISO"]
+    _SIGNALS = ["SCK", "MOSI", "MISO", "CS"]
     bus_type = BUS_TYPES.SPI
 
     def add_cs(self, signal_name=None):
@@ -195,15 +231,3 @@ class PowerRail(_Signal):
 
         name = self._SEPARATOR.join(components)
         return name
-
-
-ALL_SIGNALS = {
-    cls.__name__: cls for cls in (DigitalSignal, AnalogSignal, PwmSignal, UartBus, I2cBus, SpiBus, PowerRail)
-}
-
-COLORS = {
-    DigitalSignal: "#FFFF33",
-    AnalogSignal: "#FFCC00",
-    PwmSignal: {DIRECTION.INPUT: "#9966FF", DIRECTION.OUTPUT: "#99CCFF"},
-    CommsSignal: "#CCCCCC",
-}
