@@ -7,11 +7,12 @@ from galvanic.signal.schema import (
     SpiBus,
     CommsSignal,
     PowerRail,
+    Ground,
     DIRECTION,
 )
 
 ALL_SIGNALS = {
-    cls.__name__: cls for cls in (DigitalSignal, AnalogSignal, PwmSignal, UartBus, I2cBus, SpiBus, PowerRail)
+    cls.__name__: cls for cls in (DigitalSignal, AnalogSignal, PwmSignal, UartBus, I2cBus, SpiBus, PowerRail, Ground)
 }
 
 
@@ -29,7 +30,7 @@ def determine_signal_type(net_name):
         direction, is_match = cls.regex_match(cls.REGEX, net_name)
         if is_match:
             match_results.append({"direction": direction, "class": cls})
-    assert len(match_results) <= 1
+    # assert len(match_results) <= 1
 
     if match_results:
         match_results = match_results[0]

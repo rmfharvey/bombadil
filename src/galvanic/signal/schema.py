@@ -7,7 +7,7 @@ from galvanic import colored_logger
 logger = colored_logger(__file__, level="DEBUG")
 
 
-def regex(cls):
+def comms_regex(cls):
     cls.REGEX = {sig: r"^{}\.(.+){}$".format(cls.bus_type, sig) for sig in cls._SIGNALS}
     return cls
 
@@ -130,6 +130,8 @@ class PwmSignal(_Signal):
 class _SignalBus:
     bus_name: str
     bus_type: str  # BUS_TYPE
+
+    IS_BUS = True
     _SIGNALS = []
     child_signals: dict[str]
 
@@ -173,19 +175,19 @@ class CommsSignal(_Signal):
         return name
 
 
-@regex
+@comms_regex
 class UartBus(_SignalBus):
     _SIGNALS = ["RX", "TX"]
     bus_type = BUS_TYPES.UART
 
 
-@regex
+@comms_regex
 class I2cBus(_SignalBus):
     _SIGNALS = ["SCL", "SDA"]
     bus_type = BUS_TYPES.I2C
 
 
-@regex
+@comms_regex
 class SpiBus(_SignalBus):
     _SIGNALS = ["SCK", "MOSI", "MISO", "CS"]
     bus_type = BUS_TYPES.SPI
@@ -204,13 +206,13 @@ class SpiBus(_SignalBus):
         return c
 
 
-@regex
+@comms_regex
 class JtagBus(_SignalBus):
     _SIGNALS = ["TCK", "TDO", "TDI", "TMS", "RST"]
     bus_type = BUS_TYPES.SPI
 
 
-@regex
+@comms_regex
 class I2SBus(_SignalBus):
     _SIGNALS = ["MCLK", "BCLK", "FSYNC", "DATA0", "DATA1"]
     bus_type = BUS_TYPES.SPI
@@ -222,6 +224,11 @@ class PowerRail(_Signal):
         False: RAIL_REGULATION.UNREGULATED,
     }
     _SEPARATOR = "_"
+
+    REGEX = {
+        RAIL_REGULATION.REGULATED: r"^PWR{}(\d+)V(\d*)(.*)$".format(_SEPARATOR),
+        RAIL_REGULATION.UNREGULATED: r"^VBUS{}(\d+)V(\d*)(.*)$".format(_SEPARATOR),
+    }
 
     def __init__(self, voltage, signal_name=None, regulated=True, switched=False):
         super().__init__(signal_name=signal_name, direction=DIRECTION.NONE)
@@ -248,3 +255,9 @@ class PowerRail(_Signal):
 
         name = self._SEPARATOR.join(components)
         return name
+
+
+class Ground(_Signal):
+    REGEX = {
+        None: r"^(.*)GND$",
+    }
