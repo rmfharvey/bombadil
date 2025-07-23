@@ -19,4 +19,11 @@ class PWM_INPUT_TYPE:
 class BUS_TYPES:
     UART = "UART"
     I2C = "I2C"
+    I2S = "I2S"
     SPI = "SPI"
+    JTAG = "JTAG"
+
+
+class RAIL_REGULATION:
+    REGULATED = "PWR"
+    UNREGULATED = "VBUS"

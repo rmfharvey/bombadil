@@ -1,7 +1,7 @@
 import re
 from turtledemo.sorting_animate import start_ssort
 
-from galvanic.utils.enums import DIRECTION, POLARITY, PWM_INPUT_TYPE, BUS_TYPES
+from galvanic.utils.enums import RAIL_REGULATION, DIRECTION, POLARITY, PWM_INPUT_TYPE, BUS_TYPES
 from galvanic import colored_logger
 
 logger = colored_logger(__file__, level="DEBUG")
@@ -28,6 +28,7 @@ class _Signal:
 
     @staticmethod
     def regex_match(regex, string):
+        string = string.strip(".WAKE")
         direction, is_match = None, None
 
         for dir, regex in regex.items():
@@ -61,6 +62,10 @@ class _Signal:
         if all(components):
             name = self._SEPARATOR.join(components)
         return name
+
+    @property
+    def is_wake_input(self):
+        return self.name.endswith(".WAKE") and self.direction == DIRECTION.INPUT
 
 
 class DigitalSignal(_Signal):
@@ -199,10 +204,22 @@ class SpiBus(_SignalBus):
         return c
 
 
+@regex
+class JtagBus(_SignalBus):
+    _SIGNALS = ["TCK", "TDO", "TDI", "TMS", "RST"]
+    bus_type = BUS_TYPES.SPI
+
+
+@regex
+class I2SBus(_SignalBus):
+    _SIGNALS = ["MCLK", "BCLK", "FSYNC", "DATA0", "DATA1"]
+    bus_type = BUS_TYPES.SPI
+
+
 class PowerRail(_Signal):
     REGULATION_PREFIX = {
-        True: "PWR",
-        False: "VBUS",
+        True: RAIL_REGULATION.REGULATED,
+        False: RAIL_REGULATION.UNREGULATED,
     }
     _SEPARATOR = "_"
 

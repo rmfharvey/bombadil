@@ -29,6 +29,10 @@ def determine_signal_type(net_name):
         direction, is_match = cls.regex_match(cls.REGEX, net_name)
         if is_match:
             match_results.append({"direction": direction, "class": cls})
+    assert len(match_results) <= 1
+
+    if match_results:
+        match_results = match_results[0]
     return match_results
 
 
