@@ -1,4 +1,0 @@
-PyQt6
-pymupdf4llm
-google-genai
-colorama

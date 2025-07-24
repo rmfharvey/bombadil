@@ -1,0 +1,19 @@
+[project]
+name = "galvanic"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "colorama>=0.4.6",
+    "google-genai>=1.26.0",
+    "pymupdf4llm>=0.0.27",
+    "pyqt6>=6.9.1",
+]
+
+[tool.uv.workspace]
+members = [
+    "src/galvanic_design",
+    "src/galvanic_altium",
+    "src/galvanic_validation",
+]
