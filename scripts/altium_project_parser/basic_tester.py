@@ -2,6 +2,9 @@ import json
 from galvanic.signal import determine_signal_type
 from galvanic_altium.altium_server_api import AltiumServerAPI, AltiumProject
 
+from schema_regex_testing import get_signal_list
+
+
 if __name__ == "__main__":
     AltiumServerAPI.load_urls(
         base_url="https://specter-industries.365.altium.com", api_url="https://usw.365.altium.com/viewer/api"
@@ -19,7 +22,5 @@ if __name__ == "__main__":
         json.dump(cfg, f, indent=2, separators=(",", ": "))
 
     # Try to determine all signal types
-    nets = {}
-    for n in project.nets:
-        nets[n] = determine_signal_type(n)
+    signals = get_signal_list(cfg)
     print()
