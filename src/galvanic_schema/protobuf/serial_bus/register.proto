@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package embedded_design_tools;
+
+enum PhysicalValueMappingType {     // How does the field value get converted to a physically significant value
+    KEY_VALUE_PAIRS = 0;    // Uses KeyValueMap message
+    EQUATION = 1;           // Uses a function, not described here.  TODO Not sure how to implement this, but likely can't as proto
+}
+
+enum SerialBusType {
+    SPI = 0;
+    I2C = 1;
+    I3C = 2;
+    UART = 3;
+    USART = 4;
+
+    LIN = 5;
+    CAN = 6;
+
+    SMI = 7;
+    RGMII = 8;
+    RMII = 9;
+    MII = 10;
+    GMII = 11;
+}
+
+message SerialBus {
+    repeated Field fields = 1;
+    map<int32, Register> registers = 2;
+}
+
+message FieldLocation {
+    uint32 register_address = 1;    // Which register address does this chunk belong to?
+    uint32 reg_start_bit = 2; // Start bit in register if the field bit descriptor is "3:7", this would be 3
+    uint32 reg_end_bit = 3;   // End bit in register
+
+    optional uint32 field_start_bit = 4; // If the field spans multiple registers, or non-continuous bits, these should be
+    optional uint32 field_end_bit = 5;   //   used to indicate which bits in the field are described by this FieldLocation message
+}
+
+message Register {
+    uint32 address = 1; // Register address
+    uint32 init_value = 2;  // Initial/default value
+//    repeated Field fields = 3;
+    optional bool read_only = 4;    // Defaults to False
+    optional string name = 5;   // Register name
+    optional uint32 bit_width = 6;   // Width of register in bits, default is normally 8
+}
+
+message Field {
+    repeated FieldLocation register_location = 1;
+    optional string name = 2;   // Human readable field name, if provided
+    optional string description = 3;    // Description of what a field does or represents
+    optional bool reserved =  4;    // If the field is reserved and shouldn't be written set to True.  Default is False
+    map<int32, string> digital_physical_map = 5;   // Maps digital field value to a physical value, numerical value strings should include units, i.e. 0b10: "2.3V/us"
+}

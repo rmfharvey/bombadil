@@ -20,7 +20,7 @@ class AltiumBom:
             if cmpid not in self.components:
                 self.components[cmpid] = []
             self.components[cmpid].append(cmp)
-        
+
     @property
     def total_parts(self):
         return sum(map(len, self.components.values()))
@@ -28,6 +28,11 @@ class AltiumBom:
     @property
     def unique_parts(self):
         return len(self.components.values())
+
+    # Useful properties for sorting/indexing components
+    @property
+    def components_by_pn(self):
+        return {c[0].avl[0][0]: c for c in self.components.values()}
 
 class AltiumProject(AltiumBasic):
     def __init__(self, guid):

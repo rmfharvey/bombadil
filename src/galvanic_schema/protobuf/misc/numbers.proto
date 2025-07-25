@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package embedded_design_tools;
+
+import "misc/pin_enums.proto";
+
+
+message EngineeringNumber {
+    optional float nom = 1; // Nominal value
+    optional float min = 2; // Minimum value
+    optional float max = 3; // Maximum value
+    optional float tolerance = 4; // If min and max values are not defined, tolerance could be defined
+    string units = 5;  // Units to apply to the number, ex "A", "F"
+}
+
+message EngineeringRange {
+    float min = 1; // Minimum value
+    float max = 2; // Maximum value
+    string units = 3;  // Units to apply to the number, ex "A", "F"
+}
+
+message PinPull {
+    /*
+    Pullup or pulldown information, generally for use with IC pins
+     */
+    PullDirection direction = 1;
+    optional PullType type = 2;
+    optional EngineeringNumber pull_value = 3;  // Pull value
+}

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package embedded_design_tools;
+
+import "misc/pin_enums.proto";
+
+
+message PinFunction {
+    PinDirection direction = 1;
+    string peripheral_name = 2;
+    string peripheral_instance = 3;
+    string peripheral_subusage = 4;
+    repeated string pull_options = 5;
+    optional bool variable_slew_capable = 6;
+    optional bool open_drain_capable = 7;
+}
+
+
+message Pad {
+    string pad_name = 1;
+    repeated PinFunction functions = 2;
+}

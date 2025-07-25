@@ -1,0 +1,89 @@
+/*
+Protobuf file to define the data which is relevant for pins on integrated circuits.  This information
+is relevant mainly for datasheet parsing.
+ */
+
+syntax = "proto3";
+
+package embedded_design_tools;
+
+import "misc/pin_enums.proto";
+import "misc/numbers.proto";
+
+
+message IcPinGeneric {
+    /*
+    Generic IC pin.  This may get implemented differently later...
+    */
+    string name = 1;    // Descriptive pin name
+    string pin_id = 2;  // Name of physical pin on package
+    PinType type = 3;
+    PinDirection direction = 4;
+    string description = 5; // Description of what the pin does
+    PinPull internal_pull = 6;  // Internal pulldown/pullup
+    Polarity polarity = 7; // Pin polarity
+}
+
+message IcPinDigitalIn {
+    /*
+    Digital input pin on an IC.  This will hold most basic datasheet values
+     */
+    string name = 1;    // Descriptive pin name, e.g. ENABLE
+    string pin_id = 2;  // Name of physical pin on package, e.g. "2", "B11", "DAP"
+    PinType type = 3;
+    PinDirection direction = 4;
+    string description = 5; // Description of what the pin does
+    PinPull internal_pull = 6;  // Internal pulldown/pullup
+    Polarity polarity = 7; // Pin polarity
+
+    EngineeringNumber vil = 8; // Low voltage input threshold, below this value, the pin will read as 0
+    EngineeringNumber vih = 9; // High voltage input threshold, above this value, the pin will read as 1
+    EngineeringRange input_voltage = 10; // Max allowable voltage range on a pin.
+}
+
+message IcPinDigitalOut {
+    /*
+    Digital output pin on an IC.  This will hold most basic datasheet values
+     */
+    string name = 1;    // Descriptive pin name
+    string pin_id = 2;  // Name of physical pin on package
+    PinType type = 3;   // Will be PinType.DIGITAL
+    PinDirection direction = 4;
+    string description = 5; // Description of what the pin does
+    PinPull internal_pull = 6;  // Internal pulldown/pullup
+    Polarity polarity = 7; // Pin polarity
+
+    OUTPUT_TYPE output_type = 8;
+    EngineeringNumber vol = 9; // Output voltage when pin is in its low state
+    EngineeringNumber voh = 10; // Input voltage when pin is in its low state
+    optional EngineeringNumber output_current = 11;  // Output current value for pin
+}
+
+message IcPinPowerIn {
+    /*
+    Digital output pin on an IC.  This will hold most basic datasheet values
+     */
+    string name = 1;    // Descriptive pin name
+    string pin_id = 2;  // Name of physical pin on package
+    PinType type = 3;   // Will be PinType.POWER
+    PinDirection direction = 4; // Will be PinDirection.INPUT
+    string description = 5; // Description of what the pin does
+    PinPull internal_pull = 6;  // Internal pulldown/pullup
+
+    EngineeringRange input_voltage = 8; // Input voltage range
+}
+
+message IcPinPowerOut {
+    /*
+    Power output pin on an IC.  This will hold most basic datasheet values
+     */
+    string name = 1;    // Descriptive pin name
+    string pin_id = 2;  // Name of physical pin on package
+    PinType type = 3;   // Will be PinType.POWER
+    PinDirection direction = 4; // Will be PinDirection.OUTPUT
+    string description = 5; // Description of what the pin does
+    PinPull internal_pull = 6;  // Internal pulldown/pullup
+
+    optional EngineeringRange output_current = 8; // Output current range
+    optional EngineeringRange output_voltage = 9; // Output current range
+}
