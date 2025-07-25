@@ -7,73 +7,27 @@ from galvanic import colored_logger
 
 from galvanic_altium.utils import validate_json_serialization, AltiumBasic
 from galvanic_altium.schematic import SchematicSheet, Net, NET_SCOPE
+from galvanic_altium.server_api import AltiumServerAPI
 
 
-logger = colored_logger(__file__, level=logging.DEBUG)
+class AltiumBom:
+    def __init__(self, component_dict, bom_metadata, parent):
+        self._parent = parent
+        self.components = {}
+        for c in bom_metadata["systemBom"]['items']:
+            cmp = self._parent.get_component(c['designator'])
+            cmpid = c['libRef']
+            if cmpid not in self.components:
+                self.components[cmpid] = []
+            self.components[cmpid].append(cmp)
+        
+    @property
+    def total_parts(self):
+        return sum(map(len, self.components.values()))
 
-
-class AltiumServerAPI:
-    @staticmethod
-    def load_urls(base_url, api_url):
-        AltiumServerAPI.BASE_URL = base_url
-        AltiumServerAPI.API_URL = api_url
-
-    @staticmethod
-    def get_project_list(query=""):
-        params = {
-            "query": query,
-            "orderBy": "modified",
-            "order": "desc",
-            "page": "0",
-            "pageSize": "20",
-        }
-        headers = {
-            "accept": "application/json, text/plain, */*",
-            "accept-language": "en-US,en;q=0.9",
-            "app": "Explorer",
-            "authorization": f"AFSSessionID {os.environ['ALTIUM_TOKEN']}",
-        }
-        response = requests.get(
-            f"{AltiumServerAPI.BASE_URL}/svc/explorer/api/v1/entities",
-            params=params,
-            headers=headers,
-        )
-        return json.loads(response.content)["entities"]
-
-    @staticmethod
-    def get_project(guid):
-        headers = {"x-auth": os.environ["ALTIUM_TOKEN"]}
-
-        response = requests.get(
-            f"{AltiumServerAPI.API_URL}/widget/get/data/{guid}",
-            headers=headers,
-        )
-        return json.loads(response.content)
-
-    @staticmethod
-    def get_project_bom(guid, skip_live_data=True):
-        headers = {"x-auth": os.environ["ALTIUM_TOKEN"]}
-
-        params = {
-            "skipLiveData": str(skip_live_data).lower(),
-        }
-
-        response = requests.get(
-            f"{AltiumServerAPI.API_URL}/design/bom/{guid}",
-            params=params,
-            headers=headers,
-        )
-        return json.loads(response.content)
-
-    @staticmethod
-    def download_json_from_url(url):
-        response = requests.get(url)
-        if response.status_code == 200:
-            return json.loads(response.content)
-        else:
-            logger.error(f"Failed to download from {url}")
-            return False
-
+    @property
+    def unique_parts(self):
+        return len(self.components.values())
 
 class AltiumProject(AltiumBasic):
     def __init__(self, guid):
@@ -81,6 +35,7 @@ class AltiumProject(AltiumBasic):
 
         :param str guid: Project unique id
         """
+        self.logger = colored_logger(__file__, level=logging.DEBUG)
 
         self.bom = None
         self.pcb = None
@@ -93,9 +48,10 @@ class AltiumProject(AltiumBasic):
         self._raw_metadata = AltiumServerAPI.get_project(self._guid)["data"]
 
         self._extract_file_metadata()
-        self.bom = AltiumServerAPI.get_project_bom(self._guid, skip_live_data=False)
+        self._raw_metadata['bom'] = AltiumServerAPI.get_project_bom(self._guid, skip_live_data=False)
 
         self.create_project_level_components_and_nets()
+        self.bom = AltiumBom(component_dict=self.components, bom_metadata=self._raw_metadata['bom'], parent=self)
 
     def create_project_level_components_and_nets(self):
         for sch in self.schematics.values():
@@ -106,7 +62,7 @@ class AltiumProject(AltiumBasic):
                     ), f"Component designator ({c.designator}) already exists.  Marking as duplicate."
                     designator = c.designator
                 except AssertionError as err:
-                    logger.error(err)
+                    self.logger.error(err)
                     designator = f"{c.designator}_{uuid4()}"
                 self.components[designator] = c
 
@@ -126,6 +82,13 @@ class AltiumProject(AltiumBasic):
                         global_net.connected_pins[des] = list(set(global_net.connected_pins[des]))
 
                 self.nets[local_net.name] = global_net
+
+    def get_component(self, designator):
+        cmp = self.components.get(designator)
+        if not cmp:
+            self.logger.warning(f"Could not find component {designator} in project {self.project.name}")
+        return cmp
+
 
     @validate_json_serialization
     def get_config(self):
@@ -158,7 +121,7 @@ class AltiumProject(AltiumBasic):
 
                 filename = f["originalName"]
                 url = f["dataFileUrl"]
-                logger.info(f"Downloading {filename} from {url}")
+                self.logger.info(f"Downloading {filename} from {url}")
                 metadata = AltiumServerAPI.download_json_from_url(url)
                 if cls:
                     obj = cls(metadata)
@@ -172,6 +135,6 @@ class AltiumProject(AltiumBasic):
             assert hasattr(self, obj_type)  # Ensure the object type exists
             if len(obj) == 1:
                 obj = list(obj.values())[0]
-                logger.info(f"{obj_type} container only has one member.  Flattenning.")
+                self.logger.info(f"{obj_type} container only has one member.  Flattenning.")
             setattr(self, obj_type, obj)
         return objs
