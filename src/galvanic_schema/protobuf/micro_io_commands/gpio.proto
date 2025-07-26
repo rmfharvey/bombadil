@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package embedded_design_tools;
+
+import "misc/pin_enums.proto";
+
+
+message Gpi {
+    oneof TargetPad {
+        uint32 pad_index = 1;
+        string pad_name = 2;
+        string pin_name = 3;
+    }
+    optional uint32 polarity = 4;
+    optional ValueType value_type = 5;
+}
+
+
+message Gpo {
+    oneof TargetPad {
+        uint32 pad_index = 1;
+        string pad_name = 2;
+        string pin_name = 3;
+    }
+    optional uint32 polarity = 4;
+    optional ValueType value_type = 5;
+    bool output_value = 6;
+}

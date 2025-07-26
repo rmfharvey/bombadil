@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package embedded_design_tools;
+
+import "serial_bus/register.proto";
+
+enum DeviceType {
+    MICROCONTROLLER = 0;
+
+    HIGH_SIDE_DRIVER = 1;
+
+    MOTOR_DRIVER_BRUSHLESS = 3;
+    MOTOR_DRIVER_BRUSHED = 4;
+    MOTOR_DRIVER_STEPPER = 5;
+
+    REGULATOR_BUCK = 6;
+    REGULATOR_BOOST = 7;
+    REGULATOR_LINEAR = 8;
+    REGULATOR_OTHER = 9;
+
+    COMMUNICATION_ETHERNET = 10;
+    COMMUNICATION_CAN = 11;
+    COMMUNICATION_LIN = 12;
+    COMMUNICATION_OTHER = 13;
+
+    OTHER = 32;
+}
+
+message PartNumberParameters {
+    /*
+    Map of individual part numbers associated with some other part numbers.
+    This is usually part of an "Orderable Information" parts number table
+     */
+    map<string, string> options = 1;
+}
+
+message DeviceFlags {
+    /*
+    Set of flags to indicate if certain utilities are included within the device
+    NOT USED YET (EVER?)
+    */
+}
+
+message Device {
+    map<string, PartNumberParameters> part_numbers = 1; // Mapping of orderable part numbers and parameters
+    string base_part_number = 2;    // Base part number for the device.  This should be a "marketing" part number or subset of the list of orderable part numbers, i.e. DRV8B43J37A2 and DRV8B43J1S9 would reduce to DRV8B43J
+    string manufacturer = 3;    // Device Manufacturer
+    DeviceType device_type = 4; // Generic device type
+    repeated SerialBusType serial_busses = 5;   // List of supported serial busses
+    repeated string packages = 6;   // Available packages for the device, e.g. QFN32, SO8, etc
+}

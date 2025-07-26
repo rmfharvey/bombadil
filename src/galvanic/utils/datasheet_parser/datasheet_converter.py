@@ -9,7 +9,7 @@ import pymupdf4llm
 from google import genai
 from google.genai import types
 
-from embedded_design_tools.protobuf import PROTOBUF
+from galvanic_schema.protobuf import PROTOBUF
 from galvanic import colored_logger, global_logger
 
 _root = os.path.dirname(__file__)

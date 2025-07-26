@@ -1,6 +1,6 @@
 import json
-from galvanic.signal import determine_signal_type
-from galvanic_altium.altium_server_api import AltiumServerAPI, AltiumProject
+from galvanic_altium.server_api import AltiumServerAPI
+from galvanic_altium.project import AltiumProject
 
 from schema_regex_testing import get_signal_list
 
