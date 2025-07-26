@@ -470,7 +470,8 @@ class MicroDatasheetConverter(DatasheetConverter):
 
                 if p_inst not in peripherals[p_name]: # Add instance if it doesn't exist
                     peripherals[p_name][p_inst] = {'subusages': {}, 'assignable_pins': []}
-                    target = peripherals[p_name][p_inst]
+                target = peripherals[p_name][p_inst]
+
                 target['assignable_pins'].append(pad_name)
 
                 if p_sub not in target['subusages']:
