@@ -34,6 +34,11 @@ class AltiumServerAPI:
             params=params,
             headers=headers,
         )
+        try:
+            assert response.status_code == 200, f"{response.status_code} {response.reason}.  Check if AFS Session ID token has been rotated."
+        except AssertionError as err:
+            logger.error(err)
+            raise err
         return json.loads(response.content)["entities"]
 
     @staticmethod

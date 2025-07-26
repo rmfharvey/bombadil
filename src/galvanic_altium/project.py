@@ -1,7 +1,5 @@
-import json
-import requests
+import re
 import logging
-import os
 from uuid import uuid4
 from galvanic import colored_logger
 
@@ -20,6 +18,9 @@ class AltiumBom:
             if cmpid not in self.components:
                 self.components[cmpid] = []
             self.components[cmpid].append(cmp)
+        self.components_by_pn
+        self.componets_by_type
+        self.components_by_designator
 
     @property
     def total_parts(self):
@@ -32,7 +33,33 @@ class AltiumBom:
     # Useful properties for sorting/indexing components
     @property
     def components_by_pn(self):
-        return {c[0].avl[0][0]: c for c in self.components.values()}
+        components = {}
+        for design_item_id, c_list in self.components.items():
+            if len(c_list[0].avl):
+                key = c_list[0].avl[0][1]   # Get first PN in AVL
+            else:
+                key = design_item_id
+            components[key] = c_list
+        return components
+
+    @property
+    def componets_by_type(self):
+        by_type = {}
+
+        def get_leading_alpha(text):
+            match = re.match(r'^[a-zA-Z]+', text)
+            return match.group() if match else None
+
+        for des, c in self._parent.components.items():
+            alpha = get_leading_alpha(des)
+            if alpha not in by_type:
+                by_type[alpha] = {}
+            by_type[alpha][des] = c
+        return by_type
+
+    @property
+    def components_by_designator(self):
+        return self._parent.components
 
 class AltiumProject(AltiumBasic):
     def __init__(self, guid):
