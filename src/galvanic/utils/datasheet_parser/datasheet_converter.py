@@ -374,6 +374,7 @@ class MicroDatasheetConverter(DatasheetConverter):
         self._json["pin_pad_mapping"] = self.AI_PARSER_get_pin_pad_mapping()
 
         # self._json["pads"] = self.AI_PARSER_get_pin_muxing()
+        self._json['peripherals'] = self.build_peripherals_from_pads(self._json["pads"])
 
     def _get_pin_pad_mapping_iteratively(self):
         finished = False
@@ -454,6 +455,30 @@ class MicroDatasheetConverter(DatasheetConverter):
             # },
         )
         return response
+
+    @staticmethod
+    def build_peripherals_from_pads(pads):
+        peripherals = {}
+        for pad_name, pad in pads.items():
+            for f in pad['functions']:
+                p_name = f['peripheral_name']
+                p_inst = f['peripheral_instance']
+                p_sub = f['peripheral_subusage']
+
+                if p_name not in peripherals:   # Add peripheral if it doesn't exist
+                    peripherals[p_name] = {}
+
+                if p_inst not in peripherals[p_name]: # Add instance if it doesn't exist
+                    peripherals[p_name][p_inst] = {'subusages': {}, 'assignable_pins': []}
+                target = peripherals[p_name][p_inst]
+
+                target['assignable_pins'].append(pad_name)
+
+                if p_sub not in target['subusages']:
+                    target['subusages'][p_sub] = []
+                target['subusages'][p_sub].append(pad_name)
+
+        return peripherals
 
     @property
     def has_serial_bus(self):
