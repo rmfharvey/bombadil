@@ -23,4 +23,6 @@ if __name__ == "__main__":
 
     # Try to determine all signal types
     signals = get_signal_list(cfg)
+    with open(f"{PRJ_NAME}_signals.json", "w") as f:
+        json.dump(signals, f, indent=2, separators=(",", ": "))
     print()

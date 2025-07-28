@@ -4,6 +4,7 @@ import functools
 import json
 from datetime import datetime
 import pathlib
+from json import JSONDecodeError
 
 import pymupdf4llm
 from google import genai
@@ -100,8 +101,11 @@ class DatasheetConverter:
     def analyze_datasheet(self):
         # AI Model Calls
         self._json["high_level"] = self.AI_PARSER_get_high_level_info()
-        return None
         self._json["pins"] = self.AI_PARSER_get_pin_info()
+
+        for name, pin in self._json["pins"].items():
+            response = self.AI_PARSER_get_pin_connectivity_info(name)
+            pin['implementation'] = response
 
         if self.has_serial_bus:
             self._json["serial_bus"] = self.AI_PARSER_get_comms_register_map()
@@ -236,6 +240,33 @@ class DatasheetConverter:
         )
         return response
 
+    @sanitize_raw_output()
+    @log_token_usage
+    def AI_PARSER_get_pin_connectivity_info(self, pin_name):
+        """Get detailed IC pin usage/implementation info
+
+        :return: Dictionary with pin info.
+        :rtype: dict
+        """
+        self.logger.info("Analyzing markdown datasheet to extract pin connectivity info.")
+
+        response = self._llm_client.models.generate_content(
+            model=self._GEMINI_MODEL,
+            contents=list(
+                {
+                    "prompt": self._prompts["pin_usage"].format(pin_name=pin_name),
+                    # "datasheet": self.md_datasheet,
+                }.values()
+            ),
+            config=types.GenerateContentConfig(cached_content=self._cache.name),
+            # config={
+            #     "response_mime_type": "application/json",
+            # },
+        )
+        return response
+
+
+
     ####################################################################################################################
     ### Private Functions
     ####################################################################################################################
@@ -341,8 +372,17 @@ class DatasheetConverter:
         """
         ds = {}
         if os.path.exists(ds_path):
-            with open(ds_path, "r") as f:
-                ds = json.load(f)
+            try:
+                with open(ds_path, "r") as f:
+                    ds = json.load(f)
+            except JSONDecodeError as err:
+                self.logger.error(f"Failed to load existing datasheet at {ds_path}.  Dumping to datasheet_tempfile.json. \nError: {err}")
+                temp_path = f"{os.path.sep}".join(ds_path.split(os.path.sep)[:-1] + ["datasheet_tempfile.json"])
+
+                with open(temp_path, "w") as f:
+                    f.write(json.dumps(self._json, sort_keys=True, separators=(",", ":"), indent=2))
+
+                return err
 
         cfg = self.get_config()
         ds.update(cfg)
