@@ -1,0 +1,11 @@
+Use the following datasheet to detemine the detailed function of the pin named {pin_name} and how it should be electricaly connected in a schematic.
+
+Return this information as a json file with the following entries and descriptions:
+  'detailed_description': What is the detailed function of the pin in the context of the parent IC?
+  'functionality': Does the pin serve different functions based on connectivity?  If so, what are these functions?
+  'connectivity': How should this be connected in a schematic?
+  'connected_components': List of components that components need to be connected?  Describe the details of the connected components.
+  'precautions': Are there any precautions that need to be taken when using this pin?
+
+
+Return the raw json and do not format as a markdown code block or add any editorializing or explanation.

@@ -1,7 +1,7 @@
 import json
 from galvanic.utils.datasheet_parser.datasheet_converter import MicroDatasheetConverter
 
-fn = "stm32h7/datasheet.json"
+fn = "stm32h723/datasheet.json"
 
 with open(fn, "r") as f:
     ds = json.load(f)
