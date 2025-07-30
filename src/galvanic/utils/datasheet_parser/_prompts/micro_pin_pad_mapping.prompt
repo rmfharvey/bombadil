@@ -4,8 +4,9 @@ Next, determine pin to pad mapping for each package individually.
 
 Return data as a JSON file in the following format:
 {
-  {package_name}: {
-    {pin_name}: {pad_name}
+  {pad_name}: {
+    {package_name}: {pin_name}
+    ...
   }
 }
 

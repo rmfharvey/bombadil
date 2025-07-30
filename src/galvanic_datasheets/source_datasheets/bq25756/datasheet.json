@@ -1,0 +1,18 @@
+{
+  "high_level":{
+    "base_part_number":"BQ25756",
+    "device_type":"REGULATOR_OTHER",
+    "manufacturer":"Texas Instruments",
+    "packages":[
+      "VQFN-36"
+    ],
+    "part_numbers":{
+      "BQ25756RRVR":{
+        "options":{}
+      }
+    },
+    "serial_busses":[
+      "I2C"
+    ]
+  }
+}

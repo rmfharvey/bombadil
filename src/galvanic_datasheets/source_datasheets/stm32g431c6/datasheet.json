@@ -1,0 +1,1883 @@
+{
+  "cores": {
+    "stm32g431": {
+      "lqfp100": {
+        "cores": [
+          {
+            "architecture": "Cortex-M4",
+            "clock_speed": 170000000,
+            "mips_per_mhz": 1.25,
+            "name": "Arm Cortex-M4 with FPU"
+          }
+        ],
+        "memory": {
+          "ccm_sram": 0.009765625,
+          "code_flash_options_mb": [
+            0.03125,
+            0.0625,
+            0.125
+          ],
+          "otp": 0.0009765625,
+          "sram": 0.021484375
+        }
+      },
+      "lqfp32": {
+        "cores": [
+          {
+            "architecture": "Cortex-M4",
+            "clock_speed": 170000000,
+            "mips_per_mhz": 1.25,
+            "name": "Arm Cortex-M4 with FPU"
+          }
+        ],
+        "memory": {
+          "ccm_sram": 0.009765625,
+          "code_flash_options_mb": [
+            0.03125,
+            0.0625,
+            0.125
+          ],
+          "otp": 0.0009765625,
+          "sram": 0.021484375
+        }
+      },
+      "lqfp48": {
+        "cores": [
+          {
+            "architecture": "Cortex-M4",
+            "clock_speed": 170000000,
+            "mips_per_mhz": 1.25,
+            "name": "Arm Cortex-M4 with FPU"
+          }
+        ],
+        "memory": {
+          "ccm_sram": 0.009765625,
+          "code_flash_options_mb": [
+            0.03125,
+            0.0625,
+            0.125
+          ],
+          "otp": 0.0009765625,
+          "sram": 0.021484375
+        }
+      },
+      "lqfp64": {
+        "cores": [
+          {
+            "architecture": "Cortex-M4",
+            "clock_speed": 170000000,
+            "mips_per_mhz": 1.25,
+            "name": "Arm Cortex-M4 with FPU"
+          }
+        ],
+        "memory": {
+          "ccm_sram": 0.009765625,
+          "code_flash_options_mb": [
+            0.03125,
+            0.0625,
+            0.125
+          ],
+          "otp": 0.0009765625,
+          "sram": 0.021484375
+        }
+      },
+      "lqfp80": {
+        "cores": [
+          {
+            "architecture": "Cortex-M4",
+            "clock_speed": 170000000,
+            "mips_per_mhz": 1.25,
+            "name": "Arm Cortex-M4 with FPU"
+          }
+        ],
+        "memory": {
+          "ccm_sram": 0.009765625,
+          "code_flash_options_mb": [
+            0.03125,
+            0.0625,
+            0.125
+          ],
+          "otp": 0.0009765625,
+          "sram": 0.021484375
+        }
+      },
+      "ufbga64": {
+        "cores": [
+          {
+            "architecture": "Cortex-M4",
+            "clock_speed": 170000000,
+            "mips_per_mhz": 1.25,
+            "name": "Arm Cortex-M4 with FPU"
+          }
+        ],
+        "memory": {
+          "ccm_sram": 0.009765625,
+          "code_flash_options_mb": [
+            0.03125,
+            0.0625,
+            0.125
+          ],
+          "otp": 0.0009765625,
+          "sram": 0.021484375
+        }
+      },
+      "ufqfpn32": {
+        "cores": [
+          {
+            "architecture": "Cortex-M4",
+            "clock_speed": 170000000,
+            "mips_per_mhz": 1.25,
+            "name": "Arm Cortex-M4 with FPU"
+          }
+        ],
+        "memory": {
+          "ccm_sram": 0.009765625,
+          "code_flash_options_mb": [
+            0.03125,
+            0.0625,
+            0.125
+          ],
+          "otp": 0.0009765625,
+          "sram": 0.021484375
+        }
+      },
+      "ufqfpn48": {
+        "cores": [
+          {
+            "architecture": "Cortex-M4",
+            "clock_speed": 170000000,
+            "mips_per_mhz": 1.25,
+            "name": "Arm Cortex-M4 with FPU"
+          }
+        ],
+        "memory": {
+          "ccm_sram": 0.009765625,
+          "code_flash_options_mb": [
+            0.03125,
+            0.0625,
+            0.125
+          ],
+          "otp": 0.0009765625,
+          "sram": 0.021484375
+        }
+      },
+      "wlcsp49": {
+        "cores": [
+          {
+            "architecture": "Cortex-M4",
+            "clock_speed": 170000000,
+            "mips_per_mhz": 1.25,
+            "name": "Arm Cortex-M4 with FPU"
+          }
+        ],
+        "memory": {
+          "ccm_sram": 0.009765625,
+          "code_flash_options_mb": [
+            0.03125,
+            0.0625,
+            0.125
+          ],
+          "otp": 0.0009765625,
+          "sram": 0.021484375
+        }
+      }
+    }
+  },
+  "high_level": {
+    "base_part_number": "STM32G431",
+    "device_type": "MICROCONTROLLER",
+    "manufacturer": "STMicroelectronics",
+    "packages": [
+      "UFQFPN32",
+      "LQFP32",
+      "UFQFPN48",
+      "LQFP48",
+      "WLCSP49",
+      "LQFP64",
+      "UFBGA64",
+      "LQFP80",
+      "LQFP100"
+    ],
+    "part_numbers": {
+      "STM32G431x6": {
+        "options": {
+          "STM32G431C6": "LQFP48/ UFQFPN48/ WLCSP49",
+          "STM32G431K6": "LQFP32/ UFQFPN32",
+          "STM32G431M6": "LQFP80",
+          "STM32G431R6": "LQFP64/ UFBGA64",
+          "STM32G431V6": "LQFP100"
+        }
+      },
+      "STM32G431x8": {
+        "options": {
+          "STM32G431C8": "LQFP48/ UFQFPN48/ WLCSP49",
+          "STM32G431K8": "LQFP32/ UFQFPN32",
+          "STM32G431M8": "LQFP80",
+          "STM32G431R8": "LQFP64/ UFBGA64",
+          "STM32G431V8": "LQFP100"
+        }
+      },
+      "STM32G431xB": {
+        "options": {
+          "STM32G431CB": "LQFP48/ UFQFPN48/ WLCSP49",
+          "STM32G431KB": "LQFP32/ UFQFPN32",
+          "STM32G431MB": "LQFP80",
+          "STM32G431RB": "LQFP64/ UFBGA64",
+          "STM32G431VB": "LQFP100"
+        }
+      }
+    },
+    "serial_busses": [
+      "CAN",
+      "I2C",
+      "USART",
+      "UART",
+      "SPI"
+    ]
+  },
+  "pads": {
+    "PA0": {
+      "functions": [
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "A",
+          "peripheral_name": "GPIOA",
+          "peripheral_subusage": "0",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "INPUT",
+          "peripheral_instance": "12",
+          "peripheral_name": "ADC12",
+          "peripheral_subusage": "IN1"
+        },
+        {
+          "direction": "INPUT",
+          "peripheral_instance": "1",
+          "peripheral_name": "COMP1",
+          "peripheral_subusage": "INM"
+        },
+        {
+          "direction": "INPUT",
+          "peripheral_instance": "3",
+          "peripheral_name": "COMP3",
+          "peripheral_subusage": "INP"
+        },
+        {
+          "direction": "INPUT",
+          "peripheral_instance": "",
+          "peripheral_name": "RTC",
+          "peripheral_subusage": "TAMP2"
+        },
+        {
+          "direction": "INPUT",
+          "peripheral_instance": "",
+          "peripheral_name": "EXTI",
+          "peripheral_subusage": "WKUP1"
+        },
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "2",
+          "peripheral_name": "TIM2",
+          "peripheral_subusage": "CH1",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "INPUT",
+          "open_drain_capable": true,
+          "peripheral_instance": "2",
+          "peripheral_name": "USART2",
+          "peripheral_subusage": "CTS",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "OUTPUT",
+          "open_drain_capable": true,
+          "peripheral_instance": "1",
+          "peripheral_name": "COMP1",
+          "peripheral_subusage": "OUT",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "INPUT",
+          "open_drain_capable": true,
+          "peripheral_instance": "8",
+          "peripheral_name": "TIM8",
+          "peripheral_subusage": "BKIN",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "INPUT",
+          "open_drain_capable": true,
+          "peripheral_instance": "8",
+          "peripheral_name": "TIM8",
+          "peripheral_subusage": "ETR",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "INPUT",
+          "open_drain_capable": true,
+          "peripheral_instance": "2",
+          "peripheral_name": "TIM2",
+          "peripheral_subusage": "ETR",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "OUTPUT",
+          "open_drain_capable": true,
+          "peripheral_instance": "",
+          "peripheral_name": "SYS",
+          "peripheral_subusage": "EVENTOUT",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        }
+      ],
+      "pad_name": "PA0"
+    },
+    "PA1": {
+      "functions": [
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "A",
+          "peripheral_name": "GPIOA",
+          "peripheral_subusage": "1",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "INPUT",
+          "peripheral_instance": "12",
+          "peripheral_name": "ADC12",
+          "peripheral_subusage": "IN2"
+        },
+        {
+          "direction": "INPUT",
+          "peripheral_instance": "1",
+          "peripheral_name": "COMP1",
+          "peripheral_subusage": "INP"
+        },
+        {
+          "direction": "INPUT",
+          "peripheral_instance": "1",
+          "peripheral_name": "OPAMP1",
+          "peripheral_subusage": "VINP"
+        },
+        {
+          "direction": "INPUT",
+          "peripheral_instance": "3",
+          "peripheral_name": "OPAMP3",
+          "peripheral_subusage": "VINP"
+        },
+        {
+          "direction": "INPUT",
+          "open_drain_capable": true,
+          "peripheral_instance": "",
+          "peripheral_name": "RTC",
+          "peripheral_subusage": "REFIN",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "2",
+          "peripheral_name": "TIM2",
+          "peripheral_subusage": "CH2",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "OUTPUT",
+          "open_drain_capable": true,
+          "peripheral_instance": "2",
+          "peripheral_name": "USART2",
+          "peripheral_subusage": "RTS_DE",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "15",
+          "peripheral_name": "TIM15",
+          "peripheral_subusage": "CH1N",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "OUTPUT",
+          "open_drain_capable": true,
+          "peripheral_instance": "",
+          "peripheral_name": "SYS",
+          "peripheral_subusage": "EVENTOUT",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        }
+      ],
+      "pad_name": "PA1"
+    },
+    "PB8-BOOT0": {
+      "functions": [
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "B",
+          "peripheral_name": "GPIOB",
+          "peripheral_subusage": "8",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "INPUT",
+          "peripheral_instance": "",
+          "peripheral_name": "SYS",
+          "peripheral_subusage": "BOOT0"
+        },
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "16",
+          "peripheral_name": "TIM16",
+          "peripheral_subusage": "CH1",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "4",
+          "peripheral_name": "TIM4",
+          "peripheral_subusage": "CH3",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "1",
+          "peripheral_name": "SAI1",
+          "peripheral_subusage": "CK1",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "1",
+          "peripheral_name": "I2C1",
+          "peripheral_subusage": "SCL",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "INPUT",
+          "open_drain_capable": true,
+          "peripheral_instance": "3",
+          "peripheral_name": "USART3",
+          "peripheral_subusage": "RX",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "OUTPUT",
+          "open_drain_capable": true,
+          "peripheral_instance": "1",
+          "peripheral_name": "COMP1",
+          "peripheral_subusage": "OUT",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "INPUT",
+          "open_drain_capable": true,
+          "peripheral_instance": "1",
+          "peripheral_name": "FDCAN1",
+          "peripheral_subusage": "RX",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "8",
+          "peripheral_name": "TIM8",
+          "peripheral_subusage": "CH2",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "INPUT",
+          "open_drain_capable": true,
+          "peripheral_instance": "1",
+          "peripheral_name": "TIM1",
+          "peripheral_subusage": "BKIN",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "OUTPUT",
+          "open_drain_capable": true,
+          "peripheral_instance": "1",
+          "peripheral_name": "SAI1",
+          "peripheral_subusage": "MCLK_A",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "OUTPUT",
+          "open_drain_capable": true,
+          "peripheral_instance": "",
+          "peripheral_name": "SYS",
+          "peripheral_subusage": "EVENTOUT",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        }
+      ],
+      "pad_name": "PB8-BOOT0"
+    },
+    "PC13": {
+      "functions": [
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "C",
+          "peripheral_name": "GPIOC",
+          "peripheral_subusage": "13",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "INPUT",
+          "peripheral_instance": "",
+          "peripheral_name": "EXTI",
+          "peripheral_subusage": "WKUP2"
+        },
+        {
+          "direction": "INPUT",
+          "peripheral_instance": "",
+          "peripheral_name": "RTC",
+          "peripheral_subusage": "TAMP1"
+        },
+        {
+          "direction": "INPUT",
+          "peripheral_instance": "",
+          "peripheral_name": "RTC",
+          "peripheral_subusage": "TS"
+        },
+        {
+          "direction": "OUTPUT",
+          "peripheral_instance": "",
+          "peripheral_name": "RTC",
+          "peripheral_subusage": "OUT1"
+        },
+        {
+          "direction": "INPUT",
+          "open_drain_capable": true,
+          "peripheral_instance": "1",
+          "peripheral_name": "TIM1",
+          "peripheral_subusage": "BKIN",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "1",
+          "peripheral_name": "TIM1",
+          "peripheral_subusage": "CH1N",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "8",
+          "peripheral_name": "TIM8",
+          "peripheral_subusage": "CH4N",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "OUTPUT",
+          "open_drain_capable": true,
+          "peripheral_instance": "",
+          "peripheral_name": "SYS",
+          "peripheral_subusage": "EVENTOUT",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        }
+      ],
+      "pad_name": "PC13"
+    },
+    "PE2": {
+      "functions": [
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "E",
+          "peripheral_name": "GPIOE",
+          "peripheral_subusage": "2",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "OUTPUT",
+          "peripheral_instance": "",
+          "peripheral_name": "DBG",
+          "peripheral_subusage": "TRACECK"
+        },
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "3",
+          "peripheral_name": "TIM3",
+          "peripheral_subusage": "CH1",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "1",
+          "peripheral_name": "SAI1",
+          "peripheral_subusage": "CK1",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "OUTPUT",
+          "open_drain_capable": true,
+          "peripheral_instance": "1",
+          "peripheral_name": "SAI1",
+          "peripheral_subusage": "MCLK_A",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "OUTPUT",
+          "open_drain_capable": true,
+          "peripheral_instance": "",
+          "peripheral_name": "SYS",
+          "peripheral_subusage": "EVENTOUT",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        }
+      ],
+      "pad_name": "PE2"
+    },
+    "PF0-OSC_IN": {
+      "functions": [
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "F",
+          "peripheral_name": "GPIOF",
+          "peripheral_subusage": "0",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "INPUT",
+          "peripheral_instance": "1",
+          "peripheral_name": "ADC1",
+          "peripheral_subusage": "IN10"
+        },
+        {
+          "direction": "INPUT",
+          "peripheral_instance": "",
+          "peripheral_name": "RCC",
+          "peripheral_subusage": "OSC_IN"
+        },
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "2",
+          "peripheral_name": "I2C2",
+          "peripheral_subusage": "SDA",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "2",
+          "peripheral_name": "SPI2",
+          "peripheral_subusage": "NSS",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "2",
+          "peripheral_name": "I2S2",
+          "peripheral_subusage": "WS",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "BIDIRECTIONAL",
+          "open_drain_capable": true,
+          "peripheral_instance": "1",
+          "peripheral_name": "TIM1",
+          "peripheral_subusage": "CH3N",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        },
+        {
+          "direction": "OUTPUT",
+          "open_drain_capable": true,
+          "peripheral_instance": "",
+          "peripheral_name": "SYS",
+          "peripheral_subusage": "EVENTOUT",
+          "pull_options": [
+            "UP",
+            "DOWN"
+          ],
+          "variable_slew_capable": true
+        }
+      ],
+      "pad_name": "PF0-OSC_IN"
+    }
+  },
+  "peripherals": {
+    "ADC1": {
+      "1": {
+        "assignable_pins": [
+          "PF0-OSC_IN"
+        ],
+        "subusages": {
+          "IN10": [
+            "PF0-OSC_IN"
+          ]
+        }
+      }
+    },
+    "ADC12": {
+      "12": {
+        "assignable_pins": [
+          "PA0",
+          "PA1"
+        ],
+        "subusages": {
+          "IN1": [
+            "PA0"
+          ],
+          "IN2": [
+            "PA1"
+          ]
+        }
+      }
+    },
+    "COMP1": {
+      "1": {
+        "assignable_pins": [
+          "PA0",
+          "PA0",
+          "PA1",
+          "PB8-BOOT0"
+        ],
+        "subusages": {
+          "INM": [
+            "PA0"
+          ],
+          "INP": [
+            "PA1"
+          ],
+          "OUT": [
+            "PA0",
+            "PB8-BOOT0"
+          ]
+        }
+      }
+    },
+    "COMP3": {
+      "3": {
+        "assignable_pins": [
+          "PA0"
+        ],
+        "subusages": {
+          "INP": [
+            "PA0"
+          ]
+        }
+      }
+    },
+    "DBG": {
+      "": {
+        "assignable_pins": [
+          "PE2"
+        ],
+        "subusages": {
+          "TRACECK": [
+            "PE2"
+          ]
+        }
+      }
+    },
+    "EXTI": {
+      "": {
+        "assignable_pins": [
+          "PA0",
+          "PC13"
+        ],
+        "subusages": {
+          "WKUP1": [
+            "PA0"
+          ],
+          "WKUP2": [
+            "PC13"
+          ]
+        }
+      }
+    },
+    "FDCAN1": {
+      "1": {
+        "assignable_pins": [
+          "PB8-BOOT0"
+        ],
+        "subusages": {
+          "RX": [
+            "PB8-BOOT0"
+          ]
+        }
+      }
+    },
+    "GPIOA": {
+      "A": {
+        "assignable_pins": [
+          "PA0",
+          "PA1"
+        ],
+        "subusages": {
+          "0": [
+            "PA0"
+          ],
+          "1": [
+            "PA1"
+          ]
+        }
+      }
+    },
+    "GPIOB": {
+      "B": {
+        "assignable_pins": [
+          "PB8-BOOT0"
+        ],
+        "subusages": {
+          "8": [
+            "PB8-BOOT0"
+          ]
+        }
+      }
+    },
+    "GPIOC": {
+      "C": {
+        "assignable_pins": [
+          "PC13"
+        ],
+        "subusages": {
+          "13": [
+            "PC13"
+          ]
+        }
+      }
+    },
+    "GPIOE": {
+      "E": {
+        "assignable_pins": [
+          "PE2"
+        ],
+        "subusages": {
+          "2": [
+            "PE2"
+          ]
+        }
+      }
+    },
+    "GPIOF": {
+      "F": {
+        "assignable_pins": [
+          "PF0-OSC_IN"
+        ],
+        "subusages": {
+          "0": [
+            "PF0-OSC_IN"
+          ]
+        }
+      }
+    },
+    "I2C1": {
+      "1": {
+        "assignable_pins": [
+          "PB8-BOOT0"
+        ],
+        "subusages": {
+          "SCL": [
+            "PB8-BOOT0"
+          ]
+        }
+      }
+    },
+    "I2C2": {
+      "2": {
+        "assignable_pins": [
+          "PF0-OSC_IN"
+        ],
+        "subusages": {
+          "SDA": [
+            "PF0-OSC_IN"
+          ]
+        }
+      }
+    },
+    "I2S2": {
+      "2": {
+        "assignable_pins": [
+          "PF0-OSC_IN"
+        ],
+        "subusages": {
+          "WS": [
+            "PF0-OSC_IN"
+          ]
+        }
+      }
+    },
+    "OPAMP1": {
+      "1": {
+        "assignable_pins": [
+          "PA1"
+        ],
+        "subusages": {
+          "VINP": [
+            "PA1"
+          ]
+        }
+      }
+    },
+    "OPAMP3": {
+      "3": {
+        "assignable_pins": [
+          "PA1"
+        ],
+        "subusages": {
+          "VINP": [
+            "PA1"
+          ]
+        }
+      }
+    },
+    "RCC": {
+      "": {
+        "assignable_pins": [
+          "PF0-OSC_IN"
+        ],
+        "subusages": {
+          "OSC_IN": [
+            "PF0-OSC_IN"
+          ]
+        }
+      }
+    },
+    "RTC": {
+      "": {
+        "assignable_pins": [
+          "PA0",
+          "PA1",
+          "PC13",
+          "PC13",
+          "PC13"
+        ],
+        "subusages": {
+          "OUT1": [
+            "PC13"
+          ],
+          "REFIN": [
+            "PA1"
+          ],
+          "TAMP1": [
+            "PC13"
+          ],
+          "TAMP2": [
+            "PA0"
+          ],
+          "TS": [
+            "PC13"
+          ]
+        }
+      }
+    },
+    "SAI1": {
+      "1": {
+        "assignable_pins": [
+          "PB8-BOOT0",
+          "PB8-BOOT0",
+          "PE2",
+          "PE2"
+        ],
+        "subusages": {
+          "CK1": [
+            "PB8-BOOT0",
+            "PE2"
+          ],
+          "MCLK_A": [
+            "PB8-BOOT0",
+            "PE2"
+          ]
+        }
+      }
+    },
+    "SPI2": {
+      "2": {
+        "assignable_pins": [
+          "PF0-OSC_IN"
+        ],
+        "subusages": {
+          "NSS": [
+            "PF0-OSC_IN"
+          ]
+        }
+      }
+    },
+    "SYS": {
+      "": {
+        "assignable_pins": [
+          "PA0",
+          "PA1",
+          "PB8-BOOT0",
+          "PB8-BOOT0",
+          "PC13",
+          "PE2",
+          "PF0-OSC_IN"
+        ],
+        "subusages": {
+          "BOOT0": [
+            "PB8-BOOT0"
+          ],
+          "EVENTOUT": [
+            "PA0",
+            "PA1",
+            "PB8-BOOT0",
+            "PC13",
+            "PE2",
+            "PF0-OSC_IN"
+          ]
+        }
+      }
+    },
+    "TIM1": {
+      "1": {
+        "assignable_pins": [
+          "PB8-BOOT0",
+          "PC13",
+          "PC13",
+          "PF0-OSC_IN"
+        ],
+        "subusages": {
+          "BKIN": [
+            "PB8-BOOT0",
+            "PC13"
+          ],
+          "CH1N": [
+            "PC13"
+          ],
+          "CH3N": [
+            "PF0-OSC_IN"
+          ]
+        }
+      }
+    },
+    "TIM15": {
+      "15": {
+        "assignable_pins": [
+          "PA1"
+        ],
+        "subusages": {
+          "CH1N": [
+            "PA1"
+          ]
+        }
+      }
+    },
+    "TIM16": {
+      "16": {
+        "assignable_pins": [
+          "PB8-BOOT0"
+        ],
+        "subusages": {
+          "CH1": [
+            "PB8-BOOT0"
+          ]
+        }
+      }
+    },
+    "TIM2": {
+      "2": {
+        "assignable_pins": [
+          "PA0",
+          "PA0",
+          "PA1"
+        ],
+        "subusages": {
+          "CH1": [
+            "PA0"
+          ],
+          "CH2": [
+            "PA1"
+          ],
+          "ETR": [
+            "PA0"
+          ]
+        }
+      }
+    },
+    "TIM3": {
+      "3": {
+        "assignable_pins": [
+          "PE2"
+        ],
+        "subusages": {
+          "CH1": [
+            "PE2"
+          ]
+        }
+      }
+    },
+    "TIM4": {
+      "4": {
+        "assignable_pins": [
+          "PB8-BOOT0"
+        ],
+        "subusages": {
+          "CH3": [
+            "PB8-BOOT0"
+          ]
+        }
+      }
+    },
+    "TIM8": {
+      "8": {
+        "assignable_pins": [
+          "PA0",
+          "PA0",
+          "PB8-BOOT0",
+          "PC13"
+        ],
+        "subusages": {
+          "BKIN": [
+            "PA0"
+          ],
+          "CH2": [
+            "PB8-BOOT0"
+          ],
+          "CH4N": [
+            "PC13"
+          ],
+          "ETR": [
+            "PA0"
+          ]
+        }
+      }
+    },
+    "USART2": {
+      "2": {
+        "assignable_pins": [
+          "PA0",
+          "PA1"
+        ],
+        "subusages": {
+          "CTS": [
+            "PA0"
+          ],
+          "RTS_DE": [
+            "PA1"
+          ]
+        }
+      }
+    },
+    "USART3": {
+      "3": {
+        "assignable_pins": [
+          "PB8-BOOT0"
+        ],
+        "subusages": {
+          "RX": [
+            "PB8-BOOT0"
+          ]
+        }
+      }
+    }
+  },
+  "pin_pad_mapping": {
+    "LQFP100": {
+      "1": "PE2",
+      "10": "PF9",
+      "100": "VDD",
+      "11": "PF10",
+      "12": "PF0-OSC_IN",
+      "13": "PF1-OSC_OUT",
+      "14": "PG10-NRST",
+      "15": "PC0",
+      "16": "PC1",
+      "17": "PC2",
+      "18": "PC3",
+      "19": "PF2",
+      "2": "PE3",
+      "20": "PA0",
+      "21": "PA1",
+      "22": "PA2",
+      "23": "VSS",
+      "24": "VDD",
+      "25": "PA3",
+      "26": "PA4",
+      "27": "PA5",
+      "28": "PA6",
+      "29": "PA7",
+      "3": "PE4",
+      "30": "PC4",
+      "31": "PC5",
+      "32": "PB0",
+      "33": "PB1",
+      "34": "PB2",
+      "35": "VSSA",
+      "36": "VREF+",
+      "37": "VDDA",
+      "38": "PE7",
+      "39": "PE8",
+      "4": "PE5",
+      "40": "PE9",
+      "41": "PE10",
+      "42": "PE11",
+      "43": "PE12",
+      "44": "PE13",
+      "45": "PE14",
+      "46": "PE15",
+      "47": "PB10",
+      "48": "VSS",
+      "49": "VDD",
+      "5": "PE6",
+      "50": "PB11",
+      "51": "PB12",
+      "52": "PB13",
+      "53": "PB14",
+      "54": "PB15",
+      "55": "PD8",
+      "56": "PD9",
+      "57": "PD10",
+      "58": "PD11",
+      "59": "PD12",
+      "6": "VBAT",
+      "60": "PD13",
+      "61": "PD14",
+      "62": "PD15",
+      "63": "VSS",
+      "64": "VDD",
+      "65": "PC6",
+      "66": "PC7",
+      "67": "PC8",
+      "68": "PC9",
+      "69": "PA8",
+      "7": "PC13",
+      "70": "PA9",
+      "71": "PA10",
+      "72": "PA11",
+      "73": "PA12",
+      "74": "VSS",
+      "75": "VDD",
+      "76": "PA13",
+      "77": "PA14",
+      "78": "PA15",
+      "79": "PC10",
+      "8": "PC14-OSC32_IN",
+      "80": "PC11",
+      "81": "PC12",
+      "82": "PD0",
+      "83": "PD1",
+      "84": "PD2",
+      "85": "PD3",
+      "86": "PD4",
+      "87": "PD5",
+      "88": "PD6",
+      "89": "PD7",
+      "9": "PC15-OSC32_OUT",
+      "90": "PB3",
+      "91": "PB4",
+      "92": "PB5",
+      "93": "PB6",
+      "94": "PB7",
+      "95": "PB8-BOOT0",
+      "96": "PB9",
+      "97": "PE0",
+      "98": "PE1",
+      "99": "VSS"
+    },
+    "LQFP32": {
+      "1": "VDD",
+      "10": "PA5",
+      "11": "PA6",
+      "12": "PA7",
+      "13": "PB0",
+      "14": "VSSA",
+      "15": "VDDA/VREF+",
+      "16": "VSS",
+      "17": "VDD",
+      "18": "PA8",
+      "19": "PA9",
+      "2": "PF0-OSC_IN",
+      "20": "PA10",
+      "21": "PA11",
+      "22": "PA12",
+      "23": "PA13",
+      "24": "PA14",
+      "25": "PA15",
+      "26": "PB3",
+      "27": "PB4",
+      "28": "PB5",
+      "29": "PB6",
+      "3": "PF1-OSC_OUT",
+      "30": "PB7",
+      "31": "PB8-BOOT0",
+      "32": "VSS",
+      "4": "PG10-NRST",
+      "5": "PA0",
+      "6": "PA1",
+      "7": "PA2",
+      "8": "PA3",
+      "9": "PA4"
+    },
+    "LQFP48": {
+      "1": "VBAT",
+      "10": "PA2",
+      "11": "PA3",
+      "12": "PA4",
+      "13": "PA5",
+      "14": "PA6",
+      "15": "PA7",
+      "16": "PB0",
+      "17": "PB1",
+      "18": "PB2",
+      "19": "VSSA",
+      "2": "PC13",
+      "20": "VREF+",
+      "21": "VDDA",
+      "22": "PB10",
+      "23": "VSS",
+      "24": "VDD",
+      "25": "PB11",
+      "26": "PB12",
+      "27": "PB13",
+      "28": "PB14",
+      "29": "PB15",
+      "3": "PC14-OSC32_IN",
+      "30": "PA8",
+      "31": "PA9",
+      "32": "PA10",
+      "33": "PA11",
+      "34": "PA12",
+      "35": "VSS",
+      "36": "VDD",
+      "37": "PA13",
+      "38": "PA14",
+      "39": "PA15",
+      "4": "PC15-OSC32_OUT",
+      "40": "PB3",
+      "41": "PB4",
+      "42": "PB5",
+      "43": "PB6",
+      "44": "PB7",
+      "45": "PB8-BOOT0",
+      "46": "PB9",
+      "47": "VSS",
+      "48": "VDD",
+      "5": "PF0-OSC_IN",
+      "6": "PF1-OSC_OUT",
+      "7": "PG10-NRST",
+      "8": "PA0",
+      "9": "PA1"
+    },
+    "LQFP64": {
+      "1": "VBAT",
+      "10": "PC2",
+      "11": "PC3",
+      "12": "PA0",
+      "13": "PA1",
+      "14": "PA2",
+      "15": "VSS",
+      "16": "VDD",
+      "17": "PA3",
+      "18": "PA4",
+      "19": "PA5",
+      "2": "PC13",
+      "20": "PA6",
+      "21": "PA7",
+      "22": "PC4",
+      "23": "PC5",
+      "24": "PB0",
+      "25": "PB1",
+      "26": "PB2",
+      "27": "VSSA",
+      "28": "VREF+",
+      "29": "VDDA",
+      "3": "PC14-OSC32_IN",
+      "30": "PB10",
+      "31": "VSS",
+      "32": "VDD",
+      "33": "PB11",
+      "34": "PB12",
+      "35": "PB13",
+      "36": "PB14",
+      "37": "PB15",
+      "38": "PC6",
+      "39": "PC7",
+      "4": "PC15-OSC32_OUT",
+      "40": "PC8",
+      "41": "PC9",
+      "42": "PA8",
+      "43": "PA9",
+      "44": "PA10",
+      "45": "PA11",
+      "46": "PA12",
+      "47": "VSS",
+      "48": "VDD",
+      "49": "PA13",
+      "5": "PF0-OSC_IN",
+      "50": "PA14",
+      "51": "PA15",
+      "52": "PC10",
+      "53": "PC11",
+      "54": "PC12",
+      "55": "PD2",
+      "56": "PB3",
+      "57": "PB4",
+      "58": "PB5",
+      "59": "PB6",
+      "6": "PF1-OSC_OUT",
+      "60": "PB7",
+      "61": "PB8-BOOT0",
+      "62": "PB9",
+      "63": "VSS",
+      "64": "VDD",
+      "7": "PG10-NRST",
+      "8": "PC0",
+      "9": "PC1"
+    },
+    "LQFP80": {
+      "1": "PE2",
+      "10": "PF9",
+      "11": "PF10",
+      "12": "PF0-OSC_IN",
+      "13": "PF1-OSC_OUT",
+      "14": "PG10-NRST",
+      "15": "PC0",
+      "16": "PC1",
+      "17": "PC2",
+      "18": "PC3",
+      "19": "PA0",
+      "2": "PE3",
+      "20": "PA1",
+      "21": "PA2",
+      "22": "VSS",
+      "23": "VDD",
+      "24": "PA3",
+      "25": "PA4",
+      "26": "PA5",
+      "27": "PA6",
+      "28": "PA7",
+      "29": "PC4",
+      "3": "PE4",
+      "30": "PC5",
+      "31": "PB0",
+      "32": "PB1",
+      "33": "PB2",
+      "34": "VSSA",
+      "35": "VREF+",
+      "36": "VDDA",
+      "37": "PE7",
+      "38": "PE8",
+      "39": "PE9",
+      "4": "PE5",
+      "40": "PE10",
+      "41": "PE11",
+      "42": "PE12",
+      "43": "PE13",
+      "44": "PE14",
+      "45": "PE15",
+      "46": "PB10",
+      "47": "VSS",
+      "48": "VDD",
+      "49": "PB11",
+      "5": "PE6",
+      "50": "PB12",
+      "51": "PB13",
+      "52": "PB14",
+      "53": "PB15",
+      "54": "PD8",
+      "55": "PD9",
+      "56": "PD10",
+      "57": "PD11",
+      "58": "PD12",
+      "59": "PD13",
+      "6": "VBAT",
+      "60": "PD14",
+      "61": "PD15",
+      "62": "VSS",
+      "63": "VDD",
+      "64": "PC6",
+      "65": "PC7",
+      "66": "PC8",
+      "67": "PC9",
+      "68": "PA8",
+      "69": "PA9",
+      "7": "PC13",
+      "70": "PA10",
+      "71": "PA11",
+      "72": "PA12",
+      "73": "VSS",
+      "74": "VDD",
+      "75": "PA13",
+      "76": "PA14",
+      "77": "PA15",
+      "78": "PB3",
+      "79": "PB4",
+      "8": "PC14-OSC32_IN",
+      "80": "PB5",
+      "9": "PC15-OSC32_OUT"
+    },
+    "UFBGA64": {
+      "A1": "VDD",
+      "A2": "PB9",
+      "A3": "PB7",
+      "A4": "PB6",
+      "A5": "PB3",
+      "A6": "PC12",
+      "A7": "PA15",
+      "A8": "VDD",
+      "B1": "PC13",
+      "B2": "VSS",
+      "B3": "PB8-BOOT0",
+      "B4": "PB5",
+      "B5": "PD2",
+      "B6": "PC11",
+      "B7": "VSS",
+      "B8": "PA12",
+      "C1": "PC14-OSC32_IN",
+      "C2": "VBAT",
+      "C3": "PC1",
+      "C4": "PB4",
+      "C5": "PC10",
+      "C6": "PA14",
+      "C7": "PA13",
+      "C8": "PA11",
+      "D1": "PC15-OSC32_OUT",
+      "D2": "PG10-NRST",
+      "D3": "PC2",
+      "D4": "PA4",
+      "D5": "PC4",
+      "D6": "PA10",
+      "D7": "PA9",
+      "D8": "PC9",
+      "E1": "PF0-OSC_IN",
+      "E2": "PC0",
+      "E3": "PA1",
+      "E4": "PA5",
+      "E5": "PB0",
+      "E6": "PA8",
+      "E7": "PC7",
+      "E8": "PC6",
+      "F1": "PF1-OSC_OUT",
+      "F2": "PA0",
+      "F3": "PA2",
+      "F4": "PC5",
+      "F5": "PB1",
+      "F6": "PC8",
+      "F7": "PB15",
+      "F8": "PB14",
+      "G1": "PC3",
+      "G2": "VSS",
+      "G3": "PA6",
+      "G4": "VSSA",
+      "G5": "VREF+",
+      "G6": "PB13",
+      "G7": "VSS",
+      "G8": "PB12",
+      "H1": "VDD",
+      "H2": "PA3",
+      "H3": "PA7",
+      "H4": "PB2",
+      "H5": "VDDA",
+      "H6": "PB10",
+      "H7": "PB11",
+      "H8": "VDD"
+    },
+    "UFQFPN32": {
+      "1": "VDD",
+      "10": "PA5",
+      "11": "PA6",
+      "12": "PA7",
+      "13": "PB0",
+      "14": "VSSA",
+      "15": "VDDA/VREF+",
+      "16": "VSS",
+      "17": "VDD",
+      "18": "PA8",
+      "19": "PA9",
+      "2": "PF0-OSC_IN",
+      "20": "PA10",
+      "21": "PA11",
+      "22": "PA12",
+      "23": "PA13",
+      "24": "PA14",
+      "25": "PA15",
+      "26": "PB3",
+      "27": "PB4",
+      "28": "PB5",
+      "29": "PB6",
+      "3": "PF1-OSC_OUT",
+      "30": "PB7",
+      "31": "PB8-BOOT0",
+      "32": "VSS",
+      "4": "PG10-NRST",
+      "5": "PA0",
+      "6": "PA1",
+      "7": "PA2",
+      "8": "PA3",
+      "9": "PA4",
+      "EP": "VSS"
+    },
+    "UFQFPN48": {
+      "1": "VBAT",
+      "10": "PA2",
+      "11": "PA3",
+      "12": "PA4",
+      "13": "PA5",
+      "14": "PA6",
+      "15": "PA7",
+      "16": "PC4",
+      "17": "PB0",
+      "18": "PB1",
+      "19": "PB2",
+      "2": "PC13",
+      "20": "VREF+",
+      "21": "VDDA",
+      "22": "PB10",
+      "23": "VDD",
+      "24": "PB11",
+      "25": "PB12",
+      "26": "PB13",
+      "27": "PB14",
+      "28": "PB15",
+      "29": "PC6",
+      "3": "PC14-OSC32_IN",
+      "30": "PA8",
+      "31": "PA9",
+      "32": "PA10",
+      "33": "PA11",
+      "34": "PA12",
+      "35": "VSS",
+      "36": "PA13",
+      "37": "PA14",
+      "38": "PA15",
+      "39": "PC10",
+      "4": "PC15-OSC32_OUT",
+      "40": "PC11",
+      "41": "PB3",
+      "42": "PB4",
+      "43": "PB5",
+      "44": "PB6",
+      "45": "PB7",
+      "46": "PB8-BOOT0",
+      "47": "PB9",
+      "48": "VDD",
+      "5": "PF0-OSC_IN",
+      "6": "PF1-OSC_OUT",
+      "7": "PG10-NRST",
+      "8": "PA0",
+      "9": "PA1",
+      "EP": "VSS"
+    },
+    "WLCSP49": {
+      "A1": "PA15",
+      "A2": "PC11",
+      "A3": "PB3",
+      "A4": "PB5",
+      "A5": "PB7",
+      "A6": "VSS",
+      "A7": "VDD",
+      "B1": "PA12",
+      "B2": "PA13",
+      "B3": "PA14",
+      "B4": "PB4",
+      "B5": "PB8-BOOT0",
+      "B6": "PB9",
+      "B7": "VBAT",
+      "C1": "PA11",
+      "C2": "PA10",
+      "C3": "PA9",
+      "C4": "PB6",
+      "C5": "PC13",
+      "C6": "PG10-NRST",
+      "C7": "PC14-OSC32_IN",
+      "D1": "PC6",
+      "D2": "PA8",
+      "D3": "PB14",
+      "D4": "PC4",
+      "D5": "PA7",
+      "D6": "PA1",
+      "D7": "PC15-OSC32_OUT",
+      "E1": "PB15",
+      "E2": "PB13",
+      "E3": "PB11",
+      "E4": "PB1",
+      "E5": "PA4",
+      "E6": "PF1-OSC_OUT",
+      "E7": "PF0-OSC_IN",
+      "F1": "PB12",
+      "F2": "PB10",
+      "F3": "VREF+",
+      "F4": "PB2",
+      "F5": "PA5",
+      "F6": "PA2",
+      "F7": "PA0",
+      "G1": "VDD",
+      "G2": "VSS",
+      "G3": "VDDA",
+      "G4": "VSSA",
+      "G5": "PB0",
+      "G6": "PA6",
+      "G7": "PA3"
+    }
+  }
+}

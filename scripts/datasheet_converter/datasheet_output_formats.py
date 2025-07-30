@@ -12,13 +12,14 @@ dir_names = [
     # ("stm32g474", MicroDatasheetConverter),
     # ("stm32h730", MicroDatasheetConverter),
     # ("stm32h723", MicroDatasheetConverter),
-    ("tps1htc30", DatasheetConverter),
+    ("stm32h743", MicroDatasheetConverter),
+    # ("tps1htc30", DatasheetConverter),
     # ("bq25756", DatasheetConverter),
     # ("rc7611", DatasheetConverter),
     # ("vnf1048f", DatasheetConverter),
     # ("icm20948", DatasheetConverter),
     # ("ncv78703", DatasheetConverter),
-    ("tps92520", DatasheetConverter),
+    # ("tps92520", DatasheetConverter),
     # ("dp83tg720", DatasheetConverter),
 ]
 
