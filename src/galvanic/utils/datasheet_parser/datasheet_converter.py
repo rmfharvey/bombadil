@@ -11,7 +11,7 @@ from google import genai
 from google.genai import types
 
 from galvanic_schema.protobuf import PROTOBUF
-from galvanic import colored_logger, global_logger
+from galvanic import global_logger
 
 _root = os.path.dirname(__file__)
 
@@ -76,7 +76,8 @@ class DatasheetConverter:
     """
 
     # _GEMINI_MODEL = "gemini-2.5-pro-preview-06-05"
-    _GEMINI_MODEL = "gemini-2.5-pro"
+    # _GEMINI_MODEL = "gemini-2.5-pro"
+    _GEMINI_MODEL = "gemini-2.5-flash-lite"
 
     _GEMINI_KEY = api_key = os.environ["GEMINI_KEY"]
     # _GEMINI_KEY = api_key = os.environ["GEMINI_KEY_2"]

@@ -10,14 +10,14 @@ from galvanic.utils.datasheet_parser import DatasheetConverter
 logger = colored_logger(__file__)
 
 class DatasheetStructure:
-    PROMPT = True
-    AUTOCREATE_JSON = True
+    _PROMPT = False
+    _AUTOCREATE_JSON = True
 
     def __init__(self, root_path):
-        self.root = Path(root_path.lower())
-        if not self.root.exists():
-            os.mkdir(self.root)
-        if not self.has_pdf and self.PROMPT:
+        self._root = Path(root_path)
+        if not self._root.exists():
+            os.mkdir(self._root)
+        if not self.has_pdf and self._PROMPT:
             self.download_datasheet()
 
     def download_datasheet(self, datasheet_path=None):
@@ -29,29 +29,45 @@ class DatasheetStructure:
         if is_url:
             response = requests.get(datasheet_path)
             if response.status_code == 200:
-                with open(self.root/'datasheet.pdf', 'wb') as f:
+                with open(self._root/'datasheet.pdf', 'wb') as f:
                     f.write(response.content)
             else:
                 logger.error(f"Failed to download from {datasheet_path}")
         elif os.path.exists(datasheet_path):
-            shutil.copyfile(datasheet_path, self.root/'datasheet.pdf')
+            shutil.copyfile(datasheet_path, self._root/'datasheet.pdf')
         else:
             logger.error(f"Path was not a url and no local file not found: {datasheet_path}")
 
     def create_json(self):
-        DatasheetConverter(self.root/'datasheet.pdf', self.root)
+        source = self.pdf_path
+        if self.has_md:
+            source = self.md_path
+        dc = DatasheetConverter(source, str(self._root))
+        dc.save_config(self.json_path)
 
     @property
     def has_md(self):
-        return os.path.exists(self.root/'datasheet.md')
+        return os.path.exists(self._root/'datasheet.md')
 
     @property
     def has_json(self):
-        return os.path.exists(self.root/'datasheet.md')
+        return os.path.exists(self._root/'datasheet.md')
 
     @property
     def has_pdf(self):
-        return os.path.exists(self.root/'datasheet.pdf')
+        return os.path.exists(self._root/'datasheet.pdf')
+
+    @property
+    def pdf_path(self):
+        return str(self._root/'datasheet.pdf')
+
+    @property
+    def md_path(self):
+        return str(self._root/'datasheet.md')
+
+    @property
+    def json_path(self):
+        return str(self._root/'datasheet.json')
 
 class DatasheetManager:
     _ROOT_DIR = Path(__file__).parent/"source_datasheets"
@@ -62,7 +78,8 @@ class DatasheetManager:
 
         self.datasheets = {}
         for ds_dir in self._ROOT_DIR.iterdir():
-            ds = self.load_json_datasheet(ds_dir)
+            ds = DatasheetStructure(ds_dir)
+            # ds = self.load_json_datasheet(ds_dir)
             if ds:
                 self.datasheets[ds_dir.parts[-1]] = ds
 
@@ -80,14 +97,13 @@ class DatasheetManager:
                 ds = json.load(f)
         return ds
 
-    def get_datasheet(self):
-        ds_path = input("Enter datasheet source (URL or path): ")
-
-        parsed_url = urlparse(ds_path)
-        is_url = bool(parsed_url.scheme)
-
-        return self.load_json_datasheet(self._ROOT_DIR/ds)
-
+    def new_datasheet(self, part_number, datasheet_path=None, autocreate_json=True):
+        ds = DatasheetStructure(self._ROOT_DIR/part_number)
+        if not ds.has_pdf:
+            ds.download_datasheet(datasheet_path)
+        if autocreate_json:
+            ds.create_json()
+        return ds
 
     @property
     def by_manufacturer(self):
@@ -112,6 +128,7 @@ class DatasheetManager:
 
 if __name__ == "__main__":
     manager = DatasheetManager()
-    ds = DatasheetStructure(str(manager._ROOT_DIR/'tps23730'))
-    ds.create_json()
+    # ds = DatasheetStructure(str(manager._ROOT_DIR/'tps23730'))
+    # ds.create_json()
+    ds = manager.new_datasheet('tps1htc30', "https://www.ti.com/lit/ds/symlink/tps1htc30-q1.pdf?ts=1753869365872&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FTPS1HTC30-Q1")
     print()

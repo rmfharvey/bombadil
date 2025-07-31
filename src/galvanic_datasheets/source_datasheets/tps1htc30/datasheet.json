@@ -1,25 +1,697 @@
 {
   "high_level":{
-    "base_part_number":"TPS1HTC30-Q1",
-    "device_type":"HIGH_SIDE_DRIVER",
-    "manufacturer":"Texas Instruments",
-    "packages":[
-      "PWP (HTSSOP, 14)"
+    "applications":[
+      "General resistive, inductive, and capacitive loads"
     ],
-    "part_numbers":{
-      "TPS1HTC30AQPWPRQ1":{
-        "options":{
-          "Device Marking":"TPSHT30",
-          "Eco Plan":"RoHS & Green",
-          "MSL Peak Temp":"Level-3-260C-168 HR",
-          "Op Temp (\u00b0C)":"-40 to 125",
-          "Package Drawing":"PWP",
-          "Package Type":"HTSSOP",
-          "Pins":"14",
-          "SPQ":"3000",
-          "Status":"ACTIVE"
+    "base_part_number":"TPS1HTC30",
+    "device_type":"HIGH_SIDE_DRIVER",
+    "diagnostics":[
+      "On and off state output open-load and short-to-battery detection",
+      "Overload and short to ground detection"
+    ],
+    "electrical_characteristics":{
+      "CURRENT_LIMIT_CHARACTERISTICS":{
+        "ILIM_INT":[
+          {
+            "conditions":"RILIM = Open or Out of range",
+            "unit":"A",
+            "value":"8"
+          },
+          {
+            "conditions":"RILIM = GND",
+            "unit":"A",
+            "value":"16"
+          }
+        ],
+        "KCL":{
+          "conditions":"RILIM = 10 k\u2126 to 50 k\u2126",
+          "unit":"A * k\u03a9",
+          "value":"80-120"
+        }
+      },
+      "CURRENT_SENSE_CHARACTERISTICS":{
+        "ISNSI":[
+          {
+            "conditions":"VEN = VDIAG_EN = 5 V, IOUT = 6 A",
+            "unit":"mA",
+            "value":"4.61"
+          },
+          {
+            "conditions":"VEN = VDIAG_EN = 5 V, IOUT = 6 A",
+            "unit":"%",
+            "value":"-6 to 6"
+          },
+          {
+            "conditions":"VEN = VDIAG_EN = 5 V, IOUT = 4 A",
+            "unit":"mA",
+            "value":"3.3"
+          },
+          {
+            "conditions":"VEN = VDIAG_EN = 5 V, IOUT = 4 A",
+            "unit":"%",
+            "value":"-3 to 3"
+          },
+          {
+            "conditions":"VEN = VDIAG_EN = 5 V, IOUT = 2 A",
+            "unit":"mA",
+            "value":"<1.66"
+          },
+          {
+            "conditions":"VEN = VDIAG_EN = 5 V, IOUT = 2 A",
+            "unit":"%",
+            "value":"-4 to 4"
+          },
+          {
+            "conditions":"VEN = VDIAG_EN = 5 V, IOUT = 1 A",
+            "unit":"mA",
+            "value":"0.833"
+          },
+          {
+            "conditions":"VEN = VDIAG_EN = 5 V, IOUT = 1 A",
+            "unit":"%",
+            "value":"-4 to 4"
+          },
+          {
+            "conditions":"VEN = VDIAG_EN = 5 V, IOUT = 500 mA",
+            "unit":"mA",
+            "value":"0.417"
+          },
+          {
+            "conditions":"VEN = VDIAG_EN = 5 V, IOUT = 500 mA",
+            "unit":"%",
+            "value":"-6 to 6"
+          },
+          {
+            "conditions":"VEN = VDIAG_EN = 5 V, IOUT = 200 mA",
+            "unit":"mA",
+            "value":"0.15"
+          },
+          {
+            "conditions":"VEN = VDIAG_EN = 5 V, IOUT = 200 mA",
+            "unit":"%",
+            "value":"-10 to 10"
+          },
+          {
+            "conditions":"VEN = VDIAG_EN = 5 V, IOUT = 100 mA",
+            "unit":"mA",
+            "value":"0.073"
+          },
+          {
+            "conditions":"VEN = VDIAG_EN = 5 V, IOUT = 100 mA",
+            "unit":"%",
+            "value":"-15 to 15"
+          },
+          {
+            "conditions":"VEN = VDIAG_EN = 5 V, IOUT = 50 mA",
+            "unit":"mA",
+            "value":"0.035"
+          },
+          {
+            "conditions":"VEN = VDIAG_EN = 5 V, IOUT = 50 mA",
+            "unit":"%",
+            "value":"-25 to 25"
+          },
+          {
+            "conditions":"VEN = VDIAG_EN = 5 V, IOUT = 20 mA",
+            "unit":"mA",
+            "value":"0.012"
+          },
+          {
+            "conditions":"VEN = VDIAG_EN = 5 V, IOUT = 20 mA",
+            "unit":"%",
+            "value":"-40 to 40"
+          },
+          {
+            "conditions":"VEN = VDIAG_EN = 5 V, IOUT = 10 mA",
+            "unit":"mA",
+            "value":"0.0088"
+          },
+          {
+            "conditions":"VEN = VDIAG_EN = 5 V, IOUT = 10 mA",
+            "unit":"%",
+            "value":"-60 to 60"
+          }
+        ],
+        "KSNS1":{
+          "unit":"A/A",
+          "value":"1300"
+        }
+      },
+      "DIAG_EN_PIN_CHARACTERISTICS":{
+        "IIH_DIAG_EN":{
+          "conditions":"VDIAG_EN = 5 V",
+          "unit":"\u00b5A",
+          "value":"14"
+        },
+        "IIL_DIAG_EN":{
+          "conditions":"VDIAG_EN = 0.8 V",
+          "unit":"\u00b5A",
+          "value":"2.2"
+        },
+        "RDIAG_EN":{
+          "unit":"k\u03a9",
+          "value":"200-500"
+        },
+        "VIHYS_DIAG_EN":{
+          "unit":"mV",
+          "value":"280"
+        },
+        "VIH_DIAG_EN":{
+          "conditions":"No GND Network",
+          "unit":"V",
+          "value":"1.5"
+        },
+        "VIL_DIAG_EN":{
+          "conditions":"No GND Network",
+          "unit":"V",
+          "value":"0.8"
+        }
+      },
+      "EN_PIN_CHARACTERISTICS":{
+        "IIH_EN":{
+          "conditions":"VEN = 5 V",
+          "unit":"\u00b5A",
+          "value":"14"
+        },
+        "IIL_EN":{
+          "conditions":"VEN = 0.8 V",
+          "unit":"\u00b5A",
+          "value":"2.2"
+        },
+        "REN":{
+          "unit":"k\u03a9",
+          "value":"200-500"
+        },
+        "VIHYS_EN":{
+          "unit":"mV",
+          "value":"280"
+        },
+        "VIH_EN":{
+          "conditions":"No GND Network",
+          "unit":"V",
+          "value":"1.5"
+        },
+        "VIL_EN":{
+          "conditions":"No GND Network",
+          "unit":"V",
+          "value":"0.8"
+        }
+      },
+      "FAULT_PIN_CHARACTERISTICS":{
+        "VFAULT":{
+          "conditions":"IFAULT = 2.5 mA",
+          "unit":"V",
+          "value":"0.5"
+        },
+        "tFAULT_FLT":{
+          "conditions":"VDIAG_EN = 5 V, Time between fault and FAULT asserting",
+          "unit":"\u00b5s",
+          "value":"60"
+        },
+        "tFAULT_SNS":{
+          "conditions":"VDIAG_EN = 5 V, Time between fault and ISNS settling at VSNSFH",
+          "unit":"\u00b5s",
+          "value":"60"
+        }
+      },
+      "LATCH_PIN_CHARACTERISTICS":{
+        "IIH_LATCH":{
+          "conditions":"VDIA_EN = 5 V",
+          "unit":"\u00b5A",
+          "value":"14"
+        },
+        "IIL_LATCH":{
+          "conditions":"VDIA_EN = 0.8 V",
+          "unit":"\u00b5A",
+          "value":"2.2"
+        },
+        "RLATCH":{
+          "unit":"M\u03a9",
+          "value":"0.7-1.4"
+        },
+        "VIHYS_LATCH":{
+          "unit":"mV",
+          "value":"280"
+        },
+        "VIH_LATCH":{
+          "conditions":"No GND Network",
+          "unit":"V",
+          "value":"1.5"
+        },
+        "VIL_LATCH":{
+          "conditions":"No GND Network",
+          "unit":"V",
+          "value":"0.8"
+        }
+      },
+      "OPEN_LOAD_DETECTION_CHARACTERISTICS":{
+        "ROL_OFF":{
+          "conditions":"VEN = 0 V, VDIAG_EN = 5 V",
+          "unit":"k\u03a9",
+          "value":"120-180"
+        },
+        "VOL_OFF":{
+          "conditions":"VEN = 0 V, VDIAG_EN = 5 V",
+          "unit":"V",
+          "value":"1.5-2.5"
+        },
+        "tOL_OFF":{
+          "conditions":"VEN = 0 V, VDIAG_EN = 5 V, When Vs \u2013 VOUT < VOL, duration longer than tOL. Openload detected.",
+          "unit":"\u00b5s",
+          "value":"480-700"
+        },
+        "tOL_OFF_1":{
+          "conditions":"VEN= 5 V to 0 V, VDIAG_EN = 5 V, IOUT = 0 mA, VOUT = VS - VOL",
+          "unit":"\u00b5s",
+          "value":"310-700"
+        },
+        "tOL_OFF_2":{
+          "conditions":"VEN = 0 V, VDIAG_EN = 0 V to 5 V, IOUT= 0 mA, VOUT = VS - VOL",
+          "unit":"\u00b5s",
+          "value":"700"
+        }
+      },
+      "RON_CHARACTERISTICS":{
+        "RON":[
+          {
+            "conditions":"VS = 6 V to 60 V, 0.5 A \u2264 IOUT\u2264 6 A, TJ = 25\u00b0C",
+            "unit":"m\u03a9",
+            "value":"30"
+          },
+          {
+            "conditions":"VS = 6 V to 60 V, 0.5 A \u2264 IOUT\u2264 6 A, TJ = 125\u00b0C",
+            "unit":"m\u03a9",
+            "value":"50"
+          },
+          {
+            "conditions":"VS = 6 V to 60 V, 0.5 A \u2264 IOUT\u2264 6 A, TJ = 150\u00b0C",
+            "unit":"m\u03a9",
+            "value":"60"
+          }
+        ],
+        "RON_REV":{
+          "conditions":"VS = \u201324 V, IOUT= 2 A, TJ = -40\u00b0C to 150\u00b0C",
+          "unit":"m\u03a9",
+          "value":"30-60"
+        }
+      },
+      "SNS_PIN_CHARACTERISTICS":{
+        "ISNSFLT":{
+          "conditions":"VDIAG_EN > VIH,DIAG_EN",
+          "unit":"mA",
+          "value":"5.3-6.4"
+        },
+        "ISNSleak":{
+          "conditions":"VDIAG_EN = 5 V, IL = 0 mA",
+          "unit":"\u00b5A",
+          "value":"1.3"
+        },
+        "VSNSFH":[
+          {
+            "conditions":"VDIAG_EN = 5 V",
+            "unit":"V",
+            "value":"4.5-5.77"
+          },
+          {
+            "conditions":"VDIAG_EN = VIH to 3.3 V",
+            "unit":"V",
+            "value":"3.0-3.82"
+          }
+        ],
+        "VS_ISNS":[
+          {
+            "conditions":"VDIAG_EN = 3.3 V",
+            "unit":"V",
+            "value":"6"
+          },
+          {
+            "conditions":"VDIAG_EN = 5 V",
+            "unit":"V",
+            "value":"6.5"
+          }
+        ]
+      },
+      "THERMAL_SHUTDOWN_CHARACTERISTICS":{
+        "TABS":{
+          "unit":"\u00b0C",
+          "value":"154-165"
+        },
+        "THYS":{
+          "unit":"\u00b0C",
+          "value":"20"
+        },
+        "TREL":{
+          "unit":"\u00b0C",
+          "value":"60"
+        },
+        "tRETRY":{
+          "conditions":"Time from fault shutdown until switch re-enable (thermal shutdown)",
+          "unit":"ms",
+          "value":"2"
+        }
+      },
+      "VDS_CLAMP":{
+        "VDS_Clamp":[
+          {
+            "conditions":"FET current = 10 mA, VS = 24 V",
+            "unit":"V",
+            "value":"80"
+          },
+          {
+            "conditions":"FET current = 10 mA, VS = 6 V",
+            "unit":"V",
+            "value":"58"
+          }
+        ]
+      },
+      "VS_OVERVOLTAGE_LOCKOUT_OVLO_INPUT":{
+        "VS_OVPR":{
+          "conditions":"Measured with respect to the GND pin of the device, VEN = HI",
+          "unit":"V",
+          "value":"68"
+        },
+        "VS_OVPRF":{
+          "conditions":"Measured with respect to the GND pin of the device, VEN = HI",
+          "unit":"V",
+          "value":"66"
+        },
+        "VS_OVPRH":{
+          "conditions":"Measured with respect to the GND pin of the device",
+          "unit":"V",
+          "value":"2"
+        },
+        "tVS_OVP":{
+          "conditions":"Time from triggering the OVP fault to FET turn-off",
+          "unit":"\u00b5s",
+          "value":"125"
+        }
+      },
+      "VS_SUPPLY_VOLTAGE_AND_CURRENT":{
+        "ILNOM":{
+          "conditions":"VEN = HI, TAMB = 85\u00b0C",
+          "unit":"A",
+          "value":"6"
+        },
+        "IOUT_OFF":[
+          {
+            "conditions":"VS \u2264 60 V, VEN = VDIAG_EN = 0 V, VOUT = 0 V, TJ = 85\u00b0C",
+            "unit":"\u00b5A",
+            "value":"0.4"
+          },
+          {
+            "conditions":"VS \u2264 60 V, VEN = VDIAG_EN = 0 V, VOUT = 0 V, TJ = 150\u00b0C",
+            "unit":"\u00b5A",
+            "value":"12"
+          }
+        ],
+        "IQ_VS":[
+          {
+            "conditions":"VEN = HI, IOUT = 0A, VDIAG_EN = LO",
+            "unit":"mA",
+            "value":"1.5"
+          },
+          {
+            "conditions":"VEN = HI, IOUT = 0A, VDIAG_EN = HI",
+            "unit":"mA",
+            "value":"1.9"
+          }
+        ],
+        "ISTBY_VS":[
+          {
+            "conditions":"VS \u2264 60 V, VEN = VDIAG_EN = LO, VOUT = 0 V, TJ = 85\u00b0C",
+            "unit":"\u00b5A",
+            "value":"0.7"
+          },
+          {
+            "conditions":"VS \u2264 60 V, VEN = VDIAG_EN = LO, VOUT = 0 V, TJ = 150\u00b0C",
+            "unit":"\u00b5A",
+            "value":"6"
+          }
+        ],
+        "tSTBY":{
+          "conditions":"VEN = VDIAG_EN = 0 V to standby",
+          "unit":"ms",
+          "value":"20"
+        }
+      },
+      "VS_UNDERVOLTAGE_LOCKOUT_UVLO_INPUT":{
+        "VS_UVLOF":{
+          "conditions":"VS undervoltage lockout falling",
+          "unit":"V",
+          "value":"4.85"
+        },
+        "VS_UVLOR":{
+          "conditions":"Measured with respect to the GND pin of the device",
+          "unit":"V",
+          "value":"5.75"
         }
       }
+    },
+    "features":[
+      {
+        "condition":"typical",
+        "name":"R ON",
+        "value":"30 m\u03a9"
+      },
+      {
+        "condition":"adjustable",
+        "name":"Current Limit",
+        "value":"2 A \u2013 16 A"
+      },
+      {
+        "name":"Operating Voltage Range",
+        "value":"6 V to 60 V"
+      },
+      {
+        "name":"Overvoltage Protection",
+        "value":"66 V"
+      },
+      {
+        "name":"Low Standby Current",
+        "value":"< 0.5 \u00b5A"
+      },
+      {
+        "name":"Low Quiescent Current",
+        "value":"< 2 mA"
+      },
+      {
+        "name":"Current Sensing Accuracy",
+        "value":"\u00b14% at 1 A"
+      },
+      {
+        "name":"Operating Junction Temperature",
+        "value":"\u201340 to 125\u00b0C"
+      },
+      {
+        "name":"Input Control Logic",
+        "value":"1.8-V, 3.3-V and 5-V logic compatible"
+      }
+    ],
+    "functional_safety":"Capable",
+    "manufacturer":"Texas Instruments",
+    "package_information":[
+      {
+        "body_size":"4.40 mm \u00d7 5.00 mm",
+        "package":"PWP (HTSSOP, 14)",
+        "package_size":"6.50 mm \u00d7 5.00 mm",
+        "part_number":"TPS1HTC30-Q1"
+      }
+    ],
+    "packages":[
+      "PWP"
+    ],
+    "part_number":"TPS1HTC30-Q1",
+    "pin_functions":[
+      {
+        "description":"Ground of device. Connect to resistor- diode ground network to have reverse battery protection",
+        "pin_name":"GND",
+        "pin_number":1
+      },
+      {
+        "description":"Input control for channel activation, internal pulldown",
+        "pin_name":"EN",
+        "pin_number":2
+      },
+      {
+        "description":"Enable-disable pin for diagnostics, internal pulldown",
+        "pin_name":"DIAG_EN",
+        "pin_number":3
+      },
+      {
+        "description":"Open drain global fault output. Referred to FLT, or fault pin",
+        "pin_name":"FAULT",
+        "pin_number":4
+      },
+      {
+        "description":"Thermal shutdown behavior, latch off or auto retry, internal pull down",
+        "pin_name":"LATCH",
+        "pin_number":5
+      },
+      {
+        "description":"Output corresponding sense value based on sense ratio",
+        "pin_name":"SNS",
+        "pin_number":6
+      },
+      {
+        "description":"Adjustable current limit. Short to ground or leave floating if external current limit is not used",
+        "pin_name":"ILIM",
+        "pin_number":7
+      },
+      {
+        "description":"Output of high side switch, connected to load",
+        "pin_name":"VOUT",
+        "pin_number":8
+      },
+      {
+        "description":"Output of high side switch, connected to load",
+        "pin_name":"VOUT",
+        "pin_number":9
+      },
+      {
+        "description":"Output of high side switch, connected to load",
+        "pin_name":"VOUT",
+        "pin_number":10
+      },
+      {
+        "description":"No internal connection",
+        "pin_name":"NC",
+        "pin_number":11
+      },
+      {
+        "description":"Power supply",
+        "pin_name":"VS",
+        "pin_number":12
+      },
+      {
+        "description":"Power supply",
+        "pin_name":"VS",
+        "pin_number":13
+      },
+      {
+        "description":"Power supply",
+        "pin_name":"VS",
+        "pin_number":14
+      }
+    ],
+    "protection_features":[
+      "Overload and short-circuit protection",
+      "Integrated inductive discharge clamp",
+      "Undervoltage lockout (UVLO) protection",
+      "Loss of GND, loss of supply protection",
+      "Reverse battery protection with external components",
+      "Absolute and relative thermal shutdown detection"
+    ],
+    "qualifications":[
+      "AEC-Q100 qualified for automotive applications"
+    ],
+    "sns_timing_characteristics":{
+      "SNS_TIMING_CURRENT_SENSE":{
+        "tSETTLEH":{
+          "conditions":"VEN = 5 V, VDIAG_EN = 5 V, RSNS = 1 k\u03a9, IOUT = 0.5 A to 3 A",
+          "unit":"\u00b5s",
+          "value":"20"
+        },
+        "tSETTLEL":{
+          "conditions":"VEN = 5 V, VDIAG_EN= 5 V, RSNS = 1 k\u03a9, IOUT = 3 A to 0.5 A",
+          "unit":"\u00b5s",
+          "value":"20"
+        },
+        "tSNSIOFF":{
+          "conditions":"VEN = 5 V, VDIAG_EN = 5 V to 0 V, RSNS = 1 k\u03a9, RL = 125 \u03a9",
+          "unit":"\u00b5s",
+          "value":"20"
+        },
+        "tSNSION1":[
+          {
+            "conditions":"VEN= 5 V, VDIAG_EN = 0 V to 5 V, RSNS = 1 k\u03a9, IL = 1A",
+            "unit":"\u00b5s",
+            "value":"30"
+          },
+          {
+            "conditions":"VEN = 5 V, VDIAG_EN = 0 V to 5 V, RSNS = 1 k\u03a9, IL = 30 mA",
+            "unit":"\u00b5s",
+            "value":"60"
+          }
+        ],
+        "tSNSION2":{
+          "conditions":"VEN = VDIAG_EN = 0 V to 5 V, RSNS = 1 k\u03a9, IL = 1 A",
+          "unit":"\u00b5s",
+          "value":"200"
+        },
+        "tSNSION3":{
+          "conditions":"VEN = 0 V to 5 V, VDIAG_EN = 5 V, RSNS = 1 k\u03a9, IL = 1 A",
+          "unit":"\u00b5s",
+          "value":"200"
+        }
+      }
+    },
+    "switching_characteristics":{
+      "DPWM":{
+        "conditions":"300-\u00b5s enable pulse, F = fmax",
+        "unit":"%",
+        "value":"-15 to 15"
+      },
+      "EOFF":{
+        "conditions":"1 ms pulse, VOUT from 10% to 90% of VS voltage",
+        "unit":"mJ",
+        "value":"0.25-0.35"
+      },
+      "EON":{
+        "conditions":"1 ms pulse, VOUT from 10% to 90% of VS voltage",
+        "unit":"mJ",
+        "value":"0.3-0.4"
+      },
+      "SRF":{
+        "conditions":"80% to 20% of VOUT",
+        "unit":"V/\u00b5s",
+        "value":"0.2-0.9"
+      },
+      "SRR":{
+        "conditions":"20% to 80% of VOUT",
+        "unit":"V/\u00b5s",
+        "value":"0.2-0.8"
+      },
+      "fmax":{
+        "unit":"Hz",
+        "value":"750"
+      },
+      "tDF":{
+        "conditions":"50% of EN to 80% of VOUT",
+        "unit":"\u00b5s",
+        "value":"55-135"
+      },
+      "tDR":{
+        "conditions":"50% of EN to 20% of VOUT",
+        "unit":"\u00b5s",
+        "value":"30-82.5"
+      },
+      "tOFF":{
+        "conditions":"50% of EN to 20% of VOUT",
+        "unit":"\u00b5s",
+        "value":"145-230"
+      },
+      "tOFF_pw":{
+        "conditions":"200-\u00b5s OFFtime switch enable pulse, VOUT @ 20% of VS, F = fmax",
+        "unit":"\u00b5s",
+        "value":"70-160"
+      },
+      "tON":{
+        "conditions":"50% of EN to 80% of VOUT",
+        "unit":"\u00b5s",
+        "value":"125-200"
+      },
+      "tON_tOFF_matching":[
+        {
+          "conditions":"1ms ON time switch enable pulse",
+          "unit":"\u00b5s",
+          "value":"-25 to 25"
+        },
+        {
+          "conditions":"200-\u00b5s enable pulse, F = fmax",
+          "unit":"\u00b5s",
+          "value":"-25 to 25"
+        }
+      ]
     }
   },
   "pins":{
@@ -29,21 +701,25 @@
       "implementation":{
         "connected_components":[
           {
-            "component":"Microcontroller (MCU) I/O Pin",
-            "description":"Used to digitally control the enabling and disabling of the device's diagnostic functions."
+            "component_name":"Microcontroller (MCU)",
+            "description":"A digital output pin from the MCU can be used to control the DIAG_EN pin, enabling or disabling diagnostics as needed. The MCU's I/O voltage should be compatible with the DIAG_EN pin's voltage levels (0.8 V low, 1.5 V high)."
           },
           {
-            "component":"Series Protection Resistor (RPROT)",
-            "description":"A resistor with a recommended value between 5 k\u03a9 and 10 k\u03a9 should be placed in series between the MCU I/O and the DIAG_EN pin. This resistor limits current and protects both the MCU and the device pin during transient voltage events, such as loss of GND."
+            "component_name":"Resistor (optional)",
+            "description":"If the DIAG_EN pin is not used, it can be left floating, but connecting it to GND is recommended to ensure diagnostics are disabled. An external pulldown resistor (RPROT) can be used if a specific pull-down strength is required, though the internal pulldown is generally sufficient."
           }
         ],
-        "connectivity":"The DIAG_EN pin should be connected to a digital I/O pin of a microcontroller through a series protection resistor (RPROT). If the diagnostic features are not used in the application, the pin can be left floating (it will be pulled low internally) or tied to ground through a protection resistor.",
-        "detailed_description":"The DIAG_EN pin is a digital logic input used to enable or disable the diagnostic features of the TPS1HTC30-Q1. When this pin is driven high, diagnostic functions such as real-time current sensing via the SNS pin, on-state and off-state open-load detection, and short-to-battery detection are activated. When driven low or left floating, these diagnostic features are disabled to minimize standby current consumption, and the SNS and FAULT pins are put into a high-impedance state. The core protection features of the device, like overcurrent and thermal shutdown, remain active regardless of the state of the DIAG_EN pin. Additionally, the voltage level applied to the DIAG_EN pin scales the maximum voltage output on the SNS pin during a fault condition (VSNSFH), which helps protect the analog-to-digital converter (ADC) of a connected microcontroller without requiring external clamping components.",
-        "functionality":"The pin's function is determined by its logic level:\n- High (V_IH > 1.5 V): Enables all diagnostic features. The SNS pin provides an analog current sense output, and the FAULT pin reports faults. The fault voltage level on the SNS pin (VSNSFH) scales with the input voltage on DIAG_EN; if V_DIAG_EN is up to 3.3V, VSNSFH is approximately 3.3V. If V_DIAG_EN is up to 5V, VSNSFH tracks this voltage up to 5V.\n- Low (V_IL < 0.8 V) or Floating: Disables diagnostic features to reduce power consumption. The SNS and FAULT pins are set to a high-impedance state. The pin has an internal pulldown resistor (350 k\u03a9 typical), so it defaults to the 'Low' state if left unconnected.",
+        "connectivity":"The DIAG_EN pin is an input and should be connected to a microcontroller's digital output pin or directly to GND if diagnostics are not needed. It has an internal pulldown resistor.",
+        "detailed_description":"The DIAG_EN pin is used to enable or disable the diagnostic features of the TPS1HTC30-Q1. When DIAG_EN is high, the device's diagnostic functions (such as open-load detection, short-to-battery detection, and accurate current sensing) are active. When DIAG_EN is low, these diagnostic functions are disabled.",
+        "functionality":[
+          "Enable diagnostics: When DIAG_EN is high, diagnostic features are active.",
+          "Disable diagnostics: When DIAG_EN is low, diagnostic features are disabled, and the SNS pin is in a high-impedance state. This also reduces standby current consumption in the off-state.",
+          "Control for off-state diagnostics: In the off-state (EN low), when DIAG_EN is low, the device enters standby mode with minimal current consumption. When DIAG_EN is high in the off-state, the device enters standby mode with diagnostics enabled, resulting in slightly higher standby current."
+        ],
         "precautions":[
-          "A series protection resistor (RPROT) is required to protect the connected MCU I/O pin from potential damage during fault conditions like negative ISO pulses or loss of ground, which can create a negative potential on the device's GND pin.",
-          "If off-state diagnostics are required (EN=Low, DIAG_EN=High), be aware that this will increase the standby current from under 0.5 \u00b5A to approximately 1 mA.",
-          "The voltage supplied to the DIAG_EN pin determines the maximum fault voltage on the SNS pin. Ensure the supply voltage is stable and compatible with the connected MCU's ADC input voltage range to prevent damage and ensure proper fault detection."
+          "Ensure the voltage level applied to the DIAG_EN pin is within the recommended operating conditions (typically -1 V to 5.5 V).",
+          "If the DIAG_EN pin is not used, it is recommended to connect it to GND to disable diagnostics and minimize standby current. Leaving it floating can lead to unpredictable behavior.",
+          "When using the DIAG_EN pin to multiplex diagnostic signals with an MCU, ensure proper timing and signal management to avoid conflicts or erroneous readings."
         ]
       },
       "input_voltage":{
@@ -57,19 +733,20 @@
           "max":500000.0,
           "min":200000.0,
           "nom":350000.0,
-          "units":"Ohm"
+          "units":"ohm"
         },
         "type":"RESISTANCE"
       },
       "name":"DIAG_EN",
       "pin_id":"3",
+      "polarity":"ACTIVE_HIGH",
       "type":"DIGITAL",
       "vih":{
-        "min":1.5,
+        "nom":1.5,
         "units":"V"
       },
       "vil":{
-        "max":0.8,
+        "nom":0.8,
         "units":"V"
       }
     },
@@ -79,18 +756,22 @@
       "implementation":{
         "connected_components":[
           {
-            "component":"Microcontroller GPIO",
-            "description":"A standard digital output pin from a microcontroller used to provide the high or low logic signal to enable or disable the switch."
+            "component_name":"Microcontroller Output",
+            "description":"A digital output pin from a microcontroller that can provide logic HIGH (e.g., 1.8V, 3.3V, or 5V) to enable the switch and logic LOW to disable it."
           },
           {
-            "component":"Series Protection Resistor (R_PROT)",
-            "description":"A resistor connected in series between the microcontroller's GPIO pin and the EN pin. The datasheet recommends a value of 5 k\u03a9 to 10 k\u03a9. This resistor is crucial for protecting both the microcontroller's I/O pin and the device's EN pin from overcurrent during fault conditions such as loss of ground or negative voltage transients."
+            "component_name":"Internal Pulldown Resistor",
+            "description":"The device has an internal pulldown resistor on the EN pin, ensuring the switch remains disabled if the pin is left floating. Its typical resistance is between 200 k\u03a9 and 500 k\u03a9."
           }
         ],
-        "connectivity":"The EN pin should be driven by a General-Purpose Output (GPIO) pin of a microcontroller. A series protection resistor should be placed in the connection line between the MCU GPIO and the EN pin. The internal pulldown resistor ensures the channel is disabled if the driving pin is in a high-impedance state or disconnected.",
-        "detailed_description":"The EN pin is a logic-level digital input used to control the activation state of the single high-side power switch channel. It features an internal pulldown resistor, ensuring the switch remains in the off state by default if the pin is left unconnected. A high logic level on the EN pin turns the internal NMOS power FET on, connecting the supply voltage (VS) to the output (VOUT). A low logic level turns the FET off. The pin's low input-high threshold (VIH min 1.5V) makes it directly compatible with 1.8-V, 3.3-V, and 5-V logic from a microcontroller. Additionally, toggling the EN pin (high to low to high) serves as a method to reset the device from a latched thermal fault condition.",
-        "functionality":"The EN pin has two primary functions based on its logic state: \n1. Channel Control: When set to a logic high, it enables the power switch, allowing current to flow to the load. When set to a logic low, it disables the power switch. If held low for longer than the standby delay time (t_STBY), the device enters a low-power standby mode.\n2. Fault Reset: When the device is configured in latch-off mode (via the LATCH pin), toggling the EN pin from high to low and back to high will clear a latched thermal shutdown fault and re-enable the output channel.",
-        "precautions":"A series protection resistor (R_PROT) between the microcontroller and the EN pin is strongly recommended to prevent damage during negative voltage events or loss of ground conditions. While the internal pulldown resistor provides a default-off state, it is good design practice for the controlling microcontroller to actively drive the pin low during system power-up and shutdown to prevent unintended load activation."
+        "connectivity":"The EN pin should be connected to a microcontroller output or a logic signal that can drive it HIGH to enable the switch and LOW to disable it. It has an internal pulldown resistor.",
+        "detailed_description":"The EN pin serves as the input control for channel activation. When driven HIGH, it enables the high-side switch, allowing current to flow from VS to VOUT. When driven LOW, it disables the switch, blocking current flow.",
+        "functionality":"The pin's primary function is to enable or disable the high-side switch. It is compatible with 1.8-V, 3.3-V, and 5-V logic levels.",
+        "precautions":[
+          "Ensure the voltage applied to the EN pin is within the recommended operating range (\u20131 V to 5.5 V) to prevent damage.",
+          "If the EN pin is left floating, the internal pulldown resistor will keep the switch disabled. If the channel needs to be enabled, a strong HIGH signal must be applied.",
+          "The input voltage hysteresis for the EN pin is 280 mV, which should be considered for reliable switching, especially in noisy environments."
+        ]
       },
       "input_voltage":{
         "max":5.5,
@@ -103,51 +784,57 @@
           "max":500000.0,
           "min":200000.0,
           "nom":350000.0,
-          "units":"Ohm"
+          "units":"ohm"
         },
         "type":"RESISTANCE"
       },
       "name":"EN",
       "pin_id":"2",
+      "polarity":"ACTIVE_HIGH",
       "type":"DIGITAL",
       "vih":{
-        "min":1.5,
+        "nom":1.5,
         "units":"V"
       },
       "vil":{
-        "max":0.8,
+        "nom":0.8,
         "units":"V"
       }
     },
     "FAULT":{
-      "description":"Open drain global fault output. Referred to FLT, or fault pin",
+      "description":"Open drain global fault output. Referred to~~FLT,~~ or fault pin",
       "direction":"OUTPUT",
       "implementation":{
         "connected_components":[
           {
-            "component":"Pull-up Resistor",
-            "description":"An external pull-up resistor is required. It should be connected between the FAULT pin's trace and the voltage rail that supplies the microcontroller's I/O pins. The datasheet does not specify a value, but typical values range from 4.7 k\u03a9 to 10 k\u03a9."
+            "component_name":"Microcontroller (MCU)",
+            "connection_details":"Connected to an input pin of the MCU to receive fault signals."
           },
           {
-            "component":"Series Protection Resistor (RPROT)",
-            "description":"A resistor should be connected in series between the FAULT pin and the MCU input pin. The datasheet recommends a value of 5 k\u03a9 to 10 k\u03a9 to protect the MCU I/O during events like loss of ground or negative voltage pulses."
+            "component_name":"Pull-up Resistor",
+            "connection_details":"Connected between the FAULT pin and the microcontroller's supply voltage (e.g., VCC) to provide a defined high state when no fault is present."
           }
         ],
-        "connectivity":"The FAULT pin should be connected to an input pin of a microcontroller (MCU). As an open-drain output, it requires an external pull-up resistor connected from the pin's trace to the MCU's I/O voltage supply (e.g., 3.3V or 5V). This ensures a logic high level during normal operation. A series protection resistor between the FAULT pin and the MCU input is also recommended for I/O protection.",
-        "detailed_description":"The FAULT pin is an open-drain, active-low, global fault output. It is used to signal various fault conditions to a connected microcontroller. When a fault such as overcurrent, overvoltage, thermal shutdown, or off-state open-load occurs, the pin is internally pulled down to ground. During normal operation, the pin is in a high-impedance state.",
-        "functionality":"The pin has two primary states based on the device's operational status. In a normal, fault-free state, the pin is high-impedance (Hi-Z). In a fault condition, the pin is pulled low (L). If the pin is not used in the system design, it can be left floating, but the system will lose the ability to detect faults from the device.",
-        "precautions":"If the FAULT pin is unused, it can be left floating, but the system will not be able to monitor for fault conditions. For robust system design, a series protection resistor (RPROT) is recommended to protect the connected microcontroller's I/O pin from potential damage during negative voltage events on the device's ground."
+        "connectivity":"It is an output pin and should be connected to a microcontroller's input pin. An external pull-up resistor is required. If the FAULT pin is unused, it should be left floating.",
+        "detailed_description":"The FAULT pin is an open-drain global fault output. It is referred to as FLT or fault pin. When a fault condition occurs, this pin is pulled down to GND.",
+        "functionality":"The FAULT pin's primary function is to signal a fault condition. It is an open-drain output, meaning it requires an external pull-up resistor to indicate the fault state. If this pin is left unused, the system cannot read faults from the output.",
+        "precautions":[
+          "An external pull-up resistor is required for the FAULT pin to function correctly.",
+          "If the FAULT pin is not connected to the system, fault information cannot be read.",
+          "The FAULT pin is open-drain, so it should not be directly connected to a voltage source without a current-limiting resistor if that source is not a microcontroller input."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":-1.0,
+        "units":"V"
       },
       "name":"FAULT",
-      "output_current":{
-        "nom":0.0025,
-        "units":"A"
-      },
       "output_type":"OPEN_DRAIN",
       "pin_id":"4",
       "type":"DIGITAL",
       "vol":{
-        "max":0.5,
+        "nom":0.5,
         "units":"V"
       }
     },
@@ -157,57 +844,61 @@
       "implementation":{
         "connected_components":[
           {
-            "component":"Resistor (RGND)",
-            "details":"A resistor connected in parallel with a diode between the GND pin and the system ground. This is part of the recommended GND network for reverse battery protection. A 1-k\u03a9 resistor is the recommended value."
-          },
-          {
-            "component":"Diode (DGND)",
-            "details":"A diode connected in parallel with the resistor between the GND pin and the system ground. This diode blocks reverse current. A diode with a forward current rating (IF) of 100 mA or more is recommended."
+            "component_name":"Resistor-Diode Ground Network",
+            "details":"This network is recommended for reverse battery protection. The specific components (resistor and diode) and their values should be chosen based on the application requirements and protection level needed, as discussed in Section 8.3.5.6."
           }
         ],
-        "connectivity":"For applications without a GND network, the GND pin and thermal pad should be tied directly to the board's ground plane. For enhanced reverse battery protection, the GND pin and thermal pad should be connected to the board's ground plane through a parallel resistor-diode network. The datasheet recommends this network, specifically a resistor and diode in parallel (Type 3).",
-        "detailed_description":"The GND pin is the primary ground reference for the TPS1HTC30-Q1. The thermal pad of the package is internally shorted to this pin, making it a critical connection for both electrical reference and thermal dissipation.",
-        "functionality":"The pin's primary function is as the ground reference. Its connection method determines the reverse polarity protection scheme. When connected directly to the system ground, it provides a standard ground reference. When connected through a resistor-diode network, it provides reverse battery protection for the device.",
-        "precautions":[
-          "When a GND network is used, it creates a voltage shift between the device GND and the board GND. In this case, the resistor for the ILIM pin must be connected to the device's GND pin, not the board ground.",
-          "The thermal pad is internally connected to GND and is essential for heat dissipation. It must be soldered to a copper area on the PCB with thermal vias to the ground plane to ensure proper thermal performance.",
-          "If only a diode is used for the GND network (Type 2), it is not acceptable for driving inductive loads as it can lead to abnormal status during turn-off."
-        ]
+        "connectivity":"Connect to the ground plane of the circuit. For reverse battery protection, a resistor-diode ground network is recommended.",
+        "detailed_description":"Ground of the device. It is recommended to connect to a resistor-diode ground network for reverse battery protection.",
+        "functionality":"The GND pin serves as the ground reference for the TPS1HTC30-Q1 device. It is also connected internally to the thermal pad, which aids in heat dissipation.",
+        "precautions":"Ensure the GND pin is properly connected to the circuit ground. When using a GND network for reverse battery protection, it's crucial to follow the recommendations in the datasheet (Section 8.3.5.6) to ensure proper functionality and prevent damage to the device or connected components, especially the microcontroller I/Os."
+      },
+      "input_voltage":{
+        "max":0.0,
+        "min":-0.7,
+        "units":"V"
       },
       "name":"GND",
       "pin_id":"1",
       "type":"POWER"
     },
     "ILIM":{
-      "description":"Adjustable current limit. A resistor to ground (R_ILIM) on this pin sets the current limit threshold (I_LIM) according to the formula I_LIM = K_CL / R_ILIM, where K_CL is typically 100 A*k\u03a9. Short to ground or leave floating if external current limit is not used.",
+      "description":"Adjustable current limit. Short to ground or leave floating if external current limit is not used",
       "direction":"INPUT",
       "implementation":{
         "connected_components":[
           {
-            "component":"Resistor (R_ILIM)",
-            "details":"A resistor connected from the ILIM pin to the device's GND to set a custom current limit. Its value is calculated as R_ILIM = K_CL / I_LIM. For example, to set a 5 A limit, a 20 k\u03a9 resistor is used (100 A*k\u03a9 / 5 A). The valid resistor range for this feature is specified between 10 k\u03a9 and 50 k\u03a9."
+            "component_name":"Resistor (R_ILIM)",
+            "purpose":"To set the current limit threshold. The value is calculated using the formula R_LIM = K_CL / I_LIM_REG, where K_CL is the current limit ratio (100 A*k\u03a9) and I_LIM_REG is the desired current limit in Amps."
           },
           {
-            "component":"Switch and Parallel Resistor (optional)",
-            "details":"To dynamically change the current limit, a switch (e.g., a MOSFET) can be used to connect a second resistor in parallel with the main R_ILIM resistor. This allows for different current limits during startup and normal operation."
-          },
-          {
-            "component":"Digital Potentiometer (optional)",
-            "details":"A digital potentiometer can be used in place of a fixed resistor to adjust the current limit on the fly via microcontroller commands."
+            "component_name":"Ground (GND)",
+            "purpose":"Connection point for the external current limit resistor (R_ILIM) and for setting the internal current limit to 16A."
           }
         ],
-        "connectivity":"1.  **For an adjustable limit:** Connect a resistor (R_ILIM) from the ILIM pin to the device's GND pin (pin 1).\n2.  **For the 16 A limit:** Connect a short trace from the ILIM pin to the device's GND pin (pin 1).\n3.  **For the 8 A limit:** Leave the ILIM pin unconnected (floating).\nIt is critical that the connection is made to the device's local GND pin, especially if a ground network is used for reverse polarity protection, which would create a voltage shift between the device ground and the main board ground.",
-        "detailed_description":"The ILIM pin is used to set the current limit threshold for the high-side switch. It allows for an adjustable, high-accuracy current limit to protect the device and the load from overcurrent and short-circuit conditions. This feature helps manage inrush current when driving capacitive loads and minimizes stress on the power supply. The current limit (I_LIM_REG) is set by an external resistor (R_LIM_REG) connected between the ILIM pin and the device's ground, following the formula: I_LIM_REG = K_CL / R_LIM_REG, where K_CL is the current limit ratio, typically 100 A*k\u03a9.",
-        "functionality":"The pin serves different functions based on its electrical connection:\n1.  **Programmable Current Limit:** When an external resistor (R_ILIM) is connected from the pin to the device's ground, the current limit is set by the resistor's value. The adjustable range is from 2 A to 16 A.\n2.  **Fixed High Current Limit:** When the pin is shorted directly to the device's ground, a fixed internal current limit of 16 A (typical) is selected.\n3.  **Fixed Default Current Limit:** When the pin is left floating (open), the device defaults to an internal current limit of 8 A (typical). This serves as a fail-safe mode in case the external resistor connection is lost.",
+        "connectivity":"Connect an external resistor (R_ILIM) between the ILIM pin and the device's GND pin to set the desired current limit. If an external current limit is not needed, the pin can be left floating or tied to GND to utilize the internal current limit options.",
+        "detailed_description":"The ILIM pin is used for adjustable current limit setting. It allows the user to define the current limit threshold for the device. By connecting an external resistor from the ILIM pin to GND, a specific current limit can be programmed. If the ILIM pin is left floating or out of range, an internal current limit of 8A is set. If the ILIM pin is shorted to GND, an internal current limit of 16A is set.",
+        "functionality":[
+          "Adjustable current limit programming via an external resistor.",
+          "Internal current limit set to 8A when left floating or out of range.",
+          "Internal current limit set to 16A when shorted to GND."
+        ],
         "precautions":[
-          "If a ground network is used for reverse polarity protection, the ILIM resistor must be connected to the device's local GND pin, not the system or board ground, to ensure accurate current limit setting.",
-          "The total capacitance on the ILIM pin should be kept below approximately 100 pF to maintain the stability of the internal current regulation loop.",
-          "While leaving the pin floating is a valid operational mode, the datasheet notes that an open ILIM pin is considered a fault state, suggesting it is primarily intended as a fail-safe condition."
+          "When using a GND network (which creates a voltage shift between the device GND and board GND), the ILIM pin must be connected to the device GND.",
+          "The capacitance on the ILIM pin should be kept below approximately 100 pF to ensure the stability of the current regulation loop, especially when dynamically changing the current limit.",
+          "Ensure the ILIM pin is connected appropriately to achieve the desired current limit behavior. Leaving it floating results in an 8A limit, while shorting to GND results in a 16A limit."
         ]
       },
+      "input_voltage":{
+        "max":5.5,
+        "min":-1.0,
+        "units":"V"
+      },
+      "internal_pull":null,
       "name":"ILIM",
       "pin_id":"7",
-      "type":"ANALOG"
+      "polarity":"ACTIVE_HIGH",
+      "type":"DIGITAL"
     },
     "LATCH":{
       "description":"Thermal shutdown behavior, latch off or auto retry, internal pull down",
@@ -215,18 +906,15 @@
       "implementation":{
         "connected_components":[
           {
-            "component":"Resistor (RPROT)",
-            "description":"A series protection resistor is recommended when connecting the LATCH pin to a microcontroller. The datasheet suggests a value of 5 k\u03a9 for RPROT. This resistor protects the microcontroller's I/O pin from potential damage during events like negative ISO pulses or loss of ground."
-          },
-          {
-            "component":"Microcontroller (MCU)",
-            "description":"A GPIO pin from an MCU is used to drive the LATCH pin high for latch-off mode or low for auto-retry mode. The pin is compatible with 1.8-V, 3.3-V, and 5-V logic levels."
+            "component_name":"RPROT (protection resistor)",
+            "connection_details":"Can be connected between the LATCH pin and ground. If the system has limited I/O and latched behavior is desired, this resistor can be used to control the latch function of multiple high-side channels.",
+            "purpose":"To control the latch function of multiple high-side channels if system I/O is limited, or to influence the auto-retry behavior."
           }
         ],
-        "connectivity":"For auto-retry functionality, the pin can be left floating (unconnected) or connected to the device's ground (GND pin). For latch-off functionality, the pin should be connected to a digital output pin of a microcontroller. In this case, a series protection resistor between the microcontroller and the LATCH pin is recommended.",
-        "detailed_description":"The LATCH pin configures the behavior of the high-side switch following a thermal shutdown event. It determines whether the device will automatically attempt to restart (auto-retry mode) or remain in a disabled state until it is explicitly reset (latch-off mode). This function applies to both absolute and relative thermal shutdown faults.",
-        "functionality":"The pin has two distinct functions based on its logic level. \n1. Logic Low (Auto-Retry): When the LATCH pin is held at a logic low level or left floating (due to its internal pull-down resistor), the device is in auto-retry mode. After a thermal shutdown, the device will automatically try to turn back on after a retry time (tRETRY) has elapsed and the device temperature has fallen below the thermal hysteresis threshold. \n2. Logic High (Latch-Off): When the LATCH pin is held at a logic high level, the device is in latch-off mode. If a thermal shutdown occurs, the device will turn off and remain off. To re-enable the output channel, either the LATCH pin or the EN pin must be toggled (brought low and then high again).",
-        "precautions":"The LATCH pin has a strong internal pull-down resistor (0.7 M\u03a9 to 1.4 M\u03a9), so the default behavior is auto-retry if the pin is left unconnected. When driving the pin with a microcontroller, ensure the logic high and low voltage levels meet the V_IH and V_IL specifications. For system-level robustness, especially in automotive environments, using the recommended 5 k\u03a9 series protection resistor is critical to protect the MCU."
+        "connectivity":"The LATCH pin has an internal pulldown resistor. It can be left floating or connected to ground through a resistor (RPROT) if latched behavior is desired but the system has limited I/O. If auto-retry is desired and no external control is needed, it can be left floating or connected to ground.",
+        "detailed_description":"The LATCH pin controls the behavior of the device after a fault condition, specifically for thermal shutdown events. When this pin is set to a logic low, the device will attempt to auto-retry after a fault. If a latched behavior is desired but the system has limited I/O, this pin can be used to control the latch function of multiple high-side channels.",
+        "functionality":"The LATCH pin determines whether the device will automatically retry after a fault or if it will latch off until the EN or LATCH pin is toggled. If left floating, the device performs an auto-retry.",
+        "precautions":"If the LATCH pin is left floating, the device will perform an auto-retry after a fault. If latched behavior is required, ensure it is properly controlled, either by grounding it through a resistor or by using a microcontroller output. Be mindful of the internal pulldown resistor when driving this pin with a microcontroller."
       },
       "input_voltage":{
         "max":5.5,
@@ -239,106 +927,126 @@
           "max":1400000.0,
           "min":700000.0,
           "nom":1000000.0,
-          "units":"Ohm"
+          "units":"ohm"
         },
         "type":"RESISTANCE"
       },
       "name":"LATCH",
       "pin_id":"5",
+      "polarity":"ACTIVE_HIGH",
       "type":"DIGITAL",
       "vih":{
-        "min":1.5,
+        "nom":1.5,
         "units":"V"
       },
       "vil":{
-        "max":0.8,
+        "nom":0.8,
         "units":"V"
       }
     },
-    "PAD":{
+    "NC":{
+      "description":"No internal connection",
+      "direction":"OTHER",
+      "implementation":{
+        "connected_components":[],
+        "connectivity":"The NC pin should not be connected to any external circuit. It should be left floating and unconnected in the schematic and on the PCB.",
+        "detailed_description":"The NC pin (pin 11) on the TPS1HTC30-Q1 is designated as 'No internal connection'. This means that there is no internal circuitry connected to this pin within the integrated circuit.",
+        "functionality":"The pin has no internal functionality. It is present on the package for mechanical or manufacturing reasons, or to maintain pinout compatibility with other devices. It does not actively participate in the device's operation.",
+        "precautions":"It is important not to connect anything to the NC pin. Connecting it to any voltage source, ground, or signal line could lead to unexpected behavior, damage to the device, or a failure in the system. If the PCB layout includes a pad for this pin, it should remain unconnected."
+      },
+      "internal_pull":null,
+      "name":"NC",
+      "pin_id":"11",
+      "type":"OTHER"
+    },
+    "SNS":{
+      "description":"Output corresponding sense value based on sense ratio",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"RSNS",
+            "description":"A sense resistor connected between the SNS pin and ground. Its value is chosen to optimize the current sense accuracy and the voltage range for the MCU's ADC, considering the desired current range and fault voltage levels. A typical value is 1 k\u03a9."
+          },
+          {
+            "component_name":"MCU ADC Input",
+            "description":"The analog output of the SNS pin is fed into the Analog-to-Digital Converter (ADC) of a microcontroller for current monitoring and fault detection."
+          },
+          {
+            "component_name":"DIAG_EN Pin",
+            "description":"The state of the DIAG_EN pin controls whether the SNS pin provides analog current sense information or is in a high-impedance state."
+          }
+        ],
+        "connectivity":"For analog current sensing and fault reporting, the SNS pin should be connected to the ground through an external sense resistor (RSNS). For diagnostics, this pin is typically connected to an MCU's analog-to-digital converter (ADC) input. If the analog sense is not needed, the SNS pin can be connected to ground through a 1-k\u03a9 resistor.",
+        "detailed_description":"The SNS pin provides an output that corresponds to the sensed load current. This output is proportional to the load current, with a specific sense ratio (KSNS). This allows for accurate current monitoring and diagnostics. In fault conditions, the SNS pin can also indicate a fault by forcing a specific voltage level (VSNSFH) that scales with the DIAG_EN pin voltage, providing a way to report faults without needing external protection components for the MCU's ADC.",
+        "functionality":"The SNS pin's functionality depends on the DIAG_EN pin state. When DIAG_EN is HIGH, the SNS pin provides an analog output proportional to the load current. In fault conditions (e.g., overcurrent, thermal shutdown), the SNS pin output is clamped to a high voltage level (VSNSFH). When DIAG_EN is LOW, the SNS pin output is in a high-impedance state, effectively disabling the current sensing and diagnostic reporting through this pin.",
+        "precautions":[
+          "The value of the sense resistor (RSNS) should be carefully chosen to ensure that the voltage on the SNS pin (VSNS) remains within the acceptable input range of the MCU's ADC, both during normal operation and during fault conditions.",
+          "The formula (V SNSFH \u2013 V HR ) \u00d7 K SNS / I LOAD,max \u2264 R SNS \u2264 V ADC,min \u00d7 K SNS / I LOAD,min should be used to select RSNS for optimal performance.",
+          "If the SNS pin is not used for current sensing, it should be connected to ground through a 1-k\u03a9 resistor to prevent floating and potential issues."
+        ]
+      },
+      "name":"SNS",
+      "output_current":null,
+      "output_type":"OPEN_DRAIN",
+      "output_voltage":{
+        "max":5.77,
+        "min":-1.0,
+        "units":"V"
+      },
+      "pin_id":"6",
+      "type":"ANALOG",
+      "voh":null,
+      "vol":null
+    },
+    "Thermal Pad":{
       "description":"Thermal Pad, internally shorted to ground",
       "direction":"INPUT",
       "implementation":{
-        "connected_components":[
-          {
-            "component":"PCB Copper Pad",
-            "details":"The PAD must be soldered to a copper pad on the PCB. This pad should be as large as possible to maximize heat spreading."
-          },
-          {
-            "component":"Thermal Vias",
-            "details":"Multiple thermal vias should be placed in the PCB pad directly under the device. These vias connect the top-layer pad to larger ground planes on other layers of the PCB, creating an effective thermal path away from the device."
-          }
-        ],
-        "connectivity":"The thermal pad must be soldered to a corresponding thermal pad on the PCB. This PCB pad should have a large copper area to act as a heat sink. It is critical to use multiple thermal vias directly under the pad to connect it to an internal or bottom-layer ground plane, which further spreads the heat. If not using a reverse-battery protection GND network, the thermal pad on the PCB should be tied directly to the board's main GND copper. If using a GND network, the thermal pad is connected to the device's GND pin (pin 1), and this node is then connected through the GND network to the board GND.",
-        "detailed_description":"The PAD is a thermal pad on the underside of the package, labeled as 'PowerPAD\u2122'. Its primary function is to provide a low thermal resistance path for heat to flow from the IC die to the printed circuit board (PCB). This is crucial for thermal management, especially when the device is operating with high output currents, which causes significant power dissipation. The datasheet specifies that the thermal pad is internally shorted to the device's ground (GND, pin 1).",
-        "functionality":"The pin's function is primarily for thermal dissipation and does not change. Electrically, it serves as a robust ground connection. Its effectiveness in dissipating heat is entirely dependent on the PCB layout to which it is soldered.",
-        "precautions":"Proper PCB layout is essential for the thermal performance and long-term reliability of the device. Failure to provide an adequate thermal path can cause the device to overheat and enter thermal shutdown. Solder coverage should be at least 85% to ensure a good thermal connection; solder voids must be minimized. To prevent solder wicking and voids, thermal vias should be plated shut or plugged and capped. The datasheet recommends specific stencil designs for solder paste application to achieve a good solder joint."
+        "connected_components":"No external components are typically connected directly to the Thermal Pad itself. Its connection is to the PCB's ground plane. The PCB layout should incorporate a sufficient copper area connected to this pad to act as a heatsink.",
+        "connectivity":"The Thermal Pad should be connected to the ground plane of the PCB. In a schematic, it should be connected to the device's ground (GND).",
+        "detailed_description":"The Thermal Pad is internally connected to the ground of the device. It is designed to help dissipate heat generated by the device during operation.",
+        "functionality":"The primary function of the Thermal Pad is for thermal management. It provides a low thermal resistance path for heat to dissipate from the IC to the PCB, thereby helping to keep the junction temperature within its operating limits. Electrically, it is connected to ground.",
+        "precautions":"Ensure adequate copper area on the PCB is connected to the Thermal Pad to facilitate efficient heat dissipation. Failure to do so can lead to the device overheating and potentially triggering thermal shutdown or causing permanent damage. When soldering, ensure a good thermal connection is made to the PCB ground plane. If using thermal vias, ensure they are properly plated and not plugged to maintain good thermal conductivity."
       },
-      "name":"PAD",
+      "input_voltage":{
+        "max":0.0,
+        "min":-0.7,
+        "units":"V"
+      },
+      "name":"Thermal Pad",
       "pin_id":"Thermal Pad",
       "type":"POWER"
     },
-    "SNS":{
-      "description":"Output corresponding sense value based on sense ratio. In a fault condition, the pin is pulled to a voltage VSNSFH (typ 5V for DIAG_EN=5V, or 3.3V for DIAG_EN=3.3V).",
-      "direction":"OUTPUT",
-      "implementation":{
-        "connected_components":[
-          {
-            "component":"R_SNS (Sense Resistor)",
-            "description":"A precision resistor (1% or better recommended) connected from the SNS pin to ground. It converts the proportional sense current into a measurable voltage. Its value should be calculated based on the maximum load current to be measured and the ADC's full-scale range, ensuring the resulting voltage is below the fault voltage level (V_SNSFH). A typical value from the datasheet application example is 1 k\u03a9."
-          },
-          {
-            "component":"R_PROT (Protection Resistor)",
-            "description":"An optional but recommended resistor placed in series between the R_SNS node and the MCU ADC input. It helps protect the MCU I/O pin. The datasheet suggests a value of 10 k\u03a9."
-          },
-          {
-            "component":"C_FILTER (Filter Capacitor)",
-            "description":"An optional capacitor that, combined with R_PROT, creates a low-pass filter to reduce noise on the signal going to the ADC. The datasheet application example uses a 100 nF capacitor."
-          }
-        ],
-        "connectivity":"The SNS pin should be connected to ground through an external sense resistor (R_SNS). The node between the SNS pin and R_SNS is then connected to a microcontroller's ADC input. It is recommended to place a series protection resistor (R_PROT) between this node and the ADC input. A filter capacitor (C_FILTER) can be placed from the ADC input to ground to form a low-pass filter. If the SNS pin is not used in the application, it should be connected to ground through a 1-k\u03a9 resistor.",
-        "detailed_description":"The SNS pin is a multi-function analog output used for current sensing and fault diagnostics. In normal operation, it sources a current that is proportional to the main high-side switch's output current (I_OUT) by a fixed ratio, K_SNS (typically 1/1300). This sense current is converted to a voltage by an external resistor (R_SNS) for measurement by a microcontroller's ADC. Under fault conditions, such as overcurrent, thermal shutdown, or off-state open-load, the pin outputs a specific fault voltage level (V_SNSFH) to signal the error to the microcontroller.",
-        "functionality":"The pin's function is determined by the device's operating state and the state of the DIAG_EN pin:\n1. **Analog Current Sense:** When the device is operating normally (no faults) and the DIAG_EN pin is logic HIGH, the SNS pin sources a current equal to I_OUT / K_SNS.\n2. **Fault Indication:** Under fault conditions and with DIAG_EN logic HIGH, the SNS pin is driven to a fault voltage level, V_SNSFH. This fault voltage scales with the voltage applied to the DIAG_EN pin itself, helping to protect the connected ADC input.\n3. **High-Impedance State:** When the DIAG_EN pin is logic LOW, the current sense and diagnostic features are disabled, and the SNS pin is in a high-impedance state.",
-        "precautions":"The value of the sense resistor (R_SNS) is critical. It must be selected so that the voltage at the maximum measurable load current is sufficiently below the fault voltage (V_SNSFH) to allow the system to distinguish between a high current condition and a fault. The current sense functionality is only active when the DIAG_EN pin is HIGH. The system designer must be aware that the SNS pin reports faults by outputting a voltage level, not a proportional current. The integrated feature of V_SNSFH scaling with V_DIAG_EN removes the need for external protection like a Zener diode but must be considered in the design."
-      },
-      "name":"SNS",
-      "pin_id":"6",
-      "type":"ANALOG"
-    },
     "VOUT":{
       "description":"Output of high side switch, connected to load",
-      "direction":"OUTPUT",
+      "direction":"OTHER",
       "implementation":{
         "connected_components":[
           {
-            "component":"Load",
-            "details":"The VOUT pin connects directly to the system load. The datasheet specifies it is suitable for general resistive, inductive, and capacitive loads like low-wattage bulbs, LEDs, relays, solenoids, and heaters."
+            "component_name":"Load",
+            "description":"The VOUT pin is connected to the intended load of the high-side switch (e.g., resistive, inductive, or capacitive loads)."
           },
           {
-            "component":"EMI Capacitor (CVOUT)",
-            "details":"The typical application schematic (Figure 9-1) recommends an optional 22 nF capacitor connected between the VOUT pin and ground. This capacitor helps to improve EMI performance and filter voltage transients on the output line."
+            "component_name":"Capacitor (CVOUT)",
+            "description":"A small capacitor (e.g., 22 nF) is recommended between VOUT and GND for EMI performance and transient filtering."
           }
         ],
-        "connectivity":"Pins 8, 9, and 10 are all designated as VOUT and must be electrically connected together on the PCB. This common VOUT node is then connected to one terminal of the external load. The other terminal of the load is typically connected to the system ground. PCB traces for VOUT should be sized appropriately to handle the maximum expected load current and to aid in thermal dissipation.",
-        "detailed_description":"VOUT (pins 8, 9, 10) is the power output of the integrated NMOS high-side switch. When the switch is enabled via the EN pin, VOUT connects the power supply (VS) to the load. It is the primary current path for driving various types of loads, including resistive, inductive, and capacitive, with a continuous current capability of up to 6 A. The voltage on this pin is internally monitored for protection and diagnostic features, such as open-load detection and clamping during inductive load turn-off.",
-        "functionality":"The pin's primary function is to act as the switched power output to the load. Its behavior is dependent on the operational state and load type:\n- **On-State:** VOUT is connected to the VS pin through the internal low on-resistance (RON) FET, supplying power to the load.\n- **Off-State:** VOUT is disconnected from VS. The voltage on this pin is used for off-state diagnostics. For instance, in an open-load condition, VOUT is pulled up towards VS, which the device detects as a fault.\n- **Inductive Load Turn-off:** When switching off an inductive load, an internal clamp activates to limit the voltage between VS and VOUT (VDS,clamp), safely dissipating the stored inductive energy and protecting the internal FET.",
+        "connectivity":"The VOUT pin should be connected directly to the load. For improved EMI performance and transient filtering, a small capacitor (e.g., 22 nF) can be connected between VOUT and GND. In some diagnostic scenarios, the output voltage on VOUT is monitored.",
+        "detailed_description":"VOUT is the output pin of the high-side switch. It is connected to the load.",
+        "functionality":"The VOUT pin serves as the primary output of the TPS1HTC30-Q1. It delivers the switched power to the connected load. The pin also plays a role in diagnostics, such as open-load detection when the device is off.",
         "precautions":[
-          "When driving inductive loads, the energy dissipated during turn-off must not exceed the device's capability, as specified in the 'Inductive Load Discharge Energy Capability' chart (Figure 8-7). If the application's energy requirements exceed this limit, an external protection device, such as a freewheeling diode across the load, is necessary.",
-          "During an off-state open-load condition, the VOUT pin voltage will be close to the VS supply voltage. This is normal behavior for the diagnostic feature and should be accounted for in the system design.",
-          "To handle high currents and aid in thermal management, use wide PCB traces for the VOUT pins."
+          "Ensure that the voltage and current ratings of the load are within the device's capabilities.",
+          "Proper layout is crucial to manage thermal dissipation, especially at higher output currents. Maximize copper coverage and use thermal vias to connect the thermal pad to ground.",
+          "When enabling diagnostics, the voltage on the VOUT pin is monitored. Ensure that the measurement circuitry connected to VOUT can handle the expected voltage levels."
         ]
       },
-      "name":"VOUT",
-      "output_current":{
-        "max":16.0,
-        "min":2.0,
-        "units":"A"
-      },
-      "output_voltage":{
+      "input_voltage":{
         "max":64.0,
         "min":-60.0,
         "units":"V"
       },
+      "name":"[8, 9, 10]",
       "pin_id":"[8, 9, 10]",
       "type":"POWER"
     },
@@ -348,37 +1056,39 @@
       "implementation":{
         "connected_components":[
           {
-            "component":"Bypass Capacitor (CIC)",
-            "description":"A 100 nF ceramic capacitor is required for high-frequency decoupling and EMI mitigation. It should be placed very close to the VS and GND pins."
+            "component_name":"VS",
+            "connection_details":"Connect directly to the main power supply (e.g., automotive battery). Multiple VS pins are available (12, 13, 14) and should all be connected."
           },
           {
-            "component":"Bulk Capacitor (CBULK)",
-            "description":"An optional 10 \u00b5F (or larger) electrolytic or ceramic capacitor is recommended to stabilize the supply rail during voltage transients and load steps."
+            "component_name":"TVS Diode (Optional)",
+            "connection_details":"An optional TVS diode (e.g., SMBJ60CA) can be connected across the VS pin and GND to protect against voltage transients (ISO7637-2 pulses)."
           },
           {
-            "component":"EMI Filter Capacitor (CVS)",
-            "description":"An optional 220 nF capacitor can be used for improved EMI performance."
+            "component_name":"Bulk Capacitor (Optional)",
+            "connection_details":"An optional bulk capacitor (e.g., 10 uF) can be connected between VS and GND to help filter voltage transients and stabilize the supply rail, especially if the LDO needs to hold its rail."
           },
           {
-            "component":"Transient Voltage Suppressor (TVS)",
-            "description":"An optional TVS diode (e.g., SMBJ60CA) connected between the VS line and ground can protect the device from high-voltage transients from the battery, as specified by standards like ISO7637-2."
-          },
-          {
-            "component":"Blocking Diode",
-            "description":"For reverse polarity protection, an optional blocking diode can be placed in series with the VS supply line. This will protect both the device and the load but will cause a forward voltage drop."
+            "component_name":"Input Capacitor (CIC)",
+            "connection_details":"A 100 nF capacitor is recommended on the input for EMI mitigation, typically placed close to the VS pin."
           }
         ],
-        "connectivity":"The VS pins (pins 12, 13, and 14) should be connected together on the PCB and tied directly to the positive terminal of the power source, such as a 24-V automotive battery rail. Local decoupling and bulk capacitors should be connected between the VS trace and the system ground, placed as close to the device pins as possible.",
-        "detailed_description":"The VS pin is the primary power supply input for the TPS1HTC30-Q1 integrated circuit. It provides the operating voltage for all internal circuitry, including the control logic, charge pump, and the integrated NMOS power FET. The device is designed for a wide operating voltage range, typically connected to a 24-V automotive battery system. The VS pin is also monitored by internal protection circuits for undervoltage lockout (UVLO) and overvoltage protection (OVP), which disable the output switch if the supply voltage goes beyond the specified safe operating thresholds.",
-        "functionality":"The pin's primary function is to serve as the power input. However, the device's behavior is dependent on the voltage level at this pin. Based on Table 9-2, there are different operating ranges:\n- 6V to 10V (Extended Lower Range): The device is fully functional and protected, but some electrical parameters like R_ON, current sense accuracy, and timings may deviate from the specifications.\n- 10V to 32V (Nominal Range): The device is fully functional, and all parametric specifications apply.\n- 32V to 60V (Extended Upper Range): The device is fully functional and protected, but some parameters like timing may deviate.\n- Outside these ranges, up to the absolute maximums, the OVP or UVLO protection will engage, turning the output off.",
-        "precautions":"The operating voltage on the VS pin must be maintained within the recommended range of 6 V to 60 V for proper device function. Applying a voltage exceeding the absolute maximum rating of 64 V can cause permanent damage. If the voltage drops below the UVLO threshold (V_S,UVLOF, typ. 4.5 V) or rises above the OVP threshold (V_S,OVPR, typ. 65 V), the device will automatically turn off the output. Reverse polarity protection is not integrated and requires external components like a series blocking diode on the VS pin or a GND network as described in Section 8.3.5.6."
+        "connectivity":"The VS pin should be connected directly to the vehicle's main power supply (e.g., the battery or a regulated power rail). It is recommended to connect all VS pins (pins 12, 13, and 14) to the power supply for optimal performance and thermal management.",
+        "detailed_description":"VS is the power supply pin for the high-side switch. It receives the main input voltage from the automotive battery.",
+        "functionality":"The VS pin is the primary power input to the device. It operates across a wide voltage range (6 V to 60 V) and includes overvoltage protection up to 66 V. It powers the internal circuitry, including the NMOS power FET and charge pump.",
+        "precautions":[
+          "Ensure the VS voltage stays within the recommended operating conditions (6 V to 60 V).",
+          "The device has overvoltage protection up to 66 V, but sustained operation above the recommended range can impact reliability.",
+          "In automotive applications, consider adding transient voltage suppression (TVS) and filtering capacitors to protect against voltage spikes and noise on the power supply line.",
+          "Proper PCB layout with adequate copper coverage and thermal vias is crucial for heat dissipation, especially at higher load currents, to prevent thermal shutdown.",
+          "When connecting to the power supply, ensure that the reverse battery protection circuit (if used with an external component network) is correctly implemented to prevent damage to the device."
+        ]
       },
       "input_voltage":{
         "max":60.0,
         "min":6.0,
         "units":"V"
       },
-      "name":"VS",
+      "name":"[12, 13, 14]",
       "pin_id":"[12, 13, 14]",
       "type":"POWER"
     }
