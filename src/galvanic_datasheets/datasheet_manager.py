@@ -1,25 +1,45 @@
 import os
 import json
+import shutil
 import requests
 from urllib.parse import urlparse
 from pathlib import Path
 from galvanic import colored_logger
+from galvanic.utils.datasheet_parser import DatasheetConverter
 
 logger = colored_logger(__file__)
 
-class DatasheetComponents:
+class DatasheetStructure:
+    PROMPT = True
+    AUTOCREATE_JSON = True
+
     def __init__(self, root_path):
-        self.root = Path(root_path)
+        self.root = Path(root_path.lower())
         if not self.root.exists():
             os.mkdir(self.root)
+        if not self.has_pdf and self.PROMPT:
+            self.download_datasheet()
 
-    def download_json_from_url(url):
-        response = requests.get(url)
-        if response.status_code == 200:
-            return json.loads(response.content)
+    def download_datasheet(self, datasheet_path=None):
+        if datasheet_path is None:
+            datasheet_path = input("Enter datasheet source (URL or path): ")
+
+        # Determine path type
+        is_url = bool(urlparse(datasheet_path).scheme)
+        if is_url:
+            response = requests.get(datasheet_path)
+            if response.status_code == 200:
+                with open(self.root/'datasheet.pdf', 'wb') as f:
+                    f.write(response.content)
+            else:
+                logger.error(f"Failed to download from {datasheet_path}")
+        elif os.path.exists(datasheet_path):
+            shutil.copyfile(datasheet_path, self.root/'datasheet.pdf')
         else:
-            logger.error(f"Failed to download from {url}")
-            return False
+            logger.error(f"Path was not a url and no local file not found: {datasheet_path}")
+
+    def create_json(self):
+        DatasheetConverter(self.root/'datasheet.pdf', self.root)
 
     @property
     def has_md(self):
@@ -60,14 +80,13 @@ class DatasheetManager:
                 ds = json.load(f)
         return ds
 
-    # def get_datasheet(self):
-    #     ds_path = input("Enter datasheet source (URL or path): ")
-    #
-    #     parsed_url = urlparse(ds_path)
-    #     is_url = bool(parsed_url.scheme)
-    #
-    #
-    #     return self.load_json_datasheet(self._ROOT_DIR/ds)
+    def get_datasheet(self):
+        ds_path = input("Enter datasheet source (URL or path): ")
+
+        parsed_url = urlparse(ds_path)
+        is_url = bool(parsed_url.scheme)
+
+        return self.load_json_datasheet(self._ROOT_DIR/ds)
 
 
     @property
@@ -93,4 +112,6 @@ class DatasheetManager:
 
 if __name__ == "__main__":
     manager = DatasheetManager()
+    ds = DatasheetStructure(str(manager._ROOT_DIR/'tps23730'))
+    ds.create_json()
     print()
