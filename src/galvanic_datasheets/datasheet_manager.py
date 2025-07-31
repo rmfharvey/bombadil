@@ -5,6 +5,34 @@ from urllib.parse import urlparse
 from pathlib import Path
 from galvanic import colored_logger
 
+logger = colored_logger(__file__)
+
+class DatasheetComponents:
+    def __init__(self, root_path):
+        self.root = Path(root_path)
+        if not self.root.exists():
+            os.mkdir(self.root)
+
+    def download_json_from_url(url):
+        response = requests.get(url)
+        if response.status_code == 200:
+            return json.loads(response.content)
+        else:
+            logger.error(f"Failed to download from {url}")
+            return False
+
+    @property
+    def has_md(self):
+        return os.path.exists(self.root/'datasheet.md')
+
+    @property
+    def has_json(self):
+        return os.path.exists(self.root/'datasheet.md')
+
+    @property
+    def has_pdf(self):
+        return os.path.exists(self.root/'datasheet.pdf')
+
 class DatasheetManager:
     _ROOT_DIR = Path(__file__).parent/"source_datasheets"
 
