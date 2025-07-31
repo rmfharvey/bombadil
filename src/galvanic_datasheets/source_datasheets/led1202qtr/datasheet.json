@@ -1,0 +1,5088 @@
+{
+  "high_level":{
+    "base_part_number":"LED1202",
+    "device_type":"OTHER",
+    "manufacturer":"STMicroelectronics",
+    "packages":[
+      "WLCSP20",
+      "QFN20"
+    ],
+    "serial_busses":[
+      "I2C"
+    ]
+  },
+  "pins":{
+    "A0":{
+      "description":"Address pin 0 / internal clock output",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Resistor",
+            "description":"Pull-up resistors (R1-R3) are recommended for the I\u00b2C bus (SDA, SCL) and the A0 pin when used as an address input. A value of 1 K\u03a9 connected to VI2C (the I\u00b2C voltage level used by the MCU) is suggested."
+          },
+          {
+            "component_name":"LED1202",
+            "description":"In multi-device applications, A0 of one LED1202 can be connected to A1 of another LED1202 for clock distribution."
+          },
+          {
+            "component_name":"MCU",
+            "description":"A0 can be connected to an MCU's GPIO pin to dynamically control its level for I\u00b2C address selection or to receive a clock signal. If used for clock output, the MCU's A1 pin can receive the clock signal."
+          }
+        ],
+        "connectivity":"When used as an address pin, A0 should be connected to GND or VI2C based on the desired I\u00b2C address, as per Table 5. When used as a clock output, it should be connected to the A1 pin of other LED1202 devices or to an MCU's clock input, and the CLK_O_En bit in the Clock Configuration register (E0h) must be set to 1. In a star configuration for common clock domain, A0 of the master is connected to A1 of slaves. In a daisy chain configuration, A0 of one device is connected to A1 of the next device. A pull-up resistor (R1-R3) of 1 K\u03a9 to VI2C is recommended for I\u00b2C communication.",
+        "detailed_description":"Pin A0 serves a dual purpose: it can function as an address pin (A0) to select one of eight possible I\u00b2C slave addresses for the device, or as an internal clock output.",
+        "functionality":"Yes, the pin A0 has two functionalities: it can be used as an address pin (A0) to set the I\u00b2C slave address, or as an internal clock output (CLK_O_En). The functionality is determined by the configuration in the 'Clock Configuration' register (address E0h). When used as an address pin, its state is latched after the first I\u00b2C acknowledge. When used as a clock output, the CLK_O_En bit in the Clock Configuration register must be set.",
+        "precautions":"If A0 is used as an address pin, its level should be set before the first I\u00b2C acknowledge. Once the I\u00b2C address is latched, any further changes to A0 will not affect the device's I\u00b2C address. If A0 is configured as a clock output (CLK_O_En = 1), ensure that it is appropriately terminated, especially in daisy-chain configurations. If A0 and A1 of different devices cannot have the same logic level to set the desired I\u00b2C addresses due to clocking requirements, an MCU's GPIO can be used to control the levels on these pins, but the MCU GPIOs should be put in Hi-Z after the initial I\u00b2C communication to allow clock transfer."
+      },
+      "input_voltage":{
+        "min":1.26,
+        "units":"V"
+      },
+      "name":"A0",
+      "pin_id":"[E3, 17]",
+      "type":"DIGITAL",
+      "vil":{
+        "max":0.54,
+        "units":"V"
+      }
+    },
+    "A1":{
+      "description":"Address pin 1 / external clock input",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Pull-up/Pull-down Resistors",
+            "details":"When used for I\u00b2C address selection, pull-up resistors (e.g., 1 k\u03a9) are typically connected from A1 to the I\u00b2C bus voltage (V_I2C) if the desired address requires A1 to be high. A direct connection to GND is used if the desired address requires A1 to be low. In daisy-chain clock configurations, a pull-up resistor might be needed for each clock link between devices to define the I\u00b2C address."
+          },
+          {
+            "component_name":"Microcontroller (MCU)",
+            "details":"The A1 pin is controlled by the MCU's I/O pins when setting the I\u00b2C address. If A0 and A1 cannot have the same defined level to set the I\u00b2C address due to clock linking requirements, MCU GPIOs can be used to dynamically set the level on A1, and then be put in Hi-Z to allow clock transfer."
+          },
+          {
+            "component_name":"Master LED1202 Device",
+            "details":"In a star or daisy-chain common clock domain configuration, the A1 pin of slave devices is connected to the A0 (clock output) pin of the master LED1202 device."
+          }
+        ],
+        "connectivity":"For I\u00b2C address selection, the A1 pin should be connected to either V_I2C (the I\u00b2C bus voltage level, typically 1.8V or higher) or GND, depending on the desired address according to Table 5. For clock input in a synchronized system, it is connected to the clock output of a master device (often via the A0 pin of the master).",
+        "detailed_description":"The A1 pin serves a dual purpose related to I\u00b2C communication and device synchronization. Primarily, it acts as an address pin, contributing to the selection of one of eight possible I\u00b2C slave addresses for the device. This allows multiple LED1202 devices to coexist on the same I\u00b2C bus. Secondarily, it can function as an input for an external clock signal when the common clock domain configuration is employed for multi-device synchronization. In this scenario, the A1 pin of slave devices receives the clock signal from a master device.",
+        "functionality":[
+          "I\u00b2C Address Selection: Along with the A0 pin, A1 determines the unique 7-bit I\u00b2C slave address of the LED1202. The combination of A0 and A1 levels sets the address according to a predefined table (Table 5).",
+          "External Clock Input: When the device is configured for common clock domain operation (using the 'Clock Configuration' register at E0h), the A1 pin can accept an external clock signal. This is controlled by the CLK_I_En bit in the 'Clock Configuration' register. If CLK_I_En is set to 1, the A1 pin functions as a clock input."
+        ],
+        "precautions":[
+          "Address Latching: The I\u00b2C address is latched upon the first acknowledgment. Any subsequent changes to the A0 or A1 pin states will not affect the device's I\u00b2C address. Therefore, the address configuration must be set before the first I\u00b2C communication with the device.",
+          "Clock Configuration: When using the A1 pin as a clock input (CLK_I_En = 1), ensure that the 'Clock Configuration' register (E0h) is set correctly for clock input. The address configuration must be finalized before enabling the clock input on A1.",
+          "Simultaneous Address and Clock Use: If the application requires both specific I\u00b2C addressing and clock synchronization, careful consideration must be given to the configuration. For daisy-chain clocking where A0/A1 levels might conflict for address setting, using MCU GPIOs to control the levels before clock distribution is recommended. The MCU GPIOs should be set to Hi-Z after the initial address configuration to allow clock propagation."
+        ]
+      },
+      "input_voltage":{
+        "min":1.26,
+        "units":"V"
+      },
+      "name":"A1",
+      "pin_id":"[D2, 18]",
+      "type":"DIGITAL",
+      "vil":{
+        "max":0.54,
+        "units":"V"
+      }
+    },
+    "CS0":{
+      "description":"Current sink 0 input",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component":"LED",
+            "details":"The LED to be driven by channel 0. The cathode of the LED connects to the CS0 pin, and the anode connects to the VLED supply (potentially through other filtering/protection components as shown in typical application schematics)."
+          },
+          {
+            "component":"Capacitor (C3)",
+            "details":"A filter capacitor (e.g., 2.2 uF) is typically connected between VLED and GND for filtering the power supply to the LEDs, as shown in the typical application schematic (Figure 20). This capacitor helps to smooth the voltage supplied to the LED anode."
+          }
+        ],
+        "connectivity":"The CS0 pin should be connected to the LED to be driven. The anode of the LED should be connected to the corresponding LED output (which is the current sink controlled by this pin), and the cathode of the LED should be connected to ground. Alternatively, the CS0 pin is the input to the current sink, so the LED's cathode is connected to the CS0 pin (as it's a low-side driver) and the LED's anode is connected to the positive voltage supply (VLED). The datasheet Figure 20 (LED driver schematic diagram) shows the LED cathode connected to the CSx pins.",
+        "detailed_description":"CS0 is the input for the current sink of the first LED channel (channel 0). The LED1202 is a 12-channel LED driver with low-side current generators, and CS0 is the control input for the current sink of the first of these channels.",
+        "functionality":"This pin is an input to the internal current sink circuitry for LED channel 0. The current output from this channel is regulated based on the settings in the 'CSx LED Current' registers (analog dimming) and the 'PatternyCSx PWM' registers (digital dimming).",
+        "precautions":[
+          "The voltage at the CSx pins (which is the anode of the LED in a low-side drive configuration) should not exceed the maximum output voltage specified in the datasheet.",
+          "Ensure the current set for each channel does not exceed the 20 mA capability per channel.",
+          "The 'CSx LED Current' registers should be used for analog dimming, and the 'PatternyCSx PWM' registers for digital dimming. The datasheet specifies that registers from 09h to 14h are for 'CSx LED Current' and directly control the DC current value.",
+          "The datasheet notes that 'Registers value from 00h to 0Dh are functional, but the ILED provided is not guaranteed to be monotonic and accurate. 00h does not switch OFF the channel; it provides a minimal uncontrolled current because of some internal offsets.' Therefore, to switch off a channel, it's recommended to disable it using the 'Channel Enable' registers (02h and 03h) or ensure the current setting is below a functional threshold if the channel must remain enabled.",
+          "When using the phase-shift feature (SHFT=1), updates to PWM registers should be synchronized with the SOF interrupt to avoid brightness artifacts."
+        ]
+      },
+      "name":"CS0",
+      "output_current":{
+        "nom":20.0,
+        "units":"mA"
+      },
+      "output_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "pin_id":"[C1, 02]",
+      "type":"DIGITAL"
+    },
+    "CS1":{
+      "description":"Current sink 1 input",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"LED",
+            "connection_details":"The anode of the LED is connected to the CS1 pin of the LED1202. The cathode of the LED is connected to GND."
+          }
+        ],
+        "connectivity":"This pin should be connected to the anode of the LED that is to be driven. The cathode of the LED should be connected to ground.",
+        "detailed_description":"CS1 is the input for the current sink for LED channel 1. The LED1202 uses low-side current generators, and this pin is where the current for the corresponding LED is sinked.",
+        "functionality":"This pin acts as an input to control the current for LED channel 1. The current level is determined by the value written to the corresponding 'CS1 LED Current' register (register address 0Ah). It can also be controlled by digital dimming through 'Pattern1CS1 PWM' registers.",
+        "precautions":"Ensure that the current sink capability of this pin (up to 20 mA) is not exceeded by the LED's forward current. The minimum headroom voltage for this output needs to be considered based on the LED's forward voltage and the desired current (refer to Figure 4 in the datasheet for headroom voltage vs. I_LED characteristics)."
+      },
+      "name":"CS1",
+      "output_current":{
+        "nom":20.0,
+        "units":"mA"
+      },
+      "output_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "pin_id":"[C2, 03]",
+      "type":"DIGITAL"
+    },
+    "CS10":{
+      "description":"Current sink 10 input",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"LED",
+            "description":"The load for this channel is an LED. The anode of the LED should be connected to VIN, and the cathode should be connected to the CS10 pin."
+          }
+        ],
+        "connectivity":"This pin is a low-side current sink input and should be connected directly to the cathode of the LED to be driven. The anode of the LED should be connected to the supply voltage (VIN).",
+        "detailed_description":"CS10 is the input for the current sink for LED channel 10. The output current for this channel is controlled by the value written to the CS10 LED Current register (address 13h) for analog dimming and the PatternyCS10 PWM registers (addresses 32h and 33h) for digital dimming. The combination of both allows for 20-bit depth dimming.",
+        "functionality":"This pin serves as the input to the current sink for LED channel 10. Its primary function is to sink current for the connected LED, with the magnitude of this current being controlled by internal registers.",
+        "precautions":[
+          "Ensure that the current set by the 'CS10 LED Current' register (address 13h) and the duty cycle set by the 'PatternyCS10 PWM' registers are within the device's specified limits (up to 20 mA per channel).",
+          "When using analog dimming alone, values below 0Dh (1.18 mA) in the 'CSx LED Current' registers may not provide monotonic or accurate current. Values of 00h do not switch off the channel and provide a minimal uncontrolled current.",
+          "If digital dimming is used and phase shifting (SHFT=1) is enabled, updates to the CSx PWM registers should be synchronized with the SOF (start of frame) interrupt."
+        ]
+      },
+      "name":"CS10",
+      "output_current":{
+        "nom":20.0,
+        "units":"mA"
+      },
+      "output_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "pin_id":"[D3, 13]",
+      "type":"DIGITAL"
+    },
+    "CS11":{
+      "description":"Current sink 11 input",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"LED1202",
+            "description":"The LED driver IC itself. CS11 is an input pin to this IC."
+          },
+          {
+            "component_name":"LED",
+            "description":"The LED to be driven. It is typically connected between the output of the current sink (effectively this pin's internal driver) and the power supply (if it's a low-side driver, the LED is between this pin and V+). However, the datasheet implies these are low-side current generators, so the LED would be connected between this pin and the cathode, and the anode to V+. A series resistor might be needed depending on the specific LED and voltage, but the device actively sinks current."
+          }
+        ],
+        "connectivity":"Connect this pin to the respective current sink control circuitry within the LED1202. In a schematic, it's an input pin to the IC. The actual LED will be connected between this pin (or the associated output driver) and ground, with appropriate series resistor if needed, though the LED1202 is a current sink.",
+        "detailed_description":"CS11 is the input for the current sink of channel 11. This pin is used to control the current flowing through the LED connected to this channel.",
+        "functionality":"This pin serves as an input to set the current for the respective LED channel. The output current is controlled by the 'CSx LED Current' registers (analog dimming) and/or 'PatternyCSx PWM' registers (digital dimming).",
+        "precautions":[
+          "Ensure the current set for this channel does not exceed the maximum capability of the device (20 mA per channel).",
+          "Refer to the datasheet for the relationship between register settings ('CSx LED Current' and 'PatternyCSx PWM') and the actual output current.",
+          "The minimum headroom voltage (VCS_MIN) needs to be considered based on the set current to ensure proper operation. This is detailed in Section 3.4 'Headroom voltage'."
+        ]
+      },
+      "name":"CS11",
+      "output_current":{
+        "nom":20.0,
+        "units":"mA"
+      },
+      "output_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "pin_id":"[C4, 14]",
+      "type":"DIGITAL"
+    },
+    "CS2":{
+      "description":"Current sink 2 input",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"LED",
+            "description":"The anode of the LED for channel 2 connects to the CS2 pin. The cathode of the LED connects to ground."
+          }
+        ],
+        "connectivity":"This pin should be connected to the anode of the LED for channel 2. The cathode of the LED should be connected to ground.",
+        "detailed_description":"CS2 is the input for the current sink of channel 2. This pin controls the current flowing through the LED connected to this channel.",
+        "functionality":"This pin serves as the input to the current sink for LED channel 2. The voltage level on this pin (or the current it sinks) dictates the output current for the corresponding LED, allowing for individual control of each channel's brightness.",
+        "precautions":"Ensure that the current capability of the CS2 pin (up to 20 mA) is not exceeded. The voltage drop across the LED at the desired current should be considered to ensure sufficient headroom voltage for the driver (typically 350 mV). When using analog dimming, the 'CSx LED Current' registers (09h to 14h) control the current, and the value of 00h to 0Dh provides functional but not guaranteed monotonic or accurate current. For digital dimming, 'PatternyCSx PWM' registers are used to control the duty cycle."
+      },
+      "name":"CS2",
+      "output_current":{
+        "nom":20.0,
+        "units":"mA"
+      },
+      "output_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "pin_id":"[B1, 04]",
+      "type":"DIGITAL"
+    },
+    "CS3":{
+      "description":"Current sink 3 input",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":"The 'CS3 LED Current' register (0Ch) controls the current for this pin. The register value, mapped from 00h to FFh, translates to an output current from approximately 1 mA to 20 mA. The default value of this register is 27h.",
+        "connectivity":"This pin is connected to the current sink circuitry for LED channel 3. In a schematic, it would be an input pin to the LED1202 device.",
+        "detailed_description":"CS3 is an input pin that controls the current sink for LED channel 3. It's part of the array of current sink inputs (CS0-CS11) that determine the output current for each of the 12 LED channels.",
+        "functionality":"This pin functions as an input to set the current for the corresponding LED channel. The current is set based on the value written to the 'CS3 LED Current' register (0Ch).",
+        "precautions":"The datasheet notes that register values from 00h to 0Dh are functional, but the current provided is not guaranteed to be monotonic and accurate. A value of 00h does not switch off the channel; it provides a minimal uncontrolled current due to internal offsets. The current matching between channels is specified as 1% (typ.) at 16 mA and 2% (typ.) at 2.5 mA."
+      },
+      "name":"CS3",
+      "output_current":{
+        "nom":20.0,
+        "units":"mA"
+      },
+      "output_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "pin_id":"[B2, 05]",
+      "type":"DIGITAL"
+    },
+    "CS4":{
+      "description":"Current sink 4 input",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Microcontroller/GPIO",
+            "connection_details":"If controlled by a microcontroller, this pin would be connected to a digital output pin configured to output a specific voltage or PWM signal to control the current. The voltage/current setting is determined by the 'CS4 LED Current' register (0Dh)."
+          },
+          {
+            "component_name":"LED",
+            "connection_details":"This CSx pin is internally connected to the cathode of the LED, with the anode connected to the power supply (VLED)."
+          }
+        ],
+        "connectivity":"This pin should be connected to the output of a current source or a microcontroller's GPIO pin that is configured to output a voltage corresponding to the desired LED current. Refer to Section 7.8 for details on how the 'ILED4' value in the 'CS4 LED Current' register (0Dh) corresponds to the output current.",
+        "detailed_description":"CS4 is an input pin for the current sink 4, used to control the current output for the 4th LED channel. This pin is part of the array of 12 current sink inputs (CS0-CS11) that the LED1202 uses to drive LEDs.",
+        "functionality":"This pin is an input to the LED driver IC. It receives a control signal that determines the current level for the associated LED channel. The current level can be set via analog dimming using this pin, as described in section 4.5.1.",
+        "precautions":"The 'CSx LED Current' registers (09h to 14h) define the current for each channel. The datasheet states that registers values from 00h to 0Dh are functional, but the ILED provided is not guaranteed to be monotonic and accurate. 00h does not switch OFF the channel; it provides a minimal uncontrolled current because of some internal offsets. It is recommended to ensure the current set is within the capabilities of the LED1202 and the connected LED. Also, refer to Section 3.4 'Headroom voltage' for guidance on ensuring sufficient headroom voltage for proper operation at desired current levels."
+      },
+      "name":"CS4",
+      "output_current":{
+        "nom":20.0,
+        "units":"mA"
+      },
+      "output_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "pin_id":"[A1, 06]",
+      "type":"DIGITAL"
+    },
+    "CS5":{
+      "description":"Current sink 5 input",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_description":"The 12-channel low quiescent current LED driver IC.",
+            "component_name":"LED1202"
+          },
+          {
+            "component_description":"The LED connected to channel 5, which will be driven by the LED1202.",
+            "component_name":"LED"
+          }
+        ],
+        "connectivity":"This pin should be connected to the LED driver's current sink input for channel 5. In a schematic, it would be directly connected to the LED1202 IC's CS5 pin.",
+        "detailed_description":"CS5 is the input for the current sink of channel 5, used to control the LED brightness. It is part of the 12 low-side current generators with independent dimming control.",
+        "functionality":"This pin serves as an input to set the current for the respective LED channel. The output current is controlled by the 'CSx LED Current' registers (analog dimming) or 'PatternyCSx PWM' registers (digital dimming).",
+        "precautions":"The output current is set via I2C registers. Ensure the correct register values are written to control the current and dimming for CS5. Refer to Section 7.8 'LED current registers' and Section 7.11 'Pattern PWM configuration registers' for detailed information on setting the current and PWM values."
+      },
+      "name":"CS5",
+      "output_current":{
+        "nom":20.0,
+        "units":"mA"
+      },
+      "output_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "pin_id":"[A2, 07]",
+      "type":"DIGITAL"
+    },
+    "CS6":{
+      "description":"Current sink 6 input",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"LED",
+            "description":"The anode of the LED should be connected to the CS6 pin. The cathode of the LED connects to the corresponding LED output of the LED1202 device."
+          }
+        ],
+        "connectivity":"This pin should be connected to the anode of the LED. The cathode of the LED should be connected to the respective LED output pin of the LED1202 IC (though the datasheet refers to these as 'current sink input', in practice, the device sinks current from the LED connected to its output, so the LED's anode connects to the CS pin and the cathode connects to the device's output driving that channel). For clarity in a schematic, it's best represented as the connection point for the LED's anode, with the cathode connected to the device's output stage for that channel.",
+        "detailed_description":"CS6 is the input for the current sink of the 6th LED channel. This pin, along with the other CS pins (CS0-CS11), controls the current delivered to the respective LED.",
+        "functionality":"The primary function of the CS6 pin is to act as an input that, in conjunction with internal circuitry, sinks current to drive an LED. The amount of current sunk is determined by the 'CS6 LED Current' register (address 0Fh) and potentially further modulated by the 'PatternyCS6 PWM' registers (addresses 2Ah and 2Bh for Pattern 0, and subsequent addresses for other patterns).",
+        "precautions":"Ensure that the current drawn by the LED, as set by the registers, does not exceed the maximum capability of the channel (20 mA). Also, ensure the forward voltage (Vf) of the LED is within the operating range supported by the device and the supply voltage. When using analog and digital dimming together, ensure the combined effect does not lead to unexpected behavior or exceed limits. The datasheet also notes that for currents below 1 mA or PWM ON times less than 14 \u00b5s, the open LED detection might not work properly, which could indirectly relate to how this pin and its associated circuitry behave under very low current conditions."
+      },
+      "name":"CS6",
+      "output_current":{
+        "nom":20.0,
+        "units":"mA"
+      },
+      "output_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "pin_id":"[B3, 09]",
+      "type":"DIGITAL"
+    },
+    "CS7":{
+      "description":"Current sink 7 input",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":"This pin is internally connected to the device's current sink circuitry. Externally, it is controlled by the microcontroller through the I2C interface, which writes values to the 'CS7 LED Current' register (address 10h).",
+        "connectivity":"This pin should be connected to the 'CS7 LED Current' register via the I2C bus. The 'CS7 LED Current' register (address 10h) controls the analog dimming range (1 mA to 20 mA) for channel 7.",
+        "detailed_description":"CS7 is an input to the current sink for channel 7. This pin is used in conjunction with the 'CS7 LED Current' register to set the DC current for the LED connected to this channel, effectively controlling its brightness via analog dimming.",
+        "functionality":"This pin serves as an input for setting the current for LED channel 7. It is part of the analog dimming control mechanism, where the voltage level on this pin, interpreted by the IC, corresponds to a specific current setting for the LED.",
+        "precautions":"When using analog dimming, ensure the 'CSx LED Current' registers are set within the functional range (1 mA to 20 mA). Values below 1 mA or the default 27h (approx. 3.06 mA) may lead to non-monotonic or inaccurate current output. The datasheet specifies that register values from 00h to 0Dh are functional, but accuracy is not guaranteed. Also, a '00h' value does not switch off the channel but provides a minimal uncontrolled current."
+      },
+      "name":"CS7",
+      "output_current":{
+        "nom":20.0,
+        "units":"mA"
+      },
+      "output_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "pin_id":"[A4, 10]",
+      "type":"DIGITAL"
+    },
+    "CS8":{
+      "description":"Current sink 8 input",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Microcontroller (MCU)",
+            "description":"The CS8 pin is typically driven by a digital output pin of a microcontroller. The microcontroller writes to the 'CS8 LED Current' register (address 11h) via the I2C interface to set the analog dimming level. The microcontroller also controls the 'Pattern8CSx PWM' registers (addresses starting from 134h) for digital dimming."
+          },
+          {
+            "component_name":"LED",
+            "description":"The CS8 pin is internally connected to the current sink circuitry for LED channel 8. The actual LED component would be connected to the corresponding output pin of the LED1202 (which is not explicitly named CS8 but is implied as the output for this channel)."
+          }
+        ],
+        "connectivity":"This pin should be connected to the output of a micro-controller or another digital source that can provide the control signal for the desired current level. It is also connected internally to the 'CS8 LED Current' register (address 11h) which defines the analog dimming level.",
+        "detailed_description":"CS8 (Current Sink 8) is an input pin that controls the current for the 8th LED output channel. It is part of the 12 low-side current generators that the LED1202 provides.",
+        "functionality":"This pin is an input to the LED driver IC. It receives a digital value that corresponds to the desired current for LED channel 8, according to the 'CSx LED Current' registers (register address 11h). This value is used in conjunction with the internal circuitry to sink the appropriate amount of current through the corresponding LED output, which is controlled by the 'PatternyCSx PWM' registers for digital dimming.",
+        "precautions":[
+          "The 'CSx LED Current' registers (including CS8 at address 11h) are used for analog dimming. The output current is set by the formula: I_CS_SET = ILEDx_value / 255 * 20 mA.",
+          "The minimum value for ILEDx is 1 mA, and the maximum is 20 mA.",
+          "Register values from 00h to 0Dh for 'CSx LED Current' are functional, but the provided ILED may not be monotonic and accurate. A value of 00h does not switch off the channel; it provides a minimal uncontrolled current due to internal offsets.",
+          "When using digital dimming via the 'PatternyCSx PWM' registers, the 'CSx LED Current' registers (including CS8) are set by default to 27h (approximately 3.06 mA). Ensure proper configuration of both analog and digital dimming registers for desired brightness control."
+        ]
+      },
+      "name":"CS8",
+      "output_current":{
+        "nom":20.0,
+        "units":"mA"
+      },
+      "output_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "pin_id":"[C3, 11]",
+      "type":"DIGITAL"
+    },
+    "CS9":{
+      "description":"Current sink 9 input",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Microcontroller (MCU)",
+            "details":"An MCU with a DAC or PWM output can be used to control the current sink input. The output of the MCU's DAC or filtered PWM signal should be connected to the CS9 pin."
+          },
+          {
+            "component_name":"Resistor",
+            "details":"If using a PWM signal for dimming, a low-pass filter (RC filter) may be needed to convert the PWM signal to a DC voltage. The resistor in this filter would be connected in series with the PWM output before coupling to the CS9 pin through a capacitor."
+          },
+          {
+            "component_name":"Capacitor",
+            "details":"A capacitor might be used in conjunction with a resistor to form a low-pass filter for PWM dimming. It would be connected between the resistor and the CS9 pin."
+          }
+        ],
+        "connectivity":"Connect this pin to the output of a voltage source that sets the desired LED current. This could be a microcontroller's DAC output or a filtered PWM signal.",
+        "detailed_description":"CS9 is the input for the current sink 9, which controls the current for the 9th LED channel. This input is used to set the LED brightness through analog dimming.",
+        "functionality":"This pin is an input that sets the DC current for the corresponding LED channel via analog dimming.",
+        "precautions":[
+          "The voltage applied to the CS9 pin directly controls the LED current. Ensure the voltage is within the specified range for analog dimming (1 mA to 20 mA, corresponding to register values).",
+          "When using analog dimming, refer to Figure 4 in the datasheet for the relationship between the input voltage (which determines the current) and the actual LED current. The output stage uses two different current sink branches, with a switchover threshold at an ILED value of 48d (3.76 mA).",
+          "If the 'CSx LED Current' registers are set to values below 0Dh (which corresponds to approximately 3.06 mA), the output current may not be monotonic or accurate.",
+          "Setting the register value to 00h does not switch off the channel; it provides a minimal uncontrolled current.",
+          "Ensure that the voltage on this pin, when controlling current, does not exceed the absolute maximum ratings of the device."
+        ]
+      },
+      "name":"CS9",
+      "output_current":{
+        "nom":20.0,
+        "units":"mA"
+      },
+      "output_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "pin_id":"[B4, 12]",
+      "type":"DIGITAL"
+    },
+    "GND":{
+      "description":"Power ground",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"PCB Ground Plane",
+            "details":"The GND pin should be connected to the main ground plane of the printed circuit board. This ensures a stable and low-impedance ground reference for the device and the entire circuit."
+          },
+          {
+            "component_name":"Power Supply Ground",
+            "details":"The ground terminal of the power supply that powers the LED1202 (typically connected to VIN) should also be connected to this common ground point."
+          }
+        ],
+        "connectivity":"The GND pin must be connected to the system's ground reference. This typically involves connecting it directly to the ground plane of the PCB. It is essential for all ground connections within the application circuit to be made to this common ground point.",
+        "detailed_description":"The GND pin is the power ground for the LED1202 device. It serves as the reference point for all voltage levels within the IC and is crucial for the proper operation of its internal circuitry, including the LED drivers and the I\u00b2C interface.",
+        "functionality":"This pin has a single primary function: to provide a connection to ground for the device's power supply.",
+        "precautions":[
+          "Ensure a low-impedance connection to ground. A wide trace or direct connection to the ground plane is recommended to minimize voltage drops and noise.",
+          "All ground connections in the system should be common. Avoid ground loops, as they can introduce noise and affect performance.",
+          "In multi-layer PCBs, connect the GND pin to the dedicated ground plane(s) of the board.",
+          "When using decoupling capacitors (e.g., C1), their ground side should also be connected to this GND pin/plane."
+        ]
+      },
+      "name":"GND",
+      "pin_id":"[A3, 08]",
+      "type":"POWER"
+    },
+    "IRQn":{
+      "description":"Interrupt output (open-drain) \u2013 active low",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Pull-up Resistor",
+            "description":"A resistor (typically 1 k\u03a9 as per Section 6.1.1) connected between the IRQn pin and the system's logic voltage rail (VI2C)."
+          },
+          {
+            "component_name":"Microcontroller (MCU)",
+            "description":"The IRQn pin can be connected to an interrupt input pin of the microcontroller to signal events."
+          }
+        ],
+        "connectivity":"The IRQn pin is an open-drain output, so it requires a pull-up resistor to the system's logic voltage (e.g., 1.8 V or 3.3 V depending on the MCU).",
+        "detailed_description":"The IRQn pin is an interrupt output, open-drain, and active low. It is used to signal alarm events such as Open LED detection, Overtemperature protection, Pattern end, or Start of frame.",
+        "functionality":"The IRQn pin's status is controlled by the 'Fault and Status Interrupt' register, filtered by the 'Fault and Status Mask' register. It is reset after the 'Fault and Status Interrupt' register is read back. If used to manage the SOF signal for synchronizing PWM changes, especially with SHIFT active, it's recommended to temporarily mask other alarms in the 'Fault and Status Mask' register.",
+        "precautions":[
+          "Ensure the pull-up resistor value is appropriate for the I\u00b2C bus speed and length, as well as the system's logic voltage.",
+          "When using IRQn for SOF synchronization with SHIFT enabled, other alarms should be masked to avoid unwanted interrupts.",
+          "The IRQn pin is active low and open-drain, requiring correct external pull-up configuration."
+        ]
+      },
+      "name":"IRQn",
+      "output_current":{
+        "nom":1.0,
+        "units":"mA"
+      },
+      "output_type":"OPEN_DRAIN",
+      "pin_id":"[D1, 01]",
+      "type":"DIGITAL",
+      "vol":{
+        "max":0.4,
+        "units":"V"
+      }
+    },
+    "SCL":{
+      "description":"I\u00b2C clock signal",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Microcontroller (MCU)",
+            "description":"The master device that controls the LED1202 via the I\u00b2C interface. The SCL pin of the MCU is connected to the SCL pin of the LED1202."
+          },
+          {
+            "component_name":"Pull-up resistor",
+            "description":"A resistor connected between the SCL line and the I\u00b2C bus voltage (VI2C). This is essential for proper I\u00b2C communication, especially for the idle state of the clock line."
+          }
+        ],
+        "connectivity":"The SCL pin should be connected to the SCL pin of the master I\u00b2C device (e.g., microcontroller). It requires a pull-up resistor to the I\u00b2C bus voltage (VI2C), which is typically the same voltage as the MCU's I/O. The value of the pull-up resistor depends on the I\u00b2C bus speed and bus capacitance, but commonly used values are 1 k\u03a9 to 4.7 k\u03a9.",
+        "detailed_description":"SCL (Serial Clock) is the clock signal line for the I\u00b2C communication interface. It is used by the master device (e.g., MCU) to synchronize data transfer with the LED1202. The LED1202 acts as a slave device on the I\u00b2C bus.",
+        "functionality":"The SCL pin serves as the input clock signal for the I\u00b2C interface. It dictates the timing of data transfer on the SDA line. It is an input to the LED1202.",
+        "precautions":[
+          "Ensure the SCL line is pulled high when idle, as required by the I\u00b2C standard.",
+          "The SCL clock frequency should not exceed the specified maximum of 400 kHz (Fast mode).",
+          "Care must be taken with the rise time and fall time of the SCL signal, as specified in the datasheet (typically 300 ns max).",
+          "In multi-device I\u00b2C bus configurations, ensure proper bus capacitance and pull-up resistor values are used to maintain signal integrity.",
+          "If using the common clock domain feature, the A1 pin is used as an external clock input, and the SCL functionality of the A1 pin is superseded by the clock signal provided to it. However, the SCL pin itself is always the dedicated I\u00b2C clock input."
+        ]
+      },
+      "name":"SCL",
+      "pin_id":"[E1, 20]",
+      "type":"DIGITAL",
+      "vih":{
+        "min":1.26,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.54,
+        "units":"V"
+      }
+    },
+    "SDA":{
+      "description":"I\u00b2C data signal",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Microcontroller (MCU)",
+            "details":"The SDA pin of the LED1202 connects to the SDA pin of the MCU, which acts as the I\u00b2C master."
+          },
+          {
+            "component_name":"Pull-up Resistor",
+            "details":"A pull-up resistor (typically 1k\u03a9 to 10k\u03a9, as suggested in the datasheet for VI2C = 1.8V) is required on the SDA line to ensure proper logic high levels for the I\u00b2C bus. The value should be chosen based on the I\u00b2C bus speed and the number of devices on the bus, and the pull-up voltage should match the I\u00b2C bus voltage (VI2C)."
+          },
+          {
+            "component_name":"Other I\u00b2C Devices",
+            "details":"If other I\u00b2C devices are present on the bus, the SDA pin of the LED1202 should be connected in parallel to the SDA pins of these devices."
+          }
+        ],
+        "connectivity":"The SDA pin should be connected to the SDA pin of the master (e.g., microcontroller) and to the SDA pins of any other I\u00b2C devices on the bus. It requires a pull-up resistor to the I\u00b2C bus voltage (VI2C).",
+        "detailed_description":"SDA is the I\u00b2C data signal line, used for both transmitting and receiving data during I\u00b2C communication. It is a bidirectional line that carries the data serially between the master and slave devices.",
+        "functionality":"The pin serves as both an input for data received from the master (MCU) and an output for data transmitted by the LED1202. It is part of the I\u00b2C communication protocol.",
+        "precautions":[
+          "Ensure that the SDA line has appropriate pull-up resistors to maintain correct logic levels for the I\u00b2C bus. The value of these resistors depends on the I\u00b2C bus speed and the total bus capacitance.",
+          "The SDA line is bidirectional. Ensure that the connected devices can handle this and that bus contention is avoided.",
+          "When cascading devices, the SDA line is shared. Ensure unique I\u00b2C addresses are configured for each device to allow individual control.",
+          "The datasheet specifies that the LED1202 does not acknowledge if the VIN supply is below the undervoltage lockout threshold, which could affect I\u00b2C communication."
+        ]
+      },
+      "name":"SDA",
+      "pin_id":"[E2, 19]",
+      "type":"DIGITAL",
+      "vih":{
+        "min":1.26,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.54,
+        "units":"V"
+      }
+    },
+    "VIN":{
+      "description":"Power supply input",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"C1",
+            "component_type":"Capacitor",
+            "connection":"Connected between VIN and GND.",
+            "purpose":"Decoupling capacitor to filter noise and stabilize the power supply.",
+            "value":"1 \u03bcF"
+          }
+        ],
+        "connectivity":"VIN should be connected to the main power supply of the system. It is recommended to connect a decoupling capacitor (C1) between VIN and GND close to the device pins.",
+        "detailed_description":"VIN is the power supply input for the LED1202. It supplies power to the internal circuitry of the device, including the LED drivers and the control interface.",
+        "functionality":"The VIN pin is solely used for power supply input. It is not used for any other function.",
+        "precautions":"The VIN pin has an absolute maximum rating of 6 V. Exceeding this voltage may damage the device. It is also recommended to ensure that the input voltage is within the specified operating range (2.6 V to 5 V) as defined in the electrical characteristics."
+      },
+      "input_voltage":{
+        "max":5.0,
+        "min":2.6,
+        "units":"V"
+      },
+      "name":"VIN",
+      "pin_id":"[D4, 15]",
+      "type":"POWER"
+    },
+    "VLDO":{
+      "description":"LDO capacitor output",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Capacitor (C2)",
+            "connection":"Connected between the VLDO pin and GND. It is rated for 6.3 V.",
+            "purpose":"To stabilize the output voltage of the internal LDO.",
+            "value":"1 \u03bcF"
+          }
+        ],
+        "connectivity":"The VLDO pin should be connected to an external capacitor. The datasheet specifies a 'VLDO output voltage' test condition with 'Iout = 10 mA' and 'VIN = 2.6 V', implying it can source a small amount of current. The typical application schematic (Figure 20) shows a 1 \u00b5F capacitor (C2) connected between VLDO and GND.",
+        "detailed_description":"The VLDO pin is the output of an internal Low Dropout Regulator (LDO). This LDO provides a stable 1.8 V output voltage, which is used to power internal circuitry, including the I\u00b2C interface and possibly other digital components that require a fixed voltage. The datasheet mentions that the I\u00b2C control interface is 1.8 V compatible.",
+        "functionality":"The primary function of the VLDO pin is to provide a regulated 1.8 V supply. It is specified that 'VLDO: LDO capacitor output' in the pin description, indicating it's the output of the internal LDO and requires an external capacitor for stability.",
+        "precautions":"It is crucial to connect the recommended external capacitor (e.g., 1 \u03bcF) to the VLDO pin to ensure the stability of the internal 1.8 V supply. Without this capacitor, the LDO may oscillate or fail to regulate properly, potentially affecting the operation of the I\u00b2C interface and other sensitive internal circuits. The datasheet also mentions an LDO short-circuit current (ILDO_SH) of 200 mA, but this is a maximum rating and not a typical operating condition for the VLDO pin itself; the primary use is for the internal circuitry of the LED1202."
+      },
+      "name":"VLDO",
+      "output_current":{
+        "max":200.0,
+        "units":"mA"
+      },
+      "output_voltage":{
+        "nom":1.8,
+        "units":"V"
+      },
+      "pin_id":"[E4, 16]",
+      "type":"POWER"
+    }
+  },
+  "serial_bus":{
+    "fields":[
+      {
+        "description":"Product identification",
+        "digital_physical_map":{
+          "0x1":"LED1202"
+        },
+        "name":"PROD_ID",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":4,
+            "register_address":"0x00"
+          }
+        ]
+      },
+      {
+        "description":"Silicon release identification",
+        "digital_physical_map":{
+          "0x2":"cut 1.1"
+        },
+        "name":"REV_ID",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x00"
+          }
+        ]
+      },
+      {
+        "description":"Reset device",
+        "digital_physical_map":{
+          "0":"device is not reset (default)",
+          "1":"device is reset to default values"
+        },
+        "name":"RST",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":7,
+            "register_address":"0x01"
+          }
+        ]
+      },
+      {
+        "description":"Enable device",
+        "digital_physical_map":{
+          "0":"device is disabled (default)",
+          "1":"device is enabled"
+        },
+        "name":"EN",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":0,
+            "register_address":"0x01"
+          }
+        ]
+      },
+      {
+        "description":"LED channel 0 enable",
+        "digital_physical_map":{
+          "0":"channel is disabled",
+          "1":"channel is enabled (default)"
+        },
+        "name":"EN_CS0",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":0,
+            "register_address":"0x02"
+          }
+        ]
+      },
+      {
+        "description":"LED channel 1 enable",
+        "digital_physical_map":{
+          "0":"channel is disabled",
+          "1":"channel is enabled (default)"
+        },
+        "name":"EN_CS1",
+        "register_location":[
+          {
+            "reg_end_bit":1,
+            "reg_start_bit":1,
+            "register_address":"0x02"
+          }
+        ]
+      },
+      {
+        "description":"LED channel 2 enable",
+        "digital_physical_map":{
+          "0":"channel is disabled",
+          "1":"channel is enabled (default)"
+        },
+        "name":"EN_CS2",
+        "register_location":[
+          {
+            "reg_end_bit":2,
+            "reg_start_bit":2,
+            "register_address":"0x02"
+          }
+        ]
+      },
+      {
+        "description":"LED channel 3 enable",
+        "digital_physical_map":{
+          "0":"channel is disabled",
+          "1":"channel is enabled (default)"
+        },
+        "name":"EN_CS3",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":3,
+            "register_address":"0x02"
+          }
+        ]
+      },
+      {
+        "description":"LED channel 4 enable",
+        "digital_physical_map":{
+          "0":"channel is disabled",
+          "1":"channel is enabled (default)"
+        },
+        "name":"EN_CS4",
+        "register_location":[
+          {
+            "reg_end_bit":4,
+            "reg_start_bit":4,
+            "register_address":"0x02"
+          }
+        ]
+      },
+      {
+        "description":"LED channel 5 enable",
+        "digital_physical_map":{
+          "0":"channel is disabled",
+          "1":"channel is enabled (default)"
+        },
+        "name":"EN_CS5",
+        "register_location":[
+          {
+            "reg_end_bit":5,
+            "reg_start_bit":5,
+            "register_address":"0x02"
+          }
+        ]
+      },
+      {
+        "description":"LED channel 6 enable",
+        "digital_physical_map":{
+          "0":"channel is disabled",
+          "1":"channel is enabled (default)"
+        },
+        "name":"EN_CS6",
+        "register_location":[
+          {
+            "reg_end_bit":6,
+            "reg_start_bit":6,
+            "register_address":"0x02"
+          }
+        ]
+      },
+      {
+        "description":"LED channel 7 enable",
+        "digital_physical_map":{
+          "0":"channel is disabled",
+          "1":"channel is enabled (default)"
+        },
+        "name":"EN_CS7",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":7,
+            "register_address":"0x02"
+          }
+        ]
+      },
+      {
+        "description":"LED channel 8 enable",
+        "digital_physical_map":{
+          "0":"channel is disabled",
+          "1":"channel is enabled (default)"
+        },
+        "name":"EN_CS8",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":0,
+            "register_address":"0x03"
+          }
+        ]
+      },
+      {
+        "description":"LED channel 9 enable",
+        "digital_physical_map":{
+          "0":"channel is disabled",
+          "1":"channel is enabled (default)"
+        },
+        "name":"EN_CS9",
+        "register_location":[
+          {
+            "reg_end_bit":1,
+            "reg_start_bit":1,
+            "register_address":"0x03"
+          }
+        ]
+      },
+      {
+        "description":"LED channel 10 enable",
+        "digital_physical_map":{
+          "0":"channel is disabled",
+          "1":"channel is enabled (default)"
+        },
+        "name":"EN_CS10",
+        "register_location":[
+          {
+            "reg_end_bit":2,
+            "reg_start_bit":2,
+            "register_address":"0x03"
+          }
+        ]
+      },
+      {
+        "description":"LED channel 11 enable",
+        "digital_physical_map":{
+          "0":"channel is disabled",
+          "1":"channel is enabled (default)"
+        },
+        "name":"EN_CS11",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":3,
+            "register_address":"0x03"
+          }
+        ]
+      },
+      {
+        "description":"Pattern selection",
+        "digital_physical_map":{
+          "0":"pattern 0 is selected (default)",
+          "1":"pattern 1 is selected",
+          "2":"pattern 2",
+          "3":"pattern 3",
+          "4":"pattern 4",
+          "5":"pattern 5",
+          "6":"pattern 6",
+          "7":"pattern 7"
+        },
+        "name":"PATSEL",
+        "register_location":[
+          {
+            "reg_end_bit":2,
+            "reg_start_bit":0,
+            "register_address":"0x04"
+          }
+        ]
+      },
+      {
+        "description":"Phase-shift feature",
+        "digital_physical_map":{
+          "0":"feature is disabled (default)",
+          "1":"feature is enabled"
+        },
+        "name":"SHFT",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":3,
+            "register_address":"0x04"
+          }
+        ]
+      },
+      {
+        "description":"Group control",
+        "digital_physical_map":{
+          "0":"feature is disabled (default)",
+          "1":"feature is enabled, PatternyCS0 PWM Low/High (y selected by PATSEL[2:0]) is used for all channels (can be used for backlight where each LED uses the same dimming)"
+        },
+        "name":"GCTRL",
+        "register_location":[
+          {
+            "reg_end_bit":4,
+            "reg_start_bit":4,
+            "register_address":"0x04"
+          }
+        ]
+      },
+      {
+        "description":"Auto disable device at the end of patterns sequence",
+        "digital_physical_map":{
+          "0":"Auto disable off",
+          "1":"Auto disable on"
+        },
+        "name":"AUTODIS",
+        "register_location":[
+          {
+            "reg_end_bit":5,
+            "reg_start_bit":5,
+            "register_address":"0x04"
+          }
+        ]
+      },
+      {
+        "description":"Pattern sequence runs (self-clear when sequence is finished)",
+        "digital_physical_map":{
+          "0":"pattern sequence is finished (default)",
+          "1":"pattern sequence is run"
+        },
+        "name":"PATSR",
+        "register_location":[
+          {
+            "reg_end_bit":6,
+            "reg_start_bit":6,
+            "register_address":"0x04"
+          }
+        ]
+      },
+      {
+        "description":"Pattern sequence feature enable",
+        "digital_physical_map":{
+          "0":"pattern sequence feature is disabled (default)",
+          "1":"pattern sequence feature is enabled; all outputs OFF when sequence does not run"
+        },
+        "name":"PATS",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":7,
+            "register_address":"0x04"
+          }
+        ]
+      },
+      {
+        "description":"Chip overtemperature protection interrupt mask bit",
+        "digital_physical_map":{
+          "0":"interrupt not masked",
+          "1":"interrupt masked"
+        },
+        "name":"OVTP_M",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":0,
+            "register_address":"0x05"
+          }
+        ]
+      },
+      {
+        "description":"Open LED detection on CS0-CS11 interrupt mask bit",
+        "digital_physical_map":{
+          "0":"interrupt not masked",
+          "1":"interrupt masked"
+        },
+        "name":"OPEN_M",
+        "register_location":[
+          {
+            "reg_end_bit":1,
+            "reg_start_bit":1,
+            "register_address":"0x05"
+          }
+        ]
+      },
+      {
+        "description":"Pattern sequence finished interrupt mask bit",
+        "digital_physical_map":{
+          "0":"interrupt not masked",
+          "1":"interrupt masked"
+        },
+        "name":"PAT_M",
+        "register_location":[
+          {
+            "reg_end_bit":2,
+            "reg_start_bit":2,
+            "register_address":"0x05"
+          }
+        ]
+      },
+      {
+        "description":"Start of PWM frame interrupt mask bit",
+        "digital_physical_map":{
+          "0":"interrupt not masked",
+          "1":"interrupt masked"
+        },
+        "name":"SOF_M",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":3,
+            "register_address":"0x05"
+          }
+        ]
+      },
+      {
+        "description":"Chip overtemperature protection reached",
+        "digital_physical_map":{
+          "0":"OVTP not occurred",
+          "1":"OVTP occurred"
+        },
+        "name":"OVTP",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":0,
+            "register_address":"0x06"
+          }
+        ]
+      },
+      {
+        "description":"Open LED detection on CS0-CS11",
+        "digital_physical_map":{
+          "0":"Open led on CSx not occurred",
+          "1":"Open led on CSx occurred"
+        },
+        "name":"OPEN",
+        "register_location":[
+          {
+            "reg_end_bit":1,
+            "reg_start_bit":1,
+            "register_address":"0x06"
+          }
+        ]
+      },
+      {
+        "description":"Pattern sequence finished",
+        "digital_physical_map":{
+          "0":"Pattern sequence not finished",
+          "1":"Pattern sequence finished"
+        },
+        "name":"PAT",
+        "register_location":[
+          {
+            "reg_end_bit":2,
+            "reg_start_bit":2,
+            "register_address":"0x06"
+          }
+        ]
+      },
+      {
+        "description":"Start of PWM frame interrupt flag",
+        "digital_physical_map":{
+          "0":"PWM frame not started",
+          "1":"PWM frame started"
+        },
+        "name":"SOF",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":3,
+            "register_address":"0x06"
+          }
+        ]
+      },
+      {
+        "description":"Channel 0 is open",
+        "name":"O_CS0",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":0,
+            "register_address":"0x07"
+          }
+        ]
+      },
+      {
+        "description":"Channel 1 is open",
+        "name":"O_CS1",
+        "register_location":[
+          {
+            "reg_end_bit":1,
+            "reg_start_bit":1,
+            "register_address":"0x07"
+          }
+        ]
+      },
+      {
+        "description":"Channel 2 is open",
+        "name":"O_CS2",
+        "register_location":[
+          {
+            "reg_end_bit":2,
+            "reg_start_bit":2,
+            "register_address":"0x07"
+          }
+        ]
+      },
+      {
+        "description":"Channel 3 is open",
+        "name":"O_CS3",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":3,
+            "register_address":"0x07"
+          }
+        ]
+      },
+      {
+        "description":"Channel 4 is open",
+        "name":"O_CS4",
+        "register_location":[
+          {
+            "reg_end_bit":4,
+            "reg_start_bit":4,
+            "register_address":"0x07"
+          }
+        ]
+      },
+      {
+        "description":"Channel 5 is open",
+        "name":"O_CS5",
+        "register_location":[
+          {
+            "reg_end_bit":5,
+            "reg_start_bit":5,
+            "register_address":"0x07"
+          }
+        ]
+      },
+      {
+        "description":"Channel 6 is open",
+        "name":"O_CS6",
+        "register_location":[
+          {
+            "reg_end_bit":6,
+            "reg_start_bit":6,
+            "register_address":"0x07"
+          }
+        ]
+      },
+      {
+        "description":"Channel 7 is open",
+        "name":"O_CS7",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":7,
+            "register_address":"0x07"
+          }
+        ]
+      },
+      {
+        "description":"Channel 8 is open",
+        "name":"O_CS8",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":0,
+            "register_address":"0x08"
+          }
+        ]
+      },
+      {
+        "description":"Channel 9 is open",
+        "name":"O_CS9",
+        "register_location":[
+          {
+            "reg_end_bit":1,
+            "reg_start_bit":1,
+            "register_address":"0x08"
+          }
+        ]
+      },
+      {
+        "description":"Channel 10 is open",
+        "name":"O_CS10",
+        "register_location":[
+          {
+            "reg_end_bit":2,
+            "reg_start_bit":2,
+            "register_address":"0x08"
+          }
+        ]
+      },
+      {
+        "description":"Channel 11 is open",
+        "name":"O_CS11",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":3,
+            "register_address":"0x08"
+          }
+        ]
+      },
+      {
+        "description":"Channel 0 LED current selection",
+        "digital_physical_map":{
+          "equation":"I CS_SET = ILED0_value/255 * 20 mA"
+        },
+        "name":"ILED0",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x09"
+          }
+        ]
+      },
+      {
+        "description":"Channel 1 LED current selection",
+        "digital_physical_map":{
+          "equation":"I CS_SET = ILED1_value/255 * 20 mA"
+        },
+        "name":"ILED1",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x0A"
+          }
+        ]
+      },
+      {
+        "description":"Channel 2 LED current selection",
+        "digital_physical_map":{
+          "equation":"I CS_SET = ILED2_value/255 * 20 mA"
+        },
+        "name":"ILED2",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x0B"
+          }
+        ]
+      },
+      {
+        "description":"Channel 3 LED current selection",
+        "digital_physical_map":{
+          "equation":"I CS_SET = ILED3_value/255 * 20 mA"
+        },
+        "name":"ILED3",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x0C"
+          }
+        ]
+      },
+      {
+        "description":"Channel 4 LED current selection",
+        "digital_physical_map":{
+          "equation":"I CS_SET = ILED4_value/255 * 20 mA"
+        },
+        "name":"ILED4",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x0D"
+          }
+        ]
+      },
+      {
+        "description":"Channel 5 LED current selection",
+        "digital_physical_map":{
+          "equation":"I CS_SET = ILED5_value/255 * 20 mA"
+        },
+        "name":"ILED5",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x0E"
+          }
+        ]
+      },
+      {
+        "description":"Channel 6 LED current selection",
+        "digital_physical_map":{
+          "equation":"I CS_SET = ILED6_value/255 * 20 mA"
+        },
+        "name":"ILED6",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x0F"
+          }
+        ]
+      },
+      {
+        "description":"Channel 7 LED current selection",
+        "digital_physical_map":{
+          "equation":"I CS_SET = ILED7_value/255 * 20 mA"
+        },
+        "name":"ILED7",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x10"
+          }
+        ]
+      },
+      {
+        "description":"Channel 8 LED current selection",
+        "digital_physical_map":{
+          "equation":"I CS_SET = ILED8_value/255 * 20 mA"
+        },
+        "name":"ILED8",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x11"
+          }
+        ]
+      },
+      {
+        "description":"Channel 9 LED current selection",
+        "digital_physical_map":{
+          "equation":"I CS_SET = ILED9_value/255 * 20 mA"
+        },
+        "name":"ILED9",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x12"
+          }
+        ]
+      },
+      {
+        "description":"Channel 10 LED current selection",
+        "digital_physical_map":{
+          "equation":"I CS_SET = ILED10_value/255 * 20 mA"
+        },
+        "name":"ILED10",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x13"
+          }
+        ]
+      },
+      {
+        "description":"Channel 11 LED current selection",
+        "digital_physical_map":{
+          "equation":"I CS_SET = ILED11_value/255 * 20 mA"
+        },
+        "name":"ILED11",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x14"
+          }
+        ]
+      },
+      {
+        "description":"Pattern sequence repetition number selection",
+        "digital_physical_map":{
+          "equation":"LSB: 1 time"
+        },
+        "name":"PAT_REP",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x15"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 duration time selection",
+        "digital_physical_map":{
+          "equation":"LSB: 22.2 ms"
+        },
+        "name":"PAT0_DUR",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x16"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 duration time selection",
+        "digital_physical_map":{
+          "equation":"LSB: 22.2 ms"
+        },
+        "name":"PAT1_DUR",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x17"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 duration time selection",
+        "digital_physical_map":{
+          "equation":"LSB: 22.2 ms"
+        },
+        "name":"PAT2_DUR",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x18"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 duration time selection",
+        "digital_physical_map":{
+          "equation":"LSB: 22.2 ms"
+        },
+        "name":"PAT3_DUR",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x19"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 duration time selection",
+        "digital_physical_map":{
+          "equation":"LSB: 22.2 ms"
+        },
+        "name":"PAT4_DUR",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x1A"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 duration time selection",
+        "digital_physical_map":{
+          "equation":"LSB: 22.2 ms"
+        },
+        "name":"PAT5_DUR",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x1B"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 duration time selection",
+        "digital_physical_map":{
+          "equation":"LSB: 22.2 ms"
+        },
+        "name":"PAT6_DUR",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x1C"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 duration time selection",
+        "digital_physical_map":{
+          "equation":"LSB: 22.2 ms"
+        },
+        "name":"PAT7_DUR",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x1D"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS0 PWM Low",
+        "name":"PWM0_0_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x1E"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS0 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM0_0_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x1F"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS1 PWM Low",
+        "name":"PWM1_0_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x20"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS1 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM1_0_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x21"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS2 PWM Low",
+        "name":"PWM2_0_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x22"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS2 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM2_0_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x23"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS3 PWM Low",
+        "name":"PWM3_0_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x24"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS3 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM3_0_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x25"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS4 PWM Low",
+        "name":"PWM4_0_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x26"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS4 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM4_0_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x27"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS5 PWM Low",
+        "name":"PWM5_0_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x28"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS5 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM5_0_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x29"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS6 PWM Low",
+        "name":"PWM6_0_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x2A"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS6 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM6_0_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x2B"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS7 PWM Low",
+        "name":"PWM7_0_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x2C"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS7 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM7_0_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x2D"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS8 PWM Low",
+        "name":"PWM8_0_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x2E"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS8 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM8_0_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x2F"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS9 PWM Low",
+        "name":"PWM9_0_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x30"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS9 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM9_0_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x31"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS10 PWM Low",
+        "name":"PWM10_0_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x32"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS10 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM10_0_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x33"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS11 PWM Low",
+        "name":"PWM11_0_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x34"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 0 CS11 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM11_0_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x35"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS0 PWM Low",
+        "name":"PWM0_1_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x36"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS0 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM0_1_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x37"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS1 PWM Low",
+        "name":"PWM1_1_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x38"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS1 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM1_1_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x39"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS2 PWM Low",
+        "name":"PWM2_1_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x3A"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS2 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM2_1_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x3B"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS3 PWM Low",
+        "name":"PWM3_1_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x3C"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS3 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM3_1_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x3D"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS4 PWM Low",
+        "name":"PWM4_1_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x3E"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS4 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM4_1_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x3F"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS5 PWM Low",
+        "name":"PWM5_1_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x40"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS5 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM5_1_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x41"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS6 PWM Low",
+        "name":"PWM6_1_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x42"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS6 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM6_1_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x43"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS7 PWM Low",
+        "name":"PWM7_1_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x44"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS7 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM7_1_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x45"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS8 PWM Low",
+        "name":"PWM8_1_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x46"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS8 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM8_1_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x47"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS9 PWM Low",
+        "name":"PWM9_1_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x48"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS9 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM9_1_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x49"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS10 PWM Low",
+        "name":"PWM10_1_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x4A"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS10 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM10_1_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x4B"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS11 PWM Low",
+        "name":"PWM11_1_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x4C"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 1 CS11 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM11_1_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x4D"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS0 PWM Low",
+        "name":"PWM0_2_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x4E"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS0 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM0_2_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x4F"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS1 PWM Low",
+        "name":"PWM1_2_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x50"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS1 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM1_2_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x51"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS2 PWM Low",
+        "name":"PWM2_2_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x52"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS2 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM2_2_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x53"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS3 PWM Low",
+        "name":"PWM3_2_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x54"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS3 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM3_2_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x55"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS4 PWM Low",
+        "name":"PWM4_2_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x56"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS4 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM4_2_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x57"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS5 PWM Low",
+        "name":"PWM5_2_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x58"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS5 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM5_2_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x59"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS6 PWM Low",
+        "name":"PWM6_2_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x5A"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS6 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM6_2_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x5B"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS7 PWM Low",
+        "name":"PWM7_2_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x5C"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS7 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM7_2_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x5D"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS8 PWM Low",
+        "name":"PWM8_2_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x5E"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS8 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM8_2_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x5F"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS9 PWM Low",
+        "name":"PWM9_2_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x60"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS9 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM9_2_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x61"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS10 PWM Low",
+        "name":"PWM10_2_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x62"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS10 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM10_2_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x63"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS11 PWM Low",
+        "name":"PWM11_2_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x64"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 2 CS11 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM11_2_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x65"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS0 PWM Low",
+        "name":"PWM0_3_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x66"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS0 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM0_3_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x67"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS1 PWM Low",
+        "name":"PWM1_3_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x68"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS1 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM1_3_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x69"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS2 PWM Low",
+        "name":"PWM2_3_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x6A"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS2 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM2_3_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x6B"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS3 PWM Low",
+        "name":"PWM3_3_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x6C"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS3 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM3_3_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x6D"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS4 PWM Low",
+        "name":"PWM4_3_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x6E"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS4 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM4_3_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x6F"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS5 PWM Low",
+        "name":"PWM5_3_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x70"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS5 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM5_3_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x71"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS6 PWM Low",
+        "name":"PWM6_3_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x72"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS6 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM6_3_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x73"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS7 PWM Low",
+        "name":"PWM7_3_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x74"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS7 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM7_3_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x75"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS8 PWM Low",
+        "name":"PWM8_3_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x76"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS8 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM8_3_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x77"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS9 PWM Low",
+        "name":"PWM9_3_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x78"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS9 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM9_3_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x79"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS10 PWM Low",
+        "name":"PWM10_3_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x7A"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS10 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM10_3_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x7B"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS11 PWM Low",
+        "name":"PWM11_3_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x7C"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 3 CS11 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM11_3_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x7D"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS0 PWM Low",
+        "name":"PWM0_4_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x7E"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS0 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM0_4_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x7F"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS1 PWM Low",
+        "name":"PWM1_4_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x80"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS1 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM1_4_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x81"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS2 PWM Low",
+        "name":"PWM2_4_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x82"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS2 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM2_4_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x83"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS3 PWM Low",
+        "name":"PWM3_4_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x84"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS3 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM3_4_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x85"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS4 PWM Low",
+        "name":"PWM4_4_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x86"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS4 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM4_4_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x87"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS5 PWM Low",
+        "name":"PWM5_4_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x88"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS5 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM5_4_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x89"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS6 PWM Low",
+        "name":"PWM6_4_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x8A"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS6 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM6_4_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x8B"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS7 PWM Low",
+        "name":"PWM7_4_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x8C"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS7 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM7_4_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x8D"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS8 PWM Low",
+        "name":"PWM8_4_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x8E"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS8 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM8_4_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x8F"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS9 PWM Low",
+        "name":"PWM9_4_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x90"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS9 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM9_4_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x91"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS10 PWM Low",
+        "name":"PWM10_4_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x92"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS10 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM10_4_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x93"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS11 PWM Low",
+        "name":"PWM11_4_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x94"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 4 CS11 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM11_4_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x95"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS0 PWM Low",
+        "name":"PWM0_5_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x96"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS0 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM0_5_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x97"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS1 PWM Low",
+        "name":"PWM1_5_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x98"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS1 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM1_5_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x99"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS2 PWM Low",
+        "name":"PWM2_5_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x9A"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS2 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM2_5_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x9B"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS3 PWM Low",
+        "name":"PWM3_5_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x9C"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS3 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM3_5_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x9D"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS4 PWM Low",
+        "name":"PWM4_5_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0x9E"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS4 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM4_5_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0x9F"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS5 PWM Low",
+        "name":"PWM5_5_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xA0"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS5 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM5_5_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xA1"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS6 PWM Low",
+        "name":"PWM6_5_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xA2"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS6 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM6_5_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xA3"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS7 PWM Low",
+        "name":"PWM7_5_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xA4"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS7 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM7_5_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xA5"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS8 PWM Low",
+        "name":"PWM8_5_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xA6"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS8 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM8_5_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xA7"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS9 PWM Low",
+        "name":"PWM9_5_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xA8"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS9 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM9_5_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xA9"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS10 PWM Low",
+        "name":"PWM10_5_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xAA"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS10 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM10_5_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xAB"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS11 PWM Low",
+        "name":"PWM11_5_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xAC"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 5 CS11 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM11_5_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xAD"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS0 PWM Low",
+        "name":"PWM0_6_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xAE"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS0 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM0_6_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xAF"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS1 PWM Low",
+        "name":"PWM1_6_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xB0"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS1 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM1_6_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xB1"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS2 PWM Low",
+        "name":"PWM2_6_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xB2"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS2 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM2_6_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xB3"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS3 PWM Low",
+        "name":"PWM3_6_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xB4"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS3 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM3_6_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xB5"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS4 PWM Low",
+        "name":"PWM4_6_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xB6"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS4 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM4_6_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xB7"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS5 PWM Low",
+        "name":"PWM5_6_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xB8"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS5 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM5_6_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xB9"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS6 PWM Low",
+        "name":"PWM6_6_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xBA"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS6 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM6_6_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xBB"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS7 PWM Low",
+        "name":"PWM7_6_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xBC"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS7 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM7_6_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xBD"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS8 PWM Low",
+        "name":"PWM8_6_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xBE"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS8 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM8_6_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xBF"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS9 PWM Low",
+        "name":"PWM9_6_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xC0"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS9 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM9_6_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xC1"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS10 PWM Low",
+        "name":"PWM10_6_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xC2"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS10 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM10_6_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xC3"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS11 PWM Low",
+        "name":"PWM11_6_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xC4"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 6 CS11 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM11_6_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xC5"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS0 PWM Low",
+        "name":"PWM0_7_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xC6"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS0 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM0_7_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xC7"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS1 PWM Low",
+        "name":"PWM1_7_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xC8"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS1 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM1_7_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xC9"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS2 PWM Low",
+        "name":"PWM2_7_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xCA"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS2 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM2_7_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xCB"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS3 PWM Low",
+        "name":"PWM3_7_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xCC"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS3 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM3_7_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xCD"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS4 PWM Low",
+        "name":"PWM4_7_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xCE"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS4 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM4_7_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xCF"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS5 PWM Low",
+        "name":"PWM5_7_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xD0"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS5 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM5_7_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xD1"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS6 PWM Low",
+        "name":"PWM6_7_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xD2"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS6 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM6_7_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xD3"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS7 PWM Low",
+        "name":"PWM7_7_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xD4"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS7 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM7_7_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xD5"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS8 PWM Low",
+        "name":"PWM8_7_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xD6"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS8 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM8_7_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xD7"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS9 PWM Low",
+        "name":"PWM9_7_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xD8"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS9 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM9_7_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xD9"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS10 PWM Low",
+        "name":"PWM10_7_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xDA"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS10 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM10_7_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xDB"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS11 PWM Low",
+        "name":"PWM11_7_L",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":"0xDC"
+          }
+        ]
+      },
+      {
+        "description":"Pattern 7 CS11 PWM High",
+        "digital_physical_map":{
+          "equation":"LSB: 1/4095 (step size)"
+        },
+        "name":"PWM11_7_H",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":0,
+            "register_address":"0xDD"
+          }
+        ]
+      },
+      {
+        "description":"Enable internal clock output to A0",
+        "digital_physical_map":{
+          "0":"Disable",
+          "1":"Enable"
+        },
+        "name":"CLK_O_En",
+        "register_location":[
+          {
+            "reg_end_bit":1,
+            "reg_start_bit":1,
+            "register_address":"0xE0"
+          }
+        ]
+      },
+      {
+        "description":"Enable external clock input to A1",
+        "digital_physical_map":{
+          "0":"Disable",
+          "1":"Enable"
+        },
+        "name":"CLK_I_En",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":0,
+            "register_address":"0xE0"
+          }
+        ]
+      }
+    ],
+    "registers":{
+      "0x00":{
+        "address":"0x00",
+        "init_value":"0x12",
+        "name":"Device ID"
+      },
+      "0x01":{
+        "address":"0x01",
+        "init_value":"0x00",
+        "name":"Device Enable"
+      },
+      "0x02":{
+        "address":"0x02",
+        "init_value":"0xFF",
+        "name":"Channel Enable Low"
+      },
+      "0x03":{
+        "address":"0x03",
+        "init_value":"0x0F",
+        "name":"Channel Enable High"
+      },
+      "0x04":{
+        "address":"0x04",
+        "init_value":"0x00",
+        "name":"Configuration"
+      },
+      "0x05":{
+        "address":"0x05",
+        "init_value":"0x0B",
+        "name":"Fault and Status Mask"
+      },
+      "0x06":{
+        "address":"0x06",
+        "init_value":"0x00",
+        "name":"Fault and Status Interrupt"
+      },
+      "0x07":{
+        "address":"0x07",
+        "init_value":"0x00",
+        "name":"Open LED Low"
+      },
+      "0x08":{
+        "address":"0x08",
+        "init_value":"0x00",
+        "name":"Open LED High"
+      },
+      "0x09":{
+        "address":"0x09",
+        "init_value":"0x27",
+        "name":"CS0 LED Current"
+      },
+      "0x0A":{
+        "address":"0x0A",
+        "init_value":"0x27",
+        "name":"CS1 LED Current"
+      },
+      "0x0B":{
+        "address":"0x0B",
+        "init_value":"0x27",
+        "name":"CS2 LED Current"
+      },
+      "0x0C":{
+        "address":"0x0C",
+        "init_value":"0x27",
+        "name":"CS3 LED Current"
+      },
+      "0x0D":{
+        "address":"0x0D",
+        "init_value":"0x27",
+        "name":"CS4 LED Current"
+      },
+      "0x0E":{
+        "address":"0x0E",
+        "init_value":"0x27",
+        "name":"CS5 LED Current"
+      },
+      "0x0F":{
+        "address":"0x0F",
+        "init_value":"0x27",
+        "name":"CS6 LED Current"
+      },
+      "0x10":{
+        "address":"0x10",
+        "init_value":"0x27",
+        "name":"CS7 LED Current"
+      },
+      "0x11":{
+        "address":"0x11",
+        "init_value":"0x27",
+        "name":"CS8 LED Current"
+      },
+      "0x12":{
+        "address":"0x12",
+        "init_value":"0x27",
+        "name":"CS9 LED Current"
+      },
+      "0x13":{
+        "address":"0x13",
+        "init_value":"0x27",
+        "name":"CS10 LED Current"
+      },
+      "0x14":{
+        "address":"0x14",
+        "init_value":"0x27",
+        "name":"CS11 LED Current"
+      },
+      "0x15":{
+        "address":"0x15",
+        "init_value":"0x01",
+        "name":"Pattern Sequence Repetition"
+      },
+      "0x16":{
+        "address":"0x16",
+        "init_value":"0x1F",
+        "name":"Pattern 0 Duration"
+      },
+      "0x17":{
+        "address":"0x17",
+        "init_value":"0x1F",
+        "name":"Pattern 1 Duration"
+      },
+      "0x18":{
+        "address":"0x18",
+        "init_value":"0x1F",
+        "name":"Pattern 2 Duration"
+      },
+      "0x19":{
+        "address":"0x19",
+        "init_value":"0x1F",
+        "name":"Pattern 3 Duration"
+      },
+      "0x1A":{
+        "address":"0x1A",
+        "init_value":"0x1F",
+        "name":"Pattern 4 Duration"
+      },
+      "0x1B":{
+        "address":"0x1B",
+        "init_value":"0x1F",
+        "name":"Pattern 5 Duration"
+      },
+      "0x1C":{
+        "address":"0x1C",
+        "init_value":"0x1F",
+        "name":"Pattern 6 Duration"
+      },
+      "0x1D":{
+        "address":"0x1D",
+        "init_value":"0x1F",
+        "name":"Pattern 7 Duration"
+      },
+      "0x1E":{
+        "address":"0x1E",
+        "init_value":"0x55",
+        "name":"Pattern0CS0 PWM Low"
+      },
+      "0x1F":{
+        "address":"0x1F",
+        "init_value":"0x05",
+        "name":"Pattern0CS0 PWM High"
+      },
+      "0x20":{
+        "address":"0x20",
+        "init_value":"0x55",
+        "name":"Pattern0CS1 PWM Low"
+      },
+      "0x21":{
+        "address":"0x21",
+        "init_value":"0x05",
+        "name":"Pattern0CS1 PWM High"
+      },
+      "0x22":{
+        "address":"0x22",
+        "init_value":"0x55",
+        "name":"Pattern0CS2 PWM Low"
+      },
+      "0x23":{
+        "address":"0x23",
+        "init_value":"0x05",
+        "name":"Pattern0CS2 PWM High"
+      },
+      "0x24":{
+        "address":"0x24",
+        "init_value":"0x55",
+        "name":"Pattern0CS3 PWM Low"
+      },
+      "0x25":{
+        "address":"0x25",
+        "init_value":"0x05",
+        "name":"Pattern0CS3 PWM High"
+      },
+      "0x26":{
+        "address":"0x26",
+        "init_value":"0x55",
+        "name":"Pattern0CS4 PWM Low"
+      },
+      "0x27":{
+        "address":"0x27",
+        "init_value":"0x05",
+        "name":"Pattern0CS4 PWM High"
+      },
+      "0x28":{
+        "address":"0x28",
+        "init_value":"0x55",
+        "name":"Pattern0CS5 PWM Low"
+      },
+      "0x29":{
+        "address":"0x29",
+        "init_value":"0x05",
+        "name":"Pattern0CS5 PWM High"
+      },
+      "0x2A":{
+        "address":"0x2A",
+        "init_value":"0x55",
+        "name":"Pattern0CS6 PWM Low"
+      },
+      "0x2B":{
+        "address":"0x2B",
+        "init_value":"0x05",
+        "name":"Pattern0CS6 PWM High"
+      },
+      "0x2C":{
+        "address":"0x2C",
+        "init_value":"0x55",
+        "name":"Pattern0CS7 PWM Low"
+      },
+      "0x2D":{
+        "address":"0x2D",
+        "init_value":"0x05",
+        "name":"Pattern0CS7 PWM High"
+      },
+      "0x2E":{
+        "address":"0x2E",
+        "init_value":"0x55",
+        "name":"Pattern0CS8 PWM Low"
+      },
+      "0x2F":{
+        "address":"0x2F",
+        "init_value":"0x05",
+        "name":"Pattern0CS8 PWM High"
+      },
+      "0x30":{
+        "address":"0x30",
+        "init_value":"0x55",
+        "name":"Pattern0CS9 PWM Low"
+      },
+      "0x31":{
+        "address":"0x31",
+        "init_value":"0x05",
+        "name":"Pattern0CS9 PWM High"
+      },
+      "0x32":{
+        "address":"0x32",
+        "init_value":"0x55",
+        "name":"Pattern0CS10 PWM Low"
+      },
+      "0x33":{
+        "address":"0x33",
+        "init_value":"0x05",
+        "name":"Pattern0CS10 PWM High"
+      },
+      "0x34":{
+        "address":"0x34",
+        "init_value":"0x55",
+        "name":"Pattern0CS11 PWM Low"
+      },
+      "0x35":{
+        "address":"0x35",
+        "init_value":"0x05",
+        "name":"Pattern0CS11 PWM High"
+      },
+      "0x36":{
+        "address":"0x36",
+        "init_value":"0xFF",
+        "name":"Pattern1CS0 PWM Low"
+      },
+      "0x37":{
+        "address":"0x37",
+        "init_value":"0x0F",
+        "name":"Pattern1CS0 PWM High"
+      },
+      "0x38":{
+        "address":"0x38",
+        "init_value":"0xFF",
+        "name":"Pattern1CS1 PWM Low"
+      },
+      "0x39":{
+        "address":"0x39",
+        "init_value":"0x0F",
+        "name":"Pattern1CS1 PWM High"
+      },
+      "0x3A":{
+        "address":"0x3A",
+        "init_value":"0xFF",
+        "name":"Pattern1CS2 PWM Low"
+      },
+      "0x3B":{
+        "address":"0x3B",
+        "init_value":"0x0F",
+        "name":"Pattern1CS2 PWM High"
+      },
+      "0x3C":{
+        "address":"0x3C",
+        "init_value":"0xFF",
+        "name":"Pattern1CS3 PWM Low"
+      },
+      "0x3D":{
+        "address":"0x3D",
+        "init_value":"0x0F",
+        "name":"Pattern1CS3 PWM High"
+      },
+      "0x3E":{
+        "address":"0x3E",
+        "init_value":"0xFF",
+        "name":"Pattern1CS4 PWM Low"
+      },
+      "0x3F":{
+        "address":"0x3F",
+        "init_value":"0x0F",
+        "name":"Pattern1CS4 PWM High"
+      },
+      "0x40":{
+        "address":"0x40",
+        "init_value":"0xFF",
+        "name":"Pattern1CS5 PWM Low"
+      },
+      "0x41":{
+        "address":"0x41",
+        "init_value":"0x0F",
+        "name":"Pattern1CS5 PWM High"
+      },
+      "0x42":{
+        "address":"0x42",
+        "init_value":"0xFF",
+        "name":"Pattern1CS6 PWM Low"
+      },
+      "0x43":{
+        "address":"0x43",
+        "init_value":"0x0F",
+        "name":"Pattern1CS6 PWM High"
+      },
+      "0x44":{
+        "address":"0x44",
+        "init_value":"0xFF",
+        "name":"Pattern1CS7 PWM Low"
+      },
+      "0x45":{
+        "address":"0x45",
+        "init_value":"0x0F",
+        "name":"Pattern1CS7 PWM High"
+      },
+      "0x46":{
+        "address":"0x46",
+        "init_value":"0xFF",
+        "name":"Pattern1CS8 PWM Low"
+      },
+      "0x47":{
+        "address":"0x47",
+        "init_value":"0x0F",
+        "name":"Pattern1CS8 PWM High"
+      },
+      "0x48":{
+        "address":"0x48",
+        "init_value":"0xFF",
+        "name":"Pattern1CS9 PWM Low"
+      },
+      "0x49":{
+        "address":"0x49",
+        "init_value":"0x0F",
+        "name":"Pattern1CS9 PWM High"
+      },
+      "0x4A":{
+        "address":"0x4A",
+        "init_value":"0xFF",
+        "name":"Pattern1CS10 PWM Low"
+      },
+      "0x4B":{
+        "address":"0x4B",
+        "init_value":"0x0F",
+        "name":"Pattern1CS10 PWM High"
+      },
+      "0x4C":{
+        "address":"0x4C",
+        "init_value":"0xFF",
+        "name":"Pattern1CS11 PWM Low"
+      },
+      "0x4D":{
+        "address":"0x4D",
+        "init_value":"0x0F",
+        "name":"Pattern1CS11 PWM High"
+      },
+      "0x4E":{
+        "address":"0x4E",
+        "init_value":"0xFF",
+        "name":"Pattern2CS0 PWM Low"
+      },
+      "0x4F":{
+        "address":"0x4F",
+        "init_value":"0x0F",
+        "name":"Pattern2CS0 PWM High"
+      },
+      "0x50":{
+        "address":"0x50",
+        "init_value":"0xFF",
+        "name":"Pattern2CS1 PWM Low"
+      },
+      "0x51":{
+        "address":"0x51",
+        "init_value":"0x0F",
+        "name":"Pattern2CS1 PWM High"
+      },
+      "0x52":{
+        "address":"0x52",
+        "init_value":"0xFF",
+        "name":"Pattern2CS2 PWM Low"
+      },
+      "0x53":{
+        "address":"0x53",
+        "init_value":"0x0F",
+        "name":"Pattern2CS2 PWM High"
+      },
+      "0x54":{
+        "address":"0x54",
+        "init_value":"0xFF",
+        "name":"Pattern2CS3 PWM Low"
+      },
+      "0x55":{
+        "address":"0x55",
+        "init_value":"0x0F",
+        "name":"Pattern2CS3 PWM High"
+      },
+      "0x56":{
+        "address":"0x56",
+        "init_value":"0xFF",
+        "name":"Pattern2CS4 PWM Low"
+      },
+      "0x57":{
+        "address":"0x57",
+        "init_value":"0x0F",
+        "name":"Pattern2CS4 PWM High"
+      },
+      "0x58":{
+        "address":"0x58",
+        "init_value":"0xFF",
+        "name":"Pattern2CS5 PWM Low"
+      },
+      "0x59":{
+        "address":"0x59",
+        "init_value":"0x0F",
+        "name":"Pattern2CS5 PWM High"
+      },
+      "0x5A":{
+        "address":"0x5A",
+        "init_value":"0xFF",
+        "name":"Pattern2CS6 PWM Low"
+      },
+      "0x5B":{
+        "address":"0x5B",
+        "init_value":"0x0F",
+        "name":"Pattern2CS6 PWM High"
+      },
+      "0x5C":{
+        "address":"0x5C",
+        "init_value":"0xFF",
+        "name":"Pattern2CS7 PWM Low"
+      },
+      "0x5D":{
+        "address":"0x5D",
+        "init_value":"0x0F",
+        "name":"Pattern2CS7 PWM High"
+      },
+      "0x5E":{
+        "address":"0x5E",
+        "init_value":"0xFF",
+        "name":"Pattern2CS8 PWM Low"
+      },
+      "0x5F":{
+        "address":"0x5F",
+        "init_value":"0x0F",
+        "name":"Pattern2CS8 PWM High"
+      },
+      "0x60":{
+        "address":"0x60",
+        "init_value":"0xFF",
+        "name":"Pattern2CS9 PWM Low"
+      },
+      "0x61":{
+        "address":"0x61",
+        "init_value":"0x0F",
+        "name":"Pattern2CS9 PWM High"
+      },
+      "0x62":{
+        "address":"0x62",
+        "init_value":"0xFF",
+        "name":"Pattern2CS10 PWM Low"
+      },
+      "0x63":{
+        "address":"0x63",
+        "init_value":"0x0F",
+        "name":"Pattern2CS10 PWM High"
+      },
+      "0x64":{
+        "address":"0x64",
+        "init_value":"0xFF",
+        "name":"Pattern2CS11 PWM Low"
+      },
+      "0x65":{
+        "address":"0x65",
+        "init_value":"0x0F",
+        "name":"Pattern2CS11 PWM High"
+      },
+      "0x66":{
+        "address":"0x66",
+        "init_value":"0xFF",
+        "name":"Pattern3CS0 PWM Low"
+      },
+      "0x67":{
+        "address":"0x67",
+        "init_value":"0x0F",
+        "name":"Pattern3CS0 PWM High"
+      },
+      "0x68":{
+        "address":"0x68",
+        "init_value":"0xFF",
+        "name":"Pattern3CS1 PWM Low"
+      },
+      "0x69":{
+        "address":"0x69",
+        "init_value":"0x0F",
+        "name":"Pattern3CS1 PWM High"
+      },
+      "0x6A":{
+        "address":"0x6A",
+        "init_value":"0xFF",
+        "name":"Pattern3CS2 PWM Low"
+      },
+      "0x6B":{
+        "address":"0x6B",
+        "init_value":"0x0F",
+        "name":"Pattern3CS2 PWM High"
+      },
+      "0x6C":{
+        "address":"0x6C",
+        "init_value":"0xFF",
+        "name":"Pattern3CS3 PWM Low"
+      },
+      "0x6D":{
+        "address":"0x6D",
+        "init_value":"0x0F",
+        "name":"Pattern3CS3 PWM High"
+      },
+      "0x6E":{
+        "address":"0x6E",
+        "init_value":"0xFF",
+        "name":"Pattern3CS4 PWM Low"
+      },
+      "0x6F":{
+        "address":"0x6F",
+        "init_value":"0x0F",
+        "name":"Pattern3CS4 PWM High"
+      },
+      "0x70":{
+        "address":"0x70",
+        "init_value":"0xFF",
+        "name":"Pattern3CS5 PWM Low"
+      },
+      "0x71":{
+        "address":"0x71",
+        "init_value":"0x0F",
+        "name":"Pattern3CS5 PWM High"
+      },
+      "0x72":{
+        "address":"0x72",
+        "init_value":"0xFF",
+        "name":"Pattern3CS6 PWM Low"
+      },
+      "0x73":{
+        "address":"0x73",
+        "init_value":"0x0F",
+        "name":"Pattern3CS6 PWM High"
+      },
+      "0x74":{
+        "address":"0x74",
+        "init_value":"0xFF",
+        "name":"Pattern3CS7 PWM Low"
+      },
+      "0x75":{
+        "address":"0x75",
+        "init_value":"0x0F",
+        "name":"Pattern3CS7 PWM High"
+      },
+      "0x76":{
+        "address":"0x76",
+        "init_value":"0xFF",
+        "name":"Pattern3CS8 PWM Low"
+      },
+      "0x77":{
+        "address":"0x77",
+        "init_value":"0x0F",
+        "name":"Pattern3CS8 PWM High"
+      },
+      "0x78":{
+        "address":"0x78",
+        "init_value":"0xFF",
+        "name":"Pattern3CS9 PWM Low"
+      },
+      "0x79":{
+        "address":"0x79",
+        "init_value":"0x0F",
+        "name":"Pattern3CS9 PWM High"
+      },
+      "0x7A":{
+        "address":"0x7A",
+        "init_value":"0xFF",
+        "name":"Pattern3CS10 PWM Low"
+      },
+      "0x7B":{
+        "address":"0x7B",
+        "init_value":"0x0F",
+        "name":"Pattern3CS10 PWM High"
+      },
+      "0x7C":{
+        "address":"0x7C",
+        "init_value":"0xFF",
+        "name":"Pattern3CS11 PWM Low"
+      },
+      "0x7D":{
+        "address":"0x7D",
+        "init_value":"0x0F",
+        "name":"Pattern3CS11 PWM High"
+      },
+      "0x7E":{
+        "address":"0x7E",
+        "init_value":"0xFF",
+        "name":"Pattern4CS0 PWM Low"
+      },
+      "0x7F":{
+        "address":"0x7F",
+        "init_value":"0x0F",
+        "name":"Pattern4CS0 PWM High"
+      },
+      "0x80":{
+        "address":"0x80",
+        "init_value":"0xFF",
+        "name":"Pattern4CS1 PWM Low"
+      },
+      "0x81":{
+        "address":"0x81",
+        "init_value":"0x0F",
+        "name":"Pattern4CS1 PWM High"
+      },
+      "0x82":{
+        "address":"0x82",
+        "init_value":"0xFF",
+        "name":"Pattern4CS2 PWM Low"
+      },
+      "0x83":{
+        "address":"0x83",
+        "init_value":"0x0F",
+        "name":"Pattern4CS2 PWM High"
+      },
+      "0x84":{
+        "address":"0x84",
+        "init_value":"0xFF",
+        "name":"Pattern4CS3 PWM Low"
+      },
+      "0x85":{
+        "address":"0x85",
+        "init_value":"0x0F",
+        "name":"Pattern4CS3 PWM High"
+      },
+      "0x86":{
+        "address":"0x86",
+        "init_value":"0xFF",
+        "name":"Pattern4CS4 PWM Low"
+      },
+      "0x87":{
+        "address":"0x87",
+        "init_value":"0x0F",
+        "name":"Pattern4CS4 PWM High"
+      },
+      "0x88":{
+        "address":"0x88",
+        "init_value":"0xFF",
+        "name":"Pattern4CS5 PWM Low"
+      },
+      "0x89":{
+        "address":"0x89",
+        "init_value":"0x0F",
+        "name":"Pattern4CS5 PWM High"
+      },
+      "0x8A":{
+        "address":"0x8A",
+        "init_value":"0xFF",
+        "name":"Pattern4CS6 PWM Low"
+      },
+      "0x8B":{
+        "address":"0x8B",
+        "init_value":"0x0F",
+        "name":"Pattern4CS6 PWM High"
+      },
+      "0x8C":{
+        "address":"0x8C",
+        "init_value":"0xFF",
+        "name":"Pattern4CS7 PWM Low"
+      },
+      "0x8D":{
+        "address":"0x8D",
+        "init_value":"0x0F",
+        "name":"Pattern4CS7 PWM High"
+      },
+      "0x8E":{
+        "address":"0x8E",
+        "init_value":"0xFF",
+        "name":"Pattern4CS8 PWM Low"
+      },
+      "0x8F":{
+        "address":"0x8F",
+        "init_value":"0x0F",
+        "name":"Pattern4CS8 PWM High"
+      },
+      "0x90":{
+        "address":"0x90",
+        "init_value":"0xFF",
+        "name":"Pattern4CS9 PWM Low"
+      },
+      "0x91":{
+        "address":"0x91",
+        "init_value":"0x0F",
+        "name":"Pattern4CS9 PWM High"
+      },
+      "0x92":{
+        "address":"0x92",
+        "init_value":"0xFF",
+        "name":"Pattern4CS10 PWM Low"
+      },
+      "0x93":{
+        "address":"0x93",
+        "init_value":"0x0F",
+        "name":"Pattern4CS10 PWM High"
+      },
+      "0x94":{
+        "address":"0x94",
+        "init_value":"0xFF",
+        "name":"Pattern4CS11 PWM Low"
+      },
+      "0x95":{
+        "address":"0x95",
+        "init_value":"0x0F",
+        "name":"Pattern4CS11 PWM High"
+      },
+      "0x96":{
+        "address":"0x96",
+        "init_value":"0xFF",
+        "name":"Pattern5CS0 PWM Low"
+      },
+      "0x97":{
+        "address":"0x97",
+        "init_value":"0x0F",
+        "name":"Pattern5CS0 PWM High"
+      },
+      "0x98":{
+        "address":"0x98",
+        "init_value":"0xFF",
+        "name":"Pattern5CS1 PWM Low"
+      },
+      "0x99":{
+        "address":"0x99",
+        "init_value":"0x0F",
+        "name":"Pattern5CS1 PWM High"
+      },
+      "0x9A":{
+        "address":"0x9A",
+        "init_value":"0xFF",
+        "name":"Pattern5CS2 PWM Low"
+      },
+      "0x9B":{
+        "address":"0x9B",
+        "init_value":"0x0F",
+        "name":"Pattern5CS2 PWM High"
+      },
+      "0x9C":{
+        "address":"0x9C",
+        "init_value":"0xFF",
+        "name":"Pattern5CS3 PWM Low"
+      },
+      "0x9D":{
+        "address":"0x9D",
+        "init_value":"0x0F",
+        "name":"Pattern5CS3 PWM High"
+      },
+      "0x9E":{
+        "address":"0x9E",
+        "init_value":"0xFF",
+        "name":"Pattern5CS4 PWM Low"
+      },
+      "0x9F":{
+        "address":"0x9F",
+        "init_value":"0x0F",
+        "name":"Pattern5CS4 PWM High"
+      },
+      "0xA0":{
+        "address":"0xA0",
+        "init_value":"0xFF",
+        "name":"Pattern5CS5 PWM Low"
+      },
+      "0xA1":{
+        "address":"0xA1",
+        "init_value":"0x0F",
+        "name":"Pattern5CS5 PWM High"
+      },
+      "0xA2":{
+        "address":"0xA2",
+        "init_value":"0xFF",
+        "name":"Pattern5CS6 PWM Low"
+      },
+      "0xA3":{
+        "address":"0xA3",
+        "init_value":"0x0F",
+        "name":"Pattern5CS6 PWM High"
+      },
+      "0xA4":{
+        "address":"0xA4",
+        "init_value":"0xFF",
+        "name":"Pattern5CS7 PWM Low"
+      },
+      "0xA5":{
+        "address":"0xA5",
+        "init_value":"0x0F",
+        "name":"Pattern5CS7 PWM High"
+      },
+      "0xA6":{
+        "address":"0xA6",
+        "init_value":"0xFF",
+        "name":"Pattern5CS8 PWM Low"
+      },
+      "0xA7":{
+        "address":"0xA7",
+        "init_value":"0x0F",
+        "name":"Pattern5CS8 PWM High"
+      },
+      "0xA8":{
+        "address":"0xA8",
+        "init_value":"0xFF",
+        "name":"Pattern5CS9 PWM Low"
+      },
+      "0xA9":{
+        "address":"0xA9",
+        "init_value":"0x0F",
+        "name":"Pattern5CS9 PWM High"
+      },
+      "0xAA":{
+        "address":"0xAA",
+        "init_value":"0xFF",
+        "name":"Pattern5CS10 PWM Low"
+      },
+      "0xAB":{
+        "address":"0xAB",
+        "init_value":"0x0F",
+        "name":"Pattern5CS10 PWM High"
+      },
+      "0xAC":{
+        "address":"0xAC",
+        "init_value":"0xFF",
+        "name":"Pattern5CS11 PWM Low"
+      },
+      "0xAD":{
+        "address":"0xAD",
+        "init_value":"0x0F",
+        "name":"Pattern5CS11 PWM High"
+      },
+      "0xAE":{
+        "address":"0xAE",
+        "init_value":"0xFF",
+        "name":"Pattern6CS0 PWM Low"
+      },
+      "0xAF":{
+        "address":"0xAF",
+        "init_value":"0x0F",
+        "name":"Pattern6CS0 PWM High"
+      },
+      "0xB0":{
+        "address":"0xB0",
+        "init_value":"0xFF",
+        "name":"Pattern6CS1 PWM Low"
+      },
+      "0xB1":{
+        "address":"0xB1",
+        "init_value":"0x0F",
+        "name":"Pattern6CS1 PWM High"
+      },
+      "0xB2":{
+        "address":"0xB2",
+        "init_value":"0xFF",
+        "name":"Pattern6CS2 PWM Low"
+      },
+      "0xB3":{
+        "address":"0xB3",
+        "init_value":"0x0F",
+        "name":"Pattern6CS2 PWM High"
+      },
+      "0xB4":{
+        "address":"0xB4",
+        "init_value":"0xFF",
+        "name":"Pattern6CS3 PWM Low"
+      },
+      "0xB5":{
+        "address":"0xB5",
+        "init_value":"0x0F",
+        "name":"Pattern6CS3 PWM High"
+      },
+      "0xB6":{
+        "address":"0xB6",
+        "init_value":"0xFF",
+        "name":"Pattern6CS4 PWM Low"
+      },
+      "0xB7":{
+        "address":"0xB7",
+        "init_value":"0x0F",
+        "name":"Pattern6CS4 PWM High"
+      },
+      "0xB8":{
+        "address":"0xB8",
+        "init_value":"0xFF",
+        "name":"Pattern6CS5 PWM Low"
+      },
+      "0xB9":{
+        "address":"0xB9",
+        "init_value":"0x0F",
+        "name":"Pattern6CS5 PWM High"
+      },
+      "0xBA":{
+        "address":"0xBA",
+        "init_value":"0xFF",
+        "name":"Pattern6CS6 PWM Low"
+      },
+      "0xBB":{
+        "address":"0xBB",
+        "init_value":"0x0F",
+        "name":"Pattern6CS6 PWM High"
+      },
+      "0xBC":{
+        "address":"0xBC",
+        "init_value":"0xFF",
+        "name":"Pattern6CS7 PWM Low"
+      },
+      "0xBD":{
+        "address":"0xBD",
+        "init_value":"0x0F",
+        "name":"Pattern6CS7 PWM High"
+      },
+      "0xBE":{
+        "address":"0xBE",
+        "init_value":"0xFF",
+        "name":"Pattern6CS8 PWM Low"
+      },
+      "0xBF":{
+        "address":"0xBF",
+        "init_value":"0x0F",
+        "name":"Pattern6CS8 PWM High"
+      },
+      "0xC0":{
+        "address":"0xC0",
+        "init_value":"0xFF",
+        "name":"Pattern6CS9 PWM Low"
+      },
+      "0xC1":{
+        "address":"0xC1",
+        "init_value":"0x0F",
+        "name":"Pattern6CS9 PWM High"
+      },
+      "0xC2":{
+        "address":"0xC2",
+        "init_value":"0xFF",
+        "name":"Pattern6CS10 PWM Low"
+      },
+      "0xC3":{
+        "address":"0xC3",
+        "init_value":"0x0F",
+        "name":"Pattern6CS10 PWM High"
+      },
+      "0xC4":{
+        "address":"0xC4",
+        "init_value":"0xFF",
+        "name":"Pattern6CS11 PWM Low"
+      },
+      "0xC5":{
+        "address":"0xC5",
+        "init_value":"0x0F",
+        "name":"Pattern6CS11 PWM High"
+      },
+      "0xC6":{
+        "address":"0xC6",
+        "init_value":"0xFF",
+        "name":"Pattern7CS0 PWM Low"
+      },
+      "0xC7":{
+        "address":"0xC7",
+        "init_value":"0x0F",
+        "name":"Pattern7CS0 PWM High"
+      },
+      "0xC8":{
+        "address":"0xC8",
+        "init_value":"0xFF",
+        "name":"Pattern7CS1 PWM Low"
+      },
+      "0xC9":{
+        "address":"0xC9",
+        "init_value":"0x0F",
+        "name":"Pattern7CS1 PWM High"
+      },
+      "0xCA":{
+        "address":"0xCA",
+        "init_value":"0xFF",
+        "name":"Pattern7CS2 PWM Low"
+      },
+      "0xCB":{
+        "address":"0xCB",
+        "init_value":"0x0F",
+        "name":"Pattern7CS2 PWM High"
+      },
+      "0xCC":{
+        "address":"0xCC",
+        "init_value":"0xFF",
+        "name":"Pattern7CS3 PWM Low"
+      },
+      "0xCD":{
+        "address":"0xCD",
+        "init_value":"0x0F",
+        "name":"Pattern7CS3 PWM High"
+      },
+      "0xCE":{
+        "address":"0xCE",
+        "init_value":"0xFF",
+        "name":"Pattern7CS4 PWM Low"
+      },
+      "0xCF":{
+        "address":"0xCF",
+        "init_value":"0x0F",
+        "name":"Pattern7CS4 PWM High"
+      },
+      "0xD0":{
+        "address":"0xD0",
+        "init_value":"0xFF",
+        "name":"Pattern7CS5 PWM Low"
+      },
+      "0xD1":{
+        "address":"0xD1",
+        "init_value":"0x0F",
+        "name":"Pattern7CS5 PWM High"
+      },
+      "0xD2":{
+        "address":"0xD2",
+        "init_value":"0xFF",
+        "name":"Pattern7CS6 PWM Low"
+      },
+      "0xD3":{
+        "address":"0xD3",
+        "init_value":"0x0F",
+        "name":"Pattern7CS6 PWM High"
+      },
+      "0xD4":{
+        "address":"0xD4",
+        "init_value":"0xFF",
+        "name":"Pattern7CS7 PWM Low"
+      },
+      "0xD5":{
+        "address":"0xD5",
+        "init_value":"0x0F",
+        "name":"Pattern7CS7 PWM High"
+      },
+      "0xD6":{
+        "address":"0xD6",
+        "init_value":"0xFF",
+        "name":"Pattern7CS8 PWM Low"
+      },
+      "0xD7":{
+        "address":"0xD7",
+        "init_value":"0x0F",
+        "name":"Pattern7CS8 PWM High"
+      },
+      "0xD8":{
+        "address":"0xD8",
+        "init_value":"0xFF",
+        "name":"Pattern7CS9 PWM Low"
+      },
+      "0xD9":{
+        "address":"0xD9",
+        "init_value":"0x0F",
+        "name":"Pattern7CS9 PWM High"
+      },
+      "0xDA":{
+        "address":"0xDA",
+        "init_value":"0xFF",
+        "name":"Pattern7CS10 PWM Low"
+      },
+      "0xDB":{
+        "address":"0xDB",
+        "init_value":"0x0F",
+        "name":"Pattern7CS10 PWM High"
+      },
+      "0xDC":{
+        "address":"0xDC",
+        "init_value":"0xFF",
+        "name":"Pattern7CS11 PWM Low"
+      },
+      "0xDD":{
+        "address":"0xDD",
+        "init_value":"0x0F",
+        "name":"Pattern7CS11 PWM High"
+      },
+      "0xE0":{
+        "address":"0xE0",
+        "init_value":"0x00",
+        "name":"Clock Configuration"
+      }
+    }
+  }
+}

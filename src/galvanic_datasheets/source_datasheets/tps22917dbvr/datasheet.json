@@ -1,0 +1,220 @@
+{
+  "high_level":{
+    "base_part_number":"TPS22917",
+    "device_type":"HIGH_SIDE_DRIVER",
+    "manufacturer":"Texas Instruments",
+    "packages":[
+      "SOT-23 (DBV)"
+    ],
+    "part_numbers":{
+      "TPS22917":{
+        "options":{
+          "Package":"SOT-23 (DBV)"
+        }
+      },
+      "TPS22917L":{
+        "options":{
+          "Package":"SOT-23 (DBV)"
+        }
+      }
+    }
+  },
+  "pins":{
+    "CT":{
+      "description":"Switch slew rate control. Connect capacitor from this pin to VIN to increase output slew\nrate and turn-on time. Can be left floating for fastest timing.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Capacitor",
+            "description":"An external capacitor is connected between the CT pin and the VIN pin to control the slew rate and turn-on time. The value of this capacitor can be calculated using the formula provided in the datasheet (CT = (Slew Rate) / SR ON) to achieve a desired slew rate and manage inrush current. Alternatively, the pin can be left floating for the fastest slew rate, where SR ON is the slew rate constant from the datasheet and Slew Rate is the desired slew rate in mV/us."
+          }
+        ],
+        "connectivity":"The CT pin should be connected to VIN via a capacitor. The value of this capacitor determines the slew rate and turn-on time. Alternatively, the pin can be left floating for the fastest slew rate.",
+        "detailed_description":"The CT pin controls the slew rate of the output voltage (VOUT) when the switch is turned on. It does this by setting the charging rate of an external capacitor connected to this pin. This allows for adjustable control over the turn-on time and inrush current.",
+        "functionality":"The functionality of the CT pin is to adjust the slew rate and consequently the turn-on time. Leaving it open provides the fastest slew rate and shortest turn-on time. Connecting a capacitor from CT to VIN slows down the slew rate and increases the turn-on time, which helps manage inrush current.",
+        "precautions":[
+          "The CT pin's slew rate control function is intended to manage inrush current. Ensure the chosen capacitor value does not lead to excessively long turn-on times or undesirable system delays.",
+          "When calculating the required capacitance for a specific slew rate, use the values provided in the 'Switching Characteristics' section of the datasheet, specifically the SR ON parameter.",
+          "The voltage rating of the capacitor connected to the CT pin should be at least 7V, as indicated in the 'Recommended Operating Conditions' section."
+        ]
+      },
+      "input_voltage":{
+        "max":7.0,
+        "min":0.0,
+        "units":"V"
+      },
+      "name":"CT",
+      "pin_id":"4",
+      "type":"OTHER"
+    },
+    "GND":{
+      "description":"Device ground",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"System Ground Plane/Node",
+            "description":"The GND pin should be connected to the main ground reference of the circuit. This ensures a common ground potential for all components."
+          }
+        ],
+        "connectivity":"The GND pin must be connected to the system's ground plane or ground node in the schematic. This is typically represented by the ground symbol.",
+        "detailed_description":"The GND pin is the ground reference for the device. It provides the common ground connection for the entire circuit.",
+        "functionality":"The GND pin serves as the primary ground connection for the TPS22917 device. It is essential for proper operation and establishes the 0V reference potential for all voltage measurements and signal paths within the IC.",
+        "precautions":[
+          "Ensure a low-impedance connection to ground to minimize noise and ensure proper operation.",
+          "Avoid connecting any components or signals other than to ground on this pin.",
+          "In multi-layer PCB designs, connect the GND pin to the ground plane using multiple vias for improved thermal and electrical performance."
+        ]
+      },
+      "name":"GND",
+      "pin_id":"2",
+      "type":"POWER"
+    },
+    "ON":{
+      "description":"Active high switch control input. Do not leave floating.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Digital Control Signal",
+            "description":"This can be a GPIO output from a microcontroller, a logic gate, or any other digital signal source that can drive the ON pin to the required logic levels (VIH and VIL)."
+          }
+        ],
+        "connectivity":"The ON pin should be connected to a digital control signal (e.g., from a microcontroller GPIO). It should not be left floating. For the TPS22917, this signal should be active high (above VIH) to turn the switch on. For the TPS22917L, this signal should be active low (below VIL) to turn the switch on.",
+        "detailed_description":"The ON pin controls the on/off state of the switch. It is a digital input that can interface directly with low-voltage control signals. The TPS22917 uses active-high logic, meaning the switch is enabled when the voltage on the ON pin is above the VIH threshold, and disabled when it is below the VIL threshold. The TPS22917L uses active-low logic. A 'Smart Pulldown' feature is included to prevent the ON pin from floating when power is first applied, ensuring a defined state until system sequencing is complete. Once the ON pin is driven high (for TPS22917) or low (for TPS22917L) to enable the switch, the internal pulldown is disconnected to minimize power loss.",
+        "functionality":"The primary function of the ON pin is to enable or disable the load switch. It acts as a digital control input.",
+        "precautions":[
+          "The ON pin should not be left floating, as it has a 'Smart Pulldown' that is active only until the pin is deliberately driven to a valid logic level (VIH or VIL). Once enabled, the pulldown disconnects to save power.",
+          "Ensure the voltage level applied to the ON pin is within the recommended operating range (0 V to 5.5 V).",
+          "For the TPS22917, use a logic HIGH signal to enable the switch. For the TPS22917L, use a logic LOW signal to enable the switch."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":0.0,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"DOWN",
+        "pull_value":{
+          "nom":750000.0,
+          "units":"k\u03a9"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"ON",
+      "pin_id":"3",
+      "type":"DIGITAL",
+      "vih":{
+        "min":1.0,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.35,
+        "units":"V"
+      }
+    },
+    "QOD":{
+      "description":"Quick Output Discharge pin. This functionality can be enabled in one of three ways.\n\u2022\nPlacing an external resistor between VOUT and QOD\n\u2022\nTying QOD directly to VOUT and using the internal resistor value (RPD)\n\u2022\nDisabling QOD by leaving pin floating\nSee the_Fall Time (tFALL) and Quick Output Discharge (QOD)_ section for more\ninformation.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component":"External Resistor (R QOD)",
+            "details":"Used when a specific discharge rate is required. Connected between the VOUT and QOD pins. The value of R QOD, along with the internal QOD resistance, determines the total discharge resistance."
+          }
+        ],
+        "connectivity":[
+          "Shorting the QOD pin directly to the VOUT pin enables the internal discharge resistance.",
+          "Connecting an external resistor (R QOD) between the VOUT and QOD pins allows for adjustable total discharge resistance (R DIS = QOD + R QOD).",
+          "Leaving the QOD pin floating disables the quick output discharge functionality, causing VOUT to remain floating after the switch is disabled."
+        ],
+        "detailed_description":"The QOD (Quick Output Discharge) pin is used to control the discharge rate of the VOUT pin after the switch is disabled. It provides a controlled path for the output capacitor to discharge, which is useful for power-down sequencing.",
+        "functionality":[
+          "Controls the fall time of VOUT when the switch is disabled.",
+          "Can be used to discharge the output capacitance.",
+          "Its functionality depends on how it is connected externally."
+        ],
+        "precautions":[
+          "Leaving the QOD pin floating results in no quick output discharge, and the output may remain charged.",
+          "The fall time (t FALL) is calculated using the formula: t FALL = 2.2 \u00d7 (R DIS || R L ) \u00d7 C L, where R DIS is the total discharge resistance (internal QOD + external R QOD, or just internal QOD if R QOD is not used), R L is the output load resistance, and C L is the output load capacitance.",
+          "The QOD pin's discharge capability can affect power-down sequencing. Ensure the selected discharge path meets system requirements."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":0.0,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"QOD",
+      "pin_id":"5",
+      "type":"OTHER"
+    },
+    "VIN":{
+      "description":"Switch input",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Input Capacitor (CIN)",
+            "description":"An input capacitor is recommended to be placed between the VIN pin and GND. A typical value of 1 \u00b5F is suggested, but additional bulk capacitance may be required depending on the power supply's response to transient load currents. This capacitor helps to stabilize the input voltage and reduce noise."
+          },
+          {
+            "component_name":"Input Voltage Source",
+            "description":"This is the main power supply for the application, providing the voltage to the VIN pin."
+          }
+        ],
+        "connectivity":"The VIN pin should be connected directly to the input voltage supply. It is recommended to place an input capacitor (CIN) close to the VIN pin and ground to help filter noise and provide a stable voltage during transient load conditions.",
+        "detailed_description":"The VIN pin is the input to the TPS22917x device, providing the power supply for the load switch. It is the voltage source that the device switches to the output (VOUT).",
+        "functionality":"The VIN pin serves as the primary power input for the device. It must be within the specified operating voltage range (1 V to 5.5 V) for the device to function correctly. The device utilizes this input to power its internal circuitry, including the charge pump, gate driver, and the P-channel MOSFET that acts as the switch.",
+        "precautions":[
+          "Ensure that the voltage applied to the VIN pin is within the recommended operating range (1 V to 5.5 V). Exceeding the absolute maximum rating of 6 V can cause permanent damage to the device.",
+          "Place the input capacitor (CIN) as close as possible to the VIN pin and the GND pin to minimize the impact of parasitic trace inductance.",
+          "The VIN pin is not designed to be left floating. Always ensure a valid voltage source is connected.",
+          "Refer to the 'Power Supply Recommendations' section for guidance on selecting appropriate input capacitance and ensuring power supply stability."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":1.0,
+        "units":"V"
+      },
+      "name":"VIN",
+      "pin_id":"1",
+      "type":"POWER"
+    },
+    "VOUT":{
+      "description":"Switch output",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Load",
+            "description":"The VOUT pin is connected to the positive terminal of the load that is being powered by the TPS22917."
+          },
+          {
+            "component_name":"QOD Pin",
+            "description":"If the Quick Output Discharge feature is used, the VOUT pin is connected to the QOD pin. An optional external resistor (R QOD) can be placed between VOUT and QOD to adjust the discharge rate."
+          },
+          {
+            "component_name":"Output Capacitor (CL)",
+            "description":"An output capacitor (CL) is typically connected between VOUT and GND to filter the output voltage and support transient loads. The value of CL affects the fall time when QOD is active."
+          }
+        ],
+        "connectivity":"The VOUT pin should be connected to the load. If the Quick Output Discharge (QOD) feature is to be used, the VOUT pin can be connected to the QOD pin with or without an external resistor (R QOD) to control the discharge rate. If QOD is left floating, VOUT will also float when the switch is disabled.",
+        "detailed_description":"The VOUT pin is the output of the switch. It is connected to the load and the output side of the internal MOSFET.",
+        "functionality":"The primary function of the VOUT pin is to provide the switched output voltage to the load. It also plays a role in the Quick Output Discharge (QOD) functionality when connected to the QOD pin.",
+        "precautions":[
+          "Ensure that the voltage and current on the VOUT pin do not exceed the absolute maximum ratings specified in the datasheet.",
+          "When using the QOD pin, be aware that connecting it to VOUT (directly or through a resistor) provides a discharge path for the output capacitance when the switch is turned off. If the QOD pin is left floating, the output will remain charged when the switch is disabled.",
+          "The fall time (tFALL) is dependent on the output capacitance (CL), the load resistance (RL), and the discharge resistance (RDIS, which includes the internal QOD resistance and any external R QOD)."
+        ]
+      },
+      "name":"VOUT",
+      "pin_id":"6",
+      "type":"POWER"
+    }
+  }
+}

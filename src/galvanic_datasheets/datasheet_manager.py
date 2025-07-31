@@ -69,7 +69,7 @@ class DatasheetStructure:
     def json_path(self):
         return str(self._root/'datasheet.json')
 
-class DatasheetManager:
+class _DatasheetManager:
     _ROOT_DIR = Path(__file__).parent/"source_datasheets"
 
 
@@ -82,7 +82,6 @@ class DatasheetManager:
             # ds = self.load_json_datasheet(ds_dir)
             if ds:
                 self.datasheets[ds_dir.parts[-1]] = ds
-
 
     def load_json_datasheet(self, datasheet_directory, prompt_for_source=True):
         parsed_ds_present = 'datasheet.json' in os.listdir(datasheet_directory)
@@ -125,6 +124,7 @@ class DatasheetManager:
             by_mfg[dtype][part_number] = ds
         return by_mfg
 
+DatasheetManager = _DatasheetManager()
 
 if __name__ == "__main__":
     manager = DatasheetManager()

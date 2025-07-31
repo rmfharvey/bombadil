@@ -1,0 +1,339 @@
+{
+  "high_level":{
+    "base_part_number":"LMR38025",
+    "device_type":"REGULATOR_BUCK",
+    "manufacturer":"Texas Instruments",
+    "packages":[
+      "DRR (WSON, 12)"
+    ],
+    "part_numbers":{
+      "LMR38025FDRRR":{},
+      "LMR38025SDRRR":{}
+    }
+  },
+  "pins":{
+    "BOOT":{
+      "description":"Bootstrap supply voltage for the internal high-side driver. Connect a high-quality 100nF capacitor from this pin to the SW pin.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Bootstrap Capacitor",
+            "details":"A 0.1-\u00b5F ceramic capacitor with an X7R or X5R grade dielectric and a voltage rating of 16V or higher is recommended for stable performance over temperature and voltage. This capacitor is connected between the BOOT pin and the SW pin."
+          }
+        ],
+        "connectivity":"Connect to the SW pin through a bootstrap capacitor.",
+        "detailed_description":"Bootstrap supply voltage for the internal high-side driver. This pin provides the necessary voltage to drive the high-side MOSFET.",
+        "functionality":"The BOOT pin's functionality is to supply the gate drive voltage for the internal high-side driver. This is achieved by an integrated bootstrap voltage converter. The bootstrap capacitor connected to this pin is refreshed when the high-side MOSFET is off and the low-side switch conducts.",
+        "precautions":[
+          "A high-quality ceramic capacitor is required for the bootstrap function.",
+          "The capacitor should have a voltage rating of 16V or higher for stable performance over temperature and voltage."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"BOOT",
+      "pin_id":"10",
+      "type":"POWER"
+    },
+    "EN":{
+      "description":"Enable input to regulator. High = ON, low = OFF. Can be connected directly to VIN. Do not float.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"VIN",
+            "description":"If connected directly to VIN, it enables self-start-up."
+          },
+          {
+            "component_name":"R_ENT (Resistor)",
+            "description":"Upper resistor in an enable voltage divider for UVLO. Value depends on desired turn-on voltage."
+          },
+          {
+            "component_name":"R_ENB (Resistor)",
+            "description":"Lower resistor in an enable voltage divider for UVLO. Typically 10k\u03a9 to 100k\u03a9. Value depends on desired turn-off voltage."
+          }
+        ],
+        "connectivity":"The EN pin can be connected directly to VIN for self-start-up. Alternatively, it can be driven by an external logic signal or connected to a voltage divider (R_ENT and R_ENB) to set a specific UVLO threshold.",
+        "detailed_description":"The EN pin is the enable input to the regulator. A high voltage on this pin enables the device, while a low voltage disables it. It can be connected directly to VIN for self-start-up when VIN is within the operating range.",
+        "functionality":"The EN pin controls the ON/OFF state of the LMR38025. High voltage enables the device, and low voltage disables it. It can also be used with an external voltage divider to establish a precision system UVLO level.",
+        "precautions":[
+          "The EN pin must not be left open or floating.",
+          "The voltage on the EN pin must never be higher than VIN + 0.3V.",
+          "Do not apply EN voltage when VIN is at 0V."
+        ]
+      },
+      "input_voltage":{
+        "max":80.0,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"EN",
+      "pin_id":"3",
+      "type":"DIGITAL",
+      "vih":{
+        "max":1.4,
+        "min":1.1,
+        "nom":1.25,
+        "units":"V"
+      },
+      "vil":{
+        "max":1.22,
+        "min":0.95,
+        "nom":1.1,
+        "units":"V"
+      }
+    },
+    "EP":{
+      "description":"Connect to system ground.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"System Ground Plane",
+            "description":"The EP pad should be soldered directly to a dedicated ground plane on the PCB. This ground plane should have sufficient copper area to act as an effective heatsink. Multiple thermal vias connecting the ground plane to other layers (if available) can further improve thermal conductivity."
+          }
+        ],
+        "connectivity":"The EP pin must be connected to the system ground plane. This connection is crucial for effective thermal dissipation.",
+        "detailed_description":"The EP (Exposed Pad) is a thermal pad that provides an efficient path for heat dissipation from the integrated circuit to the printed circuit board (PCB). It is designed to help manage the thermal performance of the device, especially under high load conditions.",
+        "functionality":"The primary function of the EP pin is thermal management. It acts as a heatsink connection, allowing the heat generated by the device during operation to be conducted away to the PCB. This helps to maintain the device within its safe operating temperature range, ensuring reliability and performance.",
+        "precautions":[
+          "Ensure a robust and low-resistance solder connection between the EP pad and the PCB ground plane. This is critical for effective heat transfer.",
+          "When designing the PCB, allocate sufficient copper area for the ground plane connected to the EP pad to effectively dissipate heat. Refer to the thermal design guidelines in the datasheet for recommendations on PCB layout and copper area.",
+          "Use an appropriate number of thermal vias (as recommended in the datasheet) to connect the EP pad to the ground plane, especially on inner layers if a multi-layer PCB is used. This enhances heat spreading.",
+          "Avoid routing noisy signals or components over the thermal pad area, as this can compromise its thermal performance and potentially introduce noise into sensitive circuits."
+        ]
+      },
+      "internal_pull":null,
+      "name":"EP",
+      "pin_id":"THERMAL PAD",
+      "type":"POWER"
+    },
+    "FB":{
+      "description":"Feedback input to the regulator. Connect to tap point of the feedback voltage divider. Do not float. Do not ground.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component":"Feedback Voltage Divider (RFBT, RFBB)",
+            "details":"Two resistors (RFBT and RFBB) are used to create a voltage divider from the output voltage (VOUT) to the FB pin. The LMR38025 regulates the output by keeping the voltage at the FB pin equal to the internal reference voltage (VREF), which is nominally 1V. The formula VOUT = VREF * (1 + RFBT/RFBB) is used to set the output voltage. RFBT is typically chosen between 10k\u03a9 and 1M\u03a9, with 100k\u03a9 being a common choice. RFBB is then calculated based on the desired VOUT and the chosen RFBT."
+          }
+        ],
+        "connectivity":"Connect to the tap point of the feedback voltage divider. This divider sets the output voltage (VOUT = VREF * (1 + RFBT/RFBB)).",
+        "detailed_description":"Feedback input to the regulator. This pin is used by the internal control loop to sense the output voltage and adjust the duty cycle to maintain regulation.",
+        "functionality":"The primary function is to receive the feedback signal for voltage regulation. It is connected to the output voltage via a voltage divider. It should not be floated or grounded.",
+        "precautions":[
+          "Do not float the FB pin.",
+          "Do not ground the FB pin.",
+          "Use 1% tolerance resistors for the feedback voltage divider for best accuracy.",
+          "Keep the feedback trace short and away from noise sources like the SW node to prevent noise coupling."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"FB",
+      "pin_id":"8",
+      "type":"ANALOG"
+    },
+    "GND":{
+      "description":"Power and analog ground terminal. All electrical parameters are measured with respect to this pin. Connect a high-quality bypass capacitor directly to this pin and VIN with short and wide traces.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Bypass Capacitor",
+            "description":"A high-quality bypass capacitor should be connected between the GND pin and the VIN pin. This capacitor helps to filter noise and stabilize the input voltage."
+          },
+          {
+            "component_name":"System Ground Plane",
+            "description":"The GND pin and the exposed pad (EP) must be connected to the system ground plane. This ensures proper grounding and thermal dissipation."
+          }
+        ],
+        "connectivity":"Connect to a high-quality bypass capacitor directly to this pin and VIN with short and wide traces. The EP (exposed pad) thermal pad should also be connected to system ground.",
+        "detailed_description":"Power and analog ground terminal. All electrical parameters are measured with respect to this pin. The GND pin is used as the return path for power and analog signals within the LMR38025.",
+        "functionality":"The GND pin serves as the primary ground reference for both power and analog circuitry within the LMR38025. It is essential for proper operation of all internal components and signal integrity.",
+        "precautions":[
+          "Connect a high-quality bypass capacitor directly to this pin and VIN with short and wide traces.",
+          "The exposed pad (EP) must be connected to system ground.",
+          "Ensure clean and robust ground connections to minimize noise and ensure proper operation."
+        ]
+      },
+      "internal_pull":null,
+      "name":"GND",
+      "pin_id":"1, 2",
+      "type":"POWER"
+    },
+    "NC":{
+      "description":"No Connect. Floating pin.",
+      "direction":"OTHER",
+      "implementation":{
+        "connected_components":"No components need to be connected to the NC pin.",
+        "connectivity":"The NC pin should be left unconnected (floating) in the schematic and on the PCB layout. Do not connect it to any voltage, ground, or signal trace.",
+        "detailed_description":"This pin is designated as 'No Connect' (NC) by the manufacturer. This means it is not internally connected to any circuitry within the LMR38025 integrated circuit.",
+        "functionality":"The NC pin has no defined electrical function. It is not connected to any internal functional blocks of the LMR38025.",
+        "precautions":"It is important to leave the NC pin floating and not connect it to any point in the circuit. Connecting it to a voltage or ground could lead to unexpected behavior or damage to the device, as it is not designed for any electrical connection."
+      },
+      "internal_pull":null,
+      "name":"NC",
+      "pin_id":"4",
+      "type":"OTHER"
+    },
+    "PG":{
+      "description":"Open-drain power-good flag output. Connect to a suitable voltage supply through a current limiting resistor. High = power OK, low = power bad. The flag pulls low when EN = low. Can be left open when not used.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component":"Pull-up Resistor",
+            "details":"A resistor (e.g., 100 k\u03a9) connected from the PG pin to a suitable logic supply voltage (VCC or VOUT). The value may be adjusted based on the desired pull-up current and voltage levels."
+          }
+        ],
+        "connectivity":"The PG pin is an open-drain output and requires an external pull-up resistor to a suitable logic supply voltage (e.g., VCC or VOUT). If the power-good function is not used, the pin can be left floating.",
+        "detailed_description":"The power-good flag function (PG output pin) of the LMR38025 can be used as a flag to alert the host microprocessor whenever the output voltage is out of regulation. This open-drain output goes low under fault conditions such as a current limiting condition causing the output to fall out of regulation or a thermal shutdown event. A glitch filter prevents false flag operation for short excursions of the output voltage, such as during line and load transients. Output voltage excursions lasting less than tPG do not trip the power-good flag. During soft-start events, power good is held low and is released upon the output voltage reaching the final regulated value. The power-good output consists of an open-drain NMOS, requiring an external pullup resistor to a suitable logic supply. The power-good output can also be pulled up to either VCC or VOUT, through a 100k\u03a9 resistor, as desired. If this function is not needed, the PG pin must be left floating. When EN is pulled low, the flag output is also forced low. With EN low, power good remains in the valid state as long as the input voltage is greater than or equal to 2V (typical). Note that in the event EN goes back high, Power-Good only goes high after the output voltage reaches the final value.",
+        "functionality":"The PG pin functions as an open-drain output. It indicates the status of the output voltage regulation. It goes low when the output voltage is out of regulation (fault condition) and high when the output voltage is within the specified regulation limits. It is also pulled low when the EN pin is low.",
+        "precautions":[
+          "If this function is not needed, the PG pin must be left floating.",
+          "The power-good output is an open-drain output and requires an external pull-up resistor.",
+          "The pull-up resistor value should be chosen such that the current into the PG pin is limited, typically to less than 5mA DC.",
+          "When EN is pulled low, the PG pin is also forced low.",
+          "The power-good flag has a built-in glitch filter (tPGDFLT(fall) of 45 \u00b5s) to prevent false triggering from short output voltage excursions."
+        ]
+      },
+      "input_voltage":{
+        "max":20.0,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"PG",
+      "output_current":{
+        "max":5.0,
+        "units":"mA"
+      },
+      "output_type":"OPEN_DRAIN",
+      "pin_id":"9",
+      "type":"DIGITAL",
+      "voh":{
+        "nom":1.1,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.6,
+        "units":"V"
+      }
+    },
+    "RT/SYNC":{
+      "description":"Resistor timing or external clock input. An internal amplifier holds this pin at a fixed voltage when using an external resistor to ground to set the switching frequency. If the pin is pulled above the PLL upper threshold, a mode change occurs and the pin becomes a synchronization input. The internal amplifier is disabled and the pin is now a high impedance clock input to the internal PLL. If clocking edges stop, the internal amplifier is re-enabled and the operating mode returns to frequency programming by resistor.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component":"Resistor (RT)",
+            "description":"Connects from the RT/SYNC pin to GND. The value of this resistor determines the switching frequency according to Equation 2 in the datasheet. Recommended range for R_T is typically from 11.5 k\u03a9 to 133 k\u03a9 to cover the 200kHz to 2.2MHz switching frequency range."
+          },
+          {
+            "component":"External Clock Source (for synchronization)",
+            "description":"A square wave signal used to synchronize the device. The clock should have a high level no lower than 2V and a low level no higher than 0.6V, with a pulse width greater than 50ns. It is connected through a coupling capacitor (C_COUP) and a termination resistor (R_TERM, e.g., 50\u03a9) when using a low impedance signal source. For high impedance sources, only the coupling capacitor and termination resistor may be used."
+          },
+          {
+            "component":"Coupling Capacitor (C_COUP)",
+            "description":"Used when synchronizing to an external clock, typically 1 pF ceramic capacitor. It is connected in parallel with the frequency setting resistor when a low impedance clock source is used."
+          },
+          {
+            "component":"Termination Resistor (R_TERM)",
+            "description":"Used when synchronizing to an external clock, typically 50\u03a9. It is connected in series with the coupling capacitor for low impedance sources."
+          }
+        ],
+        "connectivity":"For frequency setting, connect a resistor (RT) from the RT/SYNC pin to GND. For synchronization, connect an external clock source through a suitable network (e.g., with a coupling capacitor and termination resistor) to the RT/SYNC pin.",
+        "detailed_description":"The RT/SYNC pin is used to set the switching frequency of the LMR38025 by connecting a resistor from this pin to ground. It can also be used to synchronize the device to an external clock signal. When the pin voltage is pulled above a certain threshold, it switches from frequency setting mode to synchronization mode.",
+        "functionality":"This pin has two primary functions:\n1. **Frequency Setting:** By connecting a resistor (RT) from this pin to ground, the switching frequency of the LMR38025 can be programmed. An internal amplifier maintains a fixed voltage on this pin when used with an external resistor.\n2. **Synchronization Input:** If the pin is pulled above the internal Phase-Locked Loop (PLL) upper threshold, the internal amplifier is disabled, and the pin acts as a high-impedance clock input for synchronization. The device will synchronize to the falling edge of the external clock. If the clock edges stop, the internal amplifier is re-enabled, and the device reverts to frequency programming by resistor.",
+        "precautions":[
+          "The RT/SYNC pin must not be left floating or shorted to ground when not used for synchronization.",
+          "When synchronizing, ensure the external clock signal meets the specified voltage and pulse width requirements.",
+          "The RT/SYNC pin voltage should not exceed 5.5V (as per Absolute Maximum Ratings)."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"RT/SYNC",
+      "pin_id":"7",
+      "type":"ANALOG"
+    },
+    "SW":{
+      "description":"Regulator switch node. Connect to a power inductor.",
+      "direction":"OTHER",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Power Inductor",
+            "description":"Connects between the SW pin and the output voltage (VOUT). Its value determines the current ripple and is crucial for the buck conversion process."
+          },
+          {
+            "component_name":"Bootstrap Capacitor (CBOOT)",
+            "description":"Connected between the BOOT pin and the SW pin. Typically a 100nF ceramic capacitor, it provides the necessary voltage for the high-side gate driver."
+          }
+        ],
+        "connectivity":"The SW pin should be connected to one side of the external power inductor. The other side of the inductor is connected to the output voltage (VOUT). A bootstrap capacitor (CBOOT) is also connected between the BOOT pin and the SW pin.",
+        "detailed_description":"The SW (Switch) pin is the main power switch node of the LMR38025 synchronous buck converter. It is connected to the internal high-side and low-side power MOSFETs. This pin is where the switching action occurs to step down the input voltage to the desired output voltage.",
+        "functionality":"The SW pin serves as the output of the internal switching power stage. It swings between approximately VIN (when the high-side switch is on) and ground (when the low-side switch is on). It is the connection point to the external inductor.",
+        "precautions":[
+          "The SW node carries high-frequency switching currents and should be kept as short and wide as possible on the PCB layout to minimize parasitic inductance and reduce radiated EMI.",
+          "Avoid routing other sensitive traces near the SW node to prevent capacitive coupling of noise.",
+          "Ensure the external inductor's saturation current rating is sufficient to handle peak currents, especially during transient or fault conditions.",
+          "The SW pin should not be connected directly to ground or VIN without the inductor, as this would create a direct short circuit."
+        ]
+      },
+      "input_voltage":{
+        "max":85.3,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"SW",
+      "pin_id":"11, 12",
+      "type":"POWER"
+    },
+    "VIN":{
+      "description":"Input supply to the regulator. Connect a high-quality bypass capacitor or capacitors directly to this pin and GND with short and wide traces.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Bypass Capacitor(s)",
+            "details":"High-quality ceramic capacitor(s) with low Equivalent Series Resistance (ESR). Values and ratings should be chosen based on the application's input voltage range and noise filtering requirements. It is recommended to place these capacitors as close as possible to the VIN pin and connect them to GND with short and wide traces."
+          }
+        ],
+        "connectivity":"Connect directly to the input voltage supply. It is recommended to connect a high-quality bypass capacitor or capacitors directly between the VIN pin and the GND pin with short and wide traces.",
+        "detailed_description":"Input supply to the regulator. This pin provides the primary power source for the LMR38025, enabling its operation.",
+        "functionality":"The VIN pin serves as the main input voltage supply for the LMR38025. It is essential for the device to function and perform its voltage regulation task.",
+        "precautions":[
+          "Ensure the input voltage is within the 'Recommended Operating Conditions' (4.2V to 80V) to prevent device damage or malfunction.",
+          "Do not exceed the 'Absolute Maximum Ratings' for VIN, which is 85V.",
+          "Proper bypassing is crucial for stable operation and to mitigate noise. Insufficient bypassing can lead to poor performance or instability."
+        ]
+      },
+      "input_voltage":{
+        "max":80.0,
+        "min":4.2,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"VIN",
+      "pin_id":"5, 6",
+      "type":"POWER"
+    }
+  }
+}
