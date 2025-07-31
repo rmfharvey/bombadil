@@ -1,9 +1,11 @@
 import json
+from galvanic import global_logger
 from galvanic_altium.server_api import AltiumServerAPI
 from galvanic_altium.project import AltiumProject
-
+from galvanic_datasheets.datasheet_manager import DatasheetManager
 from schema_regex_testing import get_signal_list
 
+FORCE_RELOAD_DATASHEETS = False
 
 if __name__ == "__main__":
     AltiumServerAPI.load_urls(
@@ -18,6 +20,24 @@ if __name__ == "__main__":
 
     cfg = project.get_config()
 
+    # Get all datasheets
+    for des, component in project.bom.components_by_type["U"].items():
+        pn = component.parameters.get("Comment")
+        if len(component.avl):
+            pn = component.avl[0][1]
+        pn = pn.lower()
+
+        if pn in DatasheetManager.datasheets and not FORCE_RELOAD_DATASHEETS:
+            global_logger.info(f"{pn} exists, skipping")
+            continue
+
+        get = input(f"Get datasheet for {pn}? (y/n):")
+        if not get.lower() == "y":
+            continue
+
+        DatasheetManager.new_datasheet(pn, autocreate_json=True)
+
+    # Save project config
     with open(f"{PRJ_NAME}.json", "w") as f:
         json.dump(cfg, f, indent=2, separators=(",", ": "))
 

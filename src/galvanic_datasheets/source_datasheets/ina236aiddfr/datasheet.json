@@ -1,0 +1,764 @@
+{
+  "high_level":{
+    "base_part_number":"INA236",
+    "device_type":"OTHER",
+    "manufacturer":"Texas Instruments",
+    "packages":[
+      "DSBGA-8",
+      "SOT23-8"
+    ],
+    "serial_busses":[
+      "I2C"
+    ]
+  },
+  "pins":{
+    "A0":{
+      "description":"Address pin. Connect to GND, SCL, SDA, or VS.Table 7-1 lists the pin\nsettings and corresponding addresses.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":"Typically, the A0 pin will be connected to one of the following: \n1. GND (Ground)\n2. VS (Power Supply)\n3. SDA (Serial Data line)\n4. SCL (Serial Clock line)\nPull-up resistors are generally required on the SDA and SCL lines for I2C communication, and these might indirectly affect the A0 pin if it's connected to SDA or SCL.",
+        "connectivity":"The A0 pin should be connected to either GND, VS, SDA, or SCL. The specific connection depends on the desired I2C address for the INA236 device in the system. It is crucial that the state of the A0 pin is established before any bus communication occurs. For configurations where A0 is connected to SDA or SCL, an additional hold time of 100 ns on the MSB of the I2C address is recommended to ensure correct device addressing.",
+        "detailed_description":"The A0 pin is an address pin that allows for the selection of one of two device address options (A and B). This enables multiple INA236 devices to be connected to the same I2C bus without address conflicts.",
+        "functionality":"The A0 pin serves as an address selection pin. Its state (connected to GND, VS, SDA, or SCL) determines the device's unique I2C address. Table 7-1 in the datasheet details the specific address settings for different connections of the A0 pin for both INA236A and INA236B device options.",
+        "precautions":"The state of the A0 pin must be set before any I2C communication begins, as the device samples this pin on every bus communication. If connecting A0 to SDA or SCL, an additional 100 ns hold time on the MSB of the I2C address is recommended to ensure proper addressing. Ensure that the chosen address configuration does not conflict with other devices on the I2C bus."
+      },
+      "internal_pull":null,
+      "name":"A0",
+      "pin_id":"B1",
+      "type":"DIGITAL"
+    },
+    "ALERT":{
+      "description":"Multifunctional alert, open-drain output. This pin alerts to report fault\nconditions or can be configured to notify host when a conversion is\ncomplete.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Pull-up Resistor",
+            "connection_details":"Connected between the ALERT pin and the VS pin. The resistance value should be chosen based on I2C bus requirements."
+          }
+        ],
+        "connectivity":"The ALERT pin is an open-drain output and requires a pull-up resistor to the supply voltage (VS) when used. The value of the pull-up resistor depends on the system's I2C bus speed and capacitance, but a common range is 1 k\u03a9 to 10 k\u03a9.",
+        "detailed_description":"The ALERT pin is a multifunctional alert output with an open-drain configuration. It can be programmed to report fault conditions, such as over/under current or voltage events, or to notify the host when a conversion is complete. The behavior of the ALERT pin is controlled by the Mask/Enable Register (06h).",
+        "functionality":"The ALERT pin can function as:\n1.  **Fault Indicator:** Asserted when a user-defined threshold (e.g., overcurrent, undervoltage) programmed in the Alert Limit Register is exceeded, based on the alert function selected in the Mask/Enable Register.\n2.  **Conversion Ready Indicator:** Asserted when the Conversion Ready Flag (CVRF) bit in the Mask/Enable Register is set, indicating that the device has completed a conversion and is ready for the next one.\n3.  **Combined Indicator:** Can signal both a conversion ready status and a fault condition simultaneously if both are enabled in the Mask/Enable Register.",
+        "precautions":[
+          "The ALERT pin is open-drain, meaning it requires an external pull-up resistor to function correctly as an output.",
+          "If the ALERT pin is not used, it can be left floating without affecting the device's operation.",
+          "When the Alert Latch Enable bit (LEN) is set to 'Latch mode' (1b), the ALERT pin remains asserted until the Mask/Enable Register is read. This is crucial for systems that need to be aware of persistent alert conditions.",
+          "If both an alert function and the conversion ready flag (CNVR) are enabled for the ALERT pin, reading the Mask/Enable Register after an alert event is necessary to determine the source of the alert (CVRF bit D3 and AFF bit D4)."
+        ]
+      },
+      "internal_pull":null,
+      "name":"ALERT",
+      "output_type":"OPEN_DRAIN",
+      "pin_id":"A1",
+      "type":"DIGITAL",
+      "vol":{
+        "max":0.3,
+        "min":0.0,
+        "units":"V"
+      }
+    },
+    "GND":{
+      "description":"Ground for both analog and digital.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"System Ground",
+            "description":"The GND pin should be connected to the main ground rail of the system where the INA236 is implemented. This ensures a common reference potential for all components."
+          },
+          {
+            "component_name":"Bypass Capacitor",
+            "description":"A bypass capacitor (e.g., 0.1 \u00b5F) should be connected between the VS pin and the GND pin, placed as close as possible to the INA236. This capacitor helps to filter noise from the power supply and improve stability."
+          }
+        ],
+        "connectivity":"Connect the GND pin directly to the system's ground plane or ground connection in the schematic.",
+        "detailed_description":"The GND pin is the ground reference for both the analog and digital sections of the INA236 device. It serves as the common ground connection for the power supply and all other input/output signals.",
+        "functionality":"The GND pin serves as the primary ground reference for the IC. It must be connected to the system ground to ensure proper operation of both analog and digital circuitry.",
+        "precautions":[
+          "Ensure a solid connection to the system ground to avoid ground bounce or noise issues that could affect measurements.",
+          "The proximity of the bypass capacitor to the VS and GND pins is critical for effective power supply decoupling. Follow layout guidelines to keep the trace lengths as short as possible."
+        ]
+      },
+      "input_voltage":{
+        "max":0.0,
+        "min":0.0,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"GND",
+      "pin_id":"C2",
+      "type":"POWER"
+    },
+    "IN+":{
+      "description":"Current sensing positive input. For high-side applications, connect to bus\nvoltage side of sense resistor. For low-side applications, connect to load\nside of sense resistor.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Shunt Resistor",
+            "connection_type":"Direct",
+            "description":"The IN+ pin connects to one end of the external shunt resistor, which is placed in the current path being measured."
+          }
+        ],
+        "connectivity":"Connect to the higher potential side of the current sense resistor (connected in series with the load).",
+        "detailed_description":"Current sensing positive input. For high-side applications, connect to the bus voltage side of the sense resistor. For low-side applications, connect to the load side of the sense resistor.",
+        "functionality":"Primary function is to sense the positive side of the differential voltage across a shunt resistor. Used in conjunction with the IN- pin to measure current.",
+        "precautions":[
+          "Ensure proper Kelvin connections to the sense resistor to minimize contact and trace resistance effects.",
+          "The input common-mode range for this pin is -0.3 V to 48 V. Ensure the voltage at this pin stays within this range, considering the supply voltage and bus voltage.",
+          "Avoid routing this pin in parallel with noisy signals to minimize noise coupling."
+        ]
+      },
+      "input_voltage":{
+        "max":48.0,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"IN+",
+      "pin_id":"A2",
+      "type":"ANALOG"
+    },
+    "IN-":{
+      "description":"Current sensing negative input. For high-side applications, connect to load\nside of sense resistor. For low-side applications, connect to ground side of\nsense resistor. Bus voltage measurements are made with respect to this\npin.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"External Sense Resistor",
+            "description":"Connects to the IN- pin to develop a voltage drop proportional to the current being measured. The connection depends on whether it's a high-side or low-side sensing configuration."
+          },
+          {
+            "component_name":"Bypass Capacitor",
+            "description":"A 0.1 \u00b5F bypass capacitor should be connected between the VS pin and GND to ensure stability."
+          }
+        ],
+        "connectivity":"For high-side current sensing, connect the IN- pin to the load side of the external sense resistor. For low-side current sensing, connect the IN- pin to the ground side of the external sense resistor. The bus voltage is measured with respect to this pin, so it should be connected to the negative terminal of the voltage being monitored when performing bus voltage measurements.",
+        "detailed_description":"The IN- pin is the current sensing negative input. For high-side applications, it connects to the load side of the sense resistor. For low-side applications, it connects to the ground side of the sense resistor. The bus voltage measurements are made with respect to this pin.",
+        "functionality":"The functionality of the IN- pin depends on the application (high-side or low-side sensing). It also serves as the reference for bus voltage measurements. When performing bus voltage measurements, the impedance of the IN- pin decreases to approximately 1 M\u03a9 due to an internal resistor divider.",
+        "precautions":[
+          "When performing bus voltage measurements, the impedance of the IN- pin decreases. Ensure that the circuit design accounts for this, especially if there are other components connected to this node.",
+          "The input common-mode range for IN- is from GND \u2013 0.3 V to 48 V. Ensure that the voltage at this pin stays within these limits.",
+          "For high-side applications, the voltage difference between IN+ and IN- can be up to 26 V, and the common-mode voltage can range from -0.3 V to 48 V. For low-side applications, the common-mode voltage is typically close to ground, but the differential voltage can still be up to 26 V."
+        ]
+      },
+      "input_voltage":{
+        "max":48.0,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"IN-",
+      "pin_id":"B2",
+      "type":"ANALOG"
+    },
+    "SCL":{
+      "description":"Serial bus clock line, open-drain input.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Microcontroller (or other I2C Master)",
+            "connection_details":"Connected to the SCL pin of the microcontroller for clocking the I2C communication."
+          },
+          {
+            "component_name":"Pull-up Resistor",
+            "connection_details":"Connected between the SCL pin and the positive supply voltage (VS or the I2C bus voltage). The value of the pull-up resistor depends on the I2C bus speed and capacitance, but common values are in the range of 1 k\u03a9 to 10 k\u03a9. Refer to the I2C specifications for appropriate values."
+          }
+        ],
+        "connectivity":"The SCL pin should be connected to the SCL pin of the master device (e.g., a microcontroller) via a pull-up resistor. Multiple INA236 devices can be connected to the same SCL line, as it is a shared bus.",
+        "detailed_description":"Serial bus clock line, open-drain input. This pin is used for communication with the INA236 via the I2C/SMBus interface, providing the clock signal for data transfer.",
+        "functionality":"The SCL pin serves as the clock input for the I2C serial interface. It dictates the timing of data transfers on the SDA line. It is an open-drain input, meaning it requires an external pull-up resistor.",
+        "precautions":[
+          "The SCL pin is an open-drain input and requires an external pull-up resistor to function correctly in an I2C bus system.",
+          "Ensure that the pull-up resistor value is chosen appropriately for the desired I2C bus speed and the total bus capacitance to meet timing requirements (t_R, t_F).",
+          "The INA236 supports I2C Fast Mode (up to 400 kHz) and High-Speed Mode (up to 2.94 MHz). Ensure the clock frequency is within these limits.",
+          "When using General Call commands, ensure that other devices on the bus do not interfere with the SCL signal if they also respond to General Call commands."
+        ]
+      },
+      "input_voltage":{
+        "max":6.0,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"SCL",
+      "pin_id":"D1",
+      "type":"DIGITAL",
+      "vih":{
+        "min":0.9,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.4,
+        "units":"V"
+      }
+    },
+    "SDA":{
+      "description":"Serial bus data line, open-drain input/output",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Pull-up Resistor",
+            "details":"A pull-up resistor is required on the SDA line to ensure proper logic levels when the INA236 or other devices on the bus are not actively driving the line low. The value of this resistor typically ranges from 1k\u03a9 to 10k\u03a9, depending on the bus capacitance and the I2C bus voltage."
+          },
+          {
+            "component_name":"I2C Bus Voltage",
+            "details":"The pull-up resistor for SDA should be connected to the I2C bus voltage, which can range from 1.2V to 5.5V."
+          },
+          {
+            "component_name":"SCL Line",
+            "details":"The SDA line is part of the I2C communication interface, and it works in conjunction with the SCL (Serial Clock) line."
+          }
+        ],
+        "connectivity":"The SDA pin should be connected to the SDA line of the I2C bus. It also needs to be connected to a pull-up resistor to the I2C bus voltage (typically 1.2V to 5.5V).",
+        "detailed_description":"The SDA pin is the serial bus data line for the I2C/SMBus interface. It is used for transmitting and receiving data between the INA236 and the master controller.",
+        "functionality":"This pin serves as a bidirectional data line for the I2C communication protocol. It is an open-drain output, meaning it requires external pull-up resistors to operate correctly.",
+        "precautions":[
+          "The SDA pin is an open-drain output and requires external pull-up resistors.",
+          "Ensure that the I2C bus voltage is within the specified range (1.2V to 5.5V).",
+          "The INA236 is sensitive to noise on the SDA line. Proper PCB layout practices, such as routing traces close to ground planes and minimizing trace length, should be followed to minimize noise coupling.",
+          "When connecting the SDA pin to the A0 address pin to set the device address, an additional hold time of 100 ns on the MSB of the I2C address must be observed to ensure correct device addressing."
+        ]
+      },
+      "input_voltage":{
+        "max":6.0,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"SDA",
+      "output_type":"OPEN_DRAIN",
+      "pin_id":"C1",
+      "type":"DIGITAL",
+      "vih":{
+        "min":0.9,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.4,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.3,
+        "min":0.0,
+        "units":"V"
+      }
+    },
+    "VS":{
+      "description":"Power supply, 1.7 V to 5.5 V",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Bypass Capacitor",
+            "details":"A bypass capacitor (typically 0.1 \u00b5F) should be connected between the VS pin and the GND pin, placed as close as possible to the pins. This capacitor helps to filter out noise from the power supply and ensure stable operation."
+          }
+        ],
+        "connectivity":"The VS pin should be connected to the system's power supply rail. It is recommended to place a bypass capacitor close to the VS pin and GND pin.",
+        "detailed_description":"VS is the power supply pin for the INA236 device. It provides the operating voltage for both the analog and digital sections of the IC.",
+        "functionality":"The VS pin serves as the primary power supply input for the device. It must be connected to a voltage source within the specified operating range of 1.7 V to 5.5 V. The device can operate from this single supply.",
+        "precautions":[
+          "Ensure the voltage supplied to the VS pin is within the recommended operating range of 1.7 V to 5.5 V. Exceeding the absolute maximum rating of 6 V can cause permanent damage.",
+          "Proper placement of the bypass capacitor is crucial for noise filtering and stable operation. Keep the bypass capacitor as close as possible to the VS and GND pins."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":1.7,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"VS",
+      "pin_id":"D2",
+      "type":"POWER"
+    }
+  },
+  "serial_bus":{
+    "fields":[
+      {
+        "description":"Set this bit to '1' to generate a system reset that is the same as power-on reset.\nResets all registers to default values and then self-clears.\n0b = Normal Operation\n1b = System Reset self clears registers to default values",
+        "name":"RST",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":15,
+            "register_address":0
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"Reserved value always returns 10b",
+        "name":"Reserved",
+        "register_location":[
+          {
+            "reg_end_bit":13,
+            "reg_start_bit":14,
+            "register_address":0
+          }
+        ],
+        "reserved":true
+      },
+      {
+        "description":"Enables the selection of the shunt full scale input across IN+ and IN\u2013.",
+        "digital_physical_map":{
+          "0":"\u00b181.92 mV",
+          "1":"\u00b120.48 mV"
+        },
+        "name":"ADCRANGE",
+        "register_location":[
+          {
+            "reg_end_bit":12,
+            "reg_start_bit":12,
+            "register_address":0
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"Sets the number of ADC conversion results to be averaged. The read-back registers are updated after averaging is completed.",
+        "digital_physical_map":{
+          "0":"1",
+          "1":"4",
+          "2":"16",
+          "3":"64",
+          "4":"128",
+          "5":"256",
+          "6":"512",
+          "7":"1024"
+        },
+        "name":"AVG",
+        "register_location":[
+          {
+            "reg_end_bit":9,
+            "reg_start_bit":11,
+            "register_address":0
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"Sets the conversion time of the VBUS measurement",
+        "digital_physical_map":{
+          "0":"140 \u00b5s",
+          "1":"204 \u00b5s",
+          "2":"332 \u00b5s",
+          "3":"588 \u00b5s",
+          "4":"1100 \u00b5s",
+          "5":"2116 \u00b5s",
+          "6":"4156 \u00b5s",
+          "7":"8244 \u00b5s"
+        },
+        "name":"VBUSCT",
+        "register_location":[
+          {
+            "reg_end_bit":6,
+            "reg_start_bit":8,
+            "register_address":0
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"Sets the conversion time of the SHUNT measurement",
+        "digital_physical_map":{
+          "0":"140 \u00b5s",
+          "1":"204 \u00b5s",
+          "2":"332 \u00b5s",
+          "3":"588 \u00b5s",
+          "4":"1100 \u00b5s",
+          "5":"2116 \u00b5s",
+          "6":"4156 \u00b5s",
+          "7":"8244 \u00b5s"
+        },
+        "name":"VSHCT",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":5,
+            "register_address":0
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"Operating mode, modes can be selected to operate the device either in Shutdown mode, continuous mode or triggered mode.\nThe mode also allows user to select mux settings to set continuous or triggered mode on bus voltage, shunt voltage measurement.",
+        "digital_physical_map":{
+          "0":"Shutdown",
+          "1":"Shunt Voltage triggered, single shot",
+          "2":"Bus Voltage triggered, single shot",
+          "3":"Shunt voltage and Bus voltage triggered, single shot",
+          "4":"Shutdown",
+          "5":"Continuous Shunt voltage",
+          "6":"Continuous Bus voltage",
+          "7":"Continuous Shunt and Bus voltage"
+        },
+        "name":"MODE",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":2,
+            "register_address":0
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"Differential voltage measured across the shunt output. Two's complement value.",
+        "name":"VSHUNT",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":15,
+            "register_address":1
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"This bit returns Zero as common mode voltage is only positive",
+        "name":"Reserved",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":15,
+            "register_address":2
+          }
+        ],
+        "reserved":true
+      },
+      {
+        "description":"These bits readout the bus voltage of the system",
+        "name":"VBUS",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":14,
+            "register_address":2
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"This bit returns a calculated value of power in the system.\nThis is an unsigned result.",
+        "name":"POWER",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":15,
+            "register_address":3
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"Calculated current output in Amperes. Two's complement value.",
+        "name":"CURRENT",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":15,
+            "register_address":4
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"",
+        "name":"Reserved",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":15,
+            "register_address":5
+          }
+        ],
+        "reserved":true
+      },
+      {
+        "description":"Programmed value needed for doing the shunt voltage to current\nconversion.",
+        "name":"SHUNT_CAL",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":14,
+            "register_address":5
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"Setting this bit high configures the ALERT pin to be asserted if the shunt voltage\nconversion result exceeds the value programmed in the LIMIT register",
+        "name":"SOL (Shunt Over-limit)",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":15,
+            "register_address":6
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"Setting this bit high configures the ALERT pin to be asserted if the shunt voltage\nconversion result is below the value programmed in the LIMIT register.\nCannot be set if Shunt overlimit is set.",
+        "name":"SUL (Shunt Under-limit)",
+        "register_location":[
+          {
+            "reg_end_bit":14,
+            "reg_start_bit":14,
+            "register_address":6
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"Setting this bit high configures the ALERT pin to be asserted if the bus voltage\nconversion result exceeds the value programmed in the LIMIT register\nCannot be set if Shunt overlimit or Shunt underlimit is set.",
+        "name":"BOL (Bus Over-limit)",
+        "register_location":[
+          {
+            "reg_end_bit":13,
+            "reg_start_bit":13,
+            "register_address":6
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"Setting this bit high configures the ALERT pin to be asserted if the bus voltage\nconversion result is below the value programmed in the LIMIT register\nCannot be set if Shunt over limit, Shunt under limit or Bus over limit is set.",
+        "name":"BUL (Bus Under-limit)",
+        "register_location":[
+          {
+            "reg_end_bit":12,
+            "reg_start_bit":12,
+            "register_address":6
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"Setting this bit high configures the ALERT pin to be asserted if the power result\nexceeds the value programmed in the LIMIT register\nCannot be set if Shunt over limit, Shunt under limit, Bus over limit or Bus under\nlimit is set.",
+        "name":"POL (Power Over-limit)",
+        "register_location":[
+          {
+            "reg_end_bit":11,
+            "reg_start_bit":11,
+            "register_address":6
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"Setting this bit high configures the ALERT pin to be asserted when the\nConversion Ready Flag, Bit 3, is asserted indicating that the device is ready\nfor the next conversion.\n0b = Disable conversion ready flag on ALERT pin\n1b = Enables conversion ready flag on ALERT pin",
+        "name":"CNVR (Conversion Ready)",
+        "register_location":[
+          {
+            "reg_end_bit":10,
+            "reg_start_bit":10,
+            "register_address":6
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"",
+        "name":"Reserved",
+        "register_location":[
+          {
+            "reg_end_bit":6,
+            "reg_start_bit":9,
+            "register_address":6
+          }
+        ],
+        "reserved":true
+      },
+      {
+        "description":"CRC or ECC error",
+        "name":"MemError",
+        "register_location":[
+          {
+            "reg_end_bit":5,
+            "reg_start_bit":5,
+            "register_address":6
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"Alert Function Flag -While only one Alert Function can be monitored at the\nALERT pin at a time, the Conversion Ready can also be enabled to assert the\nALERT pin. Reading the Alert Function Flag following an alert allows the user to\ndetermine if the Alert Function was the source of the Alert.\nWhen the Alert Latch Enable bit is set to Latch mode, the Alert Function Flag bit\nclears only when the Mask/Enable Register is read. When the Alert Latch Enable\nbit is set to Transparent mode, the Alert Function Flag bit is cleared following the\nnext conversion that does not result in an Alert condition.",
+        "name":"AFF (Alert Function Flag)",
+        "register_location":[
+          {
+            "reg_end_bit":4,
+            "reg_start_bit":4,
+            "register_address":6
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"Although the device can be read at any time, and the data from the last\nconversion is available, the Conversion Ready Flag bit is provided to help\ncoordinate one-shot or triggered conversions.\nThe Conversion Ready Flag bit is set after all conversions, averaging, and\nmultiplications are complete.\nConversion Ready Flag bit clears under the following conditions:\n1.) Writing to the Configuration Register (except for Power-Down selection)\n2.) Reading the Mask/Enable Register",
+        "name":"CVRF (Conversion Ready Flag)",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":3,
+            "register_address":6
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"This bit is set to '1' if an arithmetic operation resulted in an overflow error. It\nindicates that current and power data may be invalid.",
+        "name":"OVF (Math Over-flow)",
+        "register_location":[
+          {
+            "reg_end_bit":2,
+            "reg_start_bit":2,
+            "register_address":6
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"Alert Polarity bit sets the Alert pin polarity.\n0b = Normal (Active-low open drain)\n1b= Inverted (active-high )",
+        "name":"APOL (Alert Polarity)",
+        "register_location":[
+          {
+            "reg_end_bit":1,
+            "reg_start_bit":1,
+            "register_address":6
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"When the Alert Latch Enable bit is set to Transparent mode, the Alert pin and\nAlert Function Flag (AFF) bit resets to the idle states when the fault condition has\nbeen cleared.\nWhen the Alert Latch Enable bit is set to Latch mode, the Alert pin and AFF bit\nremains active following a fault until this register flag has been read.\nThis bit must be set to use the I2C Alert Response function.\n0b = Transparent\n1b = Latched Alert pin",
+        "name":"LEN (Alert Latch Enable)",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":0,
+            "register_address":6
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"The Alert Limit Register contains the value used to compare to the\nregister selected in the Mask/Enable Register to determine if a limit\nhas been exceeded.\nA two's complement value must be used for the Shunt Over Voltage\nlimit. Limit values entered should match the format of the targeted\nregister",
+        "name":"LIMIT",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":15,
+            "register_address":7
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"Reads back TI in ASCII",
+        "digital_physical_map":{
+          "19529":"TI"
+        },
+        "name":"MANUFACTURE_ID",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":15,
+            "register_address":62
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"Stores the device identification bits",
+        "name":"DIEID",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":15,
+            "register_address":63
+          }
+        ],
+        "reserved":false
+      },
+      {
+        "description":"Always read 0",
+        "name":"Reserved",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":3,
+            "register_address":63
+          }
+        ],
+        "reserved":true
+      }
+    ],
+    "registers":{
+      "0":{
+        "address":0,
+        "bit_width":16,
+        "init_value":16711,
+        "name":"Configuration Register"
+      },
+      "1":{
+        "address":1,
+        "bit_width":16,
+        "init_value":0,
+        "name":"Shunt Voltage Register"
+      },
+      "2":{
+        "address":2,
+        "bit_width":16,
+        "init_value":0,
+        "name":"Bus Voltage Register"
+      },
+      "3":{
+        "address":3,
+        "bit_width":16,
+        "init_value":0,
+        "name":"Power Register"
+      },
+      "4":{
+        "address":4,
+        "bit_width":16,
+        "init_value":0,
+        "name":"Current Register"
+      },
+      "5":{
+        "address":5,
+        "bit_width":16,
+        "init_value":0,
+        "name":"Calibration Register"
+      },
+      "6":{
+        "address":6,
+        "bit_width":16,
+        "init_value":0,
+        "name":"Mask/Enable Register"
+      },
+      "62":{
+        "address":62,
+        "bit_width":16,
+        "init_value":21589,
+        "name":"Manufacturer ID Register"
+      },
+      "63":{
+        "address":63,
+        "bit_width":16,
+        "init_value":40960,
+        "name":"Device ID Register"
+      },
+      "7":{
+        "address":7,
+        "bit_width":16,
+        "init_value":0,
+        "name":"Alert Limit Register"
+      }
+    }
+  }
+}

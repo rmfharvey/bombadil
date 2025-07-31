@@ -1,0 +1,382 @@
+{
+  "high_level":{
+    "base_part_number":"TMUX1574",
+    "device_type":"OTHER",
+    "manufacturer":"Texas Instruments",
+    "packages":[
+      "TSSOP (16)",
+      "UQFN (16)",
+      "SOT-23-THIN (16)"
+    ],
+    "part_numbers":{
+      "TMUX1574":{
+        "options":{
+          "DYY":"SOT-23-THIN (16)",
+          "PW":"TSSOP (16)",
+          "RSV":"UQFN (16)"
+        }
+      }
+    }
+  },
+  "pins":{
+    "D1":{
+      "description":"Drain pin 1. Can be an input or output.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":"This pin is typically connected to the 'D1' pin of another TMUX1574 device or a component that requires signal switching. It is part of a 2:1 SPDT switch configuration, meaning it will be connected to either S1A or S1B depending on the 'SEL' and 'EN' pin states.",
+        "connectivity":"Connect this pin to the signal path it is intended to switch. It can be connected to other ICs, sensors, actuators, or any other component that requires signal switching.",
+        "detailed_description":"Drain pin 1. Can be an input or output. This pin is part of the signal path for the first channel of the TMUX1574.",
+        "functionality":"The pin serves as either an input or an output for the first switching channel, depending on the signal flow direction.",
+        "precautions":"Ensure that the signal voltage on this pin remains within the recommended operating conditions (0 V to VDD x 2, with a maximum of 5.5 V). When the device is powered off, the signal path should be isolated, and no external voltage should be applied that exceeds the powered-off protection limits (up to 3.6V)."
+      },
+      "name":"D1",
+      "pin_id":"4",
+      "type":"ANALOG"
+    },
+    "D2":{
+      "description":"Drain pin 2. Can be an input or output.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":"No specific components are mandated for connection, but it serves as a signal path for data routing.",
+        "connectivity":"Connect to signal path for bidirectional analog and digital signals.",
+        "detailed_description":"Drain pin 2. Can be an input or output.",
+        "functionality":"Input/Output",
+        "precautions":"Ensure the signal voltage stays within the recommended operating conditions (0V to VDD x 2, with a maximum of 5.5V). When the device is powered off (VDD=0V), the signal path voltage should not exceed 3.6V."
+      },
+      "name":"D2",
+      "pin_id":"7",
+      "type":"ANALOG"
+    },
+    "D3":{
+      "description":"Drain pin 3. Can be an input or output.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Signal Source/Load",
+            "description":"This pin can be connected to an external signal source or load, depending on the desired signal routing. It supports bidirectional signal flow."
+          }
+        ],
+        "connectivity":"Connect to the desired signal path or device input/output.",
+        "detailed_description":"Drain pin 3. Can be an input or output.",
+        "functionality":"I/O (Input/Output)",
+        "precautions":[
+          "Ensure the signal voltage on this pin stays within the recommended operating conditions (0 V to VDD x 2, with a maximum of 5.5 V).",
+          "If the device is powered off (VDD = 0 V), the signal path voltage should not exceed 3.6 V due to powered-off protection.",
+          "When unused, it is recommended to connect unused signal path pins (SxA, SxB, or Dx) to GND."
+        ]
+      },
+      "name":"D3",
+      "pin_id":"9",
+      "type":"ANALOG"
+    },
+    "D4":{
+      "description":"Drain pin 4. Can be an input or output.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"TMUX1574",
+            "details":"The D4 pin is an integral part of the TMUX1574 IC, which is a 4-channel, 2:1 (SPDT) analog switch."
+          }
+        ],
+        "connectivity":"This pin is an I/O pin and should be connected to the signal path that needs to be switched. It is one of the four drain pins (D1-D4) of the TMUX1574 device.",
+        "detailed_description":"Drain pin 4. Can be an input or output.",
+        "functionality":"This pin is a bidirectional I/O pin, meaning it can serve as either an input or an output depending on the configuration of the device.",
+        "precautions":"When the device is powered off (VDD = 0V), the signal path pins (including D4) have powered-off protection up to 3.6V. This means that signals on this pin can be up to 3.6V without damaging the device when it's unpowered. When the device is powered on, the signal path input/output voltage can range from 0V to VDD * 2, with a maximum of 5.5V. Ensure that the voltage levels on this pin remain within these specified limits to avoid damage or malfunction."
+      },
+      "name":"D4",
+      "pin_id":"12",
+      "type":"ANALOG"
+    },
+    "EN":{
+      "description":"Active low enable: When this pin is high, all switches are turned off. When this pin is low, SEL pin controls the signal path selection. Internal 6 M\u03a9 pull-down to GND.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Microcontroller GPIO",
+            "description":"A general-purpose input/output pin from a microcontroller or other digital logic device to control the enable state."
+          },
+          {
+            "component_name":"Pull-down Resistor (internal)",
+            "description":"The TMUX1574 has an internal 6 M\u03a9 pull-down resistor to GND on the EN pin. This ensures the device powers on in a known, disabled state if the pin is left floating. If active control is not required, it can be left unconnected, relying on the internal pull-down."
+          }
+        ],
+        "connectivity":"This pin should be connected to a logic signal that controls the enable state of the switch. Typically, this would be a microcontroller GPIO pin. To ensure the device powers on in a known state, it is recommended to tie this pin to GND or VDD if not actively controlled.",
+        "detailed_description":"The EN pin is an active-low enable pin that controls the connection between the source (SxA, SxB) and drain (Dx) pins of the device. When this pin is high, all switches are turned off. When this pin is low, the SEL pin controls the signal path selection.",
+        "functionality":"The EN pin controls the overall enable/disable state of the TMUX1574. When EN is high, all channels are disabled (Hi-Z). When EN is low, the SEL pin determines which source is connected to the drain for each channel.",
+        "precautions":[
+          "Ensure the voltage level on the EN pin stays within the recommended operating conditions (0 V to 5.5 V).",
+          "While the device has an internal pull-down resistor, it is good practice to actively drive the EN pin or ensure it is tied to GND or VDD to avoid potential floating input issues and ensure predictable behavior.",
+          "The EN pin is active-low, meaning a low state enables the switches, and a high state disables them. Ensure this logic is correctly implemented in the system design."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":0.0,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"DOWN",
+        "pull_value":{
+          "nom":6000000.0,
+          "units":"\u03a9"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"EN",
+      "pin_id":"15",
+      "polarity":"ACTIVE_LOW",
+      "type":"DIGITAL",
+      "vih":{
+        "min":1.2,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.45,
+        "units":"V"
+      }
+    },
+    "GND":{
+      "description":"Ground (0 V) reference",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Ground Plane",
+            "description":"A continuous conductive plane on the PCB that serves as the 0V reference. This is crucial for signal integrity and EMI reduction."
+          },
+          {
+            "component_name":"Decoupling Capacitors",
+            "description":"Capacitors (typically 0.1\u00b5F to 10\u00b5F) are recommended to be connected between the VDD and GND pins, placed as close as possible to the device, to filter power supply noise."
+          }
+        ],
+        "connectivity":"Connect this pin to the ground (0V) plane of the circuit board. It is essential to have a solid ground plane for proper operation and signal integrity.",
+        "detailed_description":"Ground is the 0-V reference for the device.",
+        "functionality":"This pin serves as the ground reference for the device's power supply and signal integrity.",
+        "precautions":[
+          "Ensure a low-impedance connection to the ground plane.",
+          "Avoid routing signal traces over ground plane splits if possible, as this can cause impedance discontinuities.",
+          "In noisy environments, consider using multiple vias to connect to the ground plane to minimize inductance."
+        ]
+      },
+      "name":"GND",
+      "pin_id":"8",
+      "type":"POWER"
+    },
+    "S1A":{
+      "description":"Source pin 1A. Can be an input or output.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":"This pin should be connected to other components in the circuit that will send signals to or receive signals from channel 1 of the TMUX1574. Examples include microcontrollers, sensors, or other integrated circuits that are part of the signal path.",
+        "connectivity":"Connect this pin to the signal source or the load, depending on the desired signal path. It is an I/O pin, so it can be connected to either a driving signal or a receiving component.",
+        "detailed_description":"S1A is a Source pin for channel 1. It can be used as either an input or an output for signals routed through the TMUX1574 switch.",
+        "functionality":"This pin serves as a bidirectional I/O for signal path 1. It can accept an input signal and route it to the corresponding drain pin (D1), or it can output a signal from the drain pin (D1) to this source pin.",
+        "precautions":"When the device is enabled, this pin will conduct signals between S1A and D1 based on the SEL pin state. Ensure that the voltage and current levels on this pin remain within the absolute maximum ratings specified in the datasheet to prevent damage to the device. Also, ensure proper handling to avoid electrostatic discharge (ESD)."
+      },
+      "name":"S1A",
+      "pin_id":"2",
+      "type":"ANALOG"
+    },
+    "S1B":{
+      "description":"Source pin 1B. Can be an input or output.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Signal Source/Destination",
+            "details":"This would be the device or circuit that is being switched to or from channel 1. For example, a flash memory chip, a microcontroller's SPI interface, or a JTAG port."
+          },
+          {
+            "component_name":"SEL Pin",
+            "details":"The SEL pin controls which of the two source pins (S1A or S1B) is connected to the drain pin (D1). The connection of S1B is dependent on the logic level of the SEL pin."
+          },
+          {
+            "component_name":"EN Pin",
+            "details":"The EN pin, when low, enables the selection logic (SEL). When high, all switches are off, and S1B is effectively disconnected."
+          }
+        ],
+        "connectivity":"This pin should be connected to the signal source or destination for channel 1. In a 2:1 switch configuration, it connects to one of the two possible input sources for channel 1. The specific connection depends on the logic applied to the SEL pin. It can also be left unconnected if not used.",
+        "detailed_description":"S1B is the Source pin for channel 1B. It can be used as either an input or an output, facilitating bidirectional signal flow.",
+        "functionality":"This pin serves as a bidirectional signal path for channel 1. Depending on the configuration controlled by the SEL pin, it can act as an input to the switch or an output from the switch.",
+        "precautions":[
+          "Ensure that the voltage applied to S1B stays within the recommended operating conditions, specifically between 0V and VDD x 2 (up to 5.5V).",
+          "When the device is powered off (VDD = 0V), ensure that the voltage on S1B does not exceed 3.6V to utilize the powered-off protection feature.",
+          "If the pin is not used, it should be connected to GND to prevent floating input issues, as indicated in the 'Device Functional Modes' section.",
+          "Refer to the 'Absolute Maximum Ratings' to avoid applying voltages or currents that could permanently damage the device."
+        ]
+      },
+      "name":"S1B",
+      "pin_id":"3",
+      "type":"ANALOG"
+    },
+    "S2A":{
+      "description":"Source pin 2A. Can be an input or output.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":"No specific external components are mandated for connection to this pin by the datasheet, other than the signal source/destination it is intended to connect.",
+        "connectivity":"Connect this pin to the signal source or destination for the second channel.",
+        "detailed_description":"S2A is the Source pin for channel 2. It can be used as either an input or an output for bidirectional signal transmission.",
+        "functionality":"This pin functions as a bidirectional I/O pin for the second channel of the multiplexer.",
+        "precautions":"When the device is powered off (Vdd = 0V), the signal path pins (including S2A) remain in a high-Z state. Ensure that signals connected to S2A remain within the absolute maximum ratings (VS or VD voltage up to 6V) and recommended operating conditions to prevent damage. If the pin is not used, it should be connected to GND as per device functional modes."
+      },
+      "name":"S2A",
+      "pin_id":"5",
+      "type":"ANALOG"
+    },
+    "S2B":{
+      "description":"Source pin 2B. Can be an input or output.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":"The specific components this pin connects to will depend on the application. In a typical setup, it would be connected to a signal source (e.g., a microcontroller output, a sensor output) that is being switched to a common destination (e.g., an ADC input, a data bus).",
+        "connectivity":"This pin should be connected to other components or circuits that require signal input or output. As a source pin in a 2:1 switch, it will be connected to one of the two possible input sources for channel 2.",
+        "detailed_description":"Source pin 2B. Can be an input or output.",
+        "functionality":"This pin is a bidirectional I/O pin, meaning it can serve as either an input or an output for signal transmission.",
+        "precautions":"Ensure that the voltage levels on this pin are within the absolute maximum ratings and recommended operating conditions specified in the datasheet, especially considering the 'Beyond Supply Operation' feature. Also, be mindful of the 'Powered-off Protection' feature, which allows for specific voltage levels on the signal path when VDD is 0 V. When the device is powered off, this pin's state should be considered in the overall system design."
+      },
+      "name":"S2B",
+      "pin_id":"6",
+      "type":"ANALOG"
+    },
+    "S3A":{
+      "description":"Source pin 3A. Can be an input or output.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"TMUX1574",
+            "connection_description":"S3A is an internal pin of the TMUX1574 IC."
+          }
+        ],
+        "connectivity":"This pin is an I/O pin and should be connected to the desired signal source or destination within the circuit. When used, it is connected to a specific signal line (e.g., a data bus, a sensor output, etc.).",
+        "detailed_description":"Source pin 3A. Can be an input or output.",
+        "functionality":"This pin acts as a source pin for the third channel of the TMUX1574. It can function as either an input or an output, supporting bidirectional signal flow.",
+        "precautions":"When the device is enabled (EN pin is low), this pin will be connected to D3 based on the state of the SEL pin. Ensure that the signal levels on this pin are within the recommended operating conditions (0 V to VDD x 2, up to 5.5 V). Unused signal path inputs (SxA, SxB, or Dx) should be connected to GND."
+      },
+      "name":"S3A",
+      "pin_id":"11",
+      "type":"ANALOG"
+    },
+    "S3B":{
+      "description":"Source pin 3B. Can be an input or output.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":"The S3B pin is part of the TMUX1574 IC. In a schematic, it would be connected to the signal source (e.g., a microcontroller output, sensor output) for channel 3. When active, it connects to the D3 pin of the same IC. It is also internally connected to a 6 M\u03a9 pull-down resistor to GND, although this is not a component to be externally connected.",
+        "connectivity":"The S3B pin should be connected to the signal source for channel 3. When the switch is enabled and the SEL pin is in the correct state (logic HIGH), this source pin will be connected to the D3 drain pin. When the switch is off, it should ideally be left unconnected or connected to ground to prevent floating.",
+        "detailed_description":"S3B is a source pin for channel 3. It can be used as an input or output for analog and digital signals, and it supports bidirectional signal paths.",
+        "functionality":"This pin serves as a bidirectional I/O for the third channel, connecting to the D3 drain pin based on the state of the SEL and EN pins.",
+        "precautions":"Ensure that the signal voltage applied to S3B stays within the recommended operating conditions (0 V to VDD x 2, with a maximum of 5.5 V). When the device is powered off (VDD = 0 V), the signal path provides protection for signals up to 3.6 V. Avoid leaving the pin floating when the device is active if it's not intended to be connected to anything, as it might lead to undesired behavior or increased power consumption. When the device is powered off and the pin is not in use, it's advisable to connect it to ground."
+      },
+      "name":"S3B",
+      "pin_id":"10",
+      "type":"ANALOG"
+    },
+    "S4A":{
+      "description":"Source pin 4A. Can be an input or output.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":"S4A is part of the TMUX1574 integrated circuit. Its connection will depend on the specific application, but it can be connected to other components like microcontrollers, sensors, memory devices, or other integrated circuits that communicate via signals that can be switched through the TMUX1574.",
+        "connectivity":"S4A should be connected to the signal source or destination for channel 4. It can be directly connected to other components' I/O pins. Unused signal path pins (SxA, SxB, or Dx) should be connected to GND.",
+        "detailed_description":"S4A is a Source pin for channel 4. It can function as either an input or an output, facilitating bidirectional signal flow.",
+        "functionality":"The pin's functionality is determined by the state of the EN and SEL pins. When the EN pin is low and the SEL pin is low, S4A is connected to D4. When the EN pin is low and the SEL pin is high, S4B is connected to D4, and S4A is effectively isolated. When the EN pin is high, all switches are turned off, and S4A is in a high-impedance (Hi-Z) state.",
+        "precautions":"When the TMUX1574 is powered off (VDD = 0V), the signal path pins, including S4A, should not exceed 3.6V (IPOFF leakage current). Ensure that the voltage and current levels at S4A remain within the recommended operating conditions to prevent device damage or malfunction. If the pin is not used, it should be connected to GND."
+      },
+      "name":"S4A",
+      "pin_id":"14",
+      "type":"ANALOG"
+    },
+    "S4B":{
+      "description":"Source pin 4B. Can be an input or output.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":"The specific components this pin is connected to will depend on the application. In general, it would be connected to other ICs, microcontrollers, sensors, or other electronic components that are part of the signal path being switched by the TMUX1574.",
+        "connectivity":"This pin should be connected to the signal source or destination in the circuit. Since it's an I/O pin, it can be used for either input or output signals depending on the circuit's design and the state of the EN and SEL pins.",
+        "detailed_description":"Source pin 4B. Can be an input or output.",
+        "functionality":"Input/Output",
+        "precautions":"Ensure that the voltage and current levels on this pin do not exceed the absolute maximum ratings specified in the datasheet. Also, consider the load capacitance (CON) when designing high-speed circuits to avoid signal integrity issues."
+      },
+      "name":"S4B",
+      "pin_id":"13",
+      "type":"ANALOG"
+    },
+    "SEL":{
+      "description":"Select pin: controls state of switches according to Table 1. Internal 6 M\u03a9 pull-down to GND.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Microcontroller/Digital Logic Source",
+            "description":"A microcontroller (MCU) or other digital logic IC that provides a stable logic high or low signal to control the multiplexing function. The logic levels must be compatible with the TMUX1574's input logic thresholds (e.g., 1.8V logic compatible)."
+          },
+          {
+            "component_name":"Pull-down Resistor (Optional)",
+            "description":"An external pull-down resistor can be used if the internal 6 M\u03a9 pull-down is insufficient for the specific application's grounding requirements, although it's typically not necessary."
+          }
+        ],
+        "connectivity":"The SEL pin should be connected to a logic output from a microcontroller or other digital logic source that controls the desired signal path. It can be connected directly to a GPIO pin. For applications where the SEL pin is not actively driven, it should be connected to GND (due to the internal pull-down resistor) or VDD to ensure a defined state.",
+        "detailed_description":"The SEL (Select) pin is a logic control pin that determines which source pin (SxA or SxB) is connected to the corresponding drain pin (Dx) for all four channels of the TMUX1574. The device features internal weak pull-down resistors to GND on logic pins, ensuring a known power-on state.",
+        "functionality":"The SEL pin controls the signal path selection. When the EN pin is low:\n- If SEL is low (logic 0), SxA is connected to Dx.\n- If SEL is high (logic 1), SxB is connected to Dx.\nWhen the EN pin is high, all switches are turned off (Hi-Z), regardless of the SEL pin state.",
+        "precautions":[
+          "The SEL pin has 1.8-V logic compatible thresholds, meaning it can be controlled by 1.8-V logic levels even when VDD is higher.",
+          "Ensure that the voltage applied to the SEL pin stays within the recommended operating conditions (0 V to 5.5 V).",
+          "If the SEL pin is left floating, the internal 6 M\u03a9 pull-down resistor will keep it at a low logic level, connecting SxA to Dx.",
+          "To avoid unintended switching, ensure that the EN pin is properly controlled. If EN is high, the SEL pin has no effect on the switch state."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":0.0,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"DOWN",
+        "pull_value":{
+          "nom":6000000.0,
+          "units":"\u03a9"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"SEL",
+      "pin_id":"1",
+      "polarity":"ACTIVE_HIGH",
+      "type":"DIGITAL",
+      "vih":{
+        "min":1.2,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.45,
+        "units":"V"
+      }
+    },
+    "VDD":{
+      "description":"Positive power supply. This pin is the most positive power-supply potential. For reliable operation, connect a decoupling capacitor ranging from 0.1 \u00b5F to 10 \u00b5F between VDD and GND.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Decoupling Capacitor",
+            "description":"A capacitor ranging from 0.1 \u00b5F to 10 \u00b5F should be connected between the VDD pin and the GND pin to ensure stable operation and filter out noise."
+          }
+        ],
+        "connectivity":"It should be connected to the positive voltage rail of the power supply. A decoupling capacitor should also be connected between VDD and GND.",
+        "detailed_description":"VDD is the positive power supply pin for the TMUX1574. It is the most positive power-supply potential required for the device's operation.",
+        "functionality":"This pin serves as the primary power input for the integrated circuit.",
+        "precautions":[
+          "Ensure the supply voltage remains within the recommended operating conditions (1.5 V to 5.5 V).",
+          "Exceeding the absolute maximum rating of 6 V for VDD can cause permanent damage to the device.",
+          "Proper placement of the decoupling capacitor close to the VDD pin is crucial for effective noise filtering."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":1.5,
+        "units":"V"
+      },
+      "name":"VDD",
+      "pin_id":"16",
+      "type":"POWER"
+    }
+  }
+}

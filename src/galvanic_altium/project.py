@@ -19,7 +19,7 @@ class AltiumBom:
                 self.components[cmpid] = []
             self.components[cmpid].append(cmp)
         self.components_by_pn
-        self.componets_by_type
+        self.components_by_type
         self.components_by_designator
 
     @property
@@ -43,7 +43,7 @@ class AltiumBom:
         return components
 
     @property
-    def componets_by_type(self):
+    def components_by_type(self):
         by_type = {}
 
         def get_leading_alpha(text):
