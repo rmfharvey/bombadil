@@ -1,3 +1,5 @@
 Use the following datasheet to figure out high level parameters for the device that is described.
 
 Schema is defined in the included protobuf files.
+
+do not include any fields which are not prxesent in the protobuf schema.
