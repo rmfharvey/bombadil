@@ -11,7 +11,7 @@ from google import genai
 from google.genai import types
 
 from galvanic_schema.protobuf import PROTOBUF
-from galvanic import colored_logger, global_logger
+from galvanic import global_logger
 
 _root = os.path.dirname(__file__)
 
@@ -45,6 +45,7 @@ def sanitize_raw_output(external_fault_handler=False):
                     with open(os.path.join(_root, f"{func.__name__}.txt"), "w") as f:
                         f.write(response.text)
                     sanitized = False
+
             return sanitized
 
         return wrapper
@@ -74,7 +75,9 @@ class DatasheetConverter:
     :param str source_path: Path to datasheet.  Either PDF or Markdown
     """
 
-    _GEMINI_MODEL = "gemini-2.5-pro-preview-06-05"
+    # _GEMINI_MODEL = "gemini-2.5-pro-preview-06-05"
+    # _GEMINI_MODEL = "gemini-2.5-pro"
+    _GEMINI_MODEL = "gemini-2.5-flash-lite"
 
     _GEMINI_KEY = api_key = os.environ["GEMINI_KEY"]
     # _GEMINI_KEY = api_key = os.environ["GEMINI_KEY_2"]
@@ -100,15 +103,19 @@ class DatasheetConverter:
 
     def analyze_datasheet(self):
         # AI Model Calls
-        self._json["high_level"] = self.AI_PARSER_get_high_level_info()
-        self._json["pins"] = self.AI_PARSER_get_pin_info()
+        try:
+            self._json["high_level"] = self.AI_PARSER_get_high_level_info()
+            self._json["pins"] = self.AI_PARSER_get_pin_info()
 
-        for name, pin in self._json["pins"].items():
-            response = self.AI_PARSER_get_pin_connectivity_info(name)
-            pin['implementation'] = response
+            for name, pin in self._json["pins"].items():
+                response = self.AI_PARSER_get_pin_connectivity_info(name)
+                pin['implementation'] = response
 
-        if self.has_serial_bus:
-            self._json["serial_bus"] = self.AI_PARSER_get_comms_register_map()
+            if self.has_serial_bus:
+                self._json["serial_bus"] = self.AI_PARSER_get_comms_register_map()
+        except Exception as err:
+            self.logger.error(f"Failed to analyze datasheet.  Error: {err}")
+            self.update_config(os.path.join(self.output_directory, "datasheet_tempfile.json"))
 
     def log_transaction_tokens(self, usage_meta, timestamp=None):
         """Logs tokens required for a query
@@ -408,13 +415,17 @@ class DatasheetConverter:
 
 class MicroDatasheetConverter(DatasheetConverter):
     def analyze_datasheet(self):
-        self._json["high_level"] = self.AI_PARSER_get_high_level_info()
-        self._json["cores"] = self.AI_PARSER_get_cores_and_memory()
-        self._json["pads"] = self._get_pin_pad_mapping_iteratively()
-        self._json["pin_pad_mapping"] = self.AI_PARSER_get_pin_pad_mapping()
+        try:
+            # self._json["high_level"] = self.AI_PARSER_get_high_level_info()
+            # self._json["cores"] = self.AI_PARSER_get_cores_and_memory()
+            # self._json["pads"] = self._get_pin_pad_mapping_iteratively()
+            self._json["pin_pad_mapping"] = self.AI_PARSER_get_pin_pad_mapping()
 
-        # self._json["pads"] = self.AI_PARSER_get_pin_muxing()
-        self._json['peripherals'] = self.build_peripherals_from_pads(self._json["pads"])
+            # self._json["pads"] = self.AI_PARSER_get_pin_muxing()
+            # self._json['peripherals'] = self.build_peripherals_from_pads(self._json["pads"])
+        except Exception as err:
+            self.logger.error(f"Failed to analyze datasheet.  Error: {err}")
+            self.update_config(os.path.join(self.output_directory, "datasheet_tempfile.json"))
 
     def _get_pin_pad_mapping_iteratively(self):
         finished = False
@@ -454,6 +465,7 @@ class MicroDatasheetConverter(DatasheetConverter):
                     "protobuf_pin_enums": PROTOBUF.misc.pin_enums,
                 }.values()
             ),
+
             config=types.GenerateContentConfig(cached_content=self._cache.name),
         )
         return response

@@ -1,0 +1,1 @@
+from galvanic_datasheets.datasheet_manager import DatasheetManager
