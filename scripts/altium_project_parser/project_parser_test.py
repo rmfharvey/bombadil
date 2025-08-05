@@ -13,7 +13,7 @@ if __name__ == "__main__":
     )
     projects = AltiumServerAPI.get_project_list()
 
-    guid = {"Sensor Node": "AEFD9A33-5A97-4C99-B21D-D2D9B3A4D90B"}
+    guid = {"Sensor Node": "DA220208-0D1D-4C1A-A0FF-E0D169E92F96"}
     PRJ_NAME = "Sensor Node"
 
     project = AltiumProject(guid[PRJ_NAME])

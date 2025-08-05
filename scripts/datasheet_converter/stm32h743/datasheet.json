@@ -15189,1878 +15189,1745 @@
     }
   },
   "pin_pad_mapping":{
-    "BOOT0":{
-      "LQFP100":"94",
-      "LQFP144":"138",
-      "LQFP176":"166",
-      "LQFP208":"197",
-      "TFBGA100":"D5",
-      "TFBGA240+25":"E8",
-      "UFBGA169":"E6",
-      "UFBGA176+25":"D6"
-    },
-    "NC_1":{
-      "TFBGA240+25":"E1"
-    },
-    "NC_2":{
-      "TFBGA240+25":"N17"
-    },
-    "NC_3":{
-      "TFBGA240+25":"M16"
-    },
-    "NC_4":{
-      "TFBGA240+25":"M17"
-    },
-    "NC_5":{
-      "TFBGA240+25":"L16"
-    },
-    "NC_6":{
-      "TFBGA240+25":"L17"
-    },
-    "NC_7":{
-      "TFBGA240+25":"K16"
-    },
-    "NC_8":{
-      "TFBGA240+25":"K17"
-    },
     "NRST":{
-      "LQFP100":"14",
-      "LQFP144":"25",
-      "LQFP176":"31",
-      "LQFP208":"34",
-      "TFBGA100":"E1",
-      "TFBGA240+25":"K1",
-      "UFBGA169":"G6",
-      "UFBGA176+25":"J1"
+      "LQFP100":"NRST",
+      "LQFP144":"NRST",
+      "LQFP176":"NRST",
+      "LQFP208":"NRST",
+      "TFBGA100":"NRST",
+      "TFBGA240+25":"NRST",
+      "UFBGA169":"NRST",
+      "UFBGA176+25":"NRST"
     },
     "PA0":{
-      "LQFP100":"22",
-      "LQFP144":"34",
-      "LQFP176":"40",
-      "LQFP208":"43",
-      "TFBGA100":"G2",
-      "TFBGA240+25":"N5",
-      "UFBGA169":"J5",
-      "UFBGA176+25":"N3"
-    },
-    "PA0_C":{
-      "TFBGA240+25":"T1"
+      "LQFP100":"PA0",
+      "LQFP144":"PA0",
+      "LQFP176":"PA0",
+      "LQFP208":"PA0",
+      "TFBGA100":"PA0",
+      "TFBGA240+25":"PA0",
+      "UFBGA169":"PA0",
+      "UFBGA176+25":"PA0"
     },
     "PA1":{
-      "LQFP100":"23",
-      "LQFP144":"35",
-      "LQFP176":"41",
-      "LQFP208":"44",
-      "TFBGA100":"H2",
-      "TFBGA240+25":"N4",
-      "UFBGA169":"K4",
-      "UFBGA176+25":"N2"
+      "LQFP100":"PA1",
+      "LQFP144":"PA1",
+      "LQFP176":"PA1",
+      "LQFP208":"PA1",
+      "TFBGA100":"PA1",
+      "TFBGA240+25":"PA1",
+      "UFBGA169":"PA1",
+      "UFBGA176+25":"PA1"
     },
     "PA10":{
-      "LQFP100":"69",
-      "LQFP144":"102",
-      "LQFP176":"121",
-      "LQFP208":"144",
-      "TFBGA100":"D10",
-      "TFBGA240+25":"D14",
-      "UFBGA169":"E10",
-      "UFBGA176+25":"D15"
+      "LQFP100":"PA10",
+      "LQFP144":"PA10",
+      "LQFP176":"PA10",
+      "LQFP208":"PA10",
+      "TFBGA100":"PA10",
+      "TFBGA240+25":"PA10",
+      "UFBGA169":"PA10",
+      "UFBGA176+25":"PA10"
     },
     "PA11":{
-      "LQFP100":"70",
-      "LQFP144":"103",
-      "LQFP176":"122",
-      "LQFP208":"145",
-      "TFBGA100":"C10",
-      "TFBGA240+25":"E17",
-      "UFBGA169":"F13",
-      "UFBGA176+25":"C15"
+      "LQFP100":"PA11",
+      "LQFP144":"PA11",
+      "LQFP176":"PA11",
+      "LQFP208":"PA11",
+      "TFBGA100":"PA11",
+      "TFBGA240+25":"PA11",
+      "UFBGA169":"PA11",
+      "UFBGA176+25":"PA11"
     },
     "PA12":{
-      "LQFP100":"71",
-      "LQFP144":"104",
-      "LQFP176":"123",
-      "LQFP208":"146",
-      "TFBGA100":"B10",
-      "TFBGA240+25":"E16",
-      "UFBGA169":"E13",
-      "UFBGA176+25":"B15"
+      "LQFP100":"PA12",
+      "LQFP144":"PA12",
+      "LQFP176":"PA12",
+      "LQFP208":"PA12",
+      "TFBGA100":"PA12",
+      "TFBGA240+25":"PA12",
+      "UFBGA169":"PA12",
+      "UFBGA176+25":"PA12"
     },
     "PA13":{
-      "LQFP100":"72",
-      "LQFP144":"105",
-      "LQFP176":"124",
-      "LQFP208":"147",
-      "TFBGA100":"A10",
-      "TFBGA240+25":"C15",
-      "UFBGA169":"D11",
-      "UFBGA176+25":"A15"
+      "LQFP100":"PA13",
+      "LQFP144":"PA13",
+      "LQFP176":"PA13",
+      "LQFP208":"PA13",
+      "TFBGA100":"PA13",
+      "TFBGA240+25":"PA13",
+      "UFBGA169":"PA13",
+      "UFBGA176+25":"PA13"
     },
     "PA14":{
-      "LQFP100":"76",
-      "LQFP144":"109",
-      "LQFP176":"137",
-      "LQFP208":"159",
-      "TFBGA100":"A9",
-      "TFBGA240+25":"B14",
-      "UFBGA169":"B12",
-      "UFBGA176+25":"A14"
+      "LQFP100":"PA14",
+      "LQFP144":"PA14",
+      "LQFP176":"PA14",
+      "LQFP208":"PA14",
+      "TFBGA100":"PA14",
+      "TFBGA240+25":"PA14",
+      "UFBGA169":"PA14",
+      "UFBGA176+25":"PA14"
     },
     "PA15":{
-      "LQFP100":"77",
-      "LQFP144":"110",
-      "LQFP176":"138",
-      "LQFP208":"160",
-      "TFBGA100":"A8",
-      "TFBGA240+25":"A14",
-      "UFBGA169":"C11",
-      "UFBGA176+25":"A13"
-    },
-    "PA1_C":{
-      "TFBGA240+25":"T2"
+      "LQFP100":"PA15",
+      "LQFP144":"PA15",
+      "LQFP176":"PA15",
+      "LQFP208":"PA15",
+      "TFBGA100":"PA15",
+      "TFBGA240+25":"PA15",
+      "UFBGA169":"PA15",
+      "UFBGA176+25":"PA15"
     },
     "PA2":{
-      "LQFP100":"24",
-      "LQFP144":"36",
-      "LQFP176":"42",
-      "LQFP208":"45",
-      "TFBGA100":"J2",
-      "TFBGA240+25":"N3",
-      "UFBGA169":"N1",
-      "UFBGA176+25":"P2"
+      "LQFP100":"PA2",
+      "LQFP144":"PA2",
+      "LQFP176":"PA2",
+      "LQFP208":"PA2",
+      "TFBGA100":"PA2",
+      "TFBGA240+25":"PA2",
+      "UFBGA169":"PA2",
+      "UFBGA176+25":"PA2"
     },
     "PA3":{
-      "LQFP100":"25",
-      "LQFP144":"37",
-      "LQFP176":"47",
-      "LQFP208":"50",
-      "TFBGA100":"K2",
-      "TFBGA240+25":"U2",
-      "UFBGA169":"N3",
-      "UFBGA176+25":"R2"
+      "LQFP100":"PA3",
+      "LQFP144":"PA3",
+      "LQFP176":"PA3",
+      "LQFP208":"PA3",
+      "TFBGA100":"PA3",
+      "TFBGA240+25":"PA3",
+      "UFBGA169":"PA3",
+      "UFBGA176+25":"PA3"
     },
     "PA4":{
-      "LQFP100":"28",
-      "LQFP144":"40",
-      "LQFP176":"50",
-      "LQFP208":"53",
-      "TFBGA100":"G3",
-      "TFBGA240+25":"U3",
-      "UFBGA169":"H6",
-      "UFBGA176+25":"N4"
+      "LQFP100":"PA4",
+      "LQFP144":"PA4",
+      "LQFP176":"PA4",
+      "LQFP208":"PA4",
+      "TFBGA100":"PA4",
+      "TFBGA240+25":"PA4",
+      "UFBGA169":"PA4",
+      "UFBGA176+25":"PA4"
     },
     "PA5":{
-      "LQFP100":"29",
-      "LQFP144":"41",
-      "LQFP176":"51",
-      "LQFP208":"54",
-      "TFBGA100":"H3",
-      "TFBGA240+25":"T3",
-      "UFBGA169":"L4",
-      "UFBGA176+25":"P4"
+      "LQFP100":"PA5",
+      "LQFP144":"PA5",
+      "LQFP176":"PA5",
+      "LQFP208":"PA5",
+      "TFBGA100":"PA5",
+      "TFBGA240+25":"PA5",
+      "UFBGA169":"PA5",
+      "UFBGA176+25":"PA5"
     },
     "PA6":{
-      "LQFP100":"30",
-      "LQFP144":"42",
-      "LQFP176":"52",
-      "LQFP208":"55",
-      "TFBGA100":"J3",
-      "TFBGA240+25":"R3",
-      "UFBGA169":"K5",
-      "UFBGA176+25":"P3"
+      "LQFP100":"PA6",
+      "LQFP144":"PA6",
+      "LQFP176":"PA6",
+      "LQFP208":"PA6",
+      "TFBGA100":"PA6",
+      "TFBGA240+25":"PA6",
+      "UFBGA169":"PA6",
+      "UFBGA176+25":"PA6"
     },
     "PA7":{
-      "LQFP100":"31",
-      "LQFP144":"43",
-      "LQFP176":"53",
-      "LQFP208":"56",
-      "TFBGA100":"K3",
-      "TFBGA240+25":"R5",
-      "UFBGA169":"J6",
-      "UFBGA176+25":"R3"
+      "LQFP100":"PA7",
+      "LQFP144":"PA7",
+      "LQFP176":"PA7",
+      "LQFP208":"PA7",
+      "TFBGA100":"PA7",
+      "TFBGA240+25":"PA7",
+      "UFBGA169":"PA7",
+      "UFBGA176+25":"PA7"
     },
     "PA8":{
-      "LQFP100":"67",
-      "LQFP144":"100",
-      "LQFP176":"119",
-      "LQFP208":"142",
-      "TFBGA100":"D9",
-      "TFBGA240+25":"E15",
-      "UFBGA169":"E12",
-      "UFBGA176+25":"F15"
+      "LQFP100":"PA8",
+      "LQFP144":"PA8",
+      "LQFP176":"PA8",
+      "LQFP208":"PA8",
+      "TFBGA100":"PA8",
+      "TFBGA240+25":"PA8",
+      "UFBGA169":"PA8",
+      "UFBGA176+25":"PA8"
     },
     "PA9":{
-      "LQFP100":"68",
-      "LQFP144":"101",
-      "LQFP176":"120",
-      "LQFP208":"143",
-      "TFBGA100":"C9",
-      "TFBGA240+25":"D15",
-      "UFBGA169":"E11",
-      "UFBGA176+25":"E15"
+      "LQFP100":"PA9",
+      "LQFP144":"PA9",
+      "LQFP176":"PA9",
+      "LQFP208":"PA9",
+      "TFBGA100":"PA9",
+      "TFBGA240+25":"PA9",
+      "UFBGA169":"PA9",
+      "UFBGA176+25":"PA9"
     },
     "PB0":{
-      "LQFP100":"34",
-      "LQFP144":"46",
-      "LQFP176":"56",
-      "LQFP208":"61",
-      "TFBGA100":"J4",
-      "TFBGA240+25":"U5",
-      "UFBGA169":"M5",
-      "UFBGA176+25":"R5"
+      "LQFP100":"PB0",
+      "LQFP144":"PB0",
+      "LQFP176":"PB0",
+      "LQFP208":"PB0",
+      "TFBGA100":"PB0",
+      "TFBGA240+25":"PB0",
+      "UFBGA169":"PB0",
+      "UFBGA176+25":"PB0"
     },
     "PB1":{
-      "LQFP100":"35",
-      "LQFP144":"47",
-      "LQFP176":"57",
-      "LQFP208":"62",
-      "TFBGA100":"K4",
-      "TFBGA240+25":"T5",
-      "UFBGA169":"L5",
-      "UFBGA176+25":"R4"
+      "LQFP100":"PB1",
+      "LQFP144":"PB1",
+      "LQFP176":"PB1",
+      "LQFP208":"PB1",
+      "TFBGA100":"PB1",
+      "TFBGA240+25":"PB1",
+      "UFBGA169":"PB1",
+      "UFBGA176+25":"PB1"
     },
     "PB10":{
-      "LQFP100":"46",
-      "LQFP144":"69",
-      "LQFP176":"79",
-      "LQFP208":"90",
-      "TFBGA100":"J7",
-      "TFBGA240+25":"P11",
-      "UFBGA169":"L9",
-      "UFBGA176+25":"R12"
+      "LQFP100":"PB10",
+      "LQFP144":"PB10",
+      "LQFP176":"PB10",
+      "LQFP208":"PB10",
+      "TFBGA100":"PB10",
+      "TFBGA240+25":"PB10",
+      "UFBGA169":"PB10",
+      "UFBGA176+25":"PB10"
     },
     "PB11":{
-      "LQFP100":"47",
-      "LQFP144":"70",
-      "LQFP176":"80",
-      "LQFP208":"91",
-      "TFBGA100":"K7",
-      "TFBGA240+25":"P12",
-      "UFBGA169":"M9",
-      "UFBGA176+25":"R13"
+      "LQFP100":"PB11",
+      "LQFP144":"PB11",
+      "LQFP176":"PB11",
+      "LQFP208":"PB11",
+      "TFBGA100":"PB11",
+      "TFBGA240+25":"PB11",
+      "UFBGA169":"PB11",
+      "UFBGA176+25":"PB11"
     },
     "PB12":{
-      "LQFP100":"51",
-      "LQFP144":"73",
-      "LQFP176":"92",
-      "LQFP208":"104",
-      "TFBGA100":"K8",
-      "TFBGA240+25":"T14",
-      "UFBGA169":"N12",
-      "UFBGA176+25":"P12"
+      "LQFP100":"PB12",
+      "LQFP144":"PB12",
+      "LQFP176":"PB12",
+      "LQFP208":"PB12",
+      "TFBGA100":"PB12",
+      "TFBGA240+25":"PB12",
+      "UFBGA169":"PB12",
+      "UFBGA176+25":"PB12"
     },
     "PB13":{
-      "LQFP100":"52",
-      "LQFP144":"74",
-      "LQFP176":"93",
-      "LQFP208":"105",
-      "TFBGA100":"J8",
-      "TFBGA240+25":"U14",
-      "UFBGA169":"L11",
-      "UFBGA176+25":"P13"
+      "LQFP100":"PB13",
+      "LQFP144":"PB13",
+      "LQFP176":"PB13",
+      "LQFP208":"PB13",
+      "TFBGA100":"PB13",
+      "TFBGA240+25":"PB13",
+      "UFBGA169":"PB13",
+      "UFBGA176+25":"PB13"
     },
     "PB14":{
-      "LQFP100":"53",
-      "LQFP144":"75",
-      "LQFP176":"94",
-      "LQFP208":"106",
-      "TFBGA100":"H10",
-      "TFBGA240+25":"U15",
-      "UFBGA169":"N13",
-      "UFBGA176+25":"R14"
+      "LQFP100":"PB14",
+      "LQFP144":"PB14",
+      "LQFP176":"PB14",
+      "LQFP208":"PB14",
+      "TFBGA100":"PB14",
+      "TFBGA240+25":"PB14",
+      "UFBGA169":"PB14",
+      "UFBGA176+25":"PB14"
     },
     "PB15":{
-      "LQFP100":"54",
-      "LQFP144":"76",
-      "LQFP176":"95",
-      "LQFP208":"107",
-      "TFBGA100":"G10",
-      "TFBGA240+25":"T15",
-      "UFBGA169":"M13",
-      "UFBGA176+25":"R15"
+      "LQFP100":"PB15",
+      "LQFP144":"PB15",
+      "LQFP176":"PB15",
+      "LQFP208":"PB15",
+      "TFBGA100":"PB15",
+      "TFBGA240+25":"PB15",
+      "UFBGA169":"PB15",
+      "UFBGA176+25":"PB15"
     },
     "PB2":{
-      "LQFP100":"36",
-      "LQFP144":"48",
-      "LQFP176":"58",
-      "LQFP208":"63",
-      "TFBGA100":"G5",
-      "TFBGA240+25":"R6",
-      "UFBGA169":"L6",
-      "UFBGA176+25":"M6"
+      "LQFP100":"PB2",
+      "LQFP144":"PB2",
+      "LQFP176":"PB2",
+      "LQFP208":"PB2",
+      "TFBGA100":"PB2",
+      "TFBGA240+25":"PB2",
+      "UFBGA169":"PB2",
+      "UFBGA176+25":"PB2"
     },
     "PB3":{
-      "LQFP100":"89",
-      "LQFP144":"133",
-      "LQFP176":"161",
-      "LQFP208":"192",
-      "TFBGA100":"A7",
-      "TFBGA240+25":"C6",
-      "UFBGA169":"F7",
-      "UFBGA176+25":"A10"
+      "LQFP100":"PB3",
+      "LQFP144":"PB3",
+      "LQFP176":"PB3",
+      "LQFP208":"PB3",
+      "TFBGA100":"PB3",
+      "TFBGA240+25":"PB3",
+      "UFBGA169":"PB3",
+      "UFBGA176+25":"PB3"
     },
     "PB4":{
-      "LQFP100":"90",
-      "LQFP144":"134",
-      "LQFP176":"162",
-      "LQFP208":"193",
-      "TFBGA100":"A6",
-      "TFBGA240+25":"B7",
-      "UFBGA169":"B6",
-      "UFBGA176+25":"A9"
+      "LQFP100":"PB4",
+      "LQFP144":"PB4",
+      "LQFP176":"PB4",
+      "LQFP208":"PB4",
+      "TFBGA100":"PB4",
+      "TFBGA240+25":"PB4",
+      "UFBGA169":"PB4",
+      "UFBGA176+25":"PB4"
     },
     "PB5":{
-      "LQFP100":"91",
-      "LQFP144":"135",
-      "LQFP176":"163",
-      "LQFP208":"194",
-      "TFBGA100":"C5",
-      "TFBGA240+25":"A5",
-      "UFBGA169":"C6",
-      "UFBGA176+25":"A6"
+      "LQFP100":"PB5",
+      "LQFP144":"PB5",
+      "LQFP176":"PB5",
+      "LQFP208":"PB5",
+      "TFBGA100":"PB5",
+      "TFBGA240+25":"PB5",
+      "UFBGA169":"PB5",
+      "UFBGA176+25":"PB5"
     },
     "PB6":{
-      "LQFP100":"92",
-      "LQFP144":"136",
-      "LQFP176":"164",
-      "LQFP208":"195",
-      "TFBGA100":"B5",
-      "TFBGA240+25":"B5",
-      "UFBGA169":"A5",
-      "UFBGA176+25":"B6"
+      "LQFP100":"PB6",
+      "LQFP144":"PB6",
+      "LQFP176":"PB6",
+      "LQFP208":"PB6",
+      "TFBGA100":"PB6",
+      "TFBGA240+25":"PB6",
+      "UFBGA169":"PB6",
+      "UFBGA176+25":"PB6"
     },
     "PB7":{
-      "LQFP100":"93",
-      "LQFP144":"137",
-      "LQFP176":"165",
-      "LQFP208":"196",
-      "TFBGA100":"A5",
-      "TFBGA240+25":"C5",
-      "UFBGA169":"D6",
-      "UFBGA176+25":"B5"
+      "LQFP100":"PB7",
+      "LQFP144":"PB7",
+      "LQFP176":"PB7",
+      "LQFP208":"PB7",
+      "TFBGA100":"PB7",
+      "TFBGA240+25":"PB7",
+      "UFBGA169":"PB7",
+      "UFBGA176+25":"PB7"
     },
     "PB8":{
-      "LQFP100":"95",
-      "LQFP144":"139",
-      "LQFP176":"167",
-      "LQFP208":"198",
-      "TFBGA100":"B4",
-      "TFBGA240+25":"D5",
-      "UFBGA169":"B5",
-      "UFBGA176+25":"A5"
+      "LQFP100":"PB8",
+      "LQFP144":"PB8",
+      "LQFP176":"PB8",
+      "LQFP208":"PB8",
+      "TFBGA100":"PB8",
+      "TFBGA240+25":"PB8",
+      "UFBGA169":"PB8",
+      "UFBGA176+25":"PB8"
     },
     "PB9":{
-      "LQFP100":"96",
-      "LQFP144":"140",
-      "LQFP176":"168",
-      "LQFP208":"199",
-      "TFBGA100":"A4",
-      "TFBGA240+25":"D4",
-      "UFBGA169":"C5",
-      "UFBGA176+25":"B4"
+      "LQFP100":"PB9",
+      "LQFP144":"PB9",
+      "LQFP176":"PB9",
+      "LQFP208":"PB9",
+      "TFBGA100":"PB9",
+      "TFBGA240+25":"PB9",
+      "UFBGA169":"PB9",
+      "UFBGA176+25":"PB9"
     },
     "PC0":{
-      "LQFP100":"15",
-      "LQFP144":"26",
-      "LQFP176":"32",
-      "LQFP208":"35",
-      "TFBGA100":"F1",
-      "TFBGA240+25":"L2",
-      "UFBGA169":"J1",
-      "UFBGA176+25":"M2"
+      "LQFP100":"PC0",
+      "LQFP144":"PC0",
+      "LQFP176":"PC0",
+      "LQFP208":"PC0",
+      "TFBGA100":"PC0",
+      "TFBGA240+25":"PC0",
+      "UFBGA169":"PC0",
+      "UFBGA176+25":"PC0"
     },
     "PC1":{
-      "LQFP100":"16",
-      "LQFP144":"27",
-      "LQFP176":"33",
-      "LQFP208":"36",
-      "TFBGA100":"F2",
-      "TFBGA240+25":"M2",
-      "UFBGA169":"J2",
-      "UFBGA176+25":"M3"
+      "LQFP100":"PC1",
+      "LQFP144":"PC1",
+      "LQFP176":"PC1",
+      "LQFP208":"PC1",
+      "TFBGA100":"PC1",
+      "TFBGA240+25":"PC1",
+      "UFBGA169":"PC1",
+      "UFBGA176+25":"PC1"
     },
     "PC10":{
-      "LQFP100":"78",
-      "LQFP144":"111",
-      "LQFP176":"139",
-      "LQFP208":"161",
-      "TFBGA100":"B9",
-      "TFBGA240+25":"A13",
-      "UFBGA169":"A12",
-      "UFBGA176+25":"B14"
+      "LQFP100":"PC10",
+      "LQFP144":"PC10",
+      "LQFP176":"PC10",
+      "LQFP208":"PC10",
+      "TFBGA100":"PC10",
+      "TFBGA240+25":"PC10",
+      "UFBGA169":"PC10",
+      "UFBGA176+25":"PC10"
     },
     "PC11":{
-      "LQFP100":"79",
-      "LQFP144":"112",
-      "LQFP176":"140",
-      "LQFP208":"162",
-      "TFBGA100":"B8",
-      "TFBGA240+25":"B13",
-      "UFBGA169":"B11",
-      "UFBGA176+25":"B13"
+      "LQFP100":"PC11",
+      "LQFP144":"PC11",
+      "LQFP176":"PC11",
+      "LQFP208":"PC11",
+      "TFBGA100":"PC11",
+      "TFBGA240+25":"PC11",
+      "UFBGA169":"PC11",
+      "UFBGA176+25":"PC11"
     },
     "PC12":{
-      "LQFP100":"80",
-      "LQFP144":"113",
-      "LQFP176":"141",
-      "LQFP208":"163",
-      "TFBGA100":"C8",
-      "TFBGA240+25":"C12",
-      "UFBGA169":"A11",
-      "UFBGA176+25":"A12"
+      "LQFP100":"PC12",
+      "LQFP144":"PC12",
+      "LQFP176":"PC12",
+      "LQFP208":"PC12",
+      "TFBGA100":"PC12",
+      "TFBGA240+25":"PC12",
+      "UFBGA169":"PC12",
+      "UFBGA176+25":"PC12"
     },
     "PC13":{
-      "LQFP100":"7",
-      "LQFP144":"8",
-      "LQFP176":"8",
-      "LQFP208":"8",
-      "TFBGA100":"A2",
-      "TFBGA240+25":"E3",
-      "UFBGA169":"D3",
-      "UFBGA176+25":"D1"
+      "LQFP100":"PC13",
+      "LQFP144":"PC13",
+      "LQFP176":"PC13",
+      "LQFP208":"PC13",
+      "TFBGA100":"PC13",
+      "TFBGA240+25":"PC13",
+      "UFBGA169":"PC13",
+      "UFBGA176+25":"PC13"
     },
-    "PC14-OSC32_IN":{
-      "LQFP100":"8",
-      "LQFP144":"9",
-      "LQFP176":"9",
-      "LQFP208":"9",
-      "TFBGA100":"A1",
-      "TFBGA240+25":"C2",
-      "UFBGA169":"C1",
-      "UFBGA176+25":"E1"
+    "PC14":{
+      "LQFP100":"PC14",
+      "LQFP144":"PC14",
+      "LQFP176":"PC14",
+      "LQFP208":"PC14",
+      "TFBGA100":"PC14",
+      "TFBGA240+25":"PC14",
+      "UFBGA169":"PC14",
+      "UFBGA176+25":"PC14"
     },
-    "PC15-OSC32_OUT":{
-      "LQFP100":"9",
-      "LQFP144":"10",
-      "LQFP176":"10",
-      "LQFP208":"10",
-      "TFBGA100":"B1",
-      "TFBGA240+25":"C1",
-      "UFBGA169":"B1",
-      "UFBGA176+25":"F1"
+    "PC15":{
+      "LQFP100":"PC15",
+      "LQFP144":"PC15",
+      "LQFP176":"PC15",
+      "LQFP208":"PC15",
+      "TFBGA100":"PC15",
+      "TFBGA240+25":"PC15",
+      "UFBGA169":"PC15",
+      "UFBGA176+25":"PC15"
     },
     "PC2":{
-      "TFBGA240+25":"M3"
-    },
-    "PC2_C":{
-      "LQFP100":"17",
-      "LQFP144":"28",
-      "LQFP176":"34",
-      "LQFP208":"37",
-      "TFBGA100":"E2",
-      "TFBGA240+25":"R1",
-      "UFBGA169":"K2",
-      "UFBGA176+25":"M4"
+      "LQFP100":"PC2",
+      "LQFP144":"PC2_C",
+      "LQFP176":"PC2_C",
+      "LQFP208":"PC2_C",
+      "TFBGA100":"PC2_C",
+      "TFBGA240+25":"PC2_C",
+      "UFBGA169":"PC2_C",
+      "UFBGA176+25":"PC2_C"
     },
     "PC3":{
-      "TFBGA240+25":"M4"
-    },
-    "PC3_C":{
-      "LQFP100":"18",
-      "LQFP144":"29",
-      "LQFP176":"35",
-      "LQFP208":"38",
-      "TFBGA100":"F3",
-      "TFBGA240+25":"R2",
-      "UFBGA169":"K1",
-      "UFBGA176+25":"M5"
+      "LQFP100":"PC3",
+      "LQFP144":"PC3_C",
+      "LQFP176":"PC3_C",
+      "LQFP208":"PC3_C",
+      "TFBGA100":"PC3_C",
+      "TFBGA240+25":"PC3_C",
+      "UFBGA169":"PC3_C",
+      "UFBGA176+25":"PC3_C"
     },
     "PC4":{
-      "LQFP100":"32",
-      "LQFP144":"44",
-      "LQFP176":"54",
-      "LQFP208":"57",
-      "TFBGA100":"G4",
-      "TFBGA240+25":"T4",
-      "UFBGA169":"K6",
-      "UFBGA176+25":"N5"
+      "LQFP100":"PC4",
+      "LQFP144":"PC4",
+      "LQFP176":"PC4",
+      "LQFP208":"PC4",
+      "TFBGA100":"PC4",
+      "TFBGA240+25":"PC4",
+      "UFBGA169":"PC4",
+      "UFBGA176+25":"PC4"
     },
     "PC5":{
-      "LQFP100":"33",
-      "LQFP144":"45",
-      "LQFP176":"55",
-      "LQFP208":"58",
-      "TFBGA100":"H4",
-      "TFBGA240+25":"U4",
-      "UFBGA169":"N5",
-      "UFBGA176+25":"P5"
+      "LQFP100":"PC5",
+      "LQFP144":"PC5",
+      "LQFP176":"PC5",
+      "LQFP208":"PC5",
+      "TFBGA100":"PC5",
+      "TFBGA240+25":"PC5",
+      "UFBGA169":"PC5",
+      "UFBGA176+25":"PC5"
     },
     "PC6":{
-      "LQFP100":"63",
-      "LQFP144":"96",
-      "LQFP176":"115",
-      "LQFP208":"138",
-      "TFBGA100":"F10",
-      "TFBGA240+25":"F14",
-      "UFBGA169":"F9",
-      "UFBGA176+25":"H15"
+      "LQFP100":"PC6",
+      "LQFP144":"PC6",
+      "LQFP176":"PC6",
+      "LQFP208":"PC6",
+      "TFBGA100":"PC6",
+      "TFBGA240+25":"PC6",
+      "UFBGA169":"PC6",
+      "UFBGA176+25":"PC6"
     },
     "PC7":{
-      "LQFP100":"64",
-      "LQFP144":"97",
-      "LQFP176":"116",
-      "LQFP208":"139",
-      "TFBGA100":"E10",
-      "TFBGA240+25":"F13",
-      "UFBGA169":"F10",
-      "UFBGA176+25":"G15"
+      "LQFP100":"PC7",
+      "LQFP144":"PC7",
+      "LQFP176":"PC7",
+      "LQFP208":"PC7",
+      "TFBGA100":"PC7",
+      "TFBGA240+25":"PC7",
+      "UFBGA169":"PC7",
+      "UFBGA176+25":"PC7"
     },
     "PC8":{
-      "LQFP100":"65",
-      "LQFP144":"98",
-      "LQFP176":"117",
-      "LQFP208":"140",
-      "TFBGA100":"F9",
-      "TFBGA240+25":"E13",
-      "UFBGA169":"F12",
-      "UFBGA176+25":"G14"
+      "LQFP100":"PC8",
+      "LQFP144":"PC8",
+      "LQFP176":"PC8",
+      "LQFP208":"PC8",
+      "TFBGA100":"PC8",
+      "TFBGA240+25":"PC8",
+      "UFBGA169":"PC8",
+      "UFBGA176+25":"PC8"
     },
     "PC9":{
-      "LQFP100":"66",
-      "LQFP144":"99",
-      "LQFP176":"118",
-      "LQFP208":"141",
-      "TFBGA100":"E9",
-      "TFBGA240+25":"E14",
-      "UFBGA169":"F11",
-      "UFBGA176+25":"F14"
+      "LQFP100":"PC9",
+      "LQFP144":"PC9",
+      "LQFP176":"PC9",
+      "LQFP208":"PC9",
+      "TFBGA100":"PC9",
+      "TFBGA240+25":"PC9",
+      "UFBGA169":"PC9",
+      "UFBGA176+25":"PC9"
     },
     "PD0":{
-      "LQFP100":"81",
-      "LQFP144":"114",
-      "LQFP176":"142",
-      "LQFP208":"164",
-      "TFBGA100":"D8",
-      "TFBGA240+25":"D13",
-      "UFBGA169":"D10",
-      "UFBGA176+25":"B12"
+      "LQFP100":"PD0",
+      "LQFP144":"PD0",
+      "LQFP176":"PD0",
+      "LQFP208":"PD0",
+      "TFBGA100":"PD0",
+      "TFBGA240+25":"PD0",
+      "UFBGA169":"PD0",
+      "UFBGA176+25":"PD0"
     },
     "PD1":{
-      "LQFP100":"82",
-      "LQFP144":"115",
-      "LQFP176":"143",
-      "LQFP208":"165",
-      "TFBGA100":"E8",
-      "TFBGA240+25":"E12",
-      "UFBGA169":"C10",
-      "UFBGA176+25":"C12"
+      "LQFP100":"PD1",
+      "LQFP144":"PD1",
+      "LQFP176":"PD1",
+      "LQFP208":"PD1",
+      "TFBGA100":"PD1",
+      "TFBGA240+25":"PD1",
+      "UFBGA169":"PD1",
+      "UFBGA176+25":"PD1"
     },
     "PD10":{
-      "LQFP100":"57",
-      "LQFP144":"79",
-      "LQFP176":"98",
-      "LQFP208":"110",
-      "TFBGA100":"H9",
-      "TFBGA240+25":"T16",
-      "UFBGA169":"K12",
-      "UFBGA176+25":"N15"
+      "LQFP100":"PD10",
+      "LQFP144":"PD10",
+      "LQFP176":"PD10",
+      "LQFP208":"PD10",
+      "TFBGA100":"PD10",
+      "TFBGA240+25":"PD10",
+      "UFBGA169":"PD10",
+      "UFBGA176+25":"PD10"
     },
     "PD11":{
-      "LQFP100":"58",
-      "LQFP144":"80",
-      "LQFP176":"99",
-      "LQFP208":"111",
-      "TFBGA100":"G9",
-      "TFBGA240+25":"R15",
-      "UFBGA169":"J10",
-      "UFBGA176+25":"N14"
+      "LQFP100":"PD11",
+      "LQFP144":"PD11",
+      "LQFP176":"PD11",
+      "LQFP208":"PD11",
+      "TFBGA100":"PD11",
+      "TFBGA240+25":"PD11",
+      "UFBGA169":"PD11",
+      "UFBGA176+25":"PD11"
     },
     "PD12":{
-      "LQFP100":"59",
-      "LQFP144":"81",
-      "LQFP176":"100",
-      "LQFP208":"112",
-      "TFBGA100":"K10",
-      "TFBGA240+25":"R16",
-      "UFBGA169":"K13",
-      "UFBGA176+25":"N13"
+      "LQFP100":"PD12",
+      "LQFP144":"PD12",
+      "LQFP176":"PD12",
+      "LQFP208":"PD12",
+      "TFBGA100":"PD12",
+      "TFBGA240+25":"PD12",
+      "UFBGA169":"PD12",
+      "UFBGA176+25":"PD12"
     },
     "PD13":{
-      "LQFP100":"60",
-      "LQFP144":"82",
-      "LQFP176":"101",
-      "LQFP208":"113",
-      "TFBGA100":"J10",
-      "TFBGA240+25":"R17",
-      "UFBGA169":"J11",
-      "UFBGA176+25":"M15"
+      "LQFP100":"PD13",
+      "LQFP144":"PD13",
+      "LQFP176":"PD13",
+      "LQFP208":"PD13",
+      "TFBGA100":"PD13",
+      "TFBGA240+25":"PD13",
+      "UFBGA169":"PD13",
+      "UFBGA176+25":"PD13"
     },
     "PD14":{
-      "LQFP100":"61",
-      "LQFP144":"85",
-      "LQFP176":"104",
-      "LQFP208":"116",
-      "TFBGA100":"H8",
-      "TFBGA240+25":"P16",
-      "UFBGA169":"J13",
-      "UFBGA176+25":"M14"
+      "LQFP100":"PD14",
+      "LQFP144":"PD14",
+      "LQFP176":"PD14",
+      "LQFP208":"PD14",
+      "TFBGA100":"PD14",
+      "TFBGA240+25":"PD14",
+      "UFBGA169":"PD14",
+      "UFBGA176+25":"PD14"
     },
     "PD15":{
-      "LQFP100":"62",
-      "LQFP144":"86",
-      "LQFP176":"105",
-      "LQFP208":"117",
-      "TFBGA100":"G8",
-      "TFBGA240+25":"P15",
-      "UFBGA169":"J12",
-      "UFBGA176+25":"L14"
+      "LQFP100":"PD15",
+      "LQFP144":"PD15",
+      "LQFP176":"PD15",
+      "LQFP208":"PD15",
+      "TFBGA100":"PD15",
+      "TFBGA240+25":"PD15",
+      "UFBGA169":"PD15",
+      "UFBGA176+25":"PD15"
     },
     "PD2":{
-      "LQFP100":"83",
-      "LQFP144":"116",
-      "LQFP176":"144",
-      "LQFP208":"166",
-      "TFBGA100":"B7",
-      "TFBGA240+25":"D12",
-      "UFBGA169":"E9",
-      "UFBGA176+25":"D12"
+      "LQFP100":"PD2",
+      "LQFP144":"PD2",
+      "LQFP176":"PD2",
+      "LQFP208":"PD2",
+      "TFBGA100":"PD2",
+      "TFBGA240+25":"PD2",
+      "UFBGA169":"PD2",
+      "UFBGA176+25":"PD2"
     },
     "PD3":{
-      "LQFP100":"84",
-      "LQFP144":"117",
-      "LQFP176":"145",
-      "LQFP208":"167",
-      "TFBGA100":"C7",
-      "TFBGA240+25":"B12",
-      "UFBGA169":"D9",
-      "UFBGA176+25":"D11"
+      "LQFP100":"PD3",
+      "LQFP144":"PD3",
+      "LQFP176":"PD3",
+      "LQFP208":"PD3",
+      "TFBGA100":"PD3",
+      "TFBGA240+25":"PD3",
+      "UFBGA169":"PD3",
+      "UFBGA176+25":"PD3"
     },
     "PD4":{
-      "LQFP100":"85",
-      "LQFP144":"118",
-      "LQFP176":"146",
-      "LQFP208":"168",
-      "TFBGA100":"D7",
-      "TFBGA240+25":"A12",
-      "UFBGA169":"C9",
-      "UFBGA176+25":"D10"
+      "LQFP100":"PD4",
+      "LQFP144":"PD4",
+      "LQFP176":"PD4",
+      "LQFP208":"PD4",
+      "TFBGA100":"PD4",
+      "TFBGA240+25":"PD4",
+      "UFBGA169":"PD4",
+      "UFBGA176+25":"PD4"
     },
     "PD5":{
-      "LQFP100":"86",
-      "LQFP144":"119",
-      "LQFP176":"147",
-      "LQFP208":"169",
-      "TFBGA100":"B6",
-      "TFBGA240+25":"A11",
-      "UFBGA169":"A9",
-      "UFBGA176+25":"C11"
+      "LQFP100":"PD5",
+      "LQFP144":"PD5",
+      "LQFP176":"PD5",
+      "LQFP208":"PD5",
+      "TFBGA100":"PD5",
+      "TFBGA240+25":"PD5",
+      "UFBGA169":"PD5",
+      "UFBGA176+25":"PD5"
     },
     "PD6":{
-      "LQFP100":"87",
-      "LQFP144":"122",
-      "LQFP176":"150",
-      "LQFP208":"172",
-      "TFBGA100":"C6",
-      "TFBGA240+25":"B11",
-      "UFBGA169":"B9",
-      "UFBGA176+25":"B11"
+      "LQFP100":"PD6",
+      "LQFP144":"PD6",
+      "LQFP176":"PD6",
+      "LQFP208":"PD6",
+      "TFBGA100":"PD6",
+      "TFBGA240+25":"PD6",
+      "UFBGA169":"PD6",
+      "UFBGA176+25":"PD6"
     },
     "PD7":{
-      "LQFP100":"88",
-      "LQFP144":"123",
-      "LQFP176":"151",
-      "LQFP208":"173",
-      "TFBGA100":"D6",
-      "TFBGA240+25":"C11",
-      "UFBGA169":"D8",
-      "UFBGA176+25":"A11"
+      "LQFP100":"PD7",
+      "LQFP144":"PD7",
+      "LQFP176":"PD7",
+      "LQFP208":"PD7",
+      "TFBGA100":"PD7",
+      "TFBGA240+25":"PD7",
+      "UFBGA169":"PD7",
+      "UFBGA176+25":"PD7"
     },
     "PD8":{
-      "LQFP100":"55",
-      "LQFP144":"77",
-      "LQFP176":"96",
-      "LQFP208":"108",
-      "TFBGA100":"K9",
-      "TFBGA240+25":"U16",
-      "UFBGA169":"M12",
-      "UFBGA176+25":"P15"
+      "LQFP100":"PD8",
+      "LQFP144":"PD8",
+      "LQFP176":"PD8",
+      "LQFP208":"PD8",
+      "TFBGA100":"PD8",
+      "TFBGA240+25":"PD8",
+      "UFBGA169":"PD8",
+      "UFBGA176+25":"PD8"
     },
     "PD9":{
-      "LQFP100":"56",
-      "LQFP144":"78",
-      "LQFP176":"97",
-      "LQFP208":"109",
-      "TFBGA100":"J9",
-      "TFBGA240+25":"T17",
-      "UFBGA169":"K11",
-      "UFBGA176+25":"P14"
+      "LQFP100":"PD9",
+      "LQFP144":"PD9",
+      "LQFP176":"PD9",
+      "LQFP208":"PD9",
+      "TFBGA100":"PD9",
+      "TFBGA240+25":"PD9",
+      "UFBGA169":"PD9",
+      "UFBGA176+25":"PD9"
     },
     "PDR_ON":{
-      "LQFP144":"143",
-      "LQFP176":"171",
-      "LQFP208":"203",
-      "TFBGA100":"F7",
-      "TFBGA240+25":"E7",
-      "UFBGA169":"C4",
-      "UFBGA176+25":"C6"
+      "LQFP100":"PDR_ON",
+      "LQFP144":"PDR_ON",
+      "LQFP176":"PDR_ON",
+      "LQFP208":"PDR_ON",
+      "TFBGA100":"PDR_ON",
+      "TFBGA240+25":"PDR_ON",
+      "UFBGA169":"PDR_ON",
+      "UFBGA176+25":"PDR_ON"
     },
     "PE0":{
-      "LQFP100":"97",
-      "LQFP144":"141",
-      "LQFP176":"169",
-      "LQFP208":"200",
-      "TFBGA100":"D4",
-      "TFBGA240+25":"C4",
-      "UFBGA169":"D4",
-      "UFBGA176+25":"A4"
+      "LQFP100":"PE0",
+      "LQFP144":"PE0",
+      "LQFP176":"PE0",
+      "LQFP208":"PE0",
+      "TFBGA100":"PE0",
+      "TFBGA240+25":"PE0",
+      "UFBGA169":"PE0",
+      "UFBGA176+25":"PE0"
     },
     "PE1":{
-      "LQFP100":"98",
-      "LQFP144":"142",
-      "LQFP176":"170",
-      "LQFP208":"201",
-      "TFBGA100":"C4",
-      "TFBGA240+25":"B4",
-      "UFBGA169":"D4",
-      "UFBGA176+25":"A3"
+      "LQFP100":"PE1",
+      "LQFP144":"PE1",
+      "LQFP176":"PE1",
+      "LQFP208":"PE1",
+      "TFBGA100":"PE1",
+      "TFBGA240+25":"PE1",
+      "UFBGA169":"PE1",
+      "UFBGA176+25":"PE1"
     },
     "PE10":{
-      "LQFP100":"40",
-      "LQFP144":"63",
-      "LQFP176":"73",
-      "LQFP208":"84",
-      "TFBGA100":"G6",
-      "TFBGA240+25":"N9",
-      "UFBGA169":"M8",
-      "UFBGA176+25":"R9"
+      "LQFP100":"PE10",
+      "LQFP144":"PE10",
+      "LQFP176":"PE10",
+      "LQFP208":"PE10",
+      "TFBGA100":"PE10",
+      "TFBGA240+25":"PE10",
+      "UFBGA169":"PE10",
+      "UFBGA176+25":"PE10"
     },
     "PE11":{
-      "LQFP100":"41",
-      "LQFP144":"64",
-      "LQFP176":"74",
-      "LQFP208":"85",
-      "TFBGA100":"H6",
-      "TFBGA240+25":"P10",
-      "UFBGA169":"N8",
-      "UFBGA176+25":"P10"
+      "LQFP100":"PE11",
+      "LQFP144":"PE11",
+      "LQFP176":"PE11",
+      "LQFP208":"PE11",
+      "TFBGA100":"PE11",
+      "TFBGA240+25":"PE11",
+      "UFBGA169":"PE11",
+      "UFBGA176+25":"PE11"
     },
     "PE12":{
-      "LQFP100":"42",
-      "LQFP144":"65",
-      "LQFP176":"75",
-      "LQFP208":"86",
-      "TFBGA100":"J6",
-      "TFBGA240+25":"R10",
-      "UFBGA169":"L8",
-      "UFBGA176+25":"R10"
+      "LQFP100":"PE12",
+      "LQFP144":"PE12",
+      "LQFP176":"PE12",
+      "LQFP208":"PE12",
+      "TFBGA100":"PE12",
+      "TFBGA240+25":"PE12",
+      "UFBGA169":"PE12",
+      "UFBGA176+25":"PE12"
     },
     "PE13":{
-      "LQFP100":"43",
-      "LQFP144":"66",
-      "LQFP176":"76",
-      "LQFP208":"87",
-      "TFBGA100":"K6",
-      "TFBGA240+25":"T10",
-      "UFBGA169":"K8",
-      "UFBGA176+25":"N11"
+      "LQFP100":"PE13",
+      "LQFP144":"PE13",
+      "LQFP176":"PE13",
+      "LQFP208":"PE13",
+      "TFBGA100":"PE13",
+      "TFBGA240+25":"PE13",
+      "UFBGA169":"PE13",
+      "UFBGA176+25":"PE13"
     },
     "PE14":{
-      "LQFP100":"44",
-      "LQFP144":"67",
-      "LQFP176":"77",
-      "LQFP208":"88",
-      "TFBGA100":"G7",
-      "TFBGA240+25":"U10",
-      "UFBGA169":"J9",
-      "UFBGA176+25":"P11"
+      "LQFP100":"PE14",
+      "LQFP144":"PE14",
+      "LQFP176":"PE14",
+      "LQFP208":"PE14",
+      "TFBGA100":"PE14",
+      "TFBGA240+25":"PE14",
+      "UFBGA169":"PE14",
+      "UFBGA176+25":"PE14"
     },
     "PE15":{
-      "LQFP100":"45",
-      "LQFP144":"68",
-      "LQFP176":"78",
-      "LQFP208":"89",
-      "TFBGA100":"H7",
-      "TFBGA240+25":"R11",
-      "UFBGA169":"N9",
-      "UFBGA176+25":"R11"
+      "LQFP100":"PE15",
+      "LQFP144":"PE15",
+      "LQFP176":"PE15",
+      "LQFP208":"PE15",
+      "TFBGA100":"PE15",
+      "TFBGA240+25":"PE15",
+      "UFBGA169":"PE15",
+      "UFBGA176+25":"PE15"
     },
     "PE2":{
-      "LQFP100":"1",
-      "LQFP144":"1",
-      "LQFP176":"1",
-      "LQFP208":"1",
-      "TFBGA100":"A3",
-      "TFBGA240+25":"C3",
-      "UFBGA169":"A2",
-      "UFBGA176+25":"A2"
+      "LQFP100":"PE2",
+      "LQFP144":"PE2",
+      "LQFP176":"PE2",
+      "LQFP208":"PE2",
+      "TFBGA100":"PE2",
+      "TFBGA240+25":"PE2",
+      "UFBGA169":"PE2",
+      "UFBGA176+25":"PE2"
     },
     "PE3":{
-      "LQFP100":"2",
-      "LQFP144":"2",
-      "LQFP176":"2",
-      "LQFP208":"2",
-      "TFBGA100":"B3",
-      "TFBGA240+25":"D3",
-      "UFBGA169":"B2",
-      "UFBGA176+25":"A1"
+      "LQFP100":"PE3",
+      "LQFP144":"PE3",
+      "LQFP176":"PE3",
+      "LQFP208":"PE3",
+      "TFBGA100":"PE3",
+      "TFBGA240+25":"PE3",
+      "UFBGA169":"PE3",
+      "UFBGA176+25":"PE3"
     },
     "PE4":{
-      "LQFP100":"3",
-      "LQFP144":"3",
-      "LQFP176":"3",
-      "LQFP208":"3",
-      "TFBGA100":"C3",
-      "TFBGA240+25":"D2",
-      "UFBGA169":"A1",
-      "UFBGA176+25":"B1"
+      "LQFP100":"PE4",
+      "LQFP144":"PE4",
+      "LQFP176":"PE4",
+      "LQFP208":"PE4",
+      "TFBGA100":"PE4",
+      "TFBGA240+25":"PE4",
+      "UFBGA169":"PE4",
+      "UFBGA176+25":"PE4"
     },
     "PE5":{
-      "LQFP100":"4",
-      "LQFP144":"4",
-      "LQFP176":"4",
-      "LQFP208":"4",
-      "TFBGA100":"D3",
-      "TFBGA240+25":"D1",
-      "UFBGA169":"C3",
-      "UFBGA176+25":"B2"
+      "LQFP100":"PE5",
+      "LQFP144":"PE5",
+      "LQFP176":"PE5",
+      "LQFP208":"PE5",
+      "TFBGA100":"PE5",
+      "TFBGA240+25":"PE5",
+      "UFBGA169":"PE5",
+      "UFBGA176+25":"PE5"
     },
     "PE6":{
-      "LQFP100":"5",
-      "LQFP144":"5",
-      "LQFP176":"5",
-      "LQFP208":"5",
-      "TFBGA100":"E3",
-      "TFBGA240+25":"E5",
-      "UFBGA169":"C2",
-      "UFBGA176+25":"B3"
+      "LQFP100":"PE6",
+      "LQFP144":"PE6",
+      "LQFP176":"PE6",
+      "LQFP208":"PE6",
+      "TFBGA100":"PE6",
+      "TFBGA240+25":"PE6",
+      "UFBGA169":"PE6",
+      "UFBGA176+25":"PE6"
     },
     "PE7":{
-      "LQFP100":"37",
-      "LQFP144":"58",
-      "LQFP176":"68",
-      "LQFP208":"79",
-      "TFBGA100":"H5",
-      "TFBGA240+25":"U9",
-      "UFBGA169":"G8",
-      "UFBGA176+25":"R8"
+      "LQFP100":"PE7",
+      "LQFP144":"PE7",
+      "LQFP176":"PE7",
+      "LQFP208":"PE7",
+      "TFBGA100":"PE7",
+      "TFBGA240+25":"PE7",
+      "UFBGA169":"PE7",
+      "UFBGA176+25":"PE7"
     },
     "PE8":{
-      "LQFP100":"38",
-      "LQFP144":"59",
-      "LQFP176":"69",
-      "LQFP208":"80",
-      "TFBGA100":"J5",
-      "TFBGA240+25":"T9",
-      "UFBGA169":"H8",
-      "UFBGA176+25":"P8"
+      "LQFP100":"PE8",
+      "LQFP144":"PE8",
+      "LQFP176":"PE8",
+      "LQFP208":"PE8",
+      "TFBGA100":"PE8",
+      "TFBGA240+25":"PE8",
+      "UFBGA169":"PE8",
+      "UFBGA176+25":"PE8"
     },
     "PE9":{
-      "LQFP100":"39",
-      "LQFP144":"60",
-      "LQFP176":"70",
-      "LQFP208":"81",
-      "TFBGA100":"K5",
-      "TFBGA240+25":"P9",
-      "UFBGA169":"J8",
-      "UFBGA176+25":"P9"
+      "LQFP100":"PE9",
+      "LQFP144":"PE9",
+      "LQFP176":"PE9",
+      "LQFP208":"PE9",
+      "TFBGA100":"PE9",
+      "TFBGA240+25":"PE9",
+      "UFBGA169":"PE9",
+      "UFBGA176+25":"PE9"
     },
     "PF0":{
-      "LQFP144":"10",
-      "LQFP176":"16",
-      "LQFP208":"16",
-      "TFBGA240+25":"G4",
-      "UFBGA169":"F3",
-      "UFBGA176+25":"E2"
+      "LQFP100":"PF0",
+      "LQFP144":"PF0",
+      "LQFP176":"PF0",
+      "LQFP208":"PF0",
+      "TFBGA100":"PF0",
+      "TFBGA240+25":"PF0",
+      "UFBGA169":"PF0",
+      "UFBGA176+25":"PF0"
     },
     "PF1":{
-      "LQFP144":"11",
-      "LQFP176":"17",
-      "LQFP208":"17",
-      "TFBGA240+25":"G3",
-      "UFBGA169":"E4",
-      "UFBGA176+25":"H3"
+      "LQFP100":"PF1",
+      "LQFP144":"PF1",
+      "LQFP176":"PF1",
+      "LQFP208":"PF1",
+      "TFBGA100":"PF1",
+      "TFBGA240+25":"PF1",
+      "UFBGA169":"PF1",
+      "UFBGA176+25":"PF1"
     },
     "PF10":{
-      "LQFP144":"22",
-      "LQFP176":"28",
-      "LQFP208":"31",
-      "TFBGA240+25":"L3",
-      "UFBGA169":"H3",
-      "UFBGA176+25":"L1"
+      "LQFP100":"PF10",
+      "LQFP144":"PF10",
+      "LQFP176":"PF10",
+      "LQFP208":"PF10",
+      "TFBGA100":"PF10",
+      "TFBGA240+25":"PF10",
+      "UFBGA169":"PF10",
+      "UFBGA176+25":"PF10"
     },
     "PF11":{
-      "LQFP144":"49",
-      "LQFP176":"59",
-      "LQFP208":"70",
-      "TFBGA240+25":"T7",
-      "UFBGA169":"M6",
-      "UFBGA176+25":"R6"
+      "LQFP100":"PF11",
+      "LQFP144":"PF11",
+      "LQFP176":"PF11",
+      "LQFP208":"PF11",
+      "TFBGA100":"PF11",
+      "TFBGA240+25":"PF11",
+      "UFBGA169":"PF11",
+      "UFBGA176+25":"PF11"
     },
     "PF12":{
-      "LQFP144":"50",
-      "LQFP176":"60",
-      "LQFP208":"71",
-      "TFBGA240+25":"R7",
-      "UFBGA169":"N6",
-      "UFBGA176+25":"P6"
+      "LQFP100":"PF12",
+      "LQFP144":"PF12",
+      "LQFP176":"PF12",
+      "LQFP208":"PF12",
+      "TFBGA100":"PF12",
+      "TFBGA240+25":"PF12",
+      "UFBGA169":"PF12",
+      "UFBGA176+25":"PF12"
     },
     "PF13":{
-      "LQFP144":"53",
-      "LQFP176":"63",
-      "LQFP208":"74",
-      "TFBGA240+25":"P7",
-      "UFBGA169":"G7",
-      "UFBGA176+25":"N6"
+      "LQFP100":"PF13",
+      "LQFP144":"PF13",
+      "LQFP176":"PF13",
+      "LQFP208":"PF13",
+      "TFBGA100":"PF13",
+      "TFBGA240+25":"PF13",
+      "UFBGA169":"PF13",
+      "UFBGA176+25":"PF13"
     },
     "PF14":{
-      "LQFP144":"54",
-      "LQFP176":"64",
-      "LQFP208":"75",
-      "TFBGA240+25":"P8",
-      "UFBGA169":"H7",
-      "UFBGA176+25":"R7"
+      "LQFP100":"PF14",
+      "LQFP144":"PF14",
+      "LQFP176":"PF14",
+      "LQFP208":"PF14",
+      "TFBGA100":"PF14",
+      "TFBGA240+25":"PF14",
+      "UFBGA169":"PF14",
+      "UFBGA176+25":"PF14"
     },
     "PF15":{
-      "LQFP144":"55",
-      "LQFP176":"65",
-      "LQFP208":"76",
-      "TFBGA240+25":"R9",
-      "UFBGA169":"J7",
-      "UFBGA176+25":"P7"
+      "LQFP100":"PF15",
+      "LQFP144":"PF15",
+      "LQFP176":"PF15",
+      "LQFP208":"PF15",
+      "TFBGA100":"PF15",
+      "TFBGA240+25":"PF15",
+      "UFBGA169":"PF15",
+      "UFBGA176+25":"PF15"
     },
     "PF2":{
-      "LQFP144":"12",
-      "LQFP176":"18",
-      "LQFP208":"18",
-      "TFBGA240+25":"G1",
-      "UFBGA169":"F4",
-      "UFBGA176+25":"H2"
+      "LQFP100":"PF2",
+      "LQFP144":"PF2",
+      "LQFP176":"PF2",
+      "LQFP208":"PF2",
+      "TFBGA100":"PF2",
+      "TFBGA240+25":"PF2",
+      "UFBGA169":"PF2",
+      "UFBGA176+25":"PF2"
     },
     "PF3":{
-      "LQFP144":"13",
-      "LQFP176":"19",
-      "LQFP208":"22",
-      "TFBGA240+25":"H4",
-      "UFBGA169":"E5",
-      "UFBGA176+25":"J2"
+      "LQFP100":"PF3",
+      "LQFP144":"PF3",
+      "LQFP176":"PF3",
+      "LQFP208":"PF3",
+      "TFBGA100":"PF3",
+      "TFBGA240+25":"PF3",
+      "UFBGA169":"PF3",
+      "UFBGA176+25":"PF3"
     },
     "PF4":{
-      "LQFP144":"14",
-      "LQFP176":"20",
-      "LQFP208":"23",
-      "TFBGA240+25":"J5",
-      "UFBGA169":"G3",
-      "UFBGA176+25":"J3"
+      "LQFP100":"PF4",
+      "LQFP144":"PF4",
+      "LQFP176":"PF4",
+      "LQFP208":"PF4",
+      "TFBGA100":"PF4",
+      "TFBGA240+25":"PF4",
+      "UFBGA169":"PF4",
+      "UFBGA176+25":"PF4"
     },
     "PF5":{
-      "LQFP144":"15",
-      "LQFP176":"21",
-      "LQFP208":"24",
-      "TFBGA240+25":"J4",
-      "UFBGA169":"F5",
-      "UFBGA176+25":"K3"
+      "LQFP100":"PF5",
+      "LQFP144":"PF5",
+      "LQFP176":"PF5",
+      "LQFP208":"PF5",
+      "TFBGA100":"PF5",
+      "TFBGA240+25":"PF5",
+      "UFBGA169":"PF5",
+      "UFBGA176+25":"PF5"
     },
     "PF6":{
-      "LQFP144":"18",
-      "LQFP176":"24",
-      "LQFP208":"27",
-      "TFBGA240+25":"K2",
-      "UFBGA169":"G4",
-      "UFBGA176+25":"K2"
+      "LQFP100":"PF6",
+      "LQFP144":"PF6",
+      "LQFP176":"PF6",
+      "LQFP208":"PF6",
+      "TFBGA100":"PF6",
+      "TFBGA240+25":"PF6",
+      "UFBGA169":"PF6",
+      "UFBGA176+25":"PF6"
     },
     "PF7":{
-      "LQFP144":"19",
-      "LQFP176":"25",
-      "LQFP208":"28",
-      "TFBGA240+25":"K3",
-      "UFBGA169":"F6",
-      "UFBGA176+25":"K1"
+      "LQFP100":"PF7",
+      "LQFP144":"PF7",
+      "LQFP176":"PF7",
+      "LQFP208":"PF7",
+      "TFBGA100":"PF7",
+      "TFBGA240+25":"PF7",
+      "UFBGA169":"PF7",
+      "UFBGA176+25":"PF7"
     },
     "PF8":{
-      "LQFP144":"20",
-      "LQFP176":"26",
-      "LQFP208":"29",
-      "TFBGA240+25":"K4",
-      "UFBGA169":"H4",
-      "UFBGA176+25":"L3"
+      "LQFP100":"PF8",
+      "LQFP144":"PF8",
+      "LQFP176":"PF8",
+      "LQFP208":"PF8",
+      "TFBGA100":"PF8",
+      "TFBGA240+25":"PF8",
+      "UFBGA169":"PF8",
+      "UFBGA176+25":"PF8"
     },
     "PF9":{
-      "LQFP144":"21",
-      "LQFP176":"27",
-      "LQFP208":"30",
-      "TFBGA240+25":"L4",
-      "UFBGA169":"G5",
-      "UFBGA176+25":"L2"
+      "LQFP100":"PF9",
+      "LQFP144":"PF9",
+      "LQFP176":"PF9",
+      "LQFP208":"PF9",
+      "TFBGA100":"PF9",
+      "TFBGA240+25":"PF9",
+      "UFBGA169":"PF9",
+      "UFBGA176+25":"PF9"
     },
     "PG0":{
-      "LQFP144":"56",
-      "LQFP176":"66",
-      "LQFP208":"77",
-      "TFBGA240+25":"T8",
-      "UFBGA169":"K7",
-      "UFBGA176+25":"N7"
+      "LQFP100":"PG0",
+      "LQFP144":"PG0",
+      "LQFP176":"PG0",
+      "LQFP208":"PG0",
+      "TFBGA100":"PG0",
+      "TFBGA240+25":"PG0",
+      "UFBGA169":"PG0",
+      "UFBGA176+25":"PG0"
     },
     "PG1":{
-      "LQFP144":"57",
-      "LQFP176":"67",
-      "LQFP208":"78",
-      "TFBGA240+25":"U8",
-      "UFBGA169":"L7",
-      "UFBGA176+25":"M7"
+      "LQFP100":"PG1",
+      "LQFP144":"PG1",
+      "LQFP176":"PG1",
+      "LQFP208":"PG1",
+      "TFBGA100":"PG1",
+      "TFBGA240+25":"PG1",
+      "UFBGA169":"PG1",
+      "UFBGA176+25":"PG1"
     },
     "PG10":{
-      "LQFP144":"125",
-      "LQFP176":"153",
-      "LQFP208":"179",
-      "TFBGA240+25":"A9",
-      "UFBGA169":"A8",
-      "UFBGA176+25":"B10"
+      "LQFP100":"PG10",
+      "LQFP144":"PG10",
+      "LQFP176":"PG10",
+      "LQFP208":"PG10",
+      "TFBGA100":"PG10",
+      "TFBGA240+25":"PG10",
+      "UFBGA169":"PG10",
+      "UFBGA176+25":"PG10"
     },
     "PG11":{
-      "LQFP144":"126",
-      "LQFP176":"154",
-      "LQFP208":"180",
-      "TFBGA240+25":"B9",
-      "UFBGA169":"B8",
-      "UFBGA176+25":"B9"
+      "LQFP100":"PG11",
+      "LQFP144":"PG11",
+      "LQFP176":"PG11",
+      "LQFP208":"PG11",
+      "TFBGA100":"PG11",
+      "TFBGA240+25":"PG11",
+      "UFBGA169":"PG11",
+      "UFBGA176+25":"PG11"
     },
     "PG12":{
-      "LQFP144":"127",
-      "LQFP176":"155",
-      "LQFP208":"181",
-      "TFBGA240+25":"C9",
-      "UFBGA169":"E8",
-      "UFBGA176+25":"B8"
+      "LQFP100":"PG12",
+      "LQFP144":"PG12",
+      "LQFP176":"PG12",
+      "LQFP208":"PG12",
+      "TFBGA100":"PG12",
+      "TFBGA240+25":"PG12",
+      "UFBGA169":"PG12",
+      "UFBGA176+25":"PG12"
     },
     "PG13":{
-      "LQFP144":"128",
-      "LQFP176":"156",
-      "LQFP208":"182",
-      "TFBGA240+25":"D9",
-      "UFBGA169":"D7",
-      "UFBGA176+25":"A8"
+      "LQFP100":"PG13",
+      "LQFP144":"PG13",
+      "LQFP176":"PG13",
+      "LQFP208":"PG13",
+      "TFBGA100":"PG13",
+      "TFBGA240+25":"PG13",
+      "UFBGA169":"PG13",
+      "UFBGA176+25":"PG13"
     },
     "PG14":{
-      "LQFP144":"129",
-      "LQFP176":"157",
-      "LQFP208":"183",
-      "TFBGA240+25":"D8",
-      "UFBGA169":"C7",
-      "UFBGA176+25":"A7"
+      "LQFP100":"PG14",
+      "LQFP144":"PG14",
+      "LQFP176":"PG14",
+      "LQFP208":"PG14",
+      "TFBGA100":"PG14",
+      "TFBGA240+25":"PG14",
+      "UFBGA169":"PG14",
+      "UFBGA176+25":"PG14"
     },
     "PG15":{
-      "LQFP144":"132",
-      "LQFP176":"160",
-      "LQFP208":"191",
-      "TFBGA240+25":"D6",
-      "UFBGA169":"E7",
-      "UFBGA176+25":"B7"
+      "LQFP100":"PG15",
+      "LQFP144":"PG15",
+      "LQFP176":"PG15",
+      "LQFP208":"PG15",
+      "TFBGA100":"PG15",
+      "TFBGA240+25":"PG15",
+      "UFBGA169":"PG15",
+      "UFBGA176+25":"PG15"
     },
     "PG2":{
-      "LQFP144":"87",
-      "LQFP176":"106",
-      "LQFP208":"129",
-      "TFBGA240+25":"H16",
-      "UFBGA169":"H9",
-      "UFBGA176+25":"L15"
+      "LQFP100":"PG2",
+      "LQFP144":"PG2",
+      "LQFP176":"PG2",
+      "LQFP208":"PG2",
+      "TFBGA100":"PG2",
+      "TFBGA240+25":"PG2",
+      "UFBGA169":"PG2",
+      "UFBGA176+25":"PG2"
     },
     "PG3":{
-      "LQFP144":"88",
-      "LQFP176":"107",
-      "LQFP208":"130",
-      "TFBGA240+25":"H15",
-      "UFBGA169":"H10",
-      "UFBGA176+25":"K15"
+      "LQFP100":"PG3",
+      "LQFP144":"PG3",
+      "LQFP176":"PG3",
+      "LQFP208":"PG3",
+      "TFBGA100":"PG3",
+      "TFBGA240+25":"PG3",
+      "UFBGA169":"PG3",
+      "UFBGA176+25":"PG3"
     },
     "PG4":{
-      "LQFP144":"89",
-      "LQFP176":"108",
-      "LQFP208":"131",
-      "TFBGA240+25":"H14",
-      "UFBGA169":"F8",
-      "UFBGA176+25":"K14"
+      "LQFP100":"PG4",
+      "LQFP144":"PG4",
+      "LQFP176":"PG4",
+      "LQFP208":"PG4",
+      "TFBGA100":"PG4",
+      "TFBGA240+25":"PG4",
+      "UFBGA169":"PG4",
+      "UFBGA176+25":"PG4"
     },
     "PG5":{
-      "LQFP144":"90",
-      "LQFP176":"109",
-      "LQFP208":"132",
-      "TFBGA240+25":"G14",
-      "UFBGA169":"H11",
-      "UFBGA176+25":"K13"
+      "LQFP100":"PG5",
+      "LQFP144":"PG5",
+      "LQFP176":"PG5",
+      "LQFP208":"PG5",
+      "TFBGA100":"PG5",
+      "TFBGA240+25":"PG5",
+      "UFBGA169":"PG5",
+      "UFBGA176+25":"PG5"
     },
     "PG6":{
-      "LQFP144":"91",
-      "LQFP176":"110",
-      "LQFP208":"133",
-      "TFBGA240+25":"G15",
-      "UFBGA169":"G9",
-      "UFBGA176+25":"J15"
+      "LQFP100":"PG6",
+      "LQFP144":"PG6",
+      "LQFP176":"PG6",
+      "LQFP208":"PG6",
+      "TFBGA100":"PG6",
+      "TFBGA240+25":"PG6",
+      "UFBGA169":"PG6",
+      "UFBGA176+25":"PG6"
     },
     "PG7":{
-      "LQFP144":"92",
-      "LQFP176":"111",
-      "LQFP208":"134",
-      "TFBGA240+25":"F16",
-      "UFBGA169":"G10",
-      "UFBGA176+25":"J14"
+      "LQFP100":"PG7",
+      "LQFP144":"PG7",
+      "LQFP176":"PG7",
+      "LQFP208":"PG7",
+      "TFBGA100":"PG7",
+      "TFBGA240+25":"PG7",
+      "UFBGA169":"PG7",
+      "UFBGA176+25":"PG7"
     },
     "PG8":{
-      "LQFP144":"93",
-      "LQFP176":"112",
-      "LQFP208":"135",
-      "TFBGA240+25":"F15",
-      "UFBGA169":"G11",
-      "UFBGA176+25":"H14"
+      "LQFP100":"PG8",
+      "LQFP144":"PG8",
+      "LQFP176":"PG8",
+      "LQFP208":"PG8",
+      "TFBGA100":"PG8",
+      "TFBGA240+25":"PG8",
+      "UFBGA169":"PG8",
+      "UFBGA176+25":"PG8"
     },
     "PG9":{
-      "LQFP144":"124",
-      "LQFP176":"152",
-      "LQFP208":"178",
-      "TFBGA240+25":"A10",
-      "UFBGA169":"C8",
-      "UFBGA176+25":"C10"
+      "LQFP100":"PG9",
+      "LQFP144":"PG9",
+      "LQFP176":"PG9",
+      "LQFP208":"PG9",
+      "TFBGA100":"PG9",
+      "TFBGA240+25":"PG9",
+      "UFBGA169":"PG9",
+      "UFBGA176+25":"PG9"
     },
-    "PH0-OSC_IN":{
-      "LQFP100":"12",
-      "LQFP144":"23",
-      "LQFP176":"29",
-      "LQFP208":"32",
-      "TFBGA100":"C1",
-      "TFBGA240+25":"J2",
-      "UFBGA169":"H1",
-      "UFBGA176+25":"G1"
+    "PH0":{
+      "LQFP100":"PH0",
+      "LQFP144":"PH0",
+      "LQFP176":"PH0",
+      "LQFP208":"PH0",
+      "TFBGA100":"PH0",
+      "TFBGA240+25":"PH0",
+      "UFBGA169":"PH0",
+      "UFBGA176+25":"PH0"
     },
-    "PH1-OSC_OUT":{
-      "LQFP100":"13",
-      "LQFP144":"24",
-      "LQFP176":"30",
-      "LQFP208":"33",
-      "TFBGA100":"D1",
-      "TFBGA240+25":"J1",
-      "UFBGA169":"H2",
-      "UFBGA176+25":"H1"
+    "PH1":{
+      "LQFP100":"PH1",
+      "LQFP144":"PH1",
+      "LQFP176":"PH1",
+      "LQFP208":"PH1",
+      "TFBGA100":"PH1",
+      "TFBGA240+25":"PH1",
+      "UFBGA169":"PH1",
+      "UFBGA176+25":"PH1"
     },
     "PH10":{
-      "LQFP176":"87",
-      "LQFP208":"100",
-      "TFBGA240+25":"P13",
-      "UFBGA169":"K9",
-      "UFBGA176+25":"L13"
+      "LQFP100":"PH10",
+      "LQFP144":"PH10",
+      "LQFP176":"PH10",
+      "LQFP208":"PH10",
+      "TFBGA100":"PH10",
+      "TFBGA240+25":"PH10",
+      "UFBGA169":"PH10",
+      "UFBGA176+25":"PH10"
     },
     "PH11":{
-      "LQFP176":"88",
-      "LQFP208":"101",
-      "TFBGA240+25":"P14",
-      "UFBGA169":"L10",
-      "UFBGA176+25":"L12"
+      "LQFP100":"PH11",
+      "LQFP144":"PH11",
+      "LQFP176":"PH11",
+      "LQFP208":"PH11",
+      "TFBGA100":"PH11",
+      "TFBGA240+25":"PH11",
+      "UFBGA169":"PH11",
+      "UFBGA176+25":"PH11"
     },
     "PH12":{
-      "LQFP176":"89",
-      "LQFP208":"102",
-      "TFBGA240+25":"R14",
-      "UFBGA169":"K10",
-      "UFBGA176+25":"K12"
+      "LQFP100":"PH12",
+      "LQFP144":"PH12",
+      "LQFP176":"PH12",
+      "LQFP208":"PH12",
+      "TFBGA100":"PH12",
+      "TFBGA240+25":"PH12",
+      "UFBGA169":"PH12",
+      "UFBGA176+25":"PH12"
     },
     "PH13":{
-      "LQFP176":"128",
-      "LQFP208":"151",
-      "TFBGA240+25":"D16",
-      "UFBGA176+25":"E12"
+      "LQFP100":"PH13",
+      "LQFP144":"PH13",
+      "LQFP176":"PH13",
+      "LQFP208":"PH13",
+      "TFBGA100":"PH13",
+      "TFBGA240+25":"PH13",
+      "UFBGA169":"PH13",
+      "UFBGA176+25":"PH13"
     },
     "PH14":{
-      "LQFP176":"129",
-      "LQFP208":"152",
-      "TFBGA240+25":"B17",
-      "UFBGA176+25":"E13"
+      "LQFP100":"PH14",
+      "LQFP144":"PH14",
+      "LQFP176":"PH14",
+      "LQFP208":"PH14",
+      "TFBGA100":"PH14",
+      "TFBGA240+25":"PH14",
+      "UFBGA169":"PH14",
+      "UFBGA176+25":"PH14"
     },
     "PH15":{
-      "LQFP176":"130",
-      "LQFP208":"153",
-      "TFBGA240+25":"B16",
-      "UFBGA169":"D13",
-      "UFBGA176+25":"D13"
+      "LQFP100":"PH15",
+      "LQFP144":"PH15",
+      "LQFP176":"PH15",
+      "LQFP208":"PH15",
+      "TFBGA100":"PH15",
+      "TFBGA240+25":"PH15",
+      "UFBGA169":"PH15",
+      "UFBGA176+25":"PH15"
     },
     "PH2":{
-      "LQFP176":"43",
-      "LQFP208":"46",
-      "TFBGA240+25":"N2",
-      "UFBGA169":"N2",
-      "UFBGA176+25":"F4"
+      "LQFP100":"PH2",
+      "LQFP144":"PH2",
+      "LQFP176":"PH2",
+      "LQFP208":"PH2",
+      "TFBGA100":"PH2",
+      "TFBGA240+25":"PH2",
+      "UFBGA169":"PH2",
+      "UFBGA176+25":"PH2"
     },
     "PH3":{
-      "LQFP176":"44",
-      "LQFP208":"47",
-      "TFBGA240+25":"P2",
-      "UFBGA169":"M3",
-      "UFBGA176+25":"G4"
+      "LQFP100":"PH3",
+      "LQFP144":"PH3",
+      "LQFP176":"PH3",
+      "LQFP208":"PH3",
+      "TFBGA100":"PH3",
+      "TFBGA240+25":"PH3",
+      "UFBGA169":"PH3",
+      "UFBGA176+25":"PH3"
     },
     "PH4":{
-      "LQFP176":"45",
-      "LQFP208":"48",
-      "TFBGA240+25":"P3",
-      "UFBGA169":"K3",
-      "UFBGA176+25":"H4"
+      "LQFP100":"PH4",
+      "LQFP144":"PH4",
+      "LQFP176":"PH4",
+      "LQFP208":"PH4",
+      "TFBGA100":"PH4",
+      "TFBGA240+25":"PH4",
+      "UFBGA169":"PH4",
+      "UFBGA176+25":"PH4"
     },
     "PH5":{
-      "LQFP176":"46",
-      "LQFP208":"49",
-      "TFBGA240+25":"P4",
-      "UFBGA169":"L3",
-      "UFBGA176+25":"J4"
-    },
-    "PH6":{
-      "LQFP176":"83",
-      "LQFP208":"96",
-      "TFBGA240+25":"T11",
-      "UFBGA176+25":"M11"
-    },
-    "PH7":{
-      "LQFP176":"84",
-      "LQFP208":"97",
-      "TFBGA240+25":"U13",
-      "UFBGA176+25":"N12"
-    },
-    "PH8":{
-      "LQFP176":"85",
-      "LQFP208":"98",
-      "TFBGA240+25":"T13",
-      "UFBGA176+25":"M12"
-    },
-    "PH9":{
-      "LQFP176":"86",
-      "LQFP208":"99",
-      "TFBGA240+25":"R13",
-      "UFBGA176+25":"M13"
+      "LQFP100":"PH5",
+      "LQFP144":"PH5",
+      "LQFP176":"PH5",
+      "LQFP208":"PH5",
+      "TFBGA100":"PH5",
+      "TFBGA240+25":"PH5",
+      "UFBGA169":"PH5",
+      "UFBGA176+25":"PH5"
     },
     "PI0":{
-      "LQFP176":"131",
-      "LQFP208":"154",
-      "TFBGA240+25":"A16",
-      "UFBGA169":"A13",
-      "UFBGA176+25":"E14"
+      "LQFP100":"PI0",
+      "LQFP144":"PI0",
+      "LQFP176":"PI0",
+      "LQFP208":"PI0",
+      "TFBGA100":"PI0",
+      "TFBGA240+25":"PI0",
+      "UFBGA169":"PI0",
+      "UFBGA176+25":"PI0"
     },
     "PI1":{
-      "LQFP176":"132",
-      "LQFP208":"155",
-      "TFBGA240+25":"A15",
-      "UFBGA169":"B13",
-      "UFBGA176+25":"D14"
+      "LQFP100":"PI1",
+      "LQFP144":"PI1",
+      "LQFP176":"PI1",
+      "LQFP208":"PI1",
+      "TFBGA100":"PI1",
+      "TFBGA240+25":"PI1",
+      "UFBGA169":"PI1",
+      "UFBGA176+25":"PI1"
     },
     "PI10":{
-      "LQFP176":"12",
-      "LQFP208":"12",
-      "TFBGA240+25":"F3",
-      "UFBGA169":"E3",
-      "UFBGA176+25":"E3"
+      "LQFP100":"PI10",
+      "LQFP144":"PI10",
+      "LQFP176":"PI10",
+      "LQFP208":"PI10",
+      "TFBGA100":"PI10",
+      "TFBGA240+25":"PI10",
+      "UFBGA169":"PI10",
+      "UFBGA176+25":"PI10"
     },
     "PI11":{
-      "LQFP176":"13",
-      "LQFP208":"13",
-      "TFBGA240+25":"F4",
-      "UFBGA169":"E1",
-      "UFBGA176+25":"E4"
+      "LQFP100":"PI11",
+      "LQFP144":"PI11",
+      "LQFP176":"PI11",
+      "LQFP208":"PI11",
+      "TFBGA100":"PI11",
+      "TFBGA240+25":"PI11",
+      "UFBGA169":"PI11",
+      "UFBGA176+25":"PI11"
     },
     "PI12":{
-      "LQFP208":"19",
-      "TFBGA240+25":"H1",
-      "UFBGA169":"F2"
+      "LQFP100":"PI12",
+      "LQFP144":"PI12",
+      "LQFP176":"PI12",
+      "LQFP208":"PI12",
+      "TFBGA100":"PI12",
+      "TFBGA240+25":"PI12",
+      "UFBGA169":"PI12",
+      "UFBGA176+25":"PI12"
     },
     "PI13":{
-      "LQFP208":"20",
-      "TFBGA240+25":"H2",
-      "UFBGA169":"F1"
-    },
-    "PI14":{
-      "LQFP208":"21",
-      "TFBGA240+25":"H3"
-    },
-    "PI15":{
-      "LQFP208":"64",
-      "TFBGA240+25":"P5"
+      "LQFP100":"PI13",
+      "LQFP144":"PI13",
+      "LQFP176":"PI13",
+      "LQFP208":"PI13",
+      "TFBGA100":"PI13",
+      "TFBGA240+25":"PI13",
+      "UFBGA169":"PI13",
+      "UFBGA176+25":"PI13"
     },
     "PI2":{
-      "LQFP176":"133",
-      "LQFP208":"156",
-      "TFBGA240+25":"B15",
-      "UFBGA169":"A6",
-      "UFBGA176+25":"C14"
+      "LQFP100":"PI2",
+      "LQFP144":"PI2",
+      "LQFP176":"PI2",
+      "LQFP208":"PI2",
+      "TFBGA100":"PI2",
+      "TFBGA240+25":"PI2",
+      "UFBGA169":"PI2",
+      "UFBGA176+25":"PI2"
     },
     "PI3":{
-      "LQFP176":"134",
-      "LQFP208":"157",
-      "TFBGA240+25":"C14",
-      "UFBGA169":"B7",
-      "UFBGA176+25":"C13"
+      "LQFP100":"PI3",
+      "LQFP144":"PI3",
+      "LQFP176":"PI3",
+      "LQFP208":"PI3",
+      "TFBGA100":"PI3",
+      "TFBGA240+25":"PI3",
+      "UFBGA169":"PI3",
+      "UFBGA176+25":"PI3"
     },
     "PI4":{
-      "LQFP176":"173",
-      "LQFP208":"205",
-      "TFBGA240+25":"A4",
-      "UFBGA176+25":"D4"
+      "LQFP100":"PI4",
+      "LQFP144":"PI4",
+      "LQFP176":"PI4",
+      "LQFP208":"PI4",
+      "TFBGA100":"PI4",
+      "TFBGA240+25":"PI4",
+      "UFBGA169":"PI4",
+      "UFBGA176+25":"PI4"
     },
     "PI5":{
-      "LQFP176":"174",
-      "LQFP208":"206",
-      "TFBGA240+25":"A3",
-      "UFBGA176+25":"C4"
+      "LQFP100":"PI5",
+      "LQFP144":"PI5",
+      "LQFP176":"PI5",
+      "LQFP208":"PI5",
+      "TFBGA100":"PI5",
+      "TFBGA240+25":"PI5",
+      "UFBGA169":"PI5",
+      "UFBGA176+25":"PI5"
     },
     "PI6":{
-      "LQFP176":"175",
-      "LQFP208":"207",
-      "TFBGA240+25":"A2",
-      "UFBGA176+25":"C3"
+      "LQFP100":"PI6",
+      "LQFP144":"PI6",
+      "LQFP176":"PI6",
+      "LQFP208":"PI6",
+      "TFBGA100":"PI6",
+      "TFBGA240+25":"PI6",
+      "UFBGA169":"PI6",
+      "UFBGA176+25":"PI6"
     },
     "PI7":{
-      "LQFP176":"176",
-      "LQFP208":"208",
-      "TFBGA240+25":"B3",
-      "UFBGA176+25":"C2"
+      "LQFP100":"PI7",
+      "LQFP144":"PI7",
+      "LQFP176":"PI7",
+      "LQFP208":"PI7",
+      "TFBGA100":"PI7",
+      "TFBGA240+25":"PI7",
+      "UFBGA169":"PI7",
+      "UFBGA176+25":"PI7"
     },
     "PI8":{
-      "LQFP144":"7",
-      "LQFP176":"7",
-      "LQFP208":"7",
-      "TFBGA240+25":"E4",
-      "UFBGA169":"D2",
-      "UFBGA176+25":"D2"
+      "LQFP100":"PI8",
+      "LQFP144":"PI8",
+      "LQFP176":"PI8",
+      "LQFP208":"PI8",
+      "TFBGA100":"PI8",
+      "TFBGA240+25":"PI8",
+      "UFBGA169":"PI8",
+      "UFBGA176+25":"PI8"
     },
     "PI9":{
-      "LQFP176":"11",
-      "LQFP208":"11",
-      "TFBGA240+25":"E2",
-      "UFBGA169":"D3",
-      "UFBGA176+25":"D3"
+      "LQFP100":"PI9",
+      "LQFP144":"PI9",
+      "LQFP176":"PI9",
+      "LQFP208":"PI9",
+      "TFBGA100":"PI9",
+      "TFBGA240+25":"PI9",
+      "UFBGA169":"PI9",
+      "UFBGA176+25":"PI9"
     },
     "PJ0":{
-      "LQFP208":"65",
-      "TFBGA240+25":"N6",
-      "UFBGA169":"J4"
+      "LQFP100":"PJ0",
+      "LQFP144":"PJ0",
+      "LQFP176":"PJ0",
+      "LQFP208":"PJ0",
+      "TFBGA100":"PJ0",
+      "TFBGA240+25":"PJ0",
+      "UFBGA169":"PJ0",
+      "UFBGA176+25":"PJ0"
     },
     "PJ1":{
-      "LQFP208":"66",
-      "TFBGA240+25":"P6",
-      "UFBGA169":"H5"
+      "LQFP100":"PJ1",
+      "LQFP144":"PJ1",
+      "LQFP176":"PJ1",
+      "LQFP208":"PJ1",
+      "TFBGA100":"PJ1",
+      "TFBGA240+25":"PJ1",
+      "UFBGA169":"PJ1",
+      "UFBGA176+25":"PJ1"
     },
     "PJ10":{
-      "LQFP208":"122",
-      "TFBGA240+25":"L14"
+      "LQFP100":"PJ10",
+      "LQFP144":"PJ10",
+      "LQFP176":"PJ10",
+      "LQFP208":"PJ10",
+      "TFBGA100":"PJ10",
+      "TFBGA240+25":"PJ10",
+      "UFBGA169":"PJ10",
+      "UFBGA176+25":"PJ10"
     },
     "PJ11":{
-      "LQFP208":"123",
-      "TFBGA240+25":"K14"
+      "LQFP100":"PJ11",
+      "LQFP144":"PJ11",
+      "LQFP176":"PJ11",
+      "LQFP208":"PJ11",
+      "TFBGA100":"PJ11",
+      "TFBGA240+25":"PJ11",
+      "UFBGA169":"PJ11",
+      "UFBGA176+25":"PJ11"
     },
     "PJ12":{
-      "LQFP208":"174",
-      "TFBGA240+25":"D11"
+      "LQFP100":"PJ12",
+      "LQFP144":"PJ12",
+      "LQFP176":"PJ12",
+      "LQFP208":"PJ12",
+      "TFBGA100":"PJ12",
+      "TFBGA240+25":"PJ12",
+      "UFBGA169":"PJ12",
+      "UFBGA176+25":"PJ12"
     },
     "PJ13":{
-      "LQFP208":"175",
-      "TFBGA240+25":"E10"
+      "LQFP100":"PJ13",
+      "LQFP144":"PJ13",
+      "LQFP176":"PJ13",
+      "LQFP208":"PJ13",
+      "TFBGA100":"PJ13",
+      "TFBGA240+25":"PJ13",
+      "UFBGA169":"PJ13",
+      "UFBGA176+25":"PJ13"
     },
     "PJ14":{
-      "LQFP208":"176",
-      "TFBGA240+25":"D10"
+      "LQFP100":"PJ14",
+      "LQFP144":"PJ14",
+      "LQFP176":"PJ14",
+      "LQFP208":"PJ14",
+      "TFBGA100":"PJ14",
+      "TFBGA240+25":"PJ14",
+      "UFBGA169":"PJ14",
+      "UFBGA176+25":"PJ14"
     },
     "PJ15":{
-      "LQFP208":"177",
-      "TFBGA240+25":"B10"
+      "LQFP100":"PJ15",
+      "LQFP144":"PJ15",
+      "LQFP176":"PJ15",
+      "LQFP208":"PJ15",
+      "TFBGA100":"PJ15",
+      "TFBGA240+25":"PJ15",
+      "UFBGA169":"PJ15",
+      "UFBGA176+25":"PJ15"
     },
     "PJ2":{
-      "LQFP208":"67",
-      "TFBGA240+25":"T6"
+      "LQFP100":"PJ2",
+      "LQFP144":"PJ2",
+      "LQFP176":"PJ2",
+      "LQFP208":"PJ2",
+      "TFBGA100":"PJ2",
+      "TFBGA240+25":"PJ2",
+      "UFBGA169":"PJ2",
+      "UFBGA176+25":"PJ2"
     },
     "PJ3":{
-      "LQFP208":"68",
-      "TFBGA240+25":"U6"
+      "LQFP100":"PJ3",
+      "LQFP144":"PJ3",
+      "LQFP176":"PJ3",
+      "LQFP208":"PJ3",
+      "TFBGA100":"PJ3",
+      "TFBGA240+25":"PJ3",
+      "UFBGA169":"PJ3",
+      "UFBGA176+25":"PJ3"
     },
     "PJ4":{
-      "LQFP208":"69",
-      "TFBGA240+25":"U7"
+      "LQFP100":"PJ4",
+      "LQFP144":"PJ4",
+      "LQFP176":"PJ4",
+      "LQFP208":"PJ4",
+      "TFBGA100":"PJ4",
+      "TFBGA240+25":"PJ4",
+      "UFBGA169":"PJ4",
+      "UFBGA176+25":"PJ4"
     },
     "PJ5":{
-      "LQFP208":"95",
-      "TFBGA240+25":"R12"
+      "LQFP100":"PJ5",
+      "LQFP144":"PJ5",
+      "LQFP176":"PJ5",
+      "LQFP208":"PJ5",
+      "TFBGA100":"PJ5",
+      "TFBGA240+25":"PJ5",
+      "UFBGA169":"PJ5",
+      "UFBGA176+25":"PJ5"
     },
     "PJ6":{
-      "LQFP208":"118",
-      "TFBGA240+25":"N15"
+      "LQFP100":"PJ6",
+      "LQFP144":"PJ6",
+      "LQFP176":"PJ6",
+      "LQFP208":"PJ6",
+      "TFBGA100":"PJ6",
+      "TFBGA240+25":"PJ6",
+      "UFBGA169":"PJ6",
+      "UFBGA176+25":"PJ6"
     },
     "PJ7":{
-      "LQFP208":"119",
-      "TFBGA240+25":"N14"
+      "LQFP100":"PJ7",
+      "LQFP144":"PJ7",
+      "LQFP176":"PJ7",
+      "LQFP208":"PJ7",
+      "TFBGA100":"PJ7",
+      "TFBGA240+25":"PJ7",
+      "UFBGA169":"PJ7",
+      "UFBGA176+25":"PJ7"
     },
     "PJ8":{
-      "LQFP208":"120",
-      "TFBGA240+25":"N13"
+      "LQFP100":"PJ8",
+      "LQFP144":"PJ8",
+      "LQFP176":"PJ8",
+      "LQFP208":"PJ8",
+      "TFBGA100":"PJ8",
+      "TFBGA240+25":"PJ8",
+      "UFBGA169":"PJ8",
+      "UFBGA176+25":"PJ8"
     },
     "PJ9":{
-      "LQFP208":"121",
-      "TFBGA240+25":"M14"
+      "LQFP100":"PJ9",
+      "LQFP144":"PJ9",
+      "LQFP176":"PJ9",
+      "LQFP208":"PJ9",
+      "TFBGA100":"PJ9",
+      "TFBGA240+25":"PJ9",
+      "UFBGA169":"PJ9",
+      "UFBGA176+25":"PJ9"
     },
     "PK0":{
-      "LQFP208":"126",
-      "TFBGA240+25":"J14"
+      "LQFP100":"PK0",
+      "LQFP144":"PK0",
+      "LQFP176":"PK0",
+      "LQFP208":"PK0",
+      "TFBGA100":"PK0",
+      "TFBGA240+25":"PK0",
+      "UFBGA169":"PK0",
+      "UFBGA176+25":"PK0"
     },
     "PK1":{
-      "LQFP208":"127",
-      "TFBGA240+25":"J15"
+      "LQFP100":"PK1",
+      "LQFP144":"PK1",
+      "LQFP176":"PK1",
+      "LQFP208":"PK1",
+      "TFBGA100":"PK1",
+      "TFBGA240+25":"PK1",
+      "UFBGA169":"PK1",
+      "UFBGA176+25":"PK1"
     },
     "PK2":{
-      "LQFP208":"128",
-      "TFBGA240+25":"H17"
+      "LQFP100":"PK2",
+      "LQFP144":"PK2",
+      "LQFP176":"PK2",
+      "LQFP208":"PK2",
+      "TFBGA100":"PK2",
+      "TFBGA240+25":"PK2",
+      "UFBGA169":"PK2",
+      "UFBGA176+25":"PK2"
     },
     "PK3":{
-      "LQFP208":"186",
-      "TFBGA240+25":"C8"
+      "LQFP100":"PK3",
+      "LQFP144":"PK3",
+      "LQFP176":"PK3",
+      "LQFP208":"PK3",
+      "TFBGA100":"PK3",
+      "TFBGA240+25":"PK3",
+      "UFBGA169":"PK3",
+      "UFBGA176+25":"PK3"
     },
     "PK4":{
-      "LQFP208":"187",
-      "TFBGA240+25":"B8"
+      "LQFP100":"PK4",
+      "LQFP144":"PK4",
+      "LQFP176":"PK4",
+      "LQFP208":"PK4",
+      "TFBGA100":"PK4",
+      "TFBGA240+25":"PK4",
+      "UFBGA169":"PK4",
+      "UFBGA176+25":"PK4"
     },
     "PK5":{
-      "LQFP208":"188",
-      "TFBGA240+25":"A8"
+      "LQFP100":"PK5",
+      "LQFP144":"PK5",
+      "LQFP176":"PK5",
+      "LQFP208":"PK5",
+      "TFBGA100":"PK5",
+      "TFBGA240+25":"PK5",
+      "UFBGA169":"PK5",
+      "UFBGA176+25":"PK5"
     },
     "PK6":{
-      "LQFP208":"189",
-      "TFBGA240+25":"C7"
+      "LQFP100":"PK6",
+      "LQFP144":"PK6",
+      "LQFP176":"PK6",
+      "LQFP208":"PK6",
+      "TFBGA100":"PK6",
+      "TFBGA240+25":"PK6",
+      "UFBGA169":"PK6",
+      "UFBGA176+25":"PK6"
     },
     "PK7":{
-      "LQFP208":"190",
-      "TFBGA240+25":"D7"
+      "LQFP100":"PK7",
+      "LQFP144":"PK7",
+      "LQFP176":"PK7",
+      "LQFP208":"PK7",
+      "TFBGA100":"PK7",
+      "TFBGA240+25":"PK7",
+      "UFBGA169":"PK7",
+      "UFBGA176+25":"PK7"
     },
     "VBAT":{
-      "LQFP100":"6",
-      "LQFP144":"6",
-      "LQFP176":"6",
-      "LQFP208":"6",
-      "TFBGA100":"B2",
-      "TFBGA240+25":"B1",
-      "UFBGA169":"E3",
-      "UFBGA176+25":"C1"
+      "LQFP100":"VBAT",
+      "LQFP144":"VBAT",
+      "LQFP176":"VBAT",
+      "LQFP208":"VBAT",
+      "TFBGA100":"VBAT",
+      "TFBGA240+25":"VBAT",
+      "UFBGA169":"VBAT",
+      "UFBGA176+25":"VBAT"
     },
     "VCAP":{
-      "LQFP100":"48",
-      "LQFP144":"71",
-      "LQFP176":"81",
-      "LQFP208":"92",
-      "TFBGA100":"F8",
-      "TFBGA240+25":"U11",
-      "UFBGA169":"N10",
-      "UFBGA176+25":"M10"
+      "LQFP100":"VCAP",
+      "LQFP144":"VCAP",
+      "LQFP176":"VCAP",
+      "LQFP208":"VCAP",
+      "TFBGA100":"VCAP",
+      "TFBGA240+25":"VCAP",
+      "UFBGA169":"VCAP",
+      "UFBGA176+25":"VCAP"
     },
-    "VCAP_1":{
-      "LQFP100":"73",
-      "LQFP144":"106",
-      "LQFP176":"125",
-      "LQFP208":"148",
-      "TFBGA100":"E7",
-      "TFBGA240+25":"D17",
-      "UFBGA169":"D13",
-      "UFBGA176+25":"F13"
-    },
-    "VCAP_2":{
-      "TFBGA240+25":"A7"
+    "VDD":{
+      "LQFP100":"VDD",
+      "LQFP144":"VDD",
+      "LQFP176":"VDD",
+      "LQFP208":"VDD",
+      "TFBGA100":"VDD",
+      "TFBGA240+25":"VDD",
+      "UFBGA169":"VDD",
+      "UFBGA176+25":"VDD"
     },
     "VDD33USB":{
-      "LQFP144":"95",
-      "LQFP176":"114",
-      "LQFP208":"137",
-      "TFBGA100":"F6",
-      "TFBGA240+25":"F17",
-      "UFBGA169":"G13",
-      "UFBGA176+25":"H13"
-    },
-    "VDD50USB":{
-      "TFBGA240+25":"G17",
-      "UFBGA169":"G12"
+      "LQFP100":"VDD33USB",
+      "LQFP144":"VDD33USB",
+      "LQFP176":"VDD33USB",
+      "LQFP208":"VDD33USB",
+      "TFBGA100":"VDD33USB",
+      "TFBGA240+25":"VDD33USB",
+      "UFBGA169":"VDD33USB",
+      "UFBGA176+25":"VDD33USB"
     },
     "VDDA":{
-      "LQFP100":"21",
-      "LQFP144":"33",
-      "LQFP176":"39",
-      "LQFP208":"42",
-      "TFBGA100":"H1",
-      "TFBGA240+25":"L1",
-      "UFBGA169":"L1",
-      "UFBGA176+25":"R1"
+      "LQFP100":"VDDA",
+      "LQFP144":"VDDA",
+      "LQFP176":"VDDA",
+      "LQFP208":"VDDA",
+      "TFBGA100":"VDDA",
+      "TFBGA240+25":"VDDA",
+      "UFBGA169":"VDDA",
+      "UFBGA176+25":"VDDA"
     },
     "VDDLDO":{
-      "LQFP208":"202",
-      "TFBGA240+25":"U12",
-      "UFBGA169":"M10"
-    },
-    "VDDLDO_1":{
-      "TFBGA240+25":"C17",
-      "UFBGA169":"D12"
-    },
-    "VDDLDO_2":{
-      "TFBGA100":"F4",
-      "TFBGA240+25":"A6",
-      "UFBGA169":"B4"
-    },
-    "VDD_1":{
-      "TFBGA240+25":"A17",
-      "UFBGA169":"A3"
-    },
-    "VDD_10":{
-      "LQFP144":"62",
-      "LQFP176":"72",
-      "LQFP208":"83",
-      "TFBGA240+25":"J13",
-      "UFBGA169":"C13",
-      "UFBGA176+25":"N9"
-    },
-    "VDD_11":{
-      "TFBGA240+25":"K13",
-      "UFBGA169":"H13"
-    },
-    "VDD_12":{
-      "LQFP100":"50",
-      "LQFP144":"72",
-      "LQFP176":"82",
-      "LQFP208":"94",
-      "TFBGA240+25":"L13",
-      "UFBGA169":"M1",
-      "UFBGA176+25":"N10"
-    },
-    "VDD_13":{
-      "TFBGA240+25":"M13",
-      "UFBGA169":"L13"
-    },
-    "VDD_14":{
-      "LQFP176":"91",
-      "LQFP208":"103",
-      "TFBGA240+25":"P17",
-      "UFBGA169":"N11",
-      "UFBGA176+25":"J12"
-    },
-    "VDD_15":{
-      "TFBGA240+25":"N12",
-      "UFBGA169":"N7"
-    },
-    "VDD_16":{
-      "LQFP144":"84",
-      "LQFP176":"103",
-      "LQFP208":"115",
-      "TFBGA240+25":"N11",
-      "UFBGA176+25":"J13"
-    },
-    "VDD_17":{
-      "TFBGA240+25":"N10"
-    },
-    "VDD_18":{
-      "LQFP208":"124",
-      "TFBGA240+25":"N8"
-    },
-    "VDD_19":{
-      "TFBGA240+25":"N7"
-    },
-    "VDD_2":{
-      "LQFP176":"15",
-      "LQFP208":"15",
-      "TFBGA100":"D2",
-      "TFBGA240+25":"E6",
-      "UFBGA169":"D1",
-      "UFBGA176+25":"F3"
-    },
-    "VDD_20":{
-      "TFBGA240+25":"M5"
-    },
-    "VDD_21":{
-      "TFBGA240+25":"L5"
-    },
-    "VDD_22":{
-      "LQFP100":"75",
-      "LQFP144":"108",
-      "LQFP176":"127",
-      "LQFP208":"150",
-      "TFBGA240+25":"K5",
-      "UFBGA176+25":"G13"
-    },
-    "VDD_23":{
-      "LQFP176":"136",
-      "LQFP208":"158",
-      "UFBGA176+25":"C9"
-    },
-    "VDD_24":{
-      "LQFP144":"121",
-      "LQFP176":"149",
-      "LQFP208":"171",
-      "UFBGA176+25":"C8"
-    },
-    "VDD_25":{
-      "LQFP144":"131",
-      "LQFP176":"159",
-      "LQFP208":"185",
-      "UFBGA176+25":"C7"
-    },
-    "VDD_26":{
-      "LQFP100":"100",
-      "LQFP144":"144",
-      "LQFP176":"172",
-      "LQFP208":"204",
-      "UFBGA176+25":"C5"
-    },
-    "VDD_3":{
-      "LQFP100":"11",
-      "LQFP144":"17",
-      "LQFP176":"23",
-      "LQFP208":"26",
-      "TFBGA240+25":"E9",
-      "UFBGA169":"G1",
-      "UFBGA176+25":"G3"
-    },
-    "VDD_4":{
-      "LQFP144":"30",
-      "LQFP176":"36",
-      "LQFP208":"39",
-      "TFBGA100":"F5",
-      "TFBGA240+25":"E11",
-      "UFBGA176+25":"G3"
-    },
-    "VDD_5":{
-      "TFBGA100":"K1",
-      "TFBGA240+25":"F5",
-      "UFBGA169":"M1"
-    },
-    "VDD_6":{
-      "LQFP100":"27",
-      "LQFP144":"39",
-      "LQFP176":"49",
-      "LQFP208":"52",
-      "TFBGA240+25":"G5",
-      "UFBGA176+25":"K4"
-    },
-    "VDD_7":{
-      "LQFP208":"59",
-      "TFBGA240+25":"G13",
-      "UFBGA169":"N4"
-    },
-    "VDD_8":{
-      "LQFP144":"52",
-      "LQFP176":"62",
-      "LQFP208":"73",
-      "TFBGA240+25":"H5",
-      "UFBGA176+25":"N8"
-    },
-    "VDD_9":{
-      "TFBGA240+25":"H13",
-      "UFBGA169":"A10"
+      "LQFP100":"VDDLDO",
+      "LQFP144":"VDDLDO",
+      "LQFP176":"VDDLDO",
+      "LQFP208":"VDDLDO",
+      "TFBGA100":"VDDLDO",
+      "TFBGA240+25":"VDDLDO",
+      "UFBGA169":"VDDLDO",
+      "UFBGA176+25":"VDDLDO"
     },
     "VREF+":{
-      "LQFP100":"20",
-      "LQFP144":"32",
-      "LQFP176":"38",
-      "LQFP208":"41",
-      "TFBGA240+25":"M1",
-      "UFBGA169":"L2",
-      "UFBGA176+25":"P1"
+      "LQFP100":"VREF+",
+      "LQFP144":"VREF+",
+      "LQFP176":"VREF+",
+      "LQFP208":"VREF+",
+      "TFBGA100":"VREF+",
+      "TFBGA240+25":"VREF+",
+      "UFBGA169":"VREF+",
+      "UFBGA176+25":"VREF+"
     },
     "VREF-":{
-      "LQFP208":"41",
-      "TFBGA240+25":"N1",
-      "UFBGA176+25":"N1"
+      "LQFP100":"VREF-",
+      "LQFP144":"VREF-",
+      "LQFP176":"VREF-",
+      "LQFP208":"VREF-",
+      "TFBGA100":"VREF-",
+      "TFBGA240+25":"VREF-",
+      "UFBGA169":"VREF-",
+      "UFBGA176+25":"VREF-"
+    },
+    "VSS":{
+      "LQFP100":"VSS",
+      "LQFP144":"VSS",
+      "LQFP176":"VSS",
+      "LQFP208":"VSS",
+      "TFBGA100":"VSS",
+      "TFBGA240+25":"VSS",
+      "UFBGA169":"VSS",
+      "UFBGA176+25":"VSS"
     },
     "VSSA":{
-      "LQFP100":"19",
-      "LQFP144":"31",
-      "LQFP176":"37",
-      "LQFP208":"40",
-      "TFBGA100":"G1",
-      "TFBGA240+25":"P1",
-      "UFBGA169":"J3",
-      "UFBGA176+25":"M1"
-    },
-    "VSS_1":{
-      "TFBGA100":"C2",
-      "TFBGA240+25":"A1",
-      "UFBGA169":"M4",
-      "UFBGA176+25":"H10"
-    },
-    "VSS_10":{
-      "LQFP208":"60",
-      "TFBGA240+25":"R4",
-      "UFBGA169":"H12",
-      "UFBGA176+25":"J9"
-    },
-    "VSS_11":{
-      "LQFP144":"51",
-      "LQFP176":"61",
-      "LQFP208":"72",
-      "TFBGA240+25":"J3",
-      "UFBGA176+25":"M8"
-    },
-    "VSS_12":{
-      "TFBGA240+25":"J16",
-      "UFBGA169":"M2",
-      "UFBGA176+25":"F6"
-    },
-    "VSS_13":{
-      "LQFP144":"61",
-      "LQFP176":"71",
-      "LQFP208":"82",
-      "TFBGA240+25":"J17",
-      "UFBGA169":"C12",
-      "UFBGA176+25":"M9"
-    },
-    "VSS_14":{
-      "TFBGA240+25":"T12",
-      "UFBGA169":"L12",
-      "UFBGA176+25":"F7"
-    },
-    "VSS_15":{
-      "LQFP100":"49",
-      "LQFP208":"93",
-      "TFBGA100":"E4",
-      "UFBGA176+25":"K7"
-    },
-    "VSS_16":{
-      "TFBGA240+25":"L12",
-      "UFBGA176+25":"F8"
-    },
-    "VSS_17":{
-      "LQFP176":"90",
-      "TFBGA240+25":"N16",
-      "UFBGA176+25":"H12"
-    },
-    "VSS_18":{
-      "TFBGA240+25":"U17",
-      "UFBGA169":"F9"
-    },
-    "VSS_19":{
-      "LQFP144":"83",
-      "LQFP176":"102",
-      "LQFP208":"114",
-      "UFBGA176+25":"K8"
-    },
-    "VSS_2":{
-      "TFBGA240+25":"B2",
-      "UFBGA169":"J6"
-    },
-    "VSS_20":{
-      "TFBGA240+25":"R8",
-      "UFBGA176+25":"G6"
-    },
-    "VSS_21":{
-      "LQFP208":"125",
-      "TFBGA240+25":"U1",
-      "UFBGA169":"G12",
-      "UFBGA176+25":"G9"
-    },
-    "VSS_22":{
-      "UFBGA176+25":"G7"
-    },
-    "VSS_23":{
-      "LQFP144":"94",
-      "LQFP176":"113",
-      "LQFP208":"136",
-      "TFBGA240+25":"F14",
-      "UFBGA176+25":"G12"
-    },
-    "VSS_24":{
-      "TFBGA240+25":"D13",
-      "UFBGA176+25":"G8"
-    },
-    "VSS_25":{
-      "LQFP100":"74",
-      "LQFP144":"107",
-      "LQFP176":"126",
-      "LQFP208":"149",
-      "TFBGA100":"E5",
-      "UFBGA176+25":"F12"
-    },
-    "VSS_26":{
-      "UFBGA176+25":"G9"
-    },
-    "VSS_27":{
-      "LQFP176":"135",
-      "UFBGA176+25":"D9"
-    },
-    "VSS_28":{
-      "UFBGA176+25":"G10"
-    },
-    "VSS_29":{
-      "LQFP144":"120",
-      "LQFP176":"148",
-      "LQFP208":"170",
-      "UFBGA176+25":"D8"
-    },
-    "VSS_3":{
-      "TFBGA100":"F6",
-      "TFBGA240+25":"J7"
-    },
-    "VSS_30":{
-      "UFBGA176+25":"H7"
-    },
-    "VSS_31":{
-      "LQFP144":"130",
-      "LQFP176":"158",
-      "LQFP208":"184",
-      "UFBGA176+25":"D7"
-    },
-    "VSS_32":{
-      "UFBGA176+25":"H7"
-    },
-    "VSS_33":{
-      "UFBGA176+25":"H8"
-    },
-    "VSS_34":{
-      "LQFP100":"99"
-    },
-    "VSS_35":{
-      "UFBGA176+25":"H9"
-    },
-    "VSS_36":{
-      "UFBGA176+25":"K9"
-    },
-    "VSS_37":{
-      "UFBGA176+25":"K10"
-    },
-    "VSS_38":{
-      "TFBGA240+25":"F1"
-    },
-    "VSS_39":{
-      "TFBGA240+25":"G2"
-    },
-    "VSS_4":{
-      "LQFP176":"14",
-      "LQFP208":"14",
-      "TFBGA100":"C2",
-      "TFBGA240+25":"A17",
-      "UFBGA169":"D2",
-      "UFBGA176+25":"F2"
-    },
-    "VSS_40":{
-      "TFBGA240+25":"K15"
-    },
-    "VSS_41":{
-      "TFBGA240+25":"L15"
-    },
-    "VSS_42":{
-      "UFBGA176+25":"H7"
-    },
-    "VSS_5":{
-      "LQFP100":"10",
-      "LQFP144":"16",
-      "LQFP176":"22",
-      "LQFP208":"25",
-      "TFBGA240+25":"C10",
-      "UFBGA169":"B10",
-      "UFBGA176+25":"G2"
-    },
-    "VSS_6":{
-      "TFBGA100":"E6",
-      "TFBGA240+25":"C13",
-      "UFBGA169":"B3",
-      "UFBGA176+25":"J10"
-    },
-    "VSS_7":{
-      "TFBGA100":"J1",
-      "TFBGA240+25":"C16",
-      "UFBGA169":"M7",
-      "UFBGA176+25":"J8"
-    },
-    "VSS_8":{
-      "LQFP100":"26",
-      "LQFP208":"51",
-      "TFBGA240+25":"F2",
-      "UFBGA169":"G2",
-      "UFBGA176+25":"K6"
-    },
-    "VSS_9":{
-      "LQFP176":"48",
-      "UFBGA176+25":"L4"
+      "LQFP100":"VSSA",
+      "LQFP144":"VSSA",
+      "LQFP176":"VSSA",
+      "LQFP208":"VSSA",
+      "TFBGA100":"VSSA",
+      "TFBGA240+25":"VSSA",
+      "UFBGA169":"VSSA",
+      "UFBGA176+25":"VSSA"
     }
   }
 }

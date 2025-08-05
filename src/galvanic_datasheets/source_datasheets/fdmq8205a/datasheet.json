@@ -1,0 +1,233 @@
+{
+  "high_level":{
+    "base_part_number":"FDMQ8205A",
+    "device_type":"OTHER",
+    "manufacturer":"onsemi",
+    "packages":[
+      "MLP4.5x5",
+      "WDFN12 5x4.5, 0.8P"
+    ],
+    "part_numbers":{}
+  },
+  "pins":{
+    "1":{
+      "description":"Gate of Q1 N\u2212ch MOSFET",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":"Pin 1 (G1) is connected to the gate driving circuit. Based on the datasheet's \"TYPICAL BOM OF GATE DRIVING CIRCUITS\", this connection would involve components such as NPN & PNP Transistors (e.g., BC846BPDW1T1), Dual Common Anode Zeners (e.g., MMBZ27VALT1G), and resistors (e.g., RC0603FR-07162KL). These components work together to provide the correct gate drive signal to the MOSFET.",
+        "connectivity":"In a schematic, Pin 1 (G1) should be connected to the gate driving circuitry. This circuitry typically includes components that provide the necessary gate voltage and current to control the MOSFET's switching state. The specific connection will depend on the overall design of the power supply or application circuit.",
+        "detailed_description":"Pin 1 is designated as G1, which serves as the gate of the Q1 N-channel MOSFET within the FDMQ8205A GreenBridge 2 device. The gate terminal controls the flow of current between the source and drain of the MOSFET.",
+        "functionality":"The primary function of Pin 1 (G1) is to control the switching of the Q1 N-channel MOSFET. Applying an appropriate gate voltage to this pin allows current to flow between the drain and source of Q1, thereby enabling the bridge rectification function.",
+        "precautions":"When connecting Pin 1 (G1), ensure that the gate voltage applied does not exceed the absolute maximum ratings specified in the datasheet. Overvoltage on the gate can damage the MOSFET. Refer to the \"ABSOLUTE MAXIMUM RATINGS\" section for specific voltage limits (e.g., VG, G1, G2, G3, G4 to OUTN: -70 V; OUTP to G1, G2, G3, G4: -70 V). Additionally, ensure that the gate drive circuitry is designed to provide a clean and stable gate signal to ensure reliable operation."
+      },
+      "internal_pull":null,
+      "name":"G1",
+      "pin_id":"1",
+      "type":"DIGITAL"
+    },
+    "12":{
+      "description":"Gate of Q4 N\u2212ch MOSFET",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"NPN & PNP Transistors",
+            "description":"These transistors are part of the self-driving circuitry for the MOSFETs, regulating the gate voltage to ensure efficient switching.",
+            "reference_designators":[
+              "T1",
+              "T2",
+              "T3",
+              "T4"
+            ]
+          },
+          {
+            "component_name":"Dual Common Anode Zeners",
+            "description":"These Zeners are used in the gate driving circuit, likely for voltage regulation or protection of the MOSFET gates.",
+            "reference_designators":[
+              "D1",
+              "D2"
+            ]
+          },
+          {
+            "component_name":"Resistor",
+            "description":"These resistors are part of the gate driving circuit, likely used for biasing or current limiting.",
+            "reference_designators":[
+              "R1",
+              "R2"
+            ]
+          }
+        ],
+        "connectivity":"In a schematic, pin 12 (G4) should be connected to the gate driving circuitry. This circuitry, as suggested in the datasheet (Figure 3 and Typical BOM), will typically involve transistors (like T3, T4), resistors (R1, R2), and possibly Zener diodes (D1, D2) to control the gate voltage and ensure proper MOSFET operation. The specific connection will depend on the implementation of the gate driving circuit.",
+        "detailed_description":"Pin 12 is the gate (G4) for the N-channel MOSFET Q4 within the FDMQ8205A GreenBridge. This pin controls the switching behavior of Q4, which is part of the internal bridge rectifier configuration.",
+        "functionality":"The primary function of pin 12 (G4) is to serve as the control input for the N-channel MOSFET Q4. Applying a suitable gate voltage (relative to the source) will turn the MOSFET on or off, thereby controlling the current flow through that specific MOSFET in the bridge.",
+        "precautions":"The gate voltage (VG) for the MOSFETs should not exceed the recommended maximum of 57V as per the Recommended Operating Conditions. The Absolute Maximum Ratings indicate that the gate voltage to OUTN should not exceed 70V. Care must be taken in designing the gate driving circuit to ensure the gate voltage is within these limits to prevent damage to the MOSFET. The datasheet also notes that backfeed voltage can not be guaranteed for junction temperatures in excess of 85\u00b0C, which might indirectly affect gate drive stability or behavior."
+      },
+      "internal_pull":null,
+      "name":"G4",
+      "pin_id":"12",
+      "type":"DIGITAL"
+    },
+    "13_14":{
+      "description":"Input1 of GreenBridge",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"RJ45 Connector",
+            "description":"In PoE applications, the RJ45 connector is the interface to the Power Sourcing Equipment (PSE). The INPUT1 pins would connect to the specific pins of the RJ45 that carry power in the PoE standard."
+          },
+          {
+            "component_name":"Power Source",
+            "description":"These pins are directly connected to the output of the power source, which provides the voltage and current for the device's operation."
+          }
+        ],
+        "connectivity":"In a schematic, INPUT1 pins should be connected to one of the AC input lines of the power source. For example, in a Power over Ethernet (PoE) application, these would connect to the RJ45 connector's pins carrying the power.",
+        "detailed_description":"Pin 13 and 14 are labeled as INPUT1. These pins are part of the input to the GreenBridge rectifier. They are designed to accept the power source input and are internally connected to the source terminals of two N-channel MOSFETs (Q1 and Q4) and the drain terminals of two P-channel MOSFETs (Q2 and Q3) within the device. The device is designed such that the input polarity is insensitive.",
+        "functionality":"These pins serve as the primary input terminals for the bridge rectifier circuit. They receive the power from the source equipment (e.g., PSE in PoE applications). The internal configuration of MOSFETs allows for a voltage drop reduction compared to traditional diode bridges, improving efficiency.",
+        "precautions":[
+          "Ensure that the input voltage does not exceed the absolute maximum rating of 100V (INPUT1, INPUT2 to OUTN or OUTP to OUTN).",
+          "The recommended operating input voltage is up to 57V.",
+          "When designing the PCB layout, ensure adequate trace width and thickness to handle the specified input current without excessive voltage drop or overheating, especially considering the maximum continuous input current of 1.7A (for Q1+Q3 or Q2+Q4) as per the datasheet."
+        ]
+      },
+      "input_voltage":{
+        "max":57.0,
+        "min":0.0,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"INPUT1",
+      "pin_id":"13, 14",
+      "type":"POWER"
+    },
+    "15_16":{
+      "description":"Input2 of GreenBridge",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"RJ45 Connector",
+            "description":"In PoE applications, the input power is typically derived from an RJ45 connector, which carries both data and power. Pins 15 and 16 would connect to the power sourcing lines of this connector."
+          },
+          {
+            "component_name":"Power Source Equipment (PSE)",
+            "description":"The ultimate source of power in a PoE system. The PSE provides the voltage and current that will be applied to the INPUT1 and INPUT2 pins."
+          }
+        ],
+        "connectivity":"In a schematic, INPUT2 (pins 15 and 16) should be connected to one of the input lines of the power source. For instance, in a 2-pair PoE architecture (Figure 1), these pins would connect to the DC power lines on the RJ45 connector. Since pins 15 and 16 are typically internally connected, connecting one is sufficient, but connecting both may be done for redundancy or to align with PCB layout practices.",
+        "detailed_description":"Pin 15 and 16 are labeled as INPUT2. These pins are part of the input terminals of the GreenBridge device, which is designed to function as a bridge rectifier. The device uses MOSFETs to achieve lower power loss compared to traditional diode bridges, particularly beneficial in Power over Ethernet (PoE) applications. The input is insensitive to polarity, meaning that either INPUT1 or INPUT2 can be connected to the positive or negative side of the power source, and the device will still function correctly.",
+        "functionality":"The INPUT2 pins serve as one of the two input terminals for the GreenBridge. They receive the input power from the source. The device's internal configuration of P-channel and N-channel MOSFETs allows for bidirectional current flow, eliminating the need to consider input polarity.",
+        "precautions":"There are no specific precautions mentioned in the datasheet for connecting the INPUT2 pins other than ensuring they are connected to the input power lines of the bridge. The device is designed to be insensitive to polarity. However, always ensure that the input voltage and current are within the recommended operating conditions and absolute maximum ratings to prevent damage to the device."
+      },
+      "input_voltage":{
+        "max":57.0,
+        "min":0.0,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"INPUT2",
+      "pin_id":"15, 16",
+      "type":"POWER"
+    },
+    "2_3_10_11":{
+      "description":"Negative Output of GreenBridge",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":"These pins are internally connected to the sources of the N-channel MOSFETs (Q1 and Q4) and the drains of the P-channel MOSFETs (Q2 and Q3) within the FDMQ8205A. Externally, they would be connected to the load's negative terminal or the system's ground.",
+        "connectivity":"In a schematic, these pins should be connected to the negative terminal of the output load or the power supply's ground rail. Since multiple pins are available for OUTN, they can be connected in parallel to reduce impedance and improve current handling, although the datasheet doesn't explicitly state if this is required or beneficial.",
+        "detailed_description":"Pins 2, 3, 10, and 11 are collectively labeled as OUTN and serve as the negative output of the GreenBridge rectifier. This means that when the device is operating as a bridge rectifier, these pins will be connected to the common ground or the negative terminal of the output power supply.",
+        "functionality":"These pins function as the common negative output rail for the bridge rectifier configuration. They are connected to the source of the N-channel MOSFETs (Q1 and Q4) and the drain of the P-channel MOSFETs (Q2 and Q3) to provide a unified negative output connection.",
+        "precautions":"Ensure all OUTN pins are connected to the intended negative output rail. While the datasheet doesn't specify a minimum connection requirement for these pins, connecting all available OUTN pins can help distribute current and improve thermal performance, especially under high load conditions. Refer to the recommended operating conditions and absolute maximum ratings for voltage and current limits to avoid damaging the device."
+      },
+      "internal_pull":null,
+      "name":"OUTN",
+      "pin_id":"2, 3, 10, 11",
+      "type":"POWER"
+    },
+    "4":{
+      "description":"Gate of Q2 P\u2212ch MOSFET",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"NPN & PNP Transistors (T1, T2, T3, T4)",
+            "description":"These transistors form part of the self-driving circuitry for the MOSFETs. They are used to generate the necessary gate voltage for both N-channel and P-channel MOSFETs. Pin 4 would be connected to the output of this driver circuit."
+          },
+          {
+            "component_name":"Dual Common Anode Zeners (D1, D2)",
+            "description":"These components are likely used for voltage regulation and protection of the gate drive circuitry. They may be connected in a way that influences the gate voltage applied to pin 4."
+          },
+          {
+            "component_name":"Resistors (R1, R2)",
+            "description":"These resistors are part of the gate driving circuit and help to set bias points and control the charging/discharging of the MOSFET gates. They would be connected in conjunction with the transistors and Zeners to provide the correct signal to pin 4."
+          }
+        ],
+        "connectivity":"Pin 4 should be connected to the gate driving circuitry, specifically to the signal that controls the P-channel MOSFET. In the context of the provided 'TYPICAL BOM OF GATE DRIVING CIRCUITS', this pin would be connected to the output of the gate driving circuit which involves transistors (T1, T2, T3, T4), Zeners (D1, D2), and resistors (R1, R2). The specific connection will depend on the design of the gate drive, but it is designed to provide the appropriate gate-source voltage (VGS) for the P-channel MOSFET.",
+        "detailed_description":"Pin 4 is the gate of the Q2 P-channel MOSFET. The gate voltage controls the conductivity of the MOSFET, thus regulating the current flow through the device.",
+        "functionality":"The primary function of pin 4 is to act as the control input for the Q2 P-channel MOSFET. It receives the gate voltage necessary to turn the MOSFET on or off, thereby controlling the current path within the GreenBridge circuit.",
+        "precautions":"The gate voltage applied to pin 4 must be within the specified limits in the 'ABSOLUTE MAXIMUM RATINGS' and 'RECOMMENDED OPERATING CONDITIONS' tables. Exceeding these limits can damage the device. Specifically, the voltage between G2 (pin 4) and OUTP (which is the source of the P-channel MOSFET) should be managed to ensure proper operation and prevent damage. The 'VG' parameter in the Recommended Operating Conditions indicates the recommended gate voltage range. Note that for P-channel MOSFETs, a negative gate-source voltage (relative to the source) typically turns them on, which is handled by the self-driving circuitry."
+      },
+      "internal_pull":null,
+      "name":"G2",
+      "pin_id":"4",
+      "type":"DIGITAL"
+    },
+    "5_6_7_8":{
+      "description":"Positive Output of GreenBridge",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Load",
+            "description":"The positive output terminal (VOUT+) is connected to the positive input of the load that the FDMQ8205A is powering."
+          },
+          {
+            "component_name":"Bypass Capacitor",
+            "description":"A bypass capacitor is often connected between OUTP and OUTN to filter voltage ripple and improve transient response. It would be connected across the positive and negative output terminals."
+          },
+          {
+            "component_name":"Filtering Inductor (optional)",
+            "description":"In some applications, a filtering inductor might be placed in series with the output to further smooth the output voltage. In such cases, OUTP would be connected to one end of the inductor, and the other end of the inductor would connect to the load."
+          }
+        ],
+        "connectivity":"In a schematic, these pins should be connected together to form the single positive output terminal (VOUT+) of the device. This positive output is then typically connected to the load or the subsequent stage of the power supply circuit.",
+        "detailed_description":"Pins 5, 6, 7, and 8 are collectively labeled as OUTP and represent the positive output of the GreenBridge rectifier. These pins are connected to the drains of the P-channel MOSFETs (Q2 and Q3) and the sources of the N-channel MOSFETs (Q1 and Q4) when they are conducting current in the forward direction. They provide the positive voltage output of the bridge rectifier circuit.",
+        "functionality":"These pins serve a single primary function: to provide the positive output voltage (VOUT+) of the bridge rectifier. They are the common output nodes for two branches of the bridge, carrying the rectified positive current.",
+        "precautions":[
+          "All OUTP pins (5, 6, 7, 8) must be connected together in the schematic and on the PCB for proper operation. Do not leave any of these pins unconnected.",
+          "Ensure the total current drawn from the OUTP terminals does not exceed the device's maximum current rating, considering the combined current handling capability of the connected MOSFETs.",
+          "Proper PCB layout is crucial. The traces connecting these pins to the load should be of sufficient width and thickness to handle the expected current without significant voltage drop or excessive heating."
+        ]
+      },
+      "internal_pull":null,
+      "name":"OUTP",
+      "pin_id":"5, 6, 7, 8",
+      "type":"POWER"
+    },
+    "9":{
+      "description":"Gate of Q3 P\u2212ch MOSFET",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Gate Drive Circuitry",
+            "details":"The gate drive circuitry for pin 9 (G3) typically involves transistors (like BC846BPDW1T1) and resistors (like RC0603FR\u221207162KL) to provide the correct gate voltage to switch the P-channel MOSFET. The exact configuration and components are shown in the 'TYPICAL BOM OF GATE DRIVING CIRCUITS' and the 'TYPICAL APPLICATION' diagrams."
+          }
+        ],
+        "connectivity":"In a schematic, pin 9 should be connected to the gate drive circuitry. Based on the 'PIN DESCRIPTION' and 'BLOCK DIAGRAM', pin 9 is labeled as G3. The 'TYPICAL APPLICATION' diagrams show how the gate drive circuitry connects to the device. Specifically, the gate drive circuitry provides the necessary voltage to control the MOSFETs. The 'TYPICAL BOM OF GATE DRIVING CIRCUITS' lists components like NPN & PNP Transistors (BC846BPDW1T1) and Resistors (RC0603FR\u221207162KL) that are part of this drive circuit.",
+        "detailed_description":"Pin 9 is the gate of the Q3 P-channel MOSFET. The gate pin controls the switching of the MOSFET. In the context of the FDMQ8205A GreenBridge, this pin, along with G1, G2, and G4, is part of the self-driving circuitry for the MOSFETs, enabling efficient bridge rectification.",
+        "functionality":"The primary function of pin 9 is to act as the control input for the Q3 P-channel MOSFET. It receives the gate voltage signal that determines whether the MOSFET is turned on or off. The specific voltage level required to turn on or off the MOSFET is detailed in the 'ELECTRICAL CHARACTERISTICS' table under 'VTURN_ON' and the 'rDS(on)' parameters.",
+        "precautions":[
+          "Ensure the gate voltage applied to pin 9 is within the recommended operating conditions specified in the datasheet (e.g., VG parameter). Exceeding the maximum gate voltage can damage the device.",
+          "Refer to the 'ELECTRICAL CHARACTERISTICS' for the 'VTURN_ON' voltage to ensure proper MOSFET switching. The 'rDS(on)' values indicate the on-state resistance, which is dependent on the gate voltage.",
+          "The gate voltage is relative to the source of the MOSFET. For the P-channel MOSFET Q3, the gate-source voltage (VG) is typically referenced to OUTP (as indicated in the block diagram and pin descriptions).",
+          "Consider the junction temperature (TJ) as it affects the performance of the MOSFET, including its on-resistance and gate characteristics, as shown in the 'TYPICAL CHARACTERISTICS' graphs."
+        ]
+      },
+      "internal_pull":null,
+      "name":"G3",
+      "pin_id":"9",
+      "type":"DIGITAL"
+    }
+  }
+}

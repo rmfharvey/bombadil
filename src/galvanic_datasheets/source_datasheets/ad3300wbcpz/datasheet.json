@@ -1,0 +1,2778 @@
+{
+  "high_level":{
+    "base_part_number":"AD3300/1/4/5",
+    "device_type":"COMMUNICATION_ETHERNET",
+    "manufacturer":"Analog Devices",
+    "packages":[
+      "CP-24-17",
+      "CS-24-2"
+    ],
+    "part_numbers":{
+      "AD3300":{
+        "options":{
+          "WBCPZ":{},
+          "WBCPZ-RL":{}
+        }
+      },
+      "AD3301":{
+        "options":{
+          "WBCPZ":{},
+          "WBCPZ-RL":{},
+          "WBCSZ":{},
+          "WBCSZ-RL":{}
+        }
+      },
+      "AD3304":{
+        "options":{
+          "WBCPZ":{},
+          "WBCPZ-RL":{}
+        }
+      },
+      "AD3305":{
+        "options":{
+          "WBCPZ":{},
+          "WBCPZ-RL":{}
+        }
+      }
+    },
+    "serial_busses":[
+      "SPI",
+      "I2C",
+      "LIN",
+      "UART"
+    ]
+  },
+  "pins":{
+    "AVDD":{
+      "description":"5 V supply input; it can be powered off when the 10BASE-T1S transceiver is not in an Awake mode (see Operating Modes) to save power. Requires a 100 nF and 4.7 \u03bcF decoupling capacitor.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Decoupling Capacitors",
+            "details":"Requires a 100 nF and a 4.7 \u03bcF decoupling capacitor connected between the AVDD pin and ground for improved noise immunity and stability."
+          }
+        ],
+        "connectivity":"AVDD should be connected to a 5 V power supply. It also requires decoupling capacitors for noise filtering.",
+        "detailed_description":"AVDD is the 5 V supply input for the device. It can be powered off when the 10BASE-T1S transceiver is not in an Awake mode to save power.",
+        "functionality":"The AVDD pin serves as the main power supply input for the analog circuitry of the transceiver. It can be controlled to power down the device and reduce power consumption.",
+        "precautions":[
+          "The AVDD supply must be capable of handling up to 120 mA of in-rush current during start-up.",
+          "AVDD can be powered off to save power when the device is not in an Awake mode.",
+          "The power-down sequence does not have specific requirements between AVDD, VBAT, and DVDDIO supplies."
+        ]
+      },
+      "input_voltage":{
+        "max":5.25,
+        "min":4.75,
+        "units":"V"
+      },
+      "name":"AVDD",
+      "pin_id":"18",
+      "type":"POWER"
+    },
+    "DVDD":{
+      "description":"Decoupling for the internally generated digital core power supply (1.1 V). Requires a 10 nF and 1 \u03bcF decoupling capacitor.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_details":"A 10 nF capacitor and a 1 \u03bcF capacitor should be connected between this pin and GND for decoupling.",
+            "component_name":"Capacitor"
+          }
+        ],
+        "connectivity":"Connect to the internal 1.1 V digital core power supply. This is achieved through decoupling capacitors.",
+        "detailed_description":"Decoupling for the internally generated digital core power supply (1.1 V).",
+        "functionality":"This pin is solely for decoupling the internal digital core power supply.",
+        "precautions":[
+          "Ensure the specified decoupling capacitors are used to maintain power integrity for the digital core.",
+          "This pin is an output from an internal regulator and should not be driven externally."
+        ]
+      },
+      "input_voltage":{
+        "max":1.1,
+        "min":1.1,
+        "units":"V"
+      },
+      "name":"DVDD",
+      "pin_id":"3",
+      "type":"POWER"
+    },
+    "DVDDIO":{
+      "description":"Separate supply for the I/O circuitry, to allow the digital I/O level to be controlled as suits the application. It can run from 1.8 V to 3.3 V. Requires a 100 nF and 4.7 \u03bcF decoupling capacitor.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Decoupling Capacitors",
+            "details":"Requires a 100 nF and a 4.7 \u03bcF decoupling capacitor connected to this pin for filtering."
+          },
+          {
+            "component_name":"LVDD",
+            "details":"DVDDIO can be supplied from the LVDD pin, with a maximum DC current limit of 10 mA when sourced from LVDD."
+          }
+        ],
+        "connectivity":"It can be connected to an external voltage source ranging from 1.8 V to 3.3 V. It is also specified that it can be supplied from LVDD.",
+        "detailed_description":"DVDDIO is a separate supply for the I/O circuitry, allowing the digital I/O level to be controlled as suited for the application. It can run from 1.8 V to 3.3 V. This pin can also be used to source an off-chip supply if desired, with a maximum DC current limit of 10 mA when sourcing from LVDD.",
+        "functionality":"The primary function of DVDDIO is to supply the I/O circuitry, enabling control over digital I/O levels. It can also be used as a source for off-chip power up to a certain limit.",
+        "precautions":[
+          "The DVDDIO supply must be greater than 2.5 V before any 5 V logic signal is driven into the device's digital inputs if 5 V I/O logic is used. This also applies when the DVDDIO supply is powered from the LVDD 3.3 V supply. Failure to comply can lead to exceeding the absolute maximum ratings.",
+          "When sourcing power from LVDD to DVDDIO, do not exceed the DC current limit of 10 mA.",
+          "If the device is operated with 5V I/O logic, the DVDDIO supply must be greater than 2.5V before any 5V logic signals are applied to the digital inputs of the device. This also applies when the DVDDIO supply is powered from the LVDD 3.3V supply.",
+          "Ensure the DVDDIO supply can handle 120 mA of in-rush current on start-up."
+        ]
+      },
+      "input_voltage":{
+        "max":3.47,
+        "min":1.71,
+        "units":"V"
+      },
+      "name":"DVDDIO",
+      "pin_id":"7",
+      "type":"POWER"
+    },
+    "EN":{
+      "description":"An output pin is asserted when the 10BASE-T1S transceiver is in an Awake mode (see Operating Modes); it can be used as an active-high enable or an active-low inhibit. For example, for an external DC/DC regulator generating the AVDD supply. Always driven, DNC or connect to a test point when not used. It is not recommended to pull this pin to GND using a resistor. Ensure load not exceeding the driving capability of this pin (see Table 2).",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"External DC/DC Regulator",
+            "connection_details":"The EN pin should be connected to the enable input of the DC/DC regulator. The output of the regulator should be connected to the AVDD pin of the transceiver.",
+            "purpose":"To provide the AVDD supply to the transceiver."
+          }
+        ],
+        "connectivity":"The EN pin should be connected to the enable input of an external DC/DC regulator that provides the AVDD supply. If the EN pin is not used, it should be left unconnected or connected to a test point.",
+        "detailed_description":"The EN pin is a digital output that is asserted when the 10BASE-T1S transceiver is in an Awake mode. It can be used as an active-high enable signal to control an external DC/DC regulator that generates the AVDD supply.",
+        "functionality":"The EN pin serves as an output signal indicating the awake status of the transceiver. It can be configured as an active-high enable or an active-low inhibit.",
+        "precautions":[
+          "It is not recommended to pull the EN pin to GND using a resistor.",
+          "Ensure that the connected load does not exceed the driving capability of the EN pin.",
+          "The EN pin is asserted when the device is in an awake mode. It is not recommended to connect any load that would prevent the device from entering sleep mode."
+        ]
+      },
+      "name":"EN",
+      "pin_id":"14",
+      "type":"DIGITAL",
+      "voh":{
+        "min":2.5,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.4,
+        "units":"V"
+      }
+    },
+    "ETH_N":{
+      "description":"10BASE-T1S negative differential pin.",
+      "differential_capacitance":{
+        "max":74.0,
+        "min":43.0,
+        "units":"pF"
+      },
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Common-mode choke",
+            "connection_details":"The differential mode path of the choke connects to ETH_P and ETH_N, while the common mode path is used for noise suppression.",
+            "description":"A common-mode choke is used to suppress common-mode noise and improve EMC performance. It is connected in series with both ETH_P and ETH_N."
+          },
+          {
+            "component_name":"AC-coupling capacitors",
+            "connection_details":"One capacitor connected between ETH_P and the positive side of the Ethernet cable, and another capacitor connected between ETH_N and the negative side of the Ethernet cable. The value of these capacitors is typically in the range of 100 nF to 220 nF.",
+            "description":"Capacitors are used to block DC current and allow AC signals to pass between the transceiver and the network. These are typically placed in series with the ETH_P and ETH_N lines."
+          },
+          {
+            "component_name":"Termination resistors",
+            "connection_details":"A differential termination resistor is typically placed across the differential pair (ETH_P and ETH_N) at the far end of the cable. Internal termination may also be available or required.",
+            "description":"Termination resistors are used to match the impedance of the transmission line and prevent signal reflections. For 10BASE-T1S, a differential termination scheme is often used."
+          }
+        ],
+        "connectivity":"ETH_N should be connected to the negative side of the differential pair for the 10BASE-T1S Ethernet connection. This typically involves connecting to an external common-mode choke and AC-coupling capacitors, which then connect to the other end of the twisted pair cable.",
+        "detailed_description":"ETH_N is the negative differential pin for the 10BASE-T1S physical layer interface. It is part of the differential pair used for transmitting and receiving Ethernet data over a single twisted pair of wires.",
+        "functionality":"The pin serves as a bidirectional interface for the 10BASE-T1S Ethernet signaling. It works in conjunction with the ETH_P pin to form a differential pair.",
+        "precautions":[
+          "The ETH_P and ETH_N pins are a differential pair and must be routed symmetrically and with controlled impedance (typically 100 \u03a9 differential impedance).",
+          "Minimizing stub length on the traces connecting to these pins is crucial for signal integrity and EMC performance.",
+          "Parasitic capacitance to ground should be minimized, and ground plane cut-outs under the common-mode choke and connectors are recommended.",
+          "Ensure proper layout practices for high-speed differential signaling, including length matching between ETH_P and ETH_N traces.",
+          "Refer to the layout guidelines in the datasheet for detailed recommendations on PCB design and component placement."
+        ]
+      },
+      "name":"ETH_N",
+      "output_signal_swing":{
+        "max":1.2,
+        "min":0.8,
+        "units":"VP-P"
+      },
+      "pin_id":"16",
+      "type":"ANALOG"
+    },
+    "ETH_P":{
+      "description":"10BASE-T1S positive differential pin.",
+      "differential_capacitance":{
+        "max":74.0,
+        "min":43.0,
+        "units":"pF"
+      },
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Common-mode choke",
+            "description":"Used to suppress common-mode noise and ensure signal integrity on the differential pair. Typically connected in series with both ETH_P and ETH_N."
+          },
+          {
+            "component_name":"AC-coupling capacitors",
+            "description":"Used to block DC components and allow AC signals to pass. Typically connected in series with both ETH_P and ETH_N, between the transceiver and the common-mode choke or connector."
+          },
+          {
+            "component_name":"Termination resistors",
+            "description":"May be required at the ends of the 10BASE-T1S link to match impedance and prevent signal reflections. The datasheet mentions a 50 Ohm differential load."
+          },
+          {
+            "component_name":"Series damping resistor (Rs)",
+            "description":"Recommended for the transmit path (on ETH_P and ETH_N) to limit ringing and improve signal integrity, especially when driving the link. A value of 100 Ohms is suggested in the oscillator connection diagram, which might also be applicable here."
+          }
+        ],
+        "connectivity":"It should be connected to the corresponding ETH_P pin of the other node on the 10BASE-T1S network, typically through a common-mode choke and AC-coupling capacitors. A series damping resistor (Rs) is also typically used in the transmit path.",
+        "detailed_description":"ETH_P is the positive differential pin for the 10BASE-T1S interface. It is part of the physical layer transceiver that enables communication over a single twisted pair of wires according to the 10BASE-T1S Ethernet standard.",
+        "functionality":"This pin serves as a differential signal pin for the 10BASE-T1S Ethernet communication. It transmits and receives data as part of a differential pair (with ETH_N).",
+        "precautions":[
+          "The ETH_P and ETH_N pins form a differential pair and must be routed symmetrically with controlled impedance (typically 50 Ohms differential).",
+          "Minimize stub length on the traces connected to these pins.",
+          "Length matching between ETH_P and ETH_N is crucial for signal integrity.",
+          "Avoid routing other noisy signals in close proximity to the ETH_P and ETH_N traces.",
+          "Refer to layout guidelines in the datasheet for optimal placement of passive components and routing practices to ensure EMC compliance.",
+          "The common mode voltage range for the ETH_P/ETH_N pins is specified from -5 V to +10 V when the IC is powered, and the absolute maximum rating for the common mode is \u00b120 V. Ensure external circuitry respects these limits.",
+          "The transmitter should not be enabled if driving into a low impedance DC load, as this can result in device damage."
+        ]
+      },
+      "name":"ETH_P",
+      "output_signal_swing":{
+        "max":1.2,
+        "min":0.8,
+        "units":"VP-P"
+      },
+      "pin_id":"17",
+      "type":"ANALOG"
+    },
+    "EXP_PAD":{
+      "description":"Ground Exposed paddle. Connect to ground.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Ground Plane",
+            "description":"A solid, contiguous ground plane on the PCB is required to connect to the EXP_PAD for electrical grounding and heat dissipation."
+          },
+          {
+            "component_name":"Thermal Vias",
+            "description":"A thermal via array should be used to connect the exposed pad to the ground plane, facilitating efficient heat transfer."
+          }
+        ],
+        "connectivity":"The exposed pad (EXP_PAD) must be connected directly to a solid, contiguous ground plane. This connection is essential for both electrical grounding and thermal management.",
+        "detailed_description":"The EXP_PAD (Exposed Pad) is a dedicated ground connection for the AD3300/1/4/5 transceiver. It serves as the primary electrical ground for the device and is also crucial for thermal dissipation. Its connection to an external ground plane helps in managing the heat generated during operation.",
+        "functionality":"Ground connection, Thermal dissipation",
+        "precautions":[
+          "The exposed pad is the only electrical ground and must be connected to a ground plane. Failure to do so will result in improper operation and may cause damage.",
+          "Ensure that the ground plane is solid and contiguous under the IC for effective thermal dissipation.",
+          "Solder the exposed pad to the external ground plane underneath the IC for optimal thermal performance."
+        ]
+      },
+      "internal_pull":{},
+      "name":"GND",
+      "pin_id":"EXP_PAD",
+      "type":"POWER"
+    },
+    "LVDD":{
+      "description":"Decoupling for the internally generated 3.3 V, regulated from AVDD, and used to power the analog logic. LVDD can be used to drive DVDDIO at 3.3 V and / or to source an off-chip supply if desired. The DC current in total (DVDDIO + off-chip) that can be supplied from this pin is 10 mA. Requires a 100 nF and 2.2 \u03bcF decoupling capacitor.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Decoupling Capacitors",
+            "details":"Requires a 100 nF and a 2.2 \u03bcF decoupling capacitor connected between LVDD and ground to ensure power supply stability and noise filtering."
+          }
+        ],
+        "connectivity":"LVDD should be connected to the analog circuitry requiring a 3.3V supply. When used to source an off-chip supply, the total current from this pin must not exceed 10 mA.",
+        "detailed_description":"LVDD is a power supply pin that provides a regulated 3.3 V output, derived from the AVDD supply. This pin is used to power the analog logic within the device. It can also be used to source an off-chip supply if required, with a total DC current limit of 10 mA when sourcing from this pin.",
+        "functionality":"LVDD serves as a power output for analog circuitry and can be used to source an off-chip supply. It is the output of an internal low-voltage drop-out (LDO) regulator.",
+        "precautions":[
+          "The total DC current sourced from the LVDD pin (both to internal analog logic and any external components) must not exceed 10 mA.",
+          "Ensure proper decoupling capacitors are connected to LVDD for stable operation."
+        ]
+      },
+      "input_voltage":{
+        "max":3.3,
+        "min":3.05,
+        "units":"V"
+      },
+      "name":"LVDD",
+      "pin_id":"6",
+      "type":"POWER"
+    },
+    "SAIF0":{
+      "description":"Multipurpose input/output pin used for the sensor/actuator interface.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":"The pin can be connected to various sensors, actuators, or other microcontrollers via their respective interfaces (e.g., SPI, I2C, UART, GPIO, PWM). If used as part of the OA-SPI interface, it would connect to the host controller's SPI bus.",
+        "connectivity":"SAIF0 should be connected to the data or control lines of the connected sensor or actuator. If used as part of the OA-SPI interface on the AD3300, it would connect to the corresponding SPI bus lines. When not in use, it can be left unconnected (DNC).",
+        "detailed_description":"SAIF0 is a multipurpose input/output pin used for the sensor/actuator interface. It is part of the Sensor/Actuator Interface (SAIF) which allows for the connection of various sensors and actuators.",
+        "functionality":"The pin serves as a general-purpose I/O pin for the SAIF. It can be configured as an input or output depending on the application and the specific sensor or actuator it is connected to. In the AD3300, this pin can also be used as part of the OA-SPI interface (though specific function like CS, SCLK, COTI, CITO, IRQ are assigned to other SAIF pins).",
+        "precautions":"If the pin is not used, it should be left unconnected (DNC). Ensure that the connected sensor/actuator interface is compatible with the device's I/O voltage levels. The SAIF pins can be configured for different functions, so ensure the correct configuration is set for SAIF0 based on its intended use."
+      },
+      "internal_pull":{},
+      "name":"SAIF0",
+      "pin_id":"10",
+      "type":"DIGITAL"
+    },
+    "SAIF1/TS_TIMER":{
+      "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as the output of the synchronized timer when OA-SPI interface is enabled (optional). DNC when not used.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":"Typically connected to sensors or actuators when used as an SAIF pin. When used as a synchronized timer output with the OA-SPI interface, it would connect to other components in the system that utilize this synchronized timing signal.",
+        "connectivity":"The pin can be connected as a digital input/output for SAIF applications. When the OA-SPI interface is enabled, it acts as the synchronized timer output.",
+        "detailed_description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as the output of the synchronized timer when OA-SPI interface is enabled (optional).",
+        "functionality":"This pin can function as a general-purpose Sensor/Actuator Interface (SAIF) pin or as a synchronized timer output when the OA-SPI interface is enabled. It is designated as 'DNC' (Do Not Connect) when not used.",
+        "precautions":"This pin is designated as DNC (Do Not Connect) when not used. Ensure proper configuration to utilize its timer output functionality when the OA-SPI interface is enabled. If used for SAIF, it should be connected according to the specific interface requirements."
+      },
+      "internal_pull":{},
+      "name":"SAIF1/TS_TIMER",
+      "pin_id":"9",
+      "type":"DIGITAL"
+    },
+    "SAIF10":{
+      "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit3 of the MAC address and/or PLCA ID [2] . Pin level must remain steady until the initial SW configuration is complete and the MAC address and/or PLCA ID is stored. Supports true open drain functionality (increased drive strength and inbuilt I2C glitch filter on the input side) for I2C compatibility. Add weak pulling resistors to enable override, for example,100 k\u03a9.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"External Pull-up/Pull-down Resistors",
+            "description":"Used to set the logic level of SAIF10 for MAC address and PLCA ID configuration. A weak pull (e.g., 100 k\u03a9) is recommended to allow for override by software configuration."
+          }
+        ],
+        "connectivity":"Connect to sensor/actuator interfaces as needed. For MAC address/PLCA ID configuration, connect to external pull-up or pull-down resistors to set the desired bit value.",
+        "detailed_description":"SAIF10 is a multipurpose input/output pin used for the sensor/actuator interface. It is also used in conjunction with SAIF11, SAIF9, and SAIF8 (COTI) to set specific bits of the MAC address and/or PLCA ID. The pin level must remain steady until the initial software configuration is complete and the MAC address and/or PLCA ID is stored.",
+        "functionality":"Multipurpose Input/Output. Can be used as a sensor/actuator interface pin, or for setting MAC address/PLCA ID bits.",
+        "precautions":[
+          "The pin level must remain steady during the initial software configuration for MAC address and PLCA ID settings.",
+          "If used for MAC address/PLCA ID configuration, ensure that the external pull-up/pull-down resistors are appropriately chosen (weak pull recommended).",
+          "Supports true open drain functionality, with increased drive strength and an integrated I2C glitch filter on the input side for I2C compatibility."
+        ]
+      },
+      "internal_pull":{
+        "direction":"UP",
+        "pull_value":{
+          "min":100000.0,
+          "units":"Ohms"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"SAIF10",
+      "pin_id":"21",
+      "type":"DIGITAL"
+    },
+    "SAIF11":{
+      "description":"Multipurpose input/output pin used for sensor/actuator interface.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Pull-up/Pull-down Resistor",
+            "description":"A weak pull-up or pull-down resistor (e.g., 100 k\u03a9) is recommended to enable override for MAC address and/or PLCA ID configuration. This resistor should be used to set the desired bit (bit 11) high or low."
+          }
+        ],
+        "connectivity":"Connect to sensor/actuator interface. For MAC address/PLCA ID configuration, connect to a pull-up or pull-down resistor.",
+        "detailed_description":"SAIF11 is a multipurpose input/output pin used for the sensor/actuator interface. It can be configured to set bit 11 of the MAC address and/or PLCA ID. The pin level must remain steady until the initial software configuration is complete and the MAC address and/or PLCA ID is stored.",
+        "functionality":[
+          "Multipurpose input/output for sensor/actuator interface.",
+          "MAC address bit 11 configuration.",
+          "PLCA ID bit 11 configuration."
+        ],
+        "precautions":[
+          "The pin level must remain steady until the initial SW configuration is complete and the MAC address and/or PLCA ID is stored.",
+          "Use weak pulling resistors (e.g., 100 k\u03a9) to enable override for configuration.",
+          "Supports true open drain functionality for I2C compatibility."
+        ]
+      },
+      "internal_pull":{},
+      "name":"SAIF11",
+      "pin_id":"20",
+      "type":"DIGITAL"
+    },
+    "SAIF2/TS_CAPT":{
+      "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as input for the synchronized timer to trigger the capture of a timestamp when OA-SPI interface is enabled (optional). DNC when not used.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":"When used for timestamp capture with OA-SPI enabled, it would typically be connected to a signal from a master clock or synchronization source. When used as a general SAIF pin, it would connect to the specific sensor or actuator device.",
+        "connectivity":"Can be used as a general-purpose I/O pin for sensor/actuator interfaces, or specifically for timestamp capture when the OA-SPI interface is enabled. When not used for the synchronized timer function, it should be left as DNC (Do Not Connect).",
+        "detailed_description":"Multipurpose input/output pin used for the sensor/actuator interface. It also serves as an input for the synchronized timer to trigger the capture of a timestamp when the OA-SPI interface is enabled.",
+        "functionality":"Multipurpose I/O, Sensor/Actuator Interface, Synchronized Timer Input (Timestamp Capture)",
+        "precautions":"If not used for the synchronized timer function when OA-SPI is enabled, it should be left as Do Not Connect (DNC)."
+      },
+      "internal_pull":{},
+      "name":"SAIF2/TS_CAPT",
+      "pin_id":"8",
+      "type":"DIGITAL"
+    },
+    "SAIF3":{
+      "description":"Multipurpose input/output pin used for the sensor/actuator interface.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":"The SAIF3 pin can be connected to a wide range of sensors and actuators that utilize protocols like SPI, I2C, UART, LIN, GPIO, or PWM.  Examples include: \n- Microcontrollers (if not operating in all-hardware mode)\n- Sensors (e.g., temperature sensors, pressure sensors, accelerometers)\n- Actuators (e.g., LEDs, motors, relays, solenoids)\n- Other communication interfaces like LIN transceivers or SPI devices.",
+        "connectivity":"SAIF3 should be connected to the specific sensor or actuator it is intended to interface with. The connection will depend on the protocol being used (e.g., for UART, it would connect to a UART TX or RX pin of a sensor/actuator).  If not used for a specific interface, it can be left unconnected or configured as GPIO.",
+        "detailed_description":"SAIF3 is a multipurpose input/output pin used for the sensor/actuator interface. It is part of the twelve Sensor/Actuator Interface Pins (SAIF[11:0]) that allow flexible connection to various sensors and actuators.",
+        "functionality":"SAIF3 is a general-purpose I/O pin. It can be configured to support various serial interfaces such as SPI, I2C, UART, LIN, GPIO, PWM, and also specialized interfaces like ISELED and ILaS (on specific models). It can also be used as part of the flexible I/O capabilities. The specific function is determined by the configuration set for the device. Since it's a multipurpose pin, its function is not fixed and depends on the system's design and configuration.",
+        "precautions":"The SAIF pins are multipurpose and their function is software-configurable. Ensure the correct configuration is applied to the AD3300/1/4/5 device to match the intended sensor/actuator interface.  Some SAIF pins (like SAIF10 and SAIF11) have specific pull-up resistor recommendations for MAC address and PLCA ID configuration, but SAIF3 does not have such explicit recommendations in the provided text. If configured as an output, ensure the load does not exceed the device's driving capability (refer to Table 2 for Digital Output specifications). If left unconnected, it should be noted in the schematic.  The SAIF pins can be left unconnected, as they are three-stated when not enabled in pin multiplexing."
+      },
+      "internal_pull":{},
+      "name":"SAIF3",
+      "pin_id":"5",
+      "type":"DIGITAL"
+    },
+    "SAIF4/SCLK":{
+      "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as SPI serial clock (SCLK) input when OA-SPI interface is enabled. [1]",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":"When used as an OA-SPI SCLK, it is connected to the SCLK output pin of a host microcontroller or other SPI master device. When used as SAIF, it can be connected to various sensors or actuators depending on the application.",
+        "connectivity":"When used as part of the SAIF, it is a general-purpose I/O. When used as the OA-SPI SCLK, it connects to the SCLK output of the master SPI device (e.g., a microcontroller).",
+        "detailed_description":"This is a multipurpose input/output pin that serves as part of the sensor/actuator interface (SAIF). When the OPEN Alliance Serial Peripheral Interface (OA-SPI) is enabled, it functions as the serial clock (SCLK) input for the SPI communication.",
+        "functionality":"The pin has dual functionality: it can be used as part of the Sensor/Actuator Interface (SAIF) or as the SPI serial clock (SCLK) input when the OA-SPI interface is enabled.",
+        "precautions":"When the OA-SPI interface is enabled, this pin functions as the SPI serial clock (SCLK). A note in the datasheet indicates an optional 10 k\u03a9 pull-down resistor can be used for this pin. If not used for OA-SPI, it's a general SAIF pin and can be left unconnected or connected as needed for the SAIF interface."
+      },
+      "internal_pull":{
+        "direction":"DOWN",
+        "pull_value":{
+          "min":10000.0,
+          "units":"Ohms"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"SAIF4/SCLK",
+      "pin_id":"4",
+      "type":"DIGITAL"
+    },
+    "SAIF5/IRQ":{
+      "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as interrupt output when OA-SPI interface is enabled.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":"When used as a SAIF pin, it connects to the specific sensor or actuator. When used as an IRQ output, it connects to the interrupt input pin of a host microcontroller or processor.",
+        "connectivity":"The connection depends on its intended function. If used as part of the SAIF, it connects to sensors or actuators. If used as an IRQ output for the OA-SPI interface, it should be connected to the interrupt input of the host controller. If unused, it can be left unconnected (DNC - Do Not Connect) or tri-stated.",
+        "detailed_description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as interrupt output when OA-SPI interface is enabled.",
+        "functionality":"This pin can function as part of the sensor/actuator interface (SAIF) or as an interrupt output (IRQ) when the OPEN Alliance SPI (OA-SPI) interface is enabled. When not used as SAIF or IRQ, it is a Digital input/output.",
+        "precautions":"When the OA-SPI interface is enabled, this pin acts as an interrupt output. Care should be taken to ensure proper termination or impedance matching if it's used in a high-speed interface. If unused, it's best to connect it to a known state (e.g., a pull-down resistor if it's an input, or leave it unconnected if it's tri-stated by default and not actively used)."
+      },
+      "internal_pull":{},
+      "name":"SAIF5/IRQ",
+      "pin_id":"2",
+      "type":"DIGITAL"
+    },
+    "SAIF6/CS":{
+      "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as SPI chip select (CS) input (active low) when OA-SPI interface is enabled. [1]",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"SPI Master",
+            "description":"When configured for OA-SPI, this pin connects to the Chip Select (CS) output of the SPI master device."
+          },
+          {
+            "component_name":"Sensor/Actuator",
+            "description":"When used as a general SAIF pin, it connects to the digital interface of a sensor or actuator."
+          }
+        ],
+        "connectivity":"Can be connected to a sensor or actuator for interface purposes. When used as SPI CS, it should be connected to the CS output of the SPI master.",
+        "detailed_description":"This is a multipurpose input/output pin used for the sensor/actuator interface. When the OA-SPI interface is enabled, it also serves as the SPI chip select (CS) input, which is active low.",
+        "functionality":"Multipurpose input/output pin for sensor/actuator interface. Can function as SPI Chip Select (CS) when OA-SPI is enabled.",
+        "precautions":[
+          "Optional: Has a 10 k\u03a9 pull-up resistor.",
+          "When used as SAIF, the pin is three-stated when not enabled in pin multiplexing.",
+          "Ensure proper configuration to switch between SAIF and OA-SPI functionality."
+        ]
+      },
+      "internal_pull":{
+        "direction":"UP",
+        "pull_value":{
+          "min":10000.0,
+          "units":"Ohms"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"SAIF6/CS",
+      "pin_id":"1",
+      "type":"DIGITAL"
+    },
+    "SAIF7/CITO":{
+      "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit0 of the MAC address and/or PLCA ID [2] . Pin level must remain steady until the initial software configuration is complete and the MAC address and/or PLCA ID is stored. Add weak pulling resistors to enable override, for example,100 k\u03a9. Also serves as SPI CITO (controller input target output) signal when OA-SPI interface is enabled. [1]",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Sensors/Actuators",
+            "description":"When SAIF7/CITO is configured for the sensor/actuator interface, it connects to external sensors or actuators according to their specific interface requirements (e.g., SPI, I2C, UART, GPIO, PWM)."
+          },
+          {
+            "component_name":"SPI Master Device",
+            "description":"When configured for OA-SPI, SAIF7/CITO connects to the Master SPI device's output data line (often labeled MOSI or similar, depending on the master's configuration). A 33 \u03a9 series resistor is optionally placed on the source side of this connection."
+          }
+        ],
+        "connectivity":"When used as a sensor/actuator interface pin, it can be connected to various sensors or actuators. When used as the SPI CITO signal, it connects to the master SPI device's output data line (MISO in a typical SPI setup).  The datasheet also notes that a 33 \u03a9 series resistor at the source side of the signal is optional when used as CITO.",
+        "detailed_description":"SAIF7/CITO is a multipurpose input/output pin used for the sensor/actuator interface. It also serves as the SPI CITO (controller input target output) signal when the OA-SPI interface is enabled.",
+        "functionality":"This pin can function as a general sensor/actuator interface pin or as an SPI CITO signal. The functionality is determined by the device's configuration, specifically whether the OA-SPI interface is enabled.",
+        "precautions":"When used as the SPI CITO signal, a 33 \u03a9 series resistor at the source side of the signal is optional. If the pin is not used, it can be left unconnected; however, it is recommended to check the specific configuration notes for any default states or required connections."
+      },
+      "internal_pull":{
+        "direction":"UP",
+        "pull_value":{
+          "min":100000.0,
+          "units":"Ohms"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"SAIF7/CITO",
+      "pin_id":"24",
+      "type":"DIGITAL"
+    },
+    "SAIF8/COTI":{
+      "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit1 of the MAC address and/or PLCA ID [2] . Pin level must remain steady until the initial SW configuration is complete and the MAC address and/or PLCA ID is stored. Add weak pulling resistors to enable override, for example,100 k\u03a9. Also serves as SPI COTI (controller output target input) signal when OA-SPI interface is enabled. [1]",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"External Resistors",
+            "details":"10 k\u03a9 pull-down resistor is optional. Weak pulling resistors (e.g., 100 k\u03a9) are recommended for MAC address/PLCA ID configuration."
+          },
+          {
+            "component_name":"Master SPI Device",
+            "details":"If used for OA-SPI interface as COTI."
+          },
+          {
+            "component_name":"Sensors/Actuators",
+            "details":"For SAIF functionality."
+          }
+        ],
+        "connectivity":"When used as a sensor/actuator interface, it can be connected to various sensors or actuators. When used as COTI for the OA-SPI interface, it connects to the Master SPI device. For MAC address/PLCA ID configuration, it is connected to external pull-up or pull-down resistors.",
+        "detailed_description":"The SAIF8/COTI pin is a multipurpose input/output pin used for the sensor/actuator interface. Additionally, it serves as the SPI Controller Output Target Input (COTI) signal when the OA-SPI interface is enabled. It can also be used to set bit1 of the MAC address and/or PLCA ID by pulling the pin high or low with an external resistor. The pin level must remain steady until the initial software configuration is complete and the MAC address and/or PLCA ID is stored.",
+        "functionality":"The pin has multiple functionalities:\n- Sensor/Actuator Interface (SAIF)\n- SPI Controller Output Target Input (COTI)\n- MAC Address/PLCA ID configuration",
+        "precautions":"A 10 k\u03a9 pull-down resistor is optional. Do not leave the pin floating/unconnected. For MAC address/PLCA ID configuration, the pin level must remain steady until initial software configuration is complete. If used for OA-SPI, ensure proper SPI bus configuration and clocking."
+      },
+      "internal_pull":{
+        "direction":"DOWN",
+        "pull_value":{
+          "min":10000.0,
+          "units":"Ohms"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"SAIF8/COTI",
+      "pin_id":"23",
+      "type":"DIGITAL"
+    },
+    "SAIF9":{
+      "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit2 of the MAC address and/or PLCA ID [2] . Pin level must remain steady until the initial SW configuration is complete and the MAC address and/or PLCA ID is stored. Add weak pulling resistors to enable override, for example,100 k\u03a9. Supports true open drain functionality (increased drive strength and inbuilt I2C glitch filter on the input side) for I2C compatibility.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":"External resistors (e.g., 100 k\u03a9 pull-up/pull-down) for MAC address/PLCA ID configuration. No specific external components are required for its function as a general SAIF pin or for the TS_CAPT input unless specific signal conditioning is needed.",
+        "connectivity":"Can be used as a general-purpose I/O for sensor/actuator interfaces. When used for MAC address or PLCA ID configuration, it should be connected to external resistors for pull-up or pull-down. For timer capture, it acts as an input signal.",
+        "detailed_description":"Multipurpose input/output pin used for the sensor/actuator interface. It also serves as an input for the synchronized timer to trigger the capture of a timestamp when the OA-SPI interface is enabled. It can be pulled high or low with an external resistor to set bit1 of the MAC address and/or PLCA ID. The pin level must remain steady until the initial SW configuration is complete and the MAC address and/or PLCA ID is stored.",
+        "functionality":"SAIF9 (Sensor/Actuator Interface), Input for synchronized timer capture (TS_CAPT), MAC address bit 1 setting, PLCA ID bit 1 setting.",
+        "precautions":"If used for setting the MAC address or PLCA ID, the pin level must remain steady during initial software configuration. Weak pulling resistors are recommended for enabling override. The pin is DNC (Do Not Connect) when not used for its specific functions."
+      },
+      "internal_pull":{
+        "direction":"UP",
+        "pull_value":{
+          "min":100000.0,
+          "units":"Ohms"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"SAIF9",
+      "pin_id":"22",
+      "type":"DIGITAL"
+    },
+    "TEST":{
+      "description":"Short to GND. Do not leave floating/unconnected.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Ground (GND)",
+            "connection_type":"Direct connection",
+            "description":"The TEST pin should be connected to the device's ground reference."
+          }
+        ],
+        "connectivity":"The pin should be connected to ground (GND) in normal operating conditions.",
+        "detailed_description":"The TEST pin is a digital input pin used for testing purposes. It is typically used to enable or disable certain test modes or diagnostic features of the device.",
+        "functionality":"This pin is a digital input and primarily serves to control test modes. Its specific functionality might depend on internal configurations or external signals not detailed in this excerpt.",
+        "precautions":[
+          "The TEST pin should not be left floating or unconnected. It must be connected to GND.",
+          "While not explicitly stated in this excerpt, it's a common practice for 'test' pins to be connected to GND via a pull-down resistor (e.g., 10 k\u03a9) if there's any possibility of the pin being inadvertently driven high, or if a specific test mode requires a definable state other than just ground. However, the provided datasheet explicitly states 'Short to GND', implying a direct connection is intended."
+        ]
+      },
+      "internal_pull":{},
+      "name":"TEST",
+      "pin_id":"19",
+      "type":"DIGITAL"
+    },
+    "VBAT":{
+      "description":"Supply input for the always-on domain. It can connect to 5 V or battery supply. Requires a filter network (100 \u03a9 resistor and 10 \u03bcF capacitor) that prevents damage or malfunction during electrical events or electrical event testing. An additional 100 nF capacitor can be used for improved noise immunity.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Resistor",
+            "details":"100 Ohm, connected in series with the VBAT pin."
+          },
+          {
+            "component_name":"Capacitor",
+            "details":"10 uF, connected between the VBAT pin (after the resistor) and ground."
+          },
+          {
+            "component_name":"Capacitor",
+            "details":"100 nF, connected between the VBAT pin (after the resistor) and ground, for improved noise immunity."
+          }
+        ],
+        "connectivity":"Connect to a 5 V or battery supply. A filter network consisting of a 100 Ohm resistor and a 10 uF capacitor should be connected in series to this pin to protect against electrical events. An additional 100 nF capacitor can be added for improved noise immunity.",
+        "detailed_description":"VBAT is the power supply input for the always-on domain of the AD3300/AD3301/AD3304/AD3305. This domain includes essential circuitry like the sleep/wake-up controller, ensuring the device can respond to wake-up events even when other parts of the IC are powered down. It can connect to a 5 V or battery supply, allowing the device to monitor battery voltage for overvoltage (OV) and undervoltage (UV) events.",
+        "functionality":"Power supply input for the always-on domain. It also serves as a voltage monitoring input for over/under voltage detection.",
+        "precautions":"A filter network (100 Ohm resistor and 10 uF capacitor) is required to prevent damage or malfunction during electrical events or testing. If the device is used in a 5V power configuration, VBAT monitoring is not supported. The always-on domain ensures sleep/wake-up functions are maintained. The device can monitor the VBAT voltage level for OV and UV events, and this monitoring can influence the device's decision to enter sleep mode."
+      },
+      "input_voltage":{
+        "max":70,
+        "min":4.5,
+        "units":"V"
+      },
+      "name":"VBAT",
+      "pin_id":"13",
+      "type":"POWER"
+    },
+    "WAKE":{
+      "description":"Input that can be used for an external device to trigger the 10BASE-T1S transceiver to exit the sleep mode. WAKE is triggered by a positive edge > 1 V. Default: disabled. Optional: 10 k\u03a9 pull-down resistor. Do not leave floating/unconnected. Short to GND when not used. When connecting externally (off-PCB), the pin will need an off-chip filter for EMI protection).",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"External Wake-up Source",
+            "description":"A signal from an external device that transitions high to wake the transceiver from sleep mode. This signal must meet the voltage threshold of 1V for a positive edge trigger."
+          },
+          {
+            "component_name":"Resistor (optional)",
+            "description":"A 10 k\u03a9 pull-down resistor can be optionally connected to ensure the pin is held low when not actively driven, preventing unintended wake-ups. This is recommended if the pin is not actively driven low when unused."
+          }
+        ],
+        "connectivity":"The WAKE pin can be connected to a wake-up source. If not used externally, it should be shorted to GND.",
+        "detailed_description":"The WAKE pin is an input that can be used for an external device to trigger the 10BASE-T1S transceiver to exit the sleep mode. It is triggered by a positive edge greater than 1 V.",
+        "functionality":"The pin serves as a wake-up trigger from sleep mode. It is active high and has a threshold of 1 V for a positive edge trigger. It is not recommended to leave this pin floating; it should be shorted to GND when not used externally.",
+        "precautions":[
+          "Do not leave the WAKE pin floating. If it is not used to trigger a wake-up from sleep mode, it should be shorted to GND.",
+          "If connecting externally (off-PCB), an off-chip filter may be required for EMI protection.",
+          "The pin has a threshold of 1 V for a positive edge trigger. Ensure the driving signal meets this requirement."
+        ]
+      },
+      "input_voltage":{
+        "max":70.0,
+        "min":0.0,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"DOWN",
+        "pull_value":{
+          "min":10000.0,
+          "units":"Ohms"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"WAKE",
+      "pin_id":"15",
+      "type":"DIGITAL",
+      "vih":{
+        "max":1.05,
+        "min":1.0,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.95,
+        "min":0.9,
+        "units":"V"
+      }
+    },
+    "XTAL_I":{
+      "description":"Crystal amplifier (25 MHz) input pin. Direct clock reference (25 MHz) input pin.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Crystal Oscillator",
+            "details":"A 25 MHz crystal oscillator is required. The XTAL_I pin connects to one side of the crystal, and the XTAL_O pin connects to the other side. Additionally, series damping resistors (Rs) and potentially load capacitors may be needed depending on the specific crystal and board parasitics. Refer to Table 17 for recommended component values based on supply voltage."
+          },
+          {
+            "component_name":"Clock Source (Direct Input)",
+            "details":"If not using a crystal, a direct clock source can be connected to the XTAL_I pin. This clock source must provide a 25 MHz signal with appropriate voltage levels as specified in Table 1 (Clock Input Voltage Range)."
+          }
+        ],
+        "connectivity":"Connect this pin to one side of a crystal oscillator. The other side of the crystal oscillator should be connected to the XTAL_O pin. Alternatively, it can accept a direct clock input.",
+        "detailed_description":"The XTAL_I pin is an analog input pin used as the input for the crystal amplifier. It serves as the direct clock reference for the device, requiring a 25 MHz crystal oscillator connection.",
+        "functionality":"This pin serves as the input for the internal crystal amplifier and also as a direct input for an external clock reference if a crystal is not used. It's designed for a 25 MHz clock frequency.",
+        "precautions":[
+          "Ensure the crystal frequency tolerance is within the specified limits (Table 1).",
+          "When using a crystal, proper grounding and placement of the crystal and associated components are crucial for stable operation and to meet EMC requirements. Refer to Figure 19 and the layout guidelines.",
+          "If using a direct clock input, ensure the signal integrity and voltage levels meet the specifications in Table 1.",
+          "The XTAL_I input must be present no later than 0.5 s after power-on.",
+          "The voltage on the XTAL_I pin must be within the range of -0.3 V to +1.8 V (Table 10)."
+        ]
+      },
+      "input_voltage":{
+        "max":1.8,
+        "min":-0.3,
+        "units":"V"
+      },
+      "name":"XTAL_I",
+      "pin_id":"12",
+      "type":"ANALOG"
+    },
+    "XTAL_O":{
+      "description":"Crystal amplifier (25 MHz) output pin.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"External Crystal",
+            "connection_details":"Connect the crystal between XTAL_I (Pin 12) and XTAL_O (Pin 11).",
+            "description":"A crystal resonator is required to generate the reference clock. The crystal specifications for frequency, tolerance, shunt capacitance, load capacitance, and ESR are provided in the datasheet (Table 1). The crystal is connected between XTAL_I and XTAL_O. Additionally, shunt capacitors may be needed on these pins to ground to meet the load capacitance requirement."
+          },
+          {
+            "component_name":"External Clock Source",
+            "connection_details":"Connect the external clock source to XTAL_I (Pin 12). XTAL_O (Pin 11) should be left unconnected or connected to ground.",
+            "description":"Alternatively, an external clock signal can be provided to the XTAL_I pin, and XTAL_O can be left unconnected or connected to ground if required by the specific external clock source."
+          },
+          {
+            "component_name":"Decoupling Capacitors",
+            "connection_details":"Connect capacitors from XTAL_I to ground and from XTAL_O to ground as per Figure 19 and Table 17.",
+            "description":"For optimal performance and noise immunity, decoupling capacitors are recommended for the XTAL_I and XTAL_O pins, typically connected to ground. The values can be found in the 'Typical Oscillator Connection Diagram' (Figure 19) and 'Oscillator Circuit Component Selection' (Table 17)."
+          }
+        ],
+        "connectivity":"This pin should be connected to the XTAL_I pin through an external crystal. When an external clock source is used, this pin should be connected to the clock source.",
+        "detailed_description":"The XTAL_O pin is the output pin of the internal crystal amplifier circuit, which is designed to operate with a 25 MHz crystal.",
+        "functionality":"This pin serves as the output for the crystal amplifier. It is part of the circuitry used to generate the reference clock for the device. It is also described as a direct clock reference (25 MHz) input pin when an external clock is used instead of a crystal.",
+        "precautions":[
+          "The XTAL_I and XTAL_O pins are sensitive and require careful layout to ensure stable oscillation. Keep the traces between the crystal and these pins as short as possible.",
+          "Ensure that the crystal and any associated loading capacitors are placed as close as possible to the AD3300/1/4/5 device.",
+          "If an external clock source is used, ensure that the clock source meets the input voltage range and frequency tolerance specifications.",
+          "When using the device with a crystal, the crystal frequency must be 25 MHz as stated in the datasheet.",
+          "Refer to Figure 19 and Table 17 for recommended oscillator circuit component values and layout considerations."
+        ]
+      },
+      "name":"XTAL_O",
+      "pin_id":"11",
+      "type":"ANALOG",
+      "vol":{
+        "max":1.35,
+        "units":"V"
+      }
+    }
+  },
+  "serial_bus":{
+    "fields":[
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as SPI chip select (CS) input (active low) when OA-SPI interface is enabled.",
+        "name":"SAIF6/CS",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":0,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as interrupt output when OA-SPI interface is enabled.",
+        "name":"SAIF5/IRQ",
+        "register_location":[
+          {
+            "reg_end_bit":1,
+            "reg_start_bit":1,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as SPI serial clock (SCLK) input when OA-SPI interface is enabled.",
+        "name":"SAIF4/SCLK",
+        "register_location":[
+          {
+            "reg_end_bit":2,
+            "reg_start_bit":2,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface.",
+        "name":"SAIF3",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":3,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as input for the synchronized timer to trigger the capture of a timestamp when OA-SPI interface is enabled (optional). DNC when not used.",
+        "name":"SAIF2/TS_CAPT",
+        "register_location":[
+          {
+            "reg_end_bit":4,
+            "reg_start_bit":4,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as the output of the synchronized timer when OA-SPI interface is enabled (optional). DNC when not used.",
+        "name":"SAIF1/TS_TIMER",
+        "register_location":[
+          {
+            "reg_end_bit":5,
+            "reg_start_bit":5,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface.",
+        "name":"SAIF0",
+        "register_location":[
+          {
+            "reg_end_bit":6,
+            "reg_start_bit":6,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Crystal amplifier (25 MHz) output pin.",
+        "name":"XTAL_O",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":7,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Crystal amplifier (25 MHz) input pin. Direct clock reference (25 MHz) input pin.",
+        "name":"XTAL_I",
+        "register_location":[
+          {
+            "reg_end_bit":8,
+            "reg_start_bit":8,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Supply input for the always-on domain. It can connect to 5 V or battery supply.",
+        "name":"VBAT",
+        "register_location":[
+          {
+            "reg_end_bit":9,
+            "reg_start_bit":9,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Output pin asserted when the 10BASE-T1S transceiver is in an Awake mode; it can be used as an active-high enable or an active-low inhibit.",
+        "name":"EN",
+        "register_location":[
+          {
+            "reg_end_bit":10,
+            "reg_start_bit":10,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Input that can be used for an external device to trigger the 10BASE-T1S transceiver to exit the sleep mode. WAKE is triggered by a positive edge > 1 V. Default: disabled.",
+        "name":"WAKE",
+        "register_location":[
+          {
+            "reg_end_bit":11,
+            "reg_start_bit":11,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"10BASE-T1S negative differential pin.",
+        "name":"ETH_N",
+        "register_location":[
+          {
+            "reg_end_bit":12,
+            "reg_start_bit":12,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"10BASE-T1S positive differential pin.",
+        "name":"ETH_P",
+        "register_location":[
+          {
+            "reg_end_bit":13,
+            "reg_start_bit":13,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"5 V supply input; it can be powered off when the 10BASE-T1S transceiver is not in an Awake mode to save power.",
+        "name":"AVDD",
+        "register_location":[
+          {
+            "reg_end_bit":14,
+            "reg_start_bit":14,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface.",
+        "name":"SAIF11",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":15,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit3 of the MAC address and/or PLCA ID. Pin level must remain steady until the initial SW configuration is complete and the MAC address and/or PLCA ID is stored.",
+        "name":"SAIF10",
+        "register_location":[
+          {
+            "reg_end_bit":16,
+            "reg_start_bit":16,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit2 of the MAC address and/or PLCA ID. Pin level must remain steady until the initial SW configuration is complete and the MAC address and/or PLCA ID is stored.",
+        "name":"SAIF9",
+        "register_location":[
+          {
+            "reg_end_bit":17,
+            "reg_start_bit":17,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit1 of the MAC address and/or PLCA ID. Pin level must remain steady until the initial SW configuration is complete and the MAC address and/or PLCA ID is stored. Also serves as SPI COTI (controller output target input) signal when OA-SPI interface is enabled.",
+        "name":"SAIF8/COTI",
+        "register_location":[
+          {
+            "reg_end_bit":18,
+            "reg_start_bit":18,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit0 of the MAC address and/or PLCA ID. Pin level must remain steady until the initial software configuration is complete and the MAC address and/or PLCA ID is stored. Also serves as SPI CITO (controller input target output) signal when OA-SPI interface is enabled.",
+        "name":"SAIF7/CITO",
+        "register_location":[
+          {
+            "reg_end_bit":19,
+            "reg_start_bit":19,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Short to GND.",
+        "name":"TEST",
+        "register_location":[
+          {
+            "reg_end_bit":20,
+            "reg_start_bit":20,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as SPI chip select (CS) input (active low) when OA-SPI interface is enabled.",
+        "name":"SAIF6/CS",
+        "register_location":[
+          {
+            "reg_end_bit":21,
+            "reg_start_bit":21,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as interrupt output when OA-SPI interface is enabled.",
+        "name":"SAIF5/IRQ",
+        "register_location":[
+          {
+            "reg_end_bit":22,
+            "reg_start_bit":22,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as SPI serial clock (SCLK) input when OA-SPI interface is enabled.",
+        "name":"SAIF4/SCLK",
+        "register_location":[
+          {
+            "reg_end_bit":23,
+            "reg_start_bit":23,
+            "register_address":0
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface.",
+        "name":"SAIF3",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":0,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as input for the synchronized timer to trigger the capture of a timestamp when OA-SPI interface is enabled (optional). DNC when not used.",
+        "name":"SAIF2/TS_CAPT",
+        "register_location":[
+          {
+            "reg_end_bit":1,
+            "reg_start_bit":1,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as the output of the synchronized timer when OA-SPI interface is enabled (optional). DNC when not used.",
+        "name":"SAIF1/TS_TIMER",
+        "register_location":[
+          {
+            "reg_end_bit":2,
+            "reg_start_bit":2,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface.",
+        "name":"SAIF0",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":3,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface.",
+        "name":"SAIF11",
+        "register_location":[
+          {
+            "reg_end_bit":4,
+            "reg_start_bit":4,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit3 of the MAC address and/or PLCA ID. Pin level must remain steady until the initial SW configuration is complete and the MAC address and/or PLCA ID is stored.",
+        "name":"SAIF10",
+        "register_location":[
+          {
+            "reg_end_bit":5,
+            "reg_start_bit":5,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit2 of the MAC address and/or PLCA ID. Pin level must remain steady until the initial SW configuration is complete and the MAC address and/or PLCA ID is stored.",
+        "name":"SAIF9",
+        "register_location":[
+          {
+            "reg_end_bit":6,
+            "reg_start_bit":6,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit1 of the MAC address and/or PLCA ID. Pin level must remain steady until the initial SW configuration is complete and the MAC address and/or PLCA ID is stored. Also serves as SPI COTI (controller output target input) signal when OA-SPI interface is enabled.",
+        "name":"SAIF8/COTI",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":7,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit0 of the MAC address and/or PLCA ID. Pin level must remain steady until the initial software configuration is complete and the MAC address and/or PLCA ID is stored. Also serves as SPI CITO (controller input target output) signal when OA-SPI interface is enabled.",
+        "name":"SAIF7/CITO",
+        "register_location":[
+          {
+            "reg_end_bit":8,
+            "reg_start_bit":8,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as SPI chip select (CS) input (active low) when OA-SPI interface is enabled.",
+        "name":"SAIF6/CS",
+        "register_location":[
+          {
+            "reg_end_bit":9,
+            "reg_start_bit":9,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as interrupt output when OA-SPI interface is enabled.",
+        "name":"SAIF5/IRQ",
+        "register_location":[
+          {
+            "reg_end_bit":10,
+            "reg_start_bit":10,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as SPI serial clock (SCLK) input when OA-SPI interface is enabled.",
+        "name":"SAIF4/SCLK",
+        "register_location":[
+          {
+            "reg_end_bit":11,
+            "reg_start_bit":11,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface.",
+        "name":"SAIF3",
+        "register_location":[
+          {
+            "reg_end_bit":12,
+            "reg_start_bit":12,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as input for the synchronized timer to trigger the capture of a timestamp when OA-SPI interface is enabled (optional). DNC when not used.",
+        "name":"SAIF2/TS_CAPT",
+        "register_location":[
+          {
+            "reg_end_bit":13,
+            "reg_start_bit":13,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as the output of the synchronized timer when OA-SPI interface is enabled (optional). DNC when not used.",
+        "name":"SAIF1/TS_TIMER",
+        "register_location":[
+          {
+            "reg_end_bit":14,
+            "reg_start_bit":14,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface.",
+        "name":"SAIF0",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":15,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface.",
+        "name":"SAIF11",
+        "register_location":[
+          {
+            "reg_end_bit":16,
+            "reg_start_bit":16,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit3 of the MAC address and/or PLCA ID. Pin level must remain steady until the initial SW configuration is complete and the MAC address and/or PLCA ID is stored.",
+        "name":"SAIF10",
+        "register_location":[
+          {
+            "reg_end_bit":17,
+            "reg_start_bit":17,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit2 of the MAC address and/or PLCA ID. Pin level must remain steady until the initial SW configuration is complete and the MAC address and/or PLCA ID is stored.",
+        "name":"SAIF9",
+        "register_location":[
+          {
+            "reg_end_bit":18,
+            "reg_start_bit":18,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit1 of the MAC address and/or PLCA ID. Pin level must remain steady until the initial SW configuration is complete and the MAC address and/or PLCA ID is stored. Also serves as SPI COTI (controller output target input) signal when OA-SPI interface is enabled.",
+        "name":"SAIF8/COTI",
+        "register_location":[
+          {
+            "reg_end_bit":19,
+            "reg_start_bit":19,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit0 of the MAC address and/or PLCA ID. Pin level must remain steady until the initial software configuration is complete and the MAC address and/or PLCA ID is stored. Also serves as SPI CITO (controller input target output) signal when OA-SPI interface is enabled.",
+        "name":"SAIF7/CITO",
+        "register_location":[
+          {
+            "reg_end_bit":20,
+            "reg_start_bit":20,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Short to GND.",
+        "name":"TEST",
+        "register_location":[
+          {
+            "reg_end_bit":21,
+            "reg_start_bit":21,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as SPI chip select (CS) input (active low) when OA-SPI interface is enabled.",
+        "name":"SAIF6/CS",
+        "register_location":[
+          {
+            "reg_end_bit":22,
+            "reg_start_bit":22,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as interrupt output when OA-SPI interface is enabled.",
+        "name":"SAIF5/IRQ",
+        "register_location":[
+          {
+            "reg_end_bit":23,
+            "reg_start_bit":23,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as SPI serial clock (SCLK) input when OA-SPI interface is enabled.",
+        "name":"SAIF4/SCLK",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":0,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface.",
+        "name":"SAIF3",
+        "register_location":[
+          {
+            "reg_end_bit":1,
+            "reg_start_bit":1,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as input for the synchronized timer to trigger the capture of a timestamp when OA-SPI interface is enabled (optional). DNC when not used.",
+        "name":"SAIF2/TS_CAPT",
+        "register_location":[
+          {
+            "reg_end_bit":2,
+            "reg_start_bit":2,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as the output of the synchronized timer when OA-SPI interface is enabled (optional). DNC when not used.",
+        "name":"SAIF1/TS_TIMER",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":3,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface.",
+        "name":"SAIF0",
+        "register_location":[
+          {
+            "reg_end_bit":4,
+            "reg_start_bit":4,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface.",
+        "name":"SAIF11",
+        "register_location":[
+          {
+            "reg_end_bit":5,
+            "reg_start_bit":5,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit3 of the MAC address and/or PLCA ID. Pin level must remain steady until the initial SW configuration is complete and the MAC address and/or PLCA ID is stored.",
+        "name":"SAIF10",
+        "register_location":[
+          {
+            "reg_end_bit":6,
+            "reg_start_bit":6,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit2 of the MAC address and/or PLCA ID. Pin level must remain steady until the initial SW configuration is complete and the MAC address and/or PLCA ID is stored.",
+        "name":"SAIF9",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":7,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit1 of the MAC address and/or PLCA ID. Pin level must remain steady until the initial SW configuration is complete and the MAC address and/or PLCA ID is stored. Also serves as SPI COTI (controller output target input) signal when OA-SPI interface is enabled.",
+        "name":"SAIF8/COTI",
+        "register_location":[
+          {
+            "reg_end_bit":8,
+            "reg_start_bit":8,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit0 of the MAC address and/or PLCA ID. Pin level must remain steady until the initial software configuration is complete and the MAC address and/or PLCA ID is stored. Also serves as SPI CITO (controller input target output) signal when OA-SPI interface is enabled.",
+        "name":"SAIF7/CITO",
+        "register_location":[
+          {
+            "reg_end_bit":9,
+            "reg_start_bit":9,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Short to GND.",
+        "name":"TEST",
+        "register_location":[
+          {
+            "reg_end_bit":10,
+            "reg_start_bit":10,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as SPI chip select (CS) input (active low) when OA-SPI interface is enabled.",
+        "name":"SAIF6/CS",
+        "register_location":[
+          {
+            "reg_end_bit":11,
+            "reg_start_bit":11,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as interrupt output when OA-SPI interface is enabled.",
+        "name":"SAIF5/IRQ",
+        "register_location":[
+          {
+            "reg_end_bit":12,
+            "reg_start_bit":12,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as SPI serial clock (SCLK) input when OA-SPI interface is enabled.",
+        "name":"SAIF4/SCLK",
+        "register_location":[
+          {
+            "reg_end_bit":13,
+            "reg_start_bit":13,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface.",
+        "name":"SAIF3",
+        "register_location":[
+          {
+            "reg_end_bit":14,
+            "reg_start_bit":14,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as input for the synchronized timer to trigger the capture of a timestamp when OA-SPI interface is enabled (optional). DNC when not used.",
+        "name":"SAIF2/TS_CAPT",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":15,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface. Also serves as the output of the synchronized timer when OA-SPI interface is enabled (optional). DNC when not used.",
+        "name":"SAIF1/TS_TIMER",
+        "register_location":[
+          {
+            "reg_end_bit":16,
+            "reg_start_bit":16,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for the sensor/actuator interface.",
+        "name":"SAIF0",
+        "register_location":[
+          {
+            "reg_end_bit":17,
+            "reg_start_bit":17,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface.",
+        "name":"SAIF11",
+        "register_location":[
+          {
+            "reg_end_bit":18,
+            "reg_start_bit":18,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit3 of the MAC address and/or PLCA ID. Pin level must remain steady until the initial SW configuration is complete and the MAC address and/or PLCA ID is stored.",
+        "name":"SAIF10",
+        "register_location":[
+          {
+            "reg_end_bit":19,
+            "reg_start_bit":19,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit2 of the MAC address and/or PLCA ID. Pin level must remain steady until the initial SW configuration is complete and the MAC address and/or PLCA ID is stored.",
+        "name":"SAIF9",
+        "register_location":[
+          {
+            "reg_end_bit":20,
+            "reg_start_bit":20,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit1 of the MAC address and/or PLCA ID. Pin level must remain steady until the initial SW configuration is complete and the MAC address and/or PLCA ID is stored. Also serves as SPI COTI (controller output target input) signal when OA-SPI interface is enabled.",
+        "name":"SAIF8/COTI",
+        "register_location":[
+          {
+            "reg_end_bit":21,
+            "reg_start_bit":21,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Multipurpose input/output pin used for sensor/actuator interface. Pull pin high or low with an external resistor to set bit0 of the MAC address and/or PLCA ID. Pin level must remain steady until the initial software configuration is complete and the MAC address and/or PLCA ID is stored. Also serves as SPI CITO (controller input target output) signal when OA-SPI interface is enabled.",
+        "name":"SAIF7/CITO",
+        "register_location":[
+          {
+            "reg_end_bit":22,
+            "reg_start_bit":22,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"Short to GND.",
+        "name":"TEST",
+        "register_location":[
+          {
+            "reg_end_bit":23,
+            "reg_start_bit":23,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"SCLK Frequency in Dual mode",
+        "digital_physical_map":{
+          "0":"8 MHz",
+          "1":"15 MHz"
+        },
+        "name":"SCLK Frequency (Dual mode)",
+        "register_location":[
+          {
+            "reg_end_bit":1,
+            "reg_start_bit":0,
+            "register_address":3
+          }
+        ]
+      },
+      {
+        "description":"SCLK Frequency",
+        "digital_physical_map":{
+          "0":"8 MHz",
+          "1":"22.5 MHz"
+        },
+        "name":"SCLK Frequency",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":2,
+            "register_address":3
+          }
+        ]
+      },
+      {
+        "description":"SCLK Duty Cycle",
+        "digital_physical_map":{
+          "0":"25/75",
+          "1":"75/25"
+        },
+        "name":"SCLK Duty Cycle",
+        "register_location":[
+          {
+            "reg_end_bit":5,
+            "reg_start_bit":4,
+            "register_address":3
+          }
+        ]
+      },
+      {
+        "description":"CS High Time",
+        "digital_physical_map":{
+          "0":"120 ns"
+        },
+        "name":"CS High Time",
+        "register_location":[
+          {
+            "reg_end_bit":6,
+            "reg_start_bit":6,
+            "register_address":3
+          }
+        ]
+      },
+      {
+        "description":"CS Setup Time",
+        "digital_physical_map":{
+          "0":"17 ns"
+        },
+        "name":"CS Setup Time",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":7,
+            "register_address":3
+          }
+        ]
+      },
+      {
+        "description":"CS Hold Time",
+        "digital_physical_map":{
+          "0":"17 ns"
+        },
+        "name":"CS Hold Time",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":0,
+            "register_address":4
+          }
+        ]
+      },
+      {
+        "description":"COTI Input Setup Time Before Sample Edge",
+        "digital_physical_map":{
+          "0":"5 ns"
+        },
+        "name":"COTI Input Setup Time Before Sample Edge",
+        "register_location":[
+          {
+            "reg_end_bit":1,
+            "reg_start_bit":1,
+            "register_address":4
+          }
+        ]
+      },
+      {
+        "description":"COTI Input Hold Time After Sample Edge",
+        "digital_physical_map":{
+          "0":"5 ns"
+        },
+        "name":"COTI Input Hold Time After Sample Edge",
+        "register_location":[
+          {
+            "reg_end_bit":2,
+            "reg_start_bit":2,
+            "register_address":4
+          }
+        ]
+      },
+      {
+        "description":"CITO Output Valid (Delay After Drive Edge)",
+        "digital_physical_map":{
+          "0":"14 ns"
+        },
+        "name":"CITO Output Valid (Delay After Drive Edge)",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":3,
+            "register_address":4
+          }
+        ]
+      },
+      {
+        "description":"CITO Output Hold Time After Drive Edge",
+        "digital_physical_map":{
+          "0":"5 ns"
+        },
+        "name":"CITO Output Hold Time After Drive Edge",
+        "register_location":[
+          {
+            "reg_end_bit":4,
+            "reg_start_bit":4,
+            "register_address":4
+          }
+        ]
+      },
+      {
+        "description":"CITO Output Disable Time",
+        "digital_physical_map":{
+          "0":"20 ns"
+        },
+        "name":"CITO Output Disable Time",
+        "register_location":[
+          {
+            "reg_end_bit":5,
+            "reg_start_bit":5,
+            "register_address":4
+          }
+        ]
+      },
+      {
+        "description":"CITO Output Valid (Delay After CS Edge)",
+        "digital_physical_map":{
+          "0":"15 ns"
+        },
+        "name":"CITO Output Valid (Delay After CS Edge)",
+        "register_location":[
+          {
+            "reg_end_bit":6,
+            "reg_start_bit":6,
+            "register_address":4
+          }
+        ]
+      },
+      {
+        "description":"TS_CAPT Pulse Width",
+        "digital_physical_map":{
+          "0":"80 ns"
+        },
+        "name":"TS_CAPT Pulse Width",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":5
+          }
+        ]
+      },
+      {
+        "description":"TS_TIMER Period",
+        "digital_physical_map":{
+          "0":"32 ns"
+        },
+        "name":"TS_TIMER Period",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":8,
+            "register_address":5
+          }
+        ]
+      },
+      {
+        "description":"Period Error",
+        "digital_physical_map":{
+          "0":"0 ns"
+        },
+        "name":"Period Error",
+        "register_location":[
+          {
+            "reg_end_bit":23,
+            "reg_start_bit":16,
+            "register_address":5
+          }
+        ]
+      },
+      {
+        "description":"Jitter Error",
+        "digital_physical_map":{
+          "0":"-2 ns to 2 ns"
+        },
+        "name":"Jitter Error",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":6
+          }
+        ]
+      },
+      {
+        "description":"Jitter Error",
+        "digital_physical_map":{
+          "0":"-12 ns to 12 ns"
+        },
+        "name":"Jitter Error",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":8,
+            "register_address":6
+          }
+        ]
+      },
+      {
+        "description":"Jitter Error",
+        "digital_physical_map":{
+          "0":"-25 ns to 25 ns"
+        },
+        "name":"Jitter Error",
+        "register_location":[
+          {
+            "reg_end_bit":23,
+            "reg_start_bit":16,
+            "register_address":6
+          }
+        ]
+      },
+      {
+        "description":"UART Baud Rate",
+        "digital_physical_map":{
+          "0":"600 bps",
+          "1":"6250000 bps"
+        },
+        "name":"Baud Rate",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":0,
+            "register_address":7
+          }
+        ]
+      },
+      {
+        "description":"UART Baud Rate Error",
+        "digital_physical_map":{
+          "0":"-1% to 1%",
+          "1":"-2% to 2%"
+        },
+        "name":"Baud Rate Error",
+        "register_location":[
+          {
+            "reg_end_bit":17,
+            "reg_start_bit":16,
+            "register_address":7
+          }
+        ]
+      },
+      {
+        "description":"PWM Frequency Range",
+        "digital_physical_map":{
+          "0":"0.1 Hz",
+          "1":"1.0x10^6 Hz"
+        },
+        "name":"PWM Frequency Range",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":0,
+            "register_address":8
+          }
+        ]
+      },
+      {
+        "description":"PWM Frequency Accuracy",
+        "digital_physical_map":{
+          "0":"2000 ppm",
+          "1":"15000 ppm"
+        },
+        "name":"PWM Frequency Accuracy",
+        "register_location":[
+          {
+            "reg_end_bit":23,
+            "reg_start_bit":16,
+            "register_address":8
+          }
+        ]
+      },
+      {
+        "description":"PWM Duty Cycle Resolution",
+        "digital_physical_map":{
+          "0":"0.78125%"
+        },
+        "name":"PWM Duty Cycle Resolution",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":9
+          }
+        ]
+      },
+      {
+        "description":"PWM Duty Cycle Accuracy",
+        "digital_physical_map":{
+          "0":"4000 ppm",
+          "1":"15000 ppm"
+        },
+        "name":"PWM Duty Cycle Accuracy",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":8,
+            "register_address":9
+          }
+        ]
+      },
+      {
+        "description":"Clock Generator Frequency Range",
+        "digital_physical_map":{
+          "0":"0.25 MHz",
+          "1":"25 MHz"
+        },
+        "name":"Clock Generator Frequency Range",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":10
+          }
+        ]
+      },
+      {
+        "description":"Clock Generator Frequency Accuracy",
+        "digital_physical_map":{
+          "0":"10 ppm",
+          "1":"200 ppm"
+        },
+        "name":"Clock Generator Frequency Accuracy",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":8,
+            "register_address":10
+          }
+        ]
+      },
+      {
+        "description":"LIN Controller Bit Rate",
+        "digital_physical_map":{
+          "0":"1 kbps",
+          "1":"20 kbps"
+        },
+        "name":"LIN Controller Bit Rate",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":11
+          }
+        ]
+      },
+      {
+        "description":"ISELED or ILaS Bit Width (Downstream)",
+        "digital_physical_map":{
+          "0":"500 ns"
+        },
+        "name":"ISELED/ILaS Bit Width (Downstream)",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":12
+          }
+        ]
+      },
+      {
+        "description":"ISELED or ILaS Bit Width (Upstream)",
+        "digital_physical_map":{
+          "0":"384 ns",
+          "1":"714 ns"
+        },
+        "name":"ISELED/ILaS Bit Width (Upstream)",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":8,
+            "register_address":12
+          }
+        ]
+      },
+      {
+        "description":"SPI Chip Select (active low).",
+        "name":"SPI_CS",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":0,
+            "register_address":13
+          }
+        ]
+      },
+      {
+        "description":"SPI Serial Clock.",
+        "name":"SPI_SCLK",
+        "register_location":[
+          {
+            "reg_end_bit":1,
+            "reg_start_bit":1,
+            "register_address":13
+          }
+        ]
+      },
+      {
+        "description":"SPI Controller Output to Target Input.",
+        "name":"SPI_COTI",
+        "register_location":[
+          {
+            "reg_end_bit":2,
+            "reg_start_bit":2,
+            "register_address":13
+          }
+        ]
+      },
+      {
+        "description":"SPI Controller Input to Target Output.",
+        "name":"SPI_CITO",
+        "register_location":[
+          {
+            "reg_end_bit":3,
+            "reg_start_bit":3,
+            "register_address":13
+          }
+        ]
+      },
+      {
+        "description":"SPI Interrupt Request (Optional).",
+        "name":"SPI_IRQ",
+        "register_location":[
+          {
+            "reg_end_bit":4,
+            "reg_start_bit":4,
+            "register_address":13
+          }
+        ]
+      },
+      {
+        "description":"I2C Serial Clock.",
+        "name":"I2C_SCL",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":0,
+            "register_address":14
+          }
+        ]
+      },
+      {
+        "description":"I2C Serial Data.",
+        "name":"I2C_SDA",
+        "register_location":[
+          {
+            "reg_end_bit":1,
+            "reg_start_bit":1,
+            "register_address":14
+          }
+        ]
+      },
+      {
+        "description":"LIN Enable.",
+        "name":"LIN_EN",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":0,
+            "register_address":15
+          }
+        ]
+      },
+      {
+        "description":"LIN Transmit Data.",
+        "name":"LIN_TXD",
+        "register_location":[
+          {
+            "reg_end_bit":1,
+            "reg_start_bit":1,
+            "register_address":15
+          }
+        ]
+      },
+      {
+        "description":"LIN Receive Data.",
+        "name":"LIN_RXD",
+        "register_location":[
+          {
+            "reg_end_bit":2,
+            "reg_start_bit":2,
+            "register_address":15
+          }
+        ]
+      },
+      {
+        "description":"General Purpose Input/Output.",
+        "name":"GPIO[11:0]",
+        "register_location":[
+          {
+            "reg_end_bit":11,
+            "reg_start_bit":0,
+            "register_address":16
+          }
+        ]
+      },
+      {
+        "description":"Pulse Width Modulation Output.",
+        "name":"PWM[11:0]",
+        "register_location":[
+          {
+            "reg_end_bit":11,
+            "reg_start_bit":0,
+            "register_address":17
+          }
+        ]
+      },
+      {
+        "description":"UART Receive Data.",
+        "name":"UART_RX",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":0,
+            "register_address":18
+          }
+        ]
+      },
+      {
+        "description":"UART Transmit Data.",
+        "name":"UART_TX",
+        "register_location":[
+          {
+            "reg_end_bit":1,
+            "reg_start_bit":1,
+            "register_address":18
+          }
+        ]
+      },
+      {
+        "description":"Sensor/Actuator Interface pins used for ADC input.",
+        "name":"SAIF[5:0]",
+        "register_location":[
+          {
+            "reg_end_bit":5,
+            "reg_start_bit":0,
+            "register_address":19
+          }
+        ]
+      },
+      {
+        "description":"VBAT voltage monitored by ADC (attenuated 20x).",
+        "name":"VBAT voltage monitoring",
+        "register_location":[
+          {
+            "reg_end_bit":6,
+            "reg_start_bit":6,
+            "register_address":19
+          }
+        ]
+      },
+      {
+        "description":"DVDDIO voltage monitored by ADC.",
+        "name":"DVDDIO voltage monitoring",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":7,
+            "register_address":19
+          }
+        ]
+      },
+      {
+        "description":"LVDD voltage monitored by ADC.",
+        "name":"LVDD voltage monitoring",
+        "register_location":[
+          {
+            "reg_end_bit":0,
+            "reg_start_bit":0,
+            "register_address":20
+          }
+        ]
+      },
+      {
+        "description":"DVDD voltage monitored by ADC.",
+        "name":"DVDD voltage monitoring",
+        "register_location":[
+          {
+            "reg_end_bit":1,
+            "reg_start_bit":1,
+            "register_address":20
+          }
+        ]
+      },
+      {
+        "description":"AVDD voltage monitored by ADC (attenuated 3x).",
+        "name":"AVDD voltage monitoring",
+        "register_location":[
+          {
+            "reg_end_bit":2,
+            "reg_start_bit":2,
+            "register_address":20
+          }
+        ]
+      },
+      {
+        "description":"Flexible I/O pins for various interfaces.",
+        "name":"Flexible I/O",
+        "register_location":[
+          {
+            "reg_end_bit":11,
+            "reg_start_bit":0,
+            "register_address":21
+          }
+        ]
+      },
+      {
+        "description":"ISELED or ILaS interface pins.",
+        "name":"ISELED or ILaS",
+        "register_location":[
+          {
+            "reg_end_bit":11,
+            "reg_start_bit":0,
+            "register_address":22
+          }
+        ]
+      },
+      {
+        "description":"SCLK Frequency for SPI controller mode.",
+        "digital_physical_map":{
+          "0":"0.1 MHz",
+          "1":"20 MHz"
+        },
+        "name":"SCLK Frequency",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":23
+          }
+        ]
+      },
+      {
+        "description":"SPI Data Input Setup Time Before SCLK Edge",
+        "digital_physical_map":{
+          "0":"5 ns"
+        },
+        "name":"Data Input Setup Time Before SCLK Edge",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":24
+          }
+        ]
+      },
+      {
+        "description":"SPI Data Input Hold Time After SCLK Edge",
+        "digital_physical_map":{
+          "0":"10 ns"
+        },
+        "name":"Data Input Hold Time After SCLK Edge",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":8,
+            "register_address":24
+          }
+        ]
+      },
+      {
+        "description":"SPI CS Setup Time Before SCLK Edge.",
+        "digital_physical_map":{
+          "0":"20 ns"
+        },
+        "name":"CS Setup Time",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":25
+          }
+        ]
+      },
+      {
+        "description":"SPI CS Hold Time After SCLK Edge.",
+        "digital_physical_map":{
+          "0":"See [2]"
+        },
+        "name":"CS Hold Time",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":8,
+            "register_address":25
+          }
+        ]
+      },
+      {
+        "description":"SPI LOW Period of the SCLK.",
+        "digital_physical_map":{
+          "0":"See [3]"
+        },
+        "name":"LOW Period of the SCLK",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":26
+          }
+        ]
+      },
+      {
+        "description":"SPI HIGH Period of the SCLK.",
+        "digital_physical_map":{
+          "0":"See [4]"
+        },
+        "name":"HIGH Period of the SCLK",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":8,
+            "register_address":26
+          }
+        ]
+      },
+      {
+        "description":"SPI Data Output Valid After SCLK Edge.",
+        "digital_physical_map":{
+          "0":"18.5 ns"
+        },
+        "name":"Data Output Valid After SCLK Edge",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":27
+          }
+        ]
+      },
+      {
+        "description":"SPI Data Output Setup Time Before SCLK Edge.",
+        "digital_physical_map":{
+          "0":"18.5 ns"
+        },
+        "name":"Data Output Setup Time Before SCLK Edge",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":8,
+            "register_address":27
+          }
+        ]
+      },
+      {
+        "description":"SPI Data Output Fall Time.",
+        "digital_physical_map":{
+          "0":"\u00b18 ns"
+        },
+        "name":"Data Output Fall Time",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":28
+          }
+        ]
+      },
+      {
+        "description":"SPI Data Output Rise Time.",
+        "digital_physical_map":{
+          "0":"0 ns"
+        },
+        "name":"Data Output Rise Time",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":8,
+            "register_address":28
+          }
+        ]
+      },
+      {
+        "description":"SPI SCLK Rise Time.",
+        "digital_physical_map":{
+          "0":"2.5 ns"
+        },
+        "name":"SCLK Rise Time",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":29
+          }
+        ]
+      },
+      {
+        "description":"SPI SCLK Fall Time.",
+        "digital_physical_map":{
+          "0":"2.4 ns"
+        },
+        "name":"SCLK Fall Time",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":8,
+            "register_address":29
+          }
+        ]
+      },
+      {
+        "description":"I2C SCL Frequency.",
+        "digital_physical_map":{
+          "0":"0 kHz (Standard Mode)",
+          "1":"100 kHz (Standard Mode)",
+          "2":"0 kHz (Fast Mode)",
+          "3":"400 kHz (Fast Mode)",
+          "4":"0 kHz (Fast Mode Plus)",
+          "5":"1000 kHz (Fast Mode Plus)"
+        },
+        "name":"SCLK Frequency",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":30
+          }
+        ]
+      },
+      {
+        "description":"I2C Hold Time (Repeated) START Condition.",
+        "digital_physical_map":{
+          "0":"4.0 us (Standard Mode)",
+          "1":"0.6 us (Fast Mode)",
+          "2":"0.26 us (Fast Mode Plus)"
+        },
+        "name":"Hold Time (Repeated) START Condition",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":8,
+            "register_address":30
+          }
+        ]
+      },
+      {
+        "description":"I2C LOW Period of SCL.",
+        "digital_physical_map":{
+          "0":"4.7 us (Standard Mode)",
+          "1":"1.3 us (Fast Mode)",
+          "2":"0.5 us (Fast Mode Plus)"
+        },
+        "name":"LOW Period of SCL",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":31
+          }
+        ]
+      },
+      {
+        "description":"I2C HIGH Period of SCL.",
+        "digital_physical_map":{
+          "0":"4.0 us (Standard Mode)",
+          "1":"0.6 us (Fast Mode)",
+          "2":"0.26 us (Fast Mode Plus)"
+        },
+        "name":"HIGH Period of SCL",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":8,
+            "register_address":31
+          }
+        ]
+      },
+      {
+        "description":"I2C Set-up Time for a Repeated START Condition.",
+        "digital_physical_map":{
+          "0":"3.25 us (Standard Mode)",
+          "1":"0.6 us (Fast Mode)",
+          "2":"0.26 us (Fast Mode Plus)"
+        },
+        "name":"Set-up Time for a Repeated START Condition",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":32
+          }
+        ]
+      },
+      {
+        "description":"I2C Data Hold Time.",
+        "digital_physical_map":{
+          "0":"0 us (Standard Mode)",
+          "1":"0 us (Fast Mode)",
+          "2":"0 us (Fast Mode Plus)"
+        },
+        "name":"Data Hold Time",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":8,
+            "register_address":32
+          }
+        ]
+      },
+      {
+        "description":"I2C Data Set-up Time.",
+        "digital_physical_map":{
+          "0":"250 ns (Standard Mode)",
+          "1":"100 ns (Fast Mode)",
+          "2":"50 ns (Fast Mode Plus)"
+        },
+        "name":"Data Set-up Time",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":33
+          }
+        ]
+      },
+      {
+        "description":"I2C Rise Time of Both SDA and SCL Signals.",
+        "digital_physical_map":{
+          "0":"2 ns (Standard Mode)",
+          "1":"105 ns (Fast Mode)",
+          "2":"100 ns (Fast Mode)",
+          "3":"105 ns (Fast Mode Plus)",
+          "4":"120 ns (Fast Mode Plus)"
+        },
+        "name":"Rise Time of Both SDA and SCL Signals",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":8,
+            "register_address":33
+          }
+        ]
+      },
+      {
+        "description":"I2C Fall Time of Both SDA and SCL Signals.",
+        "digital_physical_map":{
+          "0":"300 ns (Standard Mode)",
+          "1":"300 ns (Fast Mode)",
+          "2":"120 ns (Fast Mode Plus)"
+        },
+        "name":"Fall Time of Both SDA and SCL Signals",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":34
+          }
+        ]
+      },
+      {
+        "description":"I2C Set-up Time for STOP Condition.",
+        "digital_physical_map":{
+          "0":"2.9 us (Standard Mode)",
+          "1":"0.37 us (Fast Mode)",
+          "2":"0.23 us (Fast Mode Plus)"
+        },
+        "name":"Set-up Time for STOP Condition",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":8,
+            "register_address":34
+          }
+        ]
+      },
+      {
+        "description":"I2C Bus Free Time Between a STOP and START Condition.",
+        "digital_physical_map":{
+          "0":"4.7 us (Standard Mode)",
+          "1":"1.3 us (Fast Mode)",
+          "2":"0.5 us (Fast Mode Plus)"
+        },
+        "name":"Bus Free Time Between a STOP and START Condition",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":35
+          }
+        ]
+      },
+      {
+        "description":"I2C Data Valid Time.",
+        "digital_physical_map":{
+          "0":"3.45 us (Standard Mode)",
+          "1":"0.9 us (Fast Mode)",
+          "2":"0.45 us (Fast Mode Plus)"
+        },
+        "name":"Data Valid Time",
+        "register_location":[
+          {
+            "reg_end_bit":15,
+            "reg_start_bit":8,
+            "register_address":35
+          }
+        ]
+      },
+      {
+        "description":"I2C Data Valid Acknowledge Time.",
+        "digital_physical_map":{
+          "0":"3.45 us (Standard Mode)",
+          "1":"0.9 us (Fast Mode)",
+          "2":"0.45 us (Fast Mode Plus)"
+        },
+        "name":"Data Valid Acknowledge Time",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":36
+          }
+        ]
+      }
+    ],
+    "registers":{
+      "0":{
+        "address":0,
+        "name":"Pin Multiplexing Register 0"
+      },
+      "1":{
+        "address":1,
+        "name":"Pin Multiplexing Register 1"
+      },
+      "10":{
+        "address":10,
+        "name":"Clock Generator Timing Control"
+      },
+      "11":{
+        "address":11,
+        "name":"LIN Controller Timing Control"
+      },
+      "12":{
+        "address":12,
+        "name":"ISELED/ILaS Timing Control"
+      },
+      "13":{
+        "address":13,
+        "name":"SPI Controller Interface Configuration"
+      },
+      "14":{
+        "address":14,
+        "name":"I2C Controller Interface Configuration"
+      },
+      "15":{
+        "address":15,
+        "name":"LIN Controller Interface Configuration"
+      },
+      "16":{
+        "address":16,
+        "name":"Port Controller GPIO Configuration"
+      },
+      "17":{
+        "address":17,
+        "name":"Port Controller PWM Configuration"
+      },
+      "18":{
+        "address":18,
+        "name":"UART Interface Configuration"
+      },
+      "19":{
+        "address":19,
+        "name":"ADC Input Configuration"
+      },
+      "2":{
+        "address":2,
+        "name":"Pin Multiplexing Register 2"
+      },
+      "20":{
+        "address":20,
+        "name":"Voltage Monitoring Configuration"
+      },
+      "21":{
+        "address":21,
+        "name":"Flexible I/O Configuration"
+      },
+      "22":{
+        "address":22,
+        "name":"ISELED/ILaS Configuration"
+      },
+      "23":{
+        "address":23,
+        "name":"SPI Controller Mode Timing"
+      },
+      "24":{
+        "address":24,
+        "name":"SPI Controller Mode Timing"
+      },
+      "25":{
+        "address":25,
+        "name":"SPI Controller Mode Timing"
+      },
+      "26":{
+        "address":26,
+        "name":"SPI Controller Mode Timing"
+      },
+      "27":{
+        "address":27,
+        "name":"SPI Controller Mode Timing"
+      },
+      "28":{
+        "address":28,
+        "name":"SPI Controller Mode Timing"
+      },
+      "29":{
+        "address":29,
+        "name":"SPI Controller Mode Timing"
+      },
+      "3":{
+        "address":3,
+        "name":"OA-SPI Timing Control 0"
+      },
+      "30":{
+        "address":30,
+        "name":"I2C Controller Mode Timing"
+      },
+      "31":{
+        "address":31,
+        "name":"I2C Controller Mode Timing"
+      },
+      "32":{
+        "address":32,
+        "name":"I2C Controller Mode Timing"
+      },
+      "33":{
+        "address":33,
+        "name":"I2C Controller Mode Timing"
+      },
+      "34":{
+        "address":34,
+        "name":"I2C Controller Mode Timing"
+      },
+      "35":{
+        "address":35,
+        "name":"I2C Controller Mode Timing"
+      },
+      "36":{
+        "address":36,
+        "name":"I2C Controller Mode Timing"
+      },
+      "4":{
+        "address":4,
+        "name":"OA-SPI Timing Control 1"
+      },
+      "5":{
+        "address":5,
+        "name":"SAIF Timing Control 0"
+      },
+      "6":{
+        "address":6,
+        "name":"SAIF Timing Control 1"
+      },
+      "7":{
+        "address":7,
+        "name":"UART Timing Control"
+      },
+      "8":{
+        "address":8,
+        "name":"PWM Timing Control 0"
+      },
+      "9":{
+        "address":9,
+        "name":"PWM Timing Control 1"
+      }
+    }
+  }
+}

@@ -17,6 +17,7 @@ _root = os.path.dirname(__file__)
 
 
 def log_token_usage(func):
+    DeprecationWarning("Moving into LlmCLient")
     def wrapper(*args, **kwargs):
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         response = func(*args, **kwargs)
@@ -31,6 +32,7 @@ def log_token_usage(func):
 
 
 def sanitize_raw_output(external_fault_handler=False):
+    DeprecationWarning("Moving into GeminiClient")
     def outer_wrapper(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
