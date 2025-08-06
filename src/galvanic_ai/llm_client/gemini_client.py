@@ -1,9 +1,11 @@
 import os
+from datetime import datetime
 
 from google import genai
 from google.genai import types
 
-from galvanic_ai.llm_client import LlmClient
+from galvanic_ai.llm_client.llm_client import LlmClient, log_token_usage
+
 
 class GeminiClient(LlmClient):
     _MODEL = "gemini-2.5-flash-lite"
@@ -34,6 +36,8 @@ class GeminiClient(LlmClient):
             ),
         )
 
+
+    @log_token_usage
     def generate(self, prompt, cache_name=None, *args, **kwargs):
         kw = {
             "model": self._MODEL,
@@ -45,3 +49,17 @@ class GeminiClient(LlmClient):
 
         response = self._client.models.generate_content(*args, **{**kwargs, **kw})
         return response
+
+    def log_transaction_tokens(self, usage_meta, timestamp=None):
+        """Logs tokens required for a query
+
+        :param GenerateContentResponseUsageMetadata usage_meta:  Usage metadata
+        """
+        if timestamp is None:
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        token_info = self._token_logger.add_transaction(usage_meta, timestamp)
+        self.logger.info(
+            "Total Token Count: {t[total_tokens]}\n\tInput: {t[prompt_tokens]}\n\tOutput: {t[output_tokens]}\n\tCached: {t[cached_tokens]}".format(
+                t=token_info
+            )
+        )

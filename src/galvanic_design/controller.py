@@ -1,6 +1,5 @@
 from galvanic_altium.project import AltiumProject
 
-
 class Controller:
     def __init__(self, project_guid, name=None):
         self.project = AltiumProject(guid=project_guid)
@@ -10,3 +9,5 @@ class Controller:
         self.name = name
 
         print()
+
+    # TODO add llm client and semantic querying

@@ -32,7 +32,6 @@ def log_token_usage(func):
 
 
 def sanitize_raw_output(external_fault_handler=False):
-    DeprecationWarning("Moving into GeminiClient")
     def outer_wrapper(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
@@ -56,6 +55,8 @@ def sanitize_raw_output(external_fault_handler=False):
 
 
 class TokenLogger:
+    DeprecationWarning("Moving to galvanic_ai")
+
     def __init__(self):
         self._transactions = []
 
@@ -124,6 +125,7 @@ class DatasheetConverter:
 
         :param GenerateContentResponseUsageMetadata usage_meta:  Usage metadata
         """
+        DeprecationWarning("Moving to galvanic_ai")
         if timestamp is None:
             timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         token_info = self._token_logger.add_transaction(usage_meta, timestamp)
