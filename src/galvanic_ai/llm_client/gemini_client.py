@@ -8,6 +8,7 @@ from galvanic_ai.llm_client.llm_client import LlmClient, log_token_usage
 
 
 class GeminiClient(LlmClient):
+    # _MODEL = "gemini-2.5-pro-preview-06-05"
     _MODEL = "gemini-2.5-flash-lite"
 
     def __init__(self, key=None, model=None):
@@ -21,7 +22,6 @@ class GeminiClient(LlmClient):
         if model is not None:
             self._MODEL = model
 
-
     def add_cache(self, cache_item_name, contents, instructions=None, persistence=3600):
         if instructions is None:
             instructions = "Answer subsequent queries using this cached content"
@@ -31,21 +31,20 @@ class GeminiClient(LlmClient):
             config=types.CreateCachedContentConfig(
                 display_name=cache_item_name,  # used to identify the cache
                 system_instruction=instructions,
-                contents=[contents],
+                contents=contents,
                 ttl=f"{persistence}s",
             ),
         )
-
 
     @log_token_usage
     def generate(self, prompt, cache_name=None, *args, **kwargs):
         kw = {
             "model": self._MODEL,
-            "contents":prompt,
+            "contents": prompt,
         }
 
         if cache_name in self._cached_items:
-            kw['config'] = types.GenerateContentConfig(cached_content=self._cached_items[cache_name].name)
+            kw["config"] = types.GenerateContentConfig(cached_content=self._cached_items[cache_name].name)
 
         response = self._client.models.generate_content(*args, **{**kwargs, **kw})
         return response

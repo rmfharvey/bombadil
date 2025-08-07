@@ -10,14 +10,15 @@ AltiumServerAPI.load_urls(
 )
 
 
-guid = {"Sensor Node": "DA220208-0D1D-4C1A-A0FF-E0D169E92F96"}
+guid = {
+    "Sensor Node": "DA220208-0D1D-4C1A-A0FF-E0D169E92F96",
+    "Skynode Power Module": "A3271523-CB6E-428C-985C-8895C26F87C0",
+    "Mothernode Control Board": "8FFEC27D-C20D-4837-A862-F81EF9A4EC6E",
+}
+# PRJ_NAME = "Mothernode Control Board"
 PRJ_NAME = "Sensor Node"
 
 
 c = Controller(guid[PRJ_NAME])
-inst = "This content includes part and connectivity information for an electronic PCBA.  It describes all of the connectivity in the 'nets' field and  You shall answer any questions based this content."
-glm.add_cache(cache_item_name="project_metadata", instructions=inst, contents=json.dumps(c.project.get_config()))
-
-print(glm.generate("how many microcontrollers are used and what are their part numbers?", cache_name='project_metadata').text)
-
+c.chat()
 print()
