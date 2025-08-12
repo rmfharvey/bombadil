@@ -7,14 +7,16 @@ from galvanic_altium.utils import validate_json_serialization, AltiumBasic
 from galvanic_altium.schematic import SchematicSheet, Net, NET_SCOPE
 from galvanic_altium.server_api import AltiumServerAPI
 
+# TODO somehow get controller name from Altium Project metadata
+
 
 class AltiumBom:
     def __init__(self, component_dict, bom_metadata, parent):
         self._parent = parent
         self.components = {}
-        for c in bom_metadata["systemBom"]['items']:
-            cmp = self._parent.get_component(c['designator'])
-            cmpid = c['libRef']
+        for c in bom_metadata["systemBom"]["items"]:
+            cmp = self._parent.get_component(c["designator"])
+            cmpid = c["libRef"]
             if cmpid not in self.components:
                 self.components[cmpid] = []
             self.components[cmpid].append(cmp)
@@ -36,7 +38,7 @@ class AltiumBom:
         components = {}
         for design_item_id, c_list in self.components.items():
             if len(c_list[0].avl):
-                key = c_list[0].avl[0][1]   # Get first PN in AVL
+                key = c_list[0].avl[0][1]  # Get first PN in AVL
             else:
                 key = design_item_id
             components[key] = c_list
@@ -47,7 +49,7 @@ class AltiumBom:
         by_type = {}
 
         def get_leading_alpha(text):
-            match = re.match(r'^[a-zA-Z]+', text)
+            match = re.match(r"^[a-zA-Z]+", text)
             return match.group() if match else None
 
         for des, c in self._parent.components.items():
@@ -60,6 +62,7 @@ class AltiumBom:
     @property
     def components_by_designator(self):
         return self._parent.components
+
 
 class AltiumProject(AltiumBasic):
     def __init__(self, guid):
@@ -80,10 +83,10 @@ class AltiumProject(AltiumBasic):
         self._raw_metadata = AltiumServerAPI.get_project(self._guid)["data"]
 
         self._extract_file_metadata()
-        self._raw_metadata['bom'] = AltiumServerAPI.get_project_bom(self._guid, skip_live_data=False)
+        self._raw_metadata["bom"] = AltiumServerAPI.get_project_bom(self._guid, skip_live_data=False)
 
         self.create_project_level_components_and_nets()
-        self.bom = AltiumBom(component_dict=self.components, bom_metadata=self._raw_metadata['bom'], parent=self)
+        self.bom = AltiumBom(component_dict=self.components, bom_metadata=self._raw_metadata["bom"], parent=self)
 
     def create_project_level_components_and_nets(self):
         for sch in self.schematics.values():
@@ -120,7 +123,6 @@ class AltiumProject(AltiumBasic):
         if not cmp:
             self.logger.warning(f"Could not find component {designator} in project {self.project.name}")
         return cmp
-
 
     @validate_json_serialization
     def get_config(self):

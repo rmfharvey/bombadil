@@ -9,6 +9,7 @@ from galvanic.utils.datasheet_parser import DatasheetConverter
 
 logger = colored_logger(__file__)
 
+
 class DatasheetStructure:
     _PROMPT = False
     _AUTOCREATE_JSON = True
@@ -29,12 +30,12 @@ class DatasheetStructure:
         if is_url:
             response = requests.get(datasheet_path)
             if response.status_code == 200:
-                with open(self._root/'datasheet.pdf', 'wb') as f:
+                with open(self._root / "datasheet.pdf", "wb") as f:
                     f.write(response.content)
             else:
                 logger.error(f"Failed to download from {datasheet_path}")
         elif os.path.exists(datasheet_path):
-            shutil.copyfile(datasheet_path, self._root/'datasheet.pdf')
+            shutil.copyfile(datasheet_path, self._root / "datasheet.pdf")
         else:
             logger.error(f"Path was not a url and no local file not found: {datasheet_path}")
 
@@ -45,33 +46,40 @@ class DatasheetStructure:
         dc = DatasheetConverter(source, str(self._root))
         dc.save_config(self.json_path)
 
+    def load_json_datasheet(self):
+        loaded_json = None
+        if self.has_json:
+            with open(self.json_path, "r") as f:
+                loaded_json = json.load(f)
+        return loaded_json
+
     @property
     def has_md(self):
-        return os.path.exists(self._root/'datasheet.md')
+        return os.path.exists(self._root / "datasheet.md")
 
     @property
     def has_json(self):
-        return os.path.exists(self._root/'datasheet.md')
+        return os.path.exists(self._root / "datasheet.json")
 
     @property
     def has_pdf(self):
-        return os.path.exists(self._root/'datasheet.pdf')
+        return os.path.exists(self._root / "datasheet.pdf")
 
     @property
     def pdf_path(self):
-        return str(self._root/'datasheet.pdf')
+        return str(self._root / "datasheet.pdf")
 
     @property
     def md_path(self):
-        return str(self._root/'datasheet.md')
+        return str(self._root / "datasheet.md")
 
     @property
     def json_path(self):
-        return str(self._root/'datasheet.json')
+        return str(self._root / "datasheet.json")
+
 
 class _DatasheetManager:
-    _ROOT_DIR = Path(__file__).parent/"source_datasheets"
-
+    _ROOT_DIR = Path(__file__).parent / "source_datasheets"
 
     def __init__(self):
         self.logger = colored_logger(self.__class__.__name__)
@@ -84,7 +92,7 @@ class _DatasheetManager:
                 self.datasheets[ds_dir.parts[-1]] = ds
 
     def load_json_datasheet(self, datasheet_directory, prompt_for_source=True):
-        parsed_ds_present = 'datasheet.json' in os.listdir(datasheet_directory)
+        parsed_ds_present = "datasheet.json" in os.listdir(datasheet_directory)
         if not parsed_ds_present:
             if prompt_for_source:
                 ds = self.get_datasheet()
@@ -92,23 +100,36 @@ class _DatasheetManager:
                 self.logger.warning(f"No datasheet found in {datasheet_directory}")
                 ds = None
         else:
-            with open(datasheet_directory/'datasheet.json', 'r') as f:
+            with open(datasheet_directory / "datasheet.json", "r") as f:
                 ds = json.load(f)
         return ds
 
     def new_datasheet(self, part_number, datasheet_path=None, autocreate_json=True):
-        ds = DatasheetStructure(self._ROOT_DIR/part_number)
+        ds = DatasheetStructure(self._ROOT_DIR / part_number)
         if not ds.has_pdf:
             ds.download_datasheet(datasheet_path)
         if autocreate_json:
             ds.create_json()
         return ds
 
+    def get_datasheet(self, part_number, create_new_if_missing=False):
+        part_number = part_number.lower()
+        ds = self.datasheets.get(part_number)
+
+        if ds is None:
+            if create_new_if_missing:  # TODO confusign logic.  clean up
+                json_ds = self.new_datasheet(part_number)
+            else:
+                json_ds = None
+        else:
+            json_ds = ds.load_json_datasheet()
+        return json_ds
+
     @property
     def by_manufacturer(self):
         by_mfg = {}
         for part_number, ds in self.datasheets.items():
-            manufacturer = ds.get("high_level", {}).get('manufacturer')
+            manufacturer = ds.get("high_level", {}).get("manufacturer")
             if manufacturer not in by_mfg:
                 by_mfg[manufacturer] = {}
             by_mfg[manufacturer][part_number] = ds
@@ -118,17 +139,11 @@ class _DatasheetManager:
     def by_type(self):
         by_mfg = {}
         for part_number, ds in self.datasheets.items():
-            dtype = ds.get("high_level", {}).get('device_type')
+            dtype = ds.get("high_level", {}).get("device_type")
             if dtype not in by_mfg:
                 by_mfg[dtype] = {}
             by_mfg[dtype][part_number] = ds
         return by_mfg
 
-DatasheetManager = _DatasheetManager()
 
-if __name__ == "__main__":
-    manager = DatasheetManager()
-    # ds = DatasheetStructure(str(manager._ROOT_DIR/'tps23730'))
-    # ds.create_json()
-    ds = manager.new_datasheet('tps1htc30', "https://www.ti.com/lit/ds/symlink/tps1htc30-q1.pdf?ts=1753869365872&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FTPS1HTC30-Q1")
-    print()
+DatasheetManager = _DatasheetManager()

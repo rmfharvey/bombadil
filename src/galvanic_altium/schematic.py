@@ -128,6 +128,10 @@ class Component(AltiumBasic):
             logger.warning(f"Could not perform logical/physical split on designator {designator}")
             return designator, None
 
+    @property
+    def has_avl(self):
+        return len(self.avl) > 0
+
 
 class SchematicSheet(AltiumBasic):
     def __init__(self, metadata):
