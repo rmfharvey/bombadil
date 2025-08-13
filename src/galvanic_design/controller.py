@@ -70,7 +70,7 @@ class Controller:
             This content includes component and connectivity information for an electronic PCBA.
             All connectivity between components is in the 'nets' field.
             Basic component and pin functionality info is in the 'components' field.  
-            Detailed information for each component (if it exists) can be found in the 'datasheets' field.
+            Datasheets are in the 'datasheets' field.  These contain detailed information for each component.
             Datasheets are indexed by Manufacturer Part Number.  Any request for a datasheet will usually use this manufacturer part number/dict key. 
             Component datasheet information includes the following:
                 - High level device information
