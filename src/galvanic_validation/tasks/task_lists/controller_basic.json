@@ -1,0 +1,87 @@
+[
+  {
+    "title": "Basic visual inspection",
+    "description": [
+      "Visually inspect the board to note any obvious issues with cleanliness, solder quality, missing parts, part orientation, etc.  ",
+      "\nThis is meant to be a qualitative check and doesn't require much documentation aside from basic notes in the comments."
+    ],
+    "priority": "HIGH",
+    "labels": ["Smoke Test"]
+  },
+  {
+    "title": "Power Rail Impedance/Voltage",
+    "description": [
+      "1. While unpowered, measure the impedance to GND of all voltage rails and confirm no shorts exist.\n",
+      "2. Turn on controller and measure the voltage of all voltage rails\n\n.",
+      "\n\n| Rail Name | Impedance to GND (ohms) | Voltage (V) |\n| -- | -- | -- |\n|  |  |  |\n|  |  |  |\n|  |  |  |\n|  |  |  |\n|  |  |  |"
+    ],
+    "priority": null,
+    "labels": []
+  },
+  {
+    "title": null,
+    "description": [],
+    "priority": null,
+    "labels": []
+  },
+  {
+    "title": null,
+    "description": [],
+    "priority": null,
+    "labels": []
+  },
+  {
+    "title": null,
+    "description": [],
+    "priority": null,
+    "labels": []
+  },
+  {
+    "title": null,
+    "description": [],
+    "priority": null,
+    "labels": []
+  },
+  {
+    "title": null,
+    "description": [],
+    "priority": null,
+    "labels": []
+  },
+  {
+    "title": null,
+    "description": [],
+    "priority": null,
+    "labels": []
+  },
+  {
+    "title": null,
+    "description": [],
+    "priority": null,
+    "labels": []
+  },
+  {
+    "title": null,
+    "description": [],
+    "priority": null,
+    "labels": []
+  },
+  {
+    "title": null,
+    "description": [],
+    "priority": null,
+    "labels": []
+  },
+  {
+    "title": null,
+    "description": [],
+    "priority": null,
+    "labels": []
+  },
+  {
+    "title": null,
+    "description": [],
+    "priority": null,
+    "labels": []
+  }
+]

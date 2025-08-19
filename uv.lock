@@ -115,7 +115,9 @@ source = { virtual = "." }
 dependencies = [
     { name = "colorama" },
     { name = "google-genai" },
+    { name = "linear-api" },
     { name = "pymupdf4llm" },
+    { name = "pyperclip" },
     { name = "pyqt6" },
 ]
 
@@ -123,7 +125,9 @@ dependencies = [
 requires-dist = [
     { name = "colorama", specifier = ">=0.4.6" },
     { name = "google-genai", specifier = ">=1.26.0" },
+    { name = "linear-api", specifier = ">=0.2.0" },
     { name = "pymupdf4llm", specifier = ">=0.0.27" },
+    { name = "pyperclip", specifier = ">=1.9.0" },
     { name = "pyqt6", specifier = ">=6.9.1" },
 ]
 
@@ -219,6 +223,19 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/f1/70/7703c29685631f5a7590aa73f1f1d3fa9a380e654b86af429e0934a32f7d/idna-3.10.tar.gz", hash = "sha256:12f65c9b470abda6dc35cf8e63cc574b1c52b11df2c86030af0ac09b01b13ea9", size = 190490, upload-time = "2024-09-15T18:07:39.745Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/76/c6/c88e154df9c4e1a2a66ccf0005a88dfb2650c1dffb6f5ce603dfbd452ce3/idna-3.10-py3-none-any.whl", hash = "sha256:946d195a0d259cbba61165e88e65941f16e9b36ea6ddb97f00452bae8b1287d3", size = 70442, upload-time = "2024-09-15T18:07:37.964Z" },
+]
+
+[[package]]
+name = "linear-api"
+version = "0.2.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pydantic" },
+    { name = "requests" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/4c/80/c0ae46e4f451c47c92b93bb51f70667c380ccfe7dbdad9361694f582b97d/linear_api-0.2.0.tar.gz", hash = "sha256:bca2263371ee6a99e014bf3445cd169d225841890622951cee400831dcfd8cc7", size = 73189, upload-time = "2025-05-15T14:18:58.685Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c3/6f/25b17344492d01570cdaad13a8e25acb228257cad2fe0968cdf889317347/linear_api-0.2.0-py3-none-any.whl", hash = "sha256:503eb24c8736ca7168cca4aa26ce2d5d5afe293a64774635ba959d442ab3cf1c", size = 58749, upload-time = "2025-05-15T14:18:56.753Z" },
 ]
 
 [[package]]
@@ -348,6 +365,12 @@ sdist = { url = "https://files.pythonhosted.org/packages/03/99/2634b56ff2b68558e
 wheels = [
     { url = "https://files.pythonhosted.org/packages/e9/c8/7eed2e902b61574b15b295017ddb5738c4970aa9ab76903fbaace28a522e/pymupdf4llm-0.0.27-py3-none-any.whl", hash = "sha256:2eaaf9419c35520efda38f3806a276f2ec6cd29564fbb60a5c9c53a49fedb13c", size = 30055, upload-time = "2025-07-19T11:52:04.089Z" },
 ]
+
+[[package]]
+name = "pyperclip"
+version = "1.9.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/30/23/2f0a3efc4d6a32f3b63cdff36cd398d9701d26cda58e3ab97ac79fb5e60d/pyperclip-1.9.0.tar.gz", hash = "sha256:b7de0142ddc81bfc5c7507eea19da920b92252b548b96186caf94a5e2527d310", size = 20961, upload-time = "2024-06-18T20:38:48.401Z" }
 
 [[package]]
 name = "pyqt6"
