@@ -1,16 +1,5 @@
 [
   {
-    "title": "Power Rail Impedance/Voltage",
-    "description": [
-      "1. While unpowered, measure the impedance to GND of all voltage rails and confirm no shorts exist.\n",
-      "2. Turn on controller and measure the voltage of all voltage rails\n\n.",
-      "\n\n| Rail Name | Impedance to GND (ohms) | Voltage (V) |\n| -- | -- | -- |\n|  |  |  |\n|  |  |  |\n|  |  |  |\n|  |  |  |\n|  |  |  |"
-    ],
-    "priority": "HIGH",
-    "estimate": "S",
-    "labels": []
-  },
-  {
     "title": "Basic visual inspection",
     "description": [
       "Visually inspect the board to note any obvious issues with cleanliness, solder quality, missing parts, part orientation, etc.  ",
@@ -21,10 +10,26 @@
     "labels": ["Smoke Test"]
   },
   {
-    "title": null,
-    "description": [],
-    "priority": null,
-    "estimate": null,
+    "title": "Power Rail Impedance/Voltage",
+    "description": [
+      "1. While unpowered, measure the impedance to GND of all voltage rails and confirm no shorts exist.\n",
+      "2. Turn on controller and measure the voltage of all voltage rails\n\n.",
+      "\n\n| Rail Name | Impedance to GND (ohms) | Voltage (V) |\n| -- | -- | -- |\n|  |  |  |\n|  |  |  |\n|  |  |  |\n|  |  |  |\n|  |  |  |",
+      "\n\n*For step 2, it's recommended to use a current limited power supply to avoid potential damage if there are PCBA issues.*",
+      "*Ramp the current limit up once you've confirmed that there aren't any problems.  However, make sure that the initial current limit you have is high enough that it doesn't starve the board of power.* "
+    ],
+    "priority": "HIGH",
+    "estimate": "S",
+    "labels": []
+  },
+  {
+    "title": "Flash Microcontroller(s)",
+    "description": [
+      "Make sure that all microcontrollers can be flashed properly and respond to commands.  ",
+      "\n\nFor more info on connecting to and controlling hardware, see https://github.com/Specter-Co/hardware/tree/HardwareControlInterface/packages/hardware-control-interface"
+    ],
+    "priority": "HIGH",
+    "estimate": "S",
     "labels": []
   }
 ]
