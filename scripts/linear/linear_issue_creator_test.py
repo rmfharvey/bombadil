@@ -12,6 +12,5 @@ linear = LinearHelper()
 
 for task_list in os.listdir(template_path):
     p = os.path.join(template_path, task_list)
-    with open(p, "r") as f:
-        tasks = json.load(f)
+    new_issues = linear.create_issues_from_json(project="Vision Sensor Node (R0.5)", json_filepaths=p, post=False)
     print()
