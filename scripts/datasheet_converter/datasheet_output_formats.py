@@ -15,7 +15,7 @@ dir_names = [
     ("stm32h743", MicroDatasheetConverter),
     # ("tps1htc30", DatasheetConverter),
     # ("bq25756", DatasheetConverter),
-    # ("rc7611", DatasheetConverter),
+    # ("rc7611_old", DatasheetConverter),
     # ("vnf1048f", DatasheetConverter),
     # ("icm-20948", DatasheetConverter),
     # ("ncv78703", DatasheetConverter),

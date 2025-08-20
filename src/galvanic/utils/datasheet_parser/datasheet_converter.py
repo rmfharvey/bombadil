@@ -142,8 +142,13 @@ class DatasheetConverter:
             self.md_datasheet = DatasheetConverter.to_markdown(source_path, output_path=md_output_path)
         elif source_path.endswith(".md"):  # If markdown, read
             self.logger.info(f"Loading previosuly parsed markdown from {source_path}")
-            with open(source_path, "r") as f:
-                self.md_datasheet = f.read()
+            try:
+                with open(source_path, "r") as f:
+                    self.md_datasheet = f.read()
+            except UnicodeDecodeError:
+                with open(source_path, "r", encoding='utf-8') as f:
+                    self.md_datasheet = f.read()
+
 
         # Explicit caching
         self.logger.info("Caching datasheet info")
