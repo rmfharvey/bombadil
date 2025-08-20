@@ -1,0 +1,8 @@
+{
+  "smps": [
+    "PWR_5V0"
+  ],
+  "load_switch": {
+
+  }
+}

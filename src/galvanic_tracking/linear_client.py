@@ -54,6 +54,7 @@ class LinearHelper:
         labels=[],
         estimate=None,
         post=False,
+        parent_issue=None,
     ):
         # Get project
         if isinstance(project, str):
@@ -74,6 +75,11 @@ class LinearHelper:
         if estimate in TIME_ESTIMATE_MAPPING:
             estimate = TIME_ESTIMATE_MAPPING[estimate]
 
+        if isinstance(parent_issue, LinearIssue):
+            parent_issue = parent_issue.id
+        else:
+            parent_issue = None
+
         # Unwrap description
         if isinstance(description, list):
             description = "".join(description)
@@ -88,9 +94,14 @@ class LinearHelper:
                 assigneeId=assignee.id,
                 project=project.name,
                 labelIds=label_ids,
+                parentId=parent_issue,
                 estimate=estimate,
+                metadata={
+                    "source": "galvanic.LinearHelper",
+                    "automated": True
+                }
             )
-            issue_input.projectName = project.name
+            issue_input.projectName = project.name  # API doesn't set this properly, so do it here
             retval = issue_input
             if post:
                 new_issue = self._client.issues.create(issue_input)
@@ -100,22 +111,35 @@ class LinearHelper:
             self.logger.error(err)
             return None
 
-    def create_issues_from_json(self, json_filepaths: list, project: str, post=False):
+    def create_issues_from_json(self, json_tasks: list, project: str, labels: list = [], element_name: str=None, post: bool=False):
         new_issues = []
-        if isinstance(json_filepaths, list):  # If list of paths
-            for fp in json_filepaths:
-                issues = self.create_issues_from_json(fp, project, post=False)
-                new_issues.extend(issues)
-        else:
-            with open(json_filepaths, "r") as f:
-                tasks = json.load(f)
-                for task in tasks:
-                    new_issue = self.create_issue(project=project, **task)
-                    if new_issue:
-                        new_issues.append(new_issue)
-        if post:
-            for issue in new_issues:
-                self._client.issues.create(issue)
+        with open(json_tasks, "r") as f:
+            task_info = json.load(f)
+            tasks = task_info['tasks']
+
+            ### Create parent issue if needed
+            create_subissues = task_info['options']["create_subissues"]
+            parent_issue = None
+            if create_subissues:
+                assert element_name is not None, "Element name must be provided if creating subissues"
+                kw = {
+                    'title': f"{element_name} Validation",
+                    "description": f"Validation issues for {element_name}",
+                    "project": project,
+                }
+                time_estimate = task_info['options'].get("parent_time_estimate", LinearTimeEstimate.L.name)
+                parent_issue = self.create_issue(estimate=time_estimate, labels=labels, post=post, **kw)
+
+            for task in tasks:
+                task['parent_issue'] = parent_issue
+
+                if element_name:    # Prepend title with element name if it exists
+                    task['title'] = f"{element_name} - {task['title']}"
+
+                new_issue = self.create_issue(project=project, post=post, **task)
+
+                new_issues.append(new_issue)
+        new_issues = list(filter(lambda i: i is not None, new_issues))
         return new_issues
 
 

@@ -1,35 +1,50 @@
-[
-  {
-    "title": "Basic visual inspection",
-    "description": [
-      "Visually inspect the board to note any obvious issues with cleanliness, solder quality, missing parts, part orientation, etc.  ",
-      "\nThis is meant to be a qualitative check and doesn't require much documentation aside from basic notes in the comments."
-    ],
-    "priority": "HIGH",
-    "estimate": "XS",
-    "labels": ["Smoke Test"]
+{
+  "options": {
+    "create_subissues": false
   },
-  {
-    "title": "Power Rail Impedance/Voltage",
-    "description": [
-      "1. While unpowered, measure the impedance to GND of all voltage rails and confirm no shorts exist.\n",
-      "2. Turn on controller and measure the voltage of all voltage rails\n\n.",
-      "\n\n| Rail Name | Impedance to GND (ohms) | Voltage (V) |\n| -- | -- | -- |\n|  |  |  |\n|  |  |  |\n|  |  |  |\n|  |  |  |\n|  |  |  |",
-      "\n\n*For step 2, it's recommended to use a current limited power supply to avoid potential damage if there are PCBA issues.*",
-      "*Ramp the current limit up once you've confirmed that there aren't any problems.  However, make sure that the initial current limit you have is high enough that it doesn't starve the board of power.* "
-    ],
-    "priority": "HIGH",
-    "estimate": "S",
-    "labels": []
-  },
-  {
-    "title": "Flash Microcontroller(s)",
-    "description": [
-      "Make sure that all microcontrollers can be flashed properly and respond to commands.  ",
-      "\n\nFor more info on connecting to and controlling hardware, see https://github.com/Specter-Co/hardware/tree/HardwareControlInterface/packages/hardware-control-interface"
-    ],
-    "priority": "HIGH",
-    "estimate": "S",
-    "labels": []
-  }
-]
+  "tasks": [
+    {
+      "title": "Basic visual inspection",
+      "description": [
+        "Visually inspect the board to note any obvious issues with cleanliness, solder quality, missing parts, part orientation, etc.  ",
+        "\nThis is meant to be a qualitative check and doesn't require much documentation aside from basic notes in the comments."
+      ],
+      "priority": "HIGH",
+      "estimate": "XS",
+      "labels": ["Validation Task", "Smoke Test"]
+    },
+    {
+      "title": "Power Rail Impedance/Voltage",
+      "description": [
+        "1. While unpowered, measure the impedance to GND of all voltage rails and confirm no shorts exist.\n",
+        "2. Turn on controller and measure the voltage of all voltage rails\n\n.",
+        "\n\n| Rail Name | Impedance to GND (ohms) | Voltage (V) |\n| -- | -- | -- |\n|  |  |  |\n|  |  |  |\n|  |  |  |\n|  |  |  |\n|  |  |  |",
+        "\n\n*For step 2, it's recommended to use a current limited power supply to avoid potential damage if there are PCBA issues.*",
+        "*Ramp the current limit up once you've confirmed that there aren't any problems.  However, make sure that the initial current limit you have is high enough that it doesn't starve the board of power.* "
+      ],
+      "priority": "HIGH",
+      "estimate": "S",
+      "labels": ["Validation Task", "Smoke Test"]
+    },
+    {
+      "title": "Flash Microcontroller(s)",
+      "description": [
+        "Make sure that all microcontrollers can be flashed properly and respond to commands.  ",
+        "\n\nFor more info on connecting to and controlling hardware, see https://github.com/Specter-Co/hardware/tree/HardwareControlInterface/packages/hardware-control-interface"
+      ],
+      "priority": "HIGH",
+      "estimate": "S",
+      "labels": ["Smoke Test"]
+    },
+    {
+      "title": "Controller Hot Plug",
+      "description": [
+        "If the device can be hot plugged in the field, make sure to test this ",
+        "\n\nFor more info on connecting to and controlling hardware, see https://github.com/Specter-Co/hardware/tree/HardwareControlInterface/packages/hardware-control-interface"
+      ],
+      "priority": "HIGH",
+      "estimate": "S",
+      "labels": ["Validation Task", "Characterization (Nominal)"]
+    }
+  ]
+}

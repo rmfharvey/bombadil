@@ -1,9 +1,153 @@
-[
-  {
-    "title": null,
-    "description": [],
-    "priority": null,
-    "estimate": null,
-    "labels": []
-  }
-]
+{
+  "options": {
+    "create_subissues": true,
+    "parent_time_estimate": "L"
+  },
+  "tasks": [
+    {
+      "title": "Line and Load Regulation Sweep",
+      "description": [
+        "### Setup",
+        "\nConnect the SMPS input to a programmable DC power supply and the output to an electronic load.",
+        "\nUse a the eLoad or DMM to measure the output voltage. ('remote sense' may be neccesary)",
+        "\nDefine a set of input voltages spanning the full operating range.",
+        "\nDefine a set of output currents spanning the full operating range.",
+        "\n*As much as possible, you should minimize load on the converter from other things on its output (microcontrollers, ither ICs, etc).  Some additional load is fine, but this should be minimized*",
+        "\n",
+        "\n### Procedure",
+        "\nFor each defined input voltage:",
+        "\n1. Set the input voltage to the defined point.",
+        "\n2. Sweep the output current from 0 A (no load) to maximum rated current in steps (e.g., 10–20%).",
+        "\n3. Record the following data at each load point.",
+        "\n",
+        "\n### Data to Collect",
+        "\n- Input voltage (VIN)",
+        "\n- Input Current (IIN) *if combining efficiency*",
+        "\n- Output voltage (VOUT)",
+        "\n- Output current (IOUT)",
+        "\n- Calculated deviation from nominal output voltage",
+        "\n",
+        "\n### Pass/Fail Criteria",
+        "\n- Output voltage remains within specified tolerance (e.g., ±2% of nominal) across VIN and IOUT sweep.",
+        "\n- No oscillations, dropout, or abnormal behavior observed during any sweep."
+      ],
+      "priority": "MEDIUM",
+      "estimate": "M",
+      "labels": ["Validation Task", "Characterization (Nominal)"]
+    },
+    {
+      "title": "Switch Node Characterization",
+      "description": [
+        "\n### Setup",
+        "\nConnect an oscilloscope probe to the SMPS switch node (between MOSFET and inductor or diode).",
+        "\nUse a high-bandwidth probe (≥500 MHz recommended) with short ground connection or spring tip adapter.",
+        "\nOperate the SMPS under various input voltages and load conditions.",
+        "\n",
+        "\n### Procedure",
+        "\n1. Power the SMPS at nominal input voltage and apply nominal load.",
+        "\n2. Capture switch node waveforms at rising and falling edges of the MOSFET.",
+        "\n3. Vary input voltage across operating range and repeat captures.",
+        "\n4. Sweep output load from light load to full load, recording waveforms at each point.",
+        "\n",
+        "\n### Data to Collect",
+        "\n- Rise time and fall time (slew rates) of the switch node transitions.",
+        "\n- Peak-to-peak ringing amplitude and frequency components after each transition.",
+        "\n- Evidence of subharmonic oscillation, instability, or jitter in the switching pattern.",
+        "\n- Switching frequency stability across VIN and IOUT conditions.",
+        "\n",
+        "\n### Pass/Fail Criteria",
+        "\n- There's no hard and fast pass/fail criteria.  This will depend on voltage levels, and nearby components.",
+        "\n- As much as possible you should try to reduce any ringing or over/undershoot",
+        "\n- Make sure to check for signs of instability, subharmonic oscillation, or excessive jitter."
+      ],
+      "priority": "MEDIUM",
+      "estimate": "M",
+      "labels": ["Validation Task", "Characterization (Nominal)"]
+    },
+    {
+      "title": "Efficiency",
+      "description": [
+        "\n*This testing can sometimes be merged with 'Line and Load Regulation Sweep' if the parasitic load is low enough*",
+        "\n",
+        "\nIf not combined, you should run the same type of sweep but ensure that parasitic load is at it's absolute minimum.",
+        "\nIf relevant (converter active during sleep), repeat this testing to focus on light load operation."
+      ],
+      "estimate": "M",
+      "priority": "LOW",
+      "labels": ["Validation Task", "Characterization (Nominal)"]
+    },
+    {
+      "title": "Educated Short Circuit",
+      "description": [
+        "### Setup",
+        "\nConnect the SMPS input to a programmable DC power supply and the output to an electronic load.",
+        "\nUse a the eLoad or DMM to measure the output voltage. ('remote sense' may be neccesary)",
+        "\nDefine a set of input voltages spanning the full operating range.",
+        "\n",
+        "\n### Procedure",
+        "\nFor each defined input voltage (VIN_min, VIN_nom, VIN_max):",
+        "\n1. Set input voltage to the target level.",
+        "\n2. Slowly ramp the load current upward until the converter enters protection or limiting mode.",
+        "\n3. At each steady-state current step, allow thermal stabilization of the power stage.",
+        "\n4. Record output voltage, output current, and component temperatures once stable.",
+        "\n",
+        "\n### Data to Collect",
+        "\n- Input voltage (VIN).",
+        "\n- Output current (IOUT) and output voltage (VOUT).",
+        "\n- Steady-state temperatures of all key power components.",
+        "\n- Point of current limit engagement or shutdown behavior.",
+        "\n",
+        "\n### Pass/Fail Criteria",
+        "\n- Converter enters current limit or protection mode without catastrophic failure.",
+        "\n- Temperatures remain within rated limits under sustained stress.",
+        "\n- No uncontrolled oscillation, runaway, or permanent damage observed.",
+        "\n- Recovery behavior after overload is consistent with design intent."
+      ],
+      "priority": "LOW",
+      "estimate": "M",
+      "labels": ["Validation Task", "Characterization (Nominal)"]
+    },
+    {
+      "title": "Transient Response",
+      "description": [
+        "\n### Setup",
+        "\nConnect the SMPS input to a programmable DC supply covering the full operating VIN range.",
+        "\nConnect the output to an electronic load (eload) capable of generating fast current pulses.",
+        "\nAttach an oscilloscope with both voltage and current probes at the output.",
+        "\n",
+        "\n### Procedure",
+        "\nFor each defined input voltage:",
+        "\n1. Configure the eload to apply step changes in current.",
+        "\n2. Use at least two step magnitudes: e.g. 30% → 70% of Imax and 10% → 90% of Imax.",
+        "\n3. Trigger the oscilloscope on the output current.",
+        "\n4. Record output voltage and current waveforms for both rising and falling load steps.",
+        "\n",
+        "\n### Data to Collect",
+        "\nOscilloscope screenshot showing the following",
+        "\n- Input voltage (VIN).",
+        "\n- Step current levels (start % and end % of Imax).",
+        "\n- Output voltage waveform showing undershoot, overshoot, and ringing.",
+        "\n- Output current waveform shape during the transient.",
+        "\n- Recovery time to return within regulation tolerance.",
+        "\n",
+        "\n### Pass/Fail Criteria",
+        "\n- Output deviation within tolerance (e.g., ±5% of nominal voltage).",
+        "\n- Recovery time meets spec (e.g., <1 ms).",
+        "\n- Ringing amplitude acceptable and well damped.",
+        "\n- No major oscillation, instability, or resets observed."
+      ],
+      "priority": "MEDIUM",
+      "estimate": "S",
+      "labels": ["Validation Task", "Characterization (Nominal)"]
+    },
+    {
+      "title": "Control Loop Reponse",
+      "description": [
+        "Keep in backlog for now.  I need to automate this, but won't have time for awhile.  Transient testing is sufficient for most converters for now"
+      ],
+      "priority": "LOW",
+      "estimate": "L",
+      "labels": ["Validation Task", "Characterization (Nominal)"]
+    }
+  ]
+}

@@ -1,9 +1,14 @@
-[
-  {
-    "title": null,
-    "description": [],
-    "priority": null,
-    "estimate": null,
-    "labels": []
-  }
-]
+{
+  "options": {
+    "create_subissues": false
+  },
+  "tasks": [
+    {
+      "title": null,
+      "description": [],
+      "priority": null,
+      "estimate": null,
+      "labels": []
+    }
+  ]
+}
