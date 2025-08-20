@@ -1,12 +1,12 @@
 import os
 import json
 from linear_api import LinearPriority
-from galvanic_validation.linear_client import LinearClient, LinearHelper
-from galvanic_validation.tasks.enums import TASK_TYPE, VALIDATION_PHASE
+from galvanic_tracking.linear_client import LinearClient, LinearHelper
+from galvanic_tracking.tasks.enums import TASK_TYPE, VALIDATION_PHASE
 
 
 _root = os.path.dirname(__file__)
-template_path = "/Users/rossharvey/Documents/SoftwareDevelopment/galvanic/src/galvanic_validation/tasks/task_lists"
+template_path = "/galvanic_tracking/tasks/task_lists"
 
 linear = LinearHelper()
 
