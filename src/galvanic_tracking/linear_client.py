@@ -143,4 +143,4 @@ class LinearHelper:
         return new_issues
 
 
-LinearHelper.TARGET_TEAM_NAME = "Electrical"
+LinearHelper.TARGET_TEAM_NAME = "Electronics Design"

@@ -141,6 +141,37 @@
       "labels": ["Validation Task", "Characterization (Nominal)"]
     },
     {
+      "title": "Inductor Saturation Characterization",
+      "description": [
+        "### Setup",
+        "Desolder the inductor from one pad and 'tombstone' it upright.",
+        "Solder a short wire loop from the free pad back to the PCB to complete the circuit.",
+        "Attach a current probe around the loop to directly measure inductor current.",
+        "Use an oscilloscope to capture voltage and current waveforms.",
+        "",
+        "### Procedure",
+        "1. Operate the SMPS at different VIN and load conditions (light to heavy load).",
+        "2. Record inductor current waveforms using the current probe.",
+        "3. Capture scope screenshots at each condition.",
+        "4. From VIN, VOUT, fsw, and measured ripple current, calculate effective inductance.",
+        "5. Plot inductance vs load to observe approach toward saturation.",
+        "",
+        "### Data to Collect",
+        "- Inductor current waveforms (scope screenshots).",
+        "- Ripple current magnitude at each operating point.",
+        "- Calculated effective inductance values.",
+        "- VIN, VOUT, load current, and fsw for each test condition.",
+        "",
+        "### Pass/Fail Criteria",
+        "- Inductor remains linear (no signs of sharp current distortion or saturation) in operating range.",
+        "- Effective inductance stays above design minimum across tested load currents.",
+        "- No excessive heating, noise, or instability observed."
+      ],
+      "priority": "LOW",
+      "estimate": "M",
+      "labels": ["Validation Task", "Characterization (Nominal)"]
+    },
+    {
       "title": "Control Loop Reponse",
       "description": [
         "Keep in backlog for now.  I need to automate this, but won't have time for awhile.  Transient testing is sufficient for most converters for now"
