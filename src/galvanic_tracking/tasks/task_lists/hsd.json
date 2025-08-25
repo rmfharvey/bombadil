@@ -1,0 +1,110 @@
+{
+  "options": {
+    "create_subissues": true,
+    "parent_time_estimate": "M"
+  },
+  "tasks": [
+    {
+      "title": "Enable/Disable",
+      "description": [
+        "Confirm that the HSD can be enabled and disabled as intended.  In addition to basic functionality, also verify the following parameters are working as intended:",
+        "\n- Vout should be ~Vin",
+        "\n- Turn on time/slew rate",
+        "\n- Current sense feedback values are rational",
+        "\n- Vout should be ~0V when disabled (failure may not necessarily indicated an issue with this device specifically)"
+      ],
+      "priority": "HIGH",
+      "estimate": "S",
+      "labels": ["Validation Task", "Smoke Test"]
+    },
+    {
+      "title": "Soft Short Circuit",
+      "description": [
+        "### Setup",
+        "\nConnect the HSD input to a programmable DC power supply and the output to an electronic load.",
+        "\nUse a the eLoad or DMM to measure the output voltage. ('remote sense' may be neccesary)",
+        "\nDefine a set of input voltages spanning the full operating range.",
+        "\n",
+        "\n### Procedure",
+        "\nFor each defined input voltage:",
+        "\n1. Set input voltage to the target level.",
+        "\n2. Slowly ramp the load current upward until the device enters protection or limiting mode.",
+        "\n3. At each steady-state current step, allow thermal stabilization of the power components.",
+        "\n4. Record output voltage, output current, and component temperatures once stable.",
+        "\n",
+        "\n### Data to Collect",
+        "\n- Input voltage (VIN).",
+        "\n- Output current (IOUT) and output voltage (VOUT).",
+        "\n- Steady-state temperatures of all key power components.",
+        "\n- Point of current limit engagement or shutdown behavior.",
+        "\n",
+        "\n### Pass/Fail Criteria",
+        "\n- HSD enters current limit or protection mode without catastrophic failure.",
+        "\n- Temperatures remain within rated limits under sustained stress.",
+        "\n- No permanent damage observed.",
+        "\n- Recovery behavior after overload is consistent with design intent."
+      ],
+      "priority": "MEDIUM",
+      "estimate": "M",
+      "labels": ["Validation Task", "Characterization (Nominal)"]
+    },
+    {
+      "title": "Hard Short Circuit",
+      "description": [
+      "### Setup",
+      "\nConnect the HSD input to a DC supply at nominal VIN.",
+      "\nPrepare a controlled shorting method on the output (e.g., relay, FET to ground, screwdriver, etc).",
+      "\nUse an oscilloscope with current probe on the output path and voltage probe at the output node.",
+      "\n",
+      "\n### Procedure",
+      "\n1) Power the HSD at maximum input voltage seen in operation.",
+      "\n2) Enable the HSD.",
+      "\n3) Apply a hard short from output to ground while monitoring scope traces.",
+      "\n4) Capture the output current waveform and output voltage response.",
+      "\n5) Observe system behavior: controller status, HSD integrity, and ringing.",
+      "\n",
+      "\n### Data to Collect",
+      "\n- Output current waveform during short circuit event.",
+      "\n- Output voltage waveform including any undershoot, overshoot, or ringing.",
+      "\n- Controller behavior (reset, brownout, or continued operation).",
+      "\n- Post-event functional status of the HSD (damaged vs. normal).",
+      "\n",
+      "\n### Pass/Fail Criteria",
+      "\n- Device survives without permanent damage or degraded functionality.",
+      "\n- Output current waveform shows expected current limit or shutdown behavior.",
+      "\n- Controller remains stable (no unintended reset).",
+      "\n- Voltage ringing at the output is within acceptable limits."
+      ],
+      "priority": "MEDIUM",
+      "estimate": "M",
+      "labels": ["Validation Task", "Characterization (Nominal)"]
+    },
+    {
+      "title": "Current Sense Accuracy",
+      "description": [
+        "### Setup",
+        "\nSet power supply to nominal voltage.",
+        "\nConnect HSD output to an electronic load and sweep current from 0 A to maximum supported.",
+        "\nMeasure actual output current with a precision meter.",
+        "\nCapture MCU ADC readings (raw codes or converted current).",
+        "\n",
+        "\n### Procedure",
+        "\n1. Set VIN to nominal and turn on HSD.",
+        "\n2. Sweep output current in steps from 0 A to some max value.",
+        "\n3. Record actual current and ADC reading at each step.",
+        "\n",
+        "\n### Data to Collect",
+        "\n- Actual output current (A).",
+        "\n- ADC-reported current (A or raw code).",
+        "\n",
+        "\n### Pass/Fail Criteria",
+        "\n- ADC reading scales consistently with actual current.",
+        "\n- Accuracy within design tolerance across the full range.",
+        "\n- No premature saturation, clipping, or unexpected jumps."
+      ],
+      "priority": "MEDIUM",
+      "estimate": "S",
+      "labels": ["Validation Task", "Characterization (Nominal)"]
+    }
+  ]
+}

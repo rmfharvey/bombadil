@@ -1,0 +1,52 @@
+{
+  "options": {
+    "create_subissues": true,
+    "parent_time_estimate": "M"
+  },
+  "tasks": [
+    {
+      "title": "Enable/Disable",
+      "description": [
+        "Confirm that the LDO can be enabled and disabled as intended.  In addition to basic functionality, also verify the following parameters are working as intended:",
+        "\n- Vout is the correct voltage",
+        "\n- Turn on time/slew rate",
+        "\n- Vout should be ~0V when disabled (failure may not necessarily indicated an issue with this device specifically)",
+        "\n- Output discharge"
+      ],
+      "priority": "HIGH",
+      "estimate": "S",
+      "labels": ["Validation Task", "Smoke Test"]
+    },
+    {
+      "title": "Educated Short Circuit",
+      "description": [
+        "### Setup",
+        "\nConnect the LDO input to a programmable DC power supply and the output to an electronic load.",
+        "\nUse a the eLoad or DMM to measure the output voltage. ('remote sense' may be neccesary)",
+        "\nDefine a set of input voltages spanning the full operating range.",
+        "\n",
+        "\n### Procedure",
+        "\nFor each defined input voltage:",
+        "\n1. Set input voltage to the target level.",
+        "\n2. Slowly ramp the load current upward until the converter enters protection or limiting mode.",
+        "\n3. At each steady-state current step, allow thermal stabilization of the power stage.",
+        "\n4. Record output voltage, output current, and component temperatures once stable.",
+        "\n",
+        "\n### Data to Collect",
+        "\n- Input voltage (VIN).",
+        "\n- Output current (IOUT) and output voltage (VOUT).",
+        "\n- Steady-state temperatures of all key power components.",
+        "\n- Point of current limit engagement or shutdown behavior.",
+        "\n",
+        "\n### Pass/Fail Criteria",
+        "\n- LDO enters current limit or protection mode without catastrophic failure.",
+        "\n- Temperatures remain within rated limits under sustained stress.",
+        "\n- No uncontrolled oscillation, runaway, or permanent damage observed.",
+        "\n- Recovery behavior after overload is consistent with design intent."
+      ],
+      "priority": "LOW",
+      "estimate": "M",
+      "labels": ["Validation Task", "Characterization (Nominal)"]
+    }
+  ]
+}

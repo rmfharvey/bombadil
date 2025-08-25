@@ -1,0 +1,23 @@
+{
+  "options": {
+    "create_subissues": false
+  },
+  "tasks": [
+    {
+      "title": "Basic Functional Test",
+      "description": [
+        "1. Check signal integrity of all signals on the bus.",
+        "\n2. Confirm that you can communicate with all nodes on this bus",
+        "\n\n| Node Name | Communication OK? |",
+        "\n| -- | -- |",
+        "\n|  |  |",
+        "\n|  |  |",
+        "\n|  |  |",
+        "\n|  |  |"
+      ],
+      "priority": "MEDIUM",
+      "estimate": "M",
+      "labels": ["Validation Task", "Smoke Test"]
+    }
+  ]
+}

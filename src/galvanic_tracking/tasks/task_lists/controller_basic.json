@@ -1,0 +1,72 @@
+{
+  "options": {
+    "create_subissues": false
+  },
+  "tasks": [
+    {
+      "title": "Basic visual inspection",
+      "description": [
+        "Visually inspect the board to note any obvious issues with cleanliness, solder quality, missing parts, part orientation, etc.  ",
+        "\nThis is meant to be a qualitative check and doesn't require much documentation aside from basic notes in the comments."
+      ],
+      "priority": "HIGH",
+      "estimate": "XS",
+      "labels": ["Validation Task", "Smoke Test"]
+    },
+    {
+      "title": "Power Rail Impedance/Voltage",
+      "description": [
+        "1. While unpowered, measure the impedance to GND of all voltage rails and confirm no shorts exist.\n",
+        "2. Turn on controller and measure the voltage of all voltage rails\n\n.",
+        "\n\n| Rail Name | Impedance to GND (ohms) | Voltage (V) |\n| -- | -- | -- |\n|  |  |  |\n|  |  |  |\n|  |  |  |\n|  |  |  |\n|  |  |  |",
+        "\n\n*For step 2, it's recommended to use a current limited power supply to avoid potential damage if there are PCBA issues.*",
+        "*Ramp the current limit up once you've confirmed that there aren't any problems.  However, make sure that the initial current limit you have is high enough that it doesn't starve the board of power.* "
+      ],
+      "priority": "HIGH",
+      "estimate": "S",
+      "labels": ["Validation Task", "Smoke Test"]
+    },
+    {
+      "title": "Flash Microcontroller(s)",
+      "description": [
+        "Make sure that all microcontrollers can be flashed properly and respond to commands.  ",
+        "\n\nFor more info on connecting to and controlling hardware, see https://github.com/Specter-Co/hardware/tree/HardwareControlInterface/packages/hardware-control-interface"
+      ],
+      "priority": "HIGH",
+      "estimate": "S",
+      "labels": ["Smoke Test"]
+    },
+    {
+      "title": "Controller Hot Plug",
+      "description": [
+        "### Goal",
+        "\nVerify that hot-plugging the controller does not cause input voltage ringing that exceeds component limits.",
+        "\nIf the device cannot be hotplugged in the field, this testing can be skipped.",
+        "\n",
+        "\n### Setup",
+        "\nUse a bench supply set to the maximum input voltage expected in the field.",
+        "\nConnect the supply through a representative harness length/gauge to emulate wiring inductance.",
+        "\nProbe the controller input pins with an oscilloscope.",
+        "\n",
+        "\n### Procedure",
+        "\n1. Configure the supply at maximum field voltage.",
+        "\n2. With the controller unpowered, connect the harness to the input terminals (hot plug event).",
+        "\n3. Capture the input voltage waveform during connection.",
+        "\n4. Repeat several times to check consistency.",
+        "\n",
+        "\n### Data to Collect",
+        "\n- Input voltage waveform during hot-plug event.",
+        "\n- Peak overshoot and undershoot values.",
+        "\n- Duration and damping of any ringing.",
+        "\n",
+        "\n### Pass/Fail Criteria",
+        "\n- No ringing or transients exceed the absolute maximum voltage rating of components.",
+        "\n- Input waveform settles quickly without prolonged oscillation.",
+        "\n- Controller powers up into a normal state."
+      ],
+      "priority": "HIGH",
+      "estimate": "S",
+      "labels": ["Validation Task", "Characterization (Nominal)"]
+    }
+  ]
+}
