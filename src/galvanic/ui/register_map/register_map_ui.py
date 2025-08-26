@@ -23,9 +23,14 @@ class RegisterWidget(GWidget):
 
         self._setup()
 
+    def update_frame_data_label(self, value):
+        # TODO calculate full frame later
+        self.ui.frame_data_label.setText(f"0x{value:0{int(self.register.bit_width/4)}x}")
+
     def _setup(self):
         title = f"{self.register.name} ({self.register.hex_address})"
-        self.ui.register_groupbox.setTitle(title)
+        self.ui.register_id_label.setText(title)
+        self.update_frame_data_label(self.register.value)
 
     def refresh_fields_in_ui(self):
         for f in self.register.fields.values():
