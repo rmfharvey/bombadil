@@ -1,4 +1,6 @@
+import re
 from PySide6 import QtCore
+from galvanic import global_logger
 from galvanic.ui import GWidget
 from galvanic.ui.register_map.forms.register_map_ui import Ui_Form as RegisterMapForm
 from galvanic.ui.register_map.forms.register_ui import Ui_Form as RegisterForm
@@ -24,7 +26,7 @@ class RegisterWidget(GWidget):
         self._setup()
 
     def update_frame_data_label(self, value):
-        # TODO calculate full frame later
+        # TODO calculate full frame later, needs additional config input
         self.ui.frame_data_label.setText(f"0x{value:0{int(self.register.bit_width/4)}x}")
 
     def _setup(self):
@@ -78,15 +80,56 @@ class FieldWidget(GWidget):
         self.ui.value_combobox.currentIndexChanged.connect(self._handler_combobox_changed)
         self.ui.value_lineedit.editingFinished.connect(self._handler_lineedit_changed)
 
+    @staticmethod
+    def _format_user_input(uin_str, range=None):
+        """
+        Formats and validates user input string as an integer in various number bases. Supports binary,
+        hexadecimal, and decimal input formats. The input string is sanitized and converted to a base 10
+        integer. Optionally checks if the integer value falls within a specified range.
+
+        Parameters:
+            uin_str (str): The input string to be formatted and validated.
+            range (Optional[Iterable[int]]): Optional range (e.g., [min, max]) to assert the integer falls
+                within the range. If not specified, no range validation is performed.
+
+        Returns:
+            Optional[int]: The formatted integer value if valid, otherwise None.
+        """
+        uin_str = uin_str.strip().lower()
+        base = 10
+        if re.fullmatch(r"0b[01]+", uin_str):
+            base = 2
+            uin_str = uin_str.replace("0b", "")
+        # elif re.fullmatch(r"[01]+", uin_str) and len(uin_str) > 1:
+        #     base = 2
+
+        # Hexadecimal (prefix 0x or digits with A-F)
+        elif re.fullmatch(r"0x[0-9a-f]+", uin_str):
+            base = 16
+            uin_str = uin_str.replace("0x", "")
+        elif re.fullmatch(r"[0-9a-f]+", uin_str) and any(c in uin_str for c in "abcdef"):
+            base = 16
+
+        try:
+            val = int(uin_str, base)
+            if range:
+                assert min(range) <= val <= max(range), "Value out of range"
+            return val
+        except (AssertionError, ValueError) as err:
+            global_logger.error(f"Invalid input: {uin_str}")
+            return None
+
     # Signal Handlers
     def _handler_combobox_changed(self):
         value = self.ui.value_combobox.currentText()
         pd_map = {v: k for k, v in self.field.digital_physical_map.items()}
         self.field.value = int(pd_map[value])
+        print(f"{self.field.name} changed to {self.field.value}")
 
     def _handler_lineedit_changed(self):
         value = self.ui.value_lineedit.text()
         self.field.value = int(value)
+        print(f"{self.field.name} changed to {self.field.value}")
 
 
 class FieldWidgetDummy(FieldWidget):
