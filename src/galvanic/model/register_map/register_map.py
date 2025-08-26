@@ -89,9 +89,20 @@ class Register:
     def hex_address(self):
         return "0x{:02X}".format(self.address)
 
+    @property
+    def value(self):
+        bin_val = f"{self.init_value:0{self.bit_width+1}b}"
+        for f in self.fields.values():
+            fval = f.get_binary_value_dict()[self.address]
+            start = f.register_location_by_addr[self.address]["reg_start_bit"]
+            end = f.register_location_by_addr[self.address]["reg_end_bit"] + 1
+            bin_val = bin_val[:start] + fval + bin_val[end:]
+        return int(bin_val[:-1], 2)
+
 
 class Field:
     def __init__(self, config):
+        self.value = 0
         self.parent_register = None
         self.digital_physical_map = {}
 
@@ -147,6 +158,20 @@ class Field:
             widths[seg["register_address"]] = seg_width
             widths["total"] += seg_width
         return widths
+
+    def get_binary_value_dict(self):
+        width = self.get_bit_widths()["total"]
+        bin_val = f"{self.value:0{width}b}"[::-1]
+
+        val_dict = {}
+        for f in self.register_location:
+            has_start_bit = "field_start_bit" in f
+            has_end_bit = "field_end_bit" in f
+            if has_start_bit and has_end_bit:
+                val_dict[f["register_address"]] = bin_val[f["field_start_bit"] : f["field_end_bit"] + 1]
+            else:
+                val_dict[f["register_address"]] = bin_val
+        return val_dict
 
     @property
     def reserved_field(self):
