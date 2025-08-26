@@ -18,6 +18,6 @@ for dir, __, files in os.walk(_root):
         ui_file = os.path.join(dir, fn)
         py_file = os.path.join(dir, py_fn)
 
-        os.system(f"pyuic6 -o {py_file} {ui_file}")
+        os.system(f"pyside6-uic -o {py_file} {ui_file}")
 
 print("End")

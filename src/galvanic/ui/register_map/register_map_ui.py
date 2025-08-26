@@ -1,4 +1,4 @@
-from PyQt6 import QtCore
+from PySide6 import QtCore
 from galvanic.ui import GWidget
 from galvanic.ui.register_map.forms.register_map_ui import Ui_Form as RegisterMapForm
 from galvanic.ui.register_map.forms.register_ui import Ui_Form as RegisterForm
