@@ -79,6 +79,9 @@ class Register:
             loc = f.register_location_by_addr[self.address]
             temp_fields[loc["reg_start_bit"]] = f
 
+            # Also set parent in Field
+            f.parent_register = self
+
         sorted_fields = sorted(temp_fields.keys())
         for addr in sorted_fields:
             self.fields[addr] = temp_fields[addr]
@@ -91,13 +94,14 @@ class Register:
 
     @property
     def value(self):
+        """Register value is calculated on the fly as the sum of all of its elements"""
         bin_val = f"{self.init_value:0{self.bit_width+1}b}"
         for f in self.fields.values():
             fval = f.get_binary_value_dict()[self.address]
             start = f.register_location_by_addr[self.address]["reg_start_bit"]
             end = f.register_location_by_addr[self.address]["reg_end_bit"] + 1
             bin_val = bin_val[:start] + fval + bin_val[end:]
-        return int(bin_val[:-1], 2)
+        return int(bin_val[:-1][::-1], 2)
 
 
 class Field:
@@ -129,6 +133,8 @@ class Field:
             if r["width"] == max_width:
                 r["master"] = True
                 break  # Break from loop to avoid
+
+        self.value_range = [0, 2 ** self.get_bit_widths()["total"] - 1]
 
         # Assign UI objects
         for r in self.register_location:

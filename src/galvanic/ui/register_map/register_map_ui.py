@@ -1,4 +1,6 @@
 import re
+from multiprocessing.spawn import old_main_modules
+
 from PySide6 import QtCore
 from galvanic import global_logger
 from galvanic.ui import GWidget
@@ -25,14 +27,14 @@ class RegisterWidget(GWidget):
 
         self._setup()
 
-    def update_frame_data_label(self, value):
+    def update_frame_data_label(self):
         # TODO calculate full frame later, needs additional config input
-        self.ui.frame_data_label.setText(f"0x{value:0{int(self.register.bit_width/4)}x}")
+        self.ui.frame_data_label.setText(f"0x{self.register.value:0{int(self.register.bit_width/4)}x}")
 
     def _setup(self):
         title = f"{self.register.name} ({self.register.hex_address})"
         self.ui.register_id_label.setText(title)
-        self.update_frame_data_label(self.register.value)
+        self.update_frame_data_label()
 
     def refresh_fields_in_ui(self):
         for f in self.register.fields.values():
@@ -80,6 +82,9 @@ class FieldWidget(GWidget):
         self.ui.value_combobox.currentIndexChanged.connect(self._handler_combobox_changed)
         self.ui.value_lineedit.editingFinished.connect(self._handler_lineedit_changed)
 
+    def _format_lineedit(self, value):
+        self.ui.value_lineedit.setText(f"{value}")
+
     @staticmethod
     def _format_user_input(uin_str, range=None):
         """
@@ -124,12 +129,26 @@ class FieldWidget(GWidget):
         value = self.ui.value_combobox.currentText()
         pd_map = {v: k for k, v in self.field.digital_physical_map.items()}
         self.field.value = int(pd_map[value])
-        print(f"{self.field.name} changed to {self.field.value}")
+        self.parent_register_widget.update_frame_data_label()
 
     def _handler_lineedit_changed(self):
         value = self.ui.value_lineedit.text()
-        self.field.value = int(value)
-        print(f"{self.field.name} changed to {self.field.value}")
+        current_val = self.field.value
+        new_val = self._format_user_input(value, range=self.field.value_range)
+
+        invalid_value = new_val is None
+        if invalid_value:  # If entered value was invalid, revert to current value
+            new_val = current_val
+            global_logger.warning(f"User input {value} was not valid. Reverting to {current_val}.")
+        else:
+            self.field.value = new_val
+            self.parent_register_widget.update_frame_data_label()
+
+        self._format_lineedit(new_val)
+
+    @property
+    def parent_register_widget(self):
+        return self.field.parent_register.ui_object
 
 
 class FieldWidgetDummy(FieldWidget):
