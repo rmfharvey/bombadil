@@ -1,8 +1,8 @@
 import re
 import logging
 from uuid import uuid4
-from galvanic import colored_logger
 
+from galvanic import colored_logger
 from galvanic_altium.utils import validate_json_serialization, AltiumBasic
 from galvanic_altium.schematic import SchematicSheet, Net, NET_SCOPE
 from galvanic_altium.server_api import AltiumServerAPI

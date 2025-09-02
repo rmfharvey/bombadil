@@ -1,6 +1,4 @@
 import re
-from turtledemo.sorting_animate import start_ssort
-
 from galvanic.utils.enums import RAIL_REGULATION, DIRECTION, POLARITY, PWM_INPUT_TYPE, BUS_TYPES
 from galvanic import colored_logger
 

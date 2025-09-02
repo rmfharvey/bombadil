@@ -2,7 +2,6 @@ import json
 import os
 
 import requests.packages
-from mypy_extensions import KwArg
 
 from galvanic.utils.passive_naming_schema.series import ESeries
 from galvanic.utils.metric_formatting import MetricValue

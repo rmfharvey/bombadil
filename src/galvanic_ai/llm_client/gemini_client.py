@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-from google import genai
+from google import generativeai as genai
 from google.genai import types
 
 from galvanic_ai.llm_client.llm_client import LlmClient, log_token_usage
@@ -44,7 +44,7 @@ class GeminiClient(LlmClient):
         }
 
         if cache_name in self._cached_items:
-            kw["config"] = types.GenerateContentConfig(cached_content=self._cached_items[cache_name].name)
+            kw["config"] = genai.types.GenerateContentConfig(cached_content=self._cached_items[cache_name].name)
 
         response = self._client.models.generate_content(*args, **{**kwargs, **kw})
         return response

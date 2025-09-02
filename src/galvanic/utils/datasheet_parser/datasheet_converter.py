@@ -7,7 +7,7 @@ import pathlib
 from json import JSONDecodeError
 
 import pymupdf4llm
-from google import genai
+from google import genai  # May have been updated to google.generativeai
 from google.genai import types
 
 from galvanic_schema.protobuf import PROTOBUF
@@ -18,6 +18,7 @@ _root = os.path.dirname(__file__)
 
 def log_token_usage(func):
     DeprecationWarning("Moving into LlmCLient")
+
     def wrapper(*args, **kwargs):
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         response = func(*args, **kwargs)
@@ -112,7 +113,7 @@ class DatasheetConverter:
 
             for name, pin in self._json["pins"].items():
                 response = self.AI_PARSER_get_pin_connectivity_info(name)
-                pin['implementation'] = response
+                pin["implementation"] = response
 
             if self.has_serial_bus:
                 self._json["serial_bus"] = self.AI_PARSER_get_comms_register_map()
@@ -146,9 +147,8 @@ class DatasheetConverter:
                 with open(source_path, "r") as f:
                     self.md_datasheet = f.read()
             except UnicodeDecodeError:
-                with open(source_path, "r", encoding='utf-8') as f:
+                with open(source_path, "r", encoding="utf-8") as f:
                     self.md_datasheet = f.read()
-
 
         # Explicit caching
         self.logger.info("Caching datasheet info")
@@ -281,8 +281,6 @@ class DatasheetConverter:
         )
         return response
 
-
-
     ####################################################################################################################
     ### Private Functions
     ####################################################################################################################
@@ -392,7 +390,9 @@ class DatasheetConverter:
                 with open(ds_path, "r") as f:
                     ds = json.load(f)
             except JSONDecodeError as err:
-                self.logger.error(f"Failed to load existing datasheet at {ds_path}.  Dumping to datasheet_tempfile.json. \nError: {err}")
+                self.logger.error(
+                    f"Failed to load existing datasheet at {ds_path}.  Dumping to datasheet_tempfile.json. \nError: {err}"
+                )
                 temp_path = f"{os.path.sep}".join(ds_path.split(os.path.sep)[:-1] + ["datasheet_tempfile.json"])
 
                 with open(temp_path, "w") as f:
@@ -474,7 +474,6 @@ class MicroDatasheetConverter(DatasheetConverter):
                     "protobuf_pin_enums": PROTOBUF.misc.pin_enums,
                 }.values()
             ),
-
             config=types.GenerateContentConfig(cached_content=self._cache.name),
         )
         return response
@@ -521,23 +520,23 @@ class MicroDatasheetConverter(DatasheetConverter):
     def build_peripherals_from_pads(pads):
         peripherals = {}
         for pad_name, pad in pads.items():
-            for f in pad['functions']:
-                p_name = f['peripheral_name']
-                p_inst = f['peripheral_instance']
-                p_sub = f['peripheral_subusage']
+            for f in pad["functions"]:
+                p_name = f["peripheral_name"]
+                p_inst = f["peripheral_instance"]
+                p_sub = f["peripheral_subusage"]
 
-                if p_name not in peripherals:   # Add peripheral if it doesn't exist
+                if p_name not in peripherals:  # Add peripheral if it doesn't exist
                     peripherals[p_name] = {}
 
-                if p_inst not in peripherals[p_name]: # Add instance if it doesn't exist
-                    peripherals[p_name][p_inst] = {'subusages': {}, 'assignable_pins': []}
+                if p_inst not in peripherals[p_name]:  # Add instance if it doesn't exist
+                    peripherals[p_name][p_inst] = {"subusages": {}, "assignable_pins": []}
                 target = peripherals[p_name][p_inst]
 
-                target['assignable_pins'].append(pad_name)
+                target["assignable_pins"].append(pad_name)
 
-                if p_sub not in target['subusages']:
-                    target['subusages'][p_sub] = []
-                target['subusages'][p_sub].append(pad_name)
+                if p_sub not in target["subusages"]:
+                    target["subusages"][p_sub] = []
+                target["subusages"][p_sub].append(pad_name)
 
         return peripherals
 
