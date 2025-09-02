@@ -125,13 +125,17 @@ class _DatasheetManager:
             json_ds = ds.load_json_datasheet()
         return json_ds
 
-    def clean_datasheets_directories(self):
-        ds_path =None
-        for part_number, ds in self.datasheets.items():
-            if not ds.has_pdf:
-                ds.download_datasheet()
-            if not ds.has_json:
-                ds.create_json()
+    def clean_paths(self):
+        for ds in self.datasheets.values():
+            ds_json = ds.load_json_datasheet()
+            if ds_json == {}:
+                # Remove empty json files and tempfiles
+                os.remove(ds.json_path)
+                self.logger.info(f"Removed empty datasheet: {ds.json_path}")
+                ds_temp = ds.json_path.replace("datasheet.json", "datasheet_tempfile.json")
+                if os.path.exists(ds_temp):
+                    os.remove(ds_temp)
+                    self.logger.info(f"Removed empty datasheet: {ds.json_path}")
 
     @property
     def by_manufacturer(self):
@@ -155,3 +159,7 @@ class _DatasheetManager:
 
 
 DatasheetManager = _DatasheetManager()
+
+
+if __name__ == "__main__":
+    print()

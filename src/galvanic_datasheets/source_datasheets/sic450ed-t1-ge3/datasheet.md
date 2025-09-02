@@ -121,9 +121,6 @@ supply
 - DDR memory
 
 
-
-
-
 Axis Title
 
 
@@ -132,13 +129,9 @@ Axis Title
 
 
 
+
+
 98
-
-
-
-
-
-
 
 
 
@@ -154,6 +147,14 @@ Axis Title
 
 
 10
+
+
+
+
+
+
+
+
 
 
 

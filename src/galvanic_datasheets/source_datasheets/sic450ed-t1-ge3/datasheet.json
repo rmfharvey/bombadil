@@ -1,1 +1,616 @@
-{}
+{
+  "high_level":{
+    "base_part_number":"SiC450/SiC451/SiC453",
+    "device_type":6,
+    "manufacturer":"Vishay",
+    "packages":[
+      "PowerPAK MLP34-57"
+    ],
+    "part_numbers":{
+      "SiC450ED-T1-GE3":{
+        "options":{
+          "MAXIMUM CURRENT":"40 A",
+          "PACKAGE":"PowerPAK MLP34-57"
+        }
+      },
+      "SiC451ED-T1-GE3":{
+        "options":{
+          "MAXIMUM CURRENT":"25 A",
+          "PACKAGE":"PowerPAK MLP34-57"
+        }
+      },
+      "SiC453ED-T1-GE3":{
+        "options":{
+          "MAXIMUM CURRENT":"15 A",
+          "PACKAGE":"PowerPAK MLP34-57"
+        }
+      }
+    },
+    "serial_busses":[
+      1,
+      0
+    ]
+  },
+  "pins":{
+    "ADDR":{
+      "description":"PMBus address programming pin",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_type":"Resistor",
+            "description":"A resistor is connected between the ADDR pin and AGND. The value of this resistor is used to set an offset for the PMBus address. The datasheet provides a table of resistor values (k\u03a9) and their corresponding address offsets (e.g., 0.845 k\u03a9 for offset 1, 1.3 k\u03a9 for offset 2, up to 11 k\u03a9 for offset 15).",
+            "details":"Refer to the 'PMBus ADDRESS (ADDR pin)' section in the datasheet for the specific resistor values and their corresponding PMBus address offsets."
+          },
+          {
+            "component_type":"Ground",
+            "description":"The AGND (Analog Ground) pin serves as the reference for the ADDR pin connection.",
+            "details":"Connect the resistor to the AGND pin (pin 7 or 16)."
+          }
+        ],
+        "connectivity":"A resistor should be connected between the ADDR pin and AGND. The value of this resistor determines the offset for the PMBus address.",
+        "detailed_description":"The ADDR pin is used to program the PMBus address of the device. It is a 7-bit address programming pin. A resistor connected between the ADDR pin and AGND sets an offset to the default pre-configured MFR base address. This allows for unique addresses for multiple SiC45x devices on the same system.",
+        "functionality":"The primary function of the ADDR pin is to set the PMBus address. The offset provided by a resistor connected to this pin, in conjunction with the MFR_BASE_ADDRESS or MFR_BASE_ADDRESS_2 register, determines the final 7-bit PMBus address.",
+        "precautions":[
+          "Do not leave the setting resistor open or short.",
+          "The ADDR pin and its associated resistor should be placed close to the SiC45x device.",
+          "Ensure the chosen resistor value corresponds to a valid address offset as per the datasheet to avoid address conflicts or invalid addresses."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":0.0,
+        "units":"V"
+      },
+      "pin_id":"14",
+      "type":"DIGITAL"
+    },
+    "AGND":{
+      "description":"Analog signal return ground",
+      "direction":"OTHER",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Analog Ground Plane",
+            "description":"A low-impedance connection to the system's analog ground reference. This plane should be kept as clean as possible, isolated from noisy switching current paths."
+          },
+          {
+            "component_name":"Decoupling Capacitor",
+            "description":"A decoupling capacitor (typically 1 \u00b5F) should be connected between the VDD pin (pin 22) and AGND. This capacitor should be placed as close as possible to the VDD pin and the AGND connection to filter noise on the internal 5V regulator supply."
+          }
+        ],
+        "connectivity":"AGND should be connected to the system's analog ground plane. In the schematic, this would typically be a dedicated ground symbol connected to the AGND pin.",
+        "detailed_description":"AGND stands for Analog Ground. It serves as the reference ground for all analog signals and internal circuits of the SiC45x device. This includes voltage sensing, feedback loops, and other analog control functions. Maintaining a clean and stable AGND is crucial for accurate operation and regulation of the DC/DC converter.",
+        "functionality":"AGND is solely the analog ground reference. It is not a power or signal ground in the same way as PGND or other signal grounds might be.",
+        "precautions":[
+          "AGND should be connected to PGND at a single point, ideally close to the IC, to prevent ground loops and noise coupling.",
+          "The AGND plane should be kept separate from the power ground (PGND) and switching node (SW) planes to minimize noise injection into sensitive analog circuitry.",
+          "All analog components that require a ground reference should be connected to this AGND plane."
+        ]
+      },
+      "pin_id":"[7, 16]",
+      "type":"POWER"
+    },
+    "BOOT":{
+      "description":"Bootstrap voltage for high side gate driver (referenced to PH)",
+      "direction":"OTHER",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_type":"capacitor",
+            "description":"Bootstrap capacitor. Typically a ceramic capacitor with a value between 0.1 uF and 1 uF is used. The capacitor should be placed very close to the IC to reduce parasitic inductance."
+          }
+        ],
+        "connectivity":"Connect the BOOT pin to the PHASE pin through a bootstrap capacitor.",
+        "detailed_description":"The BOOT pin is the bootstrap voltage for the high-side gate driver. It is referenced to the PHASE pin.",
+        "functionality":"The BOOT pin serves as the supply voltage for the high-side gate driver. This voltage is generated by an external bootstrap capacitor connected between the BOOT and PHASE pins.",
+        "precautions":[
+          "The bootstrap capacitor (CBOOT) voltage rating must be sufficient to withstand the voltage difference between BOOT and PHASE, which is PVCC + V_SW_low, where V_SW_low is the low-side MOSFET voltage drop.",
+          "Ensure the bootstrap capacitor is placed very close to the IC pins (BOOT and PHASE) to minimize parasitic inductance and ensure proper high-side driver operation.",
+          "The datasheet specifies a PVCC voltage of 5V and a SW/PH (AC) voltage reference to PGND of -8V to +33V. The BOOT voltage is referenced to PH, and its absolute voltage limit is -0.3V to VPH + PVCC. This indicates that the bootstrap capacitor must be able to handle the voltage from PVCC plus the voltage on the PHASE pin during the low-side conduction."
+        ]
+      },
+      "pin_id":"6",
+      "type":"POWER"
+    },
+    "EN":{
+      "description":"Enable pin. Active high 5 V logic level input",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Microcontroller or other logic signal source",
+            "details":"This component provides the control signal to the EN pin. The logic level should be compatible with the device's recommended operating conditions (0 V to 5.5 V)."
+          }
+        ],
+        "connectivity":"Connect to a logic-level signal (typically 5 V logic) to control the device's ON/OFF state.",
+        "detailed_description":"The EN pin is used to enable and disable the SiC45x device. Driving this pin high enables the device, while grounding it turns it off.  There are no sequencing requirements with respect to input/output supplies for this pin.",
+        "functionality":"Enable/Disable the SiC45x device.",
+        "precautions":"The EN pin has no specific sequencing requirements with respect to other input/output supplies. Ensure the driving signal is within the recommended voltage levels (0 V to 5.5 V)."
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":0.0,
+        "units":"V"
+      },
+      "pin_id":"21",
+      "type":"DIGITAL"
+    },
+    "GH":{
+      "description":"High side MOSFET gate monitor",
+      "direction":"OTHER",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Oscilloscope probe",
+            "description":"Used to observe the waveform and characteristics of the high-side MOSFET gate drive signal for debugging and performance analysis."
+          }
+        ],
+        "connectivity":"This pin is typically connected to an oscilloscope or a monitoring circuit to observe the high-side MOSFET gate drive waveform. It is generally not connected to any active components in a typical schematic for controlling the device, but rather for diagnostic or monitoring purposes.",
+        "detailed_description":"The GH pin is a monitor output for the high-side MOSFET gate. It provides a signal related to the gate drive status of the high-side MOSFET, allowing for monitoring of its operation.",
+        "functionality":"Monitor output for the high-side MOSFET gate drive. It is not an active control pin but rather provides a read-back of the gate drive signal.",
+        "precautions":[
+          "This pin is a monitor output and should not be used to drive any external circuitry or be connected to voltage sources other than for measurement purposes.",
+          "Ensure the monitoring equipment (e.g., oscilloscope probe) has appropriate impedance to avoid loading the signal and affecting the device's operation."
+        ]
+      },
+      "pin_id":"5",
+      "type":"OTHER"
+    },
+    "GL":{
+      "description":"Low side MOSFET gate monitor",
+      "direction":"OTHER",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"SiC45x IC",
+            "details":"The GL pin is an internal pin of the SiC45x integrated circuit."
+          }
+        ],
+        "connectivity":"This pin should be connected directly to the IC as shown in the functional block diagram and typical application circuit. It is an output pin and does not require external connections for basic operation.",
+        "detailed_description":"The GL pin serves as a gate monitor for the low-side MOSFET within the SiC45x DC/DC converter. It provides feedback on the gate drive signal of the low-side MOSFET, likely for internal control or diagnostic purposes.",
+        "functionality":"This pin primarily monitors the gate drive signal of the low-side MOSFET. It's an output from the IC, reflecting the state of the low-side gate drive. It does not appear to have alternate functions based on connectivity.",
+        "precautions":"As this is an output pin from the IC, it should not be driven by external circuitry. Ensure no external voltage or current is applied to this pin, as it could damage the device. The datasheet does not specify any specific external components like pull-up or pull-down resistors needed for this pin."
+      },
+      "pin_id":"25",
+      "type":"OTHER"
+    },
+    "NC":{
+      "description":"Not used in Vishay device",
+      "direction":"OTHER",
+      "implementation":{
+        "connected_components":[],
+        "connectivity":"The NC pins should not be connected to anything in the schematic. They should be left floating or unconnected.",
+        "detailed_description":"The NC pins (8, 9, and 10) are not used in the Vishay device. This means they have no internal connection or function within the SiC450, SiC451, or SiC453 integrated circuits.",
+        "functionality":"These pins do not perform any function and are essentially unused.",
+        "precautions":"It is important to leave NC (No Connect) pins unconnected to avoid any unintended behavior or potential issues with the device. Connecting them could lead to unexpected results or damage. Ensure that no external components or traces are routed to these pins."
+      },
+      "pin_id":"[8, 9, 10]",
+      "type":"OTHER"
+    },
+    "PGND":{
+      "description":"Power ground. Common return for internal MOSFETs",
+      "direction":"OTHER",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Power Ground Plane",
+            "description":"The PGND pins should be connected to the main power ground plane of the PCB. This plane should be robust and low-impedance to handle the return current of the power stage."
+          },
+          {
+            "component_name":"Input Decoupling Capacitors (e.g., ceramic)",
+            "description":"While not directly connected to PGND, the ground side of input decoupling capacitors (connected to PVIN) should be connected to the PGND plane as close as possible to the PGND pins of the IC. This provides a low-impedance path for high-frequency noise."
+          },
+          {
+            "component_name":"Output Decoupling Capacitors (e.g., ceramic)",
+            "description":"Similarly, the ground side of output decoupling capacitors should be connected to the PGND plane."
+          }
+        ],
+        "connectivity":"PGND should be connected directly to the system's power ground plane. It is essential to have a low-impedance path from the PGND pins to the system ground to minimize noise and voltage drops during high current switching.",
+        "detailed_description":"PGND stands for Power Ground. It is the common return path for the internal power MOSFETs, handling the high current switching transitions. This pin is critical for the efficient operation of the DC/DC converter.",
+        "functionality":"The primary function of PGND is to serve as the power ground return for the internal power stages (high-side and low-side MOSFETs). It is designed to handle the high transient currents associated with switching operations.",
+        "precautions":[
+          "Ensure that the PGND pins have a low-impedance connection to the system ground plane. Use multiple vias if necessary to connect to inner ground layers.",
+          "Avoid routing any signal traces through the PGND plane or under the PGND pads if possible. High-current switching can induce noise.",
+          "The PGND pins should not be used as a return path for analog or sensitive digital signals. These signals should use the AGND pins.",
+          "The PGND pins and the AGND pins are separate and should have a single-point connection, typically at the system ground, to minimize ground bounce and noise coupling."
+        ]
+      },
+      "pin_id":"[32, 33]",
+      "type":"POWER"
+    },
+    "PGOOD":{
+      "description":"Power good; open-drain output indicating VOUT is within set limits. Connect a pull up resistor typically 10 k\uf057 to VDD",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component":"Pull-up Resistor",
+            "description":"A resistor, typically 10 kOhms, is connected between the PGOOD pin and the VDD supply. This enables the open-drain output to signal a high logic level when the power good condition is met."
+          }
+        ],
+        "connectivity":"It should be connected to a pull-up resistor, typically 10 kOhms, to the VDD supply. This creates a voltage divider that allows the host system to monitor the power good status.",
+        "detailed_description":"The PGOOD pin is an open-drain output that indicates when the output voltage (VOUT) is within the specified regulation limits. It signals that the power good condition is met.",
+        "functionality":"The PGOOD pin's primary function is to signal a 'power good' status. It is an open-drain output, meaning it requires an external pull-up resistor to function.",
+        "precautions":[
+          "Ensure the pull-up resistor value is appropriate for the VDD voltage and the input characteristics of the receiving device.",
+          "The PGOOD signal's assertion and negation thresholds can be adjusted via PMBus commands VOUT_PGOOD_ON (5Eh) and VOUT_PGOOD_OFF (5Fh) for specific regulation monitoring."
+        ]
+      },
+      "output_type":"OPEN_DRAIN",
+      "pin_id":"13",
+      "type":"DIGITAL"
+    },
+    "PHASE":{
+      "description":"Phase node, return path of high side gate driver",
+      "direction":"OTHER",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Bootstrap Capacitor",
+            "connection_details":"Connected between the BOOT pin (pin 6) and the PHASE pin (pin 4). This capacitor is essential for generating the gate drive voltage for the high-side MOSFET.",
+            "typical_value":"0.1 \u00b5F to 1 \u00b5F ceramic capacitor"
+          },
+          {
+            "component_name":"SW Node",
+            "connection_details":"Directly connected to the SW node, which is the switching point of the power stage.",
+            "typical_value":"Connection to the drain of the high-side MOSFET and the drain of the low-side MOSFET."
+          }
+        ],
+        "connectivity":"The PHASE pin should be connected directly to the SW node. It is also the connection point for the bootstrap capacitor and potentially a small resistor for snubbing purposes (though the datasheet doesn't explicitly recommend a snubbing resistor for this pin, it's common practice in some high-frequency switching designs).",
+        "detailed_description":"The PHASE pin is the return path for the high-side gate driver. It is connected to the SW (Switch) node, which is the connection point between the high-side and low-side MOSFETs. This pin is crucial for the operation of the internal gate driver circuitry.",
+        "functionality":"The primary function of the PHASE pin is to serve as the reference point for the high-side gate driver.  During the switching cycle, the voltage at this pin will fluctuate significantly as it swings between the input voltage (PVIN) and ground potential through the low-side MOSFET.  The bootstrap capacitor, connected between the BOOT and PHASE pins, uses the voltage excursion at the PHASE pin to charge the BOOT capacitor, which in turn provides the necessary gate drive voltage for the high-side MOSFET.",
+        "precautions":[
+          "The PHASE pin is a high-current, high-frequency switching node. Keep the trace length between the SiC45x and the SW node as short as possible to minimize parasitic inductance and resistance.",
+          "Ensure that the bootstrap capacitor is placed very close to the SiC45x device, specifically between the BOOT and PHASE pins, to ensure proper charging and effective gate drive.",
+          "The PCB copper connected to the PHASE pin should be sufficiently wide to handle the switching currents without excessive voltage drop.",
+          "Avoid routing sensitive analog signals near the PHASE pin due to its high switching noise."
+        ]
+      },
+      "pin_id":"4",
+      "type":"OTHER"
+    },
+    "PVCC":{
+      "description":"Supply voltage for internal gate drive. PVCC is a LDO output. Connect a 4.7 \u03bcF decoupling capacitor to PGND",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component":"Capacitor",
+            "details":"4.7 \u03bcF, connected between PVCC and PGND."
+          }
+        ],
+        "connectivity":"Connect a 4.7 \u03bcF decoupling capacitor to PGND.",
+        "detailed_description":"PVCC is the supply voltage for the internal gate drive circuitry. It is an output of an internal LDO.",
+        "functionality":null,
+        "precautions":"The capacitor should be placed close to the IC to filter noise and provide maximum instantaneous driver current for the low side MOSFET during the switching cycle."
+      },
+      "output_voltage":{
+        "max":5.5,
+        "min":4.5,
+        "nom":5.0,
+        "units":"V"
+      },
+      "pin_id":"24",
+      "type":"POWER"
+    },
+    "PVIN":{
+      "description":"Input voltage for power stage",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Input Capacitor (Ceramic)",
+            "description":"Place close to the PVIN pins and PGND pins for effective decoupling. It is recommended to use multiple ceramic capacitors of different values/packages (e.g., 1210 and 0603) to cover the entire decoupling spectrum. These capacitors help absorb high-frequency noise and provide a stable input voltage to the device."
+          },
+          {
+            "component_name":"Input Voltage Source",
+            "description":"This is the main power supply for the device, typically ranging from 4.5 V to 20 V."
+          }
+        ],
+        "connectivity":"Connect directly to the input voltage source (e.g., battery, power supply).",
+        "detailed_description":"PVIN is the input voltage for the power stage of the SiC45x device. It supplies the necessary power for the integrated MOSFETs to perform the DC/DC conversion.",
+        "functionality":"The primary function is to provide power to the power stage. It is also used internally for the driver supply (PVCC LDO) and the VIN pin for the on-time control block.",
+        "precautions":[
+          "Ensure the input voltage (PVIN) is within the recommended operating range (4.5 V to 20 V).",
+          "Proper decoupling with ceramic capacitors is crucial for stable operation and noise reduction.",
+          "The VIN pin (pin 23), which is used for the internal on-time control block, should also be connected to PVIN and have a decoupling capacitor placed close to it, as the on-time varies with input voltage.",
+          "When designing the PCB layout, the PVIN pins should be connected with wide traces or planes to minimize impedance and handle the required current."
+        ]
+      },
+      "input_voltage":{
+        "max":20.0,
+        "min":4.5,
+        "units":"V"
+      },
+      "pin_id":"[1, 2, 3, 34]",
+      "type":"POWER"
+    },
+    "RT/SYNC":{
+      "description":"Clock synchronization pin. Frequency can be set by connecting a resistor to AGND.\u2028Pending on master / salve configuration, a clock can be send / receive via the pin",
+      "direction":"OTHER",
+      "implementation":{
+        "connected_components":[
+          {
+            "component":"Resistor (RRT)",
+            "details":"Connects from the RT/SYNC pin to AGND. The value of this resistor is used to set the switching frequency. Specific values are provided in the datasheet for different frequency settings (e.g., 0.845 k\u03a9 for 300 kHz, 11 k\u03a9 for 1500 kHz). This resistor can be replaced or overridden by PMBus commands."
+          },
+          {
+            "component":"Synchronization Clock Source (for Slave Mode)",
+            "details":"If the device is operating in slave mode, an external clock source (e.g., from a master SiC45x device or another clock generator) should be connected to the RT/SYNC pin. The RT/SYNC resistor (RRT) should be matched to the master's RRT value in this configuration."
+          }
+        ],
+        "connectivity":"To set the switching frequency, connect a resistor (RRT) from the RT/SYNC pin to AGND. The value of RRT determines the nominal switching frequency. For synchronization purposes, the RT/SYNC pin can be connected to the clock output of a master device or to an external clock source.",
+        "detailed_description":"The RT/SYNC pin serves a dual purpose: it is used to set the switching frequency of the device by connecting an external resistor to ground, and it also enables clock synchronization between a master and slave configuration. During the initial power-up, the device draws less than 1 mA of DC current through this pin to determine the switching frequency based on the connected resistor. After power-up, the pin can either output a synchronization clock signal (in master mode) or receive an external clock signal (in slave mode).",
+        "functionality":[
+          "Setting Switching Frequency: By connecting a resistor (RRT) from the RT/SYNC pin to ground, the switching frequency can be set according to a predefined table. This frequency can be overridden by a PMBus command.",
+          "Clock Synchronization (Master Mode): When configured as a master, the RT/SYNC pin outputs a 50% duty cycle pulse signal that is synchronized with the device's switching node.",
+          "Clock Synchronization (Slave Mode): When configured as a slave, the RT/SYNC pin receives an external clock signal. The device synchronizes its switching frequency and phase to this external clock. It supports synchronization in-phase or 180\u00b0 out-of-phase."
+        ],
+        "precautions":[
+          "Do not leave the RT/SYNC pin open or shorted without a resistor, as this can lead to unexpected behavior.",
+          "When using the device in synchronization modes (master or slave), ensure the external clock signal is clean and within the specified voltage levels.",
+          "The external resistor value for frequency setting can be overridden by PMBus commands. Ensure proper configuration to avoid conflicts.",
+          "In master mode, the RT/SYNC pin outputs a clock signal. Avoid connecting other components to this pin that might interfere with the clock signal integrity."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":0.0,
+        "units":"V"
+      },
+      "pin_id":"17",
+      "type":"DIGITAL"
+    },
+    "SALRT":{
+      "description":"PMBus alert. Connect to external host interface if desired",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Pull-up Resistor",
+            "connection_details":"SALRT pin to VDD",
+            "description":"A pull-up resistor is typically required if the host interface expects an active-high signal. This resistor should be connected between the SALRT pin and the VDD supply. The value is not explicitly specified in the datasheet for this connection, but a common value for pull-up resistors in similar interfaces is in the range of 4.7 k\u03a9 to 10 k\u03a9. The datasheet mentions that for PGOOD, a 10 k\u03a9 pull-up resistor is typical."
+          },
+          {
+            "component_name":"Host Microcontroller/System Management Interface",
+            "connection_details":"SALRT pin to the alert input of the host",
+            "description":"This is the external circuitry that monitors the alert status of the SiC45x. It will have an input pin designed to receive alert signals, typically supporting open-drain inputs or requiring a pull-up resistor as described above."
+          }
+        ],
+        "connectivity":"The SALRT pin should be connected to the alert input of the host microcontroller or system management interface. Since it is an open-drain output, it requires a pull-up resistor to a voltage rail (typically VDD) if it is to be used to signal an active-high alert to the host. Alternatively, it can be connected directly to an alert input pin of a host microcontroller that supports open-drain inputs.",
+        "detailed_description":"The SALRT pin is a PMBus alert output. It is used to signal an alert condition to an external host interface, indicating that a fault or warning has occurred within the SiC45x device. This pin is an open-drain output.",
+        "functionality":"The primary function of the SALRT pin is to signal alerts. Its behavior can be masked or unmasked via PMBus commands (SMBALERT_MASK).",
+        "precautions":[
+          "If the SALRT pin is not used, it should be left unconnected.",
+          "Ensure that the pull-up resistor value (if used) is appropriate for the system's voltage and bus speed to avoid excessive propagation delay or power consumption.",
+          "The behavior of the SALRT pin (i.e., what conditions trigger an alert) can be configured using PMBus commands, particularly the SMBALERT_MASK command."
+        ]
+      },
+      "output_type":"OPEN_DRAIN",
+      "pin_id":"18",
+      "type":"DIGITAL"
+    },
+    "SCL":{
+      "description":"PMBus clock. Connect to external host interface",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Master PMBus Controller (e.g., Microcontroller)",
+            "connection_details":"The SCL pin of the SiC45x is connected directly to the SCL pin of the master controller. The master controller dictates the clock frequency and timing for all data transfers on the bus.",
+            "description":"The master controller initiates and controls all PMBus communication."
+          },
+          {
+            "component_name":"Pull-up Resistor",
+            "connection_details":"A pull-up resistor is connected between the SCL line and the system's VDD supply (typically 3.3V or 5V). The value typically ranges from 1 k\u03a9 to 10 k\u03a9.",
+            "description":"This resistor ensures that the SCL line is pulled high when no device is actively driving it low, which is necessary for the I2C protocol's open-drain nature. The value is chosen to meet bus capacitance and speed requirements."
+          }
+        ],
+        "connectivity":"The SCL pin must be connected to the SCL pin of the master PMBus controller. In a multi-drop bus configuration, all devices (including the SiC45x) share the same SCL line, which is typically driven by the master. For proper operation of the I2C/PMBus protocol, a pull-up resistor is usually required on the SCL line. The value of this pull-up resistor depends on the bus capacitance and the bus speed, but is typically in the range of 1 k\u03a9 to 10 k\u03a9, connected to the VDD rail (usually 3.3V or 5V, depending on the system bus voltage).",
+        "detailed_description":"SCL (Serial Clock) is the clock line of the PMBus (Power Management Bus) interface. It is used to synchronize the data transfer between the SiC45x device and the master controller (e.g., a microcontroller). The PMBus operates in a synchronous serial communication mode, and the SCL pin provides the clock signal that dictates the timing of data bits being sent and received.",
+        "functionality":"The SCL pin is exclusively used for the PMBus clock signal. It is an input pin driven by the master device to clock data on and off the SDA (Serial Data) line. It does not serve any other functions.",
+        "precautions":[
+          "Ensure the SCL line is driven by a master device. The SiC45x acts as a slave on the PMBus.",
+          "A pull-up resistor is required on the SCL line for proper operation of the I2C protocol.",
+          "The SCL signal should be routed carefully to minimize noise and interference, as it is a critical timing signal. Keep traces short and away from noisy components or power planes.",
+          "The bus speed supported by the SiC45x is up to 1 MHz, as indicated in the CAPABILITY (19h) command description (SPD bits [6:5] = 10b). Ensure the master controller's clock speed is within this limit.",
+          "All devices on the PMBus (including the SiC45x) share the same SCL line. Ensure that the pull-up resistor value and bus capacitance are appropriate for the total number of devices on the bus and the desired communication speed.",
+          "Refer to the PMBus specification for detailed guidelines on bus capacitance and pull-up resistor selection."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":0.0,
+        "units":"V"
+      },
+      "pin_id":"20",
+      "type":"DIGITAL"
+    },
+    "SDA":{
+      "description":"PMBus data. Connect to external host interface",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Pull-up Resistor",
+            "description":"A pull-up resistor is required on the SDA line to ensure a defined high state when no device is actively driving the bus low. The value of the pull-up resistor depends on the bus capacitance and the desired bus speed. Typically, values between 1 k\u03a9 and 10 k\u03a9 are used."
+          },
+          {
+            "component_name":"PMBus Master Controller",
+            "description":"The SDA pin connects to the SDA pin of the PMBus master controller, which initiates and controls the communication on the bus."
+          }
+        ],
+        "connectivity":"The SDA pin should be connected to the SDA pin of the PMBus master controller (e.g., a microcontroller). In a typical I2C bus configuration, multiple devices can be connected to the same SDA line, provided they have unique addresses.",
+        "detailed_description":"SDA is the PMBus data line, which is part of the I2C communication interface. It is used for transferring data to and from the PMBus controller.",
+        "functionality":"The SDA pin is bidirectional and used for both transmitting and receiving data over the PMBus interface.",
+        "precautions":[
+          "Ensure that the SDA line is properly terminated with pull-up resistors to maintain signal integrity, especially in systems with multiple devices or long trace lengths.",
+          "Avoid connecting the SDA line to any high-impedance nodes or allowing it to be left floating.",
+          "The SDA line should be kept separate from noisy power or switching signals to prevent data corruption.",
+          "If multiple devices are connected to the SDA bus, ensure that each device has a unique PMBus address to avoid communication conflicts."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":0.0,
+        "units":"V"
+      },
+      "pin_id":"19",
+      "type":"DIGITAL"
+    },
+    "SW":{
+      "description":"Switch node",
+      "direction":"OTHER",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Output Inductor",
+            "description":"The output inductor is connected between the SW node(s) and the output voltage. Its value is chosen based on the switching frequency, input voltage, and desired output ripple."
+          },
+          {
+            "component_name":"Capacitors",
+            "description":"Output capacitors are connected from the output node (after the inductor) to PGND to filter the output voltage ripple. Decoupling capacitors on VIN, PVCC, and VDD are also crucial."
+          }
+        ],
+        "connectivity":"The SW pins (26 to 31) should be connected together and to the output inductor. The output inductor is then connected to the output capacitor and the load. Additionally, the SW nodes are closely related to the PHASE pin (4) and GH (5) and GL (25) pins which monitor the gate drive of the internal MOSFETs. Therefore, the SW pins should be routed as a low-impedance path to the inductor.",
+        "detailed_description":"The SW pin is the switch node of the DC/DC converter. It is the point where the internal high-side and low-side MOSFETs switch the input voltage to the output inductor. This node carries the high-frequency switching current and is critical for the power conversion process.",
+        "functionality":"The SW pin serves as the switching node for the power stage. It is connected to the drain of the high-side MOSFET and the source of the low-side MOSFET. During the on-time of the high-side MOSFET, the SW pin is pulled up to PVIN. During the on-time of the low-side MOSFET, the SW pin is pulled down to PGND. It also monitors the phase node (PH) for various control and protection functions.",
+        "precautions":[
+          "The SW node is a high-frequency switching node and should be kept as short and wide as possible to minimize parasitic inductance and resistance, which can lead to voltage overshoot and ringing.",
+          "The SW nodes should be kept away from sensitive analog signal traces to prevent noise coupling.",
+          "Ensure proper grounding of the PGND pins, as they are the return path for the high-current switching loops.",
+          "The SW pins should not be connected to other signal pins directly. Their primary connection is to the output inductor."
+        ]
+      },
+      "pin_id":"[26, 27, 28, 29, 30, 31]",
+      "type":"OTHER"
+    },
+    "VDD":{
+      "description":"Internal 5 V circuits supply voltage. VDD is a LDO output, connect a 1 \u03bcF decoupling capacitor to AGND",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Capacitor",
+            "details":"A 1 \u00b5F ceramic capacitor (e.g., X7R or X5R dielectric) should be connected between the VDD pin and the AGND pin. This capacitor acts as a decoupling element to ensure stable voltage for the internal circuits."
+          }
+        ],
+        "connectivity":"VDD should be connected to the output of the internal 5V LDO. For proper operation and filtering, a 1 \u00b5F decoupling capacitor must be connected from the VDD pin to AGND.",
+        "detailed_description":"VDD serves as the supply voltage for the internal 5V circuits of the SiC45x device. It is derived from an internal Low Dropout Regulator (LDO).",
+        "functionality":"The VDD pin is the output of an internal 5V LDO that powers various internal circuits and driver supply. It requires external decoupling for stable operation.",
+        "precautions":[
+          "Ensure the decoupling capacitor (1 \u00b5F) is placed as close as possible to the VDD pin and AGND to minimize parasitic inductance and resistance.",
+          "The VDD supply is critical for the operation of internal control and driver circuitry; therefore, stable voltage at this pin is essential.",
+          "Refer to the 'ELECTRICAL SPECIFICATIONS' section for the typical and maximum operating voltages for VDD to ensure the internal LDO operates within its intended range."
+        ]
+      },
+      "output_voltage":{
+        "max":5.5,
+        "min":4.5,
+        "nom":5.0,
+        "units":"V"
+      },
+      "pin_id":"22",
+      "type":"POWER"
+    },
+    "VIN":{
+      "description":"Internal driver supply voltage",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"PVIN pin",
+            "description":"The VIN pin must be connected directly to the PVIN (Power Input Voltage) pin. PVIN is the primary input voltage for the power stage of the device."
+          }
+        ],
+        "connectivity":"VIN should be directly connected to the PVIN pin.",
+        "detailed_description":"VIN is the input pin for the internal driver supply voltage. This voltage is utilized for the on-time generation within the Constant On-Time (COT) control mechanism.",
+        "functionality":"This pin primarily serves as the input for the internal driver supply. It is also directly connected to the PVIN pin, as the internal driver supply voltage is derived from the power input voltage.",
+        "precautions":[
+          "The VIN pin is directly connected to PVIN, so any voltage constraints or recommendations for PVIN also apply to VIN.",
+          "Ensure proper decoupling capacitors are placed close to the VIN pin to filter noise and provide stable voltage for the internal circuits."
+        ]
+      },
+      "input_voltage":{
+        "max":20.0,
+        "min":4.5,
+        "units":"V"
+      },
+      "pin_id":"23",
+      "type":"POWER"
+    },
+    "VSEN+":{
+      "description":"Remote sense amplifier positive input connect to output",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Output traces/PCB copper",
+            "description":"Connects the VSEN+ pin to the load terminals to accurately sense the output voltage. This connection should be as direct and short as possible, separate from high current paths if possible, to minimize voltage drop and noise pickup."
+          },
+          {
+            "component_name":"VSET resistor (optional, for non-PMBus configuration)",
+            "description":"When not using PMBus for voltage setting, a resistor is connected between VSET (pin 15) and AGND (pin 7/16). In this configuration, VSEN+ (pin 12) and VSET (pin 15) would form a voltage divider with AGND, with VSEN+ connected to the output node and VSET connected to AGND via a resistor. However, the datasheets emphasize the remote sensing function for accuracy."
+          }
+        ],
+        "connectivity":"Connect directly to the output voltage node at the load. For accurate remote sensing, it should be connected as close to the load terminals as possible. When not using PMBus for output voltage control (i.e., using a VSET resistor), this pin, along with VSET and AGND, forms a voltage divider to set the output voltage. However, the primary and recommended use is for remote voltage sensing.",
+        "detailed_description":"The VSEN+ pin is the positive input of the remote sense amplifier. This pin is used to sense the actual output voltage at the load. This allows the regulator to compensate for voltage drops across the output power path (e.g., PCB traces, connectors, and inductor DCR) and maintain tight regulation at the load.",
+        "functionality":"Primary function is to sense the output voltage for remote regulation. It is also involved in the output voltage setting via a resistor divider when not using PMBus for voltage control, though this is secondary to its sensing role.",
+        "precautions":[
+          "Ensure VSEN+ is connected to the output voltage at the load, as close to the load's terminals as possible, to compensate for voltage drops in the power path.",
+          "Keep the trace connecting VSEN+ to the load short and away from switching nodes (SW) and other noisy signals to prevent voltage sensing errors.",
+          "If using a resistor divider for voltage setting (non-PMBus), ensure the divider ratio is correctly calculated and the resistor is placed appropriately. However, remote sensing via VSEN+ is generally preferred for accuracy.",
+          "The common-mode voltage range for VSEN+ is specified, ensure the output voltage stays within this range during operation."
+        ]
+      },
+      "pin_id":"12",
+      "type":"ANALOG"
+    },
+    "VSEN-":{
+      "description":"Remote sense amplifier negative input connect to output ground",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"system ground",
+            "description":"The common ground reference for the entire circuit, including the load. Connecting VSEN- to this point allows the device to compensate for any voltage drops in the power traces between the regulator and the load."
+          }
+        ],
+        "connectivity":"Connect to the output ground (system ground) to enable remote sensing.",
+        "detailed_description":"The VSEN- pin is the negative input for the remote sense amplifier. This allows the device to accurately regulate the output voltage at the point of load by sensing the voltage drop across the power path. It should be connected to the output ground, which is typically the ground return path of the load.",
+        "functionality":null,
+        "precautions":"Ensure that VSEN- is connected to the actual output ground of the load, not just the ground plane near the IC. This is crucial for accurate voltage regulation, especially in high-current applications where trace resistance can cause significant voltage drops. Avoid connecting VSEN- to any noisy ground paths; it should be connected directly to the load's ground return."
+      },
+      "pin_id":"11",
+      "type":"ANALOG"
+    },
+    "VSET":{
+      "description":"Output voltage set point by connecting a resistor from VSET to AGND",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_description":"Resistor for voltage setting",
+            "connection_details":"Connects between the VSET pin and the AGND pin. The resistance value determines the output voltage, as per the 'OUTPUT VOLTAGE SETTINGS' table in the datasheet. For example, a 7.87 k\u03a9 resistor sets VOUT to 3.3 V.",
+            "notes":"If PMBus is used for VOUT setting, this resistor is either omitted (left open) or replaced with a short to AGND.",
+            "value_range":"Refer to the 'OUTPUT VOLTAGE SETTINGS' table in the datasheet for specific resistance values and corresponding VOUT."
+          },
+          {
+            "component_description":"Optional resistor divider for non-PMBus, non-standard voltage settings",
+            "connection_details":"A resistor divider can be connected between the output voltage sense point (VSEN+) and the VSET pin, and another resistor from VSET to AGND. This method is less accurate and requires consultation with Vishay.",
+            "notes":"This is an alternative to the standard resistor setting or PMBus control and is not recommended for standard applications due to potential accuracy issues.",
+            "value_range":"Not specified in the general documentation; requires direct consultation with Vishay."
+          }
+        ],
+        "connectivity":"For resistor-programmed output voltage, connect a resistor from the VSET pin to the AGND pin. For PMBus-programmed output voltage, either short the VSET pin to AGND or leave it open.",
+        "detailed_description":"The VSET pin is used to set the output voltage (VOUT) of the SiC45x converter. This is achieved by connecting a resistor from the VSET pin to the AGND pin. The value of this resistor determines the nominal output voltage and also influences related warning and fault voltage limits. If the output voltage is to be set via PMBus, the VSET pin should be either shorted to AGND or left open.",
+        "functionality":"The primary function of the VSET pin is to set the output voltage through an external resistor. When PMBus control is used for output voltage setting, this pin's state (shorted to AGND or open) signifies that PMBus control is active. If a different output voltage is required without PMBus, a resistor divider can be used, though this may affect accuracy.",
+        "precautions":"If using PMBus to set the output voltage, ensure the VSET pin is either shorted to AGND or left open. If a resistor is used for voltage setting, ensure its value is selected from the provided table for desired accuracy. Using a resistor divider for custom voltage settings without PMBus is possible but may compromise accuracy and requires careful consideration and potentially Vishay's guidance."
+      },
+      "pin_id":"15",
+      "type":"ANALOG"
+    }
+  },
+  "serial_bus":false
+}
