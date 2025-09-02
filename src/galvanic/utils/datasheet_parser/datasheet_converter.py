@@ -8,7 +8,6 @@ from json import JSONDecodeError
 
 import pymupdf4llm
 from google import genai
-from google.genai import types
 
 from galvanic_schema.protobuf import PROTOBUF
 from galvanic import global_logger
@@ -149,7 +148,7 @@ class DatasheetConverter:
         self.logger.info("Caching datasheet info")
         self._cache = self._llm_client.caches.create(
             model=self._GEMINI_MODEL,
-            config=types.CreateCachedContentConfig(
+            config=genai.types.CreateCachedContentConfig(
                 display_name="markdown datasheet",  # used to identify the cache
                 system_instruction=("Answer subsequent queries using this cached datasheet data"),
                 contents=[self.md_datasheet],
@@ -192,7 +191,7 @@ class DatasheetConverter:
                     "proto2": PROTOBUF.serial_bus.register,
                 }.values()
             ),
-            config=types.GenerateContentConfig(cached_content=self._cache.name),
+            config=genai.types.GenerateContentConfig(cached_content=self._cache.name),
             # config = {"response_mime_type": "application/json"},
         )
         return response
@@ -216,7 +215,7 @@ class DatasheetConverter:
                     "protobuf": PROTOBUF.serial_bus.register,
                 }.values()
             ),
-            config=types.GenerateContentConfig(cached_content=self._cache.name),
+            config=genai.types.GenerateContentConfig(cached_content=self._cache.name),
             # config={
             #     "response_mime_type": "application/json",
             # },
@@ -244,7 +243,7 @@ class DatasheetConverter:
                     "protobuf_pin_pull": PROTOBUF.misc.numbers,
                 }.values()
             ),
-            config=types.GenerateContentConfig(cached_content=self._cache.name),
+            config=genai.types.GenerateContentConfig(cached_content=self._cache.name),
             # config={
             #     "response_mime_type": "application/json",
             # },
@@ -269,7 +268,7 @@ class DatasheetConverter:
                     # "datasheet": self.md_datasheet,
                 }.values()
             ),
-            config=types.GenerateContentConfig(cached_content=self._cache.name),
+            config=genai.types.GenerateContentConfig(cached_content=self._cache.name),
             # config={
             #     "response_mime_type": "application/json",
             # },
@@ -470,7 +469,7 @@ class MicroDatasheetConverter(DatasheetConverter):
                 }.values()
             ),
 
-            config=types.GenerateContentConfig(cached_content=self._cache.name),
+            config=genai.types.GenerateContentConfig(cached_content=self._cache.name),
         )
         return response
 
@@ -486,7 +485,7 @@ class MicroDatasheetConverter(DatasheetConverter):
                     "prompt": self._prompts["micro_pin_pad_mapping"],
                 }.values()
             ),
-            config=types.GenerateContentConfig(cached_content=self._cache.name),
+            config=genai.types.GenerateContentConfig(cached_content=self._cache.name),
             # config={
             #     "response_mime_type": "application/json",
             # },
@@ -506,7 +505,7 @@ class MicroDatasheetConverter(DatasheetConverter):
                     # "datasheet": self.md_datasheet,
                 }.values()
             ),
-            config=types.GenerateContentConfig(cached_content=self._cache.name),  # config={
+            config=genai.types.GenerateContentConfig(cached_content=self._cache.name),  # config={
             #     "response_mime_type": "application/json",
             # },
         )

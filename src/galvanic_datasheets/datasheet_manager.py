@@ -125,6 +125,14 @@ class _DatasheetManager:
             json_ds = ds.load_json_datasheet()
         return json_ds
 
+    def clean_datasheets_directories(self):
+        ds_path =None
+        for part_number, ds in self.datasheets.items():
+            if not ds.has_pdf:
+                ds.download_datasheet()
+            if not ds.has_json:
+                ds.create_json()
+
     @property
     def by_manufacturer(self):
         by_mfg = {}
