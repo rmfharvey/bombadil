@@ -1,0 +1,196 @@
+{
+  "high_level":{
+    "base_part_number":"NC7SZ32",
+    "device_type":"OTHER",
+    "manufacturer":"onsemi",
+    "packages":[
+      "SC-74A",
+      "SC-88A",
+      "SIP6",
+      "UDFN6",
+      "SOT-23-5"
+    ],
+    "part_numbers":{
+      "NC7SZ32FHX":{
+        "options":{
+          "Package":"UDFN6, MicroPak2"
+        }
+      },
+      "NC7SZ32L6X":{
+        "options":{
+          "Package":"SIP6, MicroPak"
+        }
+      },
+      "NC7SZ32M5X":{
+        "options":{
+          "Package":"SC-74A"
+        }
+      },
+      "NC7SZ32P5X":{
+        "options":{
+          "Package":"SC-88A"
+        }
+      }
+    }
+  },
+  "pins":{
+    "A":{
+      "description":"Input",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":"This pin can be connected to the output of other logic gates, microcontrollers, sensors, or any component capable of providing a digital HIGH or LOW signal.  For unused pins, a pull-up resistor to VCC or a pull-down resistor to GND can be used to ensure a defined logic level.",
+        "connectivity":"In a schematic, this pin should be connected to the output of another digital component or a logic level (HIGH or LOW).  If unused, it should be tied to a defined logic level (HIGH or LOW) as per the datasheet's recommendation ('Unused inputs must be held HIGH or LOW. They may not float.').",
+        "detailed_description":"The 'A' pin is one of the two inputs to the two-input OR gate. The output 'Y' will be HIGH if either input 'A' or input 'B' (or both) are HIGH.",
+        "functionality":"This pin serves as a digital input for the OR gate logic. Its state (HIGH or LOW) directly influences the output of the gate.",
+        "precautions":"According to the datasheet, unused inputs must be held HIGH or LOW and may not float. Also, the input voltage range is specified, and the input pins tolerate voltages up to 5.5 V, independent of the VCC operating voltage. Ensure that the voltage levels applied to this pin conform to the recommended operating conditions to prevent damage or malfunction."
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":0.0,
+        "units":"V"
+      },
+      "name":"A",
+      "pin_id":"1",
+      "type":"DIGITAL",
+      "vih":{
+        "min":0.65,
+        "units":"VCC"
+      },
+      "vil":{
+        "max":0.35,
+        "units":"VCC"
+      }
+    },
+    "B":{
+      "description":"Input",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Logic Gates",
+            "description":"Output of other logic gates (e.g., AND, NOT, XOR) can be connected to this input to form more complex logic circuits."
+          },
+          {
+            "component_name":"Switches/Buttons",
+            "description":"Mechanical switches or tactile buttons can be connected to provide user input or signal changes."
+          },
+          {
+            "component_name":"Microcontrollers/Processors",
+            "description":"Digital output pins from microcontrollers or processors can drive this input."
+          },
+          {
+            "component_name":"Pull-up/Pull-down Resistors",
+            "description":"If the input is left unterminated or needs a default logic level, a resistor to VCC (pull-up) or GND (pull-down) should be used. The datasheet recommends unused inputs be held HIGH or LOW, so a pull-up resistor is a common choice if the input is not always driven."
+          }
+        ],
+        "connectivity":"In a schematic, this pin should be connected to the desired input signal for the OR gate function. It can be connected to another logic gate's output, a switch, a microcontroller output, or a pull-up/pull-down resistor if the input is to be held in a default state when not actively driven.",
+        "detailed_description":"The pin 'B' is the second input to the two-input OR gate. The output of the gate (Y) will be HIGH if either input A or input B (or both) are HIGH.",
+        "functionality":"This pin serves as a digital input to the OR gate. Its logic level (HIGH or LOW) determines the output state in conjunction with the other input (A).",
+        "precautions":[
+          "Unused inputs must be held HIGH or LOW. They may not float. Connecting unused inputs to VCC or GND through a resistor is recommended if they are not actively driven.",
+          "The input voltage (VIN) should not exceed the recommended operating range of 0 V to 5.5 V.",
+          "Ensure the input signal transitions (rise and fall times) are within the specified limits for the operating VCC to ensure reliable operation."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":0.0,
+        "units":"V"
+      },
+      "name":"B",
+      "pin_id":"2",
+      "type":"DIGITAL",
+      "vih":{
+        "min":0.65,
+        "units":"VCC"
+      },
+      "vil":{
+        "max":0.35,
+        "units":"VCC"
+      }
+    },
+    "GND":{
+      "description":"Ground",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":"The GND pin should be connected to the ground rail of the power supply or the ground plane of the printed circuit board.  No other specific components are mandated for connection to this pin beyond the general ground reference.",
+        "connectivity":"The GND pin must be connected to the circuit's ground plane or ground reference. This ensures proper operation of the integrated circuit by providing a common reference voltage.",
+        "detailed_description":"GND is the ground pin for the NC7SZ32 logic gate. It serves as the reference point for all voltage measurements and provides a return path for current.",
+        "functionality":"This pin has a single function: to provide a connection to ground. It does not serve different functions based on connectivity.",
+        "precautions":"It is crucial to ensure a solid and low-impedance connection to ground. Any significant resistance or inductance in the ground path can lead to noise, voltage drops, and unreliable operation of the IC. Avoid floating the GND pin; it must always be connected to a valid ground reference."
+      },
+      "name":"GND",
+      "pin_id":"3",
+      "type":"POWER"
+    },
+    "NC":{
+      "description":"No Connect",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[],
+        "connectivity":"This pin should not be connected to any voltage, ground, or signal trace in the schematic. It should be left floating or marked as 'NC' (No Connect) in the schematic design.",
+        "detailed_description":"The 'NC' pin stands for 'No Connect'. This pin is not connected to any internal circuitry of the NC7SZ32 OR gate. Its presence on the package is typically for mechanical or manufacturing purposes, such as maintaining package symmetry or facilitating pick-and-place operations.",
+        "functionality":"This pin has no electrical functionality. It is not connected internally and should not be used for any electrical connections.",
+        "precautions":"It is crucial not to connect any component or wire to the 'NC' pin. Connecting it to power, ground, or any signal can lead to unexpected behavior, damage to the device, or interference with other components."
+      },
+      "name":"NC",
+      "pin_id":"5",
+      "type":"OTHER"
+    },
+    "VCC":{
+      "description":"Supply Voltage",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Capacitor",
+            "description":"A decoupling capacitor, typically ceramic with a value between 0.01 uF and 0.1 uF, should be connected between the VCC pin and GND to filter out power supply noise."
+          },
+          {
+            "component_name":"Power Supply",
+            "description":"The VCC pin should be connected to the main power supply rail of the circuit, ensuring the voltage is within the specified operating range (1.65 V to 5.5 V)."
+          }
+        ],
+        "connectivity":"The VCC pin should be connected to the positive voltage supply rail in the schematic. It is typically bypassed with a small capacitor (e.g., 0.1 uF) to ground to filter out noise and ensure a stable power supply.",
+        "detailed_description":"VCC is the supply voltage pin for the NC7SZ32 OR gate. It powers the internal circuitry of the device.",
+        "functionality":"This pin serves as the primary power input for the IC. It must be connected to a stable voltage source within the specified operating range (1.65 V to 5.5 V) for the device to function correctly.",
+        "precautions":[
+          "Ensure the VCC voltage is within the recommended operating range (1.65 V to 5.5 V). Exceeding the absolute maximum rating of 6.5 V can damage the device.",
+          "Proper bypassing with a capacitor is recommended to ensure stable operation and reduce noise susceptibility.",
+          "Do not leave the VCC pin floating. It must be connected to a valid voltage source or tied to ground if the device is not in use and VCC is not present."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":1.65,
+        "units":"V"
+      },
+      "name":"VCC",
+      "pin_id":"5",
+      "type":"POWER"
+    },
+    "Y":{
+      "description":"Output",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":"The 'Y' pin is typically connected to the input pins of other digital logic gates (e.g., AND gates, NOT gates, flip-flops), microcontroller inputs, buffer stages, or indicator LEDs (with appropriate current-limiting resistors).",
+        "connectivity":"In a schematic, the 'Y' pin should be connected to the input of another logic gate, a buffer, a display element, or any other component that requires a logic-level input signal representing the OR operation of inputs A and B. It should not be left floating and must be connected to a defined logic level or the input of a subsequent component.",
+        "detailed_description":"The 'Y' pin represents the output of the NC7SZ32 two-input OR gate. It reflects the logical OR operation of the two inputs, A and B. The output is HIGH if either input A or input B (or both) are HIGH, and LOW only if both inputs A and B are LOW.",
+        "functionality":"The 'Y' pin serves as the single output for the OR gate functionality. Its state (HIGH or LOW) is determined by the state of the two input pins (A and B) according to the logic table: Y = A + B.",
+        "precautions":"1. The 'Y' pin's output voltage levels (VOH and VOL) are dependent on the VCC supply voltage and the output current (IOH and IOL). Ensure these levels are compatible with the connected input components.\n2. Avoid connecting the 'Y' pin to multiple outputs of other gates directly without proper buffering, as this can lead to contention and damage.\n3. Ensure that the total output current drawn from the 'Y' pin does not exceed the device's specified maximum output current (\u00b150 mA absolute maximum, refer to DC ELECTRICAL CHARACTERISTICS for specific operating conditions).\n4. When VCC is 0V, the output is high impedance. Avoid driving the output when VCC is at 0V to prevent unexpected behavior or damage."
+      },
+      "name":"Y",
+      "output_type":"PUSH_PULL",
+      "pin_id":"4",
+      "type":"DIGITAL",
+      "voh":{
+        "min":1.55,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.1,
+        "units":"V"
+      }
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import os
+import re
 import json
 import shutil
 import requests
@@ -8,6 +9,22 @@ from galvanic import colored_logger
 from galvanic.utils.datasheet_parser import DatasheetConverter
 
 logger = colored_logger(__file__)
+
+
+def sanitize_path_string(s: str, replacement: str = "_") -> str:
+    # Forbidden characters: \ / : * ? " < > |
+    forbidden = r'<>:"/\\|?*'
+
+    # Remove control characters (ASCII < 32)
+    s = re.sub(r"[\x00-\x1f]", replacement, s)
+
+    # Replace forbidden characters
+    s = re.sub(f"[{re.escape(forbidden)}]", replacement, s)
+
+    # Strip trailing spaces and dots (invalid in Windows filenames)
+    s = s.rstrip(" .")
+
+    return s
 
 
 class DatasheetStructure:
@@ -105,6 +122,9 @@ class _DatasheetManager:
         return ds
 
     def new_datasheet(self, part_number, datasheet_path=None, autocreate_json=True):
+
+        part_number = sanitize_path_string(part_number)
+
         ds = DatasheetStructure(self._ROOT_DIR / part_number)
         if not ds.has_pdf:
             ds.download_datasheet(datasheet_path)
@@ -159,7 +179,3 @@ class _DatasheetManager:
 
 
 DatasheetManager = _DatasheetManager()
-
-
-if __name__ == "__main__":
-    print()

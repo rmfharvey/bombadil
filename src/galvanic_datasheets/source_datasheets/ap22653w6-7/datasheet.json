@@ -1,0 +1,308 @@
+{
+  "high_level":{
+    "base_part_number":"AP22652",
+    "device_type":"HIGH_SIDE_DRIVER",
+    "manufacturer":"Diodes Incorporated",
+    "packages":[
+      "SOT26 (Type A1)",
+      "W-DFN2020-6 (Type A1)"
+    ],
+    "part_numbers":{
+      "AP22652AFDZ-7":{
+        "options":{
+          "Channel":"1",
+          "Current-Limit Protection":"Latch-Off",
+          "Enable Pin (EN/EN)":"Active Low",
+          "Package":"W-DFN2020-6 (Type A1)",
+          "Recommended Maximum Continuous Load Current (A)":"2.1"
+        }
+      },
+      "AP22652AW6-7":{
+        "options":{
+          "Channel":"1",
+          "Current-Limit Protection":"Latch-Off",
+          "Enable Pin (EN/EN)":"Active Low",
+          "Package":"SOT26 (Type A1)",
+          "Recommended Maximum Continuous Load Current (A)":"2.1"
+        }
+      },
+      "AP22652FDZ-7":{
+        "options":{
+          "Channel":"1",
+          "Current-Limit Protection":"Constant-Current",
+          "Enable Pin (EN/EN)":"Active Low",
+          "Package":"W-DFN2020-6 (Type A1)",
+          "Recommended Maximum Continuous Load Current (A)":"2.1"
+        }
+      },
+      "AP22652W6-7":{
+        "options":{
+          "Channel":"1",
+          "Current-Limit Protection":"Constant-Current",
+          "Enable Pin (EN/EN)":"Active Low",
+          "Package":"SOT26 (Type A1)",
+          "Recommended Maximum Continuous Load Current (A)":"2.1"
+        }
+      },
+      "AP22653AFDZ-7":{
+        "options":{
+          "Channel":"1",
+          "Current-Limit Protection":"Latch-Off",
+          "Enable Pin (EN/EN)":"Active High",
+          "Package":"W-DFN2020-6 (Type A1)",
+          "Recommended Maximum Continuous Load Current (A)":"2.1"
+        }
+      },
+      "AP22653AW6-7":{
+        "options":{
+          "Channel":"1",
+          "Current-Limit Protection":"Latch-Off",
+          "Enable Pin (EN/EN)":"Active High",
+          "Package":"SOT26 (Type A1)",
+          "Recommended Maximum Continuous Load Current (A)":"2.1"
+        }
+      },
+      "AP22653FDZ-7":{
+        "options":{
+          "Channel":"1",
+          "Current-Limit Protection":"Constant-Current",
+          "Enable Pin (EN/EN)":"Active High",
+          "Package":"W-DFN2020-6 (Type A1)",
+          "Recommended Maximum Continuous Load Current (A)":"2.1"
+        }
+      },
+      "AP22653W6-7":{
+        "options":{
+          "Channel":"1",
+          "Current-Limit Protection":"Constant-Current",
+          "Enable Pin (EN/EN)":"Active High",
+          "Package":"SOT26 (Type A1)",
+          "Recommended Maximum Continuous Load Current (A)":"2.1"
+        }
+      }
+    }
+  },
+  "pins":{
+    "EN":{
+      "description":"Enable input, logic high turns on power switch.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Microcontroller Output",
+            "description":"A digital output pin from a microcontroller to provide the enable signal. The logic level (high or low) will determine whether the power switch is ON or OFF, according to the specific part number's enable logic."
+          },
+          {
+            "component_name":"Logic Gate",
+            "description":"In some applications, a logic gate (e.g., an inverter or buffer) might be used to condition or invert the enable signal before it reaches the EN pin."
+          },
+          {
+            "component_name":"Pull-up Resistor",
+            "description":"For AP22652/AP22652A (active-low enable), a pull-up resistor (e.g., 10k\u03a9 to VCC) can be used to ensure the pin is held high (disabled) if no active signal is present. However, it is generally recommended to actively drive the pin."
+          },
+          {
+            "component_name":"Pull-down Resistor",
+            "description":"For AP22653/AP22653A (active-high enable), a pull-down resistor (e.g., 10k\u03a9 to GND) can be used to ensure the pin is held low (disabled) if no active signal is present. However, it is generally recommended to actively drive the pin."
+          }
+        ],
+        "connectivity":"The EN pin should be connected to a digital logic signal that controls the enable state of the device. In a schematic, it will be connected to a microcontroller output, a logic gate, or a pull-up/pull-down resistor if a floating state needs to be avoided. For an active-low device (AP22652/AP22652A), a logic low signal enables the device, and a logic high signal disables it. For an active-high device (AP22653/AP22653A), a logic high signal enables it, and a logic low signal disables it.",
+        "detailed_description":"The EN pin is the Enable input for the power switch. Its logic level determines whether the power switch is turned on or off. The AP22652 and AP22652A have an active-low EN pin, meaning a logic low input turns the power switch ON, and a logic high input turns it OFF. Conversely, the AP22653 and AP22653A have an active-high EN pin, where a logic high input turns the power switch ON, and a logic low input turns it OFF.",
+        "functionality":"The EN pin's primary function is to control the power switch. It enables or disables the device based on its logic state. The specific logic level required for enabling depends on the part number (active-low for AP22652/AP22652A, active-high for AP22653/AP22653A). Additionally, the AP22652A/AP22653A series features a latch-off function, meaning toggling the EN pin after an overcurrent or reverse-voltage fault will keep the device latched off until power is cycled.",
+        "precautions":[
+          "Ensure the voltage applied to the EN pin is within the recommended operating conditions (0V to VIN).",
+          "For AP22652/AP22652A (active-low), ensure the EN pin is driven to a logic high level to disable the device. Leaving it floating might lead to unpredictable behavior.",
+          "For AP22653/AP22653A (active-high), ensure the EN pin is driven to a logic low level to disable the device. Leaving it floating might lead to unpredictable behavior.",
+          "In the AP22652A/AP22653A latch-off versions, toggling the EN pin after a fault condition will keep the device latched off until power is cycled or the EN pin is toggled again. Be aware of this latching behavior when designing the control logic."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":0.0,
+        "units":"V"
+      },
+      "name":"EN",
+      "pin_id":"3",
+      "type":"DIGITAL",
+      "vih":{
+        "min":1.5,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.4,
+        "units":"V"
+      }
+    },
+    "Exposed Pad":{
+      "description":"Internal connection to GND; Connect to GND externally for improved power dissipation. It should not be used as electrical ground conduction path.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component":"GND Plane",
+            "details":"A continuous ground plane on the PCB connected to the device's GND pin and the exposed pad. This plane acts as a heatsink."
+          }
+        ],
+        "connectivity":"The exposed pad should be connected to the external ground (GND) plane. This connection is crucial for effective heat dissipation.",
+        "detailed_description":"The Exposed Pad is an internal connection to GND. It is designed to improve power dissipation.",
+        "functionality":"The primary function of the exposed pad is to provide a thermal path for heat dissipation. Electrically, it is connected to the device's ground.",
+        "precautions":[
+          "The exposed pad must be connected to an external ground plane for proper thermal performance. Failure to do so can lead to overheating.",
+          "While internally connected to GND, the exposed pad should not be used as the sole electrical ground conduction path; the GND pin must also be connected.",
+          "Ensure sufficient copper area is allocated for the exposed pad connection to maximize heat dissipation."
+        ]
+      },
+      "name":"GND",
+      "pin_id":"Pad",
+      "type":"POWER"
+    },
+    "FAULT":{
+      "description":"Active-low open-drain output, asserted during overcurrent, overtemperature, or reverse-voltage conditions.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component":"Pull-up Resistor",
+            "details":"An external pull-up resistor is required to provide a defined high logic level when the FAULT pin is not asserted. A typical value is between 10k\u03a9 and 100k\u03a9, connected from the FAULT pin to the system's logic supply voltage (e.g., VCC or 3.3V)."
+          },
+          {
+            "component":"Microcontroller Input",
+            "details":"The FAULT pin can be connected to a digital input pin of a microcontroller for fault monitoring and system reaction."
+          }
+        ],
+        "connectivity":"The FAULT pin is an open-drain output. It should be connected to a pull-up resistor to the system's logic supply voltage. The value of the pull-up resistor is typically in the range of 10k\u03a9 to 100k\u03a9. It can also be connected to a microcontroller's input pin to detect faults.",
+        "detailed_description":"The FAULT pin is an open-drain output that is asserted (goes low) when an overcurrent, overtemperature, or reverse-voltage condition is detected. It also signals a shutdown condition for latch-off versions (AP22652A/AP22653A) when an overcurrent or reverse-voltage fault occurs.",
+        "functionality":"The FAULT pin has a 6ms deglitch capability on assertion and de-assertion for overcurrent and overtemperature conditions. For reverse-voltage conditions, it also has a 6ms deglitch time. The AP22652A/AP22653A will remain latched off until power is cycled or the enable pin is toggled after a fault. The FAULT output remains low until the overcurrent, out pin short-circuit, and overtemperature conditions are removed. It also has a flag current that is always higher than the current limit threshold to ensure maximum loading consumption.",
+        "precautions":"The FAULT pin is open-drain, so it requires an external pull-up resistor. Ensure that the voltage level of the pull-up resistor is compatible with the logic levels of the system it is connected to. Due to the deglitch time, momentary overcurrent conditions, such as those caused by heavy capacitive loads, will not trigger the FAULT output, preventing false reporting. For latch-off versions (AP22652A/AP22653A), a power cycle or EN pin toggle is required to reset the device after a fault."
+      },
+      "name":"FAULT",
+      "output_current":{
+        "max":1.0,
+        "units":"mA"
+      },
+      "output_type":"OPEN_DRAIN",
+      "pin_id":"4",
+      "type":"DIGITAL",
+      "vol":{
+        "max":0.18,
+        "units":"V"
+      }
+    },
+    "GND":{
+      "description":"Ground, connect to external exposed pad.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Ground Plane",
+            "description":"The primary ground reference for the circuit. The GND pin should be connected directly to this plane."
+          },
+          {
+            "component_name":"Exposed Pad",
+            "description":"An internal connection to GND. This exposed pad should be connected to the ground plane externally to enhance thermal performance. It is not intended for primary electrical grounding."
+          }
+        ],
+        "connectivity":"The GND pin must be connected to the circuit's ground plane.",
+        "detailed_description":"GND is the ground pin. It serves as the common reference point for all voltages within the device and provides the return path for current.",
+        "functionality":"The primary function of the GND pin is to provide a ground connection. It is also internally connected to an exposed pad, which should be connected to ground externally for improved power dissipation. However, this exposed pad should not be used as the sole electrical ground conduction path.",
+        "precautions":[
+          "Ensure a solid connection to the ground plane for both the GND pin and the exposed pad to ensure proper operation and thermal management.",
+          "Do not use the exposed pad as the sole electrical ground connection; always connect the GND pin as well."
+        ]
+      },
+      "name":"GND",
+      "pin_id":"2",
+      "type":"POWER"
+    },
+    "ILIM":{
+      "description":"Use external resistor to set current-limit threshold; recommended 10k\u03a9\u2266 RLIM \u2266 210k\u03a9",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Resistor (R_LIM)",
+            "description":"Used to program the current-limit threshold. The value of this resistor determines the maximum output current the device will allow. The recommended range is 10k\u03a9 to 210k\u03a9 for adjustable current limiting. The relationship between R_LIM and I_LIMIT can be approximated by the provided best-fit equations: I_LIMIT_Min [mA] = 28955/R[k\u03a9]^1.075, I_LIMIT_Typ [mA] = 30321/R[k\u03a9]^1.055, I_LIMIT_Max [mA] = 31033/R[k\u03a9]^1.031."
+          }
+        ],
+        "connectivity":"An external resistor (R_LIM) should be connected between the ILIM pin and GND. The recommended resistance range for R_LIM is 10k\u03a9 to 210k\u03a9. For a fixed current limit of approximately 100mA, the ILIM pin can be shorted to GND.",
+        "detailed_description":"The ILIM pin is used to set the current-limit threshold of the power switch. An external resistor (R_LIM) connected between this pin and ground programs the current-limit threshold. The current limit threshold is proportional to the current sourced out of the ILIM pin.",
+        "functionality":"The primary function of the ILIM pin is to program the current-limit threshold. It can also be shorted to GND to clamp the current-limit and short-circuit current limits to approximately 100mA.",
+        "precautions":[
+          "Traces routing the R_LIM resistor to the AP22652/52A and AP22653/53A should be as short as possible to reduce parasitic effects on the current-limit accuracy.",
+          "When programming the current limit below a maximum threshold, it is important to avoid current limiting upstream power supplies, which could cause the input voltage bus to drop.",
+          "Shorting the ILIM pin to GND will clamp the current-limit threshold and short-circuit current limit to approximately 100mA."
+        ]
+      },
+      "input_voltage":{
+        "max":6.0,
+        "min":-0.3,
+        "units":"V"
+      },
+      "name":"ILIM",
+      "pin_id":"5",
+      "type":"DIGITAL"
+    },
+    "IN":{
+      "description":"Input, connect a 0.1\u00b5F or greater ceramic capacitor from IN to GND as close to IC as possible.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component":"Bypass Capacitor",
+            "details":"A ceramic capacitor with a capacitance of 0.1\u00b5F or greater is recommended. This capacitor should be placed as close as possible to the IC between the IN pin and GND to filter out noise and improve stability."
+          }
+        ],
+        "connectivity":"The IN pin should be connected directly to the positive terminal of the power supply. A bypass capacitor should be connected between the IN pin and GND.",
+        "detailed_description":"The IN pin is the input pin of the power switch. It connects to the voltage source and supplies power to the internal circuitry of the IC.",
+        "functionality":"The IN pin serves as the primary power input for the device. It should be connected to the system's voltage supply.",
+        "precautions":[
+          "Ensure that the input voltage (VIN) stays within the recommended operating range (3.0V to 5.5V).",
+          "Connect the bypass capacitor as close as possible to the IC to effectively filter noise.",
+          "Protect the IN pin from transient voltages that may exceed the absolute maximum ratings."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":3.0,
+        "units":"V"
+      },
+      "name":"IN",
+      "pin_id":"1",
+      "type":"POWER"
+    },
+    "OUT":{
+      "description":"Voltage Output Pin, connect a 0.1\u03bcF bypass capacitor and a high-value capacitor to GND, close to IC. (At least 10\u03bcF in USB application.)",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Bypass Capacitor",
+            "description":"A 0.1\u03bcF ceramic capacitor is recommended to be connected between the OUT pin and GND for bypassing and stability."
+          },
+          {
+            "component_name":"High-Value Capacitor",
+            "description":"A capacitor of at least 10\u03bcF is recommended for USB applications, and generally recommended for heavy capacitive loads, to be connected between the OUT pin and GND for improved transient response."
+          },
+          {
+            "component_name":"Load",
+            "description":"The device's output is connected to the load circuitry."
+          }
+        ],
+        "connectivity":"Connect to the load. A 0.1\u03bcF bypass capacitor and a high-value capacitor (at least 10\u03bcF for USB applications) should be connected from OUT to GND, placed as close to the IC as possible.",
+        "detailed_description":"The OUT pin is the voltage output pin of the power switch. This is where the switched power is delivered to the load.",
+        "functionality":"The primary function is to provide the switched output voltage. It also requires proper bypassing with capacitors to ensure stability and transient response.",
+        "precautions":[
+          "Proper placement of bypass capacitors close to the IC is crucial for effective decoupling and transient suppression.",
+          "In USB applications, a minimum of 10\u03bcF output capacitance is a requirement.",
+          "Ensure that the output voltage and current ratings of the device are not exceeded by the connected load."
+        ]
+      },
+      "name":"OUT",
+      "output_current":{
+        "max":2.1,
+        "units":"A"
+      },
+      "pin_id":"6",
+      "type":"POWER"
+    }
+  }
+}

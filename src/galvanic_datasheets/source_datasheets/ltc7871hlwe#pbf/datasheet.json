@@ -1,0 +1,2231 @@
+{
+  "high_level":{
+    "base_part_number":"LTC7871",
+    "device_type":"REGULATOR_BUCK",
+    "manufacturer":"Analog Devices",
+    "packages":[
+      "LWE"
+    ],
+    "part_numbers":{
+      "LTC7871ELWE#PBF":{},
+      "LTC7871ELWE#WPBF":{},
+      "LTC7871HLWE#PBF":{},
+      "LTC7871HLWE#WPBF":{},
+      "LTC7871ILWE#PBF":{},
+      "LTC7871ILWE#WPBF":{},
+      "LTC7871JLWE#PBF":{},
+      "LTC7871JLWE#WPBF":{}
+    },
+    "serial_busses":[
+      "SPI"
+    ]
+  },
+  "pins":{
+    "BUCK":{
+      "description":"The voltage on this pin determines if the IC is regulating the V LOW or V HIGH voltage/current. Float or tie this pin to V5 to select buck mode and to ground to select boost mode operation. This pin has an internal pull up resistor that defaults to buck mode if left floating.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"V5",
+            "connection_type":"direct",
+            "description":"The internal 5V regulator output from the LTC7871. Connecting BUCK to V5 selects buck mode."
+          },
+          {
+            "component_name":"SGND",
+            "connection_type":"direct",
+            "description":"System Ground. Connecting BUCK to SGND selects boost mode."
+          },
+          {
+            "component_name":"Internal Pull-up Resistor",
+            "connection_type":"internal",
+            "description":"An internal pull-up resistor to V5 exists on the BUCK pin, causing it to default to buck mode if left floating."
+          }
+        ],
+        "connectivity":"The BUCK pin should be connected to V5 for buck mode operation or to SGND for boost mode operation. It can also be left floating, which defaults to buck mode operation.",
+        "detailed_description":"The BUCK pin is used to control the operating mode of the LTC7871, allowing for seamless switching between buck and boost modes of operation. It acts as a digital input that selects between these two power conversion topologies.",
+        "functionality":"The BUCK pin serves two distinct functions based on its electrical connection:\n1. Buck Mode Operation: When the BUCK pin is tied to V5 (the internal 5V regulator output) or left floating (due to an internal pull-up resistor), the LTC7871 operates in buck mode. In this mode, power is delivered from V_HIGH to V_LOW.\n2. Boost Mode Operation: When the BUCK pin is tied to SGND (ground), the LTC7871 operates in boost mode. In this mode, power is delivered from V_LOW to V_HIGH.",
+        "precautions":"When transitioning between buck and boost modes, the internal soft-start is reset, and the ITH pins are parked at their zero current levels to ensure a smooth transition. It is recommended to program SETCUR to its zero current level before switching between modes to further minimize transients."
+      },
+      "input_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"UP",
+        "pull_value":{
+          "nom":200000.0,
+          "units":"ohm"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"BUCK",
+      "pin_id":"54",
+      "type":"DIGITAL"
+    },
+    "CLKOUT":{
+      "description":"Clock Output Pin. Use this pin to synchronize multiple LTC7871 ICs. Signal swing is from V5 to ground.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":"Typically connected to the SYNC pin of other LTC7871 ICs. A short trace is recommended for synchronization integrity.",
+        "connectivity":"Connect this pin to the SYNC pin of other LTC7871 ICs to daisy-chain them for synchronization.",
+        "detailed_description":"The CLKOUT pin is a clock output pin used to synchronize multiple LTC7871 ICs. The signal swing is from V5 to ground.",
+        "functionality":"The primary function is to output a clock signal that can be used to synchronize other LTC7871 ICs in a multi-phase system.",
+        "precautions":"When paralleling multiple ICs, ensure the input impedance of the SYNC pin is considered. Keep the PCB trace short and clean to maintain signal integrity for synchronization."
+      },
+      "name":"CLKOUT",
+      "output_type":"OPEN_DRAIN",
+      "pin_id":"50",
+      "type":"DIGITAL",
+      "voh":{
+        "nom":5.0,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.2,
+        "units":"V"
+      }
+    },
+    "CSB":{
+      "description":"4-Wire Serial Peripheral Interface (SPI). Active low chip select (CSB), serial clock (SCLK) and serial data in (SDI) are digital Inputs. Serial data out (SDO) is an open-drain NMOS output pin. SDO requires an external pull-up resistor. Refer to the Serial Port section for more details.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":"CSB is typically connected to the SPI master's chip select output pin. In a multidrop system, it will be connected to the chip select output of the micro-controller or other SPI master device. An external pull-up resistor to V5 is recommended if the master device cannot guarantee a high level on the CSB pin when deselected, especially in multidrop configurations where SDO might be shared.",
+        "connectivity":"CSB should be connected to the master SPI device's chip select output. In a multidrop configuration, each LTC7871 should have its own CSB line controlled independently by the master to select the specific device for communication.",
+        "detailed_description":"CSB (Chip Select Bar) is a digital input that enables or disables the serial peripheral interface (SPI) communication with the LTC7871. When CSB is low, the SPI port is active and ready to receive commands or data. When CSB is high, the SPI port is disabled, and the SDO pin is in a high-impedance (Hi-Z) state, allowing for multidrop configurations.",
+        "functionality":"The CSB pin functions as an active-low chip select for the SPI interface. When asserted low, it selects the LTC7871 for SPI communication. When de-asserted high, it deselects the device, placing the SDO pin in a high-impedance state.",
+        "precautions":"The CSB pin must be driven low to enable SPI communication. Ensure that only one CSB line is asserted low at any time when communicating with multiple LTC7871 devices on the same SPI bus to avoid bus contention. If the SPI master does not drive the CSB line high when deselected, an external pull-up resistor to V5 is recommended to ensure the SPI port is properly disabled and the SDO pin is in a high-impedance state."
+      },
+      "input_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"UP",
+        "pull_value":{
+          "nom":300000.0,
+          "units":"ohm"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"CSB",
+      "pin_id":"37",
+      "type":"DIGITAL",
+      "vih":{
+        "nom":1.8,
+        "units":"V"
+      },
+      "vil":{
+        "nom":0.5,
+        "units":"V"
+      }
+    },
+    "DRVCC":{
+      "description":"Gate Driver Current Supply LDO Output. The voltage on this pin can be set to 5V, 8V, or 10V by the DRVSET pin. Bypass this pin to ground plane with a minimum of 4.7\u03bcF low ESR tantalum or ceramic capacitor.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"External Gate Drivers",
+            "connection_description":"The DRVCC pin directly powers the external gate drivers for the top and bottom MOSFETs."
+          },
+          {
+            "component_name":"Bypass Capacitor",
+            "connection_description":"A bypass capacitor (minimum 4.7\u03bcF, low ESR tantalum or ceramic) is connected between the DRVCC pin and the ground plane to ensure a stable power supply for the internal circuitry and drivers."
+          },
+          {
+            "component_name":"DRVSET Pin",
+            "connection_description":"The DRVSET pin is used to set the output voltage of the DRVCC LDO. It has internal pull-up and pull-down resistors."
+          },
+          {
+            "component_name":"EXTVCC Pin",
+            "connection_description":"The EXTVCC pin serves as an alternative input to the internal LDO that supplies DRVCC. If EXTVCC is higher than the switchover threshold, it will supply power to DRVCC."
+          }
+        ],
+        "connectivity":"The DRVCC pin should be connected to the power input of the external gate drivers. It needs to be bypassed to a ground plane with a minimum of a 4.7\u03bcF low ESR tantalum or ceramic capacitor. The voltage on this pin is controlled by the DRVSET pin.",
+        "detailed_description":"The DRVCC pin is the output of an internal Gate Driver Current Supply LDO. This pin provides power to the external top and bottom MOSFET drivers, which are essential for controlling the switching of the power MOSFETs. The voltage at the DRVCC pin can be adjusted externally via the DRVSET pin.",
+        "functionality":"The DRVCC pin serves as the power supply for the MOSFET drivers. Its output voltage is programmable to 5V, 8V, or 10V, depending on the setting of the DRVSET pin. The DRVCC pin's power can be supplied either from the VHIGH rail (through an internal LDO) or from the EXTVCC pin, whichever is higher and selected by the DRVSET pin.",
+        "precautions":[
+          "The DRVCC pin voltage is critical for the proper operation of the MOSFET drivers. Ensure the voltage is set correctly using the DRVSET pin according to the MOSFET requirements.",
+          "Adequate bypassing is essential to prevent noise from affecting the driver circuitry and the controller itself.",
+          "The DRVCC pin has an undervoltage lockout (UVLO) threshold. If the voltage falls below this threshold, the controller will shut down.",
+          "Do not exceed the Absolute Maximum Ratings for the DRVCC pin and its related supply pins (EXTVCC)."
+        ]
+      },
+      "name":"DRVCC",
+      "output_voltage":{
+        "max":10.5,
+        "min":9.5,
+        "nom":10.0,
+        "units":"V"
+      },
+      "pin_id":"46",
+      "type":"POWER"
+    },
+    "DRVSET":{
+      "description":"The voltage setting on this pin programs the DRV CC output voltage. There are two internal resistors, 200k\u03a9 and 160k\u03a9, connecting this pin to the V5 and SGND, respectively.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Internal Resistors",
+            "description":"There are two internal resistors connected to the DRVSET pin. One connects to V5, and the other connects to SGND. These resistors create a voltage divider that sets the DRVCC output voltage."
+          }
+        ],
+        "connectivity":"The DRVSET pin can be connected to SGND, left floating, or connected to V5. The specific connection will determine the DRVCC output voltage.",
+        "detailed_description":"The DRVSET pin is used to program the output voltage of the DRVCC pin. The DRVCC pin powers the external MOSFET drivers. The DRVCC voltage can be set to 5V, 8V, or 10V based on the voltage applied to the DRVSET pin.",
+        "functionality":"The pin's function is to set the DRVCC output voltage. This is achieved by internal resistors connecting the DRVSET pin to V5 and SGND. The specific voltage levels (5V, 8V, or 10V) are determined by whether the DRVSET pin is tied to SGND, left floating, or tied to V5.",
+        "precautions":"The specific voltage levels (5V, 8V, 10V) for DRVCC are achieved through the voltage division created by the internal resistors and the connection of the DRVSET pin. Ensure the desired DRVCC voltage is selected based on the MOSFET driver requirements."
+      },
+      "input_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "name":"DRVSET",
+      "pin_id":"44",
+      "type":"DIGITAL"
+    },
+    "EXTVCC":{
+      "description":"External Power Input to an Internal LDO Connected to DRV CC . This LDO supplies DRV CC power, bypassing the internal LDO powered from V HIGH, whenever EXTV CC is higher than its switchover threshold. Do not exceed 60V on this pin.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Schottky Diode",
+            "details":"A Schottky diode (e.g., with a forward voltage less than 0.5V at the maximum EXTVCC pin current) can be used for protection. It should be connected between the VLOW and EXTVCC pins, or with its cathode connected to EXTVCC and anode connected to ground."
+          },
+          {
+            "component_name":"Resistor (R_FLTR)",
+            "details":"A minimum 1 Ohm resistor in series with the Schottky diode to ground, to limit voltage spikes. The voltage drop across this resistor should be less than 0.5V."
+          }
+        ],
+        "connectivity":"The EXTVCC pin should be connected to an external voltage source. It can be left open or tied to a voltage less than the switchover voltage programmed by the DRVSET pin for DRVCC to be powered from VHIGH. To prevent voltage spikes below ground on the EXTVCC pin, a Schottky diode with a minimum 1 Ohm series resistor (R_FLTR) can be connected from the EXTVCC pin to ground, with the anode connected to ground.",
+        "detailed_description":"The EXTVCC pin is the external power input to an internal Linear Regulator (LDO) that is connected to the DRVCC pin. This LDO supplies power to the DRVCC pin. When the voltage on EXTVCC is higher than its switchover threshold, the internal LDO powered from VHIGH is turned off, and the internal LDO powered from EXTVCC is turned on to supply DRVCC power.",
+        "functionality":"The EXTVCC pin serves as an alternative input power source for the DRVCC pin. When EXTVCC is above its switchover threshold, it takes over the power supply for DRVCC. Otherwise, DRVCC is powered from VHIGH through an internal LDO.",
+        "precautions":[
+          "Do not exceed 60V on the EXTVCC pin, as this can damage the controller.",
+          "When connecting to VLOW, consider using a Schottky diode to prevent voltage spikes below ground on EXTVCC.",
+          "Ensure the external voltage source connected to EXTVCC is stable and within the specified range."
+        ]
+      },
+      "input_voltage":{
+        "max":60.0,
+        "units":"V"
+      },
+      "name":"EXTVCC",
+      "pin_id":"42",
+      "type":"POWER"
+    },
+    "FAULT":{
+      "description":"Fault Indicator Output. Open-drain output that pulls to ground during a fault condition.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"External Pull-up Resistor",
+            "description":"A resistor is required to pull the FAULT pin high when no fault condition is present. The resistor should be connected between the FAULT pin and a voltage supply (e.g., V5). The value of the resistor should be chosen to ensure proper logic level signaling and can be selected based on the desired pull-up current and voltage supply. A common value might be in the range of kOhms."
+          }
+        ],
+        "connectivity":"The FAULT pin is an open-drain output. It should be pulled high with an external resistor connected to a voltage source (e.g., V5 or an external bias voltage) up to 6V.",
+        "detailed_description":"The FAULT pin is an open-drain output that indicates a fault condition. It pulls low when certain fault events occur, signaling an issue with the device's operation or a connected system.",
+        "functionality":"The FAULT pin serves as a general fault indicator. It pulls low when any of the following conditions are met:\n- The RUN pin is below its turn-on threshold.\n- V5 or DRVCC is below its undervoltage lockout (UVLO) threshold.\n- Any of the three OV/UV comparators (OVLOW, OVHIGH, UVHIGH) has been tripped.\n- During the startup sequence until the SS pin charges up past 1.2V.\n- Any channel is in an overcurrent fault status.\n- The IC is experiencing over-temperature conditions.",
+        "precautions":"Ensure the external pull-up resistor is connected to a voltage source within the absolute maximum ratings of the FAULT pin (up to 6V). When a fault condition occurs, the FAULT pin will be pulled low, so the pull-up resistor should be chosen appropriately to handle this sinking current without exceeding its power rating. The FAULT pin has a delay of 120\u03bcs from the fault event until it is pulled low."
+      },
+      "name":"FAULT",
+      "output_type":"OPEN_DRAIN",
+      "pin_id":"35",
+      "type":"DIGITAL",
+      "vol":{
+        "max":0.3,
+        "units":"V"
+      }
+    },
+    "FREQ":{
+      "description":"Frequency Set Pin. A resistor between this pin and SGND sets the switching frequency. This pin sources 20\u00b5A current.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Resistor (R_FREQ)",
+            "connection":"Connected between the FREQ pin and SGND.",
+            "purpose":"To set the switching frequency.",
+            "value_determination":"The value is calculated based on the desired switching frequency using the formula provided in the 'Frequency Setting (Standalone)' functionality. For example, to achieve 230kHz, a 51.1k\u03a9 resistor is used."
+          },
+          {
+            "component_name":"Capacitor (C_FREQ)",
+            "connection":"Internally connected to the PLL filter network, with the external connection being to SGND through R_FREQ.",
+            "purpose":"Internal capacitor for the PLL filter network, connected to FREQ and SGND. The datasheet mentions a 20\u00b5A current flowing out of the FREQ pin, implying a voltage setting mechanism. The typical application diagrams show various capacitors connected near the FREQ pin, but their specific function in relation to FREQ is not detailed here, beyond the PLL's internal filter. The 'Applications Information' section mentions the filter capacitor holding the voltage in a stable PLL state."
+          }
+        ],
+        "connectivity":"Connect a resistor (R_FREQ) from the FREQ pin to SGND to set the switching frequency. If the SYNC pin is used for synchronization or spread spectrum, the resistor is still required.",
+        "detailed_description":"The FREQ pin is used to set the switching frequency of the LTC7871. It sources a precision 20\u00b5A current, allowing the switching frequency to be programmed with a single resistor connected to SGND. This pin also interacts with the SYNC pin for frequency synchronization and spread-spectrum modulation.",
+        "functionality":[
+          {
+            "description":"When the SYNC pin is tied to SGND, a resistor (R_FREQ) connected between the FREQ pin and SGND sets the switching frequency. The relationship between the voltage at the FREQ pin and the switching frequency is defined by: Frequency = V_FREQ \u2013 414kHz/V \u2013 163.5kHz, where V_FREQ = I_FREQ (20\u00b5A) * R_FREQ. Alternatively, Frequency = R_FREQ \u2013 8.28kHz/k\u03a9 \u2013 163.5kHz, assuming a perfect 20\u00b5A I_FREQ current source.",
+            "function":"Frequency Setting (Standalone)"
+          },
+          {
+            "description":"When the SYNC pin is used to synchronize the LTC7871 to an external clock, the FREQ pin resistor still sets the initial switching frequency before the PLL locks to the external clock. The frequency range for synchronization is 60kHz to 750kHz.",
+            "function":"Synchronization Input (with SYNC Pin)"
+          },
+          {
+            "description":"When the SYNC pin is tied to V5 to enable spread spectrum, the FREQ pin resistor still sets the nominal switching frequency. The MFR_SSFM register then controls the spread spectrum parameters.",
+            "function":"Spread Spectrum Modulation Control (with SYNC Pin)"
+          }
+        ],
+        "precautions":[
+          "If the SYNC pin is not used for synchronization, ensure it is tied to SGND or V5 as appropriate for the desired operation mode.",
+          "When paralleling multiple LTC7871 ICs, the FREQ pins may or may not be tied together. If tied together, account for the combined sourcing currents (20\u00b5A per IC) when calculating R_FREQ values.",
+          "The SYNC pin has an internal 100k\u03a9 resistor to ground. This should be considered if external components are connected to the SYNC pin.",
+          "The resistor on the FREQ pin determines the initial switching frequency, which is crucial for the PLL to lock onto an external clock signal when using the SYNC pin."
+        ]
+      },
+      "input_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"UP",
+        "pull_value":{
+          "nom":20.0,
+          "units":"uA"
+        },
+        "type":"CURRENT"
+      },
+      "name":"FREQ",
+      "pin_id":"53",
+      "type":"ANALOG"
+    },
+    "ILIM":{
+      "description":"Current Comparator Sense Voltage Limit Selection Pin. The input impedance of this pin is 100k\u03a9.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Resistor Divider",
+            "description":"A resistor divider network connected between V5 and SGND is typically used to set a specific voltage on the ILIM pin, thereby selecting the desired current limit. The values of these resistors are chosen based on the desired ILIM voltage level (e.g., 0V, 1/4 V5, Float, 3/4 V5, V5)."
+          },
+          {
+            "component_name":"V5",
+            "description":"The internal 5V regulator output, used as a reference voltage for setting the ILIM pin levels."
+          },
+          {
+            "component_name":"SGND",
+            "description":"Signal Ground, used as the reference for the voltage divider and as the lower potential rail."
+          }
+        ],
+        "connectivity":"The ILIM pin can be connected to ground, V5, or a voltage divider between V5 and SGND to select the desired current limit level. A resistor divider from V5 to SGND is recommended to set the ILIM voltage, ensuring stability across varying conditions. The internal pull-up and pull-down resistors should be considered when designing this divider.",
+        "detailed_description":"The ILIM (Current Comparator Sense Voltage Limit Selection Pin) pin is used to set the maximum current limit of the controller. It is a 5-level logic input that influences the Overcurrent Fault Threshold (OCFT) and Negative Overcurrent Fault Threshold (NOCFT). The ILIM pin has an internal 200k\u03a9 pull-down resistor to SGND and a 200k\u03a9 pull-up resistor to V5, providing a default resistance and allowing for voltage division.",
+        "functionality":"The ILIM pin's functionality is to set the maximum current limit by selecting one of five different levels. These levels directly correspond to different thresholds for overcurrent and negative overcurrent fault detection. The specific voltage applied to the ILIM pin determines which of these five levels is active. For example, connecting ILIM to ground selects the lowest current sense threshold (10mV for DCR sensing), while connecting it to V5 selects the highest (50mV for DCR sensing).",
+        "precautions":"Care must be taken when setting the voltage on the ILIM pin, as it directly impacts the overcurrent protection thresholds. Ensure that the voltage divider resistor values are chosen appropriately to avoid exceeding the absolute maximum ratings of the pin and to achieve the desired current limit. Also, consider the internal pull-up and pull-down resistors when calculating the divider ratios."
+      },
+      "input_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"DOWN",
+        "pull_value":{
+          "nom":200000.0,
+          "units":"ohm"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"ILIM",
+      "pin_id":"49",
+      "type":"DIGITAL"
+    },
+    "IMON":{
+      "description":"Current Monitor Pin. The voltage on this pin is directly proportional to the average inductor currents of all 6 channels. 1.25V on this pin indicates zero average inductor current per phase.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Internal Current Sensing Circuitry",
+            "details":"The IMON pin is internally connected to the output of the current sensing amplifiers and comparators that process signals from the SNSD[+], SNSA[+], and SNS[-] pins. This circuitry calculates the average inductor current."
+          },
+          {
+            "component_name":"Current Regulation Loop Error Amplifier",
+            "details":"The IMON pin's voltage output is fed into the inverting input of the current regulation loop error amplifier. This amplifier compares the IMON voltage to the reference voltage provided by the SETCUR pin."
+          },
+          {
+            "component_name":"SETCUR Pin",
+            "details":"The SETCUR pin provides the reference voltage for the current regulation loop. The voltage on IMON is compared to the voltage derived from the SETCUR pin to regulate the average inductor current."
+          },
+          {
+            "component_name":"Optional Pull-up Resistor",
+            "details":"If the IMON pin is not used, it is recommended to connect it to SGND with a 10k\u03a9 resistor to prevent floating."
+          }
+        ],
+        "connectivity":"The IMON pin should be connected directly to the output of the average inductor current sensing circuitry. In a typical application, this would be a voltage that is proportional to the average inductor current. When multiple LTC7871 ICs are used together, the IMON pins can be tied together to monitor the total average current in the application.",
+        "detailed_description":"The IMON pin outputs a voltage that is proportional to the average inductor current of all six channels. A voltage of 1.25V on this pin indicates zero average inductor current per phase. The operational range of IMON is 0.4V to 2.5V. As the inductor current increases in buck mode, the IMON voltage proportionally increases; as the inductor current increases in boost mode, the IMON voltage proportionally decreases. This pin is one of the inputs to the current regulation loop error amplifier, with the SETCUR pin providing the reference.",
+        "functionality":"The primary function of the IMON pin is to provide a voltage output that is proportional to the average inductor current across all six channels. This voltage serves as feedback for the current regulation loop.",
+        "precautions":[
+          "The operational range of IMON is 0.4V to 2.5V. Ensure that the sensing circuitry and external connections do not cause the IMON voltage to go outside this range, as it may affect the operation of the current regulation loop.",
+          "When multiple LTC7871 ICs are used in parallel, tying the IMON pins together allows for monitoring of the total average current. Ensure that the current sensing is accurately shared across all channels.",
+          "If the IMON pin is not used, it should be connected to SGND with a 10k\u03a9 resistor to prevent floating and potential noise issues."
+        ]
+      },
+      "name":"IMON",
+      "output_voltage":{
+        "max":2.5,
+        "min":0.4,
+        "units":"V"
+      },
+      "pin_id":"10",
+      "type":"ANALOG"
+    },
+    "ITHHIGH":{
+      "description":"Current Control Threshold and Error Amplifier Compensation Point. The current comparator\u2019s threshold varies with the ITH control voltage.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Capacitor",
+            "description":"A capacitor is connected from the ITHHIGH pin to SGND. This capacitor is used for soft-start timing and loop compensation. Its value is chosen based on the desired transient response and stability characteristics of the boost converter. Typical values might range from a few nanofarads to tens of nanofarads."
+          },
+          {
+            "component_name":"Resistor",
+            "description":"A resistor may be connected in series with the capacitor or directly from ITHHIGH to SGND. This resistor, along with the capacitor, forms an RC network that is crucial for controlling the loop compensation. The resistor value is selected to optimize the bandwidth and phase margin of the control loop. Typical values might range from tens to hundreds of kilohms."
+          }
+        ],
+        "connectivity":"The ITHHIGH pin is connected to the output of the boost error amplifier and the input of the current comparator for boost mode. In a typical application schematic, an external capacitor is connected from ITHHIGH to SGND to set the soft-start time and provide compensation. A resistor may also be connected between ITHHIGH and SGND, or in series with a capacitor, to further shape the control loop's frequency response. In multiphase applications, multiple ITHHIGH pins are typically tied together to ensure current sharing between ICs.",
+        "detailed_description":"The ITHHIGH pin serves as the current control threshold and error amplifier compensation point for the boost mode operation of the LTC7871. In boost mode, the voltage on this pin controls the peak inductor current. It is also a critical node for loop compensation, allowing for fine-tuning of the transient response and stability of the boost converter.",
+        "functionality":"The primary function of ITHHIGH is to set the current control threshold in boost mode. The voltage at this pin dictates the peak inductor current that the controller aims to achieve. Additionally, it acts as a compensation point for the error amplifier, where external components connected to this pin shape the frequency response of the control loop, influencing stability and transient performance. In buck mode, this pin is typically parked at its zero current level to avoid interference with the buck control loop, unless specific fault conditions override this.",
+        "precautions":"It is important to place the compensation components (capacitor and potentially a resistor) connected to the ITHHIGH pin as close as possible to the IC to minimize noise pickup and ensure accurate loop compensation. In multiphase systems, tying the ITHHIGH pins of multiple LTC7871 ICs together is essential for proper current sharing. Care must be taken when setting the compensation components, as incorrect values can lead to instability or poor transient response. Additionally, in fault conditions (e.g., OVHIGH 2.4V threshold), the ITHHIGH pin can be driven into high impedance, which should be accounted for in system design."
+      },
+      "input_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "name":"ITHHIGH",
+      "pin_id":"6",
+      "type":"ANALOG"
+    },
+    "ITHLOW":{
+      "description":"Current Control Threshold and Error Amplifier Compensation Point. The current comparator\u2019s threshold varies with the ITH control voltage.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Error Amplifier Output",
+            "description":"The ITHLOW pin receives the output voltage from the buck mode error amplifier, which sets the current control threshold."
+          },
+          {
+            "component_name":"Compensation Network",
+            "description":"External components like capacitors and resistors may be connected to the ITHLOW pin to form the loop compensation network for the buck mode."
+          },
+          {
+            "component_name":"Other LTC7871 ITHLOW Pins (for multiphase)",
+            "description":"In a multiphase configuration, the ITHLOW pins of multiple LTC7871 devices are connected together to ensure current sharing."
+          }
+        ],
+        "connectivity":"The ITHLOW pin should be connected to the output of the error amplifier and potentially to external components for loop compensation. In multiphase operation, it should be tied to the ITHLOW pins of other LTC7871 ICs.",
+        "detailed_description":"ITHLOW is the current control threshold and error amplifier compensation point for the buck mode operation. The current comparator's threshold varies with the voltage on the ITH pin. In buck mode, the ITHLOW voltage controls the peak inductor current. When the current loop takes over control from the voltage loop, it will take over the ITH pin control from the voltage loop.",
+        "functionality":"The ITHLOW pin acts as a control voltage for the current comparator's threshold in buck mode. It is also used as an error amplifier compensation point. In multiphase applications, the ITHLOW pins of multiple LTC7871 ICs should be tied together for proper current sharing. In the event of an OVHIGH 2.4V threshold fault, this pin is driven into high impedance.",
+        "precautions":"In case of an OVHIGH 2.4V fault, this pin is driven into high impedance, which may affect system behavior if not accounted for. When paralleling ICs, ensure proper connection of ITHLOW pins for current sharing and that local compensation networks are used for each IC."
+      },
+      "input_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "name":"ITHLOW",
+      "pin_id":"4",
+      "type":"ANALOG"
+    },
+    "MODE":{
+      "description":"Mode Set Pin. Tying this pin to SGND enables forced continuous mode in buck or boost modes. Floating this pin results in burst mode in buck mode and discontinuous mode in boost mode. Tying this pin to V5 enables discontinuous mode in buck or boost modes. The input impedance of this pin is 90k\u03a9.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[],
+        "connectivity":"The MODE pin should be connected to either SGND, left floating, or connected to V5, depending on the desired operating mode as described in the 'functionality' section. The input impedance of this pin is 90k\u03a9.",
+        "detailed_description":"The MODE pin is used to select the operating mode of the LTC7871 in terms of discontinuous or continuous conduction mode (DCM/CCM) and Burst Mode operation. This choice influences the efficiency and ripple characteristics of the regulator, particularly at light load conditions.",
+        "functionality":"The MODE pin has three distinct functions based on its connection:\n\n1.  **Forced Continuous Conduction Mode (CCM):** Tying the MODE pin to SGND (ground).\n2.  **Burst Mode Operation:** Floating the MODE pin. In buck mode, this results in Burst Mode. In boost mode, this results in Discontinuous Conduction Mode (DCM).\n3.  **Discontinuous Conduction Mode (DCM):** Tying the MODE pin to V5 (the internal 5V regulator output).",
+        "precautions":[
+          "Ensure the chosen connection for the MODE pin aligns with the desired operational characteristics (CCM, DCM, or Burst Mode) for both buck and boost modes.",
+          "When floating the MODE pin for Burst Mode operation in buck mode, be aware that the inductor current is not allowed to reverse. The reverse current comparator will turn off the bottom MOSFET just before the inductor current reaches zero to prevent negative current.",
+          "When selecting DCM operation (MODE pin tied to V5 or floated in boost mode), the controller may exhibit pulse skipping at very light loads, which can lead to larger current and voltage ripple.",
+          "The input impedance of the MODE pin is 90k\u03a9, which should be considered if any external components are connected to it, although typically it is connected directly to a voltage rail or left floating."
+        ]
+      },
+      "input_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"DOWN",
+        "pull_value":{
+          "nom":90000.0,
+          "units":"ohm"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"MODE",
+      "pin_id":"51",
+      "type":"DIGITAL"
+    },
+    "NC":{
+      "description":"No Connect Pins.",
+      "direction":"OTHER",
+      "implementation":{
+        "connected_components":[],
+        "connectivity":"These pins should not be connected to any circuitry in the schematic. They should be left floating.",
+        "detailed_description":"The NC pins are 'No Connect' pins. This means they are not connected to any internal circuitry of the LTC7871 and do not have a specific function assigned to them within the IC.",
+        "functionality":"These pins have no functionality. They are typically left unconnected or can be used for other purposes on the PCB if available, such as test points or vias to other layers.",
+        "precautions":"It is important not to connect any components or traces to the NC pins. Connecting anything to these pins could potentially lead to unexpected behavior or damage to the device, as their internal connections are undefined and not intended for use. In some cases, leaving NC pins unconnected and open can prevent unwanted coupling or noise pickup, but the primary precaution is to simply not connect anything to them."
+      },
+      "name":"NC",
+      "pin_id":"[2, 8, 12, 26, 41, 43, 47, 55]",
+      "type":"OTHER"
+    },
+    "OVHIGH":{
+      "description":"V HIGH Overvoltage Threshold Set Pin. A resistor divider from V HIGH is needed to set this threshold. When the voltage on this pin rises past the 1.2V trip point, a 5\u03bcA current is sourced out of the pin to provide externally adjustable hysteresis.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Resistor Divider",
+            "connection_details":"A voltage divider formed by two resistors. One resistor connects V HIGH to the OVHIGH pin, and the other connects the OVHIGH pin to SGND. The ratio of these resistors sets the overvoltage threshold."
+          },
+          {
+            "component_name":"V HIGH",
+            "connection_details":"Connected to the upper resistor of the voltage divider."
+          },
+          {
+            "component_name":"SGND",
+            "connection_details":"Connected to the lower resistor of the voltage divider."
+          }
+        ],
+        "connectivity":"A resistor divider from V HIGH to SGND should be connected to this pin to set the desired overvoltage threshold. The ratio of the resistors in the divider determines the trip point. The OVHIGH pin should be connected to the junction of these resistors.",
+        "detailed_description":"The OVHIGH pin is the V HIGH Overvoltage Threshold Set Pin. It is used to set the overvoltage threshold for the V HIGH supply. A resistor divider from V HIGH is needed to set this threshold.",
+        "functionality":"The pin serves as an input to an overvoltage comparator. When the voltage on this pin rises past the internal 1.2V trip point, an internal 5\u00b5A current is sourced out of the pin to provide externally adjustable hysteresis. This event also triggers a fault condition.",
+        "precautions":"The voltage on the OVHIGH pin must be carefully set using the resistor divider to avoid unintended overvoltage shutdowns or to ensure proper overvoltage detection. The internal sourcing current of 5\u00b5A for hysteresis should be considered in the resistor divider calculation."
+      },
+      "input_voltage":{
+        "max":6.0,
+        "units":"V"
+      },
+      "name":"OVHIGH",
+      "pin_id":"13",
+      "type":"DIGITAL",
+      "vil":{
+        "nom":1.15,
+        "units":"V"
+      }
+    },
+    "OVLOW":{
+      "description":"V LOW Overvoltage Threshold Set Pin. A resistor divider from V LOW is needed to set this threshold. When the voltage on this pin rises past the 1.2V trip point, a 5\u03bcA current is sourced out of the pin to provide externally adjustable hysteresis.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Resistor Divider",
+            "description":"A voltage divider consisting of two resistors is used to sense the V LOW voltage and present a scaled version to the OVLOW pin. The ratio of these resistors determines the overvoltage trip point. For example, to set an overvoltage threshold of 15V on V LOW, a divider can be chosen such that when V LOW = 15V, the voltage at the OVLOW pin equals 1.2V. The specific resistor values would depend on the V LOW operating range."
+          },
+          {
+            "component_name":"Capacitor (Optional)",
+            "description":"A small capacitor can be placed in parallel with the upper resistor of the divider to help filter noise on the V LOW line, preventing spurious overvoltage triggers."
+          }
+        ],
+        "connectivity":"The OVLOW pin should be connected to a resistor divider network that senses the V LOW voltage. This divider sets the voltage presented to the OVLOW pin. The ratio of the resistors in this divider determines the specific V LOW voltage at which the overvoltage fault will be triggered.",
+        "detailed_description":"The OVLOW pin is an input used to set the V LOW Overvoltage Threshold. It is part of the overvoltage protection circuitry for the V LOW output. When the voltage on this pin rises above the internal 1.2V trip point, an overvoltage condition is detected.",
+        "functionality":"The primary function of the OVLOW pin is to act as a set point for the V LOW overvoltage threshold. When the voltage at this pin exceeds 1.2V, it signals an overvoltage condition on the V LOW output. A 5\u03bcA hysteresis current is sourced out of this pin when the threshold is crossed, allowing for externally adjustable hysteresis. This pin is connected to the FAULT pin, which indicates the overvoltage condition.",
+        "precautions":"Care must be taken when selecting the resistor values for the voltage divider connected to the OVLOW pin. The divider ratio must be set to trigger the overvoltage protection at the desired V LOW level. The 5\u03bcA hysteresis current sourced from this pin needs to be considered in the resistor selection, especially if very precise trip points are required at low V LOW voltages. Ensure the OVLOW pin is not left floating as it is an input to a comparator."
+      },
+      "input_voltage":{
+        "max":6.0,
+        "units":"V"
+      },
+      "name":"OVLOW",
+      "pin_id":"15",
+      "type":"DIGITAL",
+      "vil":{
+        "nom":1.15,
+        "units":"V"
+      }
+    },
+    "PGOOD":{
+      "description":"Power Good Indictor Output for the Regulated V HIGH /V LOW . Open drain logic out that is pulled to ground when the regulated V HIGH /V LOW exceeds \u00b110% regulation window, after the internal 40\u00b5S power bad mask timer expires.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Pull-up Resistor",
+            "connection":"Connected between the PGOOD pin and a voltage source (V5 or external bias).",
+            "description":"An external pull-up resistor is required to connect the PGOOD pin to a voltage source (e.g., V5). The value of this resistor should be chosen to ensure the pull-up current does not exceed the specified limits."
+          }
+        ],
+        "connectivity":"The PGOOD pin is an open-drain output. It requires an external pull-up resistor connected to a voltage source (such as V5 or an external bias voltage) up to 6V. It is pulled low by an internal MOSFET when a fault or out-of-regulation condition occurs.",
+        "detailed_description":"The PGOOD pin is a power good indicator output for the regulated VHIGH/VLOW. It is an open-drain logic output that is pulled to ground when the regulated VHIGH/VLOW exceeds a \u00b110% regulation window, after an internal 40\u00b5S power bad mask timer has expired. The PGOOD pin will also flag 'power good' immediately when the regulated VFB LOW/VFB HIGH voltage is within \u00b110% of the reference window.",
+        "functionality":"The PGOOD pin indicates whether the regulated VHIGH or VLOW output voltage is within its specified regulation window (\u00b110% of the reference voltage). It can also indicate a power good status immediately when the feedback voltage is within the regulation window.",
+        "precautions":"The PGOOD pin is an open-drain output and requires an external pull-up resistor. Ensure the pull-up voltage does not exceed the Absolute Maximum Ratings. The PGOOD pin is pulled low during fault conditions or when the output voltage is out of regulation. It also indicates power good status when the output voltage is within the regulation window."
+      },
+      "name":"PGOOD",
+      "output_type":"OPEN_DRAIN",
+      "pin_id":"30",
+      "type":"DIGITAL",
+      "vol":{
+        "max":0.3,
+        "units":"V"
+      }
+    },
+    "PWM1":{
+      "description":"(Top) Gate Signal Output. This signal goes to the PWM or top gate input of the external gate driver or integrated driver MOSFET. This is a three-state compatible output.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"External Gate Driver or Integrated Driver MOSFET",
+            "connection_details":"PWM1 connects to the input pin of the gate driver (e.g., TG - Top Gate) or directly to the gate of the top MOSFET if an integrated driver is used."
+          },
+          {
+            "component_name":"DRVCC Supply",
+            "connection_details":"The voltage level of the PWM1 signal is dictated by the DRVCC voltage, which powers the gate driver circuitry. DRVCC voltage is programmable via the DRVSET pin."
+          }
+        ],
+        "connectivity":"PWM1 should be connected to the PWM or top gate input of the external gate driver or integrated driver MOSFET for the first phase. The voltage level of this signal is determined by the DRVCC supply voltage, which is set by the DRVSET pin.",
+        "detailed_description":"PWM1 is an output pin that provides a gate signal to the PWM or top gate input of an external gate driver or integrated driver MOSFET for phase 1 of the six-phase system. This signal is used to control the switching of the power MOSFETs.",
+        "functionality":"The pin's primary function is to output a gate drive signal for the power MOSFET. It is a three-state compatible output, meaning it can be driven high, driven low, or placed in a high-impedance state. This high-impedance state is typically used during shutdown or fault conditions, controlled by the PWMEN pin.",
+        "precautions":[
+          "Ensure the DRVCC voltage is properly set to match the gate drive requirements of the external MOSFETs.",
+          "During shutdown or fault conditions, the PWMEN pin, when pulled low, will place the PWM outputs, including PWM1, into a high-impedance state. Ensure external circuitry accounts for this.",
+          "The datasheet mentions that the PWM pins are three-state compatible. If driving a high impedance load or when not actively driving, external pull-up or pull-down resistors might be necessary depending on the specific gate driver and desired behavior."
+        ]
+      },
+      "name":"PWM1",
+      "output_type":"PUSH_PULL",
+      "pin_id":"29",
+      "type":"PWM",
+      "voh":{
+        "nom":4.5,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.5,
+        "units":"V"
+      }
+    },
+    "PWM2":{
+      "description":"(Top) Gate Signal Output. This signal goes to the PWM or top gate input of the external gate driver or integrated driver MOSFET. This is a three-state compatible output.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":"The PWM2 pin is typically connected to the input of an external gate driver IC (such as the LTC7060 mentioned in the datasheet) or directly to the gate of a power MOSFET if an integrated driver is used.  The datasheet also suggests that in some configurations, an external resistor might be used to set a DC voltage level on the PWM pins when they are in the high impedance state to prevent unintended turn-on or to set a specific bias point.",
+        "connectivity":"The PWM2 pin should be connected to the gate input of the corresponding external gate driver or integrated driver MOSFET for the second phase of the multi-phase power stage. In applications where the gate drivers themselves require a specific bias or control signal, additional external components (resistors, capacitors) might be necessary to ensure proper operation and signal integrity, as suggested by the typical application schematics and layout guidelines in the datasheet.",
+        "detailed_description":"PWM2 is one of the six PWM (Pulse Width Modulation) output pins of the LTC7871. These pins are designed to drive the gate of external power MOSFETs, which are used as the switching elements in the buck or boost converter topology. Specifically, PWM2 is intended to control the gate drive signal for the second phase of the six-phase system.",
+        "functionality":"The PWM2 pin serves as a gate drive output signal. It is a three-state compatible output, meaning it can be driven high, driven low, or placed in a high impedance (Hi-Z) state. The high impedance state is utilized when the controller is shut down or in a fault condition, disabling the external gate drivers.",
+        "precautions":"Care must be taken with PCB layout to keep the switching node signals (from the PWM pins) routed away from sensitive small-signal nodes. The PWM pins are high-voltage outputs, and proper consideration should be given to the voltage ratings of any connected components.  Additionally, the datasheet notes that the PWMEN pin is used to enable/disable the external gate drivers; if the PWMEN pin is pulled low externally while the LTC7871 attempts to drive the PWM pins, the PWM pins will remain in a Hi-Z state.  The datasheet also indicates that the PWM output high voltage is typically V5 - 0.5V, so ensure the gate drive voltage is suitable for the chosen MOSFETs."
+      },
+      "name":"PWM2",
+      "output_type":"PUSH_PULL",
+      "pin_id":"31",
+      "type":"PWM",
+      "voh":{
+        "nom":4.5,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.5,
+        "units":"V"
+      }
+    },
+    "PWM3":{
+      "description":"(Top) Gate Signal Output. This signal goes to the PWM or top gate input of the external gate driver or integrated driver MOSFET. This is a three-state compatible output.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"External Gate Driver or MOSFET",
+            "description":"The PWM3 pin directly interfaces with the gate control input of the power MOSFET(s) intended to be driven by this specific output phase. This could be an external gate driver IC (like the LTC7060 mentioned in the datasheet) or directly to the gate of a MOSFET if an integrated driver is used."
+          },
+          {
+            "component_name":"Resistor (Optional)",
+            "description":"An external resistor can optionally be connected between the PWM pin and V5 to set a mid-rail voltage when the pin is in a high-impedance state. This is to prevent excessive ringing or indeterminate states in certain applications."
+          }
+        ],
+        "connectivity":"The PWM3 pin connects to the gate driver circuitry for one of the power MOSFETs. It should be connected to the gate input of the corresponding external gate driver or MOSFET.  In a multi-chip configuration, if not all phases are used, these PWM pins may be left unconnected.",
+        "detailed_description":"The PWM3 pin is a gate signal output that drives the PWM (or top gate) input of the external gate driver or integrated driver MOSFET. It is part of the six-phase output capability of the LTC7871.",
+        "functionality":"The primary function is to output a gate drive signal for a MOSFET. It is a three-state compatible output, meaning it can be driven high, low, or into a high-impedance state. This high-impedance state is utilized when the LTC7871 is shut down or experiences a fault condition, as indicated by the PWMEN pin.",
+        "precautions":[
+          "Ensure the external gate driver or MOSFET connected to PWM3 can handle the voltage and current levels specified by the LTC7871.",
+          "In case of a fault or shutdown, the PWMEN pin will pull the PWM outputs (including PWM3) to a high impedance state. Ensure the connected gate driver/MOSFET is designed to handle this transition safely.",
+          "If not all six phases are utilized, unconnected PWM pins should be left floating and should not be connected to any components to avoid unexpected behavior."
+        ]
+      },
+      "name":"PWM3",
+      "output_type":"PUSH_PULL",
+      "pin_id":"32",
+      "type":"PWM",
+      "voh":{
+        "nom":4.5,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.5,
+        "units":"V"
+      }
+    },
+    "PWM4":{
+      "description":"(Top) Gate Signal Output. This signal goes to the PWM or top gate input of the external gate driver or integrated driver MOSFET. This is a three-state compatible output.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"External Gate Driver or Integrated MOSFET Driver",
+            "connection_description":"PWM4 is connected to the PWM input of a gate driver IC (like the LTC7060) or directly to the gate of an integrated MOSFET. This connection is crucial for controlling the switching of external power MOSFETs."
+          }
+        ],
+        "connectivity":"PWM4 should be connected to the gate drive input of the corresponding external MOSFET or integrated driver. In multi-chip configurations, if specific phase control is not desired, it might be left unconnected if not used, but generally, it must be connected to the intended gate drive input.",
+        "detailed_description":"PWM4 is a gate signal output pin. This signal is sent to the PWM or top gate input of an external gate driver or integrated driver MOSFET. It is a three-state compatible output.",
+        "functionality":"The primary function of PWM4 is to output a gate drive signal. Its state (high, low, or high impedance) is determined by the internal control logic of the LTC7871, influenced by operating mode, fault conditions, and input commands.",
+        "precautions":[
+          "Ensure the output voltage swing of PWM4 (to V5 and ground) is compatible with the input requirements of the connected gate driver or MOSFET gate.",
+          "In multi-chip systems, ensure proper synchronization if PWM4 is being driven by one IC to control MOSFETs in another, or if multiple PWM4 pins are tied together for control.",
+          "If not all PWM pins are used, ensure the unused ones do not create unintended circuit behavior. Consult the datasheet for specific recommendations on handling unused outputs.",
+          "The PWMEN pin should be properly managed to enable/disable the PWM outputs. If PWMEN is pulled low due to a fault or shutdown, all PWM outputs, including PWM4, will go into a high impedance state."
+        ]
+      },
+      "name":"PWM4",
+      "output_type":"PUSH_PULL",
+      "pin_id":"33",
+      "type":"PWM",
+      "voh":{
+        "nom":4.5,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.5,
+        "units":"V"
+      }
+    },
+    "PWM5":{
+      "description":"(Top) Gate Signal Output. This signal goes to the PWM or top gate input of the external gate driver or integrated driver MOSFET. This is a three-state compatible output.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"External Gate Driver (e.g., LTC7060) or Power MOSFET",
+            "connection_description":"PWM5 connects to the gate drive input of the external gate driver or directly to the gate of the corresponding power MOSFET. The gate driver itself will then interface with the MOSFET's gate and source/drain terminals."
+          },
+          {
+            "component_name":"Optional Capacitor (e.g., 0.1\u00b5F)",
+            "connection_description":"A small capacitor can be connected between the PWM5 pin and the SGND (Signal Ground) pin. This capacitor helps with noise filtering and stability, especially in high-frequency switching applications."
+          },
+          {
+            "component_name":"Optional Resistor Divider",
+            "connection_description":"If a specific quiescent voltage is desired when the PWM output is in a high-impedance state, a resistor divider can be connected from the PWM5 pin to V5 and SGND. This is generally used to set the gate drive to a mid-rail voltage."
+          }
+        ],
+        "connectivity":"The PWM5 pin should be connected to the gate driver input of the corresponding external MOSFET. This connection typically involves a gate driver IC (like the LTC7060 mentioned in the datasheet) or directly to the gate of a suitable power MOSFET if an integrated driver is used.  The datasheet also notes that for optimizing loop response, a small capacitor (e.g., 0.1\u00b5F) can be placed between the PWM pin and SGND.  An external resistor divider can also be used to set the PWM voltage to mid-rail when the pin is in the high impedance state.",
+        "detailed_description":"PWM5 is a Gate Signal Output pin. This signal is intended to drive the PWM or top gate input of an external gate driver or integrated driver MOSFET. It is part of a set of six such PWM output pins (PWM1 to PWM6) that collectively control the switching of the power MOSFETs in the multiphase converter. The output is three-state compatible.",
+        "functionality":"PWM5 serves as a direct output for the gate drive signal for the MOSFET associated with phase 5 of the multiphase operation. Its state (high, low, or high impedance) is determined by the internal control logic of the LTC7871 based on the operating mode (buck or boost), soft-start status, and any active fault conditions. When the PWMEN pin is driven low by a fault or shutdown condition, all PWM outputs, including PWM5, are forced into a high impedance state.",
+        "precautions":"Care should be taken to ensure that the gate driver or MOSFET connected to PWM5 is capable of handling the voltage and current levels specified by the LTC7871's PWM output characteristics. The PWMEN pin's status must also be considered, as it dictates whether the PWM outputs are active or in a high-impedance state. Proper PCB layout is crucial to minimize switching noise and ensure signal integrity on the PWM lines."
+      },
+      "name":"PWM5",
+      "output_type":"PUSH_PULL",
+      "pin_id":"34",
+      "type":"PWM",
+      "voh":{
+        "nom":4.5,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.5,
+        "units":"V"
+      }
+    },
+    "PWM6":{
+      "description":"(Top) Gate Signal Output. This signal goes to the PWM or top gate input of the external gate driver or integrated driver MOSFET. This is a three-state compatible output.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"External Gate Driver",
+            "connection_type":"Input",
+            "description":"The PWM6 output is typically connected to the input of an external gate driver IC (e.g., LTC7060, LTC4449). This driver interfaces the low-power signal from the LTC7871 with the high-power gate requirements of the external MOSFETs, providing the necessary voltage and current to switch them efficiently. The specific gate driver used will have its own input requirements."
+          },
+          {
+            "component_name":"External MOSFET",
+            "connection_type":"Gate Input",
+            "description":"The PWM6 output can be directly connected to the gate of an external power MOSFET, especially if the MOSFET has an integrated gate driver or if the LTC7871 is configured to drive the MOSFET gate directly. The MOSFET is the primary switching element in the power conversion stage."
+          },
+          {
+            "component_name":"Bootstrap Capacitor (for high-side drivers)",
+            "connection_type":"Signal Path",
+            "description":"If PWM6 drives the high-side gate driver of a MOSFET, it is typically used in conjunction with a bootstrap circuit. This involves a bootstrap capacitor, a bootstrap diode, and the DRVCC supply, which collectively provide the necessary voltage to drive the high-side MOSFET gate."
+          }
+        ],
+        "connectivity":"PWM6 should be connected to the input of an external gate driver or directly to the gate of a MOSFET (if an integrated driver is used). The specific connection will depend on the chosen gate driver IC or MOSFET. The signal drives the gate of the power switch for one of the six phases. In multiphase applications, these pins are typically connected to individual gate drivers for each phase.",
+        "detailed_description":"PWM6 is a gate signal output pin. It is designed to drive the gate of the top (or bottom, depending on the configuration) power MOSFET in one of the six switching channels of the LTC7871. This signal is part of the output stage responsible for controlling the switching action of the external power transistors.",
+        "functionality":"The primary function of PWM6 is to act as a gate drive output. It delivers the switching signals generated by the LTC7871's internal control logic to the external power MOSFET drivers. The signal swing at this pin is typically from the V5 rail (or a slightly lower value as specified in the Electrical Characteristics) down to ground, enabling or disabling the corresponding MOSFET. In a multiphase configuration, each PWM pin (PWM1 through PWM6) controls a specific phase of the power conversion process.",
+        "precautions":[
+          "Ensure the gate driver's input voltage and current specifications are compatible with the PWM6 output characteristics.",
+          "In high-side driving applications, proper bootstrap circuit design is crucial for reliable operation. The bootstrap capacitor must be adequately sized and recharged effectively.",
+          "Keep trace lengths for the PWM signals short and route them away from noisy switching nodes to minimize jitter and noise coupling.",
+          "The PWM pins have a maximum output voltage that is typically V5 minus a small drop, as specified in the Electrical Characteristics. Ensure this is sufficient to fully turn on the gate of the intended MOSFET or the input of the gate driver.",
+          "For multiphase operation, ensure proper phase sequencing and driving of each PWM pin to maintain system stability and efficiency."
+        ]
+      },
+      "name":"PWM6",
+      "output_type":"PUSH_PULL",
+      "pin_id":"36",
+      "type":"PWM",
+      "voh":{
+        "nom":4.5,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.5,
+        "units":"V"
+      }
+    },
+    "PWMEN":{
+      "description":"Enable Pin for External Gate Drivers. Open drain logic that is pulled to ground when the LTC7871 shut downs the external gate drivers. When this pin is low, all the PWM pin outputs are high impedance.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"External Resistor",
+            "description":"An external pull-up resistor to V5 is required to enable the external gate drivers when the controller is active. The value of this resistor should be chosen to ensure proper pull-up without excessive current draw."
+          },
+          {
+            "component_name":"External Gate Drivers",
+            "description":"The PWMEN pin directly controls the enabling of external gate drivers for the power MOSFETs."
+          },
+          {
+            "component_name":"V5 Supply",
+            "description":"The PWMEN pin is pulled up to the V5 supply voltage."
+          }
+        ],
+        "connectivity":"It should be pulled up by an external resistor to V5 when the controller starts switching. When the LTC7871 shuts down or a fault condition occurs, it pulls the PWMEN pin low. In multi-IC applications, the PWMEN pins should be tied together to ensure all LTC7871 ICs start up simultaneously.",
+        "detailed_description":"The PWMEN pin is an open-drain output pin that controls the enabling of external gate drivers. When the LTC7871 shuts down the external gate drivers, this pin is pulled to ground. In this state, all the PWM pin outputs are in a high impedance state. It is also used to communicate the controller's status with external MOSFET drivers or other LTC7871 ICs. If the LTC7871 releases the PWMEN pin but it is still externally pulled down, the LTC7871 will keep all PWM pins in a high impedance (Hi-Z) status.",
+        "functionality":"The PWMEN pin serves as an enable/disable signal for external gate drivers. It also acts as a status indicator for the LTC7871's operation, influencing the state of the PWM pins and potentially other LTC7871 ICs in a multi-IC system.",
+        "precautions":"Ensure the external pull-up resistor is appropriately sized. If not properly pulled up, or if other LTC7871s in a multi-IC system have their PWMEN pins held low, the PWM pins may remain in a high impedance state. In multi-IC applications, tie all PWMEN pins together for synchronized startup."
+      },
+      "name":"PWMEN",
+      "output_type":"OPEN_DRAIN",
+      "pin_id":"28",
+      "type":"DIGITAL",
+      "vol":{
+        "max":0.5,
+        "units":"V"
+      }
+    },
+    "RUN":{
+      "description":"Enable Control Input. A voltage above 1.22V turns on the IC. There is a 2\u00b5A pull-up current on this pin. Once the RUN pin rises above the 1.22V threshold, the pull-up current increases to 6\u00b5A.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Resistor",
+            "description":"An external resistor can be used to pull the RUN pin high, providing an alternative to directly driving it with a logic signal. The value of this resistor should be chosen considering the internal pull-up current and the desired start-up voltage. If used for VHIGH undervoltage detection, a resistor divider from VHIGH to the RUN pin is required."
+          },
+          {
+            "component_name":"Logic Signal",
+            "description":"A logic signal from a microcontroller or other control IC can be used to drive the RUN pin directly, allowing for digital control of the LTC7871's operation."
+          },
+          {
+            "component_name":"Capacitor",
+            "description":"While not explicitly stated for the RUN pin itself, external capacitors are often used in conjunction with control signals for filtering or soft-start functionality. However, for the RUN pin, direct connection or pull-up/down is typical for enable/disable control."
+          }
+        ],
+        "connectivity":"The RUN pin can be connected to a voltage source or a logic signal. For normal operation, it should be pulled above the 1.22V turn-on threshold. It can be left floating if an external pull-up is implemented. In shutdown, it should be pulled low.",
+        "detailed_description":"The RUN pin serves as the primary enable control input for the LTC7871. When the voltage on this pin is above a specific threshold, the IC's main control loop and associated internal circuits, including the DRVCC and V5 regulators, are activated. Conversely, pulling the RUN pin below this threshold initiates a controlled shutdown sequence.",
+        "functionality":"The RUN pin controls the enable/disable state of the IC. It has a dynamic pull-up current: a lower current (2\u00b5A) is present when the pin is below the turn-on threshold, and this current increases to 6\u00b5A once the RUN pin rises above the 1.22V threshold. This feature facilitates a controlled start-up sequence. The RUN pin can also be externally driven directly by logic signals or pulled up via an external resistor.",
+        "precautions":"Care must be taken not to exceed the absolute maximum rating of 6V on the RUN pin. When implementing a resistor divider from VHIGH for undervoltage detection, ensure the start-up voltage is appropriately set. In multiphase applications, tying RUN pins together is critical, especially for boost mode, and a clean, fast rising/falling signal is recommended for proper synchronized start-up."
+      },
+      "input_voltage":{
+        "max":6.0,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"UP",
+        "pull_value":{
+          "nom":2.0,
+          "units":"uA"
+        },
+        "type":"CURRENT"
+      },
+      "name":"RUN",
+      "pin_id":"27",
+      "type":"DIGITAL",
+      "vih":{
+        "nom":1.22,
+        "units":"V"
+      },
+      "vil":{
+        "max":1.1,
+        "units":"V"
+      }
+    },
+    "SCLK":{
+      "description":"4-Wire Serial Peripheral Interface (SPI). Active low chip select (CSB), serial clock (SCLK) and serial data in (SDI) are digital Inputs. Serial data out (SDO) is an open-drain NMOS output pin. SDO requires an external pull-up resistor. Refer to the Serial Port section for more details.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"SPI Master Device",
+            "connection_details":"Connect the SCLK output of the SPI master device directly to the SCLK pin of the LTC7871."
+          },
+          {
+            "component_name":"Internal Pull-down Resistor",
+            "connection_details":"An internal 300k\u03a9 pull-down resistor to SGND is present on the SCLK pin."
+          }
+        ],
+        "connectivity":"The SCLK pin should be connected to the SCLK output of the master SPI device. An internal pull-down resistor (300k\u03a9) is present on this pin.",
+        "detailed_description":"SCLK (Serial Clock) is a digital input pin used as the clock signal for the SPI-compatible serial port. It synchronizes the data transfer between the master device and the LTC7871. Data on the SDI pin is clocked into the LTC7871 on the rising edge of SCLK, and data is shifted out on the SDO pin synchronized with SCLK.",
+        "functionality":"The SCLK pin serves as the clock signal for serial communication. Its frequency determines the data transfer rate. It is essential for the SPI protocol to function correctly.",
+        "precautions":[
+          "Ensure that the SCLK signal is clean and has proper signal integrity. PCB trace routing should be kept as short as possible.",
+          "The maximum SCLK frequency is 5MHz. Ensure the SPI master device operates within this limit.",
+          "The SCLK pin has an internal pull-down resistor, so no external pull-down is typically needed unless specific timing or noise immunity requirements dictate it.",
+          "When multiple LTC7871s share the serial bus, ensure the SCLK signal is properly distributed to all devices."
+        ]
+      },
+      "input_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"DOWN",
+        "pull_value":{
+          "nom":300000.0,
+          "units":"ohm"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"SCLK",
+      "pin_id":"40",
+      "type":"DIGITAL",
+      "vih":{
+        "nom":1.8,
+        "units":"V"
+      },
+      "vil":{
+        "nom":0.5,
+        "units":"V"
+      }
+    },
+    "SDI":{
+      "description":"4-Wire Serial Peripheral Interface (SPI). Active low chip select (CSB), serial clock (SCLK) and serial data in (SDI) are digital Inputs. Serial data out (SDO) is an open-drain NMOS output pin. SDO requires an external pull-up resistor. Refer to the Serial Port section for more details.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_description":"This is typically a microcontroller or a dedicated SPI communication IC. The master device initiates and controls the SPI communication.",
+            "component_name":"SPI Master Device",
+            "connection_details":"Connect the SDO/MOSI pin of the SPI master device to the SDI pin of the LTC7871."
+          }
+        ],
+        "connectivity":"The SDI pin should be connected to the serial data output (SDO) or MOSI (Master Out Slave In) pin of the SPI master device. It is recommended to connect it directly without any external components unless specific signal conditioning or protection is required.",
+        "detailed_description":"The SDI pin is part of the Serial Peripheral Interface (SPI) and serves as the serial data input for the LTC7871. It allows the master device (e.g., a microcontroller) to send control commands and data to the LTC7871. Data is clocked into the SDI pin on the rising edge of the SCLK signal, with data transfers being MSB first.",
+        "functionality":"The SDI pin exclusively functions as a serial data input for the SPI communication interface. Its function is solely to receive data from an external master device.",
+        "precautions":"1. Ensure the SPI master device is configured correctly to use the SDI pin for data output. \n2. Maintain proper SPI timing as specified in the datasheet (e.g., SDI to SCLK setup and hold times) to ensure reliable data transfer.\n3. The SDI pin has a pull-down resistor of 300k\u03a9, which should be considered if external components are added to this pin, though direct connection is generally preferred.\n4. In a multidrop configuration where multiple LTC7871s share the same SPI bus, ensure that the SDI pin of the specific LTC7871 being addressed is correctly driven by the master."
+      },
+      "input_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"DOWN",
+        "pull_value":{
+          "nom":300000.0,
+          "units":"ohm"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"SDI",
+      "pin_id":"39",
+      "type":"DIGITAL",
+      "vih":{
+        "nom":1.8,
+        "units":"V"
+      },
+      "vil":{
+        "nom":0.5,
+        "units":"V"
+      }
+    },
+    "SDO":{
+      "description":"4-Wire Serial Peripheral Interface (SPI). Active low chip select (CSB), serial clock (SCLK) and serial data in (SDI) are digital Inputs. Serial data out (SDO) is an open-drain NMOS output pin. SDO requires an external pull-up resistor. Refer to the Serial Port section for more details.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Master SPI Device",
+            "connection_details":"Connected to the SDI/MOSI input of the master device."
+          },
+          {
+            "component_name":"Pull-up Resistor",
+            "connection_details":"Connected between the SDO pin and the V5 supply rail. A value large enough to limit current (e.g., > 300k\u03a9 as indicated in some specifications for similar interfaces) is generally suitable, but the datasheet specifies a value that ensures SDO output current does not exceed 10mA."
+          }
+        ],
+        "connectivity":"In a typical SPI configuration, the SDO pin of the LTC7871 should be connected to the master device's SDI (Serial Data In) or MOSI (Master Out Slave In) pin. An external pull-up resistor is required to connect SDO to the V5 supply rail to ensure a defined logic high level when the pin is in its high-impedance state. The value of this resistor should be chosen such that the SDO output current does not exceed 10mA.",
+        "detailed_description":"SDO is the Serial Data Out pin of the 4-wire SPI interface. It is used by the LTC7871 to transmit data to the master device. When the LTC7871 is not transmitting data or is deselected (CSB pin is high), the SDO pin is in a high-impedance (Hi-Z) state. It requires an external pull-up resistor.",
+        "functionality":"The SDO pin serves as an output for serial data transmission from the LTC7871 to the master device via the SPI interface. Its state is controlled by the CSB and SCLK signals during read operations. When CSB is high, SDO is in a high-impedance state.",
+        "precautions":"1. An external pull-up resistor is mandatory for proper operation when the SDO pin is in a high-impedance state. Without it, the line may float, leading to erratic behavior. \n2. In a multidrop SPI configuration where multiple LTC7871 devices share the same SDO line, it is crucial that the master device only asserts the CSB for one device at a time during read operations. This prevents data contention. \n3. Ensure the value of the pull-up resistor is chosen appropriately to avoid exceeding the maximum allowable SDO output current when the pin is actively driving low."
+      },
+      "name":"SDO",
+      "output_type":"OPEN_DRAIN",
+      "pin_id":"38",
+      "type":"DIGITAL",
+      "vol":{
+        "max":0.3,
+        "units":"V"
+      }
+    },
+    "SETCUR":{
+      "description":"This pin sets the maximum average inductor current in buck or boost mode. This pin sources 16\u03bcA current and it is programmable by the SPI interface.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Resistor",
+            "description":"A resistor connected from the SETCUR pin to SGND can be used to set the maximum average inductor current. The value of this resistor is determined by the desired current and the pin's 16\u00b5A sourcing current. For example, to achieve a 400mV voltage on the SETCUR pin (which corresponds to a specific current level), a 25k\u03a9 resistor would be used (400mV / 16\u00b5A). A 30.1k\u03a9 resistor is suggested for design margin."
+          },
+          {
+            "component_name":"DAC (Digital-to-Analog Converter)",
+            "description":"A DAC output can be used to drive the SETCUR pin for precise and dynamic control of the maximum average inductor current. The DAC output voltage would be calculated based on the desired current level."
+          },
+          {
+            "component_name":"SPI Interface",
+            "description":"The SETCUR pin's sourcing current can be programmed via the SPI interface using the MFR_IDAC_SETCUR register. This allows for on-the-fly adjustment of the maximum charge current."
+          }
+        ],
+        "connectivity":"The SETCUR pin should be connected to a voltage source that sets the desired maximum average inductor current. This can be achieved through a resistor to SGND, where the resistor value is calculated based on the desired current and the pin's 16\u00b5A sourcing current. Alternatively, it can be driven by a DAC output for precise control. In multiphase applications where multiple LTC7871 ICs are used, the SETCUR pins can be tied together, but the pull-up/down currents/resistors must be accounted for.",
+        "detailed_description":"The SETCUR pin is used to set the maximum average inductor current in buck or boost mode. It sources a 16\u00b5A current and is programmable via the SPI interface. This allows for dynamic adjustment of charging currents in battery charging applications or limiting in-rush current during startup.",
+        "functionality":"The SETCUR pin's primary function is to program the maximum average inductor current. This is achieved by controlling the sourcing current from the pin, which in turn sets the reference for the current regulation loop. The current sourcing capability can be dynamically adjusted via the SPI interface. If the pin is tied to V5 or a voltage higher than 1.25V, the average current programming operation is defeated.",
+        "precautions":"When tying SETCUR pins together in multiphase applications, consider the internal 16\u00b5A pull-up current. Ensure the connected resistor or DAC output can handle this current. Also, be aware that setting the SETCUR pin above 1.25V will defeat the average current programming operation. The MFR_IDAC_SETCUR register write is inhibited when the WP bit in the MFR_CHIP_CTRL register is set high."
+      },
+      "input_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"UP",
+        "pull_value":{
+          "nom":16.0,
+          "units":"uA"
+        },
+        "type":"CURRENT"
+      },
+      "name":"SETCUR",
+      "pin_id":"11",
+      "type":"ANALOG"
+    },
+    "SGND":{
+      "description":"Ground. Must be soldered to PCB ground for rated thermal performance. Connect this pin closely to negative terminal of V HIGH, DRV CC, V5 bypass capacitors. All small signal components and compensation components should connect here.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"V5 Bypass Capacitor",
+            "connection_details":"A minimum of 4.7\u03bcF low ESR capacitor (ceramic, tantalum, or other low ESR type) should be connected between the V5 pin and SGND. An additional 0.1\u03bcF ceramic capacitor placed directly adjacent to the V5 and SGND pins is also recommended."
+          },
+          {
+            "component_name":"DRVCC Bypass Capacitor",
+            "connection_details":"A minimum of 4.7\u03bcF low ESR capacitor (ceramic, tantalum, or other low ESR type) should be connected between the DRVCC pin and the ground plane (SGND). A 1\u03bcF ceramic capacitor (X7R or X5R) placed immediately adjacent to the IC between the DRVCC pin and the ground plane is also recommended."
+          },
+          {
+            "component_name":"Small Signal Components",
+            "connection_details":"All small signal components, such as feedback resistors, compensation capacitors, and filter components for current sense pins, should be connected to SGND."
+          },
+          {
+            "component_name":"Exposed Pad",
+            "connection_details":"The exposed pad must be soldered to the PCB ground plane for proper thermal dissipation."
+          }
+        ],
+        "connectivity":"Connect all SGND pins and the exposed pad directly to the PCB ground plane. Ensure that bypass capacitors for V5 and DRVCC are connected between their respective pins and SGND, placed as close as possible to the IC.",
+        "detailed_description":"SGND (Pins 5, 16, 45 and Exposed Pad) is the ground reference for the LTC7871. It is crucial for proper operation and thermal performance. It serves as the common ground reference for all internal circuitry and external components.",
+        "functionality":"SGND serves as the primary ground reference for the IC. It is also used for connecting bypass capacitors for internal regulators (V5 and DRVCC) and for connecting small signal components and compensation networks. The exposed pad must be soldered to the PCB ground plane for thermal management.",
+        "precautions":"Ensure all SGND connections are low impedance and directly connected to the PCB ground plane. Keep the ground connections for high current paths separate from the small signal ground connections to minimize noise coupling. The exposed pad must be properly soldered to the ground plane for effective heat sinking."
+      },
+      "name":"SGND",
+      "pin_id":"[5, 16, 45, Exposed Pad]",
+      "type":"POWER"
+    },
+    "SNS1[-]":{
+      "description":"Negative Current Sense Comparator Inputs. The negative input of the current comparator is normally connected to the V LOW .",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Current Sense Element (Inductor DCR or R_SENSE)",
+            "connection_type":"Kelvin connection to the current sense element.",
+            "description":"The positive sense pins (SNSA1[+] and SNSD1[+]) are connected across the current sense element (either the inductor's DCR or an external R_SENSE resistor). The SNS1[\u2013] pin is connected to the other side of this sense element, which is typically the V LOW supply. This allows the voltage drop across the sense element, representing the inductor current, to be accurately measured."
+          },
+          {
+            "component_name":"V_LOW Supply",
+            "connection_type":"Direct connection to V_LOW.",
+            "description":"The SNS1[\u2013] pin is typically connected directly to the V_LOW supply rail. This connection is crucial for the proper operation of the current sensing circuit, especially when V_LOW is significantly different from other ground references."
+          },
+          {
+            "component_name":"Filter Components (e.g., R1, C1, R2, C2)",
+            "connection_type":"Series or parallel connection for filtering.",
+            "description":"Depending on the current sensing method (DCR or R_SENSE), filter components may be connected between the current sense element and the SNSA[+]/SNSD[+] pins. The SNS1[\u2013] pin itself may also have filter components connected to it, depending on the layout and noise considerations. These components help to condition the current sense signal."
+          }
+        ],
+        "connectivity":"For normal operation, the SNS1[\u2013] pin should be connected directly to the V LOW supply. For applications where V LOW may be significantly lower than the IC's internal supply voltages (e.g., when V HIGH is much greater than V LOW), this direct connection ensures proper biasing for the current sensing circuitry.",
+        "detailed_description":"The SNS1[\u2013] pin is the negative current sense comparator input for Phase 1. It serves as the reference point for current sensing in the first phase of the bidirectional buck or boost converter. The voltage difference between the positive sense pins (SNSA1[+] and SNSD1[+]) and this negative sense pin is used to measure the inductor current.",
+        "functionality":"The primary function of the SNS1[\u2013] pin is to provide the negative input for current sensing. In the typical application, it is connected directly to the V LOW supply. The voltage difference between the positive sense pins (SNSA1[+] and SNSD1[+]) and SNS1[\u2013] is amplified and used by the internal current comparators and amplifiers to monitor and regulate the inductor current.  The pin's functionality is inherently tied to the current sensing mechanism of the LTC7871.",
+        "precautions":[
+          "Do not float the SNS1[\u2013] pin. It must be connected directly to V LOW during normal operation.",
+          "Ensure that filter components, if used, are placed close to the IC and the current sense element to minimize noise coupling and maintain signal integrity.",
+          "The sense lines (from the current sense element to SNSA[+], SNSD[+], and SNS1[\u2013]) should be routed closely together and use a Kelvin connection to the sense element to minimize voltage drops due to trace resistance.",
+          "In multiphase operation, if multiple LTC7871 ICs are used, ensure that the SNS[\u2013] pins of all phases are connected to the same V LOW rail and that the shared connections are carefully considered for noise and impedance."
+        ]
+      },
+      "input_voltage":{
+        "max":60.0,
+        "units":"V"
+      },
+      "name":"SNS1[-]",
+      "pin_id":"18",
+      "type":"ANALOG"
+    },
+    "SNS2[-]":{
+      "description":"Negative Current Sense Comparator Inputs. The negative input of the current comparator is normally connected to the V LOW .",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Current Sense Resistor (RSENSE) or Inductor DCR",
+            "description":"The SNS2[\u2013] pin is connected to the low-potential side of the current sensing element for phase 2. This element is typically a low-value resistor (e.g., 1m\u03a9) placed in series with the inductor, or the intrinsic DC resistance (DCR) of the inductor itself, for high-current applications where efficiency is critical. The other side of this sensing element is connected to the SNSA2[+] and SNSD2[+] pins."
+          },
+          {
+            "component_name":"Inductor (L2)",
+            "description":"If DCR sensing is used, the SNS2[\u2013] pin is connected to the low-potential terminal of the inductor for phase 2."
+          },
+          {
+            "component_name":"Bypass Capacitor",
+            "description":"As per the layout guidelines, bypass capacitors should be placed close to the sense pins to filter noise. Although not directly connected to SNS2[\u2013] itself, appropriate filtering might be implemented on the positive sense pins which would indirectly affect the differential measurement."
+          }
+        ],
+        "connectivity":"In a schematic, the SNS2[\u2013] pin should be connected to the ground-side terminal of the current sensing element (e.g., the low-value sense resistor or the low-side connection of the inductor's DCR) for phase 2. It should be connected directly to the negative terminal of the current sense resistor.",
+        "detailed_description":"The SNS2[\u2013] pin is the negative current sense comparator input for channel 2 of the LTC7871. This pin is part of the differential current sensing mechanism used to monitor and regulate the inductor current in each phase of the multi-phase buck-boost converter. It is normally connected to the negative terminal of the current sense resistor (or the low side of the inductor's DCR for DCR sensing) for phase 2.",
+        "functionality":"The primary function of the SNS2[\u2013] pin is to serve as the negative input for the current sense comparator for the second phase. This, in conjunction with the positive sense pins (SNSA2[+] and SNSD2[+]), allows the LTC7871 to measure the inductor current. The voltage difference between the positive and negative sense pins is amplified and compared to internal thresholds to implement current mode control and protection.",
+        "precautions":[
+          "The SNS[\u2013] pins are not high impedance and should be connected directly to the negative terminal of the current sense element or the low side of the inductor.",
+          "Care must be taken not to float these pins during normal operation.",
+          "Parasitic resistance in the sense traces can degrade current sense accuracy. Kelvin connections are recommended for the sense traces to the current sense element.",
+          "Filter components for the positive sense pins (SNSA[+]/SNSD[+]) should be placed close to the IC pins.",
+          "The sense lines should run close together to a Kelvin connection underneath the current sense element to minimize noise pickup."
+        ]
+      },
+      "input_voltage":{
+        "max":60.0,
+        "units":"V"
+      },
+      "name":"SNS2[-]",
+      "pin_id":"21",
+      "type":"ANALOG"
+    },
+    "SNS3[-]":{
+      "description":"Negative Current Sense Comparator Inputs. The negative input of the current comparator is normally connected to the V LOW .",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"V_LOW Supply",
+            "connection_details":"Directly connected to the SNS3[\u2013] pin."
+          },
+          {
+            "component_name":"Current Sense Element (Phase 3)",
+            "connection_details":"The negative terminal of the current sense element for phase 3 is connected to the SNS3[\u2013] pin.  This element could be a low-value sense resistor or the DCR of the inductor for that phase."
+          },
+          {
+            "component_name":"Filter Components (if applicable)",
+            "connection_details":"Depending on the sensing method (DCR or sense resistor) and layout considerations, filter components like capacitors might be connected between the sense pins and ground or other points to ensure signal integrity. These should be placed close to the IC pins."
+          }
+        ],
+        "connectivity":"In a typical schematic, the SNS3[\u2013] pin should be connected directly to the V_LOW supply rail.  It should also be connected to the negative terminal of the current sense element (e.g., a sense resistor or the DCR of the inductor) for phase 3.  Care should be taken to ensure that parasitic resistances and inductances in the connection are minimized.",
+        "detailed_description":"The SNS3[\u2013] pin is the negative current sense comparator input for phase 3. The LTC7871 uses these pins to monitor and regulate inductor current in both buck and boost modes.  It is normally connected to the V_LOW supply in a typical application.",
+        "functionality":"The primary function of the SNS3[\u2013] pin is to serve as the negative input for the current sense comparator of the third phase. This allows the LTC7871 to accurately measure the current flowing through the inductor in that phase.",
+        "precautions":[
+          "Do not leave the SNS3[\u2013] pin floating. It must be connected to a valid potential, typically V_LOW.",
+          "Minimize parasitic resistances and inductances in the traces connecting to the SNS3[\u2013] pin and the current sense element. This is crucial for accurate current sensing, especially with low-value sense elements.",
+          "Ensure filter components, if used, are placed as close as possible to the IC pins to prevent noise coupling.",
+          "The voltage on this pin should remain within the absolute maximum ratings specified in the datasheet."
+        ]
+      },
+      "input_voltage":{
+        "max":60.0,
+        "units":"V"
+      },
+      "name":"SNS3[-]",
+      "pin_id":"24",
+      "type":"ANALOG"
+    },
+    "SNS4[-]":{
+      "description":"Negative Current Sense Comparator Inputs. The negative input of the current comparator is normally connected to the V LOW .",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Current Sense Element (R_SENSE or Inductor DCR)",
+            "description":"The negative terminal of the current sense element is connected to the SNS[\u2013] pin. This provides the negative reference for the current comparison."
+          },
+          {
+            "component_name":"V LOW Rail / Ground",
+            "description":"The SNS[\u2013] pin is connected to the V LOW rail or ground, depending on the operating voltage range. This connection ensures the correct bias for the current comparator."
+          },
+          {
+            "component_name":"Filter Components (Capacitors)",
+            "description":"Capacitors are typically placed close to the IC pins to filter noise from the sense signal. These capacitors are connected between the SNS[\u2013] pin and ground."
+          }
+        ],
+        "connectivity":"The SNS[\u2013] pins should be connected directly to the V LOW rail or ground, depending on the operating voltage. They are typically connected to the negative terminal of the current sense resistor or the DCR sensing point.  Care must be taken not to float these pins.",
+        "detailed_description":"The SNS[\u2013] pins are the negative current sense comparator inputs. In normal operation, these pins are typically connected to the common ground of the current sense element. They are part of the current sensing circuitry used to monitor the inductor current in each phase.",
+        "functionality":"The SNS[\u2013] pins are the negative input to the current comparator. In normal operation, they are connected to the V LOW rail or ground when V LOW is at or below the voltage of the EXTVCC switchover threshold.  For V LOW voltages greater than V5, the current comparators derive their bias currents directly from the SNS[\u2013] pins.",
+        "precautions":"Care must be taken not to float the SNS[\u2013] pins during normal operation. Filter components should be placed close to the LTC7871, and the sense lines should run close together to a Kelvin connection underneath the current sense element. Parasitic resistance, capacitance, and inductance can degrade the current sense signal integrity. For V LOW voltages greater than V5, the SNS[\u2013] pins should be connected directly to V LOW."
+      },
+      "input_voltage":{
+        "max":60.0,
+        "units":"V"
+      },
+      "name":"SNS4[-]",
+      "pin_id":"57",
+      "type":"ANALOG"
+    },
+    "SNS5[-]":{
+      "description":"Negative Current Sense Comparator Inputs. The negative input of the current comparator is normally connected to the V LOW .",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"V_LOW rail",
+            "description":"The negative terminal of the V_LOW power supply rail."
+          },
+          {
+            "component_name":"SNSA5[+]",
+            "description":"The positive AC current sense comparator input for phase 5."
+          },
+          {
+            "component_name":"SNSD5[+]",
+            "description":"The positive DC current sense comparator input for phase 5."
+          }
+        ],
+        "connectivity":"This pin should be connected to the V_LOW rail. It is also the common negative input for the current sense comparators of all six phases.",
+        "detailed_description":"The SNS5[\u2013] pin is the negative current sense comparator input for phase 5. This pin is part of the current sensing circuitry used to monitor and regulate the inductor current. It is normally connected to the V_LOW rail.",
+        "functionality":"This pin serves as the negative input for the current sense comparator in phase 5. It is crucial for the operation of the current control loops, allowing the IC to accurately monitor and regulate the inductor current in both buck and boost modes.",
+        "precautions":"Care must be taken not to float this pin during normal operation. Filter components should be placed close to the IC, and sense lines should run close together to a Kelvin connection underneath the current sense element to maintain signal integrity."
+      },
+      "input_voltage":{
+        "max":60.0,
+        "units":"V"
+      },
+      "name":"SNS5[-]",
+      "pin_id":"60",
+      "type":"ANALOG"
+    },
+    "SNS6[-]":{
+      "description":"Negative Current Sense Comparator Inputs. The negative input of the current comparator is normally connected to the V LOW .",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Current Sensing Element",
+            "connection_details":"Connects to the low side of the current sensing element (e.g., sense resistor or inductor DCR) for the sixth phase. The positive terminals (SNSA6[+] and SNSD6[+]) connect to the high side of the same sensing element."
+          },
+          {
+            "component_name":"SGND (Signal Ground)",
+            "connection_details":"The data sheet specifies that the negative input of the current comparator is normally connected to V_LOW. However, in practice and for optimal noise immunity, SGND is the preferred connection point for the ground side of the current sensing components and their associated filtering components.  Therefore, it's recommended to connect the SNS6[\u2013] pin to SGND, ensuring that the current sensing element is also connected to SGND."
+          },
+          {
+            "component_name":"Filter Components (R1, C1, R2, C2)",
+            "connection_details":"In DCR sensing applications, filtering is achieved using RC networks connected between the positive sense pins and the negative sense pin (SNS6[\u2013]).  These RC networks (typically R1-C1 for SNSA6[+] and R2-C2 for SNSD6[+]) are connected such that the negative terminal of these filter capacitors connects to the SNS6[\u2013] pin (SGND)."
+          }
+        ],
+        "connectivity":"Connect this pin to the negative terminal of the current sensing element (e.g., sense resistor or inductor DCR) for the sixth phase. In a typical application, it is connected to the low side of the sense resistor or the low potential point of the inductor's winding resistance (DCR).",
+        "detailed_description":"The SNS6[\u2013] pin is the negative current sense comparator input for the sixth phase of the LTC7871. This pin is normally connected to the negative terminal of the current sense element (e.g., sense resistor or inductor DCR). The voltage difference between the positive sense pins (SNSA6[+] and SNSD6[+]) and this negative sense pin is used to determine the inductor current.",
+        "functionality":"The primary function of the SNS6[\u2013] pin is to serve as the negative input for the current sense comparators and amplifiers for the sixth phase. It is connected to the low side of the current sensing element.  It's critical to connect this pin to the low side of the sense element to accurately measure the current flowing through it.",
+        "precautions":[
+          "Ensure a Kelvin connection for the current sensing element to minimize the impact of trace resistance on the current measurement.",
+          "Keep the filter components (capacitors) as close as possible to the IC pins (SNSA6[+], SNSD6[+], and SNS6[\u2013]) to minimize noise coupling.",
+          "Route the sense lines close together to minimize induced noise.",
+          "Avoid connecting the SNS6[\u2013] pin directly to high current switching nodes. It should be connected to a clean ground reference (SGND).",
+          "Ensure the voltage at this pin stays within the specified Absolute Maximum Ratings (\u20130.3V to 60V)."
+        ]
+      },
+      "input_voltage":{
+        "max":60.0,
+        "units":"V"
+      },
+      "name":"SNS6[-]",
+      "pin_id":"63",
+      "type":"ANALOG"
+    },
+    "SNSA1[+]":{
+      "description":"AC Positive Current Sense Comparator Inputs. These inputs amplify the AC portion of the current signal to the IC\u2019s current comparator.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Filter Network (R1, C1)",
+            "description":"In DCR sensing, a resistor (R1) and capacitor (C1) network is used to filter the current sense signal. The time constant (R1*C1) is designed to be one-fifth of the inductor's L/DCR ratio. In R_SENSE sensing, R1, R2, and C1 form part of the current signal path."
+          },
+          {
+            "component_name":"Inductor (L)",
+            "description":"The inductor's characteristics (L and DCR) influence the design of the current sensing filter network."
+          },
+          {
+            "component_name":"Current Sense Resistor (R_SENSE)",
+            "description":"In R_SENSE sensing applications, this resistor is used to convert current to a voltage signal that is then sensed by the SNSA1[+] pin."
+          }
+        ],
+        "connectivity":"It should be connected to the filtered current sense signal path. Specifically, in DCR sensing, it connects to a filter with an R1\u2022C1 time constant that is one-fifth of the inductor's L/DCR. In R_SENSE sensing, it connects to the R1, R2, and C1 network.",
+        "detailed_description":"The SNSA1[+] pin is the AC Positive Current Sense Comparator Input for Channel 1. It is designed to amplify the AC portion of the current signal, contributing to the IC's current comparator and current sense amplifier functions.",
+        "functionality":"This pin serves as an input for sensing the alternating current component, which is crucial for the accurate operation of the current mode control architecture.",
+        "precautions":"Filter components must be placed close to the IC. The sense lines should run close together to a Kelvin connection underneath the current sense element to maintain signal integrity. Parasitic resistance, capacitance, and inductance can degrade the current sense signal and affect current limit accuracy. Ensure the time constant of the R1\u2022C1 filter is properly matched to the inductor's L/DCR characteristics. In R_SENSE applications, R2 should be approximately 10 times smaller than R1 to minimize the impact of the inductor's DCR. The bias current at this pin is less than 1\u00b5A, but care should be taken to minimize its effect on accuracy."
+      },
+      "input_voltage":{
+        "max":60.0,
+        "units":"V"
+      },
+      "name":"SNSA1[+]",
+      "pin_id":"17",
+      "type":"ANALOG"
+    },
+    "SNSA2[+]":{
+      "description":"AC Positive Current Sense Comparator Inputs. These inputs amplify the AC portion of the current signal to the IC\u2019s current comparator.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Inductor",
+            "connection_details":"Connected to a filtered node that represents the AC component of the inductor current.",
+            "description":"The current flowing through the inductor is sensed. The connection point is typically after the inductor or its sense resistor."
+          },
+          {
+            "component_name":"Filter components (e.g., resistors and capacitors)",
+            "connection_details":"Connected in a network with SNSD2[+] and SNS2[-] pins to form an AC current sense path.",
+            "description":"Passive components are used to filter the current sense signal. These components, along with the inductor's L/DCR, form a time constant that is matched to ensure proper current sensing."
+          }
+        ],
+        "connectivity":"It should be connected to the AC portion of the current sense signal, typically at a point after a filter network designed to match the inductor's L/DCR time constant. It is part of a differential current sensing setup with the SNS2[-] pin.",
+        "detailed_description":"The SNSA2[+] pin is an AC Positive Current Sense Comparator Input for the second phase (channel 2). These inputs amplify the AC portion of the current signal to the IC's current comparator, which is crucial for accurate current sensing and regulation.",
+        "functionality":"This pin serves as an input for the AC component of the current sense signal. It works in conjunction with other sense pins (SNSD2[+] and SNS2[-]) and internal circuitry to provide the current sense information to the control loops.",
+        "precautions":"Proper layout is critical to ensure signal integrity. The sense lines should be routed close together as a differential pair and Kelvin connections should be used at the sense element. Parasitic resistances and inductances in the sense lines can degrade the accuracy of current sensing. The filter network connected to this pin must be carefully designed to match the inductor's time constant. Noise coupling to these sensitive pins should be minimized."
+      },
+      "input_voltage":{
+        "max":60.0,
+        "units":"V"
+      },
+      "name":"SNSA2[+]",
+      "pin_id":"22",
+      "type":"ANALOG"
+    },
+    "SNSA3[+]":{
+      "description":"AC Positive Current Sense Comparator Inputs. These inputs amplify the AC portion of the current signal to the IC\u2019s current comparator.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Current Sense Element (e.g., R_SENSE or Inductor DCR)",
+            "connection_details":"Connects to the positive side of the current sense element.",
+            "description":"This is the component through which the current to be measured flows. SNSA3[+] connects to one side of this element, likely through a filter network."
+          },
+          {
+            "component_name":"Filter Network Components (e.g., R1, C1)",
+            "connection_details":"Connects between the current sense element and the SNSA3[+] pin, forming a filtered path.",
+            "description":"As described in the datasheet, a filter network (typically a resistor and capacitor) is connected between the sense pins and the IC to shape the current sense signal and improve noise immunity. For SNSA3[+], this network would be specific to channel 3."
+          }
+        ],
+        "connectivity":"The SNSA3[+] pin should be connected to the positive terminal of the current sense element for channel 3. It is part of a differential sensing arrangement. The schematic connection will involve a filter network, as described in the 'Applications Information' section regarding 'Inductor DCR Sensing' or 'Sensing Using an R_SENSE Resistor'.",
+        "detailed_description":"The SNSA3[+] pin is an AC Positive Current Sense Comparator Input. This pin amplifies the AC portion of the current signal to the IC's current comparator and current sense amplifiers, specifically for channel 3.",
+        "functionality":"This pin serves as an input for current sensing. It is used in conjunction with other sense pins (SNSD3[+] and SNS3[\u2013]) to accurately monitor the inductor current in channel 3. The amplification of the AC portion of the current signal is crucial for the current mode control architecture.",
+        "precautions":[
+          "The sense lines (SNSA3[+], SNSD3[+], and SNS3[\u2013]) should be routed close together with minimal spacing to minimize noise pickup. Kelvin connections to the current sense element are critical.",
+          "Filter components for the sense pins must be placed as close as possible to the IC pins to ensure optimal performance and noise immunity.",
+          "Parasitic resistance, capacitance, and inductance in the sense path can degrade signal integrity and affect current limit accuracy. Careful PCB layout is essential.",
+          "The input bias current for this pin is very low (<1\u00b5A), but care should still be taken to minimize leakage paths."
+        ]
+      },
+      "input_voltage":{
+        "max":60.0,
+        "units":"V"
+      },
+      "name":"SNSA3[+]",
+      "pin_id":"23",
+      "type":"ANALOG"
+    },
+    "SNSA4[+]":{
+      "description":"AC Positive Current Sense Comparator Inputs. These inputs amplify the AC portion of the current signal to the IC\u2019s current comparator.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Inductor Current Sense Element",
+            "connection_details":"Connects to the positive sensing terminal of the inductor current sensing element (either DCR or R_SENSE). This connection, along with SNSD4[+] and SNS4[-], forms a differential current sensing network."
+          },
+          {
+            "component_name":"Filter Network (R1, C1)",
+            "connection_details":"Typically connected to a filter network (e.g., R1 and C1) which sets the time constant for sensing the AC portion of the current. The values of R1 and C1 are chosen to match the inductor's L/DCR time constant or to provide appropriate bandwidth for R_SENSE applications."
+          }
+        ],
+        "connectivity":"Connect to the AC component of the inductor current sensing element.",
+        "detailed_description":"SNSA4[+] (Pin 58) is an AC Positive Current Sense Comparator Input. This pin amplifies the AC portion of the current signal to the IC\u2019s current comparator and current sense amplifiers. It is one of six such pins, corresponding to the six phases of operation.",
+        "functionality":"This pin is part of the current sensing mechanism. It amplifies the AC component of the inductor current. Together with SNSD4[+] and SNS4[-], it provides input to the IC\u2019s current comparators and current sense amplifiers for accurate current monitoring and regulation.",
+        "precautions":"Ensure the filter components (if used) are placed close to the IC pins. The sense lines should run close together to a Kelvin connection underneath the current sense element to minimize noise coupling and ensure signal integrity. Parasitic resistance, capacitance, and inductance in the sense lines can degrade performance.  Ensure the AC current sense signal has sufficient ripple (e.g., at least 2mV ripple on the current sense signal or equivalent 10mV between SNSA and SNS- pins) for proper operation, especially in low ripple current conditions."
+      },
+      "input_voltage":{
+        "max":60.0,
+        "units":"V"
+      },
+      "name":"SNSA4[+]",
+      "pin_id":"58",
+      "type":"ANALOG"
+    },
+    "SNSA5[+]":{
+      "description":"AC Positive Current Sense Comparator Inputs. These inputs amplify the AC portion of the current signal to the IC\u2019s current comparator.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":"This pin is part of the current sensing circuit for channel 5. In a typical application using DCR sensing, it would be connected to a filter network (e.g., R1-C1) that interfaces with the inductor's DCR. In R_SENSE configurations, it's connected to a network (e.g., R1-C1) that samples the voltage across the sense resistor.",
+        "connectivity":"It should be connected to the AC current sense path for channel 5, typically through a filter network as described in the 'APPLICATIONS INFORMATION' section regarding inductor DCR sensing or R_SENSE resistor sensing.",
+        "detailed_description":"SNSA5[+] is one of the AC Positive Current Sense Comparator Inputs for channel 5. These inputs amplify the AC portion of the current signal to the IC's current comparator, contributing to accurate current sensing and low jitter performance.",
+        "functionality":"This pin serves as an input for the AC component of the current sensing mechanism for channel 5. It works in conjunction with other sense pins (SNSD5[+] and SNS5[\u2013]) to provide accurate current monitoring and regulation.",
+        "precautions":"Proper layout is critical for accurate current sensing. The sense lines should be routed closely together and Kelvin connections should be made underneath the current sense element. Filter components should be placed close to the IC pins to prevent noise coupling. The data sheet specifies filter time constants (R1*C1 and R2*C2) that should be matched to the inductor's L/DCR for optimal performance."
+      },
+      "input_voltage":{
+        "max":60.0,
+        "units":"V"
+      },
+      "name":"SNSA5[+]",
+      "pin_id":"59",
+      "type":"ANALOG"
+    },
+    "SNSA6[+]":{
+      "description":"AC Positive Current Sense Comparator Inputs. These inputs amplify the AC portion of the current signal to the IC\u2019s current comparator.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Filter Network (R1, C1)",
+            "description":"A resistor (R1) and capacitor (C1) network is typically connected from the current sense element to SNSA6[+]. The values of R1 and C1 are chosen to match the inductor's L/DCR time constant, with R1 typically in the range of kOhms and C1 in the range of nF or \u00b5F. For example, for a 10\u00b5H inductor with 2m\u03a9 DCR, if C1 is 0.1\u00b5F, R1 would be 49.9k\u03a9."
+          },
+          {
+            "component_name":"Current Sense Element",
+            "description":"This is the component used to measure inductor current, which can be the inductor's DCR or an external sense resistor (RSENSE). The voltage across this element is the signal that is filtered and presented to the SNSA6[+] pin."
+          }
+        ],
+        "connectivity":"SNSA6[+] should be connected to the AC current sense path of phase 6. This typically involves a filter network (e.g., R1-C1) connected between the inductor current sense point and this pin. The filter time constant (R1*C1) should be matched to the inductor's L/DCR (Time Constant = L/DCR).",
+        "detailed_description":"SNSA6[+] (Pin 64) is the AC Positive Current Sense Comparator Input for Phase 6. This pin amplifies the AC portion of the current signal to the IC\u2019s current comparator and current sense amplifiers, contributing to accurate current monitoring and regulation.",
+        "functionality":"The primary function of SNSA6[+] is to sense the AC component of the inductor current for phase 6. This signal is processed internally to provide a response that enhances the signal-to-noise ratio for current sensing.",
+        "precautions":[
+          "Ensure the filter components (R1, C1) are placed close to the IC pins.",
+          "Route the sense lines (SNSA6[+], SNSD6[+], and SNS6[\u2013]) together with minimum trace spacing to minimize noise pickup.",
+          "Care must be taken to avoid floating this pin. Connect it to the current sense path.",
+          "The AC sense signal ripple voltage on the current sense element should be at least 2mV for duty cycles less than 40% to maintain signal integrity.",
+          "In multiphase applications where multiple LTC7871s are paralleled, the SNSA6[+] pins for each IC should ideally be tied together to ensure proper current sharing, though local compensation components should be used per IC."
+        ]
+      },
+      "input_voltage":{
+        "max":60.0,
+        "units":"V"
+      },
+      "name":"SNSA6[+]",
+      "pin_id":"64",
+      "type":"ANALOG"
+    },
+    "SNSD1[+]":{
+      "description":"DC Positive Current Sense Comparator Inputs. These inputs amplify the DC portion of the current signal to the IC\u2019s current comparators and current sense amplifiers.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Current Sense Element",
+            "connection":"Positive terminal",
+            "details":"This can be the DCR of an inductor or a dedicated sense resistor for Phase 1."
+          },
+          {
+            "component_name":"Filter Network (R1, C1)",
+            "connection":"Connects between the current sense element and the SNSD1[+] pin.",
+            "details":"R1 and C1 form a filter network to shape the current sense signal. The time constant R1*C1 should be matched to the inductor's L/DCR characteristics."
+          }
+        ],
+        "connectivity":"Connect this pin to the positive terminal of the current sense element (e.g., a sense resistor or the DCR of an inductor) for Phase 1. It should be connected through a filter network (R1, C1) to the controller IC.",
+        "detailed_description":"SNSD1[+] is one of the positive current sense pins for Phase 1. These inputs amplify the DC portion of the current signal to the IC\u2019s current comparators and current sense amplifiers.  It is part of the unique architecture that enhances the signal-to-noise ratio, enabling low-noise operation and excellent current matching between phases.",
+        "functionality":"This pin functions as a positive input for the DC current sense amplifier for Phase 1.",
+        "precautions":"The parasitic resistance, capacitance, and inductance in the sense lines can degrade signal integrity. Ensure filter components are placed close to the IC and sense lines are routed together with minimal spacing. Care must be taken to avoid floating this pin. The voltage on this pin should not exceed the Absolute Maximum Rating of 60V."
+      },
+      "input_voltage":{
+        "max":60.0,
+        "units":"V"
+      },
+      "name":"SNSD1[+]",
+      "pin_id":"19",
+      "type":"ANALOG"
+    },
+    "SNSD2[+]":{
+      "description":"DC Positive Current Sense Comparator Inputs. These inputs amplify the DC portion of the current signal to the IC\u2019s current comparators and current sense amplifiers.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Current Sensing Element (Sense Resistor or Inductor DCR)",
+            "description":"This is the component across which the current is measured. For a sense resistor, it's a low-value resistor in series with the inductor. For inductor DCR sensing, it's the winding resistance of the inductor itself. SNSD2[+] connects to the positive terminal of this element."
+          },
+          {
+            "component_name":"Filter Network (R2, C2)",
+            "description":"A filter network, typically consisting of a resistor (R2) and a capacitor (C2), is connected between the current sensing element and the SNSD2[+] pin. The values of R2 and C2 are chosen based on the inductor's characteristics (L and DCR) and the desired time constants to ensure accurate DC current sensing."
+          }
+        ],
+        "connectivity":"It should be connected to the positive terminal of the current sensing element (e.g., sense resistor or inductor DCR) for the second phase. Proper Kelvin connection is crucial for accurate sensing. The datasheet Figure 3 and Figure 4 illustrate example connections for DCR and R_SENSE sensing, respectively, showing how SNSD2[+] is connected via a filter network (R2, C2) to the current sensing element.",
+        "detailed_description":"The SNSD2[+] pin is one of the positive current sense comparator inputs for the second phase of the six-phase controller. These inputs amplify the DC portion of the current signal to the IC\u2019s current comparators and current sense amplifiers. It works in conjunction with SNS2[\u2013] and SNSA2[+] to accurately measure the inductor current.",
+        "functionality":"The primary function of SNSD2[+] is to sense the DC component of the inductor current for the second phase. It is part of the current sensing mechanism, working with other sense pins to provide feedback to the controller for accurate current regulation and monitoring. It contributes to the overall signal-to-noise ratio enhancement provided by the LTC7871's current sensing architecture.",
+        "precautions":"It is critical to ensure a Kelvin connection to the current sensing element to minimize errors caused by trace resistance. The filter components (R2, C2) should be placed as close as possible to the IC's SNSD2[+] pin. Proper PCB layout is essential to prevent noise coupling onto the sense lines, as parasitic resistances and capacitances can degrade current sensing accuracy. The input bias current on this pin is very low (less than 1\u00b5A), but the pin itself is not a high impedance input and should be connected directly to the sensing element or its filter network."
+      },
+      "input_voltage":{
+        "max":60.0,
+        "units":"V"
+      },
+      "name":"SNSD2[+]",
+      "pin_id":"20",
+      "type":"ANALOG"
+    },
+    "SNSD3[+]":{
+      "description":"DC Positive Current Sense Comparator Inputs. These inputs amplify the DC portion of the current signal to the IC\u2019s current comparators and current sense amplifiers.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Current Sensing Element (e.g., Sense Resistor or Inductor DCR)",
+            "connection_details":"Connected to the positive terminal of the current sensing element for phase 3. The other end of the sensing element connects to SNS3[-]."
+          },
+          {
+            "component_name":"Filter Components (e.g., R1, C1)",
+            "connection_details":"As per the application notes and design examples, filter components may be connected between SNSD3[+] and SNS3[-] to shape the current sense signal and improve signal-to-noise ratio. Specifically, a filter network with a time constant of one-fifth of the L/DCR of the inductor is often used."
+          }
+        ],
+        "connectivity":"This pin should be connected to the positive terminal of the current sensing element (e.g., a sense resistor or inductor DCR) for channel 3. It is part of a differential sensing pair, requiring a connection to the corresponding negative sense pin (SNS3[-]).",
+        "detailed_description":"SNSD3[+] (Pin 25) is one of the six DC Positive Current Sense Comparator Inputs. These inputs amplify the DC portion of the current signal to the IC's current comparators and current sense amplifiers, allowing for accurate current monitoring and regulation.",
+        "functionality":"The primary function is to sense the DC current. It is used in conjunction with SNS3[-] and SNSA3[+] pins to provide the current sense signal to the internal circuitry. The DC current sensing is amplified and used by the IC's current comparators and current sense amplifiers.",
+        "precautions":"The sense lines should be routed close together to a Kelvin connection underneath the current sense element. Filter components must be placed close to the LTC7871. Parasitic resistance, capacitance, and inductance in the sense path can degrade signal integrity and affect current limit accuracy. Care must be taken not to float this pin during normal operation. The operating input voltage range for this pin is 0V to 60V."
+      },
+      "input_voltage":{
+        "max":60.0,
+        "units":"V"
+      },
+      "name":"SNSD3[+]",
+      "pin_id":"25",
+      "type":"ANALOG"
+    },
+    "SNSD4[+]":{
+      "description":"DC Positive Current Sense Comparator Inputs. These inputs amplify the DC portion of the current signal to the IC\u2019s current comparators and current sense amplifiers.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Current Sense Element (e.g., R_SENSE or inductor DCR)",
+            "connection_details":"Connect to the positive terminal of the current sense element. The negative terminal of the current sense element connects to the SNS4[-] pin."
+          },
+          {
+            "component_name":"Filter Components (R1, C1, R2, C2, etc.)",
+            "connection_details":"Filter components are typically placed close to the IC pins (SNSD4[+] and SNS4[-]) to prevent noise coupling. The specific configuration depends on whether DCR sensing or R_SENSE sensing is used, as detailed in the Applications Information section regarding 'Inductor DCR Sensing' and 'Sensing Using an R_SENSE Resistor'."
+          },
+          {
+            "component_name":"SNS4[-]",
+            "connection_details":"This pin shares the negative current sense input with other channels. It is typically connected directly to the V_LOW rail."
+          }
+        ],
+        "connectivity":"Connect to the positive terminal of the current sense element (e.g., a sense resistor or inductor DCR) for channel 4. It is also part of the input to an internal DC amplifier. Care must be taken to place filter components close to the IC and run sense lines close together to a Kelvin connection under the current sense element.",
+        "detailed_description":"SNSD4[+] is a positive DC current sense comparator input for channel 4. These inputs amplify the DC portion of the current signal to the IC's current comparators and current sense amplifiers.",
+        "functionality":"DC Positive Current Sense Comparator Input.",
+        "precautions":[
+          "The operating input voltage range is 0V to 60V.",
+          "The positive sense pins (including SNSD4[+]) are high impedance with input bias currents of less than 1\u03bcA.",
+          "The SNS[-] pin (connected to SNS4[-]) is not a high impedance pin and should be connected directly to V_LOW.",
+          "Filter components and sense lines should be placed carefully to maintain signal integrity and prevent noise coupling.",
+          "Parasitic resistance, capacitance, and inductance can degrade the current sense signal and make the programmed current limit unpredictable."
+        ]
+      },
+      "input_voltage":{
+        "max":60.0,
+        "units":"V"
+      },
+      "name":"SNSD4[+]",
+      "pin_id":"56",
+      "type":"ANALOG"
+    },
+    "SNSD5[+]":{
+      "description":"DC Positive Current Sense Comparator Inputs. These inputs amplify the DC portion of the current signal to the IC\u2019s current comparators and current sense amplifiers.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Current Sense Element",
+            "description":"This is the component used to measure current, such as a low-value sense resistor (R_SENSE) or the DC resistance (DCR) of an inductor. It is connected between the point of current measurement and ground or a reference voltage."
+          },
+          {
+            "component_name":"Filtering Components (R1, C1, R2, C2)",
+            "description":"These are external components used to filter the current sense signal. R1 and C1 form a low-pass filter for the AC component of the current, while R2 and C2 filter the DC component. The values are chosen based on the inductor's characteristics (L and DCR) and desired filter time constants, as detailed in the 'APPLICATIONS INFORMATION' section of the datasheet."
+          }
+        ],
+        "connectivity":"The SNSD5[+] pin should be connected to the positive terminal of the current sense element (e.g., a sense resistor or the DCR of an inductor) along with the SNSA5[+] pin. Both pins should be connected through appropriate filtering networks (R1/C1 and R2/C2 as described in the datasheet) to the current sense element. The negative sense pin (SNS5[-]) should be connected to the other terminal of the current sense element, typically to V_LOW.",
+        "detailed_description":"SNSD5[+] is one of the six positive DC current sense comparator inputs on the LTC7871. These inputs are designed to amplify the DC portion of the current signal, feeding it into the IC's internal current comparators and current sense amplifiers. This allows for accurate monitoring and regulation of bidirectional current flow.",
+        "functionality":"The primary function of SNSD5[+] is to sense the DC component of the current. In conjunction with SNS5[-] and SNSA5[+], it forms part of the sophisticated current sensing mechanism that supports the LTC7871's advanced current mode control.",
+        "precautions":"Proper PCB layout is critical for SNSD5[+] and its associated sense lines. The sense lines should be routed closely together, ideally as a Kelvin connection, to the current sense element. Filtering components must be placed very close to the IC pins to prevent noise coupling. Parasitic resistance, capacitance, and inductance in the sense lines can degrade signal integrity and affect current limit accuracy."
+      },
+      "input_voltage":{
+        "max":60.0,
+        "units":"V"
+      },
+      "name":"SNSD5[+]",
+      "pin_id":"61",
+      "type":"ANALOG"
+    },
+    "SNSD6[+]":{
+      "description":"DC Positive Current Sense Comparator Inputs. These inputs amplify the DC portion of the current signal to the IC\u2019s current comparators and current sense amplifiers.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Current Sensing Element (Inductor DCR or R_SENSE)",
+            "description":"This is the component through which the phase 6 inductor current flows. The voltage drop across this element is used to sense the current. It is connected between the SNSD6[+] and SNS6[-] pins (or rather, through the filter network to SNSD6[+] and directly to SNS6[-])."
+          },
+          {
+            "component_name":"Filter Resistor (R2)",
+            "description":"Typically part of an RC filter network. This resistor is connected in series with the SNSD6[+] pin and the current sensing element (or its connection point). Its value is chosen in conjunction with C2 to match the L/DCR time constant of the inductor or to optimize the AC current sensing path."
+          },
+          {
+            "component_name":"Filter Capacitor (C2)",
+            "description":"Typically part of an RC filter network. This capacitor is connected from the SNSD6[+] pin to ground (or the SNS6[-] connection point). Its value is chosen in conjunction with R2 to shape the current signal and improve the signal-to-noise ratio."
+          }
+        ],
+        "connectivity":"The SNSD6[+] pin should be connected to the positive terminal of the current sensing element (either DCR of the inductor or an external R_SENSE resistor) for phase 6. A filter network, typically consisting of a resistor (R2) and a capacitor (C2), is often placed between this pin and the sensing element to shape the current signal for optimal performance and noise reduction. The other end of the sensing element is connected to the SNS6[-] pin. The filter components should be placed close to the LTC7871 IC.",
+        "detailed_description":"The SNSD6[+] pin is one of the positive current sense comparator inputs for the sixth phase. These inputs are designed to amplify the DC component of the current signal, providing the necessary input for the IC's current comparators and current sense amplifiers. This amplification is crucial for accurate current monitoring and regulation across all six phases of the bidirectional buck or boost operation.",
+        "functionality":"This pin serves as a positive input for the DC current sense amplifier and comparator for phase 6. It is part of a differential sensing mechanism along with the SNS6[-] pin to measure the current flowing through the inductor in phase 6.",
+        "precautions":"The input bias current for this pin is very low (<1\u00b5A), but it is not a high impedance pin. Care must be taken to ensure proper Kelvin connections to the current sensing element. The filter components (R2, C2) should be placed as close as possible to the IC pins to minimize noise coupling. The sense lines (SNSD6[+], SNS6[-]) should be routed close together to maintain signal integrity. Floating this pin can lead to unpredictable behavior."
+      },
+      "input_voltage":{
+        "max":60.0,
+        "units":"V"
+      },
+      "name":"SNSD6[+]",
+      "pin_id":"62",
+      "type":"ANALOG"
+    },
+    "SS":{
+      "description":"Soft-Start Input. The voltage ramp rate at this pin sets the voltage ramp rate of the regulated voltage. A capacitor to ground accomplishes soft-start. This pin has a 1\u00b5A pull-up current.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_description":"External capacitor for soft-start timing.",
+            "connection_details":"Connected between the SS pin and SGND. The value of this capacitor sets the soft-start time (t_SOFTSTART = 1.2 * C_SS / 1\u00b5A)."
+          }
+        ],
+        "connectivity":"Connect an external capacitor from the SS pin to SGND to implement a soft-start function. The capacitor value determines the soft-start time.",
+        "detailed_description":"The SS (Soft-Start) pin is used to control the startup ramp rate of the regulated voltage (V_LOW). It works by connecting an external capacitor to ground, which is charged by an internal 1\u00b5A pull-up current. This creates a voltage ramp on the SS pin. The LTC7871 regulates the VFB_LOW pin to the lowest of three non-inverting inputs: the internal soft-start ramp, the SS pin voltage, or the internal 1.2V reference. This allows for a smooth rise of the V_LOW voltage from zero to its final set value.",
+        "functionality":"The SS pin primarily controls the soft-start process for V_LOW regulation. In boost mode, it also influences the start-up, though its effectiveness is limited until the output voltage reaches the input voltage level. When the RUN pin is pulled low or V5 drops below its UVLO threshold, the SS pin is internally pulled low by a MOSFET. External circuitry can be added to discharge the soft-start capacitor during fault conditions.",
+        "precautions":"In boost mode, it is recommended to start in buck mode first. If the controller is shut down (RUN pin low) or V5 enters undervoltage lockout, the SS pin is pulled low. Ensure that external circuitry properly discharges the soft-start capacitor during fault conditions if needed. For applications requiring a clean start-up after a UV_HIGH fault is cleared, a resistor divider on the RUN pin off V_HIGH can be used."
+      },
+      "input_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"UP",
+        "pull_value":{
+          "nom":1.0,
+          "units":"uA"
+        },
+        "type":"CURRENT"
+      },
+      "name":"SS",
+      "pin_id":"1",
+      "type":"ANALOG"
+    },
+    "SYNC":{
+      "description":"Switching Frequency Synchronization or Spread Spectrum Set Pin. Applying an external clock between 60kHz to 750kHz to this pin causes the switching frequency to synchronize to the clock signal. If SYNC is low, a resistor from the FREQ pin to SGND sets the switching frequency. Tying this pin to V5 allows switching frequency spread spectrum. This pin has a 100k\u03a9 internal resistor to ground.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component":"External Clock Source",
+            "description":"Used when synchronization is desired. The clock frequency should be within the 60kHz to 750kHz range."
+          },
+          {
+            "component":"V5 supply",
+            "description":"Connect to V5 to enable spread spectrum frequency modulation."
+          },
+          {
+            "component":"SGND (Signal Ground)",
+            "description":"Connect to SGND if frequency synchronization or spread spectrum modulation is not used, allowing the FREQ pin to set the operating frequency."
+          },
+          {
+            "component":"Resistor (to FREQ pin)",
+            "description":"Required if SYNC is tied to SGND. The resistor value connected from the FREQ pin to SGND sets the switching frequency."
+          }
+        ],
+        "connectivity":[
+          "For synchronization, connect an external clock source to this pin.",
+          "To enable spread spectrum, tie this pin to V5.",
+          "If not synchronizing or using spread spectrum, tie this pin to SGND to enable frequency setting via the FREQ pin."
+        ],
+        "detailed_description":"The SYNC pin is used for switching frequency synchronization and spread spectrum modulation control. It allows the internal oscillator to lock onto an external clock source, or to modulate its frequency for EMI reduction.",
+        "functionality":[
+          "Switching Frequency Synchronization: Applying an external clock between 60kHz to 750kHz to this pin causes the switching frequency to synchronize to the clock signal.",
+          "Spread Spectrum Modulation: Tying this pin to V5 enables switching frequency spread spectrum modulation, which varies the switching frequency to reduce EMI.",
+          "Frequency Setting (if SYNC is low): If the SYNC pin is tied to SGND, a resistor from the FREQ pin to SGND sets the switching frequency."
+        ],
+        "precautions":[
+          "When synchronizing, the FREQ pin resistor should still be present to set the controller's initial switching frequency before locking to the external clock.",
+          "The LTC7871 can only be synchronized to an external clock whose frequency is within the range of the LTC7871's internal VCO (60kHz to 750kHz).",
+          "Ensure the external clock signal has appropriate input thresholds (typically > 2V for high and < 1.1V for low).",
+          "When used in multiphase applications, the CLKOUT of one LTC7871 can be connected to the SYNC pin of another to daisy-chain synchronization."
+        ]
+      },
+      "input_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"DOWN",
+        "pull_value":{
+          "nom":100000.0,
+          "units":"ohm"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"SYNC",
+      "pin_id":"52",
+      "type":"DIGITAL",
+      "vih":{
+        "nom":2.0,
+        "units":"V"
+      },
+      "vil":{
+        "nom":0.8,
+        "units":"V"
+      }
+    },
+    "UVHIGH":{
+      "description":"V HIGH Undervoltage Threshold Set Pin. A resistor divider from V HIGH is needed to set this threshold. When the voltage on this pin falls below the 1.2V trip point, a 5\u03bcA current is sunk in to the pin to provide externally adjustable hysteresis.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Resistor Divider",
+            "connection_details":"A resistor divider network connecting VHIGH to the UVHIGH pin and then to SGND. The ratio of these resistors sets the undervoltage threshold.",
+            "purpose":"To set the specific undervoltage trip point for the VHIGH supply."
+          },
+          {
+            "component_name":"SGND",
+            "connection_details":"The UVHIGH pin is connected to Signal Ground (SGND) through the lower resistor of the voltage divider.",
+            "purpose":"To establish the reference for the undervoltage detection."
+          }
+        ],
+        "connectivity":"The UVHIGH pin should be connected to VHIGH through an external resistor divider. The resistor divider is used to set the specific undervoltage trip point. The value of the resistor divider components determines the voltage at which the UVHIGH pin trips the comparator.",
+        "detailed_description":"The UVHIGH pin is used to set the undervoltage threshold for the VHIGH supply. When the voltage on this pin falls below the internal comparator threshold of 1.2V, the undervoltage condition is detected.",
+        "functionality":"This pin serves as an input to an undervoltage comparator. When the voltage at this pin falls below 1.2V, the comparator trips. The device then sinks a 5\u00b5A current into this pin to provide externally adjustable hysteresis, which helps to prevent oscillation during undervoltage events.",
+        "precautions":"Care must be taken when selecting the resistor divider values to ensure the desired undervoltage threshold is accurately set. The 5\u00b5A hysteresis current sunk into this pin by the comparator must be accounted for in the resistor divider calculation."
+      },
+      "input_voltage":{
+        "max":6.0,
+        "units":"V"
+      },
+      "name":"UVHIGH",
+      "pin_id":"14",
+      "type":"DIGITAL",
+      "vil":{
+        "nom":1.15,
+        "units":"V"
+      }
+    },
+    "V5":{
+      "description":"Internal 5V Regulator Output. The control circuits are powered from this voltage. Bypass this pin to SGND with a minimum of 4.7\u00b5F low ESR tantalum or ceramic capacitor.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Capacitor",
+            "details":"A minimum of 4.7\u03bcF low ESR tantalum or ceramic capacitor is required for bypassing. An additional 0.1\u03bcF ceramic capacitor is recommended for improved noise filtering. These capacitors should be connected between the V5 pin and the SGND pin."
+          }
+        ],
+        "connectivity":"The V5 pin should be bypassed to ground with a minimum of a 4.7\u03bcF low ESR tantalum or ceramic capacitor. It is also recommended to place an additional 0.1\u03bcF ceramic capacitor directly adjacent to the V5 and SGND pins for improved noise filtering.",
+        "detailed_description":"The V5 pin is the output of an internal 5V linear regulator. This regulator supplies power to most of the internal circuitry of the LTC7871, including the control logic and error amplifiers. It is crucial for the proper operation of the IC.",
+        "functionality":"The V5 pin provides a regulated 5V supply for the internal circuitry. It is generated by an internal linear regulator that takes its input from the DRVCC pin. The V5 rail is essential for powering the IC's core functions. Additionally, the V5 pin is used as a logic supply for various digital I/O pins like CSB, SCLK, SDI, SDO, PWM outputs, and others. It also serves as a reference voltage for certain internal comparators and thresholds.",
+        "precautions":"The V5 regulator requires a minimum input voltage from DRVCC (typically 6V) to operate correctly. If DRVCC drops below its undervoltage lockout (UVLO) threshold, the V5 regulator will also be disabled, leading to a shutdown of the IC. Proper bypassing of the V5 pin is critical to ensure stable operation and prevent noise from affecting the internal circuitry."
+      },
+      "name":"V5",
+      "output_voltage":{
+        "max":5.2,
+        "min":4.8,
+        "nom":5.0,
+        "units":"V"
+      },
+      "pin_id":"9",
+      "type":"POWER"
+    },
+    "VFBHIGH":{
+      "description":"V HIGH Voltage Sensing Error Amplifier Noninverting Input.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Resistors",
+            "description":"Typically, two resistors form a voltage divider network to sample the VHIGH output voltage. These resistors are connected between VHIGH, VFBHIGH, and SGND. The ratio of these resistors determines the regulated VHIGH voltage. For example, R_D from VHIGH to VFBHIGH and R_C from VFBHIGH to SGND, where VHIGH = 1.2V * (1 + R_D / R_C)."
+          },
+          {
+            "component_name":"SPI Interface",
+            "description":"The MFR_IDAC_VHIGH register in the SPI interface can be used to inject current into or sink current from the VFBHIGH pin, allowing for programmable voltage margining of the VHIGH output."
+          }
+        ],
+        "connectivity":"In a typical application schematic, the VFBHIGH pin is connected to a voltage divider network that samples the VHIGH output voltage. This divider sets the feedback loop's reference point.  It is also connected to the SPI interface for voltage margining capabilities.",
+        "detailed_description":"The VFBHIGH pin is the non-inverting input for the error amplifier responsible for regulating the VHIGH voltage.",
+        "functionality":"The primary function of VFBHIGH is to sense the VHIGH voltage. It serves as the feedback input to the voltage error amplifier that controls the VHIGH output. The voltage on this pin is compared to an internal reference voltage to regulate VHIGH.  In boost mode, this pin is actively used for voltage regulation. In buck mode, while it's a feedback pin, the primary voltage regulation is handled by VFB LOW. However, VFBHIGH can still be used for output voltage margining in boost mode via the SPI interface.",
+        "precautions":"The feedback path to VFBHIGH should be kept away from noisy switching nodes (like the SW pins) and carefully routed to minimize noise pickup. The voltage divider resistors should be chosen for accuracy (e.g., 1% tolerance) as they directly set the output voltage.  When VHIGH is being regulated, ensure that the voltage on VFBHIGH is within the IC's operating range."
+      },
+      "input_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "name":"VFBHIGH",
+      "pin_id":"7",
+      "type":"ANALOG"
+    },
+    "VFBLOW":{
+      "description":"V LOW Voltage Sensing Error Amplifier Inverting Input.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Voltage Divider Resistors",
+            "description":"Two resistors form a voltage divider to sense the V_LOW output voltage and provide a scaled feedback signal to the VFB_LOW pin. The ratio of these resistors determines the target V_LOW output voltage.  One resistor connects from V_LOW to the VFB_LOW pin, and the other connects from the VFB_LOW pin to SGND."
+          },
+          {
+            "component_name":"Soft-Start Capacitor (Optional)",
+            "description":"An external capacitor connected from the SS pin to SGND allows for a programmed soft-start ramp. During soft-start, the VFB_LOW pin will track the voltage on the SS pin until it reaches the internal reference."
+          },
+          {
+            "component_name":"Compensation Capacitor (e.g., CFF1)",
+            "description":"A capacitor connected between the VFB_LOW and ITH_LOW pins to compensate the voltage error amplifier loop, improving stability and transient response."
+          }
+        ],
+        "connectivity":"The VFB_LOW pin should be connected to the junction of the voltage divider resistors that sense the V_LOW output. A feedback capacitor (e.g., CFF1) is typically connected between the VFB_LOW pin and the ITH_LOW pin for loop compensation. During soft-start, an external capacitor may be connected from the SS pin to SGND, and the VFB_LOW pin will track the SS pin voltage until it reaches the internal reference.  For margining, the DAC output current (controlled by MFR_IDAC_VLOW via the SPI interface) is injected into or sunk from this pin.",
+        "detailed_description":"The VFB_LOW pin is the inverting input of the error amplifier responsible for regulating the V_LOW voltage. It receives the feedback signal from the output voltage divider. The error amplifier compares this feedback signal to an internal reference voltage (typically 1.2V) and adjusts the ITH_LOW voltage to control the peak inductor current, thereby regulating the V_LOW output.",
+        "functionality":"The primary function of the VFB_LOW pin is to serve as the inverting input for the V_LOW voltage regulation error amplifier. Its voltage level directly influences the control loop that maintains the V_LOW output at the desired setpoint.  It can also be influenced by the SS (Soft-Start) pin during startup, allowing for controlled voltage ramping. In the context of the SPI interface, the MFR_IDAC_VLOW register can inject current into or sink current from the VFB_LOW pin to adjust the V_LOW voltage (margining).",
+        "precautions":"Proper placement of the feedback voltage divider resistors is crucial to minimize noise pickup. The feedback trace from the V_LOW output to the VFB_LOW pin should be routed away from switching nodes (like the SW pins) and noisy components (like inductors) to ensure signal integrity. The feedback loop compensation components (e.g., CFF1) should be placed as close as possible to the IC pins.  Care must be taken when using the SPI interface to adjust the V_LOW voltage via the MFR_IDAC_VLOW register, as incorrect settings could lead to instability or damage."
+      },
+      "input_voltage":{
+        "max":5.0,
+        "units":"V"
+      },
+      "name":"VFBLOW",
+      "pin_id":"3",
+      "type":"ANALOG"
+    },
+    "VHIGH":{
+      "description":"Main V HIGH Supply. Bypass this pin to ground with a capacitor (0.1\u03bcF to 1\u03bcF).",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Bypass Capacitor",
+            "connection":"Connected between VHIGH pin and SGND (ground plane).",
+            "details":"Typically a 0.1\u00b5F to 1\u00b5F ceramic or tantalum capacitor with low ESR. This capacitor helps to filter out noise and ensure a stable supply voltage to the IC."
+          },
+          {
+            "component_name":"Main Power Source",
+            "connection":"Connected to the VHIGH pin.",
+            "details":"This is the primary voltage source for the system, which can be as high as 100V."
+          }
+        ],
+        "connectivity":"VHIGH should be connected to the positive terminal of the main power source. It requires a bypass capacitor connected between the VHIGH pin and the ground plane. This bypass capacitor should be placed as close as possible to the VHIGH pin for optimal performance. The value of the bypass capacitor is typically between 0.1\u00b5F and 1\u00b5F.",
+        "detailed_description":"VHIGH is the main supply voltage input for the LTC7871. This pin powers the internal circuitry of the controller, including the gate drivers and control logic. It can accept voltages up to 100V, making it suitable for high-voltage applications. Proper bypassing is crucial for stable operation.",
+        "functionality":"The primary function of VHIGH is to supply power to the LTC7871. It serves as the main input voltage rail. In some configurations, it can also be used as a reference for overvoltage and undervoltage protection circuits connected to the OVHIGH and UVHIGH pins, respectively.",
+        "precautions":"Ensure that the voltage applied to the VHIGH pin does not exceed its absolute maximum rating of 100V. Overvoltage can damage the IC. Proper bypassing with a low ESR capacitor is critical to prevent noise and ensure stable operation, especially during switching transients. For applications where VHIGH might drop significantly, consider the undervoltage lockout (UVLO) thresholds for the RUN pin to ensure controlled startup."
+      },
+      "input_voltage":{
+        "max":100.0,
+        "units":"V"
+      },
+      "name":"VHIGH",
+      "pin_id":"48",
+      "type":"POWER"
+    }
+  },
+  "serial_bus":{
+    "fields":[
+      {
+        "description":"One byte summary of the unit\u2019s fault condition.",
+        "digital_physical_map":{
+          "0":"Reserved",
+          "1":"An over temperature fault has occurred.",
+          "16":"The UVHIGH pin is less than 1.2V threshold.",
+          "2":"The internal reference self-check fails.",
+          "32":"The OVHIGH pin is higher than 1.2V threshold.",
+          "4":"The V5 pin is undervoltage.",
+          "64":"The OVLOW pin is higher than 1.2V threshold.",
+          "8":"The DRVCC pin is undervoltage."
+        },
+        "name":"MFR_FAULT",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":1
+          }
+        ]
+      },
+      {
+        "description":"One byte summary of the unit\u2019s overcurrent fault condition. When the voltage difference between SNSD [+] and SNS [\u2013] pins is larger than the overcurrent fault threshold programmed by the ILIM pin, the corresponding register bit will become 1.",
+        "digital_physical_map":{
+          "0":"Reserved",
+          "1":"Channel 1 overcurrent fault has occurred.",
+          "16":"Channel 5 overcurrent fault has occurred.",
+          "2":"Channel 2 overcurrent fault has occurred.",
+          "32":"Channel 6 overcurrent fault has occurred.",
+          "4":"Channel 3 overcurrent fault has occurred.",
+          "8":"Channel 4 overcurrent fault has occurred."
+        },
+        "name":"MFR_OC_FAULT",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":2
+          }
+        ]
+      },
+      {
+        "description":"One byte summary of negative overcurrent fault condition. When the voltage difference between SNSD [+] and SNS [\u2013] pins is less than the negative overcurrent fault threshold programmed by the ILIM pin, the corresponding register bit will become 1.",
+        "digital_physical_map":{
+          "0":"Reserved",
+          "1":"Channel 1 negative overcurrent fault has occurred.",
+          "16":"Channel 5 negative overcurrent fault has occurred.",
+          "2":"Channel 2 negative overcurrent fault has occurred.",
+          "32":"Channel 6 negative overcurrent fault has occurred.",
+          "4":"Channel 3 negative overcurrent fault has occurred.",
+          "8":"Channel 4 negative overcurrent fault has occurred."
+        },
+        "name":"MFR_NOC_FAULT",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":3
+          }
+        ]
+      },
+      {
+        "description":"One byte summary of the unit\u2019s operation status.",
+        "digital_physical_map":{
+          "0":"Reserved",
+          "1":"The regulated VLOW/VHIGH is within \u00b110% regulation windows.",
+          "2":"The maximum current programmed by the ILIM pin is reached.",
+          "4":"The soft-start is finished."
+        },
+        "name":"MFR_STATUS",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":4
+          }
+        ]
+      },
+      {
+        "description":"One byte summary of the unit\u2019s configuration programmed by the pins.",
+        "digital_physical_map":{
+          "0":"The maximum current sense threshold is programmed to 10mV.",
+          "1":"The maximum current sense threshold is programmed to 20mV.",
+          "16":"The DRVCC is programmed to 5V.",
+          "192":"Reserved",
+          "2":"The maximum current sense threshold is programmed to 30mV.",
+          "24":"The DRVCC is programmed to 8V.",
+          "28":"The DRVCC is programmed to 10V.",
+          "3":"The maximum current sense threshold is programmed to 40mV.",
+          "32":"The SETCUR pin is programmed to be above 1.25V.",
+          "4":"The maximum current sense threshold is programmed to 50mV."
+        },
+        "name":"MFR_CONFIG1",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":5
+          }
+        ]
+      },
+      {
+        "description":"One byte summary of the unit\u2019s configuration programmed by the pins.",
+        "digital_physical_map":{
+          "0":"The controller is in boost mode.",
+          "1":"The controller is in buck mode.",
+          "16":"The controller is in burst mode operation.",
+          "2":"The controller is in spread spectrum mode.",
+          "224":"Reserved",
+          "4":"The controller is in Hi-Z mode.",
+          "8":"The controller is in DCM."
+        },
+        "name":"MFR_CONFIG2",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":6
+          }
+        ]
+      },
+      {
+        "description":"General chip control.",
+        "digital_physical_map":{
+          "0":"Write inhibited for all three IDAC registers, and MFR_SSFM register.",
+          "1":"Write allowed for all three IDAC registers, and MFR_SSFM register.",
+          "128":"Reserved",
+          "2":"Sticky bit, reset all R/W registers.",
+          "4":"A communication fault related to PEC during writing registers has occurred. Write 1 to this bit will clear the CML."
+        },
+        "name":"MFR_CHIP_CTRL",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":7
+          }
+        ]
+      },
+      {
+        "description":"Adjust the IDAC_VLOW to program VLOW voltage.",
+        "digital_physical_map":{
+          "0":"-1\u00b5A",
+          "1":"0\u00b5A",
+          "128":"Reserved",
+          "16":"0\u00b5A",
+          "2":"0\u00b5A",
+          "32":"0\u00b5A",
+          "4":"0\u00b5A",
+          "64":"0\u00b5A",
+          "8":"0\u00b5A"
+        },
+        "name":"MFR_IDAC_VLOW",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":8
+          }
+        ]
+      },
+      {
+        "description":"Adjust the IDAC_VHIGH to program VHIGH voltage.",
+        "digital_physical_map":{
+          "0":"-1\u00b5A",
+          "1":"0\u00b5A",
+          "128":"Reserved",
+          "16":"0\u00b5A",
+          "2":"0\u00b5A",
+          "32":"0\u00b5A",
+          "4":"0\u00b5A",
+          "64":"0\u00b5A",
+          "8":"0\u00b5A"
+        },
+        "name":"MFR_IDAC_VHIGH",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":9
+          }
+        ]
+      },
+      {
+        "description":"Adjust the IDAC_SETCUR to program SETCUR pin\u2019s sourcing current.",
+        "digital_physical_map":{
+          "0":"1\u00b5A",
+          "1":"0\u00b5A",
+          "16":"16\u00b5A",
+          "2":"0\u00b5A",
+          "224":"RESERVED",
+          "4":"0\u00b5A",
+          "8":"0\u00b5A"
+        },
+        "name":"MFR_IDAC_SETCUR",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":10
+          }
+        ]
+      },
+      {
+        "description":"Adjust the spread spectrum frequency modulation parameters.",
+        "digital_physical_map":{
+          "0":"Controller Switching Frequency/512",
+          "1":"Controller Switching Frequency/1024",
+          "12":"\u00b112%",
+          "16":"\u00b115%",
+          "2":"Controller Switching Frequency/2048",
+          "224":"Reserved",
+          "3":"Controller Switching Frequency/4096",
+          "4":"Controller Switching Frequency/256",
+          "5":"Controller Switching Frequency/128",
+          "6":"Controller Switching Frequency/64",
+          "7":"Controller Switching Frequency/512",
+          "8":"\u00b110%"
+        },
+        "name":"MFR_SSFM",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":11
+          }
+        ]
+      },
+      {
+        "description":"Reserved",
+        "name":"RESERVED",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":12
+          }
+        ]
+      },
+      {
+        "description":"Reserved",
+        "name":"RESERVED",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":13
+          }
+        ]
+      },
+      {
+        "description":"Reserved",
+        "name":"RESERVED",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":14
+          }
+        ]
+      },
+      {
+        "description":"Reserved",
+        "name":"RESERVED",
+        "register_location":[
+          {
+            "reg_end_bit":7,
+            "reg_start_bit":0,
+            "register_address":15
+          }
+        ]
+      }
+    ],
+    "registers":{
+      "1":{
+        "address":1,
+        "bit_width":8,
+        "init_value":0,
+        "name":"MFR_FAULT",
+        "read_only":true
+      },
+      "10":{
+        "address":10,
+        "bit_width":8,
+        "init_value":0,
+        "name":"MFR_IDAC_SETCUR",
+        "read_only":false
+      },
+      "11":{
+        "address":11,
+        "bit_width":8,
+        "init_value":0,
+        "name":"MFR_SSFM",
+        "read_only":false
+      },
+      "12":{
+        "address":12,
+        "bit_width":8,
+        "init_value":0,
+        "name":"RESERVED",
+        "read_only":false
+      },
+      "13":{
+        "address":13,
+        "bit_width":8,
+        "init_value":0,
+        "name":"RESERVED",
+        "read_only":false
+      },
+      "14":{
+        "address":14,
+        "bit_width":8,
+        "init_value":0,
+        "name":"RESERVED",
+        "read_only":false
+      },
+      "15":{
+        "address":15,
+        "bit_width":8,
+        "init_value":0,
+        "name":"RESERVED",
+        "read_only":false
+      },
+      "2":{
+        "address":2,
+        "bit_width":8,
+        "init_value":0,
+        "name":"MFR_OC_FAULT",
+        "read_only":true
+      },
+      "3":{
+        "address":3,
+        "bit_width":8,
+        "init_value":0,
+        "name":"MFR_NOC_FAULT",
+        "read_only":true
+      },
+      "4":{
+        "address":4,
+        "bit_width":8,
+        "init_value":0,
+        "name":"MFR_STATUS",
+        "read_only":true
+      },
+      "5":{
+        "address":5,
+        "bit_width":8,
+        "init_value":0,
+        "name":"MFR_CONFIG1",
+        "read_only":true
+      },
+      "6":{
+        "address":6,
+        "bit_width":8,
+        "init_value":0,
+        "name":"MFR_CONFIG2",
+        "read_only":true
+      },
+      "7":{
+        "address":7,
+        "bit_width":8,
+        "init_value":0,
+        "name":"MFR_CHIP_CTRL",
+        "read_only":false
+      },
+      "8":{
+        "address":8,
+        "bit_width":8,
+        "init_value":0,
+        "name":"MFR_IDAC_VLOW",
+        "read_only":false
+      },
+      "9":{
+        "address":9,
+        "bit_width":8,
+        "init_value":0,
+        "name":"MFR_IDAC_VHIGH",
+        "read_only":false
+      }
+    }
+  }
+}

@@ -1,0 +1,603 @@
+{
+  "high_level":{
+    "base_part_number":"LTC7060",
+    "device_type":"HIGH_SIDE_DRIVER",
+    "manufacturer":"Analog Devices",
+    "packages":[
+      "12-Lead Plastic MSSOP"
+    ],
+    "part_numbers":{
+      "LTC7060EMSE#PBF":{
+        "options":{
+          "Temperature Range":"\u201340\u00b0C to 125\u00b0C"
+        }
+      },
+      "LTC7060EMSE#TRPBF":{
+        "options":{
+          "Shipping":"Tape and Reel",
+          "Temperature Range":"\u201340\u00b0C to 125\u00b0C"
+        }
+      },
+      "LTC7060EMSE#WPBF":{
+        "options":{
+          "Automotive":"Qualified",
+          "Temperature Range":"\u201340\u00b0C to 125\u00b0C"
+        }
+      },
+      "LTC7060EMSE#WTRPBF":{
+        "options":{
+          "Automotive":"Qualified",
+          "Shipping":"Tape and Reel",
+          "Temperature Range":"\u201340\u00b0C to 125\u00b0C"
+        }
+      },
+      "LTC7060HMSE#PBF":{
+        "options":{
+          "Temperature Range":"\u201340\u00b0C to 150\u00b0C"
+        }
+      },
+      "LTC7060HMSE#TRPBF":{
+        "options":{
+          "Shipping":"Tape and Reel",
+          "Temperature Range":"\u201340\u00b0C to 150\u00b0C"
+        }
+      },
+      "LTC7060HMSE#WPBF":{
+        "options":{
+          "Automotive":"Qualified",
+          "Temperature Range":"\u201340\u00b0C to 150\u00b0C"
+        }
+      },
+      "LTC7060HMSE#WTRPBF":{
+        "options":{
+          "Automotive":"Qualified",
+          "Shipping":"Tape and Reel",
+          "Temperature Range":"\u201340\u00b0C to 150\u00b0C"
+        }
+      },
+      "LTC7060IMSE#PBF":{
+        "options":{
+          "Temperature Range":"\u201340\u00b0C to 125\u00b0C"
+        }
+      },
+      "LTC7060IMSE#TRPBF":{
+        "options":{
+          "Shipping":"Tape and Reel",
+          "Temperature Range":"\u201340\u00b0C to 125\u00b0C"
+        }
+      },
+      "LTC7060IMSE#WPBF":{
+        "options":{
+          "Automotive":"Qualified",
+          "Temperature Range":"\u201340\u00b0C to 125\u00b0C"
+        }
+      },
+      "LTC7060IMSE#WTRPBF":{
+        "options":{
+          "Automotive":"Qualified",
+          "Shipping":"Tape and Reel",
+          "Temperature Range":"\u201340\u00b0C to 125\u00b0C"
+        }
+      },
+      "LTC7060JMSE#PBF":{
+        "options":{
+          "Temperature Range":"\u201340\u00b0C to 150\u00b0C"
+        }
+      },
+      "LTC7060JMSE#TRPBF":{
+        "options":{
+          "Shipping":"Tape and Reel",
+          "Temperature Range":"\u201340\u00b0C to 150\u00b0C"
+        }
+      },
+      "LTC7060JMSE#WPBF":{
+        "options":{
+          "Automotive":"Qualified",
+          "Temperature Range":"\u201340\u00b0C to 150\u00b0C"
+        }
+      },
+      "LTC7060JMSE#WTRPBF":{
+        "options":{
+          "Automotive":"Qualified",
+          "Shipping":"Tape and Reel",
+          "Temperature Range":"\u201340\u00b0C to 150\u00b0C"
+        }
+      }
+    }
+  },
+  "pins":{
+    "BG":{
+      "description":"Bottom MOSFET Gate Driver Output. This pin drives the gate of the N-channel MOSFET between BGRTN and BGVCC.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"N-channel MOSFET",
+            "connection_details":"The BG pin connects to the gate terminal of the N-channel MOSFET."
+          }
+        ],
+        "connectivity":"The BG pin should be connected directly to the gate of the low-side N-channel MOSFET.",
+        "detailed_description":"The BG pin is the output of the low-side gate driver. It is designed to drive the gate of an N-channel MOSFET, which is connected between the BGRTN and BGVCC pins.",
+        "functionality":"The BG pin drives the gate of the low-side N-channel MOSFET. It can pull the gate high to turn the MOSFET on or low to turn it off.",
+        "precautions":[
+          "Ensure that the gate drive voltage (V CC) is within the specified operating range (4V to 14V).",
+          "The pull-down resistance of the BG pin is 0.8\u03a9, which provides a strong pull-down for fast turn-off. This is important to prevent shoot-through.",
+          "Keep the copper trace between the BG pin and the MOSFET gate short and wide to minimize parasitic inductance and ensure good signal integrity.",
+          "Kelvin connect the BG pin to the gate of the low-side MOSFET and the BGRTN pin to the source of the low-side MOSFET for high noise immunity."
+        ]
+      },
+      "internal_pull":{
+        "direction":"DOWN",
+        "pull_value":{
+          "nom":0.8,
+          "units":"\u03a9"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"BG",
+      "output_current":{
+        "max":100.0,
+        "min":-100.0,
+        "units":"mA"
+      },
+      "output_type":"PUSH_PULL",
+      "pin_id":"BG",
+      "type":"DIGITAL",
+      "voh":{
+        "max":null,
+        "nom":150.0,
+        "units":"mV"
+      },
+      "vol":{
+        "max":0.15,
+        "nom":0.08,
+        "units":"V"
+      }
+    },
+    "BGRTN":{
+      "description":"Bottom MOSFET Driver Return. The bottom gate driver is biased between BGVCC and BGRTN. Kelvin connect BGRTN to the bottom MOSFET source pin for high noise immunity. The voltage difference between the BGRTN pin and the SGND can be \u201310V to 100V.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Bottom N-channel MOSFET",
+            "connection_type":"Source",
+            "description":"The source of the low-side N-channel MOSFET is connected to BGRTN."
+          },
+          {
+            "component_name":"Bypass Capacitor",
+            "connection_type":"Between BGVCC and BGRTN",
+            "description":"An external bypass capacitor is required between the BGVCC pin and the BGRTN pin to stabilize the bottom gate driver supply. This capacitor should be placed close to the IC."
+          }
+        ],
+        "connectivity":"BGRTN should be connected to the source of the bottom N-channel MOSFET. For optimal noise immunity, this connection should be a Kelvin connection, meaning it directly connects to the source pin without passing through other circuit elements that might introduce voltage drops or noise. A capacitor should also be placed between BGVCC and BGRTN, close to the IC, to bypass the bottom gate driver supply.",
+        "detailed_description":"BGRTN serves as the return path for the bottom MOSFET gate driver. It is the reference point for the BGVCC supply. The voltage difference between BGRTN and SGND is critical and can range from -10V to 100V, indicating its role in driving MOSFETs with a different ground reference than the IC's primary ground (SGND).",
+        "functionality":"The primary function of BGRTN is to serve as the return terminal for the bottom gate driver circuit. It's designed to accommodate the voltage difference between the low-side MOSFET's source and the IC's ground (SGND), enabling the driver to operate with a floating ground reference.",
+        "precautions":[
+          "Ensure a Kelvin connection to the source of the bottom MOSFET to minimize noise and voltage drops.",
+          "The voltage difference between BGRTN and SGND must be monitored and kept within the specified range (-10V to 100V).",
+          "Proper bypassing between BGVCC and BGRTN is essential for stable operation.",
+          "Avoid connecting BGRTN directly to SGND unless the low-side MOSFET's source is also at SGND potential."
+        ]
+      },
+      "input_voltage":{
+        "max":100.0,
+        "min":-10.0,
+        "units":"V"
+      },
+      "name":"BGRTN",
+      "pin_id":"BGRTN",
+      "type":"OTHER"
+    },
+    "BGVCC":{
+      "description":"Bottom MOSFET Driver Supply. The bottom MOSFET gate driver is biased between this pin and the BGRTN pin. An external capacitor should be tied between this pin and BGRTN and placed close to the IC.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Capacitor",
+            "details":"An external capacitor is required between BGVCC and BGRTN for proper operation of the boost-strap circuitry. The typical value suggested is 0.1uF, but it should be chosen based on the gate charge of the MOSFETs and the switching frequency."
+          },
+          {
+            "component_name":"VCC Pin",
+            "details":"In specific configurations where SGND and BGRTN are at the same potential, BGVCC can be directly connected to the VCC pin."
+          }
+        ],
+        "connectivity":"It should be connected to an external capacitor that is tied between this pin and the BGRTN pin. This capacitor should be placed close to the IC. For applications where SGND and BGRTN are at the same potential, BGVCC can be tied to the VCC pin.",
+        "detailed_description":"BGVCC is the supply voltage for the bottom MOSFET gate driver. This pin, along with the BGRTN pin, defines the voltage range for driving the gate of the N-channel MOSFET connected to the low-side of the half-bridge configuration.",
+        "functionality":"The primary function is to supply power to the bottom gate driver. It can also be connected to the VCC pin if the SGND and BGRTN are at the same potential, simplifying the supply connection in such cases.",
+        "precautions":[
+          "Ensure the external capacitor connected to BGVCC and BGRTN is placed as close as possible to the IC to minimize lead inductance for optimal performance.",
+          "If BGVCC is tied to VCC, ensure that the SGND and BGRTN pins are indeed at the same potential to avoid unexpected behavior or damage.",
+          "The voltage on BGVCC (relative to BGRTN) must be within the specified operating range (4V to 14V) to ensure proper gate drive for the MOSFET."
+        ]
+      },
+      "input_voltage":{
+        "max":14.0,
+        "min":4.0,
+        "units":"V"
+      },
+      "name":"BGVCC",
+      "pin_id":"BGVCC",
+      "type":"POWER"
+    },
+    "BST":{
+      "description":"Top MOSFET Driver Supply. The top MOSFET gate driver is biased between this pin and the SW pin. An external capacitor should be tied between this pin and the SW pin and placed close to the IC.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Bootstrap Capacitor (C_B)",
+            "description":"An external capacitor connected between BST and SW to form the bootstrap circuit.  A typical value is 0.1\u00b5F."
+          },
+          {
+            "component_name":"Schottky Diode",
+            "description":"An external Schottky diode connected from the VCC supply to the BST pin to charge the bootstrap capacitor."
+          },
+          {
+            "component_name":"SW Pin",
+            "description":"The SW pin serves as the return for the high-side driver supply and is connected to the source of the high-side N-channel MOSFET."
+          },
+          {
+            "component_name":"VCC Pin",
+            "description":"The main IC bias supply."
+          }
+        ],
+        "connectivity":"The BST pin should be connected to one side of an external bootstrap capacitor (C_B). The other side of C_B should be connected to the SW pin. An external Schottky diode is typically connected from the VCC supply to the BST pin to charge the bootstrap capacitor when the low-side MOSFET is off.",
+        "detailed_description":"The BST (Bootstrap) pin is the supply voltage for the high-side gate driver. It is intended to be connected to an external capacitor that forms a bootstrap circuit with the SW pin. This circuit generates a voltage higher than VCC to drive the high-side N-channel MOSFET gate.",
+        "functionality":"The BST pin's primary function is to provide the necessary voltage (BST-SW) to drive the high-side N-channel MOSFET. This voltage is generated by an external bootstrap capacitor that is charged when the low-side MOSFET is on. The voltage at BST is relative to the SW pin.",
+        "precautions":[
+          "The BST voltage is relative to the SW pin. Ensure the voltage difference (BST-SW) remains within the specified operating range (4V to 14V).",
+          "The bootstrap capacitor must be adequately sized to provide sufficient charge to drive the high-side MOSFET gate, especially considering the gate charge (QG) of the MOSFET and switching frequency.",
+          "The bootstrap capacitor should be placed as close as possible to the BST and SW pins to minimize lead inductance.",
+          "The bootstrap circuit requires an external Schottky diode for charging; ensure this diode is properly rated and connected."
+        ]
+      },
+      "input_voltage":{
+        "max":14.0,
+        "min":4.0,
+        "units":"V"
+      },
+      "name":"BST",
+      "pin_id":"BST",
+      "type":"POWER"
+    },
+    "DT":{
+      "description":"Dead-Time Program Pin Referred to the SGND Pin. A single resistor from this pin to SGND sets the BG/TG low to TG/BG high propagation delay. See the operation section for details.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_type":"Resistor",
+            "description":"An external resistor (R DT) is connected between the DT pin and the SGND pin to set the dead-time. The datasheet provides a formula and a graph showing the relationship between R DT and dead-time. For example, a 64.9k\u03a9 resistor results in a dead-time of approximately 62ns."
+          }
+        ],
+        "connectivity":"The DT pin should be connected to SGND through an external resistor (R DT). The value of this resistor determines the dead-time. For a dead-time of 32ns, the DT pin should be shorted to SGND (effectively R DT = 0\u03a9). If the DT pin is left floating, the dead-time is approximately 250ns. For intermediate dead-time values, a resistor is used.",
+        "detailed_description":"The DT pin is the Dead-Time Program Pin, referred to the SGND pin. It is used to program the propagation delay during the BG/TG low to TG/BG high transition, which is the dead-time. A single external resistor (R DT) connected from this pin to SGND sets both the BG low to TG high and the TG low to BG high propagation delays equally.",
+        "functionality":"The primary function of the DT pin is to set the dead-time of the half-bridge driver. The dead-time is determined by the resistance connected to this pin. A shorter resistance results in a shorter dead-time, while a longer resistance (or an open connection) results in a longer dead-time. The datasheet provides a formula and a graph (Figure 3) illustrating the relationship between R DT and the dead-time.",
+        "precautions":[
+          "The value of the resistor connected to the DT pin directly impacts the dead-time. Ensure the resistor value is chosen correctly to achieve the desired dead-time for the application.",
+          "Refer to Figure 3 in the datasheet for precise dead-time versus R DT values. The datasheet also provides an approximate formula for calculating dead-time: Dead-Time \u2248 R DT * 0.44ns/k\u03a9 + 32ns (for R DT < 100k\u03a9)."
+        ]
+      },
+      "input_voltage":{
+        "max":6.0,
+        "min":-0.3,
+        "units":"V"
+      },
+      "name":"DT",
+      "pin_id":"DT",
+      "type":"DIGITAL"
+    },
+    "EN":{
+      "description":"Enable Control Input Pin Referred to the SGND Pin. A voltage on this pin above 1.2V enables the gate drivers. The TG and BG pins are both in the low state if this pin is logic low. There is an internal 2M\u03a9 pull-down resistor from the EN pin to SGND, keeping the EN default state low if its input is not driven.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Resistor",
+            "connection_details":"Connected from the EN pin to the SGND pin.",
+            "connection_type":"pull-down",
+            "value":"2M\u03a9"
+          },
+          {
+            "component_name":"Control Logic",
+            "connection_details":"Connected to the EN pin to enable or disable the gate drivers.",
+            "connection_type":"input",
+            "value":"Logic Level (High/Low)"
+          }
+        ],
+        "connectivity":"The EN pin should be connected to the system's control logic. It has an internal pull-down resistor of 2M\u03a9 to SGND, which means if the EN pin is left floating, it defaults to the disabled state (low).",
+        "detailed_description":"The EN pin is an Enable Control Input Pin referred to the SGND Pin. A voltage on this pin above 1.2V enables the gate drivers. When the EN pin is logic low, both the TG and BG pins are in the low state, keeping both the high-side and low-side MOSFETs turned off.",
+        "functionality":"The EN pin controls the enabling and disabling of the gate drivers. It can be used in conjunction with the three-state PWM input to implement Discontinuous Conduction Mode (DCM) in switching regulator applications.",
+        "precautions":[
+          "Ensure the EN pin is driven either high (to enable) or low (to disable) by the control logic. Leaving it floating will result in the disabled state due to the internal pull-down resistor.",
+          "When EN is driven low, both TG and BG pins are held low, ensuring both external MOSFETs are turned off."
+        ]
+      },
+      "input_voltage":{
+        "max":15.0,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"DOWN",
+        "pull_value":{
+          "nom":2.0,
+          "units":"M\u03a9"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"EN",
+      "pin_id":"EN",
+      "type":"DIGITAL",
+      "vih":{
+        "max":1.3,
+        "min":1.1,
+        "units":"V"
+      },
+      "vil":{
+        "max":1.1,
+        "min":null,
+        "units":"V"
+      }
+    },
+    "FLT":{
+      "description":"Open Drain Fault Output Pin Referred to the SGND Pin. Open-drain output that pulls to SGND during V CC UVLO/OVLO and floating supplies UVLO condition. The typical pull-down resistance is 60\u03a9.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_type":"Resistor",
+            "description":"A pull-up resistor is required to connect the FLT pin to a bias voltage (e.g., VCC) when no fault is present. This allows the FLT pin to be pulled high. Typical values are in the k\u03a9 range."
+          }
+        ],
+        "connectivity":"The FLT pin should be connected to the circuit's ground (SGND) through an external pull-up resistor. This resistor provides the default high state when no fault is present. The value of the pull-up resistor is not explicitly specified for general use, but typical values in datasheets for similar open-drain outputs are in the range of 10k\u03a9 to 51k\u03a9.",
+        "detailed_description":"The FLT (Fault) pin is an open-drain output that signals various fault conditions of the LTC7060. When a fault occurs, this pin is pulled low to SGND. The fault conditions include VCC undervoltage lockout (UVLO), VCC overvoltage lockout (OVLO), floating supplies UVLO (for both the high-side and low-side drivers), and thermal shutdown.",
+        "functionality":"The FLT pin functions as an open-drain output. It signals fault conditions by pulling low. Upon clearing of the fault conditions, it is released and pulled high by an external pull-up resistor after a delay.",
+        "precautions":"Since the FLT pin is an open-drain output, it requires an external pull-up resistor to a voltage source (up to 15V) to function correctly. Connecting it directly to a voltage source without a resistor can damage the IC. Care must be taken to ensure the voltage source used for the pull-up resistor does not exceed the specified voltage limits for the FLT pin, which is typically VCC or any bias voltage up to 15V."
+      },
+      "internal_pull":{
+        "direction":"DOWN",
+        "pull_value":{
+          "nom":60.0,
+          "units":"\u03a9"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"FLT",
+      "output_current":{
+        "max":null,
+        "min":null,
+        "units":"mA"
+      },
+      "output_type":"OPEN_DRAIN",
+      "pin_id":"FLT",
+      "type":"DIGITAL"
+    },
+    "NC":{
+      "description":"No Internal Connection. Always keep this pin floating. It is intentionally skipped to isolate adjacent high voltage pins.",
+      "direction":"OTHER",
+      "implementation":{
+        "connected_components":[],
+        "connectivity":"The NC pin should be left floating and not connected to any component or net in the schematic.",
+        "detailed_description":"The NC pin is designated as 'No Internal Connection'. This means that there is no internal circuitry connected to this pin. It is present on the package for physical reasons, such as to maintain spacing between other pins or to comply with package manufacturing standards.",
+        "functionality":"This pin does not have any specific electrical function as it is not connected internally. It does not serve different functions based on connectivity.",
+        "precautions":"It is important to leave the NC pin unconnected. Connecting it to any signal, power, or ground net could lead to unpredictable behavior or damage to the device. The datasheet explicitly states to 'Always keep this pin floating'."
+      },
+      "name":"NC",
+      "pin_id":"NC",
+      "type":"OTHER"
+    },
+    "PWM":{
+      "description":"Three-State Gate Driver Input Signal Referred to the SGND Pin. The TG/BG state is determined by the voltage at this pin. If this pin is floating, an internal resistor divider triggers the High-Z mode in which both BG and TG are turned off. Trace capacitance on this pin should be minimized.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Control Logic/Microcontroller",
+            "description":"This is the source of the PWM signal that drives the LTC7060. It generates the digital PWM waveform."
+          },
+          {
+            "component_name":"Bypass Capacitor",
+            "description":"While not explicitly listed for the PWM pin itself, bypass capacitors are generally recommended for all input pins to improve noise immunity, although minimizing trace capacitance is also stressed."
+          }
+        ],
+        "connectivity":"The PWM pin should be connected to a ground-referenced, low voltage digital signal. It should be connected to the control logic that generates the PWM signal. To ensure proper operation, trace capacitance on this pin should be minimized. For the three-state functionality, the PWM signal can be allowed to float when needed.",
+        "detailed_description":"The PWM pin is a ground-referenced, low voltage digital input signal that controls the driving of two N-channel power MOSFETs in a half-bridge configuration. The state of the PWM pin determines whether the high-side (TG) or low-side (BG) gate driver is active, thereby controlling the corresponding MOSFET. The LTC7060 has three-state input capability on this pin.",
+        "functionality":"The PWM pin's functionality is dependent on its voltage level. If the voltage is above the V_IH(TG) threshold, the TG driver is pulled high. If it's below the V_IL(BG) threshold, the BG driver is pulled high. If the PWM pin is floating, an internal resistor divider causes it to enter a high-impedance state, triggering a High-Z mode where both BG and TG drivers are turned off. This pin can also be used in conjunction with the EN pin to achieve discontinuous conduction mode (DCM) in switching regulator applications.",
+        "precautions":[
+          "Minimize trace capacitance on the PWM pin to prevent noise coupling, especially in high frequency, high voltage applications.",
+          "Ensure the PWM signal driving the pin has clean transitions to avoid false triggering due to noise.",
+          "When utilizing the three-state function, ensure the control signal driving the PWM pin can indeed go into a high impedance state.",
+          "The PWM pin has specific input thresholds (V_IH(TG), V_IL(TG), V_IH(BG), V_IL(BG)) that must be respected by the driving signal."
+        ]
+      },
+      "input_voltage":{
+        "max":6.0,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"DOWN",
+        "pull_value":{
+          "nom":42.0,
+          "units":"k\u03a9"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"PWM",
+      "pin_id":"PWM",
+      "type":"PWM",
+      "vih":{
+        "max":3.6,
+        "min":2.6,
+        "units":"V"
+      },
+      "vil":{
+        "max":1.5,
+        "min":0.5,
+        "units":"V"
+      }
+    },
+    "SGND":{
+      "description":"Chip Ground. The exposed pad must be soldered to the PCB ground for electrical contact and for rated thermal performance.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"PCB Ground Plane",
+            "description":"The main ground connection for the circuit, providing a low impedance path for currents and thermal dissipation."
+          },
+          {
+            "component_name":"VCC Bypass Capacitor",
+            "description":"A bypass capacitor (typically 0.1uF) should be connected between the VCC pin and SGND to filter noise and ensure stable operation."
+          },
+          {
+            "component_name":"DT Pin Resistor",
+            "description":"A resistor (RDT) for programming dead-time is connected between the DT pin and SGND."
+          },
+          {
+            "component_name":"PWM Pin",
+            "description":"The PWM input signal is referred to SGND."
+          },
+          {
+            "component_name":"EN Pin",
+            "description":"The EN input signal is referred to SGND."
+          },
+          {
+            "component_name":"FLT Pin",
+            "description":"The FLT output is referred to SGND."
+          }
+        ],
+        "connectivity":"Connect to the circuit ground plane. The exposed pad must be soldered to the PCB ground plane.",
+        "detailed_description":"SGND is the chip ground. It serves as the primary reference point for all internal circuitry and external signals that are ground-referenced. The exposed pad on the underside of the package is also connected to SGND and must be soldered to the PCB ground plane for electrical connection and thermal performance.",
+        "functionality":"Serves as the ground reference for the IC. It is also connected to the exposed pad for thermal management.",
+        "precautions":[
+          "The exposed pad MUST be soldered to the PCB ground plane for proper electrical and thermal performance.",
+          "Care must be taken to ensure a low impedance connection to ground, especially given the high switching currents.",
+          "Separate ground return paths should be maintained for the input signal pins (PWM, EN) and the output power stage to minimize ground noise injection."
+        ]
+      },
+      "name":"SGND",
+      "pin_id":"SGND",
+      "type":"POWER"
+    },
+    "SW":{
+      "description":"Top MOSFET Driver Return. The top gate driver is biased between BST and SW. Kelvin connect SW to the top MOSFET source pin for high noise immunity. The voltage difference between the SW pin and SGND can be \u201310V to 100V.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"High-side N-channel MOSFET",
+            "connection_details":"Connected to the source of the high-side N-channel MOSFET."
+          },
+          {
+            "component_name":"BST (Top MOSFET Driver Supply) Pin",
+            "connection_details":"Connected via a bypass capacitor (e.g., 0.1uF) to the BST pin."
+          }
+        ],
+        "connectivity":"The SW pin should be connected to the source of the high-side N-channel MOSFET. For optimal performance and noise immunity, it should be Kelvin connected to the source. An external bypass capacitor (typically 0.1uF) should be connected between the BST pin and the SW pin, placed as close to the IC as possible.",
+        "detailed_description":"The SW pin is the return path for the high-side gate driver's supply. It serves as the reference for the high-side driver's operation, allowing it to drive the high-side MOSFET gate between the BST (bootstrapped supply) and SW pins.",
+        "functionality":"The primary function of the SW pin is to act as the negative rail for the high-side gate driver supply (BST-SW). It is also the reference point for the high-side driver output (TG). Additionally, it is used in conjunction with the BST pin to set the operating voltage range for the high-side driver.",
+        "precautions":[
+          "The voltage difference between the SW pin and the SGND pin can be as high as 100V. Care must be taken to ensure proper insulation and handling of these high voltages.",
+          "Kelvin connecting the SW pin to the top MOSFET source is crucial for high noise immunity, as it minimizes voltage drops across PCB traces carrying large switching currents.",
+          "The bypass capacitor between BST and SW should be placed very close to the IC pins to minimize parasitic inductance, which is important for high-speed switching."
+        ]
+      },
+      "input_voltage":{
+        "max":100.0,
+        "min":-10.0,
+        "units":"V"
+      },
+      "name":"SW",
+      "pin_id":"SW",
+      "type":"OTHER"
+    },
+    "TG":{
+      "description":"Top MOSFET Gate Driver Output. This pin drives the gate of the N-channel MOSFET between SW and BST.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"High-side N-channel MOSFET",
+            "connection_details":"Connected to the gate terminal of the high-side N-channel MOSFET."
+          },
+          {
+            "component_name":"BST pin",
+            "connection_details":"Connected via a bootstrap capacitor (CB) to provide the gate drive voltage for the high-side driver."
+          },
+          {
+            "component_name":"SW pin",
+            "connection_details":"Serves as the return for the high-side driver supply."
+          }
+        ],
+        "connectivity":"The TG pin should be connected to the gate terminal of the high-side N-channel MOSFET. For optimal performance, it should be connected with short, wide traces to minimize parasitic inductance. It is also part of the high-side driver supply loop, connected to the BST pin via a bootstrap capacitor and to the SW pin.",
+        "detailed_description":"The TG pin is the output of the high-side gate driver. It is designed to drive the gate of the N-channel MOSFET, connecting the SW pin to the BST pin. The voltage at this pin swings between BST and SW, enabling the high-side MOSFET to be turned on or off.",
+        "functionality":"The TG pin's primary function is to drive the gate of the high-side N-channel MOSFET. Its output voltage is controlled by the logic signals from the PWM input and the EN pin, as well as the voltage difference between BST and SW. It can be pulled high towards BST or pulled low towards SW.",
+        "precautions":[
+          "Ensure the BST-SW voltage difference stays within the operating range (4V to 14V).",
+          "Minimize trace inductance between the TG pin and the MOSFET gate for fast switching and reduced ringing.",
+          "Proper bypassing of the BST supply is crucial for stable operation.",
+          "The TG pin can be subjected to high voltage transients (up to 100V with respect to SGND), so proper layout and insulation are important."
+        ]
+      },
+      "internal_pull":{
+        "direction":"DOWN",
+        "pull_value":{
+          "nom":0.8,
+          "units":"\u03a9"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"TG",
+      "output_current":{
+        "max":100.0,
+        "min":-100.0,
+        "units":"mA"
+      },
+      "output_type":"PUSH_PULL",
+      "pin_id":"TG",
+      "type":"DIGITAL",
+      "voh":{
+        "max":null,
+        "nom":150.0,
+        "units":"mV"
+      },
+      "vol":{
+        "max":0.15,
+        "nom":0.08,
+        "units":"V"
+      }
+    },
+    "VCC":{
+      "description":"IC bias supply referred to the SGND pin. An internal 4.5V supply is generated from the VCC supply to bias most of the internal circuitry. A bypass capacitor with a minimum value of 0.1uF should be tied between this pin and the SGND pin. VCC is independent of VIN.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Bypass Capacitor",
+            "details":"A bypass capacitor (minimum value of 0.1uF) should be connected between the VCC pin and the SGND pin. This capacitor helps to filter noise and ensure stable operation of the internal circuitry."
+          }
+        ],
+        "connectivity":"The VCC pin should be connected to a regulated power supply voltage. A bypass capacitor is recommended to be connected between this pin and the SGND pin.",
+        "detailed_description":"VCC is the power supply for the LTC7060's internal circuitry. An internal 4.5V supply is generated from the VCC supply to bias most of the internal circuits referred to SGND. The VCC pin may be tied to the BGVCC pin if SGND and BGRTN are at the same potential. VCC is independent of VIN.",
+        "functionality":"The VCC pin serves as the primary bias supply for the internal logic and circuitry of the LTC7060. It also enables the generation of an internal 4.5V supply.",
+        "precautions":[
+          "The VCC supply voltage must be within the specified operating range (6V to 14V). Exceeding or falling below this range can lead to malfunction or damage.",
+          "Proper bypassing is crucial for high-speed switching applications. The bypass capacitor should be placed as close as possible to the VCC and SGND pins with short leads to minimize inductance.",
+          "In applications where SGND and BGRTN are at the same potential, the VCC pin may be tied directly to the BGVCC pin. However, ensure this condition is met before making this connection."
+        ]
+      },
+      "input_voltage":{
+        "max":14.0,
+        "min":6.0,
+        "units":"V"
+      },
+      "name":"VCC",
+      "pin_id":"VCC",
+      "type":"POWER"
+    }
+  }
+}

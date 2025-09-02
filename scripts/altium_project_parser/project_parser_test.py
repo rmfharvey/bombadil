@@ -37,10 +37,10 @@ if __name__ == "__main__":
                 global_logger.info(f"{pn} exists, skipping")
                 continue
 
+            pyperclip.copy(pn)
             get = input(f"Get datasheet for {pn}? (y/n):")
             if not get.lower() == "y":
                 continue
-            pyperclip.copy(pn)
             DatasheetManager.new_datasheet(pn, autocreate_json=True)
 
         signals = get_signal_list(cfg)

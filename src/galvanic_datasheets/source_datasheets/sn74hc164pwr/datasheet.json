@@ -1,0 +1,463 @@
+{
+  "high_level":{
+    "base_part_number":"SNx4HC164",
+    "device_type":"OTHER",
+    "manufacturer":"Texas Instruments",
+    "packages":[
+      "SOIC (14)",
+      "PDIP (14)",
+      "SO (14)",
+      "TSSOP (14)",
+      "CDIP (14)",
+      "CFP (14)",
+      "LCCC (14)"
+    ],
+    "part_numbers":{}
+  },
+  "pins":{
+    "A":{
+      "description":"Gated Serial Input 1",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":"This pin is typically connected to: 1. A microcontroller's GPIO pin for serial data output. 2. Another shift register's output (e.g., QA-QH) for cascading. 3. Logic gates (e.g., AND gate) if the serial data needs to be conditioned before being presented to the shift register inputs. 4. A ground connection if only one serial data input is used and the other needs to be held low.",
+        "connectivity":"Pin A should be connected to the serial data source. If only one serial data source is available, it can be connected to either pin A or pin B, with the other input tied to ground to ensure a '0' is shifted in. If a specific pattern is desired, both A and B can be driven by the same data source or different sources depending on the application's requirements.",
+        "detailed_description":"Pin A is one of the two serial data inputs for the SNx4HC164. These inputs are AND-gated, meaning that a high level on both inputs is required to set the input data line high. A low level on either input will set the input data line low, effectively inhibiting the entry of new data.",
+        "functionality":"The functionality of pin A is as a serial data input. Its state, along with pin B, determines the data that will be shifted into the register on the next clock pulse. A low on either A or B will result in a '0' being shifted in, regardless of the other input's state. A high on both A and B will result in a '1' being shifted in.",
+        "precautions":"1. Ensure that the input voltage levels (VIH and VIL) comply with the 'Recommended Operating Conditions' to prevent device malfunction. 2. Avoid leaving the input floating, as this can lead to unpredictable behavior. Tie unused inputs to VCC or GND. 3. When cascading devices, ensure that the setup and hold times for the clock and data inputs are met. 4. The serial data inputs (A and B) can be changed while the CLK is high or low, but the minimum setup time requirements must be met before the rising clock edge."
+      },
+      "input_voltage":{
+        "max":6.0,
+        "min":0.0,
+        "units":"V"
+      },
+      "name":"A",
+      "pin_id":"1",
+      "type":"DIGITAL",
+      "vih":{
+        "max":1.5,
+        "min":1.5,
+        "units":"V"
+      },
+      "vil":{
+        "max":1.8,
+        "min":0.5,
+        "units":"V"
+      }
+    },
+    "B":{
+      "description":"Gated Serial Input 2",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":"The 'B' pin should be connected to a digital output signal. This signal source will dictate the data being shifted into the SNx4HC164. Examples include:\n- Microcontroller GPIO pins\n- Output of another shift register\n- Logic gates producing serial data streams",
+        "connectivity":"In a schematic, the 'B' pin should be connected to the desired serial data source. This could be a digital output from a microcontroller, another shift register, or any other logic source providing serial data.",
+        "detailed_description":"The 'B' pin serves as the second gated serial input for the SNx4HC164 8-bit parallel-out serial shift register. It works in conjunction with the 'A' input. Data is entered into the shift register on the low-to-high transition of the clock (CLK) signal. The serial inputs ('A' and 'B') are AND-gated, meaning a high level at either input is required for new data to be entered. Specifically, a low at either 'A' or 'B' will inhibit the entry of new data and reset the first flip-flop to a low state upon the next clock pulse. A high level at one serial input enables the other input to determine the state of the first flip-flop.",
+        "functionality":"The 'B' pin's primary function is to act as a serial data input. Its functionality is directly tied to the 'A' pin, as they form an AND gate for serial data entry. The state of the 'B' pin, along with the 'A' pin, determines the data bit that will be shifted into the first stage of the register upon the rising edge of the clock signal.",
+        "precautions":"Ensure that the 'B' input, along with the 'A' input, meets the setup and hold time requirements relative to the CLK signal, as specified in the datasheet (Section 7.8, 7.9, 7.10). Unused serial inputs should ideally be tied to a known logic level (HIGH or LOW) to prevent unpredictable behavior due to floating inputs, as per general CMOS logic best practices and recommendations in the datasheet (Section 7.3 footnote 1)."
+      },
+      "input_voltage":{
+        "max":6.0,
+        "min":0.0,
+        "units":"V"
+      },
+      "name":"B",
+      "pin_id":"2",
+      "type":"DIGITAL",
+      "vih":{
+        "max":1.5,
+        "min":1.5,
+        "units":"V"
+      },
+      "vil":{
+        "max":1.8,
+        "min":0.5,
+        "units":"V"
+      }
+    },
+    "CLK":{
+      "description":"Clock",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Clock Signal Source",
+            "description":"This can be a dedicated clock oscillator, a microcontroller's internal clock output, or another digital IC generating a clock signal. The characteristics of this source (frequency, duty cycle, rise/fall times) are critical for the correct operation of the SNx4HC164."
+          }
+        ],
+        "connectivity":"The CLK pin should be connected to a clock signal source. This source can be a dedicated clock generator, a microcontroller's clock output, or any other digital signal that provides a regular clock pulse. For proper operation, the clock signal must meet the timing requirements specified in the datasheet (e.g., frequency, pulse duration, setup and hold times).",
+        "detailed_description":"The CLK pin is the clock input for the SNx4HC164. It is responsible for synchronizing the data shifts within the 8-bit serial-out register. Data is shifted from one flip-flop to the next on the low-to-high level transition (rising edge) of the CLK signal.",
+        "functionality":"The primary function of the CLK pin is to trigger the sequential shifting of data through the register. It operates on the rising edge of the clock signal. Therefore, its functionality is tied to the timing of the clock pulse.",
+        "precautions":[
+          "Ensure the clock signal meets the 'Timing Requirements' specified in the datasheet for the given VCC and temperature conditions. This includes setup time (tsu) before the rising clock edge for data and CLR inputs, and hold time (th) after the rising clock edge for data inputs.",
+          "The CLK input is fully buffered, as stated in the features. However, care should be taken to avoid exceeding the absolute maximum voltage ratings for VCC.",
+          "If the device is used in noisy environments, a bypass capacitor should be placed close to the VCC and GND pins to ensure a stable power supply, which indirectly affects clocking performance.",
+          "Avoid floating the CLK pin; it should always be driven to a valid logic level (high or low) or connected to a clock source."
+        ]
+      },
+      "input_voltage":{
+        "max":6.0,
+        "min":0.0,
+        "units":"V"
+      },
+      "name":"CLK",
+      "pin_id":"8",
+      "type":"DIGITAL",
+      "vih":{
+        "max":1.5,
+        "min":1.5,
+        "units":"V"
+      },
+      "vil":{
+        "max":1.8,
+        "min":0.5,
+        "units":"V"
+      }
+    },
+    "CLR":{
+      "description":"Clear 1 Active-Low",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Microcontroller/Logic IC",
+            "connection_details":"An output pin from a microcontroller or another logic IC can be used to control the CLR pin. This allows for software-controlled resetting of the shift register."
+          },
+          {
+            "component_name":"Pull-up Resistor",
+            "connection_details":"A pull-up resistor (e.g., 10 k\u03a9) connected from the CLR pin to VCC is often used to ensure the pin is held high by default. This prevents unintended resets during normal operation."
+          },
+          {
+            "component_name":"Pushbutton Switch",
+            "connection_details":"A pushbutton switch can be connected between the CLR pin and ground. When the button is pressed, it pulls the CLR pin low, initiating an asynchronous reset."
+          }
+        ],
+        "connectivity":"In a schematic, the CLR pin should be connected to a logic level that controls the reset. Typically, it is connected to a microcontroller's output pin, a switch, or a pull-up resistor if it needs to be held high by default and pulled low to trigger a reset. If an asynchronous reset is not required, the CLR pin should be tied to VCC (high) to ensure the device operates normally.",
+        "detailed_description":"The CLR pin is an asynchronous clear input. When this pin is at a low logic level, the internal registers of the shift register are reset to a low state, regardless of the clock or data inputs. This allows for an immediate reset of the shift register's contents.",
+        "functionality":"The primary function of the CLR pin is to asynchronously clear all the internal registers to a low state. It acts as an active-low reset. When CLR is high, the device operates normally based on the clock and data inputs. When CLR is low, all outputs (QA through QH) are forced to a low state. There are no other distinct functions for this pin beyond its clearing capability.",
+        "precautions":"1. **Active-Low Reset:** The CLR pin is active-low. Ensure it is driven to a logic high (VCC) for normal operation. If left floating, it can lead to unpredictable behavior. A pull-up resistor is recommended if the reset functionality is not actively controlled.\n2. **Asynchronous Operation:** The reset provided by the CLR pin is asynchronous. This means it takes effect immediately when the pin transitions to its active (low) state, regardless of the clock signal. Be mindful of this behavior to avoid race conditions or unexpected state changes in your system.\n3. **Voltage Levels:** Ensure the voltage applied to the CLR pin is within the recommended operating conditions for VIL and VIH as specified in the datasheet to guarantee proper functionality."
+      },
+      "input_voltage":{
+        "max":6.0,
+        "min":0.0,
+        "units":"V"
+      },
+      "name":"CLR",
+      "pin_id":"9",
+      "polarity":"ACTIVE_LOW",
+      "type":"DIGITAL",
+      "vih":{
+        "max":1.5,
+        "min":1.5,
+        "units":"V"
+      },
+      "vil":{
+        "max":1.8,
+        "min":0.5,
+        "units":"V"
+      }
+    },
+    "GND":{
+      "description":"Ground",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Ground Plane/Rail",
+            "description":"The ground plane or rail on the PCB provides the common ground reference for the entire circuit. This ensures that all components in the system share the same ground potential."
+          },
+          {
+            "component_name":"Bypass Capacitor",
+            "description":"A bypass capacitor (typically 0.1 uF) should be connected between the VCC pin and the GND pin, placed as close as possible to the IC, to filter out power supply noise."
+          }
+        ],
+        "connectivity":"The GND pin should be connected to the ground plane or ground rail of the printed circuit board (PCB).",
+        "detailed_description":"GND is the ground pin for the integrated circuit. It serves as the common reference point for all voltage levels within the device and the circuit it is connected to.",
+        "functionality":"The primary function of the GND pin is to provide a connection to ground. It does not serve different functions based on connectivity, other than ensuring a solid ground connection for proper operation.",
+        "precautions":[
+          "Ensure a low-impedance connection to ground. Poor grounding can lead to erratic behavior, noise issues, and reduced performance.",
+          "Avoid connecting any signal or power source directly to the GND pin other than the intended ground connection.",
+          "If using multiple GND pins on the IC, ensure all are connected to ground."
+        ]
+      },
+      "name":"GND",
+      "pin_id":"7",
+      "type":"POWER"
+    },
+    "QA":{
+      "description":"Parallel Output",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":"The QA pin can be connected to various components depending on the application. Common connections include: \n- Input pins of other logic gates or integrated circuits (e.g., another shift register, a decoder).\n- Input pins of a microcontroller for data acquisition.\n- An LED, in which case a current-limiting resistor should be placed in series with the LED to protect both the LED and the SNx4HC164 output. The value of the resistor depends on the forward voltage of the LED and the supply voltage (VCC), typically calculated using Ohm's Law (R = (VCC - V_LED_forward) / I_LED_desired).\n- A buffer or driver if the load requires more current than the SNx4HC164 can provide directly.",
+        "connectivity":"The QA pin should be connected to the subsequent circuitry that will utilize the shifted data. This could be another digital logic component, an input to a microcontroller, or an indicator like an LED (often through a current-limiting resistor).",
+        "detailed_description":"QA is a parallel output pin of the SNx4HC164 8-bit shift register. It represents the first bit of the serial data that has been shifted into the register. The data at this pin changes on the low-to-high transition of the CLK input, provided the setup time requirements are met.",
+        "functionality":"This pin is a dedicated parallel output. It reflects the state of the first flip-flop within the shift register after each clock cycle.",
+        "precautions":"1. Ensure that the output voltage levels (VOH and VOL) are within the acceptable input voltage range of the component connected to QA.\n2. If driving an LED, always include a current-limiting resistor to prevent damage to the LED and the SNx4HC164.\n3. Avoid connecting the QA pin directly to a power source or ground without appropriate series resistance or a driving component, as this can lead to excessive current flow and damage.\n4. Ensure that the setup and hold times for the CLK and serial data inputs (A and B) are met to guarantee correct data shifting and output stability at QA."
+      },
+      "name":"QA",
+      "output_type":"PUSH_PULL",
+      "pin_id":"3",
+      "type":"DIGITAL",
+      "voh":{
+        "max":4.4,
+        "min":3.98,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.1,
+        "min":0.001,
+        "units":"V"
+      }
+    },
+    "QB":{
+      "description":"Parallel Output",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"LED",
+            "description":"An LED can be connected to QB to visually indicate the data state. A current-limiting resistor (e.g., 220-1k ohm, depending on the LED and supply voltage) must be connected in series with the LED to protect both the LED and the SNx4HC164 output."
+          },
+          {
+            "component_name":"Microcontroller Input",
+            "description":"QB can be connected to a digital input pin of a microcontroller to read the shifted data. Ensure the microcontroller's input voltage levels are compatible with the SNx4HC164's output voltage levels."
+          },
+          {
+            "component_name":"Other Logic Gates",
+            "description":"QB can be connected as an input to other logic gates (e.g., AND, OR, XOR) for further data manipulation or control."
+          }
+        ],
+        "connectivity":"QB should be connected to the input of a subsequent component that will utilize the parallel data output. This could be another digital logic gate, a micro-controller input pin, or an indicator like an LED (with an appropriate current-limiting resistor).",
+        "detailed_description":"QB is one of the eight parallel outputs of the SNx4HC164 shift register. It represents the data stored in the second flip-flop of the register.",
+        "functionality":"This pin serves as a parallel data output. Its state reflects the data shifted into the register and is updated on the rising edge of the clock signal (CLK).",
+        "precautions":[
+          "Ensure that the output voltage levels (VOH and VOL) are within the operating range of the connected component.",
+          "Avoid connecting QB directly to multiple low-impedance loads that exceed the SNx4HC164's output drive capability (\u00b14 mA at 5 V).",
+          "When driving LEDs, always include a current-limiting resistor.",
+          "If the output is not used, it should be left unconnected. Do not tie unused outputs to VCC or GND, as this can lead to excessive current consumption or damage."
+        ]
+      },
+      "name":"QB",
+      "output_type":"PUSH_PULL",
+      "pin_id":"4",
+      "type":"DIGITAL",
+      "voh":{
+        "max":4.4,
+        "min":3.98,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.1,
+        "min":0.001,
+        "units":"V"
+      }
+    },
+    "QC":{
+      "description":"Parallel Output",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":"This pin typically connects to the input of another digital logic IC, a microcontroller's input pin, or an LED. If connecting to an LED, a current-limiting resistor (typically 220-470 Ohms, depending on the LED and supply voltage) should be connected in series with the LED's anode, and the cathode of the LED should be connected to this pin.",
+        "connectivity":"Connect this pin to the input of another device or component that requires an 8-bit serial data stream, or to a display element like an LED (with an appropriate current-limiting resistor).",
+        "detailed_description":"The QC pin is a parallel output pin of the SNx4HC164 8-bit serial-in, parallel-out shift register. It outputs the data stored in the third flip-flop of the shift register. The data is shifted from QA to QB, and then to QC on each rising clock edge, provided the Clear (CLR) input is not active.",
+        "functionality":"This pin is a dedicated output pin. It does not have any other functionality based on connectivity.",
+        "precautions":"Ensure that the output current does not exceed the device's specified maximum output current (IO = \u00b125 mA as per absolute maximum ratings). Exceeding this limit can damage the device. Also, ensure that the output voltage stays within the VCC and GND range during operation."
+      },
+      "name":"QC",
+      "output_type":"PUSH_PULL",
+      "pin_id":"5",
+      "type":"DIGITAL",
+      "voh":{
+        "max":4.4,
+        "min":3.98,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.1,
+        "min":0.001,
+        "units":"V"
+      }
+    },
+    "QD":{
+      "description":"Parallel Output",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":"QD is typically connected to: \n1.  **LEDs with current-limiting resistors:** To visually display the output state. The resistor value depends on the LED's forward voltage and current rating, and the supply voltage.\n2.  **Inputs of other logic gates:** To further process the data.\n3.  **Microcontroller GPIO pins:** For reading the output state into a microcontroller.\n4.  **Data bus lines:** To transfer the parallel data to other parts of the system.",
+        "connectivity":"In a schematic, the QD pin should be connected to the desired load or circuit element that needs to receive the data from this specific output. This could be an input of another logic gate, an LED with a current-limiting resistor, or a data bus.",
+        "detailed_description":"QD is a parallel output pin of the SNx4HC164 8-bit shift register. It represents the data stored in the fourth flip-flop of the register. Data is shifted from QA to QB, QB to QC, and QC to QD with each rising clock edge, provided the clear (CLR) input is inactive (high).",
+        "functionality":"The primary function of QD is to provide the stored data from the fourth stage of the shift register as a parallel output. It does not have different functionalities based on connectivity, other than its state being determined by the data shifted into it and the clock signal.",
+        "precautions":"1.  Ensure the output voltage levels of QD remain within the operating range of the connected components. \n2.  Do not exceed the maximum output current rating (\u00b125 mA) for continuous output current or the absolute maximum current ratings for the device. \n3.  If driving capacitive loads, consider the propagation delay (tpd) and output transition times (tt) to ensure proper signal integrity, especially at higher clock frequencies. \n4.  Like all CMOS outputs, QD is susceptible to ESD. Handle with appropriate precautions. \n5.  Ensure the CLK input meets the setup and hold time requirements before and after the rising edge for predictable behavior."
+      },
+      "name":"QD",
+      "output_type":"PUSH_PULL",
+      "pin_id":"6",
+      "type":"DIGITAL",
+      "voh":{
+        "max":4.4,
+        "min":3.98,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.1,
+        "min":0.001,
+        "units":"V"
+      }
+    },
+    "QE":{
+      "description":"Parallel Output",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Microcontroller Input",
+            "description":"The QE output can be connected to an input pin of a microcontroller to read the shifted data."
+          },
+          {
+            "component_name":"LED with Current Limiting Resistor",
+            "description":"The QE output can drive an LED. A current-limiting resistor must be connected in series with the LED to prevent damage to the LED and the SNx4HC164."
+          },
+          {
+            "component_name":"Logic Input of Another IC",
+            "description":"The QE output can be connected to a logic input pin of another integrated circuit, such as a display driver or another shift register, to pass data between devices."
+          }
+        ],
+        "connectivity":"The QE pin should be connected to the input of another component or circuit that is designed to receive a digital logic signal. This could be a data input of another integrated circuit, a microcontroller input pin, or a driver for an LED or other output device.",
+        "detailed_description":"QE is one of the eight parallel outputs of the SNx4HC164 shift register. Data is shifted through the register with each positive-edge transition of the CLK input. The data present at the QE output corresponds to the state of the fifth flip-flop within the shift register after the appropriate clock cycles and serial data inputs.",
+        "functionality":"The QE pin is an output pin. Its state (high or low) is determined by the data shifted into the register and the clock signal. It does not have any other primary functions.",
+        "precautions":[
+          "Ensure that the output current from the QE pin does not exceed the absolute maximum ratings specified in the datasheet (\u00b125 mA).",
+          "When driving LEDs, always use a current-limiting resistor to protect both the LED and the SNx4HC164.",
+          "Ensure that the voltage levels on the QE pin remain within the VCC and GND limits. Do not connect the QE pin directly to VCC or GND without appropriate driving circuitry if the output is intended to be controlled.",
+          "Avoid connecting the QE pin to a floating input on another device, as this can lead to unpredictable behavior and increased power consumption. If an input is not used, it should be tied to VCC or GND as per the datasheet recommendations."
+        ]
+      },
+      "name":"QE",
+      "output_type":"PUSH_PULL",
+      "pin_id":"10",
+      "type":"DIGITAL",
+      "voh":{
+        "max":4.4,
+        "min":3.98,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.1,
+        "min":0.001,
+        "units":"V"
+      }
+    },
+    "QF":{
+      "description":"Parallel Output",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":"QF can be connected to the input pins of other digital logic ICs, such as microcontrollers, other shift registers, or input pins of display drivers. The specific component depends on the application's requirements.",
+        "connectivity":"QF should be connected to the input of another component that requires the shifted data. This could be a data input of another shift register, a data bus, or any other digital input that can accept the output signal.",
+        "detailed_description":"QF is a parallel output pin of the SNx4HC164 8-bit shift register. It provides the data that has been shifted through the register stages.",
+        "functionality":"This pin is a standard output and does not serve different functions based on connectivity. It reflects the data stored in the QF stage of the shift register.",
+        "precautions":"Ensure that the fan-out capability of the SNx4HC164 is not exceeded when connecting to multiple loads. If driving a significant load, a buffer or driver IC might be necessary. Also, ensure that the output voltage levels are compatible with the input voltage levels of the connected component."
+      },
+      "name":"QF",
+      "output_type":"PUSH_PULL",
+      "pin_id":"11",
+      "type":"DIGITAL",
+      "voh":{
+        "max":4.4,
+        "min":3.98,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.1,
+        "min":0.001,
+        "units":"V"
+      }
+    },
+    "QG":{
+      "description":"Parallel Output",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":"The QG pin can be connected to various components depending on the application. Common connections include:\n1.  **Microcontroller/FPGA Input:** To feed the shifted data into a processing unit for further logic or control.\n2.  **LED:** To visually indicate the state of the seventh bit of the shift register. A series resistor is required to limit current and protect the LED and the IC output.\n3.  **Buffer/Driver IC:** To increase the drive capability if the subsequent stage has a high input capacitance or requires a stronger signal.\n4.  **Another Shift Register Input:** To chain multiple shift registers together for longer serial data streams.",
+        "connectivity":"In a schematic, the QG pin should be connected to the desired destination for the seventh bit of the shifted data. This could be an input of another digital IC, a buffer, an LED (with a current-limiting resistor), or any other component that needs to receive this digital signal.",
+        "detailed_description":"The QG pin is one of the eight parallel outputs of the SNx4HC164 8-bit serial-in, parallel-out shift register. It represents the output of the seventh flip-flop in the shift register chain.",
+        "functionality":"The primary function of the QG pin is to provide the parallel output of the data stored in the seventh stage of the shift register. This output is updated on each low-to-high transition of the clock (CLK) signal, after the serial data has been shifted through the previous stages.",
+        "precautions":"1.  **Output Loading:** Ensure that the load connected to the QG pin does not exceed the maximum output current rating of the SNx4HC164. Refer to the 'Absolute Maximum Ratings' and 'Electrical Characteristics' sections of the datasheet for specific current limits.\n2.  **Floating Inputs:** As with all CMOS devices, unused inputs (A, B, CLR) should be tied to VCC or GND to prevent floating, which can lead to increased power consumption and unpredictable behavior.\n3.  **Clock and Data Timing:** Adhere to the setup and hold time requirements for the serial data inputs (A and B) and the clock (CLK) as specified in the datasheet's 'Timing Requirements' section to ensure correct data shifting.\n4.  **Clear Input (CLR):** The CLR input is asynchronous and active-low. If the CLR pin is low, all outputs will be reset to low, regardless of the clock or serial data inputs. Ensure the CLR pin is handled appropriately in the design."
+      },
+      "name":"QG",
+      "output_type":"PUSH_PULL",
+      "pin_id":"12",
+      "type":"DIGITAL",
+      "voh":{
+        "max":4.4,
+        "min":3.98,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.1,
+        "min":0.001,
+        "units":"V"
+      }
+    },
+    "QH":{
+      "description":"Parallel Output",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"LED",
+            "description":"An LED can be connected to QH to visually indicate the state of the output. A series resistor would be required to limit the current through the LED."
+          },
+          {
+            "component_name":"Resistor",
+            "description":"A current-limiting resistor is typically connected in series with an LED driven by QH."
+          },
+          {
+            "component_name":"Next logic stage input",
+            "description":"QH can be connected to the input of another digital logic IC, such as another shift register, a counter, or a logic gate."
+          }
+        ],
+        "connectivity":"QH should be connected to the input of the next stage in a data processing chain, or to a load device such as an LED (possibly through a current-limiting resistor), a display segment, or another digital input. If not used, it should be left unconnected or tied to ground to prevent potential floating input issues, although the datasheet does not explicitly state this precaution for outputs.",
+        "detailed_description":"QH is one of the eight parallel outputs of the SNx4HC164 shift register. It represents the data stored in the eighth flip-flop of the register after each clock pulse. Data is shifted serially from input A (or B) through the register with each low-to-high transition of the CLK input, and QH represents the data that has been shifted through all eight stages.",
+        "functionality":"The primary function of QH is to provide a parallel output of the data stored within the shift register.  It does not inherently serve different functions based on connectivity, but its state is determined by the serial input data and the clock signal.",
+        "precautions":"As an output pin, care should be taken not to drive it with a voltage or current that exceeds the absolute maximum ratings. If an output is unused, it is generally good practice to tie it to a known state (like ground) to prevent floating input issues that could potentially increase power consumption or cause unexpected behavior in other parts of the circuit. However, the datasheet does not specifically mention precautions for unused QH outputs."
+      },
+      "name":"QH",
+      "output_type":"PUSH_PULL",
+      "pin_id":"13",
+      "type":"DIGITAL",
+      "voh":{
+        "max":4.4,
+        "min":3.98,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.1,
+        "min":0.001,
+        "units":"V"
+      }
+    },
+    "VCC":{
+      "description":"Power",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Bypass Capacitor",
+            "description":"A bypass capacitor is recommended to be connected between the VCC pin and GND. This capacitor helps to filter out noise and voltage fluctuations from the power supply, ensuring a stable VCC for the IC. A 0.1-\u00b5F capacitor is typically recommended for single-supply devices, and if there are multiple VCC pins, a 0.01-\u00b5F or 0.022-\u00b5F capacitor is recommended for each power pin. It is common to parallel multiple bypass capacitors (e.g., 0.1 \u00b5F and 1 \u00b5F) to filter noise at different frequencies."
+          }
+        ],
+        "connectivity":"Connect the VCC pin to the positive voltage rail of the power supply.",
+        "detailed_description":"VCC is the positive supply voltage pin for the IC. It provides the necessary power for the device to operate.",
+        "functionality":"The VCC pin serves as the primary power input for the SNx4HC164. It must be connected to a stable positive voltage source within the recommended operating range (2V to 6V).",
+        "precautions":[
+          "Ensure that the voltage applied to the VCC pin is within the recommended operating range (2V to 6V) as specified in the datasheet to prevent damage to the device.",
+          "Do not exceed the absolute maximum supply voltage rating of 7V for VCC.",
+          "Properly bypass the VCC pin with a capacitor placed as close to the pin as possible to ensure stable operation and minimize noise susceptibility."
+        ]
+      },
+      "input_voltage":{
+        "max":6.0,
+        "min":2.0,
+        "units":"V"
+      },
+      "name":"VCC",
+      "pin_id":"14",
+      "type":"POWER"
+    }
+  }
+}

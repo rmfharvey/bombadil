@@ -1,0 +1,1276 @@
+{
+  "high_level":{
+    "device":{
+      "base_part_number":"LAN8742A",
+      "device_type":"COMMUNICATION_ETHERNET",
+      "manufacturer":"Microchip",
+      "packages":[
+        "VQFN-24"
+      ],
+      "serial_busses":[
+        "SMI",
+        "RMII"
+      ]
+    }
+  },
+  "pins":{
+    "CLKIN":{
+      "description":"Single-ended clock oscillator input.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"25 MHz Clock Oscillator",
+            "description":"A device that outputs a stable 25 MHz clock signal. This signal is fed into the CLKIN pin of the LAN8742A/LAN8742Ai."
+          }
+        ],
+        "connectivity":"The CLKIN pin should be connected to a 25 MHz single-ended clock oscillator output. The XTAL2 pin should be left unconnected when CLKIN is used.",
+        "detailed_description":"The CLKIN pin is an input for a single-ended clock oscillator. This pin is used when a 25 MHz clock source is provided externally, rather than using a crystal oscillator. When this pin is used, the XTAL2 pin should be left unconnected.",
+        "functionality":"The CLKIN pin serves as a clock input. It is an alternative to using a crystal oscillator connected to the XTAL1 and XTAL2 pins. It requires a single-ended clock source.",
+        "precautions":[
+          "When using a single-ended clock oscillator, the XTAL2 pin must be left unconnected.",
+          "The input clock duty cycle should be between 40% and 60%, with a typical value of 50%.",
+          "The CLKIN frequency should be 50 MHz, with a frequency drift of \u00b150 ppm.",
+          "The CLKIN signal jitter should not exceed 150 ps (peak-to-peak)."
+        ]
+      },
+      "input_voltage":{
+        "max":3.6,
+        "min":-0.3,
+        "units":"V"
+      },
+      "name":"CLKIN",
+      "pin_id":"5",
+      "type":"DIGITAL",
+      "vih":{
+        "nom":3.6,
+        "units":"V"
+      },
+      "vil":{
+        "nom":-0.3,
+        "units":"V"
+      }
+    },
+    "CRS_DV":{
+      "description":"This signal is asserted to indicate the receive medium is non-idle.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":"The CRS_DV pin is connected to the MAC controller's input designed to receive the Carrier Sense/Receive Data Valid signal from the Ethernet PHY.",
+        "connectivity":"The CRS_DV pin is an output from the LAN8742A/LAN8742Ai and should be connected to the corresponding input on the MAC controller. It is described as an RMII signal.",
+        "detailed_description":"CRS_DV (Carrier Sense/Receive Data Valid) is an output signal from the LAN8742A/LAN8742Ai transceiver. It is asserted by the device when the receive medium is non-idle. In 10BASE-T mode, CRS_DV is asserted when squelch is passed, and in 100BASE-TX mode, it is asserted when two non-contiguous zeros are detected within any 10-bit span. The signal indicates that valid data is available on the RXD[1:0] pins, clocked by the RMII REF_CLK. The assertion of CRS_DV is asynchronous relative to REF_CLK.",
+        "functionality":"The CRS_DV pin serves a dual purpose: Carrier Sense (CRS) and Receive Data Valid (DV). It is asserted when the receiver detects carrier activity. In 100 Mbps mode, CRS_DV is asserted and deasserted on nibble boundaries relative to REF_CLK. In 10 Mbps mode, it toggles at 2.5 MHz when carrier ends before data is fully transferred.",
+        "precautions":"The assertion of CRS_DV is asynchronous relative to REF_CLK, meaning the data on RXD[1:0] should be considered '00' until proper receive signal decoding occurs. The device will deassert CRS_DV synchronously to the REF_CLK cycle that presents the first di-bit of a nibble on RXD[1:0] when carrier loss is detected. If data is still available, CRS_DV will toggle at 25 MHz (100 Mbps mode) or 2.5 MHz (10 Mbps mode) on nibble boundaries to ensure the MAC can recover both RXDV and CRS accurately."
+      },
+      "internal_pull":"PU",
+      "name":"CRS_DV",
+      "output_current":{
+        "max":8,
+        "units":"mA"
+      },
+      "pin_id":"11",
+      "type":"DIGITAL",
+      "voh":{
+        "min":2.9,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.4,
+        "units":"V"
+      }
+    },
+    "LED1":{
+      "description":"This pin can be used to indicate link activity, link speed, nINT, or nPME as configured via the LED1 Function Select field of the Wakeup Control and Status Register (WUCSR).",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component":"LED",
+            "description":"A light-emitting diode for visual status indication. Connection requires a series current-limiting resistor."
+          },
+          {
+            "component":"Current-limiting resistor",
+            "description":"A resistor in series with the LED to limit the current to a safe operating level for the LED and the LED1 pin. The value would depend on the forward voltage of the LED and the voltage supplied (VDD2A)."
+          },
+          {
+            "component":"Pull-up resistor",
+            "description":"If REGOFF is to be configured high to disable the internal regulator, an external pull-up resistor is required on the REGOFF/LED1 pin to VDD2A (as per section 3.7.3 and 3.8.1.5)."
+          }
+        ],
+        "connectivity":[
+          "When configured as an LED output (Link/Activity or Link Speed), it can be directly connected to an LED with a current-limiting resistor in series, connected to the appropriate power supply (VDD2A as per note in section 3.8.1).",
+          "When configured as nINT or nPME, it can be connected to the respective input on the host controller. If an LED is also desired for status indication in these modes, careful consideration of polarity and potential contention must be made based on the configuration.",
+          "The polarity of the LED output (active high or active low) is determined by the state of the REGOFF configuration strap (Section 3.8.1.5). If REGOFF is pulled high (disabling the internal regulator), LED1 is active low. If REGOFF is low (enabling the internal regulator), LED1 is active high."
+        ],
+        "detailed_description":"The LED1 pin is a status indicator that can be configured to display various information such as link activity, link speed, or serve as an interrupt output (nINT) or a power management event output (nPME).",
+        "functionality":[
+          "Link Activity Indicator",
+          "Link Speed Indicator",
+          "Interrupt Output (nINT)",
+          "Power Management Event Output (nPME)"
+        ],
+        "precautions":[
+          "The polarity of the LED1 output is dependent on the state of the REGOFF configuration strap (Section 3.8.1.5). If an LED is connected, ensure the resistor and LED are oriented correctly for the determined polarity.",
+          "When configuring LED1 as nINT or nPME, and an LED is also desired, consider the potential for contention if the LED is directly driven by the pin when it's functioning as an interrupt/event output. In such cases, a buffer or careful multiplexing might be needed.",
+          "As per Section 3.8.1, when pulling LED1 high, it must be tied to VDD2A, not VDDIO.",
+          "The functionality of LED1 as an LED output is configured via the LED1 Function Select bits of the Wakeup Control and Status Register (WUCSR)."
+        ]
+      },
+      "name":"LED1",
+      "output_current":{
+        "max":12,
+        "units":"mA"
+      },
+      "pin_id":"3",
+      "type":"DIGITAL",
+      "voh":{
+        "min":2.9,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.4,
+        "units":"V"
+      }
+    },
+    "LED2":{
+      "description":"This pin can be used to indicate link activity, link speed, nINT, or nPME as configured via the LED2 Function Select field of the Wakeup Control and Status Register (WUCSR).",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component":"LED",
+            "description":"If used as an LED indicator, an LED should be connected in series with a current-limiting resistor to ground. The polarity (anode to pin, cathode to resistor/ground, or vice-versa) depends on the active state (high or low) determined by the configuration."
+          },
+          {
+            "component":"Current-limiting resistor",
+            "description":"Required if an LED is connected to the LED2 pin to limit the current through the LED and the pin."
+          },
+          {
+            "component":"System Controller Input",
+            "description":"If LED2 is used for nINT or nPME, it should be connected to an appropriate input pin on the system's microcontroller or other control logic. This connection may require a pull-up resistor if the system controller input has a weak internal pull-up or no pull-up."
+          }
+        ],
+        "connectivity":"The LED2 pin can be connected to an LED for visual indication. If used as an LED output, it should be connected through a current-limiting resistor to ground.  When used as nINT or nPME, it typically drives a low impedance load or is connected to the input of a system controller.  The specific connection and component selection will depend on the chosen function and desired polarity, which are determined by the nINTSEL configuration strap and the LED2 Function Select bits in the WUCSR register.",
+        "detailed_description":"The LED2 pin is a bi-directional pin that can be used to indicate link speed, serve as an interrupt output (nINT), or as a Power Management Event output (nPME). Its specific function is determined by the configuration settings in the Wakeup Control and Status Register (WUCSR) and the state of the nINTSEL configuration strap.",
+        "functionality":[
+          {
+            "description":"When configured as a Link Speed indicator, LED2 is active high. By default, it indicates a 100 Mbps operating speed and goes inactive when the operating speed is 10 Mbps or during line isolation. The polarity can be affected by the nINTSEL configuration strap.",
+            "function":"LED Output (Link Speed)"
+          },
+          {
+            "description":"When configured as nINT, this pin asserts low to indicate various interrupt events, such as Wake on LAN (WoL), ENERGYON status, Auto-Negotiation completion, or Link Down status. The nINT signal can optionally be output on LED2, but this would duplicate the function of the nINT/REFCLKO pin. The polarity of the nINT signal on LED2 is influenced by the nINTSEL configuration strap.",
+            "function":"Interrupt Output (nINT)"
+          },
+          {
+            "description":"When configured as nPME, this pin asserts low to indicate a Power Management Event, typically related to Wake on LAN (WoL) events. The nPME signal can be optionally configured to output on LED2. The polarity of the nPME signal on LED2 is influenced by the nINTSEL configuration strap.",
+            "function":"Power Management Event Output (nPME)"
+          }
+        ],
+        "precautions":[
+          "The function of the LED2 pin is determined by the nINTSEL configuration strap and the LED2 Function Select bits in the WUCSR. Ensure these are configured correctly for the desired operation.",
+          "The polarity of the LED2 output (active high or active low) is automatically determined by the state of the nINTSEL configuration strap. If nINTSEL is low (pulled low to VSS), LED2 will be active high. If nINTSEL is high (floated or pulled to VDD2A), LED2 will be active low. This affects how an LED should be connected.",
+          "When nINTSEL is disabled (pulled low), the nINT/REFCLKO pin functions as REFCLKO, and LED2 can be configured for nINT or nPME. Ensure proper selection based on system requirements.",
+          "When nINTSEL is enabled (floated or pulled high), the nINT/REFCLKO pin functions as nINT, and LED2 can be configured for Link Speed or nPME. Ensure proper selection based on system requirements.",
+          "If connecting an LED to LED2 when it is configured as nINT or nPME, and the LED is active high, the LED will be illuminated while waiting for a Wake on LAN event, as the nPME signal is typically active low in this state.",
+          "When using LED2 as an interrupt output (nINT) or Power Management Event output (nPME), ensure that other interrupt sources are properly managed or masked if necessary to avoid unintended behavior. The nPME pin has a self-clear option controlled by the WUCSR register and the Miscellaneous Configuration Register (MCFGR)."
+        ]
+      },
+      "name":"LED2",
+      "output_current":{
+        "max":12,
+        "units":"mA"
+      },
+      "pin_id":"2",
+      "type":"DIGITAL",
+      "voh":{
+        "min":2.9,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.4,
+        "units":"V"
+      }
+    },
+    "MDC":{
+      "description":"Serial Management Interface clock",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Station Management Controller (SMC)",
+            "description":"The SMC provides the MDC clock signal and controls the MDIO data line for communication with the LAN8742A/LAN8742Ai. The SMC can be a microcontroller or another management entity."
+          }
+        ],
+        "connectivity":"The MDC pin should be connected to the clock output of the Station Management Controller (SMC).",
+        "detailed_description":"The MDC (Serial Management Interface Clock) pin is a clock signal used for the Serial Management Interface (SMI). The SMI is responsible for controlling the device and obtaining its status.",
+        "functionality":"The MDC pin serves as the clock signal for the SMI. It is an aperiodic clock provided by the Station Management Controller (SMC) to the LAN8742A/LAN8742Ai.",
+        "precautions":[
+          "The MDC signal is an aperiodic clock with a minimum time between edges of 160 ns. The minimum cycle time (time between two consecutive rising or two consecutive falling edges) is 400 ns. Ensure the SMC adheres to these timing requirements.",
+          "The MDC signal is a digital input and should be connected directly to the output of the SMC."
+        ]
+      },
+      "input_voltage":{
+        "max":3.6,
+        "min":-0.3,
+        "units":"V"
+      },
+      "name":"MDC",
+      "pin_id":"13",
+      "type":"DIGITAL",
+      "vih":{
+        "nom":1.39,
+        "units":"V"
+      },
+      "vil":{
+        "nom":1.19,
+        "units":"V"
+      }
+    },
+    "MDIO":{
+      "description":"Serial Management Interface data input/output",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Station Management Controller (SMC)",
+            "connection_details":"Connected via the MDIO bus. The SMC controls the LAN8742A/LAN8742Ai through this interface."
+          }
+        ],
+        "connectivity":"The MDIO pin is a bi-directional pin. It connects to the Station Management Controller (SMC) via the MDIO bus. The data on this line is latched on the rising edge of the MDC (MDC Clock) signal. When acting as an output, it sends serial data (commands) to the SMC. When acting as an input, it receives serial data (status) from the SMC.",
+        "detailed_description":"The MDIO (MDC Data Input/Output) pin is part of the Serial Management Interface (SMI) for controlling the device and obtaining its status. It is a bi-directional data pin used for both sending commands to the transceiver and receiving status information from it.",
+        "functionality":[
+          "Serial Management Interface Data Input/Output"
+        ],
+        "precautions":[
+          "The MDIO line is sensitive to noise and requires careful routing and termination in complex board designs to maintain signal integrity.",
+          "The frame structure and timing of the data on the MDIO line are critical and must adhere to the specifications detailed in Section 3.5 (SMI Timing) and Section 5.6.5 (SMI Timing)."
+        ]
+      },
+      "input_voltage":{
+        "max":3.6,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":"PU",
+      "name":"MDIO",
+      "pin_id":"12",
+      "type":"DIGITAL",
+      "vih":{
+        "nom":1.39,
+        "units":"V"
+      },
+      "vil":{
+        "nom":1.19,
+        "units":"V"
+      }
+    },
+    "MODE0":{
+      "description":"Combined with MODE1 and MODE2, this configuration strap sets the default PHY mode.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Resistor",
+            "connection":"Connects MODE0 pin to VDDIO (for logic high) or VSS (for logic low, or leave floating for internal pull-down).",
+            "description":"An external resistor is recommended to ensure stable logic levels for configuration strap inputs, especially if the pin is connected to other circuitry."
+          }
+        ],
+        "connectivity":"The MODE0 pin requires an external resistor to ensure proper latching of its configuration state. The resistor should be connected to either VDDIO or VSS, depending on the desired default state.\n- To set MODE0 to a logic high (1), connect an external pull-up resistor (e.g., 10 k\u03a9) to VDDIO.\n- To set MODE0 to a logic low (0), the pin can be left floating (due to an internal pull-down resistor) or an external pull-down resistor can be used.",
+        "detailed_description":"The MODE0 pin, along with MODE1 and MODE2, is a configuration strap used to set the default PHY mode of operation for the LAN8742A/LAN8742Ai. These strap settings are latched on power-on reset and system reset.",
+        "functionality":[
+          "Configuration Strap for PHY Mode: Combined with MODE1 and MODE2, this pin determines the default operational mode of the PHY. Refer to Section 3.7.2, \"MODE[2:0]: Mode Configuration\" for specific mode definitions based on strap combinations.",
+          "RMII Interface: In addition to its configuration strap function, the pin is also designated as RXD0 (Receive Data 0) on the RMII interface when not used as a configuration strap. However, its primary use when unconfigured is as a configuration input."
+        ],
+        "precautions":[
+          "Configuration strap values are latched on power-on reset and system reset. Ensure the voltage level on this pin is stable and correct at the time of reset.",
+          "If an external resistor is used, ensure it is correctly sized to meet the input voltage requirements and to augment the internal pull-up/pull-down if necessary.",
+          "When not used as a configuration strap, this pin functions as RXD0 on the RMII interface. However, its primary intended use during initial configuration is as a strap. Ensure that the desired strap configuration is correctly implemented before normal operation.",
+          "The default value of MODE0 is determined by the MODE[2:0] configuration straps. Table 3-4 in Section 3.7.2 provides the specific mode definitions."
+        ]
+      },
+      "input_voltage":{
+        "max":3.6,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":"PU",
+      "name":"MODE0",
+      "pin_id":"8",
+      "type":"DIGITAL",
+      "vih":{
+        "nom":1.39,
+        "units":"V"
+      },
+      "vil":{
+        "nom":1.19,
+        "units":"V"
+      }
+    },
+    "MODE1":{
+      "description":"Combined with MODE0 and MODE2, this configuration strap sets the default PHY mode.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_type":"resistor",
+            "connection":"pull-up to VDDIO",
+            "purpose":"To set MODE1 to a high logic level for configuration."
+          },
+          {
+            "component_type":"resistor",
+            "connection":"pull-down to VSS",
+            "purpose":"To set MODE1 to a low logic level for configuration, overriding the internal pull-down if necessary."
+          }
+        ],
+        "connectivity":"The MODE1 pin is connected to the RXD1 (Receive Data 1) pin. As a configuration strap, it requires an external pull-up resistor (PU) to VDDIO if it is to be pulled high. If it is intended to be pulled low, the internal pull-down resistor is sufficient. Alternatively, a different external resistor can be used to override the internal pull-up or pull-down.",
+        "detailed_description":"The MODE1 pin is a configuration strap that, in conjunction with MODE0 and MODE2, sets the default PHY mode of operation for the LAN8742A/LAN8742Ai. This configuration is latched on power-on reset and system reset.",
+        "functionality":"This pin serves as a configuration strap for the PHY operating mode. It is part of the MODE[2:0] strapping group. The specific functionality and resulting PHY mode are determined by the combination of the states of MODE0, MODE1, and MODE2.",
+        "precautions":[
+          "The value of MODE1 is latched on power-on reset and system reset. Ensure the correct logic level is present at the time of reset.",
+          "If an external resistor is used to augment or override the internal pull-up/pull-down, ensure it is connected correctly to VDDIO (for pull-up) or VSS (for pull-down).",
+          "Refer to Section 3.7.2, 'MODE[2:0]: Mode Configuration' for details on how the combination of MODE[2:0] straps defines the PHY operating mode.",
+          "The internal pull-up resistor (PU) means the pin can be left floating to achieve a high logic level, but an external resistor is recommended if the pin is connected to a load to ensure the intended logic level is achieved."
+        ]
+      },
+      "input_voltage":{
+        "max":3.6,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":"PU",
+      "name":"MODE1",
+      "pin_id":"7",
+      "type":"DIGITAL",
+      "vih":{
+        "nom":1.39,
+        "units":"V"
+      },
+      "vil":{
+        "nom":1.19,
+        "units":"V"
+      }
+    },
+    "MODE2":{
+      "description":"Combined with MODE0 and MODE1, this configuration strap sets the default PHY mode.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"External Resistor",
+            "details":"An external pull-up or pull-down resistor is recommended for the MODE2 pin when it's used as a configuration strap. This resistor, typically connected to VDDIO (for pull-up) or VSS (for pull-down), ensures the pin has a defined logic level during the power-on reset sequence. The datasheet notes that configuration strap pins may need external resistors to augment internal pull-ups/pull-downs when connected to a load."
+          },
+          {
+            "component_name":"Voltage Source (VDDIO/VSS)",
+            "details":"The external resistor is connected to either VDDIO (for a logic '1') or VSS (for a logic '0') to set the configuration strap value."
+          }
+        ],
+        "connectivity":"The MODE2 pin is connected to the CRS_DV (Carrier Sense / Receive Data Valid) pin. When used as a configuration strap, it should be connected to a voltage source or ground through an external resistor to ensure a defined logic level is latched during reset. When not used for configuration, it functions as the RMII CRS_DV signal.",
+        "detailed_description":"The MODE2 pin, along with MODE0 and MODE1, serves as a configuration strap to set the default PHY mode of operation for the LAN8742A/LAN8742Ai. These straps are latched on power-on reset and system reset.",
+        "functionality":[
+          {
+            "description":"When the device powers on or is reset, the logic level on this pin (along with MODE0 and MODE1) is sampled to determine the initial operating mode of the PHY. This allows for hardware-based configuration without requiring software intervention for basic mode settings.",
+            "function":"Configuration Strap"
+          },
+          {
+            "description":"In normal operation (after configuration straps are latched), this pin functions as the MODE2 signal of the Reduced Media Independent Interface (RMII). It is part of the set of configuration straps that define the PHY's operating characteristics.",
+            "function":"RMII Interface Signal"
+          }
+        ],
+        "precautions":[
+          "Configuration strap values are latched on power-on reset and system reset. Ensure the correct voltage level is present on the MODE2 pin at this time.",
+          "If an external resistor is used to set the configuration strap, it should be chosen to meet the required timing specifications for latching the strap value.",
+          "When the MODE2 pin is configured using an external resistor, ensure the resistor value is appropriate to both define the logic level during reset and not interfere with its function as CRS_DV during normal operation, if applicable.",
+          "Refer to Section 3.7.2, 'MODE[2:0]: Mode Configuration' for specific mode definitions based on the combinations of MODE0, MODE1, and MODE2 pin states.",
+          "The default buffer type for this pin is VIS (Variable voltage Schmitt-triggered input) and it has a pull-up resistor (PU)."
+        ]
+      },
+      "input_voltage":{
+        "max":3.6,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":"PU",
+      "name":"MODE2",
+      "pin_id":"11",
+      "type":"DIGITAL",
+      "vih":{
+        "nom":1.39,
+        "units":"V"
+      },
+      "vil":{
+        "nom":1.19,
+        "units":"V"
+      }
+    },
+    "PHYAD0":{
+      "description":"This configuration strap sets the transceiver\u2019s SMI address.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Resistor",
+            "connection_details":"A pull-up resistor to VDDIO or a pull-down resistor to VSS should be connected to PHYAD0 to define its logic state during configuration strap latching. The value of this resistor should be chosen to ensure the pin reaches the required voltage level before the latching event. An external pull-up resistor is recommended if the pin is to be configured as logic '1', and an external pull-down resistor if it is to be configured as logic '0'."
+          }
+        ],
+        "connectivity":"PHYAD0 should be connected to a pull-up or pull-down resistor to set its logic level during power-on reset. The value of this resistor should be chosen to ensure the pin meets the voltage level requirements before being latched.",
+        "detailed_description":"PHYAD0 is a configuration strap pin used to set the Serial Management Interface (SMI) address of the transceiver. This address is essential for managing and communicating with the PHY through the SMI, especially in multi-PHY applications where each PHY needs a unique identifier. The PHY address is also used to seed the scrambler, ensuring different scrambler sequences in multi-PHY systems.",
+        "functionality":"PHYAD0 serves as a configuration strap to define the PHY's SMI address. It can also be used to select between two SMI addresses (0 or 1). If an address greater than 1 is required, it must be configured via software registers after SMI communication is established. Additionally, the PHYAD0 pin is multiplexed with the RXER pin.",
+        "precautions":"The value of the PHYAD0 pin is latched on power-on reset and system reset. Ensure that the external pull-up or pull-down resistor is correctly chosen to guarantee a stable logic level is achieved before the latching event. If the pin is not properly terminated with an external resistor, it may float and result in an undefined or incorrect PHY address. The PHYAD0 pin is multiplexed with the RXER pin, so ensure that any external component connected to RXER does not interfere with the PHYAD0 configuration strap functionality during reset."
+      },
+      "input_voltage":{
+        "max":3.6,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":"PD",
+      "name":"PHYAD0",
+      "pin_id":"10",
+      "type":"DIGITAL",
+      "vih":{
+        "nom":1.39,
+        "units":"V"
+      },
+      "vil":{
+        "nom":1.19,
+        "units":"V"
+      }
+    },
+    "RBIAS":{
+      "description":"This pin requires connection of a 12.1 k\u2126 (1%) resistor to ground.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_type":"Resistor",
+            "connection":"Connected between the RBIAS pin and Ground (VSS).",
+            "tolerance":"1%",
+            "value":"12.1 k\u2126"
+          }
+        ],
+        "connectivity":"The RBIAS pin should be connected to ground through a single external resistor. The datasheet specifies a 12.1 k\u2126 (1%) resistor for this connection.",
+        "detailed_description":"The RBIAS pin is used for analog biasing of the internal circuitry. It requires an external resistor to ground to set the operating point for the analog front-end, ensuring proper performance of the Ethernet transceiver.",
+        "functionality":"The RBIAS pin serves a single primary function: to provide a stable reference current for the analog bias circuitry within the LAN8742A/LAN8742Ai. This bias is crucial for the correct operation of the analog front-end, including the receiver and transmitter circuitry.",
+        "precautions":[
+          "The external resistor connected to RBIAS must be a 1% tolerance resistor to ensure accurate biasing. Deviation from this tolerance can affect the performance of the transceiver.",
+          "The datasheet notes that the nominal voltage at this pin is 1.2 V and the resistor will dissipate approximately 1 mW of power. Ensure the resistor is rated for this power dissipation.",
+          "Ensure the resistor is connected directly to the RBIAS pin and to a solid ground plane for optimal performance."
+        ]
+      },
+      "name":"RBIAS",
+      "pin_id":"24",
+      "type":"ANALOG"
+    },
+    "REGOFF":{
+      "description":"This configuration strap is used to disable the internal 1.2 V regulator.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Resistor",
+            "details":"An external pull-up resistor is required when disabling the internal regulator. The resistor connects between the REGOFF pin and VDD2A. The value of this resistor is not specified, but typical pull-up resistor values (e.g., 10 k\u03a9) can be used."
+          }
+        ],
+        "connectivity":"The REGOFF pin should be connected to VDD2A via an external pull-up resistor to disable the internal regulator. If the internal regulator is to be enabled (default operation), the pin should be left floating or connected to VSS.",
+        "detailed_description":"The REGOFF pin is a configuration strap used to disable the internal 1.2 V regulator. When the regulator is disabled, an external 1.2 V supply must be provided to the VDDCR pin. Disabling the internal regulator allows for reduced system power consumption by enabling the use of a more efficient external switching regulator.",
+        "functionality":[
+          "Disables the internal 1.2 V regulator when pulled high to VDD2A.",
+          "Enables the internal 1.2 V regulator (default) when floating or pulled low to VSS."
+        ],
+        "precautions":[
+          "When disabling the internal regulator by pulling REGOFF high, an external pull-up resistor must be used. Do not rely solely on the internal pull-up resistor as it may not be sufficient when connected to a load.",
+          "When the internal regulator is disabled (REGOFF is high), an external 1.2 V supply must be provided to the VDDCR pin. Ensure that the VDDIO voltage is at least 80% of its operating voltage (e.g., 2.88 V for a 3.6 V VDDIO) before applying voltage to VDDCR.",
+          "The REGOFF configuration strap shares functionality with the LED1 pin. Proper consideration must be given to the LED polarity when configuring REGOFF. If REGOFF is pulled high (disabling the regulator), the LED1 output will be active low. If REGOFF is low (enabling the regulator), the LED1 output will be active high."
+        ]
+      },
+      "input_voltage":{
+        "max":3.6,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":"PD",
+      "name":"REGOFF",
+      "pin_id":"3",
+      "type":"DIGITAL",
+      "vih":{
+        "nom":1.39,
+        "units":"V"
+      },
+      "vil":{
+        "nom":1.19,
+        "units":"V"
+      }
+    },
+    "RXD0":{
+      "description":"Bit 0 of the 2 data bits that are sent by the transceiver on the receive path.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"MAC Controller",
+            "connection_details":"RXD0 pin of the LAN8742A/LAN8742Ai connects to the RXD0 pin of the MAC controller."
+          }
+        ],
+        "connectivity":"RXD0 should be connected directly to the corresponding RXD0 pin on the MAC controller. It operates as an output from the LAN8742A/LAN8742Ai and an input to the MAC. It is part of the RMII interface.",
+        "detailed_description":"RXD0 is one of two data bits transmitted by the transceiver on the receive path, forming a 2-bit wide (di-bit) data bus when used with the RMII interface. This signal is clocked by the REF_CLK and carries the received Ethernet data to the MAC controller.",
+        "functionality":"The primary function of RXD0 is to convey received data from the Ethernet PHY to the MAC. It is part of the 2-bit RXD interface (RXD0, RXD1).",
+        "precautions":[
+          "Ensure that the REF_CLK is stable and properly supplied to the LAN8742A/LAN8742Ai, as RXD0 data is clocked by this reference.",
+          "Verify that the MAC controller is configured to correctly interpret the RMII interface signals, including RXD0.",
+          "The data on RXD0 is valid when CRS_DV is asserted. Ensure proper handling of the CRS_DV signal in conjunction with RXD0."
+        ]
+      },
+      "internal_pull":"PU",
+      "name":"RXD0",
+      "output_current":{
+        "max":8,
+        "units":"mA"
+      },
+      "pin_id":"8",
+      "type":"DIGITAL",
+      "voh":{
+        "min":2.9,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.4,
+        "units":"V"
+      }
+    },
+    "RXD1":{
+      "description":"Bit 1 of the 2 data bits that are sent by the transceiver on the receive path.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"MAC Controller",
+            "connection_details":"Connect to the RXD1 pin of the MAC controller, which is part of the RMII interface."
+          }
+        ],
+        "connectivity":"This pin should be connected to the corresponding RXD1 pin of the MAC controller. It is part of the RMII interface, so it will be driven by the transceiver and received by the MAC. The data is valid on the rising edge of the REF_CLK.",
+        "detailed_description":"RXD1 is the second bit of the 2-bit wide receive data path on the Reduced Media Independent Interface (RMII). This pin is used by the Ethernet transceiver to send received data to the connected MAC (Media Access Controller).",
+        "functionality":"This pin is dedicated to transmitting received data from the transceiver to the MAC. It is part of the 2-bit wide receive data bus (RXD[1:0]) used in the RMII interface. The data is clocked by the RMII reference clock (REF_CLK).",
+        "precautions":[
+          "The data on RXD[1:0] is valid only when the CRS_DV signal is asserted.",
+          "When the device operates in 10 Mbps mode, TXD[1:0] is driven at 2.5 MHz. In 100 Mbps mode, TXD[1:0] is driven at 25 MHz. Ensure the MAC controller can handle these data rates.",
+          "Ensure proper termination and signal integrity for the RMII interface signals, including RXD1, according to the RMII standard and the LAN8742A/LAN8742Ai datasheet recommendations."
+        ]
+      },
+      "internal_pull":"PU",
+      "name":"RXD1",
+      "output_current":{
+        "max":8,
+        "units":"mA"
+      },
+      "pin_id":"7",
+      "type":"DIGITAL",
+      "voh":{
+        "min":2.9,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.4,
+        "units":"V"
+      }
+    },
+    "RXER":{
+      "description":"This signal is asserted to indicate that an error was detected somewhere in the frame presently being transferred from the transceiver.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":"MAC (Media Access Controller): The RXER pin is connected to a dedicated input on the MAC controller responsible for handling receive error signaling.",
+        "connectivity":"RXER is an output pin. It should be connected to the corresponding input pin on the MAC controller that is designed to receive the RXER signal. As it is an RMII signal, it is typically connected directly to the MAC's RXER input.",
+        "detailed_description":"The RXER (Receive Error) pin is an output signal that indicates an error detected during the transfer of a frame from the transceiver. This signal is part of the Reduced Media Independent Interface (RMII).",
+        "functionality":"The primary function of RXER is to signal a receive error. In the context of the RMII interface, it is typically used to inform the MAC (Media Access Controller) that the received data is corrupted or invalid.",
+        "precautions":"The datasheet specifies that RXER is an optional RMII signal. While it is present on this device, the connection to the MAC depends on whether the MAC supports and utilizes this specific signal for error reporting. Ensure the MAC's interface is configured to accept the RXER signal. If the MAC does not utilize RXER, this pin can be left unconnected."
+      },
+      "internal_pull":"PU",
+      "name":"RXER",
+      "output_current":{
+        "max":8,
+        "units":"mA"
+      },
+      "pin_id":"10",
+      "type":"DIGITAL",
+      "voh":{
+        "min":2.9,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.4,
+        "units":"V"
+      }
+    },
+    "RXN":{
+      "description":"Transmit/Receive Negative Channel 2",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Ethernet Transformer",
+            "details":"A standard Ethernet magnetics transformer is required. The RXN pin connects to the secondary winding's negative terminal (often labeled 'RX-') and the RXP pin connects to the secondary winding's positive terminal (often labeled 'RX+')."
+          }
+        ],
+        "connectivity":"RXN should be connected to the negative side of the Ethernet transformer's receive winding. The corresponding positive pin, RXP, should be connected to the positive side of the same winding.",
+        "detailed_description":"RXN is the negative channel for the receiver path of the Ethernet physical layer transceiver. It is part of the differential pair (RXP and RXN) that receives the Ethernet signal from the twisted-pair medium via external magnetics.",
+        "functionality":"This pin is part of the differential receiver pair. It is used for receiving Ethernet signals in both 10BASE-T and 100BASE-TX modes.",
+        "precautions":[
+          "RXN is an analog input and is part of a differential pair. Proper impedance matching and signal integrity considerations are crucial.",
+          "Ensure the external magnetics are correctly rated for Ethernet applications and are connected according to the transformer's datasheet and the application circuit diagram.",
+          "The RXP and RXN pins are sensitive to noise. Shielding and proper PCB layout techniques should be employed to minimize noise coupling.",
+          "The device's operating voltage range for analog port power (VDD1A, VDD2A) must be respected."
+        ]
+      },
+      "name":"RXN",
+      "pin_id":"22",
+      "type":"ANALOG"
+    },
+    "RXP":{
+      "description":"Transmit/Receive Positive Channel 2",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Ethernet Transformer",
+            "details":"A 1:1 isolation transformer is required for the Ethernet twisted-pair interface. RXP connects to the positive side of the transformer's secondary winding, which interfaces with the twisted-pair cable. The primary winding of the transformer is connected to the LAN8742A/LAN8742Ai's TXP and RXP pins."
+          }
+        ],
+        "connectivity":"RXP should be connected to the corresponding positive channel of the Ethernet transformer (e.g., TXP/RX P on the transformer side). It forms a differential pair with the RXN pin.",
+        "detailed_description":"RXP is the positive channel for the transmit and receive differential signals on the Ethernet interface.",
+        "functionality":"RXP serves as a differential signal pin for both transmitting and receiving Ethernet data. It is part of the physical connection to the twisted-pair media via an external isolation transformer and associated magnetics.",
+        "precautions":[
+          "RXP must be connected to its differential partner RXN to form a proper differential pair for the Ethernet signal.",
+          "Ensure the external transformer and magnetics are correctly selected and connected according to the application's requirements and relevant standards (e.g., IEEE 802.3).",
+          "Proper impedance matching and termination are crucial for signal integrity."
+        ]
+      },
+      "name":"RXP",
+      "pin_id":"23",
+      "type":"ANALOG"
+    },
+    "TXD0":{
+      "description":"The MAC transmits data to the transceiver using this signal.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Ethernet MAC (Media Access Controller)",
+            "details":"The TXD0 pin of the LAN8742A/LAN8742Ai connects to the corresponding TXD0 output pin of the Ethernet MAC. The MAC drives the transmit data onto this interface."
+          }
+        ],
+        "connectivity":"TXD0 from the MAC should be connected directly to the TXD0 pin of the LAN8742A/LAN8742Ai. This connection is part of the RMII interface, which also includes TXD1, TXEN, RXD[1:0], RXER, CRS_DV, and REF_CLK. These connections should be made with minimal trace length and impedance matching for optimal signal integrity.",
+        "detailed_description":"The TXD0 pin is part of the Reduced Media Independent Interface (RMII) and is used by the Ethernet MAC (Media Access Controller) to transmit data to the LAN8742A/LAN8742Ai transceiver. It carries the lower bit of the 2-bit wide transmit data bus (TXD[1:0]).",
+        "functionality":"This pin is solely for transmitting data from the MAC to the PHY. It operates as part of a 2-bit bus (TXD[1:0]) which carries transmit data at 50 MHz for 100 Mbps operation and 2.5 MHz for 10 Mbps operation, synchronized to the RMII reference clock.",
+        "precautions":[
+          "Ensure that the RMII interface signals, including TXD0, are routed with appropriate impedance control and minimal stubbing to maintain signal integrity, especially at higher speeds.",
+          "The TXD[1:0] signals should be driven by the MAC and are sampled by the LAN8742A/LAN8742Ai on the rising edge of the RMII reference clock (REF_CLK).",
+          "When TXEN is deasserted, the TXD[1:0] pins should be driven to '00' to indicate idle."
+        ]
+      },
+      "input_voltage":{
+        "max":3.6,
+        "min":-0.3,
+        "units":"V"
+      },
+      "name":"TXD0",
+      "pin_id":"17",
+      "type":"DIGITAL",
+      "vih":{
+        "nom":1.39,
+        "units":"V"
+      },
+      "vil":{
+        "nom":1.19,
+        "units":"V"
+      }
+    },
+    "TXD1":{
+      "description":"The MAC transmits data to the transceiver using this signal.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[],
+        "connectivity":"This pin should be connected to the corresponding TXD1 pin of the Ethernet MAC controller.",
+        "detailed_description":"TXD1 is one of the two transmit data lines of the RMII interface. The Media Access Controller (MAC) transmits data to the LAN8742A/LAN8742Ai transceiver using this signal.",
+        "functionality":"Transmit Data 1 (TXD1) is a unidirectional signal from the MAC to the PHY.",
+        "precautions":"The data on TXD1 is latched by the transceiver's RMII block on the rising edge of REF_CLK. The data is in the form of 2-bit wide 50 MHz data. Ensure proper signal integrity and timing with respect to REF_CLK."
+      },
+      "input_voltage":{
+        "max":3.6,
+        "min":-0.3,
+        "units":"V"
+      },
+      "name":"TXD1",
+      "pin_id":"18",
+      "type":"DIGITAL",
+      "vih":{
+        "nom":1.39,
+        "units":"V"
+      },
+      "vil":{
+        "nom":1.19,
+        "units":"V"
+      }
+    },
+    "TXEN":{
+      "description":"Indicates that valid transmission data is present on TXD[1:0].",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"MAC Controller",
+            "connection_details":"The TXEN pin of the LAN8742A/LAN8742Ai should be connected to the corresponding transmit enable output pin of the MAC controller."
+          }
+        ],
+        "connectivity":"TXEN is an input to the LAN8742A/LAN8742Ai from the MAC controller.",
+        "detailed_description":"The TXEN pin is an output signal from the MAC (Media Access Controller) to the Ethernet Transceiver (PHY). It indicates that valid transmission data is present on the TXD[1:0] bus. The data is latched by the transceiver's RMII block on the rising edge of REF_CLK.",
+        "functionality":"The primary function of TXEN is to signal the presence of valid data for transmission. It acts as a strobe signal for the transmit data lines (TXD[1:0]).",
+        "precautions":[
+          "The data on TXD[1:0] is only considered valid when TXEN is asserted.",
+          "In 10BASE-T mode, TXD[1:0] shall be '00' to indicate idle when TXEN is deasserted. Values other than '00' on TXD[1:0] while TXEN is deasserted shall be ignored by the device."
+        ]
+      },
+      "input_voltage":{
+        "max":3.6,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":"PD",
+      "name":"TXEN",
+      "pin_id":"16",
+      "type":"DIGITAL",
+      "vih":{
+        "nom":1.39,
+        "units":"V"
+      },
+      "vil":{
+        "nom":1.19,
+        "units":"V"
+      }
+    },
+    "TXN":{
+      "description":"Transmit/Receive Negative Channel 1",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Ethernet Magnetics Transformer",
+            "description":"An isolation transformer is required for the Ethernet interface. TXN connects to one side of the primary winding, and TXP connects to the other. The secondary winding connects to the physical Ethernet port (RJ45)."
+          },
+          {
+            "component_name":"RJ45 Connector",
+            "description":"The physical Ethernet port where the twisted-pair cable is plugged in. The secondary side of the magnetics transformer connects to the appropriate pins of the RJ45 connector."
+          }
+        ],
+        "connectivity":"TXN should be connected to the negative terminal of the Ethernet magnetics transformer's primary side for the transmit/receive pair. The other side of the transformer's primary will connect to TXP. The secondary side of the transformer will connect to the RJ45 connector's corresponding pins.",
+        "detailed_description":"TXN is the negative channel for the transmit and receive differential pair. It is part of the Ethernet PHY interface, specifically for the physical transmission of data onto the twisted-pair medium and reception of data from it.",
+        "functionality":"This pin serves as the negative differential signal for both transmitting and receiving data over the Ethernet twisted-pair cable. It works in conjunction with the TXP pin to form a differential signal pair.",
+        "precautions":[
+          "TXN must be connected differentially with TXP to ensure proper signal integrity and compliance with Ethernet standards.",
+          "A 1:1 isolation transformer is mandatory for the Ethernet interface to provide signal isolation and impedance matching.",
+          "Ensure proper termination of the twisted-pair cable at the RJ45 connector to maintain signal quality."
+        ]
+      },
+      "name":"TXN",
+      "pin_id":"20",
+      "type":"ANALOG"
+    },
+    "TXP":{
+      "description":"Transmit/Receive Positive Channel 1",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Ethernet Magnetics Transformer",
+            "details":"A 1:1 isolation transformer is required. The primary side connects to TXP and TXN, and the secondary side connects to the Ethernet cable (RJ45 connector)."
+          }
+        ],
+        "connectivity":"TXP should be connected to one side of the primary winding of the Ethernet magnetics transformer. The other side of the primary winding of the transformer connects to TXN. The secondary side of the transformer connects to the Ethernet cable (RJ45 connector).",
+        "detailed_description":"TXP is the positive channel of the transmit/receive pair for the Ethernet interface. It is used for transmitting data onto the twisted pair medium and receiving data from it.",
+        "functionality":"This pin is part of the differential pair for Ethernet communication (TXP/TXN and RXP/RXN). It carries the transmit and receive signals for the Ethernet physical layer.",
+        "precautions":[
+          "TXP forms a differential pair with TXN. Proper termination and impedance matching (100 Ohms) are crucial for signal integrity.",
+          "An external isolation transformer is mandatory for Ethernet communication.",
+          "Refer to application notes and reference schematics for proper schematic implementation to ensure compliance with Ethernet standards and to achieve optimal performance."
+        ]
+      },
+      "name":"TXP",
+      "pin_id":"21",
+      "type":"ANALOG"
+    },
+    "VDD1A":{
+      "description":"+3.3 V Analog Port Power to Channel 1.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Power Supply",
+            "description":"Connect to the +3.3V analog port power rail."
+          },
+          {
+            "component_name":"Decoupling Capacitor",
+            "description":"A decoupling capacitor (e.g., 1 uF and 470 pF in parallel to ground) should be used on this pin for proper filtering."
+          }
+        ],
+        "connectivity":"This pin is a power supply pin and should be connected to the +3.3V power rail. Refer to the LAN8742A/LAN8742Ai reference schematic for connection information.",
+        "detailed_description":"+3.3 V Analog Port Power to Channel 1.",
+        "functionality":"+3.3 V Analog Port Power to Channel 1.",
+        "precautions":[
+          "Refer to the LAN8742A/LAN8742Ai reference schematic for connection information.",
+          "Ensure that the voltage supplied to this pin is within the specified operating conditions (+3.0 V to +3.6 V)."
+        ]
+      },
+      "input_voltage":{
+        "max":3.6,
+        "min":3.0,
+        "units":"V"
+      },
+      "name":"VDD1A",
+      "pin_id":"19",
+      "type":"POWER"
+    },
+    "VDD2A":{
+      "description":"+3.3 V Analog Port Power to Channel 2 and the internal regulator.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Power Supply",
+            "connection_details":"+3.3 V"
+          },
+          {
+            "component_name":"Decoupling Capacitor",
+            "connection_details":"A capacitor (e.g., 1 \u00b5F and 470 pF in parallel) should be connected between VDD2A and VSS (Ground) to filter noise and ensure stable power delivery to the internal circuitry."
+          }
+        ],
+        "connectivity":"It should be connected to a +3.3 V power supply.  Decoupling capacitors are typically required for stable operation.",
+        "detailed_description":"VDD2A is the +3.3 V Analog Port Power supply for Channel 2 and the internal regulator. It serves as a power input pin for these specific analog components within the IC.",
+        "functionality":"The primary function is to provide a stable +3.3 V power supply to the analog port for Channel 2 and the internal regulator. This power is essential for the correct operation of these analog circuits.",
+        "precautions":[
+          "Ensure that the voltage supplied to VDD2A is within the specified operating range (+3.0 V to +3.6 V).",
+          "Proper decoupling is crucial for the stability and performance of the analog circuitry. Refer to the 'Power Supply Diagram' examples in the datasheet for recommended decoupling capacitor values and placement."
+        ]
+      },
+      "input_voltage":{
+        "max":3.6,
+        "min":3.0,
+        "units":"V"
+      },
+      "name":"VDD2A",
+      "pin_id":"1",
+      "type":"POWER"
+    },
+    "VDDCR":{
+      "description":"Supplied by the on-chip regulator unless configured for regulator off mode via the REGOFF configuration strap.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Internal 1.2 V Regulator",
+            "description":"This is an on-chip regulator that provides the VDDCR supply when the REGOFF pin is not configured to disable it. When enabled, it draws power from the VDD2A supply."
+          },
+          {
+            "component_name":"External 1.2 V Power Supply",
+            "description":"This is an external voltage source that must be connected to VDDCR when the REGOFF pin is configured to disable the internal regulator. This external supply should be a stable 1.2 V source."
+          },
+          {
+            "component_name":"Decoupling Capacitors",
+            "description":"A 1 \u00b5F capacitor and a 470 pF capacitor, connected in parallel to ground, should be used on this pin to ensure stable operation by filtering noise and providing a local charge reservoir."
+          }
+        ],
+        "connectivity":"It should be connected to the voltage output of the internal 1.2 V regulator or an external 1.2 V power supply.",
+        "detailed_description":"VDDCR is the digital core power supply for the LAN8742A/LAN8742Ai. It is supplied by an on-chip regulator unless the internal regulator is disabled via the REGOFF configuration strap, in which case an external 1.2 V supply must be provided.",
+        "functionality":"The primary function of VDDCR is to provide the regulated 1.2 V power to the digital core of the IC. This supply can be internally regulated or externally supplied depending on the configuration of the REGOFF pin.",
+        "precautions":[
+          "If the internal regulator is disabled (REGOFF pin pulled high), an external 1.2 V must be supplied to VDDCR. Failure to do so will result in improper operation or no operation of the device.",
+          "When using the internal regulator, ensure that the VDD2A supply is within its operating range, as it powers the regulator.",
+          "Decoupling capacitors are essential for stable operation. Ensure they are placed close to the VDDCR pin.",
+          "The voltage on VDDCR must remain within the specified operating range (typically +1.14 V to +1.26 V) during normal operation. Values outside this range can lead to malfunction.",
+          "The datasheet notes that 'Varying the voltage up or down after the transceiver has completed power-on reset can cause errors in the transceiver operation'. Therefore, the VDDIO and VDDCR voltages should be stable after power-on."
+        ]
+      },
+      "input_voltage":{
+        "max":1.26,
+        "min":1.14,
+        "units":"V"
+      },
+      "name":"VDDCR",
+      "pin_id":"6",
+      "type":"POWER"
+    },
+    "VDDIO":{
+      "description":"+1.8 V to +3.3 V variable I/O power.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Capacitor",
+            "connection_details":"Connected in parallel between VDDIO and VSS.",
+            "description":"Decoupling capacitors are typically connected between VDDIO and VSS (ground) to filter out high-frequency noise and ensure stable power delivery to the device. Recommended values and types (e.g., ceramic, tantalum) would be specified in a reference schematic or application note."
+          }
+        ],
+        "connectivity":"This pin requires a stable power supply connection within the specified voltage range (+1.8 V to +3.3 V). It should be connected to the positive voltage rail of the power supply.\n\nAdditionally, decoupling capacitors are recommended to be connected between VDDIO and VSS to filter noise and ensure stable power delivery.",
+        "detailed_description":"+1.8 V to +3.3 V variable I/O power.",
+        "functionality":"This pin serves as the power supply for the device's digital I/O. Its voltage level can be varied between +1.8 V and +3.3 V, allowing for flexibility in system design and potential power savings.",
+        "precautions":[
+          "The voltage applied to VDDIO must remain within the specified range of +1.8 V to +3.3 V.",
+          "The voltage level on VDDIO should not be varied significantly after the device has completed its power-on reset, as this can lead to operational errors.",
+          "Input signals should not be driven to the device before power is applied to VDDIO.",
+          "Ensure proper decoupling capacitors are used to maintain signal integrity and device stability."
+        ]
+      },
+      "input_voltage":{
+        "max":3.6,
+        "min":1.62,
+        "units":"V"
+      },
+      "name":"VDDIO",
+      "pin_id":"9",
+      "type":"POWER"
+    },
+    "VSS":{
+      "description":"Common ground. This exposed pad must be connected to the ground plane with a via array.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Ground Plane",
+            "connection_details":"The VSS pin and its associated exposed pad are connected directly to the system's ground plane."
+          },
+          {
+            "component_name":"Via Array",
+            "connection_details":"A via array is used to connect the exposed pad of the VSS pin to the ground plane."
+          }
+        ],
+        "connectivity":"The VSS pin should be connected directly to the system's ground plane. The exposed pad associated with VSS must also be connected to the ground plane using a via array. This ensures a robust ground connection and adequate heat dissipation.",
+        "detailed_description":"The VSS pin is the common ground connection for the LAN8742A/LAN8742Ai device. It serves as the reference potential for all voltage levels and signal operations within the integrated circuit. This pin is also associated with an exposed pad that must be connected to the ground plane via a via array to ensure proper thermal management and electrical performance.",
+        "functionality":"The VSS pin has a single primary function: to provide a common ground connection for the device. It does not serve multiple functions based on connectivity.",
+        "precautions":[
+          "Ensure a solid and low-impedance connection to the ground plane for all VSS pins and the exposed pad. This is critical for signal integrity and thermal performance.",
+          "Avoid connecting any components or signals to the VSS pin other than the ground plane connection. It is a dedicated ground reference.",
+          "Proper layout of the ground vias under the exposed pad is important for thermal dissipation. Refer to the device datasheet's recommended layout guidelines."
+        ]
+      },
+      "name":"VSS",
+      "pin_id":"24",
+      "type":"POWER"
+    },
+    "XTAL1":{
+      "description":"External crystal input",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Crystal Oscillator",
+            "description":"A 25 MHz crystal (either 300 \u00b5W or 100 \u00b5W) is required. It connects between XTAL1 and XTAL2. Load capacitors (e.g., 20 pF for 300 \u00b5W crystal, 8-12 pF for 100 \u00b5W crystal) are connected from XTAL1 and XTAL2 to ground."
+          },
+          {
+            "component_name":"Clock Oscillator (Single-Ended)",
+            "description":"A 25 MHz single-ended clock oscillator provides the clock signal directly to the XTAL1/CLKIN pin. XTAL2 is left unconnected in this configuration."
+          }
+        ],
+        "connectivity":"When using a crystal, XTAL1 is connected to one pin of the crystal, and the other pin of the crystal is connected to XTAL2. External load capacitors are typically connected from each XTAL pin to ground. When using a single-ended clock oscillator, XTAL1 should be driven with the clock signal, and XTAL2 should be left unconnected.",
+        "detailed_description":"XTAL1 is the input pin for an external crystal oscillator. It is part of the clock circuit that generates the timing reference for the device. The device can accept either a 25 MHz crystal or a 25 MHz single-ended clock oscillator.",
+        "functionality":[
+          "External Crystal Input",
+          "Clock Input (when using a single-ended clock oscillator)"
+        ],
+        "precautions":[
+          "If using a crystal, it is recommended to use matching parallel load capacitors for the XTAL1 and XTAL2 pins to ensure proper frequency accuracy.",
+          "When using a single-ended clock oscillator, ensure XTAL2 is left unconnected.",
+          "The clock input must meet the specified frequency, drift, duty cycle, and jitter requirements (see Section 5.6.4.3, \"RMII CLKIN Requirements\").",
+          "Ensure the clock input signal is within the specified voltage range (0-3.3 V for single-ended clock oscillator).",
+          "The XTAL1/CLKIN pin is an input pin and should not be driven with a signal that exceeds the absolute maximum ratings."
+        ]
+      },
+      "input_voltage":{
+        "max":3.6,
+        "min":-0.3,
+        "units":"V"
+      },
+      "name":"XTAL1",
+      "pin_id":"5",
+      "type":"DIGITAL",
+      "vih":{
+        "nom":3.6,
+        "units":"V"
+      },
+      "vil":{
+        "nom":-0.3,
+        "units":"V"
+      }
+    },
+    "XTAL2":{
+      "description":"External crystal output",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"External Crystal",
+            "connection_details":"Connect to the XTAL2 pin of the external crystal. The other end of the crystal connects to the XTAL1/CLKIN pin.",
+            "purpose":"Forms a resonant circuit with XTAL1 to generate the reference clock."
+          },
+          {
+            "component_name":"External Single-Ended Clock Oscillator",
+            "connection_details":"This pin should be left unconnected when using an external single-ended clock oscillator connected to the XTAL1/CLKIN pin.",
+            "purpose":"Provides an alternative method for supplying the reference clock."
+          }
+        ],
+        "connectivity":"Connect to the XTAL2 pin of an external crystal. In a single-ended clock oscillator configuration, this pin should be left unconnected.",
+        "detailed_description":"External crystal output pin for connecting to an external crystal oscillator circuit.",
+        "functionality":"This pin functions as the output for an external crystal oscillator. It is intended to be used in conjunction with the XTAL1 pin to form a resonant circuit with an external crystal. In a single-ended clock oscillator configuration, this pin should be left unconnected.",
+        "precautions":[
+          "When using an external crystal, ensure that the crystal specifications (frequency, load capacitance, drive level) are within the recommended ranges detailed in the datasheet (Section 5.7).",
+          "In a single-ended clock oscillator configuration, this pin must be left unconnected.",
+          "The crystal circuit requires external load capacitors (C1 and C2) connected to ground, as shown in Figure 5-7 and Figure 5-8, to accurately set the 25 MHz frequency. The values of these capacitors depend on the crystal specifications and PCB trace capacitance."
+        ]
+      },
+      "name":"XTAL2",
+      "pin_id":"4",
+      "type":"DIGITAL",
+      "voh":{
+        "min":2.9,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.4,
+        "units":"V"
+      }
+    },
+    "nINT":{
+      "description":"Active low interrupt output.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component":"External Pull-up Resistor",
+            "details":"A resistor (typically 4.7k\u03a9 to 10k\u03a9) connected from the nINT pin (or the pin it's routed to, e.g., LED1/LED2) to VDDIO. This is recommended when nINT is used as an interrupt output to ensure a defined high state when no interrupt is asserted."
+          },
+          {
+            "component":"Microcontroller/Host Processor",
+            "details":"The nINT pin is typically connected to an interrupt-capable input on a microcontroller or host processor to signal interrupt events."
+          },
+          {
+            "component":"Configuration Strap Resistors",
+            "details":"For the nINTSEL configuration strap (shared with LED2), an external resistor is needed to pull the pin high or low to VDD2A to set its function. If nINTSEL is meant to be high, it needs an external pull-up to VDD2A. If it is meant to be low, it needs an external pull-down to VSS."
+          }
+        ],
+        "connectivity":"The connection of the nINT pin depends on its desired function:\n\n*   **As a primary interrupt output on the nINT/REFCLKO pin:**\n    *   Ensure the nINTSEL configuration strap is set to '1' (floated or pulled high to VDD2A). This selects the nINT function for this pin.\n    *   A pull-up resistor to VDDIO is recommended if this pin is used as an interrupt output.\n\n*   **As an interrupt output routed to LED1:**\n    *   Configure the LED1 Function Select field in the WUCSR to '01b'.\n    *   The REGOFF configuration strap on the LED1/nINT/nPME/REGOFF pin will determine the polarity of the LED1 output. If REGOFF is high (internal regulator disabled), LED1 is active low. If REGOFF is low (internal regulator enabled), LED1 is active high.\n\n*   **As an interrupt output routed to LED2:**\n    *   Configure the LED2 Function Select field in the WUCSR to '01b'.\n    *   The nINTSEL configuration strap on the LED2/nINT/nPME/nINTSEL pin will determine the polarity of the LED2 output. If nINTSEL is high (nINT mode selected), LED2 is active low. If nINTSEL is low (REFCLKO mode selected), LED2 is active high.",
+        "detailed_description":"The nINT pin is an active-low interrupt output from the LAN8742A/LAN8742Ai. It signals various events within the device, such as Wake on LAN (WoL), ENERGYON status, Auto-Negotiation completion, Remote Fault detection, Link Down status, Auto-Negotiation LP Acknowledge, Parallel Detection Fault, and Auto-Negotiation Page Received. The specific interrupt sources that trigger this pin can be masked using the Interrupt Mask Register (Register 30). The nINT signal can be configured to output on different pins (nINT/REFCLKO, LED1, or LED2) based on the nINTSEL configuration strap and the LED Function Select bits in the Wakeup Control and Status Register (WUCSR).",
+        "functionality":"The nINT pin can serve multiple functions depending on the configuration:\n\n1.  **Interrupt Output:** Its primary function is to signal interrupts from the device. It is active low.\n2.  **Shared Functionality:** The nINT/REFCLKO pin itself can be configured to either output the nINT signal or act as a reference clock output (REFCLKO) via the nINTSEL configuration strap.\n3.  **LED Output:** The nINT signal can also be routed to the LED1 or LED2 pins if they are configured to output the nINT function via the WUCSR.\n4.  **Power Management Event (nPME) Output:** In certain configurations (specifically when the LED Function Select bits in WUCSR are set to 10b for LED1 or LED2), the nINT pin can also be configured to output the nPME signal, which is related to Wake on LAN events.",
+        "precautions":[
+          "When using the nINT pin as an interrupt output, ensure that the appropriate interrupt sources are enabled in the Interrupt Mask Register (Register 30) and that the interrupt system (Primary or Alternate) is correctly configured.",
+          "If nINT is routed to LED1 or LED2, be mindful of the polarity as determined by the REGOFF and nINTSEL configuration straps, respectively.",
+          "If the nINT pin is configured as REFCLKO (via nINTSEL), it cannot simultaneously function as an interrupt output.",
+          "When using the nINT pin for WoL events, it is recommended to mask all other interrupts or use the nPME pin to avoid spurious wake-ups. Ensure the WoL configuration is correctly set up in the WUCSR and other related registers.",
+          "Ensure that any external pull-up resistor connected to nINT (when used as an interrupt output) does not interfere with any other configured function of the shared pin (e.g., REFCLKO drive, LED output polarity)."
+        ]
+      },
+      "internal_pull":"PU",
+      "name":[
+        "2",
+        "14"
+      ],
+      "output_current":{
+        "max":12,
+        "units":"mA"
+      },
+      "pin_id":[
+        "2",
+        "14"
+      ],
+      "polarity":"ACTIVE_LOW",
+      "type":"DIGITAL",
+      "voh":{
+        "min":2.9,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.4,
+        "units":"V"
+      }
+    },
+    "nINT/REFCLKO":{
+      "description":"This optional 50 MHz clock output is derived from the 25 MHz crystal oscillator. REFCLKO is selectable via the nINTSEL configuration strap.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Pull-up Resistor",
+            "description":"A pull-up resistor is required when the pin is configured as nINT to ensure a defined high state when no interrupt is active. Connect between the nINT/REFCLKO pin and VDDIO."
+          },
+          {
+            "component_name":"25 MHz Crystal",
+            "description":"Required when REFCLKO mode is enabled and a crystal oscillator is used. Connect between XTAL1/CLKIN and XTAL2 pins, with appropriate load capacitors connected from each crystal pin to ground."
+          },
+          {
+            "component_name":"Load Capacitors (C1, C2)",
+            "description":"Required for crystal oscillator operation. Connect from XTAL1/CLKIN to ground and from XTAL2 to ground. The values depend on the crystal specifications and PCB layout parasitic capacitance. Refer to Section 5.7.1 and 5.7.2 for specific crystal types and recommended capacitor values."
+          },
+          {
+            "component_name":"25 MHz Clock Oscillator",
+            "description":"An alternative to a crystal for REFCLKO mode. Connect to the XTAL1/CLKIN pin."
+          },
+          {
+            "component_name":"MAC Interface",
+            "description":"When configured as REFCLKO, the nINT/REFCLKO pin connects to the MAC's REF_CLK input."
+          }
+        ],
+        "connectivity":"The connection of the nINT/REFCLKO pin depends on the desired functionality determined by the nINTSEL configuration strap.\n\n**For nINT functionality (nINTSEL = 1):\n**\n- The pin should be connected to a pull-up resistor to VDDIO. The data sheet recommends a pull-up resistor, but the exact value is not specified. Common practice for interrupt pins is to use a pull-up resistor in the range of 4.7 k\u03a9 to 10 k\u03a9.\n- The nINT signal can be routed to LED1 or LED2 for status indication by configuring the LED1/LED2 Function Select fields in the Wakeup Control and Status Register (WUCSR).\n\n**For REFCLKO functionality (nINTSEL = 0):\n**\n- The pin should be connected directly to the MAC's REF_CLK input.\n- An external 25 MHz crystal must be connected between the XTAL1/CLKIN pin and the XTAL2 pin, along with appropriate load capacitors, to generate the 50 MHz REFCLKO. Alternatively, a 25 MHz clock oscillator can be connected to the XTAL1/CLKIN pin.",
+        "detailed_description":"The nINT/REFCLKO pin on the LAN8742A/LAN8742Ai serves as a dual-purpose pin. Primarily, it acts as an active-low interrupt output (nINT), signaling various events from the device. When configured as REFCLKO, it provides a 50 MHz reference clock output derived from the internal 25 MHz crystal oscillator.",
+        "functionality":"The pin's functionality is determined by the nINTSEL configuration strap. \n\n- **nINT Mode (nINTSEL = 1):** The pin functions as an active-low interrupt output (nINT). It signals various interrupt events such as Wake on LAN (WoL), ENERGYON, Auto-Negotiation Complete, Remote Fault Detected, Link Down, Auto-Negotiation LP Acknowledge, Parallel Detection Fault, Auto-Negotiation Page Received. The nINT signal can be optionally routed to LED1 or LED2 pins via configuration registers (WUCSR). \n- **REFCLKO Mode (nINTSEL = 0):** The pin functions as a 50 MHz reference clock output (REFCLKO). This mode allows the system to use a low-cost 25 MHz crystal as the reference for the REF_CLK signal, reducing Bill of Materials (BOM) cost. In this mode, the nINT functionality is disabled.",
+        "precautions":[
+          "The nINTSEL configuration strap must be correctly set to select the desired functionality (nINT or REFCLKO). If nINTSEL is left floating or pulled high, nINT mode is selected. If nINTSEL is pulled low, REFCLKO mode is selected.",
+          "When using the pin as REFCLKO, the nINT functionality is disabled.",
+          "When the pin is used as nINT, it requires an external pull-up resistor to VDDIO.",
+          "Ensure that the external crystal or clock oscillator meets the specifications outlined in Section 5.7 for proper clock generation.",
+          "The polarity of the LED output (when LED2 is configured as nINT or nPME) is affected by the nINTSEL configuration. Refer to Section 3.8.1.6 for details.",
+          "If the device is in General Power-Down Mode or Energy Detect Power-Down Mode, the REFCLKO output will not be active in REF_CLK Out Mode."
+        ]
+      },
+      "name":"nINT/REFCLKO",
+      "pin_id":"14",
+      "type":"DIGITAL",
+      "voh":{
+        "min":2.9,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.4,
+        "units":"V"
+      }
+    },
+    "nINTSEL":{
+      "description":"This configuration strap selects the mode of the nINT/REFCLKO pin.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Resistor",
+            "connection_details":"An external pull-down resistor to VSS for REF_CLK Out Mode, or an external pull-up resistor to VDD2A for REF_CLK In Mode."
+          }
+        ],
+        "connectivity":"The nINTSEL pin should be connected to a pull-down resistor to VSS if REF_CLK Out Mode is desired. If REF_CLK In Mode (nINT output) is desired, the pin should be left floating or connected to VDD2A via an external pull-up resistor.",
+        "detailed_description":"The nINTSEL pin is a configuration strap used to select the mode of operation for the nINT/REFCLKO pin. It determines whether the pin functions as an active-low interrupt output (nINT) or as a reference clock output (REFCLKO).",
+        "functionality":[
+          "Configuration Strap for nINT/REFCLKO pin mode selection.",
+          "When nINTSEL = 0 (pulled low), the pin selects REF_CLK Out Mode, making the nINT/REFCLKO pin output a 50 MHz reference clock.",
+          "When nINTSEL = 1 (floated or pulled high), the pin selects REF_CLK In Mode, making the nINT/REFCLKO pin function as an active-low interrupt output (nINT)."
+        ],
+        "precautions":[
+          "The nINTSEL pin shares functionality with the LED2 pin. Proper consideration must be given to the LED2 polarity selection as described in Section 3.8.1.6, 'nINTSEL and LED2 Polarity Selection'.",
+          "Configuration strap values are latched on power-on reset and system reset. The pin must be in its final state before the reset signal deasserts.",
+          "If the nINTSEL pin is pulled high to select REF_CLK In Mode (nINT output), the LED2 output will be active low.",
+          "If the nINTSEL pin is pulled low to select REF_CLK Out Mode, the LED2 output will be active high."
+        ]
+      },
+      "input_voltage":{
+        "max":3.6,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":"PU",
+      "name":"nINTSEL",
+      "pin_id":"2",
+      "type":"DIGITAL",
+      "vih":{
+        "nom":1.39,
+        "units":"V"
+      },
+      "vil":{
+        "nom":1.19,
+        "units":"V"
+      }
+    },
+    "nPME":{
+      "description":"Active low Power Management Event (PME) output.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"External Pull-up Resistor",
+            "description":"A pull-up resistor (typically to VDD2A, as per the datasheet's note for LED1/LED2 pins) might be required if the nPME signal needs to be held in an inactive state when not driven. The specific value depends on the system's driving strength and noise immunity requirements."
+          },
+          {
+            "component_name":"LED",
+            "description":"If nPME is configured to drive an LED, an LED and a current-limiting resistor in series would be connected between the nPME pin and ground (or VDD2A, depending on the polarity and configuration)."
+          },
+          {
+            "component_name":"System Management Controller / Power Management IC",
+            "description":"The nPME pin is typically connected to a system's power management controller or a dedicated WoL input on a System-on-Chip (SoC) to signal a wake-up event."
+          }
+        ],
+        "connectivity":"The nPME pin's connectivity depends on its intended function:\n- As a PME output for WoL: It typically requires a pull-up resistor if the system expects a weak pull-up when inactive, or it can be directly connected to the system's power management controller. If used as a dedicated WoL indicator, it is often connected to a system management controller or a dedicated WoL input.\n- Multiplexed with LED1/nINT/REGOFF: If configured as nPME, it can be connected as an LED output, requiring a current-limiting resistor to the LED's anode. The cathode connects to ground.\n- Multiplexed with LED2/nINT/nINTSEL: Similar to the LED1 multiplexing, if configured as nPME, it can be connected as an LED output with a current-limiting resistor.",
+        "detailed_description":"The nPME pin is an active-low Power Management Event (PME) output signal. It is used to indicate a Power Management Event, which is typically related to Wake-on-LAN (WoL) functionality. This pin can be configured to output a PME signal, or it can be multiplexed with other functions like nINT or LED outputs.",
+        "functionality":"The nPME pin can serve multiple functions based on configuration: \n- Power Management Event (PME) output: When configured as an output, it signals a PME.\n- Wake-on-LAN (WoL) indicator: It is used to indicate a WoL event, such as the reception of a Magic Packet or Wakeup Frame.\n- Interrupt Output (nINT): It can be configured to function as an interrupt output signal.\n- LED Output (LED1 or LED2): It can be configured to drive one of the status LEDs.",
+        "precautions":[
+          "The nPME pin function is configured via the 'LED1 Function Select' or 'LED2 Function Select' bits in the Wakeup Control and Status Register (WUCSR). Ensure the correct bits are set for nPME operation.",
+          "Pay close attention to the polarity of the nPME signal. It is an active-low signal, meaning it asserts (goes low) when a Power Management Event occurs.",
+          "If using nPME for WoL events, ensure that other interrupt sources are either masked or handled appropriately, as nPME is dedicated to PME events.",
+          "If nPME is used as an LED output, consider the LED's forward voltage and current requirements to select an appropriate current-limiting resistor. Also, be aware of the active-low nature of the nPME signal when driving an LED.",
+          "The nPME pin shares functionality with other pins (LED1/nINT/REGOFF and LED2/nINT/nINTSEL) based on configuration straps and register settings. Carefully manage these multiplexing options to avoid unintended behavior.",
+          "If the 'nPME Self Clear' bit in the WUCSR is set, the de-assertion of the nPME signal is controlled by the 'nPME Assert Delay' setting in the Miscellaneous Configuration Register (MCFGR). Ensure this delay is appropriately configured for the system's needs."
+        ]
+      },
+      "name":[
+        "2",
+        "3"
+      ],
+      "output_current":{
+        "max":12,
+        "units":"mA"
+      },
+      "pin_id":[
+        "2",
+        "3"
+      ],
+      "polarity":"ACTIVE_LOW",
+      "type":"DIGITAL",
+      "voh":{
+        "min":2.9,
+        "units":"V"
+      },
+      "vol":{
+        "max":0.4,
+        "units":"V"
+      }
+    },
+    "nRST":{
+      "description":"System reset. This signal is active low.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Pull-up Resistor",
+            "connection":"Connected between nRST pin and VDDIO.",
+            "details":"Typically a resistor in the range of kOhms, but the exact value should be determined based on specific design requirements and other configuration straps. The datasheet notes that configuration strap pins should be augmented with an external resistor when connected to a load."
+          }
+        ],
+        "connectivity":"The nRST pin requires an external pull-up resistor to VDDIO. It should be driven low to assert a hardware reset.",
+        "detailed_description":"The nRST pin is used for system reset. When driven low, it asserts a hardware reset to the device.",
+        "functionality":"System Reset",
+        "precautions":[
+          "A hardware reset (nRST assertion) is required following power-up.",
+          "When asserting nRST, it must be held low for the minimum time detailed in Section 5.6.3, 'Power-On nRST & Configuration Strap Timing' to ensure a proper transceiver reset.",
+          "During a hardware reset, an external clock must be supplied to the XTAL1/CLKIN signal.",
+          "The nRST pin must be monotonic.",
+          "Configuration strap pins must meet the timing requirements specified in Section 5.6.3. If configuration strap pins are not at the correct voltage level prior to being latched, the device may capture incorrect strap values."
+        ]
+      },
+      "input_voltage":{
+        "max":3.6,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":"PU",
+      "name":"nRST",
+      "pin_id":"15",
+      "polarity":"ACTIVE_LOW",
+      "type":"DIGITAL",
+      "vih":{
+        "nom":1.39,
+        "units":"V"
+      },
+      "vil":{
+        "nom":1.19,
+        "units":"V"
+      }
+    }
+  }
+}

@@ -1,0 +1,397 @@
+{
+  "high_level":{
+    "base_part_number":"NCP161",
+    "device_type":"REGULATOR_LINEAR",
+    "manufacturer":"onsemi",
+    "packages":[
+      "WLCSP4",
+      "XDFN4",
+      "SOT23-5"
+    ],
+    "part_numbers":{
+      "NCP161AFCS180T2G":{
+        "options":{
+          "Description":"450 mA, Active Discharge",
+          "Marking":"A",
+          "Nominal Output Voltage":"1.8 V",
+          "Package":"WLCSP4 CASE 567KA",
+          "Rotation":"180\u00b0",
+          "Shipping":"5000 / Tape & Reel"
+        }
+      },
+      "NCP161AFCS250T2G":{
+        "options":{
+          "Description":"2.5 V",
+          "Marking":"D",
+          "Nominal Output Voltage":"2.5 V",
+          "Package":"WLCSP4 CASE 567KA",
+          "Rotation":"180\u00b0",
+          "Shipping":"5000 / Tape & Reel"
+        }
+      },
+      "NCP161AFCS280T2G":{
+        "options":{
+          "Description":"2.8 V",
+          "Marking":"E",
+          "Nominal Output Voltage":"2.8 V",
+          "Package":"WLCSP4 CASE 567KA",
+          "Rotation":"180\u00b0",
+          "Shipping":"5000 / Tape & Reel"
+        }
+      },
+      "NCP161AFCS330T2G":{
+        "options":{
+          "Description":"3.3 V",
+          "Marking":"K",
+          "Nominal Output Voltage":"3.3 V",
+          "Package":"WLCSP4 CASE 567KA",
+          "Rotation":"180\u00b0",
+          "Shipping":"5000 / Tape & Reel"
+        }
+      },
+      "NCP161AFCS514T2G":{
+        "options":{
+          "Description":"5.14 V",
+          "Marking":"Q",
+          "Nominal Output Voltage":"5.14 V",
+          "Package":"WLCSP4 CASE 567KA",
+          "Rotation":"180\u00b0",
+          "Shipping":"5000 / Tape & Reel"
+        }
+      },
+      "NCP161AFCT180T2G":{
+        "options":{
+          "Description":"450 mA, Active Discharge",
+          "Marking":"A",
+          "Nominal Output Voltage":"1.8 V",
+          "Package":"WLCSP4 CASE 567JZ",
+          "Rotation":"180\u00b0",
+          "Shipping":"5000 or 10000 / Tape & Reel"
+        }
+      },
+      "NCP161AFCT280T2G":{
+        "options":{
+          "Description":"2.8 V",
+          "Marking":"E",
+          "Nominal Output Voltage":"2.8 V",
+          "Package":"WLCSP4 CASE 567JZ",
+          "Rotation":"180\u00b0",
+          "Shipping":"5000 or 10000 / Tape & Reel"
+        }
+      },
+      "NCP161AFCT330T2G":{
+        "options":{
+          "Description":"3.3 V",
+          "Marking":"K",
+          "Nominal Output Voltage":"3.3 V",
+          "Package":"WLCSP4 CASE 567JZ",
+          "Rotation":"180\u00b0",
+          "Shipping":"5000 or 10000 / Tape & Reel"
+        }
+      },
+      "NCP161AFCT514T2G":{
+        "options":{
+          "Description":"5.14 V",
+          "Marking":"Q",
+          "Nominal Output Voltage":"5.14 V",
+          "Package":"WLCSP4 CASE 567JZ",
+          "Rotation":"180\u00b0",
+          "Shipping":"5000 or 10000 / Tape & Reel"
+        }
+      },
+      "NCP161AMX180TBG":{
+        "options":{
+          "Description":"450 mA, Active Discharge",
+          "Marking":"DN",
+          "Nominal Output Voltage":"1.8 V",
+          "Package":"XDFN4",
+          "Shipping":"3000 or 5000 / Tape & Reel"
+        }
+      },
+      "NCP161AMX250TBG":{
+        "options":{
+          "Description":"2.5 V",
+          "Marking":"DP",
+          "Nominal Output Voltage":"2.5 V",
+          "Package":"XDFN4",
+          "Shipping":"3000 or 5000 / Tape & Reel"
+        }
+      },
+      "NCP161AMX330TBG":{
+        "options":{
+          "Description":"3.3 V",
+          "Marking":"DD",
+          "Nominal Output Voltage":"3.3 V",
+          "Package":"XDFN4",
+          "Shipping":"3000 or 5000 / Tape & Reel"
+        }
+      },
+      "NCP161AMX514TBG":{
+        "options":{
+          "Description":"5.14 V",
+          "Marking":"DE",
+          "Nominal Output Voltage":"5.14 V",
+          "Package":"XDFN4",
+          "Shipping":"3000 or 5000 / Tape & Reel"
+        }
+      },
+      "NCP161ASN180T1G":{
+        "options":{
+          "Description":"450 mA, Active Discharge",
+          "Marking":"JAF",
+          "Nominal Output Voltage":"1.8 V",
+          "Package":"SOT23-5L",
+          "Shipping":"3000 / Tape & Reel"
+        }
+      },
+      "NCP161ASN250T1G":{
+        "options":{
+          "Description":"2.5 V",
+          "Marking":"JAA",
+          "Nominal Output Voltage":"2.5 V",
+          "Package":"SOT23-5L",
+          "Shipping":"3000 / Tape & Reel"
+        }
+      },
+      "NCP161ASN330T1G":{
+        "options":{
+          "Description":"3.3 V",
+          "Marking":"JAG",
+          "Nominal Output Voltage":"3.3 V",
+          "Package":"SOT23-5L",
+          "Shipping":"3000 / Tape & Reel"
+        }
+      },
+      "NCP161ASN500T1G":{
+        "options":{
+          "Description":"5.0 V",
+          "Marking":"JAE",
+          "Nominal Output Voltage":"5.0 V",
+          "Package":"SOT23-5L",
+          "Shipping":"3000 / Tape & Reel"
+        }
+      },
+      "NCP161BFCS180T2G":{
+        "options":{
+          "Description":"450 mA, Non-Active Discharge",
+          "Marking":"A",
+          "Nominal Output Voltage":"1.8 V",
+          "Package":"WLCSP4 CASE 567KA",
+          "Rotation":"270\u00b0",
+          "Shipping":"5000 / Tape & Reel"
+        }
+      },
+      "NCP161BFCS330T2G":{
+        "options":{
+          "Description":"3.3 V",
+          "Marking":"K",
+          "Nominal Output Voltage":"3.3 V",
+          "Package":"WLCSP4 CASE 567KA",
+          "Rotation":"270\u00b0",
+          "Shipping":"5000 / Tape & Reel"
+        }
+      },
+      "NCP161BFCT180T2G":{
+        "options":{
+          "Description":"450 mA, Non-Active Discharge",
+          "Marking":"A",
+          "Nominal Output Voltage":"1.8 V",
+          "Package":"WLCSP4 CASE 567JZ",
+          "Rotation":"270\u00b0",
+          "Shipping":"5000 or 10000 / Tape & Reel"
+        }
+      },
+      "NCP161BFCT330T2G":{
+        "options":{
+          "Description":"3.3 V",
+          "Marking":"K",
+          "Nominal Output Voltage":"3.3 V",
+          "Package":"WLCSP4 CASE 567JZ",
+          "Rotation":"270\u00b0",
+          "Shipping":"5000 or 10000 / Tape & Reel"
+        }
+      },
+      "NCP161BMX180TBG":{
+        "options":{
+          "Description":"450 mA, Non-Active Discharge",
+          "Marking":"EN",
+          "Nominal Output Voltage":"1.8 V",
+          "Package":"XDFN4",
+          "Shipping":"3000 or 5000 / Tape & Reel"
+        }
+      },
+      "NCP161BMX330TBG":{
+        "options":{
+          "Description":"3.3 V",
+          "Marking":"ED",
+          "Nominal Output Voltage":"3.3 V",
+          "Package":"XDFN4",
+          "Shipping":"3000 or 5000 / Tape & Reel"
+        }
+      },
+      "NCP161BMX514TBG":{
+        "options":{
+          "Description":"5.14 V",
+          "Marking":"EE",
+          "Nominal Output Voltage":"5.14 V",
+          "Package":"XDFN4",
+          "Shipping":"3000 or 5000 / Tape & Reel"
+        }
+      }
+    }
+  },
+  "pins":{
+    "EN":{
+      "description":"Chip enable: Applying VEN < 0.4 V disables the regulator, Pulling VEN > 1.2 V enables the LDO.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Microcontroller GPIO",
+            "description":"Can be used to control the enable/disable state of the regulator through software."
+          },
+          {
+            "component_name":"Switch",
+            "description":"A simple mechanical or electronic switch can be used to manually enable or disable the regulator."
+          },
+          {
+            "component_name":"IN Pin",
+            "description":"If the enable/disable function is not needed, the EN pin can be directly connected to the IN pin to keep the regulator permanently enabled."
+          }
+        ],
+        "connectivity":"The EN pin can be connected to a microcontroller GPIO, a switch, or tied directly to the IN pin if the enable/disable functionality is not required. The datasheet mentions an internal pull-down current source (typ. 200 nA) that ensures the device is turned off when the EN pin is not connected.",
+        "detailed_description":"The EN (Enable) pin controls the operation of the NCP161 LDO regulator. Applying a voltage below 0.4 V disables the regulator, effectively turning it off. In this disabled state, the pass transistor is turned off, minimizing current consumption from the input (typically 10 nA). Additionally, when disabled, an internal active discharge transistor is activated to pull the output voltage (VOUT) to ground through a 280 \u03a9 resistor. Applying a voltage above 1.2 V enables the regulator, causing it to regulate the output voltage and deactivating the active discharge transistor.",
+        "functionality":"The EN pin has two primary functions: enabling/disabling the regulator and controlling the active discharge function. When EN is low (< 0.4V), the LDO is disabled and the active discharge is active. When EN is high (> 1.2V), the LDO is enabled and the active discharge is inactive.",
+        "precautions":[
+          "Ensure the EN pin voltage is within the specified thresholds (VEN < 0.4 V for disable, VEN > 1.2 V for enable) to guarantee proper operation.",
+          "If the EN pin is left floating, the internal pull-down current source will ensure the device is disabled. However, it is good practice to explicitly connect it.",
+          "When the device is disabled, the active discharge function pulls the output to ground. Ensure this behavior is compatible with the connected load."
+        ]
+      },
+      "internal_pull":{
+        "direction":"DOWN",
+        "pull_value":{
+          "nom":0.0002,
+          "units":"A"
+        },
+        "type":"CURRENT"
+      },
+      "name":"EN",
+      "pin_id":"B1",
+      "type":"DIGITAL",
+      "vih":{
+        "nom":1.2,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.4,
+        "units":"V"
+      }
+    },
+    "EPAD":{
+      "description":"Expose pad should be tied to ground plane for better power dissipation",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[],
+        "connectivity":"The EPAD should be connected to the ground plane in the schematic.",
+        "detailed_description":"The EPAD (Exposed Pad) is an additional ground connection that should be tied to the ground plane. Its primary purpose is to improve power dissipation and reduce the device's junction temperature, thereby enhancing thermal performance and reliability.",
+        "functionality":"The EPAD serves as an additional ground connection. It is not a functional pin in the typical sense but rather a thermal management feature.",
+        "precautions":"The EPAD must be connected to the ground plane for optimal performance. Failure to connect it to ground can lead to increased junction temperatures and potentially affect the device's reliability and performance. Ensure a sufficient copper area is connected to the EPAD on the PCB for effective heat sinking."
+      },
+      "name":"EPAD",
+      "pin_id":"EPAD",
+      "type":"POWER"
+    },
+    "GND":{
+      "description":"Common ground connection",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Ground Plane/Rail",
+            "description":"The circuit's common ground reference. Ensuring a robust connection to the ground plane is essential for signal integrity and thermal management."
+          }
+        ],
+        "connectivity":"The GND pin must be connected to the ground plane or ground rail of the circuit. In the XDFN4 package, an exposed pad (EPAD) is also present and should be tied to the ground plane for improved power dissipation and thermal performance.",
+        "detailed_description":"The GND pin serves as the common ground connection for the NCP161 LDO regulator. It provides the return path for all internal and external currents.",
+        "functionality":"The primary function of the GND pin is to establish a stable ground reference for the device's operation. It is critical for the proper functioning of the regulator circuit, including voltage regulation, current limiting, and thermal shutdown mechanisms.",
+        "precautions":[
+          "Ensure a low-impedance connection to ground. Poor grounding can lead to increased noise, instability, and reduced performance.",
+          "For packages with an exposed pad (e.g., XDFN4), connect this pad to the ground plane to enhance thermal dissipation. This helps prevent overheating and ensures reliable operation, especially under heavy load conditions.",
+          "Avoid routing other signals through or near the GND pin connections, as this can introduce noise."
+        ]
+      },
+      "name":"GND",
+      "pin_id":"B2",
+      "type":"POWER"
+    },
+    "IN":{
+      "description":"Input voltage supply pin",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Input Capacitor (Cin)",
+            "description":"A ceramic capacitor, typically 1 \u00b5F, connected between the IN pin and the GND pin. This capacitor helps ensure stability and improves dynamic performance by providing a low impedance path for AC signals and noise."
+          }
+        ],
+        "connectivity":"The IN pin should be connected to the positive voltage supply rail. It is recommended to place an input capacitor (e.g., 1 \u00b5F ceramic) as close as possible to the IN pin and the GND pin for stability and performance.",
+        "detailed_description":"The IN pin is the input voltage supply pin for the NCP161 LDO regulator. It is where the unregulated input voltage is applied.",
+        "functionality":"The primary function of the IN pin is to provide power to the regulator. The operating input voltage range is from 1.9 V to 5.5 V. The device is designed to work with a ceramic capacitor on the input, with a recommended value of 1 \u00b5F.",
+        "precautions":[
+          "Ensure the input voltage is within the specified operating range (1.9 V to 5.5 V).",
+          "Place the input capacitor as close as possible to the IN pin and the GND pin to minimize trace inductance and resistance.",
+          "Use an X7R or X5R dielectric capacitor for reliable performance over the temperature range."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":1.9,
+        "units":"V"
+      },
+      "name":"IN",
+      "pin_id":"A1",
+      "type":"POWER"
+    },
+    "OUT":{
+      "description":"Regulated output voltage. The output should be bypassed with small 1 F ceramic capacitor.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component":"Load",
+            "details":"The device's output supplies power to the connected load."
+          },
+          {
+            "component":"Output Capacitor (C_OUT)",
+            "details":"A 1 \u00b5F ceramic capacitor (X7R or X5R dielectric) is recommended and should be placed as close as possible to the OUT pin and GND. This capacitor is crucial for stability and transient response."
+          }
+        ],
+        "connectivity":"The OUT pin should be connected to the load, and it is recommended to connect a 1 \u00b5F ceramic capacitor (X7R or X5R dielectric) between the OUT pin and GND. This output capacitor should be placed as close as possible to the regulator's output pin for optimal performance and stability. The datasheet specifies that the device is stable with a minimum effective capacitance of 0.7 \u00b5F.",
+        "detailed_description":"The OUT pin is the regulated output voltage pin of the NCP161 LDO regulator. It provides the stabilized output voltage that is lower than the input voltage, and is designed to supply the required output current to the load.",
+        "functionality":"This pin's primary function is to deliver the regulated output voltage. It is designed to be stable with a 1 \u00b5F ceramic capacitor connected to it, which helps in filtering noise and ensuring stable operation. The output voltage accuracy is typically \u00b12% over load and temperature.",
+        "precautions":[
+          "Ensure the output capacitor (C_OUT) is placed as close as possible to the OUT pin and GND to maintain stability.",
+          "Use a ceramic capacitor with an X7R or X5R dielectric for stable performance over temperature.",
+          "The effective capacitance of the output capacitor should be considered, as it can be affected by DC bias, temperature, and package size. The device is stable with a minimum effective capacitance of 0.7 \u00b5F.",
+          "Avoid using tantalum capacitors on the output due to their high ESR, which can degrade transient response and is temperature-dependent.",
+          "The maximum ESR for the output capacitor should be less than 2 \u03a9.",
+          "Reverse current can flow if V_OUT > V_IN. If extended reverse current conditions are anticipated, additional external protection may be needed."
+        ]
+      },
+      "name":"OUT",
+      "output_current":{
+        "max":0.45,
+        "min":0.0,
+        "units":"A"
+      },
+      "output_voltage":{
+        "max":5.14,
+        "min":1.8,
+        "units":"V"
+      },
+      "pin_id":"A2",
+      "type":"POWER"
+    }
+  }
+}

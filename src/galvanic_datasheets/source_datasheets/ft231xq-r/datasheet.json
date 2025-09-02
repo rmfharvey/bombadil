@@ -1,0 +1,1052 @@
+{
+  "high_level":{
+    "device":{
+      "base_part_number":"FT231X",
+      "device_type":"COMMUNICATION_OTHER",
+      "manufacturer":"FTDI",
+      "packages":[
+        "QFN-20",
+        "SSOP-20"
+      ],
+      "part_numbers":{
+        "FT231XQ":{
+          "options":{
+            "R":"Taped and Reel",
+            "T":"Tray packing",
+            "U":"Tube packing"
+          }
+        },
+        "FT231XS":{
+          "options":{
+            "R":"Taped and Reel",
+            "U":"Tube packing"
+          }
+        }
+      },
+      "serial_busses":[
+        {
+          "fields":[
+            {
+              "description":"Transmit Asynchronous Data Output.",
+              "name":"TXD",
+              "register_location":[
+                {
+                  "reg_end_bit":0,
+                  "reg_start_bit":0,
+                  "register_address":0
+                }
+              ]
+            },
+            {
+              "description":"Receiving Asynchronous Data Input.",
+              "name":"RXD",
+              "register_location":[
+                {
+                  "reg_end_bit":1,
+                  "reg_start_bit":1,
+                  "register_address":0
+                }
+              ]
+            },
+            {
+              "description":"Request to Send Control Output / Handshake Signal.",
+              "name":"RTS#",
+              "register_location":[
+                {
+                  "reg_end_bit":2,
+                  "reg_start_bit":2,
+                  "register_address":0
+                }
+              ]
+            },
+            {
+              "description":"Clear To Send Control Input / Handshake Signal.",
+              "name":"CTS#",
+              "register_location":[
+                {
+                  "reg_end_bit":3,
+                  "reg_start_bit":3,
+                  "register_address":0
+                }
+              ]
+            },
+            {
+              "description":"Data Terminal Ready Control Output / Handshake Signal.",
+              "name":"DTR#",
+              "register_location":[
+                {
+                  "reg_end_bit":4,
+                  "reg_start_bit":4,
+                  "register_address":0
+                }
+              ]
+            },
+            {
+              "description":"Data Set Ready Control Input / Handshake Signal.",
+              "name":"DSR#",
+              "register_location":[
+                {
+                  "reg_end_bit":5,
+                  "reg_start_bit":5,
+                  "register_address":0
+                }
+              ]
+            },
+            {
+              "description":"Data Carrier Detect Control Input.",
+              "name":"DCD#",
+              "register_location":[
+                {
+                  "reg_end_bit":6,
+                  "reg_start_bit":6,
+                  "register_address":0
+                }
+              ]
+            },
+            {
+              "description":"Ring Indicator input for remote wake up.",
+              "name":"RI#",
+              "register_location":[
+                {
+                  "reg_end_bit":7,
+                  "reg_start_bit":7,
+                  "register_address":0
+                }
+              ]
+            },
+            {
+              "description":"Configurable CBUS I/O Pin. Function of this pin is configured in the device MTP memory. The default configuration is TXDEN.",
+              "name":"CBUS0",
+              "register_location":[
+                {
+                  "reg_end_bit":8,
+                  "reg_start_bit":8,
+                  "register_address":0
+                }
+              ]
+            },
+            {
+              "description":"Configurable CBUS I/O Pin. Function of this pin is configured in the device MTP memory. The default configuration is TXLED#.",
+              "name":"CBUS1",
+              "register_location":[
+                {
+                  "reg_end_bit":9,
+                  "reg_start_bit":9,
+                  "register_address":0
+                }
+              ]
+            },
+            {
+              "description":"Configurable CBUS I/O Pin. Function of this pin is configured in the device MTP memory. The default configuration is RXLED#.",
+              "name":"CBUS2",
+              "register_location":[
+                {
+                  "reg_end_bit":10,
+                  "reg_start_bit":10,
+                  "register_address":0
+                }
+              ]
+            },
+            {
+              "description":"Configurable CBUS I/O Pin. Function of this pin is configured in the device MTP memory. The default configuration is SLEEP#.",
+              "name":"CBUS3",
+              "register_location":[
+                {
+                  "reg_end_bit":11,
+                  "reg_start_bit":11,
+                  "register_address":0
+                }
+              ]
+            }
+          ],
+          "serial_bus_type":"UART"
+        }
+      ]
+    }
+  },
+  "pins":{
+    "3V3OUT":{
+      "description":"3V3 output at 50mA. May be used to power VCCIO. When VCC is 3V3; pin 10 is an input pin and should be connected to pin 12.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"External circuitry requiring 3.3V",
+            "description":"This could be other ICs, LEDs, or any component that operates within the 3.3V range and can be powered by up to 50mA."
+          },
+          {
+            "component_name":"Decoupling Capacitor",
+            "description":"An external decoupling capacitor should be connected to the 3V3OUT regulator output pin to ensure stability of the voltage output. The specific value is not detailed in this section but is a standard practice for voltage regulators."
+          }
+        ],
+        "connectivity":"When VCC is 5V or 3V3 (and not 3V3OUT), connect this pin to external circuitry that requires a 3.3V supply.  If VCC is 3V3, connect this pin directly to the VCC pin (Pin 12).",
+        "detailed_description":"The 3V3OUT pin is an output that provides a regulated +3.3V at up to 50mA. This voltage is primarily used to power the USB transceiver cell output buffers and the internal pull-up resistor on the USBDP pin. It can also be used to supply external circuitry requiring a +3.3V nominal supply.",
+        "functionality":"This pin functions as a +3.3V output. However, if the VCC supply to the IC is already at +3.3V, then the 3V3OUT pin acts as an input and must be connected to the VCC pin (Pin 12).",
+        "precautions":[
+          "If the device's VCC is supplied with 3.3V, the 3V3OUT pin must be connected to the VCC pin (Pin 12) as it becomes an input pin.",
+          "The maximum current that can be supplied by 3V3OUT is 50mA. Ensure that the external circuitry does not exceed this current limit.",
+          "A decoupling capacitor is recommended for stability, although the specific value is not provided in this section."
+        ]
+      },
+      "internal_pull":null,
+      "name":"3V3OUT",
+      "output_current":{
+        "max":50.0,
+        "units":"mA"
+      },
+      "output_type":"PUSH_PULL",
+      "pin_id":"10, 13",
+      "type":"POWER",
+      "voh":{
+        "nom":3.3,
+        "units":"V"
+      },
+      "vol":{
+        "nom":3.3,
+        "units":"V"
+      }
+    },
+    "CBUS0":{
+      "description":"Configurable CBUS I/O Pin. Function of this pin is configured in the device MTP memory. The default configuration is TXDEN.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"RS485 Transceiver",
+            "description":"When CBUS0 is configured as TXDEN, it should be connected to the transmitter enable input of an RS485 transceiver to control data transmission on the bus."
+          },
+          {
+            "component_name":"LED",
+            "description":"When CBUS0 is configured as TXLED# or RXLED#, it can be connected to an LED through a current-limiting resistor to indicate data activity."
+          },
+          {
+            "component_name":"External Logic/MCU",
+            "description":"When configured as GPIO or for bit-bang modes (BitBang_WR#, BitBang_RD#), it can be connected to the I/O pins of another microcontroller or logic IC for custom communication protocols."
+          },
+          {
+            "component_name":"Power MOSFET/Switch",
+            "description":"When configured as PWREN#, it can be used to control the gate of a P-channel MOSFET or an enable pin of a power switch IC to manage power to external circuitry."
+          },
+          {
+            "component_name":"Battery Charger IC (e.g., LTC4053)",
+            "description":"When configured as BCD Charger or BCD Charger#, it can be connected to the control or detection pins of a battery charger IC to manage charging based on USB connection status."
+          }
+        ],
+        "connectivity":"The CBUS0 pin can be connected to various components depending on its configured function. For example, it can be connected to the enable pin of an RS485 transceiver (if configured as TXDEN), to an LED and current-limiting resistor (if configured as TXLED# or RXLED#), or to other logic circuits for bit-bang mode or power control.",
+        "detailed_description":"CBUS0 is a configurable I/O pin. Its function is determined by the configuration stored in the device's internal MTP memory. The default configuration for CBUS0 is TXDEN (Transmit Data Enable) for RS485 applications. It can also be used for various other functions like driving LEDs, USB Battery Charge Detection, or as a general-purpose I/O pin in bit-bang mode.",
+        "functionality":[
+          "TRI-STATE: The IO Pad is tri-stated.",
+          "DRIVE 1: Outputs a constant logic high.",
+          "DRIVE 0: Outputs a constant logic low.",
+          "TXDEN: Enable transmit data for RS485.",
+          "PWREN#: Output is low after the device has been configured by USB, then high during USB suspend mode. Can be used to control power to external logic.",
+          "TXLED#: Transmit data LED drive \u2013 pulses low when data is being transmitted on the TxD pin of the UART.",
+          "RXLED#: Receive data LED drive \u2013 pulses low when data is being received on the RxD pin of the UART.",
+          "TX&RXLED#: LED drive \u2013 pulses low when transmitting or receiving data via USB.",
+          "SLEEP#: Goes low during USB suspend mode. Typically used to power down an external TTL to RS232 level converter IC.",
+          "CLK24MHz: 24 MHz Clock output.",
+          "CLK12MHz: 12 MHz Clock output.",
+          "CLK6MHz: 6 MHz Clock output.",
+          "GPIO: CBUS bit bang mode option, allowing it to be used as a general purpose I/O.",
+          "BCD Charger: Battery Charge Detect, indicates when the device is connected to a dedicated battery charger. Active high output.",
+          "BCD Charger#: Inverse of BCD Charger.",
+          "BitBang_WR#: Synchronous and asynchronous bit bang mode WR# strobe output.",
+          "BitBang_RD#: Synchronous and asynchronous bit bang mode RD# strobe output.",
+          "VBUS_Sense: Input to detect when VBUS is present.",
+          "Time Stamp: Toggle signal which changes state each time a USB SOF is received.",
+          "Keep_Awake#: Prevents the device from entering suspend state when unplugged."
+        ],
+        "precautions":[
+          "The function of CBUS0 must be explicitly configured in the FT231X's internal MTP memory using a utility like FT_PROG.",
+          "If used as an output, ensure the drive strength and slew rate are set appropriately in the MTP memory to match the connected load.",
+          "When used in input mode, the pin has internal pull-up resistors. If an active low signal is desired during USB suspend for certain functions (like PWREN#), the 'Pull down I/O Pins in USB Suspend' option in the MTP memory should be enabled.",
+          "Care must be taken when configuring CBUS pins to avoid conflicts or unintended behavior, especially when using bit-bang modes or power control signals.",
+          "Refer to Section 3.3 (CBUS Signal Options) and the respective application examples in Section 7 for detailed usage guidelines for each function."
+        ]
+      },
+      "input_voltage":{
+        "max":5.8,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"UP",
+        "pull_value":{
+          "max":190.0,
+          "min":40.0,
+          "nom":75.0,
+          "units":"k\u03a9"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"CBUS0",
+      "pin_id":"15, 18",
+      "type":"DIGITAL",
+      "vih":{
+        "min":2.0,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.8,
+        "units":"V"
+      }
+    },
+    "CBUS1":{
+      "description":"Configurable CBUS I/O Pin. Function of this pin is configured in the device MTP memory. The default configuration is TXLED#.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"LED",
+            "connection_details":"If configured as TXLED# or RXLED#, an LED can be connected between CBUS1 and GND. A current-limiting resistor (e.g., 270 Ohm) should be placed in series with the LED. The other end of the resistor connects to VCCIO."
+          },
+          {
+            "component_name":"Resistor",
+            "connection_details":"If used for LED indication, a current-limiting resistor is needed. If used as an input, internal pull-up resistors are present. If used for PWREN#, a 10k Ohm pull-up resistor to VCCIO might be required in some configurations."
+          },
+          {
+            "component_name":"P-Channel MOSFET",
+            "connection_details":"If configured as PWREN#, it can be used to control the gate of a P-Channel MOSFET to switch power to external logic. The source of the MOSFET would be connected to the power supply, the drain to the external logic, and the gate controlled by PWREN#."
+          },
+          {
+            "component_name":"RS485 Transceiver",
+            "connection_details":"If configured as TXDEN, it is used to enable the transmitter of an RS485 transceiver."
+          }
+        ],
+        "connectivity":"The connection of CBUS1 depends on its configured function. For example:\n- If configured as TXLED#, it can be connected to an LED in series with a current-limiting resistor to GND. The other end of the resistor is connected to VCCIO.\n- If configured as PWREN#, it can be used to control power to external circuitry, often via a MOSFET.\n- If configured as GPIO, it can be connected as a general-purpose digital input or output.\n- When used as an input, the pin is pulled to VCCIO via an internal 75k\u03a9 resistor. It can be programmed to gently pull low during USB suspend.",
+        "detailed_description":"CBUS1 is a configurable I/O pin on the FT231X. Its function is determined by the configuration stored in the device's internal MTP memory. The default configuration for CBUS1 is TXLED#, which drives an LED to indicate when data is being transmitted on the UART TxD pin.",
+        "functionality":"CBUS1 can be configured to perform various functions based on the MTP memory settings. Available functions include:\n- TRI-STATE: IO Pad is tri-stated.\n- DRIVE 1: Output a constant 1.\n- DRIVE 0: Output a constant 0.\n- TXDEN: Enable transmit data for RS485.\n- PWREN#: Output is low after device configuration, then high during USB suspend. Can be used to control external logic power.\n- TXLED#: Transmit data LED drive \u2013 pulses low when data is transmitted on the TxD pin.\n- RXLED#: Receive data LED drive \u2013 pulses low when data is received on the RxD pin.\n- TX&RXLED#: LED drive \u2013 pulses low when transmitting or receiving data via USB.\n- SLEEP#: Goes low during USB suspend mode. Typically used to power down external TTL to RS232 level converters.\n- CLK24MHz: 24 MHz Clock output.\n- CLK12MHz: 12 MHz Clock output.\n- CLK6MHz: 6 MHz Clock output.\n- GPIO: CBUS bit bang mode option for general purpose I/O.\n- BCD Charger: Battery Charge Detect, indicates connection to a dedicated battery charger (active high).\n- BCD Charger#: Inverse of BCD Charger.\n- BitBang_WR#: Synchronous and asynchronous bit bang mode WR# strobe output.\n- BitBang_RD#: Synchronous and asynchronous bit bang mode RD# strobe output.\n- VBUS_Sense: Input to detect when VBUS is present.\n- Time Stamp: Toggle signal changes state each time a USB SOF is received.\n- Keep_Awake#: Prevents the device from entering suspend state when unplugged.",
+        "precautions":[
+          "The function of CBUS1 must be configured in the internal MTP memory. The default configuration is TXLED#.",
+          "When used in input mode, the pins have internal pull-up resistors. However, these can be programmed to gently pull low during USB suspend.",
+          "If using CBUS1 for PWREN# to control external logic power, ensure proper 'soft start' circuitry is used to limit current surges when the power is applied.",
+          "The drive strength and slew rate of the CBUS pins are configurable in the MTP memory.",
+          "Ensure the VCCIO voltage is appropriate for the external components connected to CBUS1."
+        ]
+      },
+      "input_voltage":{
+        "max":5.8,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"UP",
+        "pull_value":{
+          "max":190.0,
+          "min":40.0,
+          "nom":75.0,
+          "units":"k\u03a9"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"CBUS1",
+      "pin_id":"14, 17",
+      "type":"DIGITAL",
+      "vih":{
+        "min":2.0,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.8,
+        "units":"V"
+      }
+    },
+    "CBUS2":{
+      "description":"Configurable CBUS I/O Pin. Function of this pin is configured in the device MTP memory. The default configuration is RXLED#.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"LED",
+            "description":"For the default RXLED# function, an LED can be connected between CBUS2 and ground, with a series resistor (e.g., 270 Ohm) connected between CBUS2 and the LED anode to limit current. The resistor is connected to VCCIO."
+          },
+          {
+            "component_name":"Resistor",
+            "description":"A current-limiting resistor (e.g., 270 Ohm) is typically used when connecting an LED to CBUS2. Other resistor values might be needed for different configurations or to control drive strength."
+          },
+          {
+            "component_name":"P-Channel MOSFET",
+            "description":"If CBUS2 is configured as PWREN#, it can be used to control the gate of a P-Channel MOSFET to switch power to external logic. The MOSFET's source would be connected to the power supply, its drain to the external logic, and its gate to CBUS2. A pull-up resistor to VCCIO might also be needed on the gate."
+          },
+          {
+            "component_name":"External Logic",
+            "description":"When configured as GPIO, CBUS2 can be connected to digital input or output pins of other integrated circuits or discrete components."
+          }
+        ],
+        "connectivity":"The CBUS2 pin can be connected to various external components depending on its configured function. For its default function as RXLED#, it is typically connected to an LED through a current-limiting resistor (e.g., 270 Ohm) to VCCIO. Other configurations, such as PWREN# or SLEEP#, might control external circuitry like MOSFETs or power switches. For GPIO functions, it can be connected to general-purpose digital signals.",
+        "detailed_description":"CBUS2 is a configurable I/O pin. Its function is determined by the configuration set in the device's internal MTP memory. By default, it functions as an RXLED# drive signal, indicating when data is being received on the RxD pin of the UART.",
+        "functionality":"The CBUS2 pin is a configurable I/O pin. Its function can be set to various options including TRI-STATE, DRIVE 1, DRIVE 0, TXDEN, PWREN#, TXLED#, RXLED#, TX&RXLED#, SLEEP#, CLK24MHz, CLK12MHz, CLK6MHz, GPIO, BCD Charger, BCD Charger#, BitBang_WR#, BitBang_RD#, VBUS_Sense, and Time Stamp. The default configuration is RXLED#.",
+        "precautions":[
+          "The function of CBUS2 must be configured in the device's internal MTP memory using the FT_PROG utility. The default configuration is RXLED#.",
+          "When connecting an LED, a current-limiting resistor must be used to prevent damage to the FT231X and the LED.",
+          "If CBUS2 is used for USB Battery Charging Detection (BCD Charger or BCD Charger#), it needs to be reprogrammed in the MTP memory.",
+          "If CBUS2 is configured as PWREN#, ensure it is pulled high with a 10k Ohm resistor as per the application notes for power switching configurations.",
+          "When CBUS pins are used as inputs (e.g., VBUS_Sense, GPIO in input mode), they are internally pulled to VCCIO via approximately 75k\u03a9 resistors. These pins can also be programmed to gently pull low during USB suspend."
+        ]
+      },
+      "input_voltage":{
+        "max":5.8,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"UP",
+        "pull_value":{
+          "max":190.0,
+          "min":40.0,
+          "nom":75.0,
+          "units":"k\u03a9"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"CBUS2",
+      "pin_id":"7, 10",
+      "type":"DIGITAL",
+      "vih":{
+        "min":2.0,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.8,
+        "units":"V"
+      }
+    },
+    "CBUS3":{
+      "description":"Configurable CBUS I/O Pin. Function of this pin is configured in the device MTP memory. The default configuration is SLEEP#.",
+      "direction":"BIDIRECTIONAL",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"LED",
+            "description":"When configured as TXLED# or RXLED#, an LED can be connected in series with a current-limiting resistor to indicate data activity."
+          },
+          {
+            "component_name":"Resistor",
+            "description":"A current-limiting resistor is required when connecting an LED. The value depends on the LED's forward voltage and current, and VCCIO. For PWREN# control of external logic, a 10k Ohm pull-up resistor to VCCIO is often used."
+          },
+          {
+            "component_name":"Level Converter IC",
+            "description":"When configured as SLEEP#, this pin is used to control the shutdown pin of an external TTL to RS232 level converter."
+          },
+          {
+            "component_name":"P-Channel MOSFET",
+            "description":"When configured as PWREN#, this pin can control a P-channel MOSFET to switch power to external circuitry."
+          },
+          {
+            "component_name":"External Logic",
+            "description":"When configured as GPIO or for other specific functions, it can interface with external logic circuits."
+          }
+        ],
+        "connectivity":"The CBUS3 pin can be connected to various components depending on its configured function. For example, if configured as TXLED#, it would connect to an LED and a current-limiting resistor. If configured as SLEEP#, it might connect to the SHDN pin of a level converter IC. If configured as PWREN#, it could control a MOSFET for power switching.",
+        "detailed_description":"CBUS3 is a configurable Configurable Control Bus (CBUS) I/O Pin. Its function is determined by configuration in the device's MTP memory. The default configuration for CBUS3 is SLEEP#, which goes low during USB suspend mode. It is typically used to power down an external TTL to RS232 level converter IC in USB to RS232 converter designs.",
+        "functionality":[
+          "TRI-STATE: IO Pad is tri-stated.",
+          "DRIVE 1: Output a constant 1.",
+          "DRIVE 0: Output a constant 0.",
+          "TXDEN: Enable transmit data for RS485.",
+          "PWREN#: Output is low after device configuration, high during USB suspend. Can be used to control external logic power switches.",
+          "TXLED#: Transmit data LED drive \u2013 pulses low when data is transmitted on the UART TxD pin.",
+          "RXLED#: Receive data LED drive \u2013 pulses low when data is received on the UART RxD pin.",
+          "TX&RXLED#: Transmit or receive data LED drive \u2013 pulses low when data is transmitted or received via USB.",
+          "SLEEP#: Goes low during USB suspend mode. Typically used to power down external TTL to RS232 level converters.",
+          "CLK24MHz: 24 MHz Clock output (suspended during USB suspend).",
+          "CLK12MHz: 12 MHz Clock output (suspended during USB suspend).",
+          "CLK6MHz: 6 MHz Clock output (suspended during USB suspend).",
+          "GPIO: CBUS bit bang mode option for up to 4 CBUS pins as general purpose I/O.",
+          "BCD Charger: Battery Charge Detect, indicates connection to a dedicated battery charger (active high).",
+          "BCD Charger#: Inverse of BCD Charger.",
+          "BitBang_WR#: Synchronous and asynchronous bit bang mode WR# strobe output.",
+          "BitBang_RD#: Synchronous and asynchronous bit bang mode RD# strobe output.",
+          "VBUS_Sense: Input to detect when VBUS is present.",
+          "Time Stamp: Toggle signal changing state each time a USB SOF is received.",
+          "Keep_Awake#: Prevents the device from entering suspend state when unplugged."
+        ],
+        "precautions":[
+          "The function of CBUS3 must be configured in the internal MTP memory using tools like FT_PROG. The default configuration is SLEEP#.",
+          "Ensure the VCCIO voltage is within the specified range for the selected function, especially when interfacing with external components.",
+          "If using CBUS3 for clock output (CLK24MHz, CLK12MHz, CLK6MHz), note that these clocks are suspended during USB suspend mode.",
+          "When using CBUS pins as inputs (e.g., VBUS_Sense), they have internal pull-up resistors to VCCIO. They can be programmed to gently pull low during USB suspend.",
+          "Care must be taken when configuring the CBUS pins to avoid conflicts with desired functionalities or unintended operations."
+        ]
+      },
+      "input_voltage":{
+        "max":5.8,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"UP",
+        "pull_value":{
+          "max":190.0,
+          "min":40.0,
+          "nom":75.0,
+          "units":"k\u03a9"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"CBUS3",
+      "pin_id":"16, 19",
+      "type":"DIGITAL",
+      "vih":{
+        "min":2.0,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.8,
+        "units":"V"
+      }
+    },
+    "CTS#":{
+      "description":"Clear to Send Control Input / Handshake Signal.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_description":"Request To Send. This is the output handshake signal from the FT231X. It is connected to the CTS# input of the remote device to indicate that the FT231X is ready to transmit data.",
+            "component_name":"RTS#"
+          }
+        ],
+        "connectivity":"In a typical UART connection, the CTS# pin of the FT231X should be connected to the RTS# (Request To Send) pin of the device it is communicating with. This establishes a hardware flow control loop.",
+        "detailed_description":"CTS# stands for Clear To Send. It is an input handshake signal used in UART communication. When asserted (typically low), it indicates that the receiving device is ready to accept data, allowing the transmitting device to send data.",
+        "functionality":"This pin functions as a handshake input for the UART interface, specifically to signal that the device is ready to receive data. It is part of the full modem control signals.",
+        "precautions":[
+          "The pin is an input and is part of the UART handshake signals. Ensure proper connection to the corresponding handshake output (RTS#) of the communicating device for effective flow control.",
+          "When used in Input Mode, the input pins are pulled to VCCIO via internal 75k\u03a9 (approx.) resistors. These pins can be programmed to gently pull low during USB suspend (PWREN# = \u201c1\u201d) by setting an option in the MTP memory. Consider this behavior if external circuitry relies on a specific state during USB suspend."
+        ]
+      },
+      "input_voltage":{
+        "max":5.8,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"UP",
+        "pull_value":{
+          "max":190.0,
+          "min":40.0,
+          "nom":75.0,
+          "units":"k\u03a9"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"CTS#",
+      "pin_id":"6, 9",
+      "type":"DIGITAL",
+      "vih":{
+        "min":2.0,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.8,
+        "units":"V"
+      }
+    },
+    "DCD#":{
+      "description":"Data Carrier Detect Control Input.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Modem or Communication Device",
+            "description":"This component provides the DCD signal to the FT231X, indicating the presence of a carrier signal. The specific type of modem or communication device will depend on the application, but it must have a DCD output pin."
+          }
+        ],
+        "connectivity":"The DCD# pin should be connected to the DCD output of a modem or a similar communication device.",
+        "detailed_description":"Data Carrier Detect (DCD#) is a control output signal that indicates the presence of a carrier signal from a connected modem.",
+        "functionality":"The DCD# pin functions as a Data Carrier Detect control input. It signals to the FT231X whether a carrier signal is detected from a connected modem.",
+        "precautions":[
+          "When used in Input Mode, the input pins (including DCD#) are pulled to VCCIO via internal 75k\u03a9 (approx.) resistors.",
+          "These pins can be programmed to gently pull low during USB suspend (PWREN# = \u201c1\u201d) by setting an option in the MTP memory. This should be considered if the DCD# signal needs to maintain a specific state during USB suspend."
+        ]
+      },
+      "input_voltage":{
+        "max":5.8,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"UP",
+        "pull_value":{
+          "max":190.0,
+          "min":40.0,
+          "nom":75.0,
+          "units":"k\u03a9"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"DCD#",
+      "pin_id":"5, 8",
+      "type":"DIGITAL",
+      "vih":{
+        "min":2.0,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.8,
+        "units":"V"
+      }
+    },
+    "DSR#":{
+      "description":"Data Set Ready Control Input / Handshake Signal.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Modem or Data Set Equipment",
+            "connection_details":"Connect the DSR output of the external modem or data set equipment to the DSR# pin of the FT231X. This signal is typically an active-low output from the data set."
+          },
+          {
+            "component_name":"Resistor (optional)",
+            "connection_details":"If the DSR# pin is not actively used in the application, it can be pulled high to VCCIO using a 10k\u03a9 resistor to ensure a defined state."
+          }
+        ],
+        "connectivity":"The DSR# pin should be connected to the DSR output of a modem or other data set communication equipment. In a typical application where the FT231X is used to communicate with a PC or other device that doesn't use RS232 handshake lines directly, this pin may not be actively used and can be left floating or tied to VCCIO through a resistor, depending on the specific application requirements and driver behavior.",
+        "detailed_description":"DSR# is the Data Set Ready control input for the UART interface. It is a handshake signal used to indicate that the data set is ready for communication.",
+        "functionality":"The DSR# pin functions as a handshake input signal for the UART interface. It is used in conjunction with other modem control signals to establish and maintain a communication link. Its primary function is to signal that the data set (or communication device) is ready to operate.",
+        "precautions":[
+          "Ensure that the DSR# signal from the connected equipment is correctly interpreted by the FT231X. The datasheet indicates it is an input, and active low.",
+          "If the pin is not used, it should be handled appropriately (e.g., pulled high) to avoid indeterminate states, as per typical digital input practices.",
+          "The datasheet notes that input pins are pulled to VCCIO via internal 75k\u03a9 resistors. This pull-up should be considered when determining external connections if the pin is not actively driven."
+        ]
+      },
+      "input_voltage":{
+        "max":5.8,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"UP",
+        "pull_value":{
+          "max":190.0,
+          "min":40.0,
+          "nom":75.0,
+          "units":"k\u03a9"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"DSR#",
+      "pin_id":"4, 7",
+      "type":"DIGITAL",
+      "vih":{
+        "min":2.0,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.8,
+        "units":"V"
+      }
+    },
+    "DTR#":{
+      "description":"Data Terminal Ready Control Output / Handshake Signal.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Modem or Serial Device",
+            "connection_details":"Connected to the DTR input of the modem or serial device."
+          },
+          {
+            "component_name":"External Circuitry",
+            "connection_details":"Can be connected to control external logic, such as enabling or disabling a component."
+          }
+        ],
+        "connectivity":"In a typical UART connection, the DTR# pin is connected to the corresponding DTR input of a modem or other serial communication device. It can also be connected to control external circuitry. If not used, it should be left unconnected or pulled high if required by a specific application or to prevent unwanted behavior.",
+        "detailed_description":"Data Terminal Ready (DTR) control output. This is a modem control signal used to indicate that the data terminal equipment (DTE) is ready to be connected to the data communication equipment (DCE). In the context of the FT231X, it acts as a handshake signal for serial communication.",
+        "functionality":"The primary function is to signal Data Terminal Ready. It can also be configured to provide other handshake signals or general-purpose I/O through CBUS configuration, but as DTR#, its function is to indicate readiness.",
+        "precautions":[
+          "When used as an output, the FT231X drives this pin. Ensure the connected device can handle the output levels and current.",
+          "If the DTR# pin is not used, it is recommended to leave it unconnected. However, depending on the application or MTP configuration, it might need to be pulled high to VCCIO to prevent any unintended activation.",
+          "Refer to the MTP memory configuration in Section 8.1 for default settings and potential alternative configurations for this pin if it is mapped to a CBUS pin."
+        ]
+      },
+      "internal_pull":null,
+      "name":"DTR#",
+      "output_type":"PUSH_PULL",
+      "pin_id":"18, 1",
+      "type":"DIGITAL",
+      "voh":{
+        "nom":"VCCIO",
+        "units":"V"
+      },
+      "vol":{
+        "max":0.4,
+        "units":"V"
+      }
+    },
+    "GND":{
+      "description":"0V Ground input.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"System Ground Plane",
+            "description":"A common reference potential (0V) for all electrical signals and power supplies within the electronic system."
+          }
+        ],
+        "connectivity":"The GND pin(s) must be connected to the system's ground plane. In a schematic, this would be represented by a ground symbol.",
+        "detailed_description":"The GND pin is the ground reference for the FT231X IC. It is the 0V reference point for all power and signal voltages within the device.",
+        "functionality":"The primary function of the GND pin is to provide a common ground connection for the integrated circuit.  For the QFN-20 package, the center pad underneath the package is also internally connected to GND, serving as a thermal pad and an additional ground connection.",
+        "precautions":[
+          "Ensure a solid and low-impedance connection to the ground plane to minimize noise and ensure proper operation.",
+          "For the QFN package, the central thermal pad should also be connected to the ground plane for both electrical and thermal performance."
+        ]
+      },
+      "input_voltage":{
+        "max":0.0,
+        "min":0.0,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"GND",
+      "pin_id":"3, 13, 6, 16",
+      "type":"POWER"
+    },
+    "RESET#":{
+      "description":"Reset input (active low).",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"VCCIO",
+            "description":"This is the supply voltage for the IO cells of the FT231X. Connecting RESET# to VCCIO provides a stable high logic level, preventing an unintended reset when external reset is not used."
+          }
+        ],
+        "connectivity":"The RESET# pin can be connected to the host system's reset signal or microcontroller's reset output if an external reset capability is desired. If external reset functionality is not required, it can be tied to VCCIO.",
+        "detailed_description":"The RESET# pin is an active low input that can be used to reset the FT231X device. This reset function is integrated into the device, providing a reliable power-on reset.",
+        "functionality":"The primary function of the RESET# pin is to reset the FT231X device. It can also be tied to VCCIO if not used for external resetting, as the device has an integrated power-on reset circuit.",
+        "precautions":[
+          "If the RESET# pin is tied to VCCIO, ensure that VCCIO is stable and within the specified operating voltage range.",
+          "If an external reset signal is used, ensure it is properly debounced and meets the voltage level requirements for the RESET# input."
+        ]
+      },
+      "input_voltage":{
+        "max":3.63,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"RESET#",
+      "pin_id":"11, 14",
+      "type":"DIGITAL",
+      "vih":{
+        "min":2.0,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.8,
+        "units":"V"
+      }
+    },
+    "RI#":{
+      "description":"Ring Indicator input for remote wake up.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":"No specific external components are mandated for the basic functionality of the RI# pin as a Ring Indicator. However, any circuitry designed to generate the 'ring' signal or manage the wake-up sequence would be connected to this pin.",
+        "connectivity":"The RI# pin should be connected to external logic that signals a 'ring' condition. In the context of remote wake-up, this external logic would drive the RI# pin low to signal the host controller to exit suspend mode. The datasheet does not specify a pull-up or pull-down resistor requirement for this pin in its primary function.",
+        "detailed_description":"The RI# (Ring Indicator) pin is an input signal that can be used for remote wake-up functionality. When this pin is pulled low, it can wake up the USB host controller from a suspend state.",
+        "functionality":"The primary function of RI# is to act as a Ring Indicator for remote wake-up. Its default configuration in the MTP memory is set to enable this remote wake-up capability.",
+        "precautions":"When using the RI# pin for remote wake-up, it's important to ensure that the 'Remote Wake Up' option is enabled in the MTP memory configuration (default is enabled, as per Table 8.1). The transition of RI# to a low state should be timed appropriately to meet the wake-up requirements of the USB host controller (approximately 20ms for wake-up, as stated in the datasheet). If the RI# pin is not used, it can be left floating or connected to VCCIO via an external pull-up resistor to prevent accidental wake-ups due to noise."
+      },
+      "input_voltage":{
+        "max":5.8,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"UP",
+        "pull_value":{
+          "max":190.0,
+          "min":40.0,
+          "nom":75.0,
+          "units":"k\u03a9"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"RI#",
+      "pin_id":"2, 5",
+      "type":"DIGITAL",
+      "vih":{
+        "min":2.0,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.8,
+        "units":"V"
+      }
+    },
+    "RTS#":{
+      "description":"Request to Send Control Output / Handshake Signal.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"UART Interface",
+            "connection_type":"Output",
+            "description":"Connects to the UART transmit control logic of the FT231X."
+          },
+          {
+            "component_name":"CBUS",
+            "connection_type":"I/O",
+            "description":"Can be configured to other functions like TXDEN, PWREN#, TXLED#, RXLED#, SLEEP#, CLK24MHz, CLK12MHz, CLK6MHz, GPIO, BCD Charger, BCD Charger#, BitBang_WR#, BitBang_RD#, VBUS_Sense, Time Stamp, Keep_Awake#."
+          }
+        ],
+        "connectivity":"In a typical UART connection, RTS# is connected to the Clear To Send (CTS) input of the connected device (e.g., another UART or modem) for handshake flow control. If not used for hardware flow control, it can be configured as a general-purpose I/O pin via the CBUS configuration.",
+        "detailed_description":"Request to Send (RTS) is a control output signal used for hardware flow control in UART communication. It indicates whether the device is ready to send data. When the FT231X has data to transmit and the receive buffer of the remote device is not full, it asserts RTS to signal readiness. Conversely, if the receive buffer is full, it de-asserts RTS to indicate that the remote device cannot accept more data.",
+        "functionality":"The RTS# pin functions as a Request to Send output for UART communication. It is part of the modem control signals and is used for hardware flow control. In synchronous and asynchronous bit bang modes, it can also serve as a CBUS I/O pin, configurable to various functions as detailed in Section 3.3.",
+        "precautions":[
+          "If hardware flow control (RTS/CTS) is used, ensure the corresponding CTS# pin on the FT231X is connected to the RTS output of the external device, and this RTS# pin is connected to the CTS input of the external device.",
+          "If RTS# is not used for hardware flow control, it must be configured via the MTP memory for its desired CBUS function. The default configuration for CBUS1 (in SSOP) and CBUS2 (in QFN) is TXLED#, and for CBUS3 (in SSOP) and CBUS0 (in QFN) is TXDEN. If RTS# is intended to be a CBUS pin, its configuration needs to be set appropriately. Refer to Section 3.3 for CBUS signal options and Section 8.1 for default values."
+        ]
+      },
+      "internal_pull":null,
+      "name":"RTS#",
+      "output_type":"PUSH_PULL",
+      "pin_id":"19, 2",
+      "type":"DIGITAL",
+      "voh":{
+        "nom":"VCCIO",
+        "units":"V"
+      },
+      "vol":{
+        "max":0.4,
+        "units":"V"
+      }
+    },
+    "RXD":{
+      "description":"Receiving Asynchronous Data Input.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"UART Transmit (TX) Pin",
+            "description":"The output pin of another UART device that transmits serial data."
+          }
+        ],
+        "connectivity":"Connect to the transmit (TX) pin of the UART device with which the FT231X is communicating.",
+        "detailed_description":"Receiving Asynchronous Data Input for the UART interface.",
+        "functionality":"Receiving Asynchronous Data Input.",
+        "precautions":[
+          "When used in Input Mode, the input pins are pulled to VCCIO via internal 75k\u03a9 (approx.) resistors. These pins can be programmed to gently pull low during USB suspend (PWREN# = \u201c1\u201d) by setting an option in the MTP memory.",
+          "In reset state, the UART interface I/O pins are tri-stated. Input pins have internal 200k\u03a9 pull-up resistors to VCCIO, so they will gently pull high unless driven by some external logic."
+        ]
+      },
+      "input_voltage":{
+        "max":5.8,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":{
+        "direction":"UP",
+        "pull_value":{
+          "max":190.0,
+          "min":40.0,
+          "nom":75.0,
+          "units":"k\u03a9"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"RXD",
+      "pin_id":"1, 4",
+      "type":"DIGITAL",
+      "vih":{
+        "min":2.0,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.8,
+        "units":"V"
+      }
+    },
+    "TXD":{
+      "description":"Transmit Asynchronous Data Output.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"LED",
+            "connection":"Connect to the anode of the LED. The cathode of the LED should be connected to a current-limiting resistor (e.g., 270 Ohm as shown in Figure 7.7) which is then connected to VCCIO or GND depending on whether the LED is driven high or low.",
+            "description":"Used for visual indication of data transmission. The FT231X can drive an LED directly when configured for TXLED# or TX&RXLED#."
+          },
+          {
+            "component_name":"UART Receiver",
+            "connection":"Connect directly to the RX (Receive Data) pin of the target UART receiver.",
+            "description":"This is the standard connection for serial communication."
+          },
+          {
+            "component_name":"Current Limiting Resistor",
+            "connection":"Connect in series with the TXD pin when driving an LED.",
+            "description":"Used to limit the current flowing through the LED to prevent damage to the LED and the FT231X. The value depends on VCCIO and the LED's forward voltage and current rating."
+          }
+        ],
+        "connectivity":"In normal UART operation, this pin should be connected to the RX pin of the receiving device (e.g., another UART, microcontroller, or serial device). When configured for LED indication, it needs to be connected to an LED, typically with a current-limiting resistor in series, connected to VCCIO or GND depending on the desired LED behavior (active high or active low).",
+        "detailed_description":"TXD is the Transmit Asynchronous Data Output pin for the UART interface. It sends serial data out from the FT231X.",
+        "functionality":"The primary function is to transmit asynchronous serial data. This pin can also be configured for synchronous and asynchronous bit bang modes, where it can be used as a general-purpose I/O pin. Additionally, it can be configured to drive a transmit data LED (TXLED#) or a combined transmit/receive LED (TX&RXLED#).",
+        "precautions":[
+          "When used for transmitting serial data, ensure that the receiving device's RX pin is connected to this TXD pin.",
+          "If used to drive an LED, a current-limiting resistor must be included to prevent excessive current flow.",
+          "When configuring for bit bang mode, the function of this pin changes, and it should not be connected to a UART receiver simultaneously.",
+          "Ensure the voltage levels are compatible with the connected device. The FT231X operates at TTL levels (or can be configured for lower voltages with external pull-ups), and appropriate level shifting may be required if connecting to devices with different voltage requirements."
+        ]
+      },
+      "internal_pull":null,
+      "name":"TXD",
+      "output_type":"PUSH_PULL",
+      "pin_id":"17, 20",
+      "type":"DIGITAL",
+      "voh":{
+        "nom":"VCCIO",
+        "units":"V"
+      },
+      "vol":{
+        "max":0.4,
+        "units":"V"
+      }
+    },
+    "USBDM":{
+      "description":"USB Data Signal Minus.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"USB Connector",
+            "connection_details":"Connect directly to the USBDM pin of the USB connector (e.g., Type A, Micro USB, etc.)."
+          },
+          {
+            "component_name":"Series Termination Resistor",
+            "connection_details":"A series resistor (e.g., 22-47 Ohm) should be placed in line with the USBDM trace, as close as possible to the FT231X's USBDM pin, to match the impedance of the trace and minimize signal reflections. This resistor is not explicitly mentioned in the provided datasheet snippet but is standard practice for USB signal integrity."
+          }
+        ],
+        "connectivity":"It should be connected directly to the corresponding USBDM pin on the USB connector. A series termination resistor is typically placed close to the USB transceiver on the DP/DM lines to minimize reflections. The datasheet does not specify a particular resistance value, but common practice for USB 2.0 Full Speed is a 22-47 Ohm resistor.",
+        "detailed_description":"USBDM is the USB Data Signal Minus pin, which forms one half of the differential pair for the USB 2.0 Full Speed data communication with the USB host controller.",
+        "functionality":"This pin is exclusively used for USB data transmission and reception. It is part of the differential signaling pair (USBDM and USBDP) for the USB interface.",
+        "precautions":"The USBDM and USBDP traces should be kept close together, have matched lengths, and be routed on the same layer with a controlled impedance (typically 90 Ohms differential) to ensure signal integrity for USB 2.0. Avoid routing them near noisy signals. The connection should be as direct as possible with minimal stubs.  The datasheet also mentions a 1.5kOhm pull-up resistor on USBDP, which should be considered in the overall USB interface design."
+      },
+      "input_voltage":{
+        "max":3.63,
+        "min":-0.5,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"USBDM",
+      "pin_id":"9, 12",
+      "type":"DIGITAL",
+      "vih":{
+        "min":2.0,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.8,
+        "units":"V"
+      }
+    },
+    "USBDP":{
+      "description":"USB Data Signal Plus.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"USB Host",
+            "description":"The USB host controller (e.g., a PC's USB port) connects to the USBDP and USBDM pins for communication."
+          },
+          {
+            "component_name":"Resistor",
+            "description":"A pull-up resistor connected from USBDP to the 3V3OUT pin. This is essential for the device to be recognized as a full-speed USB device by the host.",
+            "value":"1.5 k\u03a9"
+          }
+        ],
+        "connectivity":"Connect this pin to the USB host's USBDP pin. It should also be connected to a 1.5k\u03a9 resistor which is tied to the 3V3OUT pin. This resistor is important for USB enumeration.",
+        "detailed_description":"USB Data Signal Plus is one of the two differential data lines for the USB 2.0 Full Speed interface. It carries the USB data signals in conjunction with the USBDM pin.",
+        "functionality":"It serves as a data transmission and reception pin for the USB 2.0 interface. It is also associated with a 1.5k\u03a9 pull-up resistor to +3.3V for full-speed USB detection.",
+        "precautions":[
+          "Ensure the 1.5k\u03a9 pull-up resistor to 3V3OUT is correctly connected for proper USB enumeration.",
+          "This pin is part of a differential pair (USBDP and USBDM) and should be routed carefully to maintain signal integrity, minimizing noise and impedance mismatches.",
+          "The pin is sensitive to ESD, so appropriate handling precautions should be taken."
+        ]
+      },
+      "input_voltage":{
+        "max":3.63,
+        "min":-0.5,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"USBDP",
+      "pin_id":"8, 11",
+      "type":"DIGITAL",
+      "vih":{
+        "min":2.0,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.8,
+        "units":"V"
+      }
+    },
+    "VCC":{
+      "description":"5 V or 3V3 supply to IC",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Power Supply",
+            "details":"A regulated DC power supply capable of providing a stable 5V or 3.3V. If using 3.3V, ensure the 3V3OUT pin is also correctly connected."
+          },
+          {
+            "component_name":"Decoupling Capacitor",
+            "details":"A decoupling capacitor (typically 0.1uF ceramic) should be placed close to the VCC pin and GND for filtering and stability, although the datasheet mentions integrated AVCC supply filtering, external decoupling is generally good practice."
+          }
+        ],
+        "connectivity":"Connect to a stable power supply. The voltage level should be either 5V or 3.3V. If VCC is connected to 3.3V, the 3V3OUT pin must also be connected to 3.3V.",
+        "detailed_description":"VCC is the main supply voltage for the FT231X IC. It powers the internal circuitry of the device.",
+        "functionality":"The VCC pin serves as the primary power input for the FT231X. It can accept either a 5V or a 3.3V supply. If a 3.3V supply is used for VCC, the 3V3OUT pin (pin 10 in QFN package, pin 13 in SSOP package) must also be connected to the 3.3V supply as it becomes an input pin in this configuration.",
+        "precautions":[
+          "Ensure the voltage supplied to VCC is within the specified operating range (2.97V to 5.5V as per Table 5.3).",
+          "If powering the device with 3.3V, the 3V3OUT pin must be connected to 3.3V as it acts as an input pin in this scenario.",
+          "Avoid applying voltages outside the absolute maximum ratings (Table 5.1) as this can cause permanent damage to the device."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":2.97,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"VCC",
+      "pin_id":"12, 15",
+      "type":"POWER"
+    },
+    "VCCIO":{
+      "description":"1V8 \u2013 3V3 supply for the IO cells",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Power Supply",
+            "description":"A stable voltage source, typically 1.8V or 3.3V, as required by the external logic connected to the UART pins."
+          },
+          {
+            "component_name":"Decoupling Capacitor",
+            "description":"A decoupling capacitor (e.g., 0.1uF ceramic) should be placed close to the VCCIO pin and connected to GND to filter noise and ensure a stable supply."
+          }
+        ],
+        "connectivity":"Should be connected to a stable voltage source within the specified range of 1.8V to 3.3V. It can be connected to a dedicated 3.3V or 1.8V power rail, or to the 3V3OUT pin if VCC is also supplied as 3.3V and the 3V3OUT pin is configured as an input.",
+        "detailed_description":"VCCIO is the supply voltage for the IO cells of the FT231X. This allows the device to interface with UART logic operating at different voltage levels (1.8V to 3.3V) while the core of the IC can operate at its nominal voltage.",
+        "functionality":"Provides the power supply to the input/output (I/O) cells of the FT231X. This pin enables the device to be compatible with various logic levels for its UART interface.",
+        "precautions":[
+          "The voltage supplied to VCCIO must be within the specified range (1.8V to 3.3V) to avoid damaging the I/O cells. Refer to Table 5.4, Table 5.5, and Table 5.6 for specific voltage conditions.",
+          "Ensure that the power source for VCCIO is adequately filtered and stable. A decoupling capacitor is highly recommended.",
+          "If VCC is supplied as 3.3V, the 3V3OUT pin (Pin 10 in QFN, Pin 13 in SSOP) can be used as an input and connected to VCCIO to supply the I/O cells. However, if VCC is 5V, VCCIO must be supplied separately.",
+          "The I/O pins are tolerant of 5V input, but the VCCIO supply voltage determines the output voltage levels and the input thresholds for the UART pins. Ensure the VCCIO voltage is appropriate for the connected external logic."
+        ]
+      },
+      "input_voltage":{
+        "max":3.63,
+        "min":1.62,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"VCCIO",
+      "pin_id":"20, 3",
+      "type":"POWER"
+    }
+  }
+}

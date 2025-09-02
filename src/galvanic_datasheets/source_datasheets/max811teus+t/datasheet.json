@@ -1,0 +1,171 @@
+{
+  "high_level":{
+    "base_part_number":"MAX811/MAX812",
+    "device_type":"OTHER",
+    "manufacturer":"Maxim Integrated",
+    "packages":[
+      "SOT143"
+    ],
+    "part_numbers":{
+      "MAX811_EUS-T":{
+        "options":{
+          "reset_threshold":"choice of five different reset threshold voltages"
+        }
+      },
+      "MAX812_EUS-T":{
+        "options":{
+          "reset_threshold":"choice of five different reset threshold voltages"
+        }
+      }
+    }
+  },
+  "pins":{
+    "GND":{
+      "description":"Ground",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"System Ground",
+            "description":"This refers to the common ground plane or point in the electronic circuit which serves as the 0V reference for all components."
+          }
+        ],
+        "connectivity":"The GND pin must be connected to the system's ground (0V reference).",
+        "detailed_description":"GND is the ground pin for the MAX811/MAX812 voltage monitors. It serves as the common reference point for all voltage measurements and operations within the IC.",
+        "functionality":"The GND pin functions solely as the ground reference. It does not serve different functions based on connectivity.",
+        "precautions":[
+          "Ensure a low-impedance connection to system ground to maintain accurate voltage monitoring and stable operation.",
+          "Avoid ground loops, as they can introduce noise and affect the performance of the voltage monitor."
+        ]
+      },
+      "name":"GND",
+      "pin_id":"1",
+      "type":"POWER"
+    },
+    "MR":{
+      "description":"Manual Reset Input. A logic low on MR asserts reset. Reset remains asserted while MR is low, and for the Reset Active Timeout Period (tRP) after MR returns high. This active-low input has an internal 20k\u2126 pull-up resistor. It can be driven from a TTL or CMOS-logic line, or shorted to ground with a switch. Leave open if unused.",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component":"Momentary Switch",
+            "details":"A normally open (NO) pushbutton switch connected between the MR pin and GND. Pressing the switch closes the circuit, pulling MR low and initiating a reset."
+          },
+          {
+            "component":"Logic Output",
+            "details":"A TTL or CMOS logic output from a microcontroller or other digital circuitry connected to the MR pin. A low logic level will trigger a reset."
+          },
+          {
+            "component":"Capacitor",
+            "details":"An optional 0.1\u03bcF capacitor can be connected from the MR pin to GND to provide additional noise immunity, especially when the pin is driven by long cables or in noisy environments."
+          }
+        ],
+        "connectivity":"Connect a normally open momentary switch from the MR pin to GND to implement a manual reset. Alternatively, it can be driven by a TTL or CMOS logic output. If unused, it should be left disconnected.",
+        "detailed_description":"The MR (Manual Reset Input) pin allows for manual initiation of a reset sequence. A logic-low signal on this pin asserts the reset output. The reset signal remains asserted as long as the MR pin is low, and for a specified timeout period (tRP) after the MR pin returns to a high state. This input is designed to be debounced, eliminating the need for external debounce circuitry.",
+        "functionality":"The MR pin's primary function is to trigger a reset. It can be driven by logic-level signals or a simple switch. If left unused, it can be left open. An optional capacitor can be added for increased noise immunity.",
+        "precautions":[
+          "The MR pin has an internal pull-up resistor (typically 20k\u03a9), so it does not require an external pull-up resistor if it is to be left open.",
+          "If the MR pin is driven by long cables or in a noisy environment, adding a 0.1\u03bcF capacitor to ground can improve noise immunity.",
+          "Ensure that the logic driving the MR pin is compatible with the input voltage levels specified in the datasheet. For MAX81_R/S/T, the input threshold is 0.7 x VCC (high) and 0.25 x VCC (low). For MAX81_L/M, the input threshold is 2.3V (high) and 0.8V (low)."
+        ]
+      },
+      "internal_pull":{
+        "direction":"UP",
+        "pull_value":{
+          "nom":20.0,
+          "units":"k\u2126"
+        },
+        "type":"RESISTANCE"
+      },
+      "name":"MR",
+      "pin_id":"3",
+      "type":"DIGITAL",
+      "vih":{
+        "max":5.5,
+        "min":2.3,
+        "units":"V"
+      },
+      "vil":{
+        "max":0.8,
+        "min":0.0,
+        "units":"V"
+      }
+    },
+    "RESET":{
+      "description":"Active-High Reset Output. RESET remains high while VCC is below the reset threshold or while MR is held low. RESET remains high for Reset Active Timeout Period (tRP) after the reset conditions are terminated.",
+      "direction":"OUTPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Microprocessor (\u03bcP)",
+            "description":"The primary component that the RESET pin signals to. The connection is made to the \u03bcP's reset input pin."
+          },
+          {
+            "component_name":"Resistor (for bidirectional reset pins)",
+            "description":"A 4.7k\u03a9 resistor should be connected in series if the \u03bcP has a bidirectional reset pin to prevent contention."
+          },
+          {
+            "component_name":"Resistor (for low VCC operation)",
+            "description":"A 100k\u03a9 pulldown resistor for MAX811 or a 100k\u03a9 pull-up resistor for MAX812 may be needed to ensure the RESET output remains valid when VCC is below 1V."
+          }
+        ],
+        "connectivity":"The RESET pin should be connected to the reset input of the microprocessor or other digital systems that require a reset signal. For the MAX811 (active-low), it is typically connected directly to the \u03bcP's reset pin. For the MAX812 (active-high), it is also typically connected directly to the \u03bcP's reset pin. If interfacing with \u03bcPs that have bidirectional reset pins, a 4.7k\u03a9 resistor should be connected in series between the MAX811/MAX812 RESET output and the \u03bcP's reset I/O pin. If a valid RESET output is required for VCC below 1V, a pulldown resistor (e.g., 100k\u03a9) should be connected from the MAX811 RESET pin to GND. For the MAX812, a pull-up resistor (e.g., 100k\u03a9) to VCC might be needed.",
+        "detailed_description":"The RESET pin is an output pin that signals a reset condition for the microprocessor. For the MAX811, it is an active-low output, meaning it asserts a low signal when a reset is needed. For the MAX812, it is an active-high output, asserting a high signal. The reset condition is triggered when the VCC supply voltage drops below a preset threshold, or when the Manual Reset (MR) input is activated. The reset signal remains asserted for a minimum of 140ms after the reset condition is cleared.",
+        "functionality":"The RESET pin's primary function is to provide a reset signal. For the MAX811, this is an active-low output. For the MAX812, it is an active-high output. The output state is dependent on the VCC level and the state of the MR input. Additionally, the datasheet mentions that when VCC falls below 1V, the MAX811 RESET output becomes an open circuit and may require a pulldown resistor to ensure it remains valid down to 0V. Similarly, a pull-up resistor might be needed for the MAX812 RESET output in similar low VCC conditions.",
+        "precautions":[
+          "For the MAX811, when VCC falls below 1V, the RESET output becomes an open circuit. To ensure the RESET output remains valid (low) down to 0V, a pulldown resistor (e.g., 100k\u03a9) connected from RESET to GND is recommended.",
+          "For the MAX812, if the RESET output needs to remain valid for VCC < 1V, a pull-up resistor (e.g., 100k\u03a9) to VCC is recommended.",
+          "When interfacing with microprocessors that have bidirectional reset pins, a series resistor (4.7k\u03a9) is necessary to prevent bus contention.",
+          "Ensure the RESET output is buffered if it is connected to multiple system components to avoid loading issues."
+        ]
+      },
+      "name":"RESET",
+      "output_type":"PUSH_PULL",
+      "pin_id":"2",
+      "type":"DIGITAL",
+      "voh":{
+        "max":1.5,
+        "min":1.5,
+        "units":"VCC - V"
+      },
+      "vol":{
+        "max":0.4,
+        "min":0.3,
+        "units":"V"
+      }
+    },
+    "VCC":{
+      "description":"+5V, +3.3V, or +3V Supply Voltage",
+      "direction":"INPUT",
+      "implementation":{
+        "connected_components":[
+          {
+            "component_name":"Power Supply",
+            "description":"The voltage source providing the regulated power to the circuit. The specific voltage should match the requirements of the chosen MAX811/MAX812 variant (e.g., 5V for L/M versions, 3.3V for T/S versions, 3V for R version)."
+          },
+          {
+            "component_name":"Bypass Capacitor (Recommended)",
+            "description":"A small capacitor (e.g., 0.1\u00b5F ceramic) should be connected between the VCC pin and GND, placed as close as possible to the IC. This capacitor helps to filter out noise and improve transient immunity on the power supply line."
+          }
+        ],
+        "connectivity":"Connect this pin to the positive voltage rail of the power supply (typically +5V, +3.3V, or +3V, depending on the specific part number chosen).",
+        "detailed_description":"+5V, +3.3V, or +3V Supply Voltage. This pin provides the main power supply to the IC.",
+        "functionality":"This pin serves as the primary power supply input for the MAX811/MAX812 IC. The device monitors the voltage on this pin to assert the reset signal when the voltage falls below a preset threshold.",
+        "precautions":[
+          "Ensure the voltage supplied to the VCC pin is within the operating voltage range specified for the particular MAX811/MAX812 part number being used.",
+          "Avoid exceeding the Absolute Maximum Ratings for VCC, which is -0.3V to 6.0V.",
+          "Proper decoupling with a bypass capacitor is recommended to ensure stable operation and improved noise immunity.",
+          "Refer to the 'Applications Information' section regarding negative-going VCC transients; a 0.1\u00b5F capacitor on VCC can provide additional transient immunity."
+        ]
+      },
+      "input_voltage":{
+        "max":5.5,
+        "min":1.0,
+        "units":"V"
+      },
+      "name":"VCC",
+      "pin_id":"4",
+      "type":"POWER"
+    }
+  }
+}

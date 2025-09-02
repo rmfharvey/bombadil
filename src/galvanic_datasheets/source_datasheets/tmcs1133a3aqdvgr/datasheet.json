@@ -1,0 +1,1405 @@
+{
+  "high_level":{
+    "absolute_maximum_ratings":{
+      "Analog_input_VOC":{
+        "max":"(VS) + 0.3",
+        "min":"GND - 0.3",
+        "unit":"V"
+      },
+      "Junction_temperature":{
+        "max":"165",
+        "min":"-65",
+        "unit":"\u00b0C"
+      },
+      "Storage_temperature":{
+        "max":"165",
+        "min":"-65",
+        "unit":"\u00b0C"
+      },
+      "VS":{
+        "max":"6",
+        "min":null,
+        "unit":"V"
+      }
+    },
+    "application_and_implementation":{
+      "application_information":"The key feature sets of the TMCS1133 provide significant advantages in any application where an isolated current measurement is required.\n- Galvanic isolation provides a high isolated working voltage and excellent immunity to input voltage transients.\n- Hall-based measurement simplifies system level designs without the need for a power supply on the highvoltage (HV) side.\n- An input current path through the low impedance conductor minimizes power dissipation.\n- Excellent accuracy and low temperature drift eliminate the need for multipoint calibrations without sacrificing system performance.\n- A wide operating supply range enables a single device to function across a wide range of voltage levels.\nThese advantages increase system-level performance while minimizing complexity for any application where precision current measurements must be made on isolated currents. Specific examples and design requirements are detailed in the following section.",
+      "layout":{
+        "layout_example":{
+          "description":"An example layout, shown in Figure 9-5, is from the TMCS1133xEVM User's Guide, targeted for thermal and magnetic characteristics of this layout, which provides terminal connectors to the device input pins while large copper planes enhance..."
+        },
+        "layout_guidelines":"The TMCS1133 is specified for a continuous current handling capability on the TMCS1133xEVM which uses 4oz copper planes. This current capability is fundamentally limited by the maximum device junction temperature and the thermal environment, primarily the PCB layout and design. To maximize current-handling capability and thermal stability of the device, take care with PCB layout and construction to optimize the thermal capability. Efforts to improve the thermal performance beyond the design and construction of the TMCS1133xEVM can result in increased continuous current capability due to higher heat transfer to the PCB. These include:\n\u2022 Use large copper planes for both input current path and isolated power planes.\n\u2022 Use heavier copper PCB construction.\n\u2022 Place thermal via farms around the isolated current input.\n\u2022 Provide airflow across the surface of the PCB."
+      },
+      "power_supply_recommendations":{
+        "description":"The TMCS1133 only requires a power supply (VS) on the low-voltage isolated side, which powers the analog circuitry independent of the isolated current input. VS determines the full-scale output range of the analog output VOUT, and can be supplied with any voltage between 3V and 5.5V. To filter noise in the power-supply path, place a low-ESR decoupling capacitor of 0.1\u00b5F between VS and GND pins as close as possible to the supply and ground pins of the device. More decoupling capacitance can be added to compensate for noisy or high-impedance power supplies. When used in extremely noisy environments, ferrite beads can be added close to the supply pin as shown in Figure 9-4 to target and suppress high-frequency noise coupled on to system supply.\nThe TMCS1133 power supply VS can be sequenced independently of current flowing through the input. However, there is a power-on delay between VS reaching the recommended operating voltage and the analog output validation. During this power-on time, the output voltage VOUT can transition between GND and VS as the output transfers from a high impedance reset state to the active drive state. If this behavior must be avoided, then provide a stable supply voltage VS for longer than the power-on time prior to applying input current."
+      },
+      "total_error_calculation_examples":{
+        "cmrr_error_equation":"e CMRR = (CMRR \u00d7 VCM / IIN) * 100%",
+        "description":"Users can calculate the total error for any arbitrary device condition and current level. Consider error sources like input-referred offset current (IOS), Common Mode Rejection Ratio (CMRR), Power Supply Rejection Ratio (PSRR), sensitivity error, nonlinearity, as well as errors caused by any external magnetic fields (BEXT). Compare each of these error sources in percentage terms, as some are significant drivers of error and some have inconsequential impact to current measurement error. Offset (Equation 22), CMRR (Equation 23), PSRR, and external magnetic field error (Equation 25) are all referred to the input, and so are divided by the actual input current IIN to calculate percentage errors. For sensitivity error and nonlinearity error calculations, the percentage limits explicitly specified in the Electrical Characteristics table can be used.",
+        "external_field_error_equation":"e Bext = (BEXT \u00d7 CMFR / IIN) * 100%",
+        "full_temperature_range_error_calculations":{
+          "description":"To calculate total error across any specific temperature range, use Equation 28 and Equation 29 for RSS maximum total errors, similar to the example for room temperatures. Conditions from the example in Room-Temperature Error Calculations are replaced with the respective equations and error components for a \u201340\u00b0C to 85\u00b0C temperature range below in Table 9-2.",
+          "table_9_2":{
+            "error_at_iin_12.5a":{
+              "cmrr_error":"\u00b10.02%",
+              "external_field_error":"\u00b10.03%",
+              "input_offset_error":"\u00b10.61%",
+              "nonlinearity_error":"\u00b10.1%",
+              "psrr_error":"\u00b10.08%",
+              "rss_total_error":"1.00%",
+              "sensitivity_error":"\u00b10.70%"
+            },
+            "error_at_iin_25a":{
+              "cmrr_error":"\u00b10.01%",
+              "external_field_error":"\u00b10.02%",
+              "input_offset_error":"\u00b10.30%",
+              "nonlinearity_error":"\u00b10.1%",
+              "psrr_error":"\u00b10.04%",
+              "rss_total_error":"0.79%",
+              "sensitivity_error":"\u00b10.70%"
+            }
+          }
+        },
+        "input_offset_error_equation":"e Ios = (IOS / IIN) * 100%",
+        "offset_error_across_temperature_equation":"e Ios,\u2206T = (VOE, 25\u2103+ VOE, drift\u00d7 \u2206T) / (S \u00d7 IIN) * 100%",
+        "psrr_error_equation_A":"e PSRR, A = (PSRR \u00d7( VS \u22125V) / IIN) * 100%",
+        "psrr_error_equation_B_C":"e PSRR, B = e PSRR, C = (PSRR \u00d7( VS \u22123.3V) / IIN) * 100%",
+        "room_temperature_error_calculations":{
+          "description":"For room-temperature total error calculations, specifications across temperature and drift are ignored. As an example, consider a TMCS1133B2A with a supply voltage (VS) of 3.1V and a worst-case common-mode excursion of 600V to calculate operating-point specific parameters. Consider a measurement error due to an external 400\u00b5T magnetic field generated by a 20A DC current flowing through an adjacent trace or conductor that is 10mm away. The full-scale current range of the device in specified conditions is slightly greater than \u00b131A, as shown in the Device Comparison table. In this case, the calculating error at both 25A and 12.5A highlights error dependencies on the input-current level. Table 9-1 shows the individual error components and RSS maximum total error calculations at room temperature under the conditions specified. Relative to other errors, the additional errors from CMRR, external ambient magnetic fields BEXT and nonlinearity are negligible, and can typically be excluded from total error calculations.",
+          "table_9_1":{
+            "error_at_iin_12.5a":{
+              "cmrr_error":"\u00b10.02%",
+              "external_field_error":"\u00b10.03%",
+              "input_offset_error":"\u00b10.32%",
+              "nonlinearity_error":"\u00b10.1%",
+              "psrr_error":"\u00b10.08%",
+              "rss_total_error":"0.59%",
+              "sensitivity_error":"\u00b10.4%"
+            },
+            "error_at_iin_25a":{
+              "cmrr_error":"\u00b10.01%",
+              "external_field_error":"\u00b10.02%",
+              "input_offset_error":"\u00b10.16%",
+              "nonlinearity_error":"\u00b10.1%",
+              "psrr_error":"\u00b10.04%",
+              "rss_total_error":"0.46%",
+              "sensitivity_error":"\u00b10.4%"
+            }
+          }
+        },
+        "rss_error_room_temperature_equation":"eRSS = sqrt(eIos^2 + ePSRR^2 + eCMRR^2 + eBext^2 + eS^2 + eNL^2)",
+        "rss_error_temperature_range_equation":"eRSS,\u2206T = sqrt(eIos,\u2206T^2 + ePSRR^2 + eCMRR^2 + eBext^2 + eS,\u2206T^2 + eNL^2)",
+        "rss_error_vs_input_current":{
+          "description":"Figure 9-1. RSS Error vs Input Current"
+        },
+        "sensitivity_error_across_temperature_equation":"e S,\u2206T = e S, 25\u2103 +( S drift, therm \u00d7| \u2206T| \u00d7 100%)"
+      },
+      "typical_application":{
+        "application_curve":{
+          "description":"To illustrate high levels of isolation achievable between noisy high-voltage current sensing nodes and low-voltage precision current measurement and control circuitry, Figure 9-3 shows the output signal from the TMCS1133 in a noisy in-phase PWM motor control example. In this example with a large induction motor under no load, no PWM edge interference is seen on the current sensor output with high-voltage PWM switching on the current sensor input, as is often pronounced on many current sensors."
+        },
+        "description":"In many applications, power must be converted from AC sources for use in DC circuitry. Some type of controlled power factor correction (PFC) stage is typically needed to improve power transfer efficiency. Faster and faster power switches are being used in modern PFC stages to reduce overall size and to improve power transfer efficiency. Often, the PFC stage of AC to DC converters is connected directly to AC power grids. A primary challenge to sensing in PFC stages is that the current sensor is subjected to large voltage spikes coming from the high-voltage (HV) power grid along with large transients coming from high speed power switches during charge transfer. Inherent isolation in the TMCS1133 construction helps overcome these challenges by providing high levels of isolation between the HV current sensing nodes and low-voltage control circuitry, with high common-mode transient immunity (CMTI). Figure 9-2 shows the use of the TMCS1133 measuring phase currents in a common AC to DC converter stage.",
+        "design_requirements":{
+          "description":"For a 3-phase current sensing application, make sure to provide linear sensing across the expected current range, and make sure that the device remains within working thermal constraints. A single TMCS1133 can be used to measure current in each phase if necessary. For this example, consider a nominal supply of 5V but a minimum of 4.9V to include for some supply variation. Maximum output swings are defined according to TMCS1133 specifications, and a full-scale current measurement of \u00b120A is required.",
+          "table_9_3":{
+            "IIN_FS":"\u00b120A",
+            "VS_min":"4.9V",
+            "VS_nom":"5V"
+          }
+        },
+        "detailed_design_procedure":{
+          "VOUT_equation":"VOUT =( IIN \u00d7 S) + VOUT, 0A",
+          "VOUT_max_equation":"V OUT, max = VS, min \u2212100mV",
+          "VOUT_min_equation":"V OUT, min = 100mV",
+          "description":"The primary design parameter for using the TMCS1133 is the optimum sensitivity variant based on the required measured current levels and the selected supply voltage. Positive and negative currents are measured in this in-line phase current application example, therefore select a bidirectional variant. The TMCS1133 has a precision internal reference voltage that determines the zero current output voltage, VOUT,0A.\nThe internal reference voltage on TMCS1133AxA variants, with zero current output voltage VOUT,0A = 2.5V is intended for bidirectional current measurements when used with 5V power supplies. The internal reference voltage on TMCS1133BxA variants, with zero current output voltage VOUT,0A = 1.65V is intended for bidirectional current measurements when used with 3.3V power supplies. Further consideration of noise and integration with an ADC can be explored, but is beyond the scope of this application design example. The TMCS1133 output voltage VOUT is proportional to the input current IIN as defined by Equation 30 with output offset set by VOUT,0A.",
+          "design_focus":"Design of the sensing solution focuses on maximizing the sensitivity of the device while maintaining linear measurement over the expected current input range. The TMCS1133 has a linear measurable current range that is constrained by either the positive swing to supply or negative swing to ground. To account for the operating margin, consider the previously defined minimum possible supply voltage VS,min = 4.9V. With the previous parameters, the maximum linear output voltage VOUT,max is defined by Equation 31 and the minimum linear output voltage VOUT,min is defined by Equation 32.",
+          "design_parameters_table_9_4":{
+            "VOUT_0A":"2.5V",
+            "VOUT_max":"4.8V",
+            "VOUT_max_minus_VOUT_0A":"2.3V"
+          },
+          "maximum_full_scale_current_ranges_table_9_5":{
+            "TMCS1133A1A":{
+              "I_IN_max":"\u00b192A",
+              "sensitivity":"25mV/A"
+            },
+            "TMCS1133A2A":{
+              "I_IN_max":"\u00b146A",
+              "sensitivity":"50mV/A"
+            },
+            "TMCS1133A3A":{
+              "I_IN_max":"\u00b130.6A",
+              "sensitivity":"75mV/A"
+            },
+            "TMCS1133A4A":{
+              "I_IN_max":"\u00b123A",
+              "sensitivity":"100mV/A"
+            },
+            "TMCS1133A5A":{
+              "I_IN_max":"\u00b115.3A",
+              "sensitivity":"150mV/A"
+            }
+          },
+          "selection_criteria":"In general, the highest sensitivity variant is selected to provide the lowest maximum input current range that is larger than the desired full-scale current range. For the design parameters in this example, the TMCS1133A4A with sensitivity of 100mV/A is the proper selection because the maximum \u00b123A linear measurable range is larger than the desired \u00b120A full-scale current range."
+        }
+      }
+    },
+    "applications":[
+      "Solar Energy",
+      "EV charging",
+      "Power supplies",
+      "Industrial AC/DC"
+    ],
+    "base_part_number":"TMCS1133",
+    "bidirectional_and_unidirectional_current_sensing":true,
+    "description":"The TMCS1133 is a galvanically isolated Hall-effect current sensor with industry leading isolation and accuracy. An output voltage proportional to the input current is provided with excellent linearity and low drift at all sensitivity options. Precision signal conditioning circuitry with built-in drift compensation is capable of less than 1.4% maximum sensitivity error over temperature and lifetime with no system level calibration, or less than 0.9% maximum sensitivity error including both lifetime and temperature drift with a one-time calibration at room temperature.\nAC or DC input current flows through an internal conductor generating a magnetic field measured by integrated, on-chip, Hall-effect sensors. Coreless construction eliminates the need for magnetic concentrators. Differential Hall sensors reject interference from stray external magnetic fields. Low conductor resistance increases measurable current ranges up to \u00b196A while minimizing power loss and easing thermal dissipation requirements. Insulation capable of withstanding 5kV RMS, coupled with a minimum of 8mm creepage and clearance, provides high levels of reliable lifetime reinforced working voltage. Integrated shielding enables excellent common-mode rejection and transient immunity.\nFixed sensitivity allows the device to operate from a single 3V to 5.5V power supply, eliminating ratiometry errors and improving supply noise rejection.",
+    "detailed_description":{
+      "device_functional_modes":{
+        "power_down_behavior":"As a result of the inherent galvanic isolation of the device, very little consideration must be paid to powering down the device, as long as the limits in the Absolute Maximum Ratings table are not exceeded on any pins. The isolated current input and the low-voltage signal chain can be decoupled in operational behavior, as either can be energized with the other shutdown, as long as the isolation barrier capabilities are not exceeded. The low-voltage power supply can be powered down while the isolated input is still connected to an active high-voltage signal or system."
+      },
+      "feature_description":{
+        "ambient_field_rejection":"The TMCS1133 is designed to provide high levels of current measurement accuracy in harsh environments. Immunity to interference from stray magnetic fields allows for use in close proximity to high current carrying traces, motor windings, inductors, or any other erroneous source of stray magnetic fields. The TMCS1133 incorporates differential Hall sensors that are strategically located and configured to reject interference from stray external magnetic fields. Ambient Field Rejection (AFR) limited only by Hall element matching and package leadframe coupling reduces errors from stray magnetic fields.",
+        "current_input":"Input current to the TMCS1133 passes through the isolated high-voltage side of the package leadframe into and out of the IN+ and IN\u2013 pins. The current flowing through the package generates a magnetic field that is proportional to the input current, which is measured by an integrated on-chip galvanically-isolated, precision Hall sensor. As a result of the electrostatic shielding on the Hall sensor die, only the magnetic field generated by the input current is measured, thus limiting input voltage switching pass-through to the circuitry. This configuration allows for direct measurement of currents with high-voltage transients without signal distortion on the current-sensor output. The leadframe conductor has a low resistance and a positive temperature coefficient as defined in Electrical Characteristics.",
+        "high_precision_signal_chain":{
+          "current_sensing_measurable_ranges":{
+            "IN_max_minus_equation":"I IN, max \u2212 =(V OUT, 0A \u2212 0.1V) / S",
+            "IN_max_plus_equation":"I IN, max + =(V OUT, 0A + VS \u2212 0.1V) / S",
+            "VOUT_max_equation":"V OUT, max = VS \u2212100mV",
+            "VOUT_min_equation":"V OUT, min = 100mV",
+            "description":"The zero current reference voltage, V REF, along with device sensitivity, S, and supply voltage, VS, determine the TMCS1133 linear input current measurement ranges listed in the Device Comparison table. The maximum linear output voltage, VOUT,max, is limited to 100mV less than the supply voltage as shown in Equation 17. The minimum linear output voltage, VOUT,min, is limited to 100mV above ground as shown in Equation 18."
+          },
+          "description":"The TMCS1133 uses a precision, low-drift signal chain with proprietary sensor linearization techniques to provide a highly accurate and stable current measurement across the full temperature range and lifetime of the device. The device is fully tested and calibrated at the factory to account for any variations in either silicon processing, assembly, or packaging of the device. The full signal chain provides a fixed sensitivity voltage output that is proportional to the current flowing through the leadframe of the isolated input.",
+          "internal_reference_voltage":{
+            "description":"The TMCS1133 has a precision internal reference that determines the zero current output voltage, VOUT,0A. Overall current sensing dynamic range can be optimized by choosing either of the three different zero current output voltage options listed in the Device Comparison table. These extremely low-drift precision zero current reference options are listed in Equation 14, Equation 15 and Equation 16. These equations are for precise bidirectional or unidirectional current measurements using various supply voltages ranging between 3.0V to 5.5V.",
+            "equation_AxA":"TMCS11xxAxx \u2794 V OUT,0A = V REF = 2.5V",
+            "equation_BxA":"TMCS1133Bxx \u2794 V OUT,0A = V REF = 1.65V",
+            "equation_CxA":"TMCS1133Cxx \u2794 V OUT,0A = V REF = 0.33V"
+          },
+          "lifetime_and_environmental_stability":"In addition to large thermal drift, typical magnetic current sensors suffer an additional 2% to 3% drift in sensitivity due to aging over the lifetime of the device. The same proprietary compensation techniques used in the TMCS1133 to reduce temperature drift are also used to greatly reduce lifetime drift due to aging from stress and environmental conditions especially at high operating temperatures. As shown in the Electrical Characteristics, the TMCS1133 has industry leading lifetime sensitivity drift realized after Highly Accelerated Stress Tests (HAST) at 130\u00b0C and 85% relative humidity (RH) during standard three lot AEC-Q100 qualifications. Low sensitivity and offset drift within the bounds specified in the Electrical Characteristics are also observed after 1000 hour, 125\u00b0C high temperature operating life stress tests are performed as prescribed by AEC-Q100 qualifications. These tests mimic typical device lifetime operation, and show device performance variation due to aging is vastly improved compared with typical magnetic current sensors. Figure 8-3 and Figure 8-4 show the sensitivity and offset drift after a 1000 hour, 125\u00b0C high temperature operating life stress test as specified by AEC-Q100. Device operational performance varies over the lifetime of the device. This test mimics typical device lifetime operations and shows the likelihood of the device vastly improving performance compared to typical magnetic sensors.",
+          "overcurrent_detection":{
+            "description":"In addition to the precision analog signal, the TMCS1133 also offers a fast digital overcurrent detection response. The Overcurrent Detection (OCD) circuit provides an open-drain comparator output that can be used to trigger a warning or initiate a system shutdown to prevent damage from excessive current flow caused by short circuits, motor stalls, or other unintended system conditions. This fast digital response can be configured on both bidirectional and unidirectional devices to assert based on a signal that is anywhere from half to over twice the full-scale analog measurement range. Use of this fast digital output OC instead of the precision analog output VOUT to detect overcurrent events outside the nominal operating current range allows for higher dynamic range with higher sensitivity optimized for the nominal operating current range. Use of this fast digital output OC also allows for lower overall signal noise from lower analog signal bandwidth than often needed when using the analog signal chain to detect fast overcurrent events.",
+            "overcurrent_output_response":"Figure 8-7 shows the active-low overcurrent digital output OC response to bidirectional overcurrent events. When the input current exceeds |\u00b1IOC | on a bidirectional device, the fast OC pin is pulled low. The input current must return to within \u00b1IOC by more than a hysteresis current IHys before the OC pin resets back to the normal high-state.",
+            "setting_overcurrent_threshold":{
+              "VOC_equation":"V OC = (S \u00d7 I2.5OC) / 2.5",
+              "description":"The desired overcurrent threshold, I OC, is set by applying an external voltage, VOC, to the VOC pin according to Equation 21.",
+              "setting_example":"For example, to set a desired overcurrent threshold to IOC = \u00b150A on bidirectional TMCS1133A3A or TMCS1133B3A devices with \u00b132A linear measurement range, as well as on the unidirectional TMCS1133C3A device, size the resistors R1 and R2 to apply a voltage VOC = 1.5V to the VOC pin according to Equation 21.\nwith\n- TMCS1133A3A, TMCS1133B3A and TMCS1133B3A device sensitivity, S = 0.075V/A.\n- Desired overcurrent threshold, IOC = \u00b150A.\n- Applied overcurrent threshold voltage VOC = 1.5V.",
+              "setting_via_power_supply":"A simple external resistor divider driven from the power supply as shown in Figure 8-6 can be used to generate the external overcurrent voltage VOC applied to the VOC pin to set the desired overcurrent threshold IOC according to Equation 21. When using a resistor divider as shown in Figure 8-6, R2 must be less than 10k\u2126 to mitigate the impact of the VOC input impedance on overcurrent threshold accuracy."
+            }
+          },
+          "sensor_diagnostics":{
+            "alert_output_signal":"The active-low ALERT output signal can be used to decipher which of four diagnostic states the TMCS1133 resides. As shown in Figure 8-8, the duty cycle of the 8kHz PWM output signal indicates which, neither, or both of the thermal and sensor operating condition warnings exist.",
+            "sensor_alert":"In addition to temperature, sensor sensitivity and offset are constantly being monitored inside the TMCS1133. A sensor alert occurs in the unlikely event Hall sensor sensitivity or offset is out of range compared with factory set limits.",
+            "thermal_alert":"As discussed in the Safe Operating Area section, high levels of input current can generate excessive heat inside the TMCS1133. High input currents, coupled with elevated ambient temperatures and printed circuit board thermal design can cause the TMCS1133 to overheat and be permanently damaged by exceeding maximum allowed junction temperatures. A thermal alert occurs when the internal temperature approaches the maximum allowed junction temperature."
+          },
+          "temperature_stability":"The TMCS1133 includes a proprietary temperature compensation technique which results in significantly improved parametric drift across the full temperature range. This compensation technique accounts for changes in ambient temperature, self-heating, and package stress. A zero-drift signal chain architecture along with Hall sensor temperature compensation methods enable stable sensitivity while minimizing offset errors across temperature. System-level performance is drastically improved across required operating conditions."
+        },
+        "input_isolation":"The separation between the input conductor and the Hall sensor die due to the TMCS1133 construction provides inherent galvanic isolation between package pins 1 and 2 on the high-voltage input side, and package pins 3 through 10 on the low-voltage output side. Insulation capability is defined according to certification agency definitions and using industry-standard test methods as defined in Section 6.6. Assessment of device lifetime working voltages follow the IEC 60747-17 standard for basic and reinforced insulation, requiring time-dependent dielectric breakdown (TDDB) data-projection are based on projected failure rates of less than 1 part per million (ppm) for reinforced insulation and less than 1000ppm for basic insulation, and a minimum insulation lifetime of 30 years. For reinforced insulation, the IEC 60747-17 standard also requires additional safety margins of 20% for working voltage, and 50% for insulation lifetime, translating into a minimum required lifetime of 30 years at 800V RMS for the TMCS1133. Figure 8-2 shows the intrinsic capability of the isolation barrier to withstand high-voltage stress over the lifetime of the device. Based on the TDDB data, the intrinsic capability of these devices is 670V RMS with a lifetime > 20 years. Other factors such as operating environment and pollution degree can further limit the working voltage of the component in an end system."
+      },
+      "overview":"The TMCS1133 is a precision Hall-effect current sensor, providing high levels of reliable reinforced isolation working voltage, ambient field rejection and high current carrying capability. A maximum total lifetime error of less than 1.4% can be achieved with no system level calibration, or less than 1% maximum total error can be achieved with a one-time room temperature calibration (including both temperature and lifetime drift). Numerous device options are provided for both unidirectional and bidirectional current measurements. The input current flows through a conductor between the isolated input current pins. The conductor has a 0.7m\u03a9 resistance at room temperature and accommodates up to 44A RMS of continuous current at 125\u00b0C ambient temperature when used with printed circuit boards of comparable thermal design, such as the TMCS1133xEVM. The low-ohmic leadframe path reduces power dissipation compared to alternative current measurement methodologies, and does not require any external passive components, isolated supplies, or control signals on the high-voltage side. The magnetic field generated by the input current is sensed by a Hall sensor and amplified by a precision signal chain. The device can be used for both AC and DC current measurements and has a bandwidth of 1MHz. There are multiple fixed-sensitivity device options to choose from, providing a wide variety of bidirectional linear current sensing ranges from \u00b110A to \u00b196A, as well as unidirectional linear current sensing ranges from 19A to 183A. The TMCS1133 can operate with a low voltage supply ranging from 3V to 5.5V, and is optimized for high accuracy and temperature stability, with both offset and sensitivity compensated across the entire operating temperature range."
+    },
+    "device_and_documentation_support":{
+      "device_support":{
+        "development_support":{
+          "tools":[
+            "Texas Instruments, TMCS1133xEVM"
+          ]
+        }
+      },
+      "documentation_support":{
+        "related_documentation":[
+          "Texas Instruments, TMCS1133xEVM User's Guide",
+          "Texas Instruments, Isolation Glossary, application note"
+        ]
+      },
+      "electrostatic_discharge_caution":"This integrated circuit can be damaged by ESD. Texas Instruments recommends that all integrated circuits be handled with appropriate precautions. Failure to observe proper handling and installation procedures can cause damage.\nESD damage can range from subtle performance degradation to complete device failure. Precision integrated circuits may be more susceptible to damage because very small parametric changes could cause the device not to meet its published specifications.",
+      "glossary":"TI Glossary This glossary lists and explains terms, acronyms, and definitions.",
+      "receiving_notification_of_documentation_updates":"To receive notification of documentation updates, navigate to the device product folder on ti.com. Click on Notifications to register and receive a weekly digest of any product information that has changed. For change details, review the revision history included in any revised document.",
+      "support_resources":"TI E2E\u2122 support forums are an engineer's go-to source for fast, verified answers and design help \u2014 straight from the experts. Search existing answers or ask your own question to get the quick design help you need.",
+      "trademarks":"TI E2E\u2122 is a trademark of Texas Instruments.\nAll trademarks are the property of their respective owners."
+    },
+    "device_type":"CURRENT_SENSOR",
+    "electrical_characteristics":{
+      "bandwidth_and_response":{
+        "BW_analog_bandwidth":{
+          "conditions":"-3dB Gain",
+          "unit":"MHz",
+          "value":"1.1"
+        },
+        "SR_slew_rate":{
+          "conditions":"Output rate of change between reaching 10% and 90% of final value as shown in Figure 7-2 with a 100ns input step",
+          "unit":"V/\u00b5s",
+          "value":"8"
+        },
+        "current_overload_recovery_time":{
+          "unit":"ns",
+          "value":"300"
+        },
+        "tpd_propagation_delay":{
+          "conditions":"Time between input and output reaching 10% of final values as shown in Figure 7-2 with a 100ns input step and a 1V output transition",
+          "unit":"ns",
+          "value":"50"
+        },
+        "tr_response_time":{
+          "conditions":"Time between input and output reaching 90% of final values, as shown in Figure 7-2 with a 100ns input step and a 1V output transition",
+          "unit":"ns",
+          "value":"120"
+        }
+      },
+      "diagnostics":{
+        "ALERT_output_duty_cycle_active_low_sensor_alert":{
+          "unit":"%",
+          "value":"50"
+        },
+        "ALERT_output_duty_cycle_active_low_thermal_alert":{
+          "unit":"%",
+          "value":"80"
+        },
+        "ALERT_output_duty_cycle_active_low_thermal_and_sensor_alert":{
+          "unit":"%",
+          "value":"20"
+        },
+        "ALERT_output_frequency":{
+          "unit":"kHz",
+          "value":"8"
+        },
+        "ALERT_pin_pull_down_voltage":{
+          "conditions":"IOL = 3mA. TA = \u201340\u00b0C to 125\u00b0C",
+          "unit":"V",
+          "value":"0.07"
+        }
+      },
+      "input":{
+        "IIN_MAX_continuous_input_current_TA_125C":{
+          "unit":"ARMS",
+          "value":"44"
+        },
+        "IIN_MAX_continuous_input_current_TA_25C":{
+          "unit":"ARMS",
+          "value":"80"
+        },
+        "RIN_input_conductor_resistance":{
+          "unit":"m\u2126",
+          "value":"0.7"
+        },
+        "RIN_temp_drift":{
+          "conditions":"TA= \u201340\u00baC to 125\u00baC",
+          "unit":"\u00b5\u2126/\u00b0C",
+          "value":"2.1"
+        }
+      },
+      "output":{
+        "CL_MAX_maximum_capacitive_load":{
+          "conditions":"VOUT to GND",
+          "unit":"nF",
+          "value":"4.7"
+        },
+        "CMFR_common_mode_field_rejection":{
+          "conditions":"Uniform External Magnetic Field, Input Referred, DC to 1kHz",
+          "unit":"mA/mT",
+          "value":"10"
+        },
+        "CMRR_common_mode_rejection_ratio":{
+          "conditions":"Input Referred, DC to 60Hz",
+          "unit":"\u00b5A/V",
+          "value":"5"
+        },
+        "CMTI_common_mode_transient_immunity":{
+          "conditions":"VCM = 1000V, \u0394VOUT < 200mV, 1\u00b5s",
+          "unit":"kV/\u00b5s",
+          "value":"150"
+        },
+        "IOS_drift_life_offset_lifetime_drift":{
+          "conditions":"Input Referred, VOUT,0A / S, IIN = 0A",
+          "unit":"mA",
+          "value":"\u00b110"
+        },
+        "PSRR_power_supply_rejection_ratio":{
+          "conditions":"Input Referred, VS = 3V to 5.5V, TA= \u201340\u00baC to 125\u00baC",
+          "unit":"mA/V",
+          "value":"\u00b115"
+        },
+        "S_sensitivity_TMCS1133x1A":{
+          "unit":"mV/A",
+          "value":"25"
+        },
+        "S_sensitivity_TMCS1133x2A":{
+          "unit":"mV/A",
+          "value":"50"
+        },
+        "S_sensitivity_TMCS1133x3A":{
+          "unit":"mV/A",
+          "value":"75"
+        },
+        "S_sensitivity_TMCS1133x4A":{
+          "unit":"mV/A",
+          "value":"100"
+        },
+        "S_sensitivity_TMCS1133x5A":{
+          "unit":"mV/A",
+          "value":"150"
+        },
+        "S_sensitivity_TMCS1133x7A":{
+          "unit":"mV/A",
+          "value":"20"
+        },
+        "S_sensitivity_TMCS1133x8A":{
+          "unit":"mV/A",
+          "value":"33"
+        },
+        "S_sensitivity_TMCS1133x9A":{
+          "unit":"mV/A",
+          "value":"66"
+        },
+        "Sdrift_life_sensitivity_lifetime_drift":{
+          "conditions":"0.05V \u2264 VOUT \u2264 VS \u2212 0.2V",
+          "unit":"%",
+          "value":"\u00b10.2"
+        },
+        "Sdrift_therm_sensitivity_thermal_drift":{
+          "conditions":"0.05V \u2264 VOUT \u2264 VS \u2212 0.2V, TA = \u221240\u00b0C to 125\u00b0C",
+          "unit":"ppm/\u00b0C",
+          "value":"\u00b120"
+        },
+        "VOE_drift_therm_output_voltage_offset_thermal_drift_TMCS1133x1A":{
+          "conditions":"IIN = 0A, TA = \u201340\u00b0C to 125\u00b0C",
+          "unit":"\u00b5V/\u00b0C",
+          "value":"\u00b110"
+        },
+        "VOE_drift_therm_output_voltage_offset_thermal_drift_TMCS1133x2A":{
+          "conditions":"IIN = 0A, TA = \u201340\u00b0C to 125\u00b0C",
+          "unit":"\u00b5V/\u00b0C",
+          "value":"\u00b110"
+        },
+        "VOE_drift_therm_output_voltage_offset_thermal_drift_TMCS1133x3A":{
+          "conditions":"IIN = 0A, TA = \u201340\u00b0C to 125\u00b0C",
+          "unit":"\u00b5V/\u00b0C",
+          "value":"\u00b110"
+        },
+        "VOE_drift_therm_output_voltage_offset_thermal_drift_TMCS1133x4A":{
+          "conditions":"IIN = 0A, TA = \u201340\u00b0C to 125\u00b0C",
+          "unit":"\u00b5V/\u00b0C",
+          "value":"\u00b115"
+        },
+        "VOE_drift_therm_output_voltage_offset_thermal_drift_TMCS1133x5A":{
+          "conditions":"IIN = 0A, TA = \u201340\u00b0C to 125\u00b0C",
+          "unit":"\u00b5V/\u00b0C",
+          "value":"\u00b115"
+        },
+        "VOE_drift_therm_output_voltage_offset_thermal_drift_TMCS1133x7A":{
+          "conditions":"IIN = 0A, TA = \u201340\u00b0C to 125\u00b0C",
+          "unit":"\u00b5V/\u00b0C",
+          "value":"\u00b110"
+        },
+        "VOE_drift_therm_output_voltage_offset_thermal_drift_TMCS1133x8A":{
+          "conditions":"IIN = 0A, TA = \u201340\u00b0C to 125\u00b0C",
+          "unit":"\u00b5V/\u00b0C",
+          "value":"\u00b110"
+        },
+        "VOE_drift_therm_output_voltage_offset_thermal_drift_TMCS1133x9A":{
+          "conditions":"IIN = 0A, TA = \u201340\u00b0C to 125\u00b0C",
+          "unit":"\u00b5V/\u00b0C",
+          "value":"\u00b110"
+        },
+        "VOE_output_voltage_offset_error_TMCS1133x1A":{
+          "conditions":"IIN = 0A",
+          "unit":"mV",
+          "value":"\u00b10.2"
+        },
+        "VOE_output_voltage_offset_error_TMCS1133x2A":{
+          "conditions":"IIN = 0A",
+          "unit":"mV",
+          "value":"\u00b10.3"
+        },
+        "VOE_output_voltage_offset_error_TMCS1133x3A":{
+          "conditions":"IIN = 0A",
+          "unit":"mV",
+          "value":"\u00b10.4"
+        },
+        "VOE_output_voltage_offset_error_TMCS1133x4A":{
+          "conditions":"IIN = 0A",
+          "unit":"mV",
+          "value":"\u00b10.5"
+        },
+        "VOE_output_voltage_offset_error_TMCS1133x5A":{
+          "conditions":"IIN = 0A",
+          "unit":"mV",
+          "value":"\u00b10.6"
+        },
+        "VOE_output_voltage_offset_error_TMCS1133x7A":{
+          "conditions":"IIN = 0A",
+          "unit":"mV",
+          "value":"\u00b10.2"
+        },
+        "VOE_output_voltage_offset_error_TMCS1133x8A":{
+          "conditions":"IIN = 0A",
+          "unit":"mV",
+          "value":"\u00b10.2"
+        },
+        "VOE_output_voltage_offset_error_TMCS1133x9A":{
+          "conditions":"IIN = 0A",
+          "unit":"mV",
+          "value":"\u00b10.3"
+        },
+        "VOUT_0A_zero_current_output_voltage_TMCS1133AxA":{
+          "conditions":"IIN = 0A",
+          "unit":"V",
+          "value":"2.5"
+        },
+        "VOUT_0A_zero_current_output_voltage_TMCS1133BxA":{
+          "conditions":"IIN = 0A",
+          "unit":"V",
+          "value":"1.65"
+        },
+        "VOUT_0A_zero_current_output_voltage_TMCS1133CxA":{
+          "conditions":"IIN = 0A",
+          "unit":"V",
+          "value":"0.33"
+        },
+        "eNL_nonlinearity_error":{
+          "conditions":"VOUT = 0.1V to VS \u2013 0.1V",
+          "unit":"%",
+          "value":"\u00b10.1"
+        },
+        "eS_sensitivity_error":{
+          "conditions":"0.05V \u2264 VOUT \u2264 VS \u2212 0.2V",
+          "unit":"%",
+          "value":"\u00b10.1"
+        },
+        "input_noise_density":{
+          "conditions":"Input Referred, Full Bandwidth",
+          "unit":"\u03bcA/\u221aHz",
+          "value":"130"
+        },
+        "short_circuit_output_current":{
+          "conditions":"VOUT short to GND, short to VS",
+          "unit":"mA",
+          "value":"50"
+        }
+      },
+      "over_current_detection":{
+        "OC_pin_pull_down_voltage":{
+          "conditions":"IOL = 3mA, TA = \u201340\u00b0C to 125\u00b0C",
+          "unit":"V",
+          "value":"0.07"
+        },
+        "VOC_over_current_detection_threshold_voltage":{
+          "conditions":"VOC = S x IOC / 2.5",
+          "unit":"V",
+          "value":"0.3"
+        },
+        "VOC_pin_input_impedance":{
+          "unit":"k\u2126",
+          "value":"120"
+        },
+        "over_current_detection_response_time":{
+          "conditions":"IIN step = 120% of IOC",
+          "unit":"ns",
+          "value":"100"
+        },
+        "over_current_hysteresis_TMCS1133x1A":{
+          "unit":"A",
+          "value":"4.5"
+        },
+        "over_current_hysteresis_TMCS1133x2A":{
+          "unit":"A",
+          "value":"3.5"
+        },
+        "over_current_hysteresis_TMCS1133x3A":{
+          "unit":"A",
+          "value":"2.2"
+        },
+        "over_current_hysteresis_TMCS1133x4A":{
+          "unit":"A",
+          "value":"1.4"
+        },
+        "over_current_hysteresis_TMCS1133x5A":{
+          "unit":"A",
+          "value":"2.7"
+        },
+        "over_current_hysteresis_TMCS1133x7A":{
+          "unit":"A",
+          "value":"8.4"
+        },
+        "over_current_hysteresis_TMCS1133x8A":{
+          "unit":"A",
+          "value":"3.4"
+        },
+        "over_current_hysteresis_TMCS1133x9A":{
+          "unit":"A",
+          "value":"2.5"
+        },
+        "over_current_threshold_error":{
+          "conditions":"TA = \u201340\u00b0C to 125\u00b0C",
+          "unit":"%",
+          "value":"\u00b12"
+        }
+      },
+      "power_supply":{
+        "IQ_quiescent_current_TA_-40C_to_125C":{
+          "conditions":"TA = \u201340\u00baC to 125\u00baC",
+          "unit":"mA",
+          "value":"14.5"
+        },
+        "IQ_quiescent_current_TA_25C":{
+          "conditions":"TA = 25\u00baC",
+          "unit":"mA",
+          "value":"11"
+        },
+        "VS_supply_voltage":{
+          "conditions":"TA = \u201340\u00baC to 125\u00baC",
+          "unit":"V",
+          "value":"3.0"
+        },
+        "power_on_time":{
+          "conditions":"Time from VS > 3V to valid output",
+          "unit":"ms",
+          "value":"34"
+        }
+      }
+    },
+    "esd_ratings":{
+      "charged_device_model":"\u00b11000V",
+      "human_body_model":"\u00b14000V"
+    },
+    "fast_response":{
+      "overcurrent_detection_response":"100ns",
+      "propagation_delay":"50ns",
+      "response_time":"120ns",
+      "signal_bandwidth":"1MHz"
+    },
+    "high_accuracy":{
+      "non_linearity":"\u00b10.1%",
+      "offset_error":"\u00b10.2mV",
+      "offset_lifetime_drift":"\u00b10.2mV",
+      "offset_thermal_drift":"\u00b110\u00b5V/\u00b0C",
+      "sensitivity_error":"\u00b10.1%",
+      "sensitivity_lifetime_drift":"\u00b10.2%",
+      "sensitivity_thermal_drift":"\u00b120ppm/\u00b0C"
+    },
+    "high_continuous_current_capability":"80A RMS",
+    "high_immunity_to_external_magnetic_fields":true,
+    "insulation_specifications":{
+      "CIO_barrier_capacitance":{
+        "unit":"pF",
+        "value":"0.6"
+      },
+      "CLR_external_clearance":{
+        "unit":"mm",
+        "value":"\u2265 8"
+      },
+      "CPG_external_creepage":{
+        "unit":"mm",
+        "value":"\u2265 8"
+      },
+      "CTI_comparative_tracking_index":{
+        "unit":"V",
+        "value":"\u2265 600"
+      },
+      "RIO_isolation_resistance":{
+        "conditions":"VIO = 500V, TA = 25\u00b0C",
+        "unit":"\u2126",
+        "value":">10^12"
+      },
+      "UL_1577_VISO":{
+        "unit":"VRMS",
+        "value":"5000"
+      },
+      "VIORM_max_rep_peak_isolation_voltage":{
+        "unit":"VPK",
+        "value":"1697"
+      },
+      "VIOSM_max_surge_isolation_voltage":{
+        "unit":"VPK",
+        "value":"10000"
+      },
+      "VIOTM_max_transient_isolation_voltage":{
+        "unit":"VPK",
+        "value":"7071"
+      },
+      "VIOWM_max_basic_isolation_working_voltage_AC":{
+        "unit":"VRMS",
+        "value":"1200"
+      },
+      "VIOWM_max_basic_isolation_working_voltage_DC":{
+        "unit":"VDC",
+        "value":"1697"
+      },
+      "VIOWM_max_reinforced_isolation_working_voltage_AC":{
+        "unit":"VRMS",
+        "value":"950"
+      },
+      "VIOWM_max_reinforced_isolation_working_voltage_DC":{
+        "unit":"VDC",
+        "value":"1343"
+      },
+      "material_group":"I",
+      "overvoltage_category":"I-IV",
+      "qpd_apparent_charge":{
+        "unit":"pC",
+        "value":"\u22645"
+      }
+    },
+    "manufacturer":"Texas Instruments",
+    "mechanical_packaging_and_orderable_information":{
+      "packaging_information":{
+        "TMCS1133_DVG_SOIC_W_10_10_PINS":{
+          "lead_finish_ball_material":"Sn-Ag-Cu",
+          "msl_rating_peak_reflow":"Level 1 / 260\u00b0C",
+          "rohs":"Yes",
+          "status":"Production"
+        }
+      }
+    },
+    "multiple_sensitivity_options":[
+      "20mV/A",
+      "25mV/A",
+      "33mV/A",
+      "50mV/A",
+      "66mV/A",
+      "75mV/A",
+      "100mV/A",
+      "150mV/A"
+    ],
+    "operating_supply_range":"3V to 5.5V",
+    "package_information":{
+      "TMCS1133":{
+        "package":"DVG (SOIC, 10)",
+        "package_size":"10.3mm \u00d7 10.3mm"
+      }
+    },
+    "packages":[
+      "DVG"
+    ],
+    "parameter_measurement_information":{
+      "accuracy_parameters":{
+        "common_mode_rejection_ratio":{
+          "description":"Common-mode rejection ratio (CMRR) quantifies the effective input current error due to varying voltage on the isolated input of the device. Due to magnetic coupling and galvanic isolation of the current signal, the TMCS1133 has very high rejection of input common-mode voltage.",
+          "equation":"e CMRR = CMRR \u00d7 V CM / IIN * 100%"
+        },
+        "external_magnetic_field_errors":{
+          "description":"The TMCS1133 suppresses interference from external magnetic fields generated by adjacent high-current carrying conductors, nearby motors, magnets, or any other sources of stray magnetic fields. Common-mode field rejection (CMFR) quantifies the effective input-referred error caused by stray magnetic fields.",
+          "equation":"e Bext = B EXT \u00d7 CMFR / IIN * 100%"
+        },
+        "nonlinearity_error":{
+          "description":"Nonlinearity is the deviation of the output voltage from a linear relationship to the input current. Nonlinearity voltage, as shown in Figure 7-1, is the maximum voltage deviation from the best-fit line based on measured parameters (see Equation 7).",
+          "nonlinearity_error_equation":"e NL = (VNL / VFS) * 100%",
+          "nonlinearity_voltage_equation":"V NL = V OUT, meas \u2212[( I meas \u00d7 S fit) + V OUT, 0A]"
+        },
+        "offset_error_and_offset_error_drift":{
+          "description":"Offset error is the deviation from the ideal output with zero input current and most often limits measurement accuracy at low input current levels. Offset error can be referred to the output as offset voltage error or referred to the input as offset current error. When divided by device sensitivity, S, output voltage offset error V OE is input referred as input current offset error I OS (see Equation 4). Offset error referred to the input (RTI) allows for more direct comparisons or offset error with input current. Regardless of whether offset error is referred to the input as current offset error I OS, or to the output as voltage offset error V OE, offset error is a single error source and must only be included once in either input-referred or output-referred error calculations.",
+          "input_current_offset_error_equation":"I OS = VOE / S",
+          "offset_drift_equation":"V OE, \u2206T = V OE, 25\u2103 +( V OE, drift \u00d7 \u2206T)",
+          "output_voltage_offset_error_equation":"V OE = V OUT, 0A \u2212V REF"
+        },
+        "power_supply_rejection_ratio":{
+          "description":"Power supply rejection ratio (PSRR) is the change in device offset due to variations in supply voltage.",
+          "equation_A":"e PSRR, A = PSRR \u00d7( VS \u22125V) / IIN * 100%",
+          "equation_B_C":"e PSRR, B = e PSRR, C = PSRR \u00d7( VS \u22123.3V) / IIN * 100%"
+        },
+        "sensitivity_error":{
+          "description":"Sensitivity error e S is the deviation from ideal sensitivity and is defined in Equation 2 as the variation of the best-fit measured sensitivity from the ideal sensitivity.",
+          "equation":"e S = ((S fit / S Ideal) - 1) * 100%"
+        },
+        "sensitivity_lifetime_drift":"The change in sensitivity due to operational and environmental stresses over the entire lifetime of the device, and is reported as a worst-case percentage change in sensitivity over lifetime at 25\u00b0C.",
+        "sensitivity_thermal_drift":{
+          "description":"Sensitivity thermal drift S drift,therm is the change in sensitivity with temperature and is reported in ppm/\u00b0C. To calculate sensitivity error at any given temperature T use Equation 3 to multiply the sensitivity thermal drift by the change in temperature from 25\u00b0C and add that value to the sensitivity error at 25\u00b0C.",
+          "equation":"e S, \u2206T = e S, 25\u2103 +( S drift, therm \u00d7 \u2206T)"
+        }
+      },
+      "safe_operating_area":{
+        "continuous_dc_or_sinusoidal_ac_current":{
+          "description":"The longest thermal time constants of device packaging and PCBs are in the order of seconds; therefore, any continuous DC or sinusoidal AC periodic waveform with a frequency higher than 1Hz can be evaluated based on the RMS continuous-current levels. The continuous-current capability has a strong dependence upon the operating ambient temperature range expected in operation. Figure 7-4 shows the maximum continuous current-handling capability of the device when mounted on the TMCS1133xEVM. Current capability falls off at higher ambient temperatures because of the reduced thermal transfer from junction-to-ambient and increased power dissipation in the leadframe. By improving the thermal design of an application, the SOA can be extended to higher currents at elevated temperatures. Using larger and heavier copper power planes, providing air flow over the board, or adding heat sinking structures to the area of the device can all improve thermal performance."
+        },
+        "repetitive_pulsed_current_soa":{
+          "description":"For applications where current is pulsed between a high current and no current, the allowable capabilities are limited by short-duration heating in the leadframe. The TMCS1133 can tolerate higher current ranges under some conditions, however, for repetitive pulsed events, the current levels must satisfy both the pulsed current SOA and the RMS continuous current constraint. Pulse duration, duty cycle, and ambient temperature all impact the SOA for repetitive pulsed events. Figure 7-5, Figure 7-6, Figure 7-7, and Figure 7-8 illustrate repetitive stress levels based on test results from the TMCS1133xEVM under which parametric performance and isolation integrity is not impacted post-stress for multiple ambient temperatures. At high duty cycles or long pulse durations, this limit approaches the continuous current SOA for a RMS value defined by Equation 13.",
+          "rms_calculation":"I IN, RMS = I IN, P \u00d7\u221a D"
+        },
+        "single_event_current_capability":{
+          "description":"Single higher-current events that are shorter duration can be tolerated by the TMCS1133, because the junction temperature does not reach thermal equilibrium within the pulse duration. Figure 7-9 shows the short-circuit duration curve for the device for single current-pulse events, where the leadframe resistance changes after stress. This level is reached before a leadframe fusing event, but must be considered an upper limit for short duration SOA. For long-duration pulses, the current capability approaches the continuous RMS limit at the given ambient temperature."
+        }
+      },
+      "transient_response_parameters":{
+        "cmti_common_mode_transient_immunity":"CMTI is the capability of the device to tolerate a rising or falling voltage step on the input without coupling significant disturbance on the output signal. The device is specified for the maximum common-mode transition rate when the output signal does not experience a disturbance greater than 200mV lasting longer than 1\u00b5s, as shown in Figure 7-3 with a 150kV/\u00b5s common-mode input step. Higher edge rates than the specified CMTI can be supported with sufficient filtering or blanking time after common-mode transitions.",
+        "propagation_delay":"tpd, is the time period between the input current waveform reaching 10% of the final value and the output voltage, VOUT, reaching 10% of the final value.",
+        "response_time":"tr, is the time period between the input current reaching 90% of the final value and the output voltage reaching 90% of the final value, for an input current step sufficient to cause a 1V change in the output voltage.",
+        "slew_rate":"SR, is defined as the rate of change between the output voltage reaching 10% and 90% of the final value during the sufficiently fast input current step."
+      }
+    },
+    "part_numbers":{
+      "TMCS1133A1A":{
+        "options":{
+          "LINEAR_MEASUREMENT_RANGE_VS_3.3V":"-96A to 28A",
+          "LINEAR_MEASUREMENT_RANGE_VS_5V":"\u00b196A",
+          "SENSITIVITY":"25mV/A",
+          "ZERO_CURRENT_OUTPUT_VOLTAGE":"2.5V"
+        }
+      },
+      "TMCS1133A2A":{
+        "options":{
+          "LINEAR_MEASUREMENT_RANGE_VS_3.3V":"-48A to 14A",
+          "LINEAR_MEASUREMENT_RANGE_VS_5V":"\u00b148A",
+          "SENSITIVITY":"50mV/A",
+          "ZERO_CURRENT_OUTPUT_VOLTAGE":"2.5V"
+        }
+      },
+      "TMCS1133A3A":{
+        "options":{
+          "LINEAR_MEASUREMENT_RANGE_VS_3.3V":"-32A to 9.3A",
+          "LINEAR_MEASUREMENT_RANGE_VS_5V":"\u00b132A",
+          "SENSITIVITY":"75mV/A",
+          "ZERO_CURRENT_OUTPUT_VOLTAGE":"2.5V"
+        }
+      },
+      "TMCS1133A4A":{
+        "options":{
+          "LINEAR_MEASUREMENT_RANGE_VS_3.3V":"-24A to 7A",
+          "LINEAR_MEASUREMENT_RANGE_VS_5V":"\u00b124A",
+          "SENSITIVITY":"100mV/A",
+          "ZERO_CURRENT_OUTPUT_VOLTAGE":"2.5V"
+        }
+      },
+      "TMCS1133A5A":{
+        "options":{
+          "LINEAR_MEASUREMENT_RANGE_VS_3.3V":"-16A to 4.7A",
+          "LINEAR_MEASUREMENT_RANGE_VS_5V":"\u00b116A",
+          "SENSITIVITY":"150mV/A",
+          "ZERO_CURRENT_OUTPUT_VOLTAGE":"2.5V"
+        }
+      },
+      "TMCS1133B1A":{
+        "options":{
+          "LINEAR_MEASUREMENT_RANGE_VS_3.3V":"\u00b162A",
+          "LINEAR_MEASUREMENT_RANGE_VS_5V":"-62A to 130A",
+          "SENSITIVITY":"25mV/A",
+          "ZERO_CURRENT_OUTPUT_VOLTAGE":"1.65V"
+        }
+      },
+      "TMCS1133B2A":{
+        "options":{
+          "LINEAR_MEASUREMENT_RANGE_VS_3.3V":"\u00b131A",
+          "LINEAR_MEASUREMENT_RANGE_VS_5V":"-31A to 65A",
+          "SENSITIVITY":"50mV/A",
+          "ZERO_CURRENT_OUTPUT_VOLTAGE":"1.65V"
+        }
+      },
+      "TMCS1133B3A":{
+        "options":{
+          "LINEAR_MEASUREMENT_RANGE_VS_3.3V":"\u00b120.7A",
+          "LINEAR_MEASUREMENT_RANGE_VS_5V":"-20.7A to 43.3A",
+          "SENSITIVITY":"75mV/A",
+          "ZERO_CURRENT_OUTPUT_VOLTAGE":"1.65V"
+        }
+      },
+      "TMCS1133B4A":{
+        "options":{
+          "LINEAR_MEASUREMENT_RANGE_VS_3.3V":"\u00b115.5A",
+          "LINEAR_MEASUREMENT_RANGE_VS_5V":"-15.5A to 32.5A",
+          "SENSITIVITY":"100mV/A",
+          "ZERO_CURRENT_OUTPUT_VOLTAGE":"1.65V"
+        }
+      },
+      "TMCS1133B5A":{
+        "options":{
+          "LINEAR_MEASUREMENT_RANGE_VS_3.3V":"\u00b110.3A",
+          "LINEAR_MEASUREMENT_RANGE_VS_5V":"-10.3A to 21.7A",
+          "SENSITIVITY":"150mV/A",
+          "ZERO_CURRENT_OUTPUT_VOLTAGE":"1.65V"
+        }
+      },
+      "TMCS1133B7A":{
+        "options":{
+          "LINEAR_MEASUREMENT_RANGE_VS_3.3V":"\u00b177.5A",
+          "LINEAR_MEASUREMENT_RANGE_VS_5V":"-77.5A to 163A",
+          "SENSITIVITY":"20mV/A",
+          "ZERO_CURRENT_OUTPUT_VOLTAGE":"1.65V"
+        }
+      },
+      "TMCS1133B8A":{
+        "options":{
+          "LINEAR_MEASUREMENT_RANGE_VS_3.3V":"\u00b147A",
+          "LINEAR_MEASUREMENT_RANGE_VS_5V":"-47A to 98.5A",
+          "SENSITIVITY":"33mV/A",
+          "ZERO_CURRENT_OUTPUT_VOLTAGE":"1.65V"
+        }
+      },
+      "TMCS1133C1A":{
+        "options":{
+          "LINEAR_MEASUREMENT_RANGE_VS_3.3V":"-9.2A to 115A",
+          "LINEAR_MEASUREMENT_RANGE_VS_5V":"-9.2A to 183A",
+          "SENSITIVITY":"25mV/A",
+          "ZERO_CURRENT_OUTPUT_VOLTAGE":"0.33V"
+        }
+      },
+      "TMCS1133C2A":{
+        "options":{
+          "LINEAR_MEASUREMENT_RANGE_VS_3.3V":"-4.6A to 57.4A",
+          "LINEAR_MEASUREMENT_RANGE_VS_5V":"-4.6A to 91.4A",
+          "SENSITIVITY":"50mV/A",
+          "ZERO_CURRENT_OUTPUT_VOLTAGE":"0.33V"
+        }
+      },
+      "TMCS1133C3A":{
+        "options":{
+          "LINEAR_MEASUREMENT_RANGE_VS_3.3V":"-3.1A to 38.3A",
+          "LINEAR_MEASUREMENT_RANGE_VS_5V":"-3.1A to 60.9A",
+          "SENSITIVITY":"75mV/A",
+          "ZERO_CURRENT_OUTPUT_VOLTAGE":"0.33V"
+        }
+      },
+      "TMCS1133C4A":{
+        "options":{
+          "LINEAR_MEASUREMENT_RANGE_VS_3.3V":"-2.3A to 28.7A",
+          "LINEAR_MEASUREMENT_RANGE_VS_5V":"-2.3A to 45.7A",
+          "SENSITIVITY":"100mV/A",
+          "ZERO_CURRENT_OUTPUT_VOLTAGE":"0.33V"
+        }
+      },
+      "TMCS1133C5A":{
+        "options":{
+          "LINEAR_MEASUREMENT_RANGE_VS_3.3V":"-1.5A to 19.1A",
+          "LINEAR_MEASUREMENT_RANGE_VS_5V":"-1.5A to 30.5A",
+          "SENSITIVITY":"150mV/A",
+          "ZERO_CURRENT_OUTPUT_VOLTAGE":"0.33V"
+        }
+      },
+      "TMCS1133C9A":{
+        "options":{
+          "LINEAR_MEASUREMENT_RANGE_VS_3.3V":"-3.4A to 43.4A",
+          "LINEAR_MEASUREMENT_RANGE_VS_5V":"-3.4A to 69.2A",
+          "SENSITIVITY":"66mV/A",
+          "ZERO_CURRENT_OUTPUT_VOLTAGE":"0.33V"
+        }
+      }
+    },
+    "pin_configuration":{
+      "1":{
+        "description":"Input current positive pin",
+        "name":"IN+",
+        "type":"Analog Input"
+      },
+      "10":{
+        "description":"Power supply",
+        "name":"VS",
+        "type":"Analog"
+      },
+      "2":{
+        "description":"Input current negative pin",
+        "name":"IN\u2013",
+        "type":"Analog Input"
+      },
+      "3":{
+        "description":"Ground",
+        "name":"GND",
+        "type":"Analog"
+      },
+      "4":{
+        "description":"Sensor diagnostics PWM output, open-drain active low. Connect pin to GND if not used.",
+        "name":"ALERT",
+        "type":"Digital Output"
+      },
+      "5":{
+        "description":"Reserved. Pin can be connected to GND or left floating.",
+        "name":"NC",
+        "type":"Reserved"
+      },
+      "6":{
+        "description":"Output voltage",
+        "name":"VOUT",
+        "type":"Analog Output"
+      },
+      "7":{
+        "description":"Overcurrent output, open-drain active low. Connect pin to GND if not used.",
+        "name":"OC",
+        "type":"Digital Output"
+      },
+      "8":{
+        "description":"Overcurrent threshold. Sets overcurrent threshold. Connect pin to VS if not used.",
+        "name":"VOC",
+        "type":"Analog Input"
+      },
+      "9":{
+        "description":"Power supply",
+        "name":"VS",
+        "type":"Analog"
+      }
+    },
+    "power_ratings":{
+      "PD1_current_input":{
+        "conditions":"IIN = 44A",
+        "unit":"W",
+        "value":"1.9"
+      },
+      "PD2_side_2":{
+        "conditions":"VS = 5.5V, IQ = 14.5mA, no loads",
+        "unit":"W",
+        "value":"0.1"
+      },
+      "PD_max":{
+        "unit":"W",
+        "value":"2.0"
+      }
+    },
+    "recommended_operating_conditions":{
+      "TA":{
+        "max":"125",
+        "min":"-40",
+        "unit":"\u00b0C"
+      },
+      "VS":{
+        "max":"5.5",
+        "min":"3",
+        "unit":"V"
+      }
+    },
+    "revision_history":[
+      {
+        "changes":[
+          "Updated the number formatting for tables, figures, and cross-references throughout the document ............... 1",
+          "Updated the VIORM in the Insulation Specifications section from 1344V to 1697V peak ................................ 5",
+          "Updated the reinforced isolation working voltage in the Insulation Specifications section from 600V to 950V RMS ...................................................................................................................................................................5",
+          "Updated the reinforced isolation working voltage in the Insulation Specifications section from 849V to 1343V DC ..................................................................................................................................................................... 5",
+          "Updated the basic isolation working voltage in the Insulation Specifications section from 950V to 1200V RMS ...................................................................................................................................................................5",
+          "Added Power Ratings to the Specifications .......................................................................................................5",
+          "Added Safety-Related Certification to the Specifications .................................................................................. 5",
+          "Added Safety Limiting Values to the Specifications ...........................................................................................5",
+          "Added the Input-Referred Noise Density vs Frequency graph to the Typical Characteristics ......................... 10",
+          "Added the Insulation Characteristics Curves to the Typical Characteristics ....................................................10",
+          "Added the Input Isolation section to Feature Description for clarification.........................................................21"
+        ],
+        "from":"Revision C (February 2025)",
+        "to":"Revision D (June 2025)"
+      },
+      {
+        "changes":[
+          "Updated the number formatting for tables, figures, and cross-references throughout the document ............... 1",
+          "Added the TMCS1133x9A variant device...........................................................................................................1",
+          "Updated typical hysteresis specification on variants TMCS1133x7A and TMCS1133x9A to better reflect actual performance........................................................................................................................................................8"
+        ],
+        "from":"Revision B (March 2024)",
+        "to":"Revision C (February 2025)"
+      },
+      {
+        "changes":[
+          "Updated the number formatting for tables, figures, and cross-references throughout the document ............... 1"
+        ],
+        "from":"Revision A (March 2024)",
+        "to":"Revision B (August 2024)"
+      },
+      {
+        "changes":[
+          "Updated the number formatting for tables, figures, and cross-references throughout the document ............... 1"
+        ],
+        "from":"Revision * (October 2024)",
+        "to":"Revision A (March 2024)"
+      }
+    ],
+    "robust_reinforced_isolation":true,
+    "safety_limiting_values":{
+      "IS_safety_input_current":{
+        "unit":"ARMS",
+        "value":"80"
+      },
+      "IS_safety_supply_current":{
+        "unit":"A",
+        "value":"1.35"
+      },
+      "PS_safety_power":{
+        "unit":"W",
+        "value":"6.8"
+      },
+      "TS_safety_temperature":{
+        "unit":"\u2103",
+        "value":"165"
+      }
+    },
+    "safety_related_certifications":[
+      "UL 1577 Component Recognition Program",
+      "IEC/CB 62368-1"
+    ],
+    "thermal_information":{
+      "R\u03b8JA":{
+        "DVG_SOIC_W_10_10_PINS":"27.9",
+        "unit":"\u00b0C/W"
+      },
+      "R\u03b8JB":{
+        "DVG_SOIC_W_10_10_PINS":"10.1",
+        "unit":"\u00b0C/W"
+      },
+      "R\u03b8JC_top":{
+        "DVG_SOIC_W_10_10_PINS":"26.8",
+        "unit":"\u00b0C/W"
+      },
+      "\u03a8JB":{
+        "DVG_SOIC_W_10_10_PINS":"8.3",
+        "unit":"\u00b0C/W"
+      },
+      "\u03a8JT":{
+        "DVG_SOIC_W_10_10_PINS":"4.4",
+        "unit":"\u00b0C/W"
+      }
+    },
+    "typical_characteristics":{
+      "current_overload_response":{
+        "description":"Figure 6-13. Current Overload Response"
+      },
+      "input_conductor_resistance_vs_temperature":{
+        "description":"Figure 6-18. Input Conductor Resistance vs Temperature"
+      },
+      "input_referred_noise_density_vs_frequency":{
+        "description":"Figure 6-17. Input-Referred Noise Density vs Frequency"
+      },
+      "insulation_characteristics_curves":{
+        "description":"Insulation Characteristics Curves"
+      },
+      "non_linearity_vs_temperature":{
+        "data":[
+          {
+            "non_linearity":null,
+            "temperature":-50
+          },
+          {
+            "non_linearity":null,
+            "temperature":-25
+          },
+          {
+            "non_linearity":null,
+            "temperature":0
+          },
+          {
+            "non_linearity":null,
+            "temperature":25
+          },
+          {
+            "non_linearity":null,
+            "temperature":50
+          },
+          {
+            "non_linearity":null,
+            "temperature":75
+          },
+          {
+            "non_linearity":null,
+            "temperature":100
+          },
+          {
+            "non_linearity":null,
+            "temperature":125
+          },
+          {
+            "non_linearity":null,
+            "temperature":150
+          }
+        ],
+        "description":"Figure 6-5. Non-Linearity vs Temperature"
+      },
+      "offset_error_vs_temperature_TMCS1133Axx":{
+        "data":[
+          {
+            "offset_error":null,
+            "temperature":-50
+          },
+          {
+            "offset_error":null,
+            "temperature":-25
+          },
+          {
+            "offset_error":null,
+            "temperature":0
+          },
+          {
+            "offset_error":null,
+            "temperature":25
+          },
+          {
+            "offset_error":null,
+            "temperature":50
+          },
+          {
+            "offset_error":null,
+            "temperature":75
+          },
+          {
+            "offset_error":null,
+            "temperature":100
+          },
+          {
+            "offset_error":null,
+            "temperature":125
+          },
+          {
+            "offset_error":null,
+            "temperature":150
+          }
+        ],
+        "description":"Figure 6-2. Offset Error vs Temperature: TMCS1133Axx Device Options"
+      },
+      "offset_error_vs_temperature_TMCS1133Bxx":{
+        "data":[
+          {
+            "offset_error":null,
+            "temperature":-50
+          },
+          {
+            "offset_error":null,
+            "temperature":-25
+          },
+          {
+            "offset_error":null,
+            "temperature":0
+          },
+          {
+            "offset_error":null,
+            "temperature":25
+          },
+          {
+            "offset_error":null,
+            "temperature":50
+          },
+          {
+            "offset_error":null,
+            "temperature":75
+          },
+          {
+            "offset_error":null,
+            "temperature":100
+          },
+          {
+            "offset_error":null,
+            "temperature":125
+          },
+          {
+            "offset_error":null,
+            "temperature":150
+          }
+        ],
+        "description":"Figure 6-3. Offset Error vs Temperature: TMCS1133Bxx Device Options"
+      },
+      "offset_error_vs_temperature_TMCS1133Cxx":{
+        "data":[
+          {
+            "offset_error":null,
+            "temperature":-50
+          },
+          {
+            "offset_error":null,
+            "temperature":-25
+          },
+          {
+            "offset_error":null,
+            "temperature":0
+          },
+          {
+            "offset_error":null,
+            "temperature":25
+          },
+          {
+            "offset_error":null,
+            "temperature":50
+          },
+          {
+            "offset_error":null,
+            "temperature":75
+          },
+          {
+            "offset_error":null,
+            "temperature":100
+          },
+          {
+            "offset_error":null,
+            "temperature":125
+          },
+          {
+            "offset_error":null,
+            "temperature":150
+          }
+        ],
+        "description":"Figure 6-4. Offset Error vs Temperature: TMCS1133Cxx Device Options"
+      },
+      "output_impedance_vs_frequency":{
+        "description":"Figure 6-10. Output Impedance vs Frequency"
+      },
+      "output_swing_vs_output_current":{
+        "description":"Figure 6-15. Output Swing vs Output Current"
+      },
+      "phase_vs_frequency":{
+        "description":"Figure 6-8. Phase vs Frequency, All Gains"
+      },
+      "psrr_vs_frequency":{
+        "description":"Figure 6-9. PSRR vs Frequency"
+      },
+      "quiescent_current_vs_temperature":{
+        "description":"Figure 6-16. Quiescent Current vs Temperature"
+      },
+      "sensitivity_error_production_distribution":{
+        "description":"Figure 6-6. Sensitivity Error Production Distribution"
+      },
+      "sensitivity_error_vs_temperature":{
+        "data":[
+          {
+            "sensitivity_error":null,
+            "temperature":-50
+          },
+          {
+            "sensitivity_error":null,
+            "temperature":-25
+          },
+          {
+            "sensitivity_error":null,
+            "temperature":0
+          },
+          {
+            "sensitivity_error":null,
+            "temperature":25
+          },
+          {
+            "sensitivity_error":null,
+            "temperature":50
+          },
+          {
+            "sensitivity_error":null,
+            "temperature":75
+          },
+          {
+            "sensitivity_error":null,
+            "temperature":100
+          },
+          {
+            "sensitivity_error":null,
+            "temperature":125
+          },
+          {
+            "sensitivity_error":null,
+            "temperature":150
+          }
+        ],
+        "description":"Figure 6-1. Sensitivity Error vs Temperature"
+      },
+      "sensitivity_vs_frequency":{
+        "description":"Figure 6-7. Sensitivity vs Frequency, All Gains"
+      },
+      "startup_transient_response":{
+        "description":"Figure 6-14. Startup Transient Response"
+      },
+      "voltage_output_step_response_falling":{
+        "description":"Figure 6-12. Voltage Output Step Response, Falling"
+      },
+      "voltage_output_step_response_rising":{
+        "description":"Figure 6-11. Voltage Output Step Response, Rising"
+      }
+    }
+  },
+  "pins":{
+    "pins":[
+      {
+        "description":"Input current positive pin",
+        "direction":"INPUT",
+        "name":"IN+",
+        "pin_id":"1",
+        "type":"ANALOG"
+      },
+      {
+        "description":"Input current negative pin",
+        "direction":"INPUT",
+        "name":"IN-",
+        "pin_id":"2",
+        "type":"ANALOG"
+      },
+      {
+        "description":"Ground",
+        "direction":"INPUT",
+        "name":"GND",
+        "pin_id":"3",
+        "type":"POWER"
+      },
+      {
+        "description":"Sensor diagnostics PWM output, open-drain active low. Connect pin to GND if not used.",
+        "direction":"OUTPUT",
+        "name":"ALERT",
+        "output_current":{
+          "nom":3.0,
+          "units":"mA"
+        },
+        "output_type":"OPEN_DRAIN",
+        "pin_id":"4",
+        "type":"DIGITAL",
+        "vol":{
+          "max":0.2,
+          "nom":0.07,
+          "units":"V"
+        }
+      },
+      {
+        "description":"Reserved. Pin can be connected to GND or left floating.",
+        "direction":"OTHER",
+        "name":"NC",
+        "pin_id":"5",
+        "type":"OTHER"
+      },
+      {
+        "description":"Output voltage",
+        "direction":"OUTPUT",
+        "name":"VOUT",
+        "output_current":{
+          "nom":50.0,
+          "units":"mA"
+        },
+        "output_type":"PUSH_PULL",
+        "output_value":{
+          "max":"VS - 0.05",
+          "nom":"VS - 0.02",
+          "units":"V"
+        },
+        "pin_id":"6",
+        "type":"ANALOG"
+      },
+      {
+        "description":"Overcurrent output, open-drain active low. Connect pin to GND if not used.",
+        "direction":"OUTPUT",
+        "name":"OC",
+        "output_current":{
+          "nom":3.0,
+          "units":"mA"
+        },
+        "output_type":"OPEN_DRAIN",
+        "pin_id":"7",
+        "type":"DIGITAL",
+        "vol":{
+          "max":0.2,
+          "nom":0.07,
+          "units":"V"
+        }
+      },
+      {
+        "description":"Overcurrent threshold. Sets overcurrent threshold. Connect pin to VS if not used.",
+        "direction":"INPUT",
+        "name":"VOC",
+        "pin_id":"8",
+        "type":"ANALOG"
+      },
+      {
+        "description":"Power supply",
+        "direction":"INPUT",
+        "input_voltage":{
+          "max":5.5,
+          "min":3.0,
+          "units":"V"
+        },
+        "name":"VS",
+        "pin_id":"9",
+        "type":"POWER"
+      },
+      {
+        "description":"Power supply",
+        "direction":"INPUT",
+        "input_voltage":{
+          "max":5.5,
+          "min":3.0,
+          "units":"V"
+        },
+        "name":"VS",
+        "pin_id":"10",
+        "type":"POWER"
+      }
+    ]
+  }
+}
