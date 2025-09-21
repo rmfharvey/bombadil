@@ -22,6 +22,8 @@ enum SerialBusType {
     RMII = 9;
     MII = 10;
     GMII = 11;
+
+    PMBus = 12;
 }
 
 message SerialBus {

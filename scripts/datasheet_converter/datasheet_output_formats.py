@@ -12,7 +12,7 @@ dir_names = [
     # ("stm32g474", MicroDatasheetConverter),
     # ("stm32h730", MicroDatasheetConverter),
     # ("stm32h723", MicroDatasheetConverter),
-    ("stm32h743", MicroDatasheetConverter),
+    # ("stm32h743", MicroDatasheetConverter),
     # ("tps1htc30aqpwprq1", DatasheetConverter),
     # ("bq25756", DatasheetConverter),
     # ("rc7611", DatasheetConverter),
@@ -21,6 +21,7 @@ dir_names = [
     # ("ncv78703", DatasheetConverter),
     # ("tps92520", DatasheetConverter),
     # ("dp83tg720", DatasheetConverter),
+    ("sic450ed-t1-ge3", DatasheetConverter),
 ]
 
 _root = os.path.dirname(__file__)
