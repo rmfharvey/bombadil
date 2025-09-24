@@ -21,7 +21,8 @@ dir_names = [
     # ("ncv78703", DatasheetConverter),
     # ("tps92520", DatasheetConverter),
     # ("dp83tg720", DatasheetConverter),
-    ("sic450ed-t1-ge3", DatasheetConverter),
+    ("bq25756", DatasheetConverter),
+    # ("sic450ed-t1-ge3", DatasheetConverter),
 ]
 
 _root = os.path.dirname(__file__)
