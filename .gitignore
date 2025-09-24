@@ -12,3 +12,4 @@ wheels/
 # Other
 .DS_Store
 .idea
+_local_scripts
