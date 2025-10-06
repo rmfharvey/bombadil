@@ -1,38 +1,46 @@
 {
   "high_level":{
-    "device":{
-      "base_part_number":"TAS6511",
-      "device_type":"AUDIO_AMPLIFIER",
-      "manufacturer":"Texas Instruments",
-      "packages":[
-        "HTSSOP (28)"
-      ],
-      "serial_busses":[
-        "I2C"
-      ]
-    },
+    "base_part_number":"TAS6511",
+    "device_type":"AUDIO_AMPLIFIER",
+    "manufacturer":"Texas Instruments",
+    "packages":[
+      "HTSSOP"
+    ],
     "part_numbers":{
-      "TAS6511-Q1":{}
-    }
+      "TAS6511QPWPRQ1":{
+        "options":{
+          "device_marking":"TAS6511",
+          "lead_finish":"NIPDAU",
+          "msl_peak_temp":"Level-3-260C-168 HR",
+          "op_temp":"-40 to 125C",
+          "package_quantity":"2000",
+          "package_type":"HTSSOP",
+          "pins":"28"
+        }
+      }
+    },
+    "serial_busses":[
+      "I2C"
+    ]
   },
   "pins":{
     "AVDD_BYP":{
       "description":"5V Analog supply voltage regulator bypass",
       "direction":"INPUT",
       "implementation":{
-        "connected_components":{
-          "bypass_capacitor":{
-            "type":"Ceramic",
-            "value":"1.1 uF",
-            "voltage_rating":"Appropriate for the applied voltages"
+        "connected_components":[
+          {
+            "component_type":"Capacitor",
+            "details":"A ceramic capacitor with a capacitance value of 1 \u00b5F (as per the 'Recommended Operating Conditions' in the datasheet) is recommended. The capacitor should have a voltage rating appropriate for the supply voltage and a suitable temperature coefficient (e.g., X7R or better) for stability."
           }
-        },
-        "connectivity":"Connect a bypass capacitor from AVDD_BYP to GND.",
-        "detailed_description":"AVDD_BYP is a bypass pin for the 5V analog supply voltage regulator. It is used to filter the supply voltage and should not be used to power other circuits.",
-        "functionality":"Bypass for the 5V analog supply voltage regulator.",
+        ],
+        "connectivity":"The AVDD_BYP pin should be connected to an external bypass capacitor. This capacitor connects between the AVDD_BYP pin and the device's ground (GND).",
+        "detailed_description":"AVDD_BYP is a bypass pin for the 5V analog supply voltage regulator, which is internally generated to power various analog circuits within the TAS6511-Q1 device.",
+        "functionality":"The AVDD_BYP pin serves as a bypass for the internal 5V analog supply voltage regulator. It is used to stabilize the internal analog power supply by connecting an external capacitor. This helps to filter out noise and ensure a stable voltage for the analog circuitry, which is crucial for optimal audio performance and device operation.",
         "precautions":[
-          "The capacitor should be placed as close as possible to the device pins to ensure optimal filtering.",
-          "Ensure the capacitor voltage rating is sufficient for the operating voltage."
+          "Ensure the bypass capacitor is connected as close as possible to the AVDD_BYP pin and the GND pin to minimize parasitic inductance and resistance.",
+          "The datasheet specifies a 'Combined external capacitance on bypass pins: GVDD_BYP, AVDD_BYP = 1.1 \u00b5F'. This suggests that AVDD_BYP is part of a larger bypass network that might include GVDD_BYP. Check the application schematic for the complete bypass network design.",
+          "The datasheet also mentions '5V Analog supply voltage regulator bypass' for AVDD_BYP, indicating it supports the 5V rail generated internally for analog circuits."
         ]
       },
       "input_voltage":{
@@ -40,6 +48,7 @@
         "min":4.5,
         "units":"V"
       },
+      "internal_pull":null,
       "name":"AVDD_BYP",
       "pin_id":"14",
       "type":"POWER"
@@ -48,12 +57,18 @@
       "description":"Bootstrap capacitor connection pins for high-side gate driver",
       "direction":"INPUT",
       "implementation":{
-        "connected_components":"Bootstrap capacitor (e.g., 0.22\u00b5F ceramic, X7R or better), connected between BST_M and OUT_M. The capacitor should be rated appropriately for the applied voltages.",
-        "connectivity":"The BST_M pin should be connected to one terminal of a bootstrap capacitor. The other terminal of the bootstrap capacitor should be connected to the corresponding output pin (OUT_M). A bootstrap capacitor (typically 0.22\u00b5F) is required for each high-side gate driver.",
-        "detailed_description":"Bootstrap capacitor connection pins for the high-side gate driver. These pins are part of the bootstrap circuit required for the proper operation of the high-side NMOS transistors in the H-bridge output stage.",
-        "functionality":"The BST_M pin, along with BST_P, serves as the connection point for bootstrap capacitors. These capacitors are charged when the low-side MOSFETs are turned on, and then provide the necessary voltage to turn on the high-side MOSFETs when they are activated. This allows the gate drive voltage for the high-side transistors to exceed the supply voltage (PVDD).",
-        "precautions":"The bootstrap capacitor must be sized appropriately. If the capacitor is too small, the bootstrap voltage can sag, especially during sustained low-frequency signals near clipping, which can lead to improper turn-on of the high-side MOSFETs. For applications driving subwoofers with frequencies below 30Hz, a larger bootstrap capacitor value may be necessary."
+        "connected_components":"External bootstrap capacitor. The value of this capacitor typically ranges from 0.1 \u00b5F to 1 \u00b5F, depending on the switching frequency and load conditions. It should be a ceramic capacitor with a low equivalent series resistance (ESR) and a suitable voltage rating (e.g., X7R or X5R dielectric).",
+        "connectivity":"Connect to the external bootstrap capacitor. The other end of the bootstrap capacitor should be connected to the corresponding output pin (OUT_M or OUT_P).",
+        "detailed_description":"Bootstrap capacitor connection pins for the high-side gate driver. These pins are used in conjunction with external bootstrap capacitors to provide the necessary voltage to drive the high-side NMOS transistors of the output H-bridge. The bootstrap capacitors are charged through a diode when the low-side transistor is on and then supply the gate drive voltage when the high-side transistor needs to be turned on.",
+        "functionality":"The BST_M pin, along with BST_P, serves as a connection point for bootstrap capacitors. These capacitors are essential for the operation of the gate driver for the high-side power MOSFETs in the Class-D output stage. The bootstrap circuit ensures that the gate-to-source voltage (Vgs) of the high-side NMOS transistors is sufficiently high to turn them on completely, even when their source voltage is close to the PVDD rail.",
+        "precautions":"The value of the bootstrap capacitor needs to be properly sized to ensure adequate gate drive voltage for the high-side transistors, especially during low-frequency, high-power output conditions where the bootstrap voltage might sag. If driving subwoofers or applications with sustained low-frequency signals below 30Hz, a larger bootstrap capacitor may be necessary. Ensure the bootstrap capacitor is connected correctly to the respective output pin (OUT_M for BST_M) and the BST pin."
       },
+      "input_voltage":{
+        "max":19.0,
+        "min":4.5,
+        "units":"V"
+      },
+      "internal_pull":null,
       "name":"BST_M",
       "pin_id":"23",
       "type":"POWER"
@@ -64,19 +79,21 @@
       "implementation":{
         "connected_components":[
           {
-            "component_name":"Bootstrap Capacitor",
-            "description":"A bootstrap capacitor is required for the proper operation of the high-side N-channel MOSFETs. A typical value for this capacitor is 0.22\u00b5F. The capacitor should be a ceramic type with X7R or better dielectric quality and rated appropriately for the applied voltages. The capacitor is connected between BST_P and BST_M."
+            "component":"Bootstrap Capacitor",
+            "details":"A capacitor, typically 0.22\u00b5F, with X7R or better ceramic, rated appropriately for the applied voltages. This capacitor is connected between the BST_P pin and the OUT_P pin. Another capacitor is connected between BST_M and OUT_M."
           }
         ],
-        "connectivity":"BST_P should be connected to one terminal of a bootstrap capacitor. The other terminal of the bootstrap capacitor should be connected to BST_M.",
-        "detailed_description":"BST_P is a bootstrap capacitor connection pin for the high-side gate driver. It is used in conjunction with BST_M to provide the necessary voltage to drive the high-side N-channel MOSFETs.",
-        "functionality":"The primary function of BST_P is to serve as one of the connection points for the bootstrap capacitor. This capacitor is essential for the gate driver circuit to properly bias the high-side MOSFETs, enabling them to switch on and off efficiently.",
-        "precautions":[
-          "The bootstrap capacitor must be sized appropriately for the system specification to prevent the bootstrap voltage from sagging, especially during sustained low-frequency signals near clipping.",
-          "A capacitor value of 0.22\u00b5F is typical, but may need to be increased for applications driving subwoofers that require frequencies below 30Hz.",
-          "Ensure the bootstrap capacitor is a ceramic type with X7R or better dielectric quality and rated appropriately for the applied voltages."
-        ]
+        "connectivity":"A bootstrap capacitor should be connected between the BST_P pin and the OUT_P pin. A bootstrap capacitor is also connected between BST_M and OUT_M.",
+        "detailed_description":"The BST_P pin is a bootstrap capacitor connection for the high-side gate driver.",
+        "functionality":"This pin is used in conjunction with the BST_M pin to provide a floating power supply for the high-side N-channel power MOSFET gate drive circuitry. This is achieved by charging a bootstrap capacitor connected between BST_P and BST_M.",
+        "precautions":"The bootstrap capacitors must be sized appropriately for the system specification to prevent sag, especially with sustained low-frequency signals near clipping. A larger value may be necessary for driving subwoofers with frequencies below 30Hz."
       },
+      "input_voltage":{
+        "max":19.0,
+        "min":4.5,
+        "units":"V"
+      },
+      "internal_pull":null,
       "name":"BST_P",
       "pin_id":"25",
       "type":"POWER"
@@ -87,22 +104,22 @@
       "implementation":{
         "connected_components":[
           {
-            "component_description":"A capacitor connected to the DVDD_BYP pin to filter noise and ensure a stable digital supply. The recommended capacitance is 1 \u00b5F.",
-            "component_name":"Bypass Capacitor"
+            "component_name":"Regulated DC Voltage Source",
+            "description":"A stable and regulated DC voltage source providing the correct voltage level for DVDD (e.g., 1.8V or 3.3V, as per the datasheet's 'Recommended Operating Conditions')."
           },
           {
-            "component_description":"A stable voltage source, typically a low-dropout regulator (LDO), is required to provide the DVDD supply within the specified voltage range.",
-            "component_name":"Voltage Regulator"
+            "component_name":"Bypass Capacitor",
+            "description":"An external bypass capacitor (typically 1 \u00b5F) should be connected between the DVDD pin and GND, placed as close as possible to the pin, to filter noise and ensure stable operation."
           }
         ],
-        "connectivity":"DVDD should be connected to a stable voltage source within the recommended operating conditions (1.62V to 3.6V). A bypass capacitor (DVDD_BYP) should be connected to the DVDD_BYP pin for filtering.",
-        "detailed_description":"DVDD is the digital core supply voltage input for the TAS6511-Q1. It powers the digital circuitry of the device, including the I2C interface, DSP, and serial audio port logic.",
-        "functionality":"DVDD serves as the primary supply for the digital core. It also influences the input logic levels (VIH and VIL) for digital pins and the output voltage levels (VOH and VOL) for digital outputs.",
+        "connectivity":"The DVDD pin should be connected to a regulated DC voltage supply that falls within the 'Recommended Operating Conditions' specified in the datasheet (1.62V to 3.6V).",
+        "detailed_description":"DVDD is the DC Logic supply voltage input for the digital circuitry of the TAS6511-Q1. This supply is essential for powering the digital core, including the DSP, serial audio interface, and I2C communication logic.",
+        "functionality":"DVDD serves as the primary power supply for the digital portion of the device. It also plays a role in the Power-On Reset (POR) sequence, with undervoltage and overvoltage protection monitoring this supply rail.",
         "precautions":[
-          "The DVDD voltage must be maintained within the recommended operating conditions (1.62V to 3.6V). Operation outside this range can lead to malfunction or damage.",
-          "A bypass capacitor on DVDD_BYP is essential for proper operation and noise filtering.",
-          "Ensure the DVDD supply is stable and free from excessive ripple, especially during power-up and operation. A Power-On Reset (POR) fault is reported if DVDD falls below the VPOR_SET threshold.",
-          "If DVDD is applied before PVDD and the PD pin is released, a PVDD Undervoltage Fault will be reported. The power-up sequence should be carefully managed."
+          "Ensure the DVDD supply voltage remains within the 'Recommended Operating Conditions' (1.62V to 3.6V) to prevent malfunction or damage.",
+          "The device has DVDD undervoltage and overvoltage protection. Monitor these parameters to avoid triggering fault conditions.",
+          "During power-up, ensure that DVDD is applied and stable before releasing the PD pin to avoid a PVDD Undervoltage Fault.",
+          "If DVDD is applied before PVDD and the PD pin is released, a PVDD Undervoltage Fault will be reported and the POWER_FAULT_LATCHED Register (Address = 0x86) bit 1 needs to be cleared after the power-up sequence."
         ]
       },
       "input_voltage":{
@@ -110,6 +127,7 @@
         "min":1.62,
         "units":"V"
       },
+      "internal_pull":null,
       "name":"DVDD",
       "pin_id":"7",
       "type":"POWER"
@@ -118,25 +136,23 @@
       "description":"1.5V Digital core supply bypass, derived internally from DVDD input",
       "direction":"INPUT",
       "implementation":{
-        "connected_components":{
-          "capacitor":{
-            "connection":"Connected between DVDD_BYP pin and GND.",
-            "description":"A bypass capacitor is used to stabilize the internal 1.5V digital core supply regulator.",
-            "tolerance":"10%",
-            "type":"MLCC (Multi-Layer Ceramic Capacitor)",
-            "value":"1\u00b5F",
-            "voltage_rating":"6.3V or higher"
+        "connected_components":[
+          {
+            "component_type":"Capacitor",
+            "details":"A bypass capacitor with a recommended value of 1 uF (as per Section 5.3 Recommended Operating Conditions) should be connected between the DVDD_BYP pin and GND."
           }
-        },
-        "connectivity":"This pin should be connected to a bypass capacitor. The bypass capacitor is connected between the DVDD_BYP pin and GND.",
-        "detailed_description":"DVDD_BYP is a bypass pin for the 1.5V Digital core supply regulator, which is derived internally from the DVDD input.",
-        "functionality":"The primary function of this pin is to provide a bypass path for the internal 1.5V digital core supply regulator. This helps to stabilize the voltage and filter out noise on the digital core supply.",
-        "precautions":[
-          "The bypass capacitor must be placed as close as possible to the DVDD_BYP pin and the GND pin to ensure effective filtering.",
-          "Ensure the bypass capacitor has a low ESR (Equivalent Series Resistance) and ESL (Equivalent Series Inductance) for optimal performance.",
-          "Use a ceramic capacitor with a stable dielectric material like X7R or C0G."
-        ]
+        ],
+        "connectivity":"A bypass capacitor needs to be connected from this pin to ground.",
+        "detailed_description":"DVDD_BYP is a bypass pin for the internal 1.5V digital core supply regulator, which is derived internally from the DVDD input.",
+        "functionality":"This pin is solely for bypass purposes to filter the DVDD supply and should not be used to power other circuits.",
+        "precautions":"The bypass capacitor is essential for the proper filtering and stability of the internal digital core supply. Failure to connect this bypass capacitor or using an incorrect value may affect the device's performance and reliability."
       },
+      "input_voltage":{
+        "max":3.6,
+        "min":1.62,
+        "units":"V"
+      },
+      "internal_pull":null,
       "name":"DVDD_BYP",
       "pin_id":"5",
       "type":"POWER"
@@ -145,28 +161,11 @@
       "description":"Configurable general purpose IO, function set by register programming. Set as FAULT by default. Reports a fault (active low, open drain)",
       "direction":"BIDIRECTIONAL",
       "implementation":{
-        "connected_components":[
-          {
-            "component_name":"External Pull-up Resistor",
-            "connection_details":"Connected between the FAULT/GPIO_2 pin and DVDD. The datasheet recommends a typical value of 110 k\u03a9, but this can vary. The purpose of the pull-up resistor is to provide a default high logic state when no fault is active."
-          },
-          {
-            "component_name":"Microcontroller/Host Processor",
-            "connection_details":"If used as a fault input or a general-purpose I/O, this pin would be connected to a digital input or output pin of a microcontroller or host processor. The specific connection will depend on the desired functionality and the host processor's interface."
-          }
-        ],
-        "connectivity":"When configured as a fault output, it is an open-drain output. Therefore, it requires an external pull-up resistor to DVDD.  When configured as a GPIO, its connectivity will depend on its specific function (input or output).",
-        "detailed_description":"The FAULT/GPIO_2 pin is a configurable pin that can function as either a fault output or a general-purpose input/output. By default, it is configured as a fault output. When acting as a fault output, it is an open-drain output that reports a fault condition with an active-low signal. This pin can be configured to report various fault events, including overtemperature shutdown, overcurrent events, DC detect faults, and real-time load diagnostic faults. It can also be configured to report warning events. The FAULT pin has an internal pull-up resistor to DVDD.",
-        "functionality":[
-          "Fault Output (default)",
-          "General Purpose Input/Output"
-        ],
-        "precautions":[
-          "When used as a fault output, it is an open-drain output and requires an external pull-up resistor.",
-          "The FAULT signal is active-low.",
-          "The functionality of this pin can be configured via I2C, so ensure the correct configuration is set before use.",
-          "The FAULT pin has an internal pull-up resistor to DVDD."
-        ]
+        "connected_components":"When configured as a FAULT output, it is typically connected to a digital input pin of a microcontroller to signal fault conditions. The internal pull-up resistor connects it to DVDD. If used as a GPIO, it can be connected to other digital components as an input or output.",
+        "connectivity":"When used as a FAULT output, it is an open-drain output with an internal 110 k\u03a9 pull-up resistor to DVDD. It should be connected to a high-impedance input on a host microcontroller. If multiple fault signals need to be aggregated or a hardware fault indicator is desired, external pull-up resistors might be needed for proper open-drain operation, and the FAULT signal can be routed to a GPIO pin.",
+        "detailed_description":"The FAULT/GPIO_2 pin is a configurable digital input/output pin. By default, it functions as a FAULT pin, reporting a fault condition with an active low, open-drain output. This pin can be configured by register programming to serve as a general purpose I/O.  When configured as a FAULT pin, it signals various fault events including Overtemperature Shutdown (OTSD), Overcurrent Limit and Shutdown, DC Detect, and Real-Time Load Diagnostic faults. It can also be configured to report Power Faults, DC Load Diagnostic faults, Clock Errors, and Warning events.",
+        "functionality":"The pin has dual functionality: FAULT reporting and General Purpose Input/Output (GPIO). By default, it acts as a FAULT output. It can be reconfigured via I2C to function as a general-purpose input or output, allowing it to be assigned various roles like Hi-Z, DEEP SLEEP, SLEEP, PLAY, MUTE control, Phase Sync input, or SDOUT output.",
+        "precautions":"When configured as a FAULT pin, it is an open-drain output. Therefore, an external pull-up resistor to DVDD is required if the host microcontroller's input pin does not provide a sufficiently strong pull-up or if the FAULT signal is routed to a GPIO pin that requires external configuration for its pull-up.  Care must be taken when reconfiguring the pin's function via I2C, ensuring the device is in an appropriate state and that the correct registers are accessed."
       },
       "input_voltage":{
         "max":3.9,
@@ -174,64 +173,51 @@
         "units":"V"
       },
       "internal_pull":{
-        "direction":"DOWN",
+        "direction":"UP",
         "pull_value":{
           "nom":110000.0,
           "units":"ohm"
-        }
+        },
+        "type":"RESISTANCE"
       },
       "name":"FAULT/GPIO_2",
       "pin_id":"10",
       "type":"DIGITAL",
       "vih":{
-        "nom":0.7,
-        "units":"%DVDD"
+        "min":0.7,
+        "units":"DVDD"
       },
       "vil":{
-        "nom":0.3,
-        "units":"%DVDD"
+        "max":0.3,
+        "units":"V"
       }
     },
     "FSYNC":{
       "description":"Audio frame clock input",
       "direction":"INPUT",
       "implementation":{
-        "connected_components":[
-          {
-            "component_name":"Audio Source Device",
-            "description":"The audio source device (e.g., microcontroller, DSP) provides the audio data and the associated clock signals, including FSYNC, SCLK, and SDIN."
-          }
-        ],
-        "connectivity":"The FSYNC pin should be connected to the Frame Sync or Left/Right clock output from the audio source device.",
-        "detailed_description":"The FSYNC (Frame Synchronization) pin is a digital input that serves as the audio frame clock. In TDM (Time-Division Multiplexing) mode, it acts as the frame synchronization signal. In I2S (Inter-IC Sound) mode, it distinguishes between the left and right audio channels.",
-        "functionality":"The FSYNC pin's function depends on the selected audio interface mode:\n\n- **TDM Mode:** It synchronizes the data transfer for multiple audio channels.\n- **I2S Mode:** It defines the timing for the left and right audio channels, indicating when data for each channel is being transmitted.\n- **Left-Justified Timing:** It defines when data is transmitted for the left or right channel. The MSB of the left channel is valid on the rising edge of SCLK following the rising edge of FSYNC. The MSB of the right channel is valid on the rising edge of SCLK following the falling edge of FSYNC.\n- **DSP Mode:** It defines the start of the audio data transfer but does not differentiate between channels.",
-        "precautions":[
-          "The FSYNC signal must be synchronized with the SCLK signal. Refer to the timing diagrams in the datasheet for specific timing requirements.",
-          "Ensure the FSYNC pulse width is sufficient, especially in TDM/DSP modes. If the FSYNC pulse is shorter than 8 x SCLK cycles, the AUDIO_INTERFACE_CTRL Register (Address = 0x21) bit 0-1 should be set to '01'."
-        ]
+        "connected_components":"The primary component to connect to the FSYNC pin is the audio source, which provides the synchronized frame clock signal. This could be a microcontroller's audio peripheral or a dedicated audio interface chip.",
+        "connectivity":"The FSYNC pin should be connected to the FSYNC output of the audio source (e.g., microcontroller, DSP).",
+        "detailed_description":"The FSYNC (Frame Sync) pin is used as the audio frame clock input. It defines the boundaries of audio data frames, indicating when a new sample or channel starts.",
+        "functionality":"The FSYNC pin serves as the frame synchronization signal for digital audio data. Its primary function is to signal the start of an audio frame. In I2S mode, it differentiates between left and right audio channels. In TDM mode, it signals the start of a data frame which can contain multiple channels.",
+        "precautions":"Ensure that the FSYNC signal timing, particularly its relationship with the SCLK signal, adheres to the specifications outlined in the datasheet (e.g., tSF and tFS parameters in Section 5.5). In TDM mode, the FSYNC pulse width relative to SCLK is important and needs to be configured correctly in the AUDIO_INTERFACE_CTRL Register (0x21, bits 0-1) if it's shorter than 8 SCLK cycles."
       },
       "input_voltage":{
         "max":3.9,
         "min":-0.3,
         "units":"V"
       },
-      "internal_pull":{
-        "direction":"DOWN",
-        "pull_value":{
-          "nom":110000.0,
-          "units":"ohm"
-        }
-      },
+      "internal_pull":null,
       "name":"FSYNC",
       "pin_id":"2",
       "type":"DIGITAL",
       "vih":{
-        "nom":0.7,
-        "units":"%DVDD"
+        "min":0.7,
+        "units":"DVDD"
       },
       "vil":{
-        "nom":0.3,
-        "units":"%DVDD"
+        "max":0.3,
+        "units":"DVDD"
       }
     },
     "GND":{
@@ -240,19 +226,26 @@
       "implementation":{
         "connected_components":[
           {
-            "component_name":"System Ground",
-            "description":"All GND pins should be connected to the system's electrical ground reference. This ensures a common potential for the device's operation and signal integrity."
+            "component_name":"System Ground Plane",
+            "description":"A dedicated ground plane on the PCB is essential for providing a low-impedance return path for high-frequency switching currents, crucial for EMC performance. Multiple vias should be used to connect the GND pins of the device and other ground connections to this plane, ensuring good thermal conductivity as well."
           }
         ],
-        "connectivity":"Directly connected to the system ground.",
-        "detailed_description":"GND pins are the ground references for the integrated circuit.  These pins provide the return path for all current flowing within the device, including power supply currents and signal currents.",
-        "functionality":"Ground",
+        "connectivity":"All GND pins must be connected to the system ground.",
+        "detailed_description":"GND pins are connected to system ground. The TAS6511-Q1 requires a ground plane for proper thermal and electrical connection.",
+        "functionality":"The GND pins are solely for system ground connection. The device requires a ground plane for proper thermal and electrical connection.",
         "precautions":[
-          "Ensure a low-impedance connection to system ground to minimize noise and ensure proper operation. The thermal pad, if present, should also be connected to ground for thermal dissipation and electrical grounding.",
-          "Multiple GND pins are provided for better current distribution and lower impedance. Connect all available GND pins to ensure optimal performance and thermal management."
+          "Ensure all GND pins are properly connected to the system ground plane. A solid ground plane is critical for both electrical performance and thermal management.",
+          "Minimize the impedance of the ground connections by using multiple vias, especially for high-current paths.",
+          "The exposed thermal pad must also be connected to GND for optimal thermal dissipation."
         ]
       },
-      "name":"[GND, GND, GND, GND, GND]",
+      "input_voltage":{
+        "max":0.3,
+        "min":-0.3,
+        "units":"V"
+      },
+      "internal_pull":null,
+      "name":"GND",
       "pin_id":"[6, 13, 16, 19, 24]",
       "type":"POWER"
     },
@@ -260,34 +253,40 @@
       "description":"General purpose IO, function set by register programming",
       "direction":"BIDIRECTIONAL",
       "implementation":{
-        "connected_components":"Depending on its configuration, GPIO_1 can be connected to:\n- Microcontroller GPIO pins (for input or output control).\n- Other digital signal sources or sinks.\n- For SDOUT function, it would connect to the data input of an external audio processing device.",
-        "connectivity":"The connection of GPIO_1 depends on its configured function. \n\nAs a General Purpose Input: It can be connected to a digital signal source. \nAs a General Purpose Output: It can be connected to a subsequent digital input or used for status indication. Specific output functions (e.g., SDOUT) will dictate the connection to external components.",
-        "detailed_description":"GPIO_1 is a general purpose input/output pin. Its function is determined by register programming. It can be configured to serve various purposes, including general-purpose input, general-purpose output, or as part of the serial audio interface (e.g., SDOUT).",
-        "functionality":"This pin is configurable via register programming and can act as either a digital input or a digital output. Specific functions include:\n- General Purpose Input (GPI)\n- General Purpose Output (GPO) for various signals like Auto Mute, SDOUT, FAULT, etc.\n- Input for Phase Sync to synchronize clocks with another device.",
-        "precautions":"The function of GPIO_1 is determined by register configuration. Ensure the correct registers are programmed to set the desired input or output function and mode. Refer to the register map in the datasheet for specific configurations (e.g., GPIO_CTRL Register (0xA0), GPIO1_OUTPUT_SELECT Register (0x95), etc.)."
+        "connected_components":[
+          {
+            "component_name":"System Controller/Microcontroller",
+            "description":"Can be connected to a general purpose I/O pin on a system controller or microcontroller if used as an input. If used as an output, it can drive signals to other components."
+          },
+          {
+            "component_name":"Other GPIO pins",
+            "description":"Can be configured to output specific signals like SDOUT, WARN, FAULT, Clock Sync, or Invalid Clock."
+          }
+        ],
+        "connectivity":"It can be connected as a digital input or output based on the configuration in the GPIO_CTRL register (Address = 0xA0).",
+        "detailed_description":"GPIO_1 is a general purpose I/O pin that can be configured through register programming. Its function is set by register programming.",
+        "functionality":"This pin can function as either a digital input or a digital output.",
+        "precautions":[
+          "The function of GPIO_1 must be configured through I2C before it becomes operational after Device Initialization and Power-On-Reset (POR).",
+          "By default, GPIO_1 functions as an input pin."
+        ]
       },
       "input_voltage":{
         "max":3.9,
         "min":-0.3,
         "units":"V"
       },
-      "internal_pull":{
-        "direction":"DOWN",
-        "pull_value":{
-          "nom":110000.0,
-          "units":"ohm"
-        }
-      },
+      "internal_pull":null,
       "name":"GPIO_1",
       "pin_id":"4",
       "type":"DIGITAL",
       "vih":{
-        "nom":0.7,
-        "units":"%DVDD"
+        "min":0.7,
+        "units":"DVDD"
       },
       "vil":{
-        "nom":0.3,
-        "units":"%DVDD"
+        "max":0.3,
+        "units":"DVDD"
       }
     },
     "GVDD_BYP":{
@@ -296,20 +295,21 @@
       "implementation":{
         "connected_components":[
           {
-            "component":"Capacitor",
-            "details":"A bypass capacitor must be connected from the GVDD_BYP pin to GND. The datasheet recommends a combined external capacitance of 1.1\u00b5F for the GVDD_BYP and AVDD_BYP pins. While a specific value for GVDD_BYP alone isn't explicitly stated as a minimum, adhering to the combined capacitance recommendation is crucial. The capacitor should be of a type suitable for power supply bypassing, such as a ceramic capacitor (e.g., X7R dielectric), and rated appropriately for the voltages involved."
+            "component_details":"A bypass capacitor, typically a ceramic capacitor with a value of 1.1 uF, is required to be connected between the GVDD_BYP pin and GND. This capacitor helps filter noise and stabilize the gate drive voltage.",
+            "component_name":"Bypass Capacitor"
           }
         ],
-        "connectivity":"A bypass capacitor must be connected from the GVDD_BYP pin to GND.",
-        "detailed_description":"GVDD_BYP (Pin 15) is a bypass pin for the 5V Gate drive voltage regulator. This pin is used to connect an external bypass capacitor to filter the supply voltage for the gate drive regulator. The gate drive regulator generates the necessary voltages to drive the high-side gate drivers of the power FETs. The GVDD supply itself is generated internally by the device.",
-        "functionality":"The primary function of this pin is to provide a point for external bypassing of the internal gate drive voltage regulator. This helps to stabilize the voltage supplied to the gate drivers, ensuring proper and efficient switching of the output power FETs. By providing a low-impedance path to ground for high-frequency noise, the bypass capacitor connected to GVDD_BYP helps to improve the overall audio performance and reduce EMI.",
-        "precautions":[
-          "Ensure the bypass capacitor is placed as close as possible to the GVDD_BYP pin and the GND pin to minimize parasitic inductance and resistance.",
-          "Use a capacitor with an appropriate voltage rating to ensure reliable operation and prevent breakdown.",
-          "The combined capacitance of GVDD_BYP and AVDD_BYP is recommended to be 1.1\u00b5F. Ensure this total capacitance is met by the chosen bypass components.",
-          "Refer to the 'Power Supply Recommendations' and 'Layout Guidelines' sections in the datasheet for more detailed information on power supply decoupling and capacitor selection."
-        ]
+        "connectivity":"A bypass capacitor should be connected between the GVDD_BYP pin and GND. The value of this capacitor is typically 1.1 uF for stable operation, as specified in the datasheet.",
+        "detailed_description":"The GVDD_BYP pin is a bypass pin for the 5V Gate drive voltage regulator. The internal gate drive voltage regulator generates the necessary voltage for driving the output FETs. This pin is intended for an external bypass capacitor to filter the supply and ensure stable operation of the gate driver.",
+        "functionality":"The pin's primary function is to provide a bypass for the internal 5V gate drive voltage regulator. It is not intended to power external circuits.",
+        "precautions":"The GVDD_BYP pin should only be used for connecting a bypass capacitor. It should not be used to power external circuits. The bypass capacitor must be adequately rated for the operating voltage and have good high-frequency characteristics (e.g., X7R or better)."
       },
+      "input_voltage":{
+        "max":19.0,
+        "min":4.5,
+        "units":"V"
+      },
+      "internal_pull":null,
       "name":"GVDD_BYP",
       "pin_id":"15",
       "type":"POWER"
@@ -321,15 +321,24 @@
         "connected_components":[
           {
             "component":"Resistor",
-            "description":"A pull-up resistor to DVDD or a pull-down resistor to GND. The resistance value should be between 1 k\u03a9 and 4.7 k\u03a9 as recommended in the datasheet."
+            "details":"A pull-up resistor connected between the I2C_ADDR pin and DVDD, or a pull-down resistor connected between the I2C_ADDR pin and GND. The value of this resistor should be between 1 kOhm and 4.7 kOhm, as recommended in Section 5.3."
+          },
+          {
+            "component":"DVDD Power Supply",
+            "details":"Connect to the DVDD power supply rail if a pull-up resistor is used."
+          },
+          {
+            "component":"GND",
+            "details":"Connect to Ground if a pull-down resistor is used."
           }
         ],
-        "connectivity":"The I2C_ADDR pin should be connected to a pull-up resistor to DVDD or a pull-down resistor to GND. The value of the resistor should be within the range specified in the datasheet (1 k\u03a9 to 4.7 k\u03a9) to ensure a stable I2C address. The specific connection (pull-up or pull-down) determines the I2C address.",
-        "detailed_description":"This pin is used to set the I2C address of the device. It supports 8 address options, allowing multiple TAS6511-Q1 devices to be used on the same I2C bus.",
-        "functionality":"The function of this pin is to determine the 7-bit I2C slave address of the device. A pull-up or pull-down resistor connected between this pin and DVDD or GND, respectively, sets the address during power-up. The I2C address is latched after a POR event and remains until the next POR event.",
+        "connectivity":"The I2C_ADDR pin should be connected to either DVDD via a pull-up resistor or to GND via a pull-down resistor to select the desired I2C address. The value of the pull-up/pull-down resistor should be within the range specified in the 'Recommended Operating Conditions' (5.3) for proper I2C communication.",
+        "detailed_description":"The I2C_ADDR pin is used to select one of eight possible I2C addresses for the TAS6511-Q1 device. This allows multiple TAS6511-Q1 devices to be connected to the same I2C bus without requiring additional bus switching hardware. The I2C address is determined by the state of this pin during the Power-On Reset (POR) event and is latched until the next POR event.",
+        "functionality":"The I2C_ADDR pin selects the I2C address of the device. By connecting this pin to DVDD through a pull-up resistor or to GND through a pull-down resistor, different I2C addresses can be assigned to the device. The datasheet provides a table (Table 9-1) that maps the state of the I2C_ADDR pin to specific 7-bit I2C addresses.",
         "precautions":[
-          "The I2C address is latched after a Power-On Reset (POR) event and is not changed until the next POR event. Ensure the I2C_ADDR pin is correctly configured before powering up the device.",
-          "Ensure the pull-up or pull-down resistor value is within the recommended range to maintain signal integrity for the I2C communication."
+          "The I2C address selected by the I2C_ADDR pin is latched after a POR event and remains unchanged until the next POR event. Ensure the correct address is set before powering up the device.",
+          "The resistance value of the pull-up or pull-down resistor on the I2C_ADDR pin must be within the recommended range to ensure proper I2C communication.",
+          "Ensure that the state of the I2C_ADDR pin is stable during the power-up sequence."
         ]
       },
       "input_voltage":{
@@ -337,36 +346,31 @@
         "min":-0.3,
         "units":"V"
       },
-      "internal_pull":{
-        "direction":"DOWN",
-        "pull_value":{
-          "nom":110000.0,
-          "units":"ohm"
-        }
-      },
+      "internal_pull":null,
       "name":"I2C_ADDR",
       "pin_id":"12",
       "type":"DIGITAL",
       "vih":{
-        "nom":0.7,
-        "units":"%DVDD"
+        "min":0.7,
+        "units":"DVDD"
       },
       "vil":{
-        "nom":0.3,
-        "units":"%DVDD"
+        "max":0.3,
+        "units":"DVDD"
       }
     },
     "NC":{
       "description":"No internal connection",
-      "direction":"INPUT",
+      "direction":"OTHER",
       "implementation":{
-        "connected_components":[],
-        "connectivity":"These pins should not be connected to anything in the schematic.",
-        "detailed_description":"These pins have no internal connection to the device.",
-        "functionality":"No internal connection.",
-        "precautions":"It is recommended that NC pins are left floating to avoid potential issues. Connecting them to ground or power may lead to unexpected behavior or damage if the internal design changes in future revisions."
+        "connected_components":"No components need to be connected to NC pins. They are to remain unconnected.",
+        "connectivity":"These pins should be left unconnected in the schematic and on the PCB.",
+        "detailed_description":"NC pins have no internal connection. These pins are not connected internally to any circuitry within the IC.",
+        "functionality":"No internal connection. These pins are typically left unconnected or can be used for mechanical support or as test points during manufacturing, but they do not have an electrical function related to the operation of the integrated circuit.",
+        "precautions":"While NC pins are not electrically connected internally, it is generally good practice to keep them unconnected to avoid any potential parasitic effects or unintentional connections. Avoid routing traces to these pins unless there is a specific manufacturing or test requirement. Ensure no solder bridges are formed to adjacent pins during assembly."
       },
-      "name":"[NC, NC, NC, NC]",
+      "internal_pull":null,
+      "name":"NC",
       "pin_id":"[17, 18, 20, 21]",
       "type":"OTHER"
     },
@@ -376,32 +380,36 @@
       "implementation":{
         "connected_components":[
           {
-            "component_name":"Speaker (Load)",
-            "description":"The OUT_M pin is directly connected to the negative terminal of the speaker (or load) to deliver the audio signal."
+            "component_name":"Speaker",
+            "connection_details":"One terminal of the speaker is connected to the OUT_M pin. The other speaker terminal is connected to the OUT_P pin."
           },
           {
             "component_name":"LC Reconstruction Filter",
-            "description":"The OUT_M pin's connection to the speaker might be part of a larger circuit that includes an LC filter. This filter is crucial for removing the high-frequency switching components and recovering the original audio signal. The inductor and capacitor values for this filter are critical and depend on the switching frequency and desired audio bandwidth."
+            "connection_details":"The inductor and capacitor of the reconstruction filter are connected in series with the speaker. Typically, the inductor is connected between OUT_M and the speaker, and the capacitor is connected from the speaker terminal (connected to OUT_M) to ground."
+          },
+          {
+            "component_name":"Bootstrap Capacitor (BST_M)",
+            "connection_details":"A bootstrap capacitor is connected between the OUT_M pin and the BST_M pin. This capacitor is essential for providing the necessary gate-drive voltage for the high-side N-channel MOSFET in the output stage."
           }
         ],
-        "connectivity":"The OUT_M pin is connected to the negative terminal of the speaker or the load. In a Bridge-Tied Load (BTL) configuration, the OUT_P pin would be connected to the positive terminal of the speaker, and the OUT_M pin would be connected to the negative terminal of the speaker. The other end of the speaker is typically connected to ground through an appropriate LC reconstruction filter.",
-        "detailed_description":"OUT_M refers to the negative output of the audio channel. In a Class-D amplifier like the TAS6511-Q1, the output stage typically drives a speaker using a full-bridge (H-bridge) configuration. This means there are two output terminals per channel (positive and negative) that deliver a switched voltage to the speaker. OUT_M is one of these terminals, designed to carry the return current or the negative-going part of the output waveform.",
-        "functionality":"The primary function of the OUT_M pin is to serve as one of the two terminals for delivering the amplified audio signal to the speaker. In conjunction with OUT_P, it forms the output of the bridge, allowing for differential drive to the speaker. The specific functionality in terms of waveform and voltage levels is determined by the internal PWM modulation and output stage.",
-        "precautions":[
-          "Ensure that the OUT_M pin is connected to the correct terminal of the speaker or load to maintain proper phase and avoid signal cancellation.",
-          "The output pins (OUT_P and OUT_M) can handle significant current (up to \u00b17A, with pulsed currents up to \u00b116.5A). Ensure that the connected speaker impedance and power handling capabilities are appropriate for the TAS6511-Q1's output specifications to prevent damage to the device or the speaker.",
-          "The datasheet mentions protection features like output short protection. However, it's essential to design the system with appropriate external protection if the application demands it, especially against transient overcurrent conditions or extreme voltage excursions.",
-          "Proper PCB layout is crucial for managing high-frequency currents and minimizing EMI. Ensure short and wide traces for the output signals and a solid ground plane."
-        ]
+        "connectivity":"In a typical BTL (Bridge-Tied Load) configuration, the OUT_M pin is connected to one side of the speaker. The other side of the speaker is connected to the OUT_P pin. An external LC reconstruction filter is typically connected between the amplifier output pins (OUT_P and OUT_M) and the speaker. The OUT_M pin also needs to be connected to the corresponding bootstrap capacitor (BST_M pin) to enable the proper operation of the high-side gate driver.",
+        "detailed_description":"The OUT_M pin is the negative output terminal for the audio channel of the TAS6511-Q1 amplifier. In a BTL (Bridge-Tied Load) configuration, this pin, along with the OUT_P pin, drives the speaker. The amplifier's output stage generates a high-frequency PWM signal that is filtered by an external LC network before reaching the speaker. The voltage across the speaker is the difference between the OUT_P and OUT_M pin voltages.",
+        "functionality":"The OUT_M pin serves as the negative output terminal for the audio signal. It is part of the full-bridge output stage, working in conjunction with the OUT_P pin to deliver the amplified audio signal to the speaker. The voltage and current at this pin are critical for the output power delivery and are monitored by the device's protection and diagnostic features.",
+        "precautions":"The OUT_M pin handles high-frequency switching signals and significant current, especially under load. Proper PCB layout with adequate copper thickness and trace width is crucial to minimize parasitic inductance and resistance, which can affect performance and EMI. The voltage and current at this pin should remain within the absolute maximum ratings specified in the datasheet to prevent device damage. The bootstrap capacitor connected to BST_M must be properly sized to ensure the high-side gate driver receives sufficient voltage for optimal operation, particularly during sustained low-frequency signals or near clipping conditions."
       },
+      "internal_pull":null,
       "name":"OUT_M",
-      "output_current":{
-        "max":7.0,
-        "min":-7.0,
-        "units":"A"
-      },
+      "output_type":"PUSH_PULL",
       "pin_id":"22",
-      "type":"ANALOG"
+      "type":"ANALOG",
+      "voh":{
+        "min":0.9,
+        "units":"DVDD"
+      },
+      "vol":{
+        "max":0.1,
+        "units":"V"
+      }
     },
     "OUT_P":{
       "description":"Positive output for the channel",
@@ -409,33 +417,37 @@
       "implementation":{
         "connected_components":[
           {
-            "component_name":"Speaker",
-            "connection_details":"Connect to the positive terminal of the speaker. Ensure proper impedance matching."
+            "component_name":"Speaker/Load",
+            "description":"The primary load, typically a speaker, is connected between OUT_P and OUT_M."
           },
           {
-            "component_name":"LC Filter",
-            "connection_details":"Connect to the input of the reconstruction LC filter network. The inductor connects between OUT_P and the speaker, and the capacitor connects between OUT_P and ground. Refer to the datasheet's application section for recommended LC filter component values and design guidelines."
+            "component_name":"Reconstruction Filter (LC Filter)",
+            "description":"An external LC filter is required to demodulate the PWM output signal. The inductor is typically connected in series with the OUT_P pin, and the capacitor is connected between the inductor output and ground. The values of these components depend on the switching frequency and desired audio bandwidth. For example, the datasheet specifies using 3.3\u00b5H inductors for 2.048MHz switching frequency with a 4\u03a9 load, and 1\u00b5F capacitors."
           }
         ],
-        "connectivity":"Connect to the positive terminal of the speaker or the positive terminal of the speaker's LC filter network.  In a BTL (Bridge-Tied Load) configuration, this pin is one half of the differential output pair. The other half is OUT_M.",
-        "detailed_description":"The OUT_P pin is the positive output for the amplifier channel. It is part of the bridge output stage that drives the connected speaker.",
-        "functionality":"Positive output of the amplifier channel.",
+        "connectivity":"OUT_P should be connected to the positive terminal of the speaker or load. It is also connected to the reconstruction filter components (inductor and capacitor) on the output side. In a typical bridge-tied load (BTL) configuration, OUT_P and OUT_M drive the speaker in a differential manner.",
+        "detailed_description":"OUT_P is the positive output for the channel. This pin is part of the audio output stage and is connected to the speaker or load through an external reconstruction filter (typically an LC filter).",
+        "functionality":"The primary function of OUT_P is to deliver the amplified audio signal to the load. It is one of the two output pins for the single-channel audio amplifier, with OUT_M being the negative output. The TAS6511-Q1 is a Class-D amplifier, so the signal on OUT_P is a high-frequency PWM signal that is filtered by the external reconstruction filter to recover the audio signal.",
         "precautions":[
-          "Ensure that the output is not shorted to power or ground, as this can damage the device and trigger protection mechanisms.",
-          "The maximum output current per pin is \u00b17A, and pulsed supply current is \u00b116.5A. Ensure these limits are not exceeded.",
-          "The absolute maximum voltage for PVDD is 30V, and transient voltage is 40V. The output pins are directly connected to the output stage and should not experience voltages outside the device's operating or absolute maximum ratings.",
-          "When driving loads at lower impedances (e.g., 2 ohms) or at higher power levels, ensure adequate thermal management. The device has an integrated thermal shutdown, but external heatsinking might be beneficial in some applications.",
-          "If using the output for Line Output mode, ensure the system is configured correctly via the I2C interface (OUTPUT_CTRL Register)."
+          "Ensure the external reconstruction filter components are correctly chosen and connected. Improper filter design can lead to poor audio performance and potential damage to the amplifier or speaker.",
+          "The output pins (OUT_P and OUT_M) can handle significant current and voltage transients. Proper PCB layout is crucial to manage these currents and minimize parasitic inductance, which can affect EMI performance.",
+          "The TAS6511-Q1 is designed for automotive applications and is qualified for AEC-Q100. Ensure the operating conditions, including supply voltage and ambient temperature, are within the recommended ranges.",
+          "The output pins are protected against output short-to-ground and output short-to-power conditions, but it is always best to avoid such conditions through proper system design and wiring."
         ]
       },
+      "internal_pull":null,
       "name":"OUT_P",
-      "output_current":{
-        "max":7.0,
-        "min":-7.0,
-        "units":"A"
-      },
+      "output_type":"PUSH_PULL",
       "pin_id":"26",
-      "type":"ANALOG"
+      "type":"ANALOG",
+      "voh":{
+        "min":0.9,
+        "units":"DVDD"
+      },
+      "vol":{
+        "max":0.1,
+        "units":"V"
+      }
     },
     "PD":{
       "description":"Shuts down the device for minimal power draw (active low), 110k\u03a9 internal pull-down resistor",
@@ -443,16 +455,22 @@
       "implementation":{
         "connected_components":[
           {
-            "component_name":"Pull-down resistor",
-            "connection":"Internal to the device",
-            "description":"This resistor keeps the PD pin low by default, ensuring the device remains in shutdown until explicitly enabled.",
-            "resistance":"110 k\u03a9"
+            "component_name":"System Controller",
+            "description":"The PD pin needs to be controlled by a system controller or microcontroller that can drive this pin either high or low to manage the device's power state."
+          },
+          {
+            "component_name":"Internal Pull-down Resistor",
+            "description":"An internal 110 k\u03a9 pull-down resistor is present on the PD pin, which helps in defining the default state or behavior when the pin is not actively driven."
           }
         ],
-        "connectivity":"The PD pin has an internal 110 k\u03a9 pull-down resistor. To enable shutdown, the pin should be externally pulled low. To enable startup, the pin should be released or pulled high.",
-        "detailed_description":"The PD pin is a shutdown pin that, when asserted (pulled low), puts the device into shutdown mode, minimizing current draw. In shutdown, all internal blocks are powered off, and registers reset to their default values upon the next startup. I2C communication is inactive in this state.",
-        "functionality":"The PD pin serves as a shutdown control. When pulled low, it initiates a device shutdown. When released (pulled high), it initiates the device startup sequence.",
-        "precautions":"The PD pin should be kept low until both PVDD and DVDD power supply rails are within the Recommended Operating Conditions. Releasing the PD pin powers up the internal circuitry. A power-up sequence delay of up to 6 ms may occur. If PVDD is not available when PD is released, a PVDD Undervoltage Fault will be reported. For power-down, the PD pin must be pulled low for at least 10 ms before removing power supplies."
+        "connectivity":"The PD pin should be connected to a system control signal that can drive it high or low. It has an internal 110 k\u03a9 pull-down resistor.",
+        "detailed_description":"The PD pin is an active-low pin that shuts down the device for minimal power draw. When asserted, the device enters shutdown mode where all internal blocks are powered off, and registers are initialized to their default values upon the next startup. In this mode, I2C communication is inactive.",
+        "functionality":"The PD pin serves as a shutdown control for the device. When pulled low, it initiates a shutdown sequence for minimal power consumption.",
+        "precautions":[
+          "The PD pin has an internal 110 k\u03a9 pull-down resistor. Ensure that any external driving circuitry is capable of overcoming this pull-down resistance when driving the pin high.",
+          "When bringing the device out of shutdown, it is recommended to keep the PD pin low until both PVDD and DVDD power rails are within their recommended operating conditions. Releasing the PD pin (by driving it high) will power up the internal digital and analog circuitry.",
+          "The device is designed to be shut down by driving the PD pin low for at least 10 ms before removing the power supplies (PVDD or DVDD)."
+        ]
       },
       "input_voltage":{
         "max":3.9,
@@ -464,19 +482,19 @@
         "pull_value":{
           "nom":110000.0,
           "units":"ohm"
-        }
+        },
+        "type":"RESISTANCE"
       },
       "name":"PD",
       "pin_id":"11",
-      "polarity":"ACTIVE_LOW",
       "type":"DIGITAL",
       "vih":{
-        "nom":0.7,
-        "units":"%DVDD"
+        "min":0.7,
+        "units":"DVDD"
       },
       "vil":{
-        "nom":0.3,
-        "units":"%DVDD"
+        "max":0.3,
+        "units":"DVDD"
       }
     },
     "PVDD":{
@@ -485,17 +503,22 @@
       "implementation":{
         "connected_components":[
           {
-            "component_name":"Bypass Capacitors",
-            "details":"Multiple capacitors are needed for PVDD. A large electrolytic capacitor (value depends on the boost converter's regulation capabilities) for reducing ripple at audio frequencies, and 1\u00b5F MLCCs and 100nF capacitors close to the device pins for reducing ripple at the PWM switching frequency and for EMI reduction."
+            "component":"Bypass Capacitors",
+            "description":"External bypass capacitors are required on the AVDD_BYP (Pin 14) and GVDD_BYP (Pin 15) pins to filter the supply and ensure proper operation. The values recommended are 1\u00b5F for DVDD_BYP and 1.1\u00b5F for GVDD_BYP, AVDD_BYP. A bulk capacitor connected to PVDD is also recommended for reducing voltage ripple at audio frequencies and for EMI reduction."
+          },
+          {
+            "component":"Voltage Source",
+            "description":"Connect to a regulated voltage source between 4.5V and 19V. This can be the vehicle battery or a regulated power supply. The PVDD supply must be within the recommended operating conditions."
           }
         ],
-        "connectivity":"Connect to the vehicle battery or a regulated voltage rail. External bypass capacitors are required.",
-        "detailed_description":"PVDD is the higher voltage power supply input that can be connected to the vehicle battery or a regulated voltage rail. It supplies power to the output FETs and higher voltage analog circuits. On-chip regulators generate necessary internal voltages, and the PVDD pin is used for bypass capacitors to filter the supply.",
-        "functionality":"Primary power supply for output FETs and high-voltage analog circuits.",
+        "connectivity":"Connect to a voltage source within the recommended operating range (4.5V to 19V). It can be connected to the vehicle battery or a regulated voltage rail. External bypass capacitors are required for filtering. Pins 27 and 28 are connected to PVDD.",
+        "detailed_description":"PVDD is the high-voltage supply input for the audio amplifier. It powers the output FETs and higher voltage analog circuits. The device can withstand fortuitous open ground and power conditions within the absolute maximum ratings. The supplied PVDD voltage can be read via the PVDD_SENSE Register.",
+        "functionality":"Power supply input for the output FETs and analog circuits.",
         "precautions":[
-          "Must be within the Recommended Operating Conditions (4.5V to 19V, 40V load dump).",
-          "Operation outside Absolute Maximum Ratings can cause permanent damage.",
-          "Proper decoupling is crucial for performance and stability."
+          "Operation outside the Absolute Maximum Ratings may cause permanent device damage. Always ensure PVDD is within the recommended operating conditions.",
+          "Fortuitous open ground and power conditions can be withstood within the absolute maximum ratings, but should still be avoided for reliable operation.",
+          "Proper bypass capacitor selection and placement are critical for filtering voltage ripple and ensuring optimal performance and EMI characteristics.",
+          "Ensure the PVDD supply is stable and within the specified voltage range to prevent undervoltage or overvoltage faults."
         ]
       },
       "input_voltage":{
@@ -503,6 +526,7 @@
         "min":4.5,
         "units":"V"
       },
+      "internal_pull":null,
       "name":"PVDD",
       "pin_id":"[27, 28]",
       "type":"POWER"
@@ -511,25 +535,11 @@
       "description":"I2C clock input",
       "direction":"INPUT",
       "implementation":{
-        "connected_components":[
-          {
-            "component_name":"System Controller (I2C Master)",
-            "connection_description":"Connect the SCL output of the system controller to the SCL pin of the TAS6511-Q1."
-          },
-          {
-            "component_name":"Pull-up Resistor",
-            "connection_description":"Connect a pull-up resistor (1 k\u03a9 to 4.7 k\u03a9) between the SCL pin of the TAS6511-Q1 and the DVDD supply pin."
-          }
-        ],
-        "connectivity":"The SCL pin should be connected to the SCL output of the I2C master device.  An external pull-up resistor is required on the SCL line, connected between the SCL pin and DVDD. The value of this pull-up resistor should be within the range specified in the 'Recommended Operating Conditions' (RPU_I2C: 1 k\u03a9 to 4.7 k\u03a9, typically 4.7 k\u03a9).",
-        "detailed_description":"The SCL pin is the I2C clock input. It is used for serial communication between the TAS6511-Q1 and a system controller (I2C master) to configure the device's settings, read status information, and perform diagnostics.",
-        "functionality":"The SCL pin serves as the clock signal for the I2C serial communication bus. It synchronizes the data transfer between the master (system controller) and the TAS6511-Q1. The TAS6511-Q1 operates as an I2C target-only device and cannot generate its own I2C clock.",
-        "precautions":[
-          "The SCL pin requires an external pull-up resistor to DVDD. Ensure the resistor value is within the recommended range (1 k\u03a9 to 4.7 k\u03a9) to maintain proper I2C bus communication.",
-          "The maximum supported I2C clock speed is 400 kHz.",
-          "If multiple TAS6511-Q1 devices are connected to the same I2C bus, ensure each device has a unique I2C address, which is configured via the I2C_ADDR pin.",
-          "The I2C bus timing specifications, including setup times, hold times, and rise/fall times for SCL and SDA, must be adhered to as detailed in Section 9.3 and 5.5."
-        ]
+        "connected_components":"The SCL pin must be connected to the SCL output of the I2C master device (e.g., a microcontroller or system processor). An external pull-up resistor (typically 1 k\u03a9 to 4.7 k\u03a9) is required to connect the SCL pin to the DVDD supply voltage. The value of the pull-up resistor should be chosen based on the I2C bus capacitance and the desired bus speed, as per I2C specifications.",
+        "connectivity":"The SCL pin should be connected to the SCL pin of the I2C master device. An external pull-up resistor is required to connect SCL to DVDD. The value of the pull-up resistor should be between 1 k\u03a9 and 4.7 k\u03a9, as specified in the Recommended Operating Conditions.",
+        "detailed_description":"SCL is the I2C serial clock input. It synchronizes data transfer on the I2C bus.",
+        "functionality":"The SCL pin serves as the clock signal for the I2C communication bus, synchronizing the data transfer between the system controller (master) and the TAS6511-Q1 (slave).",
+        "precautions":"The SCL pin requires an external pull-up resistor to DVDD. Ensure the pull-up resistor value is within the recommended range (1 k\u03a9 to 4.7 k\u03a9) to maintain proper I2C bus operation. The SCL signal must be driven by an I2C master device. The TAS6511-Q1 cannot generate an I2C clock. The I2C bus speed should not exceed 400 kHz."
       },
       "input_voltage":{
         "max":3.9,
@@ -541,87 +551,59 @@
         "pull_value":{
           "max":10.0,
           "min":1.0,
-          "units":"kohm"
-        }
+          "units":"kOhm"
+        },
+        "type":"RESISTANCE"
       },
       "name":"SCL",
       "pin_id":"8",
       "type":"DIGITAL",
       "vih":{
-        "nom":0.7,
-        "units":"%DVDD"
+        "min":0.7,
+        "units":"DVDD"
       },
       "vil":{
-        "nom":0.3,
-        "units":"%DVDD"
+        "max":0.3,
+        "units":"DVDD"
       }
     },
     "SCLK":{
       "description":"Audio input serial clock",
       "direction":"INPUT",
       "implementation":{
-        "connected_components":[
-          {
-            "component_name":"Audio Source Device",
-            "description":"The SCLK pin of the TAS6511-Q1 receives the serial audio bit clock from the audio source device (e.g., a microcontroller or an audio processor)."
-          }
-        ],
-        "connectivity":"The SCLK pin should be connected to the SCLK output of the audio source device.",
+        "connected_components":"The SCLK pin should be connected to the SCLK output of the host processor or audio source. For clock synchronization, it might be connected to the SCLK output of another TAS6511-Q1 device if it is acting as the primary clock source.",
+        "connectivity":"The SCLK pin should be connected to the SCLK output of the audio source. In systems with multiple TAS6511-Q1 devices, the SCLK signal can be used for clock synchronization by halting the audio input serial clock (SCLK) and configuring the PWM_PHASE_CTRL register.",
         "detailed_description":"SCLK is the serial audio bit clock. It is used to clock the serial data present on the SDIN pin into the serial shift register of the audio interface. Serial data is clocked into the TAS6511-Q1 device with SCLK.",
-        "functionality":"The SCLK pin functions as the serial audio bit clock for the audio interface. It is also used in conjunction with FSYNC to determine the audio data format and sample rate. Additionally, the SCLK can be used as a synchronization source for multiple TAS6511-Q1 devices.",
-        "precautions":[
-          "The SCLK must be within the supported range as specified in the datasheet (Section 7.3.2.6.1).",
-          "If the SCLK signal is halted, the device may report a clock fault and enter a Hi-Z state. The behavior can be configured via the AUDIO_INTERFACE_CTRL register.",
-          "When changing the sample rate on-the-fly, the SCLK must be halted for at least 30 ms before changing to the new sample rate."
-        ]
+        "functionality":"The SCLK pin serves as the serial audio bit clock for data transfer on the SDIN pin. It is also used in conjunction with the FSYNC pin to define the timing for data transmission and is a reference clock for the internal PLL. The device also supports an on-the-fly sample rate change, which involves clock halt periods where SCLK might be halted and then restarted.",
+        "precautions":"The device supports different SCLK to FSYNC ratios and has an auto-recovery mechanism for clock halts. If a clock halt or a non-supported SCLK to FSYNC ratio is detected, the device reports a clock fault. When changing the FSYNC rate (e.g., from 48 kHz to 96 kHz), the host processor must halt the SCLK for at least 30 ms before changing the sample rate. If spread spectrum is enabled and the device is used as a clock source for external devices, the spread spectrum will affect the SYNC signal."
       },
       "input_voltage":{
         "max":3.9,
         "min":-0.3,
         "units":"V"
       },
-      "internal_pull":{
-        "direction":"DOWN",
-        "pull_value":{
-          "nom":110000.0,
-          "units":"ohm"
-        }
-      },
+      "internal_pull":null,
       "name":"SCLK",
       "pin_id":"1",
       "type":"DIGITAL",
       "vih":{
-        "nom":0.7,
-        "units":"%DVDD"
+        "min":0.7,
+        "units":"DVDD"
       },
       "vil":{
-        "nom":0.3,
-        "units":"%DVDD"
+        "max":0.3,
+        "units":"DVDD"
       }
     },
     "SDA":{
       "description":"I2C data input and output",
       "direction":"BIDIRECTIONAL",
       "implementation":{
-        "connected_components":[
-          {
-            "component_name":"I2C Master Device",
-            "description":"The primary host controller that initiates I2C communication. This would typically be a microcontroller or a dedicated I2C bus master."
-          },
-          {
-            "component_name":"Pull-up Resistor",
-            "description":"An external resistor connected between the SDA pin and the DVDD supply. The datasheet recommends a value between 1 k\u03a9 and 4.7 k\u03a9. This resistor ensures the SDA line is pulled HIGH when no device is actively driving it LOW."
-          }
-        ],
-        "connectivity":"The SDA pin should be connected to the SDA pin of the I2C master device. Additionally, an external pull-up resistor is required on the SDA line to the DVDD supply. The value of this pull-up resistor should be between 1 k\u03a9 and 4.7 k\u03a9, as recommended in the datasheet. If multiple I2C devices are connected to the bus, they will all share the same SDA line.",
-        "detailed_description":"The SDA (Serial Data) pin is the bidirectional data line for the I2C serial communication bus. It is used for transmitting and receiving data between the TAS6511-Q1 and the system processor. The device acts as an I2C target, meaning it responds to commands and provides data when addressed by a master device on the I2C bus.",
-        "functionality":"The SDA pin serves a dual role: it acts as a data input when the master is transmitting data to the TAS6511-Q1, and as a data output when the TAS6511-Q1 is transmitting data to the master. Its open-drain nature allows multiple devices to share the same bus, with pull-up resistors enabling the HIGH logic level.",
-        "precautions":[
-          "The SDA line requires external pull-up resistors to DVDD. Ensure these resistors are within the recommended range (1 k\u03a9 to 4.7 k\u03a9) for proper I2C communication.",
-          "When multiple I2C devices are connected to the bus, ensure that each device has a unique I2C address to avoid communication conflicts.",
-          "The SDA pin is an open-drain output, so it can only actively drive the line LOW. The pull-up resistors are essential for the HIGH state.",
-          "Maintain the recommended timing requirements for SDA (setup, hold times, rise, and fall times) as specified in the datasheet (Section 9.3 I2C Bus Protocol) to ensure reliable communication."
-        ]
+        "connected_components":"SDA pin connects to the SDA pin of the I2C bus master. An external pull-up resistor (typically 1 k\u03a9 to 4.7 k\u03a9) connects the SDA pin to the DVDD supply.",
+        "connectivity":"The SDA pin should be connected to the SDA pin of the I2C bus master (system microcontroller) and to the SDA pins of any other I2C devices on the bus. An external pull-up resistor is required on the SDA line, connecting it to DVDD.",
+        "detailed_description":"SDA is the I2C data input and output pin for serial communication between the TAS6511-Q1 and a system microcontroller. It is used for transmitting and receiving data, including device configuration, status monitoring, and diagnostics.",
+        "functionality":"The pin serves as a bidirectional data line for the I2C serial communication bus. It functions as both an input for data sent to the device and an output for data read from the device.",
+        "precautions":"The SDA line requires an external pull-up resistor to DVDD. The I2C bus speed should not exceed 400 kHz. Ensure that the I2C address (determined by the I2C_ADDR pin) is unique for each TAS6511-Q1 device on the bus if multiple devices are used."
       },
       "input_voltage":{
         "max":3.9,
@@ -633,68 +615,79 @@
         "pull_value":{
           "max":10.0,
           "min":1.0,
-          "units":"kohm"
-        }
+          "units":"kOhm"
+        },
+        "type":"RESISTANCE"
       },
       "name":"SDA",
       "pin_id":"9",
       "type":"DIGITAL",
       "vih":{
-        "nom":0.7,
-        "units":"%DVDD"
+        "min":0.7,
+        "units":"DVDD"
       },
       "vil":{
-        "nom":0.3,
-        "units":"%DVDD"
+        "max":0.3,
+        "units":"DVDD"
       }
     },
     "SDIN":{
       "description":"TDM or I2S data input",
       "direction":"INPUT",
       "implementation":{
-        "connected_components":"The primary connected component is the audio source device (e.g., microcontroller, DSP) that provides the digital audio data stream via its corresponding data output pin.",
-        "connectivity":"The SDIN pin should be connected to the data output of the audio source, such as a microcontroller or DSP, which is transmitting audio data in either TDM or I2S format.",
-        "detailed_description":"SDIN is the TDM or I2S data input. This pin is used for the data transfer for the digital audio interface.",
-        "functionality":"The pin serves as a data input for digital audio, supporting TDM or I2S formats. This means it receives the audio data stream which can be configured for different channel counts and data lengths.",
-        "precautions":"Ensure that the format of the digital audio data on the SDIN pin (I2S, TDM/DSP) matches the configuration set in the AUDIO_INTERFACE_CTRL register (Address = 0x21). Also, the data length set in the SDIN_CTRL register (Address = 0x23) must be correctly configured to match the incoming data. When using TDM mode, the slot selection in the AUDIO_SLOT_SELECT (Address = 0x33) and LL_SLOT_SELECT (Address = 0x34) registers, as well as offsets in SDIN_OFFSET_MSB (Address = 0x27) and SDIN_AUDIO_OFFSET (Address = 0x28), must be set correctly to avoid data overlap or misinterpretation."
+        "connected_components":"The SDIN pin connects to the data output of an audio source, which could be a microcontroller, a digital signal processor (DSP), or another audio interface chip. The specific audio source device and its output configuration will determine the exact connection details.",
+        "connectivity":"The SDIN pin should be connected to the corresponding data output pin (e.g., SDOUT) of the audio source device. The specific connection will depend on the chosen digital audio interface format (I2S, TDM, etc.) and the number of channels being transmitted.",
+        "detailed_description":"SDIN is the Time Division Multiplexing (TDM) or Inter-IC Sound (I2S) data input pin. It is used for serial audio data transfer into the device. The data on this pin is clocked in by the SCLK (Serial Clock) signal.",
+        "functionality":"The SDIN pin serves as the primary input for digital audio data. It supports various audio interface formats including I2S, Left-Justified (LJ), DSP, and TDM modes. Depending on the configured mode and sample rate, it can carry audio data, low latency audio data, or a combination of both. In TDM mode, it can support up to 16 channels.",
+        "precautions":"The SDIN pin's functionality and timing are dependent on the configuration of other serial audio port pins (SCLK, FSYNC) and related registers (e.g., AUDIO_INTERFACE_CTRL, SDIN_CTRL). Care must be taken to ensure that the data format, word length, and timing (including any offsets configured in SDIN_OFFSET_MSB, SDIN_AUDIO_OFFSET, and SDIN_LL_OFFSET registers) are correctly set according to the audio source device and the desired operating mode."
       },
       "input_voltage":{
         "max":3.9,
         "min":-0.3,
         "units":"V"
       },
-      "internal_pull":{
-        "direction":"DOWN",
-        "pull_value":{
-          "nom":110000.0,
-          "units":"ohm"
-        }
-      },
+      "internal_pull":null,
       "name":"SDIN",
       "pin_id":"3",
       "type":"DIGITAL",
       "vih":{
-        "nom":0.7,
-        "units":"%DVDD"
+        "min":0.7,
+        "units":"DVDD"
       },
       "vil":{
-        "nom":0.3,
-        "units":"%DVDD"
+        "max":0.3,
+        "units":"DVDD"
       }
     },
     "Thermal Pad":{
       "description":"Provides electrical and thermal connection for the device. Must be connected to GND.",
       "direction":"INPUT",
       "implementation":{
-        "connected_components":"The Thermal Pad should be connected to the ground plane of the PCB. This connection should be made using multiple vias to ensure good thermal and electrical conductivity. A large copper area on the PCB connected to the thermal pad is recommended for effective heat dissipation.",
-        "connectivity":"The Thermal Pad must be connected to Ground (GND).",
-        "detailed_description":"The Thermal Pad serves a dual purpose: it provides an electrical connection for the device to ground, and it facilitates thermal management by allowing heat to dissipate from the IC to the PCB.",
-        "functionality":"Provides both an electrical ground connection and a thermal path for heat dissipation.",
-        "precautions":"Proper thermal design is crucial. The thermal pad must be adequately connected to a large copper area on the PCB to ensure effective heat dissipation. Failure to do so can lead to overheating and potential device malfunction or damage. Ensure that the vias connecting the thermal pad to the ground plane are properly plated and that there is sufficient copper area for heat spreading."
+        "connected_components":[
+          {
+            "component_name":"Ground Plane",
+            "description":"A dedicated ground plane on the PCB is the recommended connection point for the Thermal Pad. This provides a low-impedance path to ground and facilitates efficient heat spreading."
+          },
+          {
+            "component_name":"Ground Pins",
+            "description":"While the Thermal Pad is a primary thermal and electrical connection point, ensure that other dedicated ground pins (GND) on the device are also properly connected to the ground plane."
+          }
+        ],
+        "connectivity":"The Thermal Pad must be connected to ground (GND) in the schematic and on the PCB layout. This connection is crucial for both electrical performance and thermal stability of the device.",
+        "detailed_description":"The Thermal Pad is primarily for providing a robust electrical and thermal connection for the device. It serves as a ground connection and helps dissipate heat generated during operation, ensuring the device remains within its safe operating temperature limits.",
+        "functionality":"The Thermal Pad's primary function is to provide a low-resistance path to ground for both electrical connection and thermal dissipation. It does not serve different functions based on connectivity; its purpose is singular: grounding and thermal management.",
+        "precautions":[
+          "Ensure the Thermal Pad is adequately soldered to the PCB to provide a strong electrical and thermal connection. Insufficient solder can lead to performance degradation and overheating.",
+          "The Thermal Pad should be connected to a substantial copper area on the PCB. This copper area acts as a heatsink, drawing heat away from the device. Refer to layout guidelines in the datasheet for recommended copper area.",
+          "Do not route any signal traces or power traces underneath the Thermal Pad if it is intended to be used for thermal dissipation, as this can compromise thermal performance.",
+          "Verify that the Thermal Pad connection to ground is solid and has low impedance to prevent any ground bounce or potential EMI issues."
+        ]
       },
+      "internal_pull":null,
       "name":"Thermal Pad",
-      "pin_id":"- ",
+      "pin_id":"Thermal Pad",
       "type":"POWER"
     }
-  }
+  },
+  "serial_bus":false
 }

@@ -179,3 +179,7 @@ class _DatasheetManager:
 
 
 DatasheetManager = _DatasheetManager()
+
+
+if __name__ == "__main__":
+    DatasheetManager.new_datasheet("tas6511qpwprq1")

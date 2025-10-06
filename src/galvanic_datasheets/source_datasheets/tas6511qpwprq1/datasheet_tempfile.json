@@ -1,0 +1,21 @@
+{
+  "high_level":{
+    "base_part_number":"TAS6511",
+    "device_type":"AUDIO_AMPLIFIER",
+    "manufacturer":"Texas Instruments",
+    "packages":[
+      "HTSSOP"
+    ],
+    "part_numbers":{
+      "TAS6511QPWPRQ1":{
+        "options":{
+          "Package Type":"HTSSOP"
+        }
+      }
+    },
+    "serial_busses":[
+      "I2C"
+    ]
+  },
+  "pins":false
+}

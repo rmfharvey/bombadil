@@ -39,7 +39,7 @@ def sanitize_raw_output(external_fault_handler=False):
 
             try:
                 sanitized = DatasheetConverter.remove_gemini_shittalking(response.text)
-            except:
+            except Exception as err:
                 if external_fault_handler:
                     sanitized = response
                 else:
@@ -420,9 +420,9 @@ class DatasheetConverter:
 class MicroDatasheetConverter(DatasheetConverter):
     def analyze_datasheet(self):
         try:
-            # self._json["high_level"] = self.AI_PARSER_get_high_level_info()
-            # self._json["cores"] = self.AI_PARSER_get_cores_and_memory()
-            # self._json["pads"] = self._get_pin_pad_mapping_iteratively()
+            self._json["high_level"] = self.AI_PARSER_get_high_level_info()
+            self._json["cores"] = self.AI_PARSER_get_cores_and_memory()
+            self._json["pads"] = self._get_pin_pad_mapping_iteratively()
             self._json["pin_pad_mapping"] = self.AI_PARSER_get_pin_pad_mapping()
 
             # self._json["pads"] = self.AI_PARSER_get_pin_muxing()
