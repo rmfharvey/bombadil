@@ -2,8 +2,14 @@ import abc
 from PySide6.QtWidgets import QWidget
 
 
-# TODO figure out how to use ABCMeta with another inherited class.  I believe tou need to define a newversion o QWidget with some new attributes
-class GWidget(QWidget):  # , metaclass=abc.ABCMeta):
+class QABCMeta(abc.ABCMeta, type(QWidget)):
+    """Metaclass that combines ABCMeta with Qt's metaclass for abstract base classes.
+    Order matters: ABCMeta first to ensure _abc_impl is properly initialized"""
+
+    pass
+
+
+class GWidget(QWidget, metaclass=QABCMeta):
     def __init__(self, form, linked_obj=None):
         super().__init__()
         self._obj = linked_obj

@@ -17,5 +17,5 @@ class PadWidget(GWidget):
         self.ui.pin_name_label.setText(self.obj.pin_name or "")
         self.ui.net_name_lineedit.setText(self.obj.net_name or "")
 
-    def _connect(self):
+    def _connect_signals(self):
         self.ui

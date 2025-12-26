@@ -12,7 +12,7 @@ Galvanic is a comprehensive electronics design and project management platform f
 
 This tool streamlines the hardware engineering workflow by:
 - Integrating with Altium Designer for schematic and BOM management
-- Using AI (Google Gemini) to analyze datasheets and assist with design decisions
+- Using AI to analyze datasheets and assist with design decisions
 - Providing visual UI for microcontroller pad configuration and register mapping
 - Tracking project tasks through Linear.app integration
 - Managing component datasheets and vendor information
