@@ -28,32 +28,19 @@ class Ui_Form(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.pad_name_label = QLabel(Form)
         self.pad_name_label.setObjectName(u"pad_name_label")
-        self.pad_name_label.setMinimumSize(QSize(60, 0))
-        self.pad_name_label.setMaximumSize(QSize(60, 16777215))
+        self.pad_name_label.setMinimumSize(QSize(80, 0))
+        self.pad_name_label.setMaximumSize(QSize(80, 16777215))
         self.pad_name_label.setAlignment(Qt.AlignCenter)
 
         self.horizontalLayout.addWidget(self.pad_name_label)
 
-        self.pin_name_label = QLabel(Form)
-        self.pin_name_label.setObjectName(u"pin_name_label")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pin_name_label.sizePolicy().hasHeightForWidth())
-        self.pin_name_label.setSizePolicy(sizePolicy)
-        self.pin_name_label.setMinimumSize(QSize(60, 0))
-        self.pin_name_label.setMaximumSize(QSize(60, 16777215))
-        self.pin_name_label.setAlignment(Qt.AlignCenter)
-
-        self.horizontalLayout.addWidget(self.pin_name_label)
-
         self.function_combobox = QComboBox(Form)
         self.function_combobox.setObjectName(u"function_combobox")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.function_combobox.sizePolicy().hasHeightForWidth())
-        self.function_combobox.setSizePolicy(sizePolicy1)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.function_combobox.sizePolicy().hasHeightForWidth())
+        self.function_combobox.setSizePolicy(sizePolicy)
         self.function_combobox.setMinimumSize(QSize(150, 0))
         self.function_combobox.setMaximumSize(QSize(150, 16777215))
 
@@ -61,22 +48,22 @@ class Ui_Form(object):
 
         self.net_name_lineedit = QLineEdit(Form)
         self.net_name_lineedit.setObjectName(u"net_name_lineedit")
-        sizePolicy1.setHeightForWidth(self.net_name_lineedit.sizePolicy().hasHeightForWidth())
-        self.net_name_lineedit.setSizePolicy(sizePolicy1)
+        sizePolicy.setHeightForWidth(self.net_name_lineedit.sizePolicy().hasHeightForWidth())
+        self.net_name_lineedit.setSizePolicy(sizePolicy)
         self.net_name_lineedit.setMinimumSize(QSize(250, 0))
         self.net_name_lineedit.setMaximumSize(QSize(250, 16777215))
         self.net_name_lineedit.setAlignment(Qt.AlignCenter)
 
         self.horizontalLayout.addWidget(self.net_name_lineedit)
 
-        self.horizontalSpacer = QSpacerItem(159, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer = QSpacerItem(205, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
-        self.reset_pushbutton = QPushButton(Form)
-        self.reset_pushbutton.setObjectName(u"reset_pushbutton")
+        self.comment_pushbutton = QPushButton(Form)
+        self.comment_pushbutton.setObjectName(u"comment_pushbutton")
 
-        self.horizontalLayout.addWidget(self.reset_pushbutton)
+        self.horizontalLayout.addWidget(self.comment_pushbutton)
 
 
         self.retranslateUi(Form)
@@ -86,9 +73,8 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.pad_name_label.setText(QCoreApplication.translate("Form", u"{pad}", None))
-        self.pin_name_label.setText(QCoreApplication.translate("Form", u"{pin}", None))
+        self.pad_name_label.setText(QCoreApplication.translate("Form", u"{pad | pin}", None))
         self.net_name_lineedit.setPlaceholderText(QCoreApplication.translate("Form", u"Net Name", None))
-        self.reset_pushbutton.setText(QCoreApplication.translate("Form", u"Reset", None))
+        self.comment_pushbutton.setText(QCoreApplication.translate("Form", u"Comment", None))
     # retranslateUi
 

@@ -12,6 +12,7 @@ class QABCMeta(abc.ABCMeta, type(QWidget)):
 class GWidget(QWidget, metaclass=QABCMeta):
     def __init__(self, form, linked_obj=None):
         super().__init__()
+        self._comment = None
         self._obj = linked_obj
 
         self.ui = form()
@@ -22,6 +23,8 @@ class GWidget(QWidget, metaclass=QABCMeta):
 
     def _check_common_elements(self):
         has_comment_pushbutton = hasattr(self.ui, "comment_pushbutton")
+        if has_comment_pushbutton:
+            self.ui.comment_pushbutton.clicked.connect(self._handler_comment_button_clicked)
 
     ####################################################################################################################
     ### Abstract Methods
@@ -40,3 +43,10 @@ class GWidget(QWidget, metaclass=QABCMeta):
     @property
     def obj(self):
         return self._obj
+
+    ####################################################################################################################
+    ### Signal Handlers
+    ####################################################################################################################
+    def _handler_comment_button_clicked(self):
+        """Open a comment dialog when the comment button is clicked"""
+        # TODO open comment QDialog window with a text frame and "ok" pushbottonropmt . prompt the user to add a comment, then assign to self._comment
