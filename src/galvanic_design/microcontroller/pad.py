@@ -1,5 +1,10 @@
+from __future__ import annotations
+import typing
 from galvanic_design.base_objects import BaseObject
-from galvanic.ui.microcontroller.pad_widget import PadWidget
+from galvanic.ui.microcontroller.pad_widget import PadWidget, PadListWidget
+
+if typing.TYPE_CHECKING:
+    from galvanic_design.microcontroller.microcontroller import Microcontroller
 
 
 class PadFunction:
@@ -45,32 +50,28 @@ class PadFunctions:
 
 
 class Pad(BaseObject):
-    pad_name: str
-    pin_name: str = None
-    functions: list = []
-    net_name: str = None
-    current_function: str = None
-
     WIDGET_CLASS = PadWidget
 
     def __init__(
         self,
         pad_name: str = None,
-        pin_name: str = None,
         functions: list = [],
         net_name: str = None,
         current_function: str = None,
+        create_ui: bool = False,
+        parent_micro: Microcontroller = None,
     ):
         super().__init__(name=pad_name)
 
-        self.pin_name = pin_name
+        self.parent_micro = parent_micro
         self.functions = PadFunctions(functions)
         self.net_name = net_name
 
         self.current_function = None
         self.set_function(current_function)
 
-        self.ui_object = self.create_ui_element()
+        if create_ui:
+            self.ui_object = self.create_ui_element()
 
     def load_config(self, config):
         config = self._resolve_config_path(config)
@@ -96,3 +97,16 @@ class Pad(BaseObject):
     def pad_name(self, value):
         assert isinstance(value, str), "Pad name must be a string"
         self.name = value
+
+    @property
+    def pin_name(self):
+        # TODO retrieve associated based on package in parent micro
+        return None
+
+
+class PadList(BaseObject):
+    WIDGET_CLASS = PadListWidget
+
+    def __init__(self, pads):
+        self.pads = {k: Pad.from_config(v) for k, v in pads.items()}
+        super().__init__(create_ui=True)

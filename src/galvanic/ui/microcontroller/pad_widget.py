@@ -1,13 +1,12 @@
 from __future__ import annotations  # Skip typehinting evaluation
 
-from sympy import solve_linear_system
-
 from galvanic.ui.microcontroller.forms.pad_ui import Ui_Form as PadForm
+from galvanic.ui.microcontroller.forms.pad_list_ui import Ui_Form as PadListForm
 from galvanic.ui import GWidget
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:  # Avoid circular dependency with Pad/PadWidget
-    from galvanic_design.microcontroller.pad import Pad
+    from galvanic_design.microcontroller.pad import Pad, PadList
 
 
 class PadWidget(GWidget):
@@ -46,3 +45,30 @@ class PadWidget(GWidget):
         if new_net_name == "":
             new_net_name = None
         self.obj.net_name = new_net_name
+
+
+class PadListWidget(GWidget):
+    def __init__(self, pad_list_obj: PadList):
+        super().__init__(form=PadListForm, linked_obj=pad_list_obj)
+
+    def _repopulate(self, sort_by="pad"):
+        """Repopulate the pad list, sorted by either pad or pin
+
+        :param str sort_by: 'pad' or 'pin'
+        """
+        sort_by = "pad"  # Just assert for now
+        assert sort_by in ["pin", "pad"]
+
+        values = {getattr(pad, f"{sort_by}_name"): pad for pad in self.obj.pads.values()}
+        values.pop(None, None)  # Pop unused pads
+        sorted_keys = sorted(values.keys(), reverse=True)  # TODO Change to alphanumeric sort with re later
+
+        for k in sorted_keys:
+            pad_obj = values[k]
+            self.ui.pad_scrollarea_layout.insertWidget(0, pad_obj.ui_object)
+
+    def _setup(self):
+        self._repopulate(sort_by="pin")
+
+    def _connect_signals(self):
+        pass

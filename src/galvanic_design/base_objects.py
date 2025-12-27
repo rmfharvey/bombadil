@@ -1,25 +1,25 @@
 import json
 import logging
 from pathlib import Path
-from galvanic import colored_logger
+from galvanic import colored_logger, global_logger
 from galvanic.ui.base_ui_objects import GWidget
 
 
 class BaseObject:
-    comment: str = None
-    logger: logging.Logger = None
-
     WIDGET_CLASS = None
 
-    def __init__(self, name=None, logging_level=logging.INFO):
+    def __init__(self, name=None, logging_level=logging.INFO, create_ui: bool = False):
         self.name = name
 
         logger_name = self.name or self.__class__.__name__
         self.logger = colored_logger(name=logger_name, level=logging_level)
 
+        if create_ui:
+            self.ui_object = self.create_ui_element()
+
     @classmethod
     def from_config(cls, config):
-        obj = cls()
+        obj = cls(create_ui=False)
         obj.load_config(config)
         return obj
 
@@ -31,11 +31,13 @@ class BaseObject:
             w = None
         return w
 
-    def load_config(self, config: Path | str | dict):
+    def load_config(self, config: Path | str | dict, create_ui: bool = False):
         # Load config from path or dict
         config = self._resolve_config_path(config)
         self._load_dict_values(config, overwrite=True)
-        self.ui_object = self.create_ui_element()
+
+        if create_ui:
+            self.ui_object = self.create_ui_element()
 
     def get_config(self, partial_config: dict = {}, ignore_keys: list = []):
         # TODO Get all public members in the object that are not properties, not in ignore_keys, and not in partial_config.  Get their values and add them to partial_config.   The dictionary key should be the member/variable name
@@ -72,10 +74,13 @@ class BaseObject:
         """
         for k, v in config.items():
             has_attribute = hasattr(self, k)
-            has_attrvalue = getattr(self, k) is not None
-            if has_attribute and has_attrvalue:
-                if overwrite:
-                    self.logger.warning(f"Overwriting existing value for {k}")
-                    setattr(self, k, v)
-                else:
-                    self.logger.warning(f"{k} is already assigned a value of {v}.  Skipping.")
+            has_attrvalue = getattr(self, k, None) is not None
+
+            if has_attribute:
+                if has_attrvalue:
+                    if not overwrite:
+                        self.logger.warning(f"{k} is already assigned a value of {v}.  Skipping.")
+                        continue
+                    else:
+                        self.logger.warning(f"Overwriting existing value for {k}")
+            setattr(self, k, v)
