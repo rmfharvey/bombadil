@@ -22,7 +22,7 @@ class PadWidget(GWidget):
         self.ui.pad_name_label.setText(pp_name)
 
         self.ui.function_combobox.clear()
-        self.ui.function_combobox.addItems(list(self.obj.functions.as_dict.keys()))
+        self.ui.function_combobox.addItems(["-"] + list(self.obj.functions.as_dict.keys()))
         self.ui.net_name_lineedit.setText(self.obj.net_name or "")
 
     def _connect_signals(self):
@@ -35,7 +35,7 @@ class PadWidget(GWidget):
     def _handler_function_changed(self):
         """Update the function of the pad when user input is provided"""
         selected_function = self.ui.function_combobox.currentText()
-        if selected_function == "":
+        if selected_function == "-":
             selected_function = None
         self.obj.set_function(selected_function)
 
@@ -56,7 +56,7 @@ class PadListWidget(GWidget):
 
         :param str sort_by: 'pad' or 'pin'
         """
-        sort_by = "pad"  # Just assert for now
+        sort_by = "pad"  # TODO Just assert for now need to get pin names assigned in Pad/Microcontroller
         assert sort_by in ["pin", "pad"]
 
         values = {getattr(pad, f"{sort_by}_name"): pad for pad in self.obj.pads.values()}

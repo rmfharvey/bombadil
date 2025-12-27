@@ -23,9 +23,11 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(805, 44)
+        Form.resize(740, 26)
         self.horizontalLayout = QHBoxLayout(Form)
+        self.horizontalLayout.setSpacing(6)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setContentsMargins(-1, 0, 0, 0)
         self.pad_name_label = QLabel(Form)
         self.pad_name_label.setObjectName(u"pad_name_label")
         self.pad_name_label.setMinimumSize(QSize(80, 0))

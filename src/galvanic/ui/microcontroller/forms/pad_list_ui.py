@@ -43,6 +43,7 @@ class Ui_Form(object):
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
         self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 924, 574))
         self.pad_scrollarea_layout = QVBoxLayout(self.scrollAreaWidgetContents)
+        self.pad_scrollarea_layout.setSpacing(0)
         self.pad_scrollarea_layout.setObjectName(u"pad_scrollarea_layout")
         self.pad_scrollarea_layout.setContentsMargins(2, 2, 2, 2)
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
