@@ -14,9 +14,10 @@ if __name__ == "__main__":
     projects = AltiumServerAPI.get_project_list()
 
     guid = {
-        "Sensor Node": "DA220208-0D1D-4C1A-A0FF-E0D169E92F96",
-        "Skynode Power Module": "A3271523-CB6E-428C-985C-8895C26F87C0",
-        "Mothernode Control Board": "8FFEC27D-C20D-4837-A862-F81EF9A4EC6E",
+        # "Sensor Node": "DA220208-0D1D-4C1A-A0FF-E0D169E92F96",
+        # "Skynode Power Module": "A3271523-CB6E-428C-985C-8895C26F87C0",
+        # "Mothernode Control Board": "8FFEC27D-C20D-4837-A862-F81EF9A4EC6E",
+        "Ethernet PCBA": "09223E16-7ED1-4861-B442-5CDBF9B0A9A5",
     }
     PRJ_NAME = "Sensor Node"
 

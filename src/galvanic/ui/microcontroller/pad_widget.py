@@ -71,4 +71,5 @@ class PadListWidget(GWidget):
         self._repopulate(sort_by="pin")
 
     def _connect_signals(self):
+        """Nothing to do for now"""
         pass
