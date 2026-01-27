@@ -1,0 +1,916 @@
+{
+  "General": [
+    {
+      "name": "Design Rule Check (DRC) Passed",
+      "description": "Run the EDA tool's design rule check and resolve all errors. DRC verifies trace widths, clearances, drill sizes, and other physical constraints against manufacturing capabilities. All violations must be resolved or explicitly waived with documented justification.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "Electrical Rule Check (ERC) Passed",
+      "description": "Run the electrical rule check on the schematic to identify unconnected pins, conflicting outputs, missing power connections, and other electrical errors. All warnings should be reviewed even if not technically errors.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Netlist Comparison",
+      "description": "Verify that the PCB layout netlist matches the schematic netlist exactly. Any mismatches indicate synchronization issues between schematic and layout that must be resolved before fabrication.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "BOM Review and Component Availability",
+      "description": "Review the bill of materials for accuracy, check current stock levels and lead times for all components. Identify any obsolete, NRND (not recommended for new designs), or long-lead-time parts. Verify second sources exist for critical components.",
+      "priority": 1,
+      "type": "Other"
+    },
+    {
+      "name": "Schematic Hierarchy and Organization",
+      "description": "Verify schematic sheets are logically organized with clear signal flow (typically left-to-right, top-to-bottom). Power inputs should be at top, grounds at bottom. Each sheet should have a clear purpose and appropriate title.",
+      "priority": 3,
+      "type": "Schematic"
+    },
+    {
+      "name": "Component Footprint Verification",
+      "description": "Verify all component footprints match the actual components to be used. Cross-reference footprint dimensions against manufacturer datasheets. Pay special attention to pin 1 orientation, pad sizes, and any thermal pads.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "Mounting Holes and Mechanical Features",
+      "description": "Verify mounting hole locations, sizes, and keep-out zones match the enclosure or mounting requirements. Check for clearance around mounting hardware and verify electrical isolation requirements (plated vs non-plated holes).",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "Fiducial Markers Present",
+      "description": "Include at least 3 fiducial markers (global fiducials) for automated pick-and-place alignment. Place them asymmetrically in a triangular pattern. Add local fiducials near fine-pitch components (BGA, QFN with pitch < 0.5mm).",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "Silkscreen Legibility and Accuracy",
+      "description": "Verify all reference designators are visible and not covered by components or solder mask. Check polarity markings for polarized components, pin 1 indicators, and any assembly notes. Minimum text height typically 0.8mm for legibility.",
+      "priority": 3,
+      "type": "Layout"
+    },
+    {
+      "name": "Board Outline and Dimensions",
+      "description": "Verify board outline matches mechanical requirements. Check all cutouts, slots, and edge clearances. Confirm board thickness specification is correct for connectors and impedance requirements.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "Version and Revision Marking",
+      "description": "Include board revision number, date code, and company/project identification in copper or silkscreen. Place in location visible after assembly. Consider adding a revision history table in documentation.",
+      "priority": 3,
+      "type": "Layout"
+    },
+    {
+      "name": "Test Point Accessibility",
+      "description": "Verify critical signals have accessible test points for debugging and production testing. Test points should be on a grid pattern if bed-of-nails testing is planned. Include test points for all power rails and key signals.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "Layer Stackup Verification",
+      "description": "Confirm layer stackup with PCB fabricator, including copper weights, dielectric materials, and thicknesses. Verify impedance calculations match the actual stackup. Document the stackup in fabrication notes.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "Copper Pour Connectivity",
+      "description": "Verify all copper pours are properly connected and have no isolated islands. Check that ground pours have adequate via stitching to inner ground planes. Confirm thermal relief settings are appropriate for hand soldering if required.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "Assembly Drawing Review",
+      "description": "Create and review assembly drawings showing component placement, orientation, and any special assembly instructions. Include top and bottom views with clear polarity markings and reference designators.",
+      "priority": 2,
+      "type": "Other"
+    },
+    {
+      "name": "Fabrication Drawing Review",
+      "description": "Create fabrication drawing with board dimensions, layer stackup, drill chart, material specifications, surface finish requirements, and any special instructions. Include impedance control requirements if applicable.",
+      "priority": 2,
+      "type": "Other"
+    },
+    {
+      "name": "Gerber File Generation and Verification",
+      "description": "Generate Gerber files and verify using a standalone Gerber viewer (not the EDA tool). Check each layer for completeness, verify drill files, and confirm all apertures are correct. Compare against design visually.",
+      "priority": 1,
+      "type": "Other"
+    },
+    {
+      "name": "Component Placement DFM",
+      "description": "Verify component spacing meets manufacturing requirements. Check for adequate clearance for rework, pick-and-place nozzle access, and solder bridging prevention. Ensure consistent orientation of similar components.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "Solder Mask Review",
+      "description": "Verify solder mask openings are correct for all pads. Check for solder mask dams between fine-pitch pins. Confirm any exposed copper for EMI shields or heat sinking is properly defined.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "Net Class Assignments",
+      "description": "Verify all nets have appropriate net class assignments for trace width, clearance, and via size. Power nets should have wider traces, high-voltage nets need increased clearance, and sensitive signals may need specific routing rules.",
+      "priority": 2,
+      "type": "Schematic"
+    }
+  ],
+  "Microcontroller": [
+    {
+      "name": "Decoupling Capacitor Placement",
+      "description": "Place decoupling capacitors as close as possible to each VDD/VSS pin pair. Smallest value capacitors (100nF) should be closest to pins, with larger bulk capacitors (10uF) nearby. Via placement should minimize loop inductance between capacitor and pins.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "Power Pin Connections Verified",
+      "description": "Verify all VDD, VSS, VDDA, VSSA, VREF, and other power pins are connected to appropriate supplies. Check for any pins requiring specific voltages or filtering. Ensure analog and digital supplies are properly separated if required.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Crystal/Oscillator Layout",
+      "description": "Place crystal as close as possible to oscillator pins with short, matched-length traces. Ground guard ring around crystal and load capacitors. Keep high-speed digital signals away from crystal traces. Verify load capacitor values match crystal requirements.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "Reset Circuit Design",
+      "description": "Verify reset pin has appropriate pull-up resistor, decoupling capacitor for noise immunity, and any required supervisory circuit. Check reset timing requirements against power supply ramp rate. Include ESD protection if reset is externally accessible.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Boot Configuration Pins",
+      "description": "Verify boot mode configuration pins are correctly set for intended boot source (flash, UART, USB, etc.). Use strong pull-up/pull-down resistors (10k or less) to prevent floating during power-up. Document boot configuration in schematic notes.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Programming/Debug Interface",
+      "description": "Include programming header (SWD, JTAG, ISP, etc.) with correct pinout and proper pull resistors. Verify debug signals are accessible and not conflicting with other functions. Consider including UART for debug output.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Unused Pin Handling",
+      "description": "Configure unused GPIO pins appropriately per manufacturer recommendations. Typically set as outputs driven low, or inputs with internal pull-up/down enabled. Do not leave pins floating. Document handling in schematic.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Clock Distribution",
+      "description": "Verify clock signal routing minimizes trace length and avoids crossing split planes. For high-frequency clocks, use controlled impedance traces and terminate appropriately. Keep clock traces away from sensitive analog signals.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "ADC Reference and Input Filtering",
+      "description": "Verify ADC reference has appropriate filtering and decoupling. Check that ADC input traces are routed away from noisy digital signals. Include anti-aliasing filters on ADC inputs if required. Verify VREF voltage source.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Power Sequencing Requirements",
+      "description": "Review microcontroller datasheet for power sequencing requirements between core, I/O, and analog supplies. Verify power supply design meets timing requirements or implement explicit sequencing if needed.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Watchdog Timer Configuration",
+      "description": "Plan for watchdog timer usage in firmware. If external watchdog is used, verify timeout period and connection. Ensure watchdog can be disabled during debugging if needed.",
+      "priority": 3,
+      "type": "Schematic"
+    },
+    {
+      "name": "Memory Interface (External RAM/Flash)",
+      "description": "If using external memory, verify address/data bus routing is length-matched within tolerance. Check timing requirements and add series termination resistors if needed. Verify chip select and write enable logic.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "GPIO Current Capability",
+      "description": "Verify GPIO pins driving loads do not exceed maximum source/sink current ratings. Check total chip current limits for simultaneously active outputs. Add buffers or drivers for high-current loads.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Peripheral Pin Mapping",
+      "description": "Verify all peripheral pin assignments are valid for the specific microcontroller variant. Check for any pin muxing conflicts. Document alternate function assignments in schematic.",
+      "priority": 1,
+      "type": "Schematic"
+    }
+  ],
+  "General Power Architecture": [
+    {
+      "name": "Power Budget Analysis",
+      "description": "Document total power consumption for each rail under worst-case conditions. Include margin for component tolerances and future expansion. Verify power source (battery, AC adapter, USB) can supply required current with margin.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Input Protection",
+      "description": "Include appropriate input protection: TVS diodes for surge protection, fuses or polyfuses for overcurrent, and reverse polarity protection (Schottky diode, P-FET, or ideal diode controller). Size components for expected fault conditions.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Reverse Polarity Protection",
+      "description": "Implement reverse polarity protection appropriate for the application. Series Schottky diode (simple but lossy), P-channel MOSFET (low loss), or ideal diode controller (lowest loss). Verify protection device ratings exceed maximum input voltage and current.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Power Sequencing",
+      "description": "Document required power-up and power-down sequence for all rails. Implement sequencing using enable pins, sequencing controllers, or RC delays as appropriate. Verify no latch-up conditions can occur during sequencing.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Bulk Capacitance",
+      "description": "Provide adequate bulk capacitance at power input and on each rail for transient load response and to meet hold-up time requirements. Consider both capacitance value and ESR for transient performance.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Power Plane Integrity",
+      "description": "Verify power and ground planes have no unintended splits or slots. Check that plane splits do not route high-frequency signals across them. Ensure adequate copper for current carrying capacity.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "Ground Plane Strategy",
+      "description": "Define grounding strategy (single point, multi-point, hybrid). Separate analog and digital grounds if required, with single connection point. Verify ground return paths for all signals, especially high-frequency.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "Power Trace Width/Copper Weight",
+      "description": "Verify trace widths and copper weights support required current with acceptable temperature rise. Use IPC-2152 or similar calculator. Consider both DC resistance and heat dissipation. Add thermal vias under high-current traces.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "Voltage Monitoring",
+      "description": "Include voltage monitoring for critical rails (power-good signals, reset supervisors, or ADC monitoring). Verify monitoring thresholds are appropriate for system requirements.",
+      "priority": 3,
+      "type": "Schematic"
+    },
+    {
+      "name": "Current Limiting",
+      "description": "Implement current limiting on outputs that could be short-circuited or overloaded. This is especially important for USB power outputs, hot-swap applications, and power distribution to removable modules.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Inrush Current Control",
+      "description": "Evaluate inrush current from bulk capacitors and implement limiting if needed. Large inrush can trip breakers, damage connectors, or cause voltage sag. Use NTC thermistors, soft-start circuits, or hot-swap controllers.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Power Indicator LEDs",
+      "description": "Include power indicator LEDs on critical rails for visual debugging. Size current limiting resistors appropriately. Consider LED efficiency and visibility requirements.",
+      "priority": 4,
+      "type": "Schematic"
+    },
+    {
+      "name": "Decoupling Strategy",
+      "description": "Define decoupling strategy for each supply rail. Specify capacitor values, quantities, and placement rules. Include a mix of values to cover broad frequency range (bulk, mid-frequency, high-frequency).",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Power Connector Rating",
+      "description": "Verify power connectors are rated for required voltage and current with appropriate margin. Check contact resistance and mating cycle rating. Ensure connector pinout prevents hot-plug damage.",
+      "priority": 2,
+      "type": "Schematic"
+    }
+  ],
+  "Switch Mode Power Supplies": [
+    {
+      "name": "High-Frequency Current Loop Minimization",
+      "description": "Identify and minimize all high-frequency current loops. For buck converters: input cap - high-side switch - low-side switch - input cap. For boost: inductor - diode - output cap - low-side switch. Keep these loops as small and tight as possible.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "Inductor Selection and Placement",
+      "description": "Verify inductor saturation current exceeds peak current by 20%+ margin. Check DCR for acceptable losses. Place inductor to minimize EMI coupling to sensitive circuits. Verify inductor footprint matches selected component.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Input Capacitor Selection and Placement",
+      "description": "Size input capacitors for ripple current rating, not just capacitance. Use low-ESR ceramic capacitors placed as close as possible to the IC. Check voltage rating exceeds max input with margin. For high-power supplies, use multiple capacitors in parallel.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Output Capacitor Selection",
+      "description": "Select output capacitors for both capacitance and ESR to meet ripple and transient response requirements. Check capacitor derating at operating voltage and temperature. Verify stability with chosen capacitor ESR range.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Switching Node Layout",
+      "description": "Keep switching node copper area small to minimize radiated EMI, but large enough for thermal dissipation. Do not route sensitive signals near or under the switching node. Connect inductor directly to switch node with short, wide trace.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "Feedback Network Layout",
+      "description": "Route feedback signal away from switching node and inductor. Keep feedback trace short and direct. Place feedback resistor divider close to IC. Consider using Kelvin connection for accurate voltage sensing.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "Compensation Network",
+      "description": "Verify compensation network values for stability across all operating conditions (line, load, temperature). Use manufacturer's design tools or calculate crossover frequency and phase margin. Place compensation components close to IC.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Thermal Management",
+      "description": "Calculate power dissipation in IC, inductor, and other components. Verify thermal vias under exposed pads. Check that temperature rise is acceptable at maximum ambient temperature. Add copper pour for heat spreading if needed.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "Bootstrap/Charge Pump Circuit",
+      "description": "For high-side gate drive, verify bootstrap capacitor value and diode selection per datasheet. Place bootstrap components close to IC. Check for adequate refresh during low duty cycle or skip mode operation.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Soft Start Configuration",
+      "description": "Verify soft start time is appropriate for the application. Too fast may cause inrush or output overshoot; too slow may violate system power-up timing. Check soft start capacitor value or register settings.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Enable and Power Good Signals",
+      "description": "Verify enable pin has appropriate pull-up/pull-down for default state. Check power good threshold and delay settings. Route these signals appropriately for sequencing requirements.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Current Sensing",
+      "description": "For current-mode control or current limiting, verify sense resistor value, placement, and trace routing. Kelvin connection for sense resistor is critical. Filter high-frequency noise from current sense signal if needed.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "EMI Filter Design",
+      "description": "Add input EMI filter if required for EMC compliance. Place filter before main input capacitors. Consider both common-mode and differential-mode filtering. Verify filter doesn't create stability issues with upstream supply.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Snubber Circuit",
+      "description": "Evaluate need for snubber circuits to dampen ringing on switch node. Size RC snubber to dampen oscillation without excessive power loss. Place snubber components close to the ringing source.",
+      "priority": 3,
+      "type": "Schematic"
+    },
+    {
+      "name": "Ground Plane Under Magnetics",
+      "description": "Evaluate whether to include or exclude ground plane under inductors and transformers. Solid ground plane can increase eddy current losses but improves EMI. Slotted or absent ground may be better for some applications.",
+      "priority": 3,
+      "type": "Layout"
+    },
+    {
+      "name": "Frequency Selection",
+      "description": "Verify switching frequency is appropriate for efficiency, component size, and EMI requirements. Check that frequency is not near any sensitive system frequencies. For adjustable frequency parts, verify resistor value.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Operating Mode Selection",
+      "description": "Select appropriate operating mode (PWM, PFM, forced CCM, etc.) for efficiency and noise requirements. Understand light-load behavior and any mode transition effects.",
+      "priority": 3,
+      "type": "Schematic"
+    }
+  ],
+  "LDO": [
+    {
+      "name": "Dropout Voltage Margin",
+      "description": "Verify input voltage exceeds output voltage plus dropout voltage under all conditions. Check dropout voltage at maximum load current and minimum input voltage. Include margin for transients and tolerances.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Thermal Dissipation Calculation",
+      "description": "Calculate power dissipation: P = (Vin - Vout) × Iload. Verify junction temperature stays within limits. Consider heatsinking, thermal vias, and copper pour. Evaluate if a switching regulator would be more appropriate for high dissipation.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Input Capacitor Requirements",
+      "description": "Place input capacitor close to LDO input pin. Value typically 1uF-10uF ceramic or per datasheet. Check stability requirements - some LDOs require minimum ESR. Verify voltage rating exceeds maximum input.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Output Capacitor Requirements",
+      "description": "Select output capacitor per datasheet requirements for stability. Many LDOs are sensitive to output capacitor ESR range. Place capacitor close to output pin. Check stability across temperature range as ceramic ESR varies.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Output Capacitor ESR Stability",
+      "description": "Verify output capacitor ESR falls within LDO's stable range across all operating temperatures. Ceramic capacitors have low ESR that decreases with temperature - may need to add series resistance or use tantalum/electrolytic.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Load Transient Response",
+      "description": "Verify LDO can handle expected load transients within output voltage tolerance. Check transient response in datasheet. Add output capacitance if needed for large load steps.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "PSRR at Operating Frequency",
+      "description": "If LDO is post-regulating a switching supply, verify PSRR is adequate at the switcher's operating frequency. PSRR decreases at higher frequencies. May need additional filtering if PSRR is insufficient.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Noise Specification",
+      "description": "For noise-sensitive applications (ADC reference, RF, audio), verify LDO output noise meets requirements. Consider using a dedicated low-noise LDO. Check if noise bypass capacitor pin is available and properly decoupled.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Enable Pin Configuration",
+      "description": "Verify enable pin has appropriate pull-up/pull-down for desired default state. Check enable threshold voltage and hysteresis. For sequencing, verify enable timing requirements.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Current Limit and Protection",
+      "description": "Verify LDO current limit is above maximum expected load but provides protection for faults. Check for thermal shutdown and whether it's auto-retry or latching. Understand behavior during overload.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Thermal Via Array",
+      "description": "For LDOs with exposed thermal pad, include array of thermal vias to inner ground plane. Vias should be 0.3mm diameter, arranged in grid pattern, within the thermal pad footprint. Connect to large copper pour.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "Ground Connection",
+      "description": "Keep ground connection from LDO ground pin to capacitors short and low impedance. For adjustable LDOs, feedback resistor divider ground must have clean connection to avoid regulation errors.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "Reverse Current Protection",
+      "description": "If LDO output could be pulled above input (backup battery, external supply), verify LDO has internal protection or add external Schottky diode to prevent reverse current damage.",
+      "priority": 3,
+      "type": "Schematic"
+    },
+    {
+      "name": "Adjustable LDO Feedback Divider",
+      "description": "For adjustable output LDOs, calculate feedback resistor divider values for desired output. Use 1% tolerance resistors. Keep divider impedance within recommended range. Place resistors close to feedback pin.",
+      "priority": 2,
+      "type": "Schematic"
+    }
+  ],
+  "Communication Buses": [
+    {
+      "name": "I2C Pull-up Resistor Sizing",
+      "description": "Calculate I2C pull-up resistors based on bus capacitance and speed mode. Typical values: 4.7kΩ for 100kHz, 2.2kΩ for 400kHz, lower for faster modes. Verify total bus capacitance doesn't exceed specification. Check rise time meets requirements.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "I2C Address Conflicts",
+      "description": "Verify all I2C devices on the same bus have unique addresses. Check for address pin options if conflicts exist. Document all device addresses in schematic. Consider I2C multiplexer if address conflicts cannot be resolved.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "SPI Chip Select Routing",
+      "description": "Ensure each SPI slave has independent chip select signal. Route chip selects with appropriate drive strength. Add pull-ups if chip selects could float during power-up. Verify chip select polarity for each device.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "SPI Signal Integrity",
+      "description": "For high-speed SPI (>10MHz), consider trace impedance and termination. Match trace lengths for clock and data signals if timing margin is tight. Keep traces short and avoid vias on high-speed signals.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "UART Level Compatibility",
+      "description": "Verify UART voltage levels are compatible between devices (3.3V, 5V, RS-232). Add level shifters if needed. Check for 5V tolerance on 3.3V device inputs. Include ESD protection for external interfaces.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "UART Flow Control",
+      "description": "Verify RTS/CTS flow control signals are connected if used. Check handshake polarity and whether hardware flow control is needed for reliable operation at high data rates. Add pull-up/down on flow control signals if hardware flow control is not used.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "CAN Bus Termination",
+      "description": "Include 120Ω termination resistor at each end of CAN bus. For single-board systems with CAN connector, provide option for termination (jumper or populated/unpopulated resistor). Verify termination strategy for the network topology.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "CAN Transceiver Protection",
+      "description": "Add ESD protection on CAN bus lines. Consider common mode chokes for EMI filtering. Verify transceiver fault protection features (short circuit, over-voltage). Check for split termination to reduce common mode noise.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "USB Differential Pair Routing",
+      "description": "Route USB D+ and D- as controlled impedance differential pair (90Ω). Match lengths within 150mil (USB 2.0) or tighter for USB 3.x. Minimize vias and keep continuous ground reference. Follow USB-IF routing guidelines.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "USB ESD Protection",
+      "description": "Add ESD protection diodes on USB data lines and VBUS. Select ESD devices with low capacitance (<0.5pF per line for USB 2.0 HS). Place protection close to connector. Verify clamping voltage is appropriate.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "USB Power Delivery",
+      "description": "For USB host ports, include current limiting and over-current protection on VBUS. Verify power supply can deliver USB specification current. Add power switch IC for proper control and protection.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "RS-485 Bias Resistors",
+      "description": "Add fail-safe bias resistors to keep RS-485 bus in known state when no drivers active. Typical values: 560Ω pull-up on A, 560Ω pull-down on B. Include termination resistor at line ends.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Ethernet Magnetics Placement",
+      "description": "Place Ethernet magnetics close to connector with short, matched-length traces to PHY. Route differential pairs with proper impedance. Include required common mode chokes and ESD protection.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "High-Speed Signal Reference Planes",
+      "description": "Ensure all high-speed communication signals have continuous reference plane. Avoid routing over plane splits or gaps. If layer change is necessary, place ground vias nearby to provide return path.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "Connector Pinout Verification",
+      "description": "Double-check all communication connector pinouts against mating connectors/cables. Verify pin 1 orientation and any keying. Cross-reference with external device documentation. Include pinout in silkscreen or documentation.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Signal Isolation Requirements",
+      "description": "Evaluate need for galvanic isolation on communication interfaces. Add digital isolators or isolated transceivers where required for safety or ground loop prevention. Verify isolation voltage rating meets requirements.",
+      "priority": 2,
+      "type": "Schematic"
+    }
+  ],
+  "Connectors and Interfaces": [
+    {
+      "name": "Connector Mating Verification",
+      "description": "Verify all connectors mate correctly with intended cables or board-to-board connections. Check gender, pitch, pin count, and keying. Obtain mating connector samples and verify fit.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Hot-Plug Considerations",
+      "description": "For hot-pluggable connectors, verify pin sequencing (ground first, then power, then signals). Add appropriate protection for hot-plug events. Consider inrush limiting and ESD protection.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Connector Mechanical Retention",
+      "description": "Verify connectors have adequate mechanical retention (latches, friction fit, or mounting tabs). Check mounting holes or tabs are properly anchored. Consider strain relief for cable connectors.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "ESD Protection on External Interfaces",
+      "description": "Add ESD protection on all externally accessible signals. Select TVS diodes appropriate for signal speed and voltage. Place protection devices close to connectors. Verify trigger voltage is above normal signal range.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Keying and Polarity Protection",
+      "description": "Use keyed connectors where incorrect insertion could cause damage. Add reverse polarity protection on power connectors. Consider asymmetric mounting for board-to-board connectors.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Signal and Power Connector Separation",
+      "description": "Separate high-power and sensitive signal connectors where practical. Avoid routing sensitive signals near power connector pins. Consider EMI coupling between adjacent connectors.",
+      "priority": 3,
+      "type": "Layout"
+    },
+    {
+      "name": "Debug and Programming Headers",
+      "description": "Include appropriate debug headers with standard pinouts (ARM SWD, JTAG, ISP). Place headers accessibly for probe connection. Add labels for pin 1 and signal names.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "Expansion Connector Pin Allocation",
+      "description": "For expansion connectors, allocate pins logically with power and ground distributed appropriately. Include unused pins for future expansion. Document all pin allocations clearly.",
+      "priority": 3,
+      "type": "Schematic"
+    }
+  ],
+  "EMC and Signal Integrity": [
+    {
+      "name": "Controlled Impedance Requirements",
+      "description": "Identify all signals requiring controlled impedance (high-speed digital, RF, differential pairs). Specify trace widths and spacing for target impedance. Verify with PCB stackup calculator and document on fabrication drawing.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "Length Matching for High-Speed Signals",
+      "description": "Match trace lengths for parallel buses, differential pairs, and clock-to-data relationships per timing requirements. Specify acceptable skew in design rules. Use serpentine routing to match lengths.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "Return Path Continuity",
+      "description": "Verify all signals have continuous return path on adjacent reference plane. Avoid routing signals over plane splits. When changing layers, add stitching vias for ground return near the signal via.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "Via Stitching for Ground Planes",
+      "description": "Add via stitching around board edges and near high-frequency circuits to connect ground planes and reduce slot antenna effects. Typical spacing should be less than λ/20 at highest frequency of concern.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "Crystal and Oscillator Isolation",
+      "description": "Route high-speed signals away from crystal oscillator circuits. Add guard ring around crystal if near noisy circuits. Avoid routing digital signals under oscillator components.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "EMI Filter Placement",
+      "description": "Place EMI filters at board edge, close to connectors where noise enters or exits. Maintain separation between filtered and unfiltered sides of the filter. Avoid coupling around the filter.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "Spread Spectrum Clocking",
+      "description": "Consider enabling spread spectrum clocking on applicable ICs to reduce EMI peaks. Verify downstream devices can tolerate frequency modulation. Document spread spectrum settings.",
+      "priority": 3,
+      "type": "Schematic"
+    },
+    {
+      "name": "Ferrite Bead Selection",
+      "description": "Select ferrite beads based on impedance at frequency of concern, not just DC resistance. Verify current rating exceeds maximum expected current. Check for saturation at DC bias.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "I/O Filtering Strategy",
+      "description": "Define filtering strategy for all I/O signals. Include series resistors, ferrite beads, and/or capacitors as appropriate for EMC and signal integrity. Document filter cutoff frequencies.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Clock Signal Termination",
+      "description": "Properly terminate clock signals to prevent reflections. Use series termination at source or parallel termination at load as appropriate. Verify termination resistor value matches trace impedance.",
+      "priority": 2,
+      "type": "Schematic"
+    }
+  ],
+  "Thermal Management": [
+    {
+      "name": "Component Derating at Temperature",
+      "description": "Verify all components are derated appropriately for maximum operating temperature. Check capacitor voltage/capacitance derating, LED current derating, and semiconductor thermal limits.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Thermal Via Design",
+      "description": "Include thermal vias under components with exposed thermal pads. Use via-in-pad with filled vias, or offset vias with thermal spoke connections. Calculate thermal resistance and verify adequacy.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "Copper Pour for Heat Spreading",
+      "description": "Add copper pour on multiple layers under high-power components. Connect with thermal vias for heat conduction to opposite side or internal planes. Calculate heat spreading area requirements.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "Component Placement for Thermal Management",
+      "description": "Place heat-generating components to maximize airflow and heat dissipation. Avoid placing temperature-sensitive components near heat sources. Consider convection patterns in the enclosure.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "Heatsink Mounting",
+      "description": "If heatsinks are used, verify mounting hole locations and component clearances. Specify thermal interface material. Check heatsink height against enclosure clearance. Verify thermal performance meets requirements.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "Thermal Simulation/Analysis",
+      "description": "For high-power designs, perform thermal simulation to verify hot spots are within limits. Validate with prototype thermal imaging. Document thermal analysis results and assumptions.",
+      "priority": 2,
+      "type": "Other"
+    }
+  ],
+  "DFM and Manufacturing": [
+    {
+      "name": "Panelization Review",
+      "description": "If board will be panelized, verify panel design with manufacturer. Check V-score or tab-routed edges. Verify tooling holes and rails. Ensure fiducials are visible in panel configuration.",
+      "priority": 3,
+      "type": "Layout"
+    },
+    {
+      "name": "Solder Paste Stencil Review",
+      "description": "Review solder paste apertures for QFN, BGA, and fine-pitch components. Verify aperture reductions per manufacturer guidelines. Check paste release ratios for small apertures.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "Pick-and-Place Requirements",
+      "description": "Verify all SMD components can be placed by pick-and-place machine. Check for adequate clearance around components for nozzle access. Ensure consistent component orientation for efficient assembly.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "Wave Solder Compatibility",
+      "description": "If wave soldering through-hole components, verify SMD components on bottom side can tolerate wave solder temperature. Use SMD glue or selective solder if needed. Check component orientation for wave flow.",
+      "priority": 3,
+      "type": "Layout"
+    },
+    {
+      "name": "Hand Soldering Accessibility",
+      "description": "If hand soldering or rework is required, verify access to components and test points. Check thermal relief on pads requiring hand soldering. Ensure large ground planes have adequate thermal relief.",
+      "priority": 3,
+      "type": "Layout"
+    },
+    {
+      "name": "Conformal Coating Considerations",
+      "description": "If conformal coating will be applied, identify keep-out areas (connectors, test points, programming headers). Verify component compatibility with coating process. Document coating requirements.",
+      "priority": 4,
+      "type": "Layout"
+    },
+    {
+      "name": "ICT Test Point Coverage",
+      "description": "For in-circuit testing, verify test points cover critical nets. Place test points on standard grid for bed-of-nails fixture. Ensure adequate mechanical support for probe pressure.",
+      "priority": 3,
+      "type": "Layout"
+    },
+    {
+      "name": "Component Marking and Traceability",
+      "description": "Include provisions for serial number, date code, or other traceability marking. Verify marking location is visible after assembly. Consider laser marking or label area if needed.",
+      "priority": 4,
+      "type": "Layout"
+    }
+  ],
+  "Analog and Mixed Signal": [
+    {
+      "name": "Analog/Digital Separation",
+      "description": "Separate analog and digital circuits physically and in terms of power supply routing. Define clear boundary between domains. Connect analog and digital grounds at a single point if separate ground planes are used.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "Analog Signal Routing",
+      "description": "Route analog signals away from digital signals, especially clock lines. Use guard traces grounded at both ends for sensitive signals. Minimize trace length and keep traces away from board edges.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "Reference Voltage Filtering",
+      "description": "Filter voltage reference inputs and outputs appropriately. Use low-ESR capacitors close to reference pins. Consider dedicated reference IC for precision applications vs. using internal references.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Op-Amp Decoupling",
+      "description": "Place decoupling capacitors close to op-amp power pins. Include both 100nF and 10uF for each supply rail. For high-frequency op-amps, add small ceramic capacitor (10pF-100pF) for HF bypass.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "Input Bias Current Path",
+      "description": "Ensure DC path exists for op-amp input bias currents. For AC-coupled inputs, add resistor to ground or virtual ground. Match impedance at both inputs to minimize offset from bias current.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Gain Resistor Matching",
+      "description": "For precision circuits, use matched resistor networks or specify tight tolerance resistors. Consider temperature coefficient matching. Document gain accuracy requirements.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Anti-Aliasing Filter Design",
+      "description": "Design anti-aliasing filter with appropriate cutoff frequency (<Fs/2) and attenuation. Verify filter response meets ADC requirements. Consider active vs. passive filter trade-offs.",
+      "priority": 2,
+      "type": "Schematic"
+    },
+    {
+      "name": "Star Point Grounding",
+      "description": "For mixed-signal ICs, identify star point for analog and digital ground connection. Keep digital return currents away from analog ground path. Verify ground plane partitioning strategy.",
+      "priority": 1,
+      "type": "Layout"
+    }
+  ],
+  "Safety and Compliance": [
+    {
+      "name": "Creepage and Clearance Requirements",
+      "description": "Verify PCB spacing meets safety creepage and clearance requirements for applicable standards (UL, IEC, etc.). Document working voltage and pollution degree. Use slots or cutouts to increase effective distance if needed.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "Fuse and Protection Device Rating",
+      "description": "Verify fuse type, rating, and interrupt capacity are appropriate for the application. Check for required safety certifications on protection devices. Document fuse replacement requirements.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Safety Ground Connections",
+      "description": "If chassis or earth ground connection is used, verify proper connection point and conductor sizing. Check that safety ground path has low impedance and can carry fault current.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Flammability Requirements",
+      "description": "Verify PCB material meets flammability requirements (typically FR-4, 94V-0). Document UL file number and agency certifications required for the end product.",
+      "priority": 2,
+      "type": "Other"
+    },
+    {
+      "name": "Safety Marking Requirements",
+      "description": "Include required safety markings (high voltage warnings, fuse ratings, polarity indicators) on silkscreen. Verify text size and durability meet applicable standards.",
+      "priority": 2,
+      "type": "Layout"
+    },
+    {
+      "name": "Isolation Barrier Verification",
+      "description": "For isolated designs, verify creepage and clearance across isolation barrier. Document reinforced vs. basic insulation requirements. Verify optocoupler and isolated power supply ratings.",
+      "priority": 1,
+      "type": "Layout"
+    },
+    {
+      "name": "RoHS and REACH Compliance",
+      "description": "Verify all components are RoHS compliant (and REACH compliant for EU market). Document any exemptions. Obtain compliance documentation from component suppliers.",
+      "priority": 2,
+      "type": "Other"
+    }
+  ],
+  "Documentation": [
+    {
+      "name": "Schematic Completeness",
+      "description": "Verify schematic includes all components, power supply decoupling, test points, and mounting hardware. Check that all off-page connectors are properly linked. Include component values and part numbers.",
+      "priority": 1,
+      "type": "Schematic"
+    },
+    {
+      "name": "Design Notes and Calculations",
+      "description": "Document key design calculations (power dissipation, current requirements, filter frequencies, etc.) in schematic notes or design document. Include design margin and assumptions.",
+      "priority": 2,
+      "type": "Other"
+    },
+    {
+      "name": "Revision History",
+      "description": "Maintain revision history document listing all changes between board revisions. Include change description, reason, and date. Keep history with design files.",
+      "priority": 2,
+      "type": "Other"
+    },
+    {
+      "name": "Component Specification Documentation",
+      "description": "Document critical component specifications and acceptable alternatives. Note any components with special requirements (lead time, single source, specific manufacturer).",
+      "priority": 2,
+      "type": "Other"
+    },
+    {
+      "name": "Test Procedure Documentation",
+      "description": "Create or update test procedures for board bring-up and production testing. Include power-on sequence, expected voltages, and functional tests. Document pass/fail criteria.",
+      "priority": 2,
+      "type": "Other"
+    },
+    {
+      "name": "Programming and Configuration Documentation",
+      "description": "Document firmware programming procedure, configuration settings, and calibration data. Include jumper and switch settings. Note any one-time programmable settings.",
+      "priority": 3,
+      "type": "Other"
+    }
+  ]
+}
