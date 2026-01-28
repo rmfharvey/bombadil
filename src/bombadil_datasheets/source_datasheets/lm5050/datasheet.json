@@ -1,0 +1,489 @@
+{
+  "high_level": {
+    "base_part_number": "LM5050-1",
+    "device_type": 7,
+    "manufacturer": "Texas Instruments",
+    "description": "High-Side OR-ing FET Controller. The LM5050-1/-Q1 operates in conjunction with an external MOSFET as an ideal diode rectifier when connected in series with a power source. This ORing controller allows MOSFETs to replace diode rectifiers in power distribution networks thus reducing both power loss and voltage drops. Features: Wide operating input voltage range (5V to 75V, 100V transient capable), charge pump gate driver for external N-Channel MOSFET, fast 50ns response to current reversal, 2A peak gate turnoff current, minimum VDS clamp for faster turnoff.",
+    "packages": [
+      "SOT-6 (Thin SOT-23-6)"
+    ],
+    "part_numbers": {
+      "LM5050MK-1/NOPB": {
+        "options": {
+          "DeviceMarking": "LM5050MK-1",
+          "EcoPlan": "RoHS & Green NIPDAU",
+          "MSLPeakTemp": "Level-3-260C-168 HR",
+          "OperatingTemperatureCelsius": "-40 to 125",
+          "PackageDrawing": "DDC",
+          "PackageType": "SOT-23-THIN",
+          "Pins": "6",
+          "Status": "ACTIVE",
+          "Grade": "Standard"
+        }
+      },
+      "LM5050MKX-1/NOPB": {
+        "options": {
+          "DeviceMarking": "LM5050MK-1",
+          "EcoPlan": "RoHS & Green NIPDAU",
+          "MSLPeakTemp": "Level-3-260C-168 HR",
+          "OperatingTemperatureCelsius": "-40 to 125",
+          "PackageDrawing": "DDC",
+          "PackageType": "SOT-23-THIN",
+          "Pins": "6",
+          "Status": "ACTIVE",
+          "Grade": "Standard",
+          "SPQ": "3000"
+        }
+      },
+      "LM5050Q0MK-1/NOPB": {
+        "options": {
+          "DeviceMarking": "LM5050Q0MK-1",
+          "EcoPlan": "RoHS & Green NIPDAU",
+          "MSLPeakTemp": "Level-3-260C-168 HR",
+          "OperatingTemperatureCelsius": "-40 to 150",
+          "PackageDrawing": "DDC",
+          "PackageType": "SOT-23-THIN",
+          "Pins": "6",
+          "Status": "ACTIVE",
+          "Grade": "AEC-Q100 Automotive (up to 150°C TJ)"
+        }
+      },
+      "LM5050Q0MKX-1/NOPB": {
+        "options": {
+          "DeviceMarking": "LM5050Q0MK-1",
+          "EcoPlan": "RoHS & Green NIPDAU",
+          "MSLPeakTemp": "Level-3-260C-168 HR",
+          "OperatingTemperatureCelsius": "-40 to 150",
+          "PackageDrawing": "DDC",
+          "PackageType": "SOT-23-THIN",
+          "Pins": "6",
+          "Status": "ACTIVE",
+          "Grade": "AEC-Q100 Automotive (up to 150°C TJ)",
+          "SPQ": "3000"
+        }
+      },
+      "LM5050Q1MK-1/NOPB": {
+        "options": {
+          "DeviceMarking": "LM5050Q1MK-1",
+          "EcoPlan": "RoHS & Green NIPDAU",
+          "MSLPeakTemp": "Level-3-260C-168 HR",
+          "OperatingTemperatureCelsius": "-40 to 125",
+          "PackageDrawing": "DDC",
+          "PackageType": "SOT-23-THIN",
+          "Pins": "6",
+          "Status": "ACTIVE",
+          "Grade": "AEC-Q100 Automotive (up to 125°C TJ)"
+        }
+      },
+      "LM5050Q1MKX-1/NOPB": {
+        "options": {
+          "DeviceMarking": "LM5050Q1MK-1",
+          "EcoPlan": "RoHS & Green NIPDAU",
+          "MSLPeakTemp": "Level-3-260C-168 HR",
+          "OperatingTemperatureCelsius": "-40 to 125",
+          "PackageDrawing": "DDC",
+          "PackageType": "SOT-23-THIN",
+          "Pins": "6",
+          "Status": "ACTIVE",
+          "Grade": "AEC-Q100 Automotive (up to 125°C TJ)",
+          "SPQ": "3000"
+        }
+      }
+    },
+    "serial_busses": [],
+    "thermal_info": {
+      "RθJA": {
+        "value": 180.7,
+        "units": "°C/W",
+        "description": "Junction-to-ambient thermal resistance"
+      },
+      "RθJC_top": {
+        "value": 41.3,
+        "units": "°C/W",
+        "description": "Junction-to-case (top) thermal resistance"
+      },
+      "RθJB": {
+        "value": 28.2,
+        "units": "°C/W",
+        "description": "Junction-to-board thermal resistance"
+      },
+      "ψJT": {
+        "value": 0.7,
+        "units": "°C/W",
+        "description": "Junction-to-top characterization parameter"
+      },
+      "ψJB": {
+        "value": 27.8,
+        "units": "°C/W",
+        "description": "Junction-to-board characterization parameter"
+      }
+    },
+    "esd_ratings": {
+      "HBM": {
+        "value": 2000,
+        "units": "V",
+        "description": "Human Body Model per ANSI/ESDA/JEDEC JS-001 (Standard) or AEC Q100-002 (Q1)"
+      },
+      "MM": {
+        "value": 150,
+        "units": "V",
+        "description": "Machine Model per JESD-A115A"
+      }
+    }
+  },
+  "pins": {
+    "VS": {
+      "name": "VS",
+      "pin_id": "1",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Main supply pin for all internal biasing and auxiliary supply for the internal gate drive charge pump. Typically connected to either VOUT or VIN; a separate supply can also be used. For typical applications where input voltage is above 5V, connect VS directly to OUT pin. For input voltages close to 5V minimum, connect VS to OUT through an RC low-pass filter (100Ω series resistor, 0.1µF capacitor) to reduce erratic behavior from spurious voltage spikes. For VIN as low as 1V operation, VS can be powered from a separate 5V-75V supply.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 100.0,
+        "units": "V",
+        "description": "Absolute maximum rating"
+      },
+      "operating_voltage": {
+        "min": 5.0,
+        "max": 75.0,
+        "units": "V",
+        "description": "Recommended operating range"
+      },
+      "electrical_characteristics": {
+        "IVS_5V": {
+          "typ": 75,
+          "max": 105,
+          "units": "µA",
+          "conditions": "VVS=5V, VIN=5V, VOUT=VIN-100mV, TJ=-40°C to 125°C"
+        },
+        "IVS_12V": {
+          "typ": 100,
+          "max": 147,
+          "units": "µA",
+          "conditions": "VVS=12V, VIN=12V, VOUT=VIN-100mV, TJ=-40°C to 125°C"
+        },
+        "IVS_75V": {
+          "typ": 130,
+          "max": 288,
+          "units": "µA",
+          "conditions": "VVS=75V, VIN=75V, VOUT=VIN-100mV, TJ=-40°C to 125°C"
+        }
+      },
+      "implementation": {
+        "connectivity": "Connect to VOUT through 100Ω series resistor with 0.1µF bypass capacitor to GND for noise filtering. Alternatively connect directly to VIN or use separate 5V-75V bias supply for low VIN operation.",
+        "component_recommendations": "R1: 100Ω resistor (power supply filter). C1: 0.1µF ceramic capacitor for VS decoupling.",
+        "design_notes": "If VS is powered while IN is floating or grounded, approximately 0.5mA will leak from VS pin into the IC. This does not affect reliability but may influence circuit design. Keep decoupling capacitor close to VS pin.",
+        "precautions": "Ensure VS voltage remains above 5V minimum during operation. Use TVS or transient protection if operating in high-noise environments."
+      }
+    },
+    "GND": {
+      "name": "GND",
+      "pin_id": "2",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Ground return for the controller. Connect to circuit ground to complete the return path for all internal circuits.",
+      "implementation": {
+        "connectivity": "Connect directly to system ground plane with short, low-impedance path.",
+        "component_recommendations": "Use wide, short PCB traces to minimize ground impedance.",
+        "design_notes": "Place ground connections close to the MOSFET source and input/output bypass capacitors. Ground path is critical for proper operation of the fast reverse comparator.",
+        "precautions": "Avoid ground loops. Keep the GND trace path short to minimize parasitic inductance during fast switching events."
+      }
+    },
+    "OFF": {
+      "name": "OFF",
+      "pin_id": "3",
+      "type": "DIGITAL",
+      "direction": "INPUT",
+      "description": "Logic-level shutdown control input. A logic high state at the OFF pin will pull the GATE pin low and turn off the external MOSFET. Note that when the MOSFET is off, current will still conduct through the FET's body diode (voltage drop approximately 700mV). This pin may be left open or connected to GND if unused. Has internal 5µA pulldown.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 7.0,
+        "units": "V",
+        "description": "Absolute maximum rating"
+      },
+      "operating_voltage": {
+        "min": 0,
+        "max": 5.5,
+        "units": "V",
+        "description": "Recommended operating range"
+      },
+      "vih": {
+        "typ": 1.56,
+        "max": 1.75,
+        "units": "V",
+        "conditions": "VOUT=VIN-500mV, VOFF Rising, TJ=-40°C to 125°C"
+      },
+      "vil": {
+        "typ": 1.4,
+        "min": 1.1,
+        "units": "V",
+        "conditions": "VOUT=VIN-500mV, VOFF Falling, TJ=-40°C to 125°C"
+      },
+      "electrical_characteristics": {
+        "VOFF_hysteresis": {
+          "typ": 155,
+          "units": "mV",
+          "description": "OFF threshold voltage hysteresis (VIH - VIL)"
+        },
+        "IOFF_pulldown": {
+          "typ": 5,
+          "min": 3,
+          "max": 7,
+          "units": "µA",
+          "conditions": "VOFF=4.5V, TJ=-40°C to 125°C",
+          "description": "Internal pulldown current"
+        },
+        "tGATE_OFF": {
+          "typ": 486,
+          "units": "ns",
+          "conditions": "CGATE=47nF, TJ=25°C",
+          "description": "Gate discharge time for OFF pin low-to-high transition"
+        }
+      },
+      "implementation": {
+        "connectivity": "Connect to logic control signal for ON/OFF control. Leave open or connect to GND if shutdown function is not required.",
+        "component_recommendations": "If driving from higher voltage logic, use a voltage divider to ensure signal stays below 5.5V.",
+        "design_notes": "Internal pulldown ensures the device operates normally when OFF pin is left floating. OFF pin only disables gate drive; load current still flows through MOSFET body diode when OFF is asserted.",
+        "precautions": "Do not exceed 7V absolute maximum. When OFF is asserted, body diode conduction causes approximately 700mV voltage drop."
+      }
+    },
+    "IN": {
+      "name": "IN",
+      "pin_id": "4",
+      "type": "ANALOG",
+      "direction": "INPUT",
+      "description": "Voltage sense connection to the external MOSFET Source pin. This pin monitors the source-to-drain voltage of the external MOSFET in conjunction with the OUT pin. The internal comparator uses IN and OUT pin voltages to determine forward/reverse current flow conditions and control the gate drive accordingly.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 100.0,
+        "units": "V",
+        "description": "Absolute maximum rating. Note: GATE pin is typically 12V above IN when enabled, so 100V max applies only when disabled or during momentary surges."
+      },
+      "operating_voltage": {
+        "min": 5.0,
+        "max": 75.0,
+        "units": "V",
+        "description": "Recommended operating range (1V min with separate VS bias supply)"
+      },
+      "electrical_characteristics": {
+        "IIN_5V": {
+          "typ": 190,
+          "min": 32,
+          "max": 305,
+          "units": "µA",
+          "conditions": "VIN=5V, VVS=VIN, VOUT=VIN-100mV, GATE=Open, TJ=-40°C to 125°C"
+        },
+        "IIN_12V_75V": {
+          "typ": 320,
+          "min": 233,
+          "max": 400,
+          "units": "µA",
+          "conditions": "VIN=12V to 75V, VVS=VIN, VOUT=VIN-100mV, GATE=Open, TJ=-40°C to 125°C (LM5050MK-1, LM5050Q1MK-1)"
+        },
+        "IIN_12V_75V_Q0": {
+          "typ": 320,
+          "min": 233,
+          "max": 475,
+          "units": "µA",
+          "conditions": "VIN=12V to 75V, VVS=VIN, VOUT=VIN-100mV, GATE=Open, TJ=-40°C to 125°C (LM5050Q0MK-1)"
+        }
+      },
+      "implementation": {
+        "connectivity": "Connect directly to the Source pin of the external N-channel MOSFET. Also connect to the input power supply through input protection components.",
+        "component_recommendations": "D1: Schottky diode (e.g., SS16T3G) from IN to GND for negative transient clamping. CIN: Input bypass capacitor (1µF-22µF) between IN and GND.",
+        "design_notes": "The IN pin senses the anode side of the ideal diode function. Keep trace to MOSFET source short to minimize parasitic inductance. If VS is powered while IN is floating/grounded, approximately 50µA will flow out of IN pin.",
+        "precautions": "Protect IN pin from negative transients during reverse recovery events with Schottky diode clamp to GND. Path from input supply to IN and bypass capacitors should be as short as possible."
+      }
+    },
+    "GATE": {
+      "name": "GATE",
+      "pin_id": "5",
+      "type": "ANALOG",
+      "direction": "OUTPUT",
+      "description": "Gate drive output for the external N-channel MOSFET. Controls the MOSFET to emulate a low forward-voltage diode. An internal charge pump drives the gate 7-14V above VIN (depending on supply voltage) during forward operation. A fast 2A pull-down rapidly discharges gate capacitance when reverse current is detected.",
+      "output_voltage": {
+        "min": -0.3,
+        "max": 100.0,
+        "units": "V",
+        "description": "Absolute maximum rating"
+      },
+      "electrical_characteristics": {
+        "IGATE_ON_5V": {
+          "typ": 30,
+          "min": 12,
+          "max": 41,
+          "units": "µA",
+          "conditions": "VIN=5V, VVS=VIN, VGATE=VIN, VOUT=VIN-175mV, TJ=-40°C to 125°C",
+          "description": "Gate source current (charge pump output)"
+        },
+        "IGATE_ON_12V_75V": {
+          "typ": 32,
+          "min": 20,
+          "max": 41,
+          "units": "µA",
+          "conditions": "VIN=12V to 75V, VVS=VIN, VGATE=VIN, VOUT=VIN-175mV, TJ=-40°C to 125°C",
+          "description": "Gate source current (charge pump output)"
+        },
+        "VGS_5V": {
+          "typ": 7,
+          "min": 4,
+          "max": 9,
+          "units": "V",
+          "conditions": "VIN=5V, VVS=VIN, VOUT=VIN-175mV, TJ=-40°C to 125°C",
+          "description": "Gate-to-source voltage (VGATE-VIN) in forward operation"
+        },
+        "VGS_12V_75V": {
+          "typ": 12,
+          "min": 9,
+          "max": 14,
+          "units": "V",
+          "conditions": "VIN=12V to 75V, VVS=VIN, VOUT=VIN-175mV, TJ=-40°C to 125°C",
+          "description": "Gate-to-source voltage (VGATE-VIN) in forward operation"
+        },
+        "IGATE_OFF": {
+          "typ": 2.8,
+          "min": 1.4,
+          "units": "A",
+          "conditions": "VGATE=VIN+3V, VOUT>VIN+100mV, t≤10ms, TJ=-40°C to 125°C",
+          "description": "Gate sink current (peak pull-down current)"
+        },
+        "tGATE_REV_0nF": {
+          "typ": 25,
+          "max": 85,
+          "units": "ns",
+          "conditions": "CGATE=0, TJ=-40°C to 125°C",
+          "description": "Gate discharge time at forward-to-reverse transition"
+        },
+        "tGATE_REV_10nF": {
+          "typ": 60,
+          "units": "ns",
+          "conditions": "CGATE=10nF, TJ=25°C",
+          "description": "Gate discharge time at forward-to-reverse transition"
+        },
+        "tGATE_REV_47nF": {
+          "typ": 180,
+          "max": 350,
+          "units": "ns",
+          "conditions": "CGATE=47nF, TJ=-40°C to 125°C",
+          "description": "Gate discharge time at forward-to-reverse transition"
+        }
+      },
+      "implementation": {
+        "connectivity": "Connect directly to the Gate pin of the external N-channel MOSFET. Keep trace short to minimize parasitic inductance.",
+        "component_recommendations": "External MOSFET selection: Use logic-level N-channel MOSFET with VGS(TH) rated at 5V or sub-logic level with VGS(TH) at 2.5V. MOSFET gate capacitance affects turnoff time. Recommended RDS(ON) range: (22mV/ID) ≤ RDS(ON) ≤ (100mV/ID).",
+        "design_notes": "Internal 12V Zener clamp limits gate-to-source voltage. Gate charge time = Qg/IGATE(ON). For 47nF gate capacitance, typical turnoff time is 180ns. Lower gate capacitance MOSFETs enable faster reverse current shutdown.",
+        "precautions": "Place LM5050-1 as close as possible to MOSFET to minimize gate loop inductance. Do not add external gate resistors as they will slow turnoff response."
+      }
+    },
+    "OUT": {
+      "name": "OUT",
+      "pin_id": "6",
+      "type": "ANALOG",
+      "direction": "INPUT",
+      "description": "Voltage sense connection to the external MOSFET Drain pin. This pin monitors the drain voltage and, together with the IN pin, determines the voltage across the MOSFET to control forward/reverse operation. Also serves as the cathode connection of the ideal diode function.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 100.0,
+        "units": "V",
+        "description": "Absolute maximum rating"
+      },
+      "operating_voltage": {
+        "min": 5.0,
+        "max": 75.0,
+        "units": "V",
+        "description": "Recommended operating range"
+      },
+      "electrical_characteristics": {
+        "IOUT": {
+          "typ": 3.2,
+          "max": 8,
+          "units": "µA",
+          "conditions": "VIN=5V to 75V, VVS=VIN, VOUT=VIN-100mV, TJ=-40°C to 125°C"
+        },
+        "VSD_REV": {
+          "typ": -28,
+          "min": -41,
+          "max": -16,
+          "units": "mV",
+          "conditions": "VIN<VOUT, TJ=-40°C to 125°C",
+          "description": "Reverse VSD threshold (VIN-VOUT) that triggers gate discharge"
+        },
+        "VSD_REV_hysteresis": {
+          "typ": 10,
+          "units": "mV",
+          "description": "Hysteresis on reverse detection threshold"
+        },
+        "VSD_REG_5V": {
+          "typ": 19,
+          "min": 1,
+          "max": 37,
+          "units": "mV",
+          "conditions": "VIN=5V, VVS=VIN, VIN>VOUT, TJ=-40°C to 125°C (LM5050MK-1, LM5050Q1MK-1)",
+          "description": "Regulated forward VSD threshold - controller regulates MOSFET to maintain this voltage drop"
+        },
+        "VSD_REG_12V": {
+          "typ": 22,
+          "min": 4.4,
+          "max": 37,
+          "units": "mV",
+          "conditions": "VIN=12V, VVS=VIN, VIN>VOUT, TJ=-40°C to 125°C (LM5050MK-1, LM5050Q1MK-1)",
+          "description": "Regulated forward VSD threshold"
+        }
+      },
+      "implementation": {
+        "connectivity": "Connect directly to the Drain pin of the external N-channel MOSFET. Also connect to the load through output protection components and bypass capacitors.",
+        "component_recommendations": "D2: TVS diode (e.g., SMBJ60A) for positive transient protection. COUT: Output bypass capacitor (22µF or larger) helps absorb reverse recovery energy.",
+        "design_notes": "The OUT pin senses the cathode side of the ideal diode function. During forward operation, the controller regulates VIN-VOUT to approximately 22mV typical. Keep trace to MOSFET drain short. VS pin can be connected to OUT for self-biased operation.",
+        "precautions": "Protect OUT pin from positive transient spikes during reverse recovery events with TVS diode. In low voltage applications, MOSFET V(BR)DSS may provide some transient protection (VIN + V(BR)DSS(MAX) < 75V)."
+      }
+    }
+  },
+  "serial_bus": {
+    "note": "This device does not have a serial bus interface. Control is achieved through the analog OFF pin and the device operates autonomously based on sensed voltages at IN and OUT pins."
+  },
+  "application_info": {
+    "typical_application": {
+      "description": "Active OR-ing of redundant (N+1) power supplies. Replaces Schottky OR-ing diodes with MOSFET for reduced voltage drop and power loss.",
+      "input_voltage_range": {
+        "min": 5,
+        "max": 75,
+        "units": "V",
+        "note": "Can operate down to 1V VIN with separate VS bias supply"
+      },
+      "transient_capability": {
+        "max": 100,
+        "units": "V"
+      }
+    },
+    "mosfet_selection_guidelines": {
+      "RDS_ON_recommendation": "Select RDS(ON) to provide 22mV to 100mV drop at nominal load current: (22mV/ID) ≤ RDS(ON) ≤ (100mV/ID)",
+      "gate_type": "Logic level MOSFETs (RDS(ON) rated at VGS=5V) recommended. Sub-logic level (VGS=2.5V) also suitable.",
+      "max_drain_current": "Must exceed maximum continuous load current",
+      "VDS_rating": "Must withstand highest differential voltage including fault conditions",
+      "thermal_consideration": "Conduction loss PDISS = ID² × RDS(ON). Select thermal resistance to maintain TJ within limits."
+    },
+    "protection_components": {
+      "D1_input_clamp": "Schottky diode from IN to GND for negative transient clamping during reverse recovery",
+      "D2_output_TVS": "TVS diode at output for positive transient protection during reverse recovery",
+      "R1_C1_VS_filter": "100Ω resistor and 0.1µF capacitor for VS pin filtering in noisy environments"
+    },
+    "key_timing_parameters": {
+      "reverse_detection_response": {
+        "value": 50,
+        "units": "ns",
+        "description": "Fast response to current reversal"
+      },
+      "gate_turnoff_47nF": {
+        "typ": 180,
+        "units": "ns",
+        "description": "Gate discharge time with 47nF gate capacitance"
+      },
+      "peak_gate_sink_current": {
+        "value": 2,
+        "units": "A",
+        "description": "Peak gate turnoff current for fast MOSFET switching"
+      }
+    }
+  }
+}
