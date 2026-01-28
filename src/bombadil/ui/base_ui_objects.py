@@ -9,7 +9,7 @@ class QABCMeta(abc.ABCMeta, type(QWidget)):
     pass
 
 
-class GWidget(QWidget, metaclass=QABCMeta):
+class BWidget(QWidget, metaclass=QABCMeta):
     def __init__(self, form, linked_obj=None):
         super().__init__()
         self._comment = None

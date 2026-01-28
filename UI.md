@@ -2,31 +2,32 @@
 
 PySide6-based UI framework using a custom GWidget base class pattern.
 
-## GWidget Base Class
+## BWidget Base Class
 
 **Location:** `bombadil/ui/base_ui_objects.py`
 
 All custom widgets inherit from GWidget:
 
 ```python
-from bombadil.ui.base_ui_objects import GWidget
+from bombadil.ui.base_ui_objects import BWidget
 from mypackage.forms.my_form_ui import Ui_Form as MyForm
 
-class MyWidget(GWidget):
-    def __init__(self, data_object=None):
-        super().__init__(MyForm, linked_obj=data_object)
 
-    def _setup(self):
-        """Configure UI elements - REQUIRED"""
-        self.ui.name_label.setText("Example")
+class MyWidget(BWidget):
+   def __init__(self, data_object=None):
+      super().__init__(MyForm, linked_obj=data_object)
 
-    def _connect_signals(self):
-        """Connect signal handlers - REQUIRED"""
-        self.ui.submit_pushbutton.clicked.connect(self._handler_submit_clicked)
+   def _setup(self):
+      """Configure UI elements - REQUIRED"""
+      self.ui.name_label.setText("Example")
 
-    def _handler_submit_clicked(self):
-        """Handle button click"""
-        pass
+   def _connect_signals(self):
+      """Connect signal handlers - REQUIRED"""
+      self.ui.submit_pushbutton.clicked.connect(self._handler_submit_clicked)
+
+   def _handler_submit_clicked(self):
+      """Handle button click"""
+      pass
 ```
 
 **Key Features:**

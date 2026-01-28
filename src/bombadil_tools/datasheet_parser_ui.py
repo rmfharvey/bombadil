@@ -4,12 +4,12 @@ from urllib.parse import urlparse
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QFileDialog, QMainWindow
 
-from bombadil.ui.base_ui_objects import GWidget
+from bombadil.ui.base_ui_objects import BWidget
 from bombadil.ui.utils.forms.datasheet_adder_ui import Ui_Form as DatasheetAdderForm
 from bombadil_datasheets import DatasheetManager
 
 
-class DatasheetAdderWidget(GWidget):
+class DatasheetAdderWidget(BWidget):
     """Widget for adding electronics component datasheets.
 
     Allows users to add datasheets via drag-and-drop or file browser,

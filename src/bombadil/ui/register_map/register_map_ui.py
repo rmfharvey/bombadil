@@ -1,11 +1,11 @@
 from PySide6 import QtCore
-from bombadil.ui import GWidget
+from bombadil.ui import BWidget
 from bombadil.ui.register_map.forms.register_map_ui import Ui_Form as RegisterMapForm
 from bombadil.ui.register_map.forms.register_ui import Ui_Form as RegisterForm
 from bombadil.ui.register_map.forms.field_ui import Ui_Form as FieldForm
 
 
-class RegisterMapWidget(GWidget):
+class RegisterMapWidget(BWidget):
     def __init__(self, register_map):
         super().__init__(RegisterMapForm)
         self.register_map = register_map
@@ -16,7 +16,7 @@ class RegisterMapWidget(GWidget):
             self.ui.register_map_scrollarea_layout.addWidget(reg.ui_object)
 
 
-class RegisterWidget(GWidget):
+class RegisterWidget(BWidget):
     def __init__(self, register):
         super().__init__(RegisterForm)
         self.register = register
@@ -33,7 +33,7 @@ class RegisterWidget(GWidget):
             self.ui.register_layout.insertWidget(0, ui_obj)
 
 
-class FieldWidget(GWidget):
+class FieldWidget(BWidget):
     BITWIDTH = 150
     SPACING = 2
     HEIGHT = 55
