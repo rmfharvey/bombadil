@@ -1,7 +1,7 @@
 import json
-from galvanic_design.controller import Controller
-from galvanic_altium.server_api import AltiumServerAPI
-from galvanic_ai.llm_client.gemini_client import GeminiClient
+from bombadil_design.controller import Controller
+from bombadil_altium.server_api import AltiumServerAPI
+from bombadil_ai.llm_client.gemini_client import GeminiClient
 
 glm = GeminiClient()
 

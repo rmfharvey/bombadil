@@ -16,7 +16,7 @@ The `ConnectionValidator` class provides functionality to:
 ### Basic Usage
 
 ```python
-from galvanic_design.connection_validator import ConnectionValidator
+from bombadil_design.connection_validator import ConnectionValidator
 
 # Initialize with a project GUID
 validator = ConnectionValidator("DA220208-0D1D-4C1A-A0FF-E0D169E92F96")
@@ -36,7 +36,7 @@ validator.save_report("connection_validation_report.md")
 
 ```python
 from pathlib import Path
-from galvanic_design.connection_validator import ConnectionValidator
+from bombadil_design.connection_validator import ConnectionValidator
 
 # Path to a JSON file containing project data
 json_file = Path("path/to/project.json")
@@ -55,7 +55,7 @@ print(report)
 ### Using a Dictionary
 
 ```python
-from galvanic_design.connection_validator import ConnectionValidator
+from bombadil_design.connection_validator import ConnectionValidator
 
 # Dictionary containing project data
 project_data = {

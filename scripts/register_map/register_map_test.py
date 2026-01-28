@@ -1,6 +1,6 @@
 import json
-from galvanic.model.register_map.register_map import RegisterMap
-from galvanic import MainApp
+from bombadil.model.register_map.register_map import RegisterMap
+from bombadil import MainApp
 
 cfg_path = "./tp92520.json"
 with open(cfg_path, "r") as f:

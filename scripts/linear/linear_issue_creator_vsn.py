@@ -1,10 +1,10 @@
 import os
-from galvanic_tracking.linear_client import LinearHelper
+from bombadil_tracking.linear_client import LinearHelper
 
 
 _root = os.path.dirname(__file__)
-# template_path = "/galvanic_tracking/tasks/task_lists"
-template_path = "C:/VersionControl/Software/galvanic/src/galvanic_tracking/tasks/task_lists"
+# template_path = "/bombadil_tracking/tasks/task_lists"
+template_path = "C:/VersionControl/Software/bombadil/src/bombadil_tracking/tasks/task_lists"
 
 API_KEY = None
 PROJECT = "Vision Sensor Node (R0.5)"

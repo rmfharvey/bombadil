@@ -1,6 +1,6 @@
 import json
-from galvanic.signal import determine_signal_type
-from galvanic.utils.enums import RAIL_REGULATION
+from bombadil.signal import determine_signal_type
+from bombadil.utils.enums import RAIL_REGULATION
 
 
 def get_signal_list(project):

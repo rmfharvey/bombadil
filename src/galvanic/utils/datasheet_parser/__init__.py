@@ -1,1 +1,0 @@
-from galvanic.utils.datasheet_parser.datasheet_converter import DatasheetConverter
