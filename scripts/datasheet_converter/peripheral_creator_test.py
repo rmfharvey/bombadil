@@ -1,5 +1,5 @@
 import json
-from galvanic.utils.datasheet_parser.datasheet_converter import MicroDatasheetConverter
+from bombadil.utils.datasheet_parser.datasheet_converter import MicroDatasheetConverter
 
 fn = "stm32h743/datasheet.json"
 

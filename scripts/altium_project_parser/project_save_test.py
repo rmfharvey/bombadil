@@ -1,8 +1,8 @@
 import json
-from galvanic import global_logger
-from galvanic_altium.server_api import AltiumServerAPI
-from galvanic_altium.project import AltiumProject
-from galvanic_datasheets.datasheet_manager import DatasheetManager
+from bombadil import global_logger
+from bombadil_altium.server_api import AltiumServerAPI
+from bombadil_altium.project import AltiumProject
+from bombadil_datasheets.datasheet_manager import DatasheetManager
 from schema_regex_testing import get_signal_list
 
 FORCE_RELOAD_DATASHEETS = False

@@ -1,6 +1,6 @@
 import os
-from galvanic.utils.datasheet_parser.datasheet_converter import MicroDatasheetConverter, DatasheetConverter
-from galvanic import global_logger
+from bombadil.utils.datasheet_parser.datasheet_converter import MicroDatasheetConverter, DatasheetConverter
+from bombadil import global_logger
 
 logger = global_logger
 
