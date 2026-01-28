@@ -2,9 +2,11 @@ import abc
 from datetime import datetime
 from bombadil import global_logger
 
+
 class CLIENTS:
     GEMINI = "Gemini"
-    OPENAI = "OpenAI"
+    CLAUDE = "Claude"
+
 
 class LlmClient(metaclass=abc.ABCMeta):
     _MODEL: str
@@ -22,6 +24,7 @@ class LlmClient(metaclass=abc.ABCMeta):
     def log_transaction_tokens(self, usage_meta, timestamp=None):
         """Logs tokens required for a query"""
 
+
 class TokenLogger:
     def __init__(self):
         self._transactions = []
@@ -36,6 +39,7 @@ class TokenLogger:
         }
         self._transactions.append(token_info)
         return token_info
+
 
 def log_token_usage(func):
     def wrapper(*args, **kwargs):
