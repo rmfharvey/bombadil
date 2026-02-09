@@ -1,0 +1,700 @@
+{
+  "high_level": {
+    "base_part_number": "TMCS1133",
+    "device_type": 7,
+    "manufacturer": "Texas Instruments",
+    "packages": [
+      "SOIC-10 (DVG)"
+    ],
+    "part_numbers": {
+      "TMCS1133A1A": {
+        "options": {
+          "Sensitivity": "25mV/A",
+          "ZeroCurrentOutputVoltage": "2.5V",
+          "CurrentSensingMode": "Bidirectional",
+          "LinearRangeVS5V": "±96A",
+          "LinearRangeVS3V3": "-96A to 28A",
+          "PackageType": "SOIC",
+          "Pins": "10",
+          "OperatingTemperatureCelsius": "-40 to 125"
+        }
+      },
+      "TMCS1133A2A": {
+        "options": {
+          "Sensitivity": "50mV/A",
+          "ZeroCurrentOutputVoltage": "2.5V",
+          "CurrentSensingMode": "Bidirectional",
+          "LinearRangeVS5V": "±48A",
+          "LinearRangeVS3V3": "-48A to 14A",
+          "PackageType": "SOIC",
+          "Pins": "10",
+          "OperatingTemperatureCelsius": "-40 to 125"
+        }
+      },
+      "TMCS1133A3A": {
+        "options": {
+          "Sensitivity": "75mV/A",
+          "ZeroCurrentOutputVoltage": "2.5V",
+          "CurrentSensingMode": "Bidirectional",
+          "LinearRangeVS5V": "±32A",
+          "LinearRangeVS3V3": "-32A to 9.3A",
+          "PackageType": "SOIC",
+          "Pins": "10",
+          "OperatingTemperatureCelsius": "-40 to 125"
+        }
+      },
+      "TMCS1133A4A": {
+        "options": {
+          "Sensitivity": "100mV/A",
+          "ZeroCurrentOutputVoltage": "2.5V",
+          "CurrentSensingMode": "Bidirectional",
+          "LinearRangeVS5V": "±24A",
+          "LinearRangeVS3V3": "-24A to 7A",
+          "PackageType": "SOIC",
+          "Pins": "10",
+          "OperatingTemperatureCelsius": "-40 to 125"
+        }
+      },
+      "TMCS1133A5A": {
+        "options": {
+          "Sensitivity": "150mV/A",
+          "ZeroCurrentOutputVoltage": "2.5V",
+          "CurrentSensingMode": "Bidirectional",
+          "LinearRangeVS5V": "±16A",
+          "LinearRangeVS3V3": "-16A to 4.7A",
+          "PackageType": "SOIC",
+          "Pins": "10",
+          "OperatingTemperatureCelsius": "-40 to 125"
+        }
+      },
+      "TMCS1133B7A": {
+        "options": {
+          "Sensitivity": "20mV/A",
+          "ZeroCurrentOutputVoltage": "1.65V",
+          "CurrentSensingMode": "Bidirectional",
+          "LinearRangeVS5V": "-77.5A to 163A",
+          "LinearRangeVS3V3": "±77.5A",
+          "PackageType": "SOIC",
+          "Pins": "10",
+          "OperatingTemperatureCelsius": "-40 to 125"
+        }
+      },
+      "TMCS1133B1A": {
+        "options": {
+          "Sensitivity": "25mV/A",
+          "ZeroCurrentOutputVoltage": "1.65V",
+          "CurrentSensingMode": "Bidirectional",
+          "LinearRangeVS5V": "-62A to 130A",
+          "LinearRangeVS3V3": "±62A",
+          "PackageType": "SOIC",
+          "Pins": "10",
+          "OperatingTemperatureCelsius": "-40 to 125"
+        }
+      },
+      "TMCS1133B8A": {
+        "options": {
+          "Sensitivity": "33mV/A",
+          "ZeroCurrentOutputVoltage": "1.65V",
+          "CurrentSensingMode": "Bidirectional",
+          "LinearRangeVS5V": "-47A to 98.5A",
+          "LinearRangeVS3V3": "±47A",
+          "PackageType": "SOIC",
+          "Pins": "10",
+          "OperatingTemperatureCelsius": "-40 to 125"
+        }
+      },
+      "TMCS1133B2A": {
+        "options": {
+          "Sensitivity": "50mV/A",
+          "ZeroCurrentOutputVoltage": "1.65V",
+          "CurrentSensingMode": "Bidirectional",
+          "LinearRangeVS5V": "-31A to 65A",
+          "LinearRangeVS3V3": "±31A",
+          "PackageType": "SOIC",
+          "Pins": "10",
+          "OperatingTemperatureCelsius": "-40 to 125"
+        }
+      },
+      "TMCS1133B3A": {
+        "options": {
+          "Sensitivity": "75mV/A",
+          "ZeroCurrentOutputVoltage": "1.65V",
+          "CurrentSensingMode": "Bidirectional",
+          "LinearRangeVS5V": "-20.7A to 43.3A",
+          "LinearRangeVS3V3": "±20.7A",
+          "PackageType": "SOIC",
+          "Pins": "10",
+          "OperatingTemperatureCelsius": "-40 to 125"
+        }
+      },
+      "TMCS1133B4A": {
+        "options": {
+          "Sensitivity": "100mV/A",
+          "ZeroCurrentOutputVoltage": "1.65V",
+          "CurrentSensingMode": "Bidirectional",
+          "LinearRangeVS5V": "-15.5A to 32.5A",
+          "LinearRangeVS3V3": "±15.5A",
+          "PackageType": "SOIC",
+          "Pins": "10",
+          "OperatingTemperatureCelsius": "-40 to 125"
+        }
+      },
+      "TMCS1133B5A": {
+        "options": {
+          "Sensitivity": "150mV/A",
+          "ZeroCurrentOutputVoltage": "1.65V",
+          "CurrentSensingMode": "Bidirectional",
+          "LinearRangeVS5V": "-10.3A to 21.7A",
+          "LinearRangeVS3V3": "±10.3A",
+          "PackageType": "SOIC",
+          "Pins": "10",
+          "OperatingTemperatureCelsius": "-40 to 125"
+        }
+      },
+      "TMCS1133C1A": {
+        "options": {
+          "Sensitivity": "25mV/A",
+          "ZeroCurrentOutputVoltage": "0.33V",
+          "CurrentSensingMode": "Unidirectional",
+          "LinearRangeVS5V": "-9.2A to 183A",
+          "LinearRangeVS3V3": "-9.2A to 115A",
+          "PackageType": "SOIC",
+          "Pins": "10",
+          "OperatingTemperatureCelsius": "-40 to 125"
+        }
+      },
+      "TMCS1133C2A": {
+        "options": {
+          "Sensitivity": "50mV/A",
+          "ZeroCurrentOutputVoltage": "0.33V",
+          "CurrentSensingMode": "Unidirectional",
+          "LinearRangeVS5V": "-4.6A to 91.4A",
+          "LinearRangeVS3V3": "-4.6A to 57.4A",
+          "PackageType": "SOIC",
+          "Pins": "10",
+          "OperatingTemperatureCelsius": "-40 to 125"
+        }
+      },
+      "TMCS1133C9A": {
+        "options": {
+          "Sensitivity": "66mV/A",
+          "ZeroCurrentOutputVoltage": "0.33V",
+          "CurrentSensingMode": "Unidirectional",
+          "LinearRangeVS5V": "-3.4A to 69.2A",
+          "LinearRangeVS3V3": "-3.4A to 43.4A",
+          "PackageType": "SOIC",
+          "Pins": "10",
+          "OperatingTemperatureCelsius": "-40 to 125"
+        }
+      },
+      "TMCS1133C3A": {
+        "options": {
+          "Sensitivity": "75mV/A",
+          "ZeroCurrentOutputVoltage": "0.33V",
+          "CurrentSensingMode": "Unidirectional",
+          "LinearRangeVS5V": "-3.1A to 60.9A",
+          "LinearRangeVS3V3": "-3.1A to 38.3A",
+          "PackageType": "SOIC",
+          "Pins": "10",
+          "OperatingTemperatureCelsius": "-40 to 125"
+        }
+      },
+      "TMCS1133C4A": {
+        "options": {
+          "Sensitivity": "100mV/A",
+          "ZeroCurrentOutputVoltage": "0.33V",
+          "CurrentSensingMode": "Unidirectional",
+          "LinearRangeVS5V": "-2.3A to 45.7A",
+          "LinearRangeVS3V3": "-2.3A to 28.7A",
+          "PackageType": "SOIC",
+          "Pins": "10",
+          "OperatingTemperatureCelsius": "-40 to 125"
+        }
+      },
+      "TMCS1133C5A": {
+        "options": {
+          "Sensitivity": "150mV/A",
+          "ZeroCurrentOutputVoltage": "0.33V",
+          "CurrentSensingMode": "Unidirectional",
+          "LinearRangeVS5V": "-1.5A to 30.5A",
+          "LinearRangeVS3V3": "-1.5A to 19.1A",
+          "PackageType": "SOIC",
+          "Pins": "10",
+          "OperatingTemperatureCelsius": "-40 to 125"
+        }
+      }
+    },
+    "serial_busses": []
+  },
+  "pins": {
+    "IN+": {
+      "name": "IN+",
+      "pin_id": "1",
+      "type": "ANALOG",
+      "direction": "INPUT",
+      "description": "Input current positive pin. Current flows from IN+ to IN- through an internal low-resistance conductor (0.7mΩ typ at 25°C). The conductor generates a magnetic field proportional to input current, measured by an integrated Hall sensor. Maximum continuous current: 80A RMS at 25°C, 44A RMS at 125°C. Input conductor resistance temperature coefficient: 2.1µΩ/°C.",
+      "implementation": {
+        "connectivity": "Connect to high-side current path. Route with heavy copper traces (4oz recommended) to minimize resistance and improve thermal dissipation. Keep path from IN+ to bypass capacitors as short as possible.",
+        "components": "Use appropriate wire gauge or PCB trace width for expected current levels. Consider thermal via farms around input pins for heat dissipation.",
+        "precautions": "Do not exceed Safe Operating Area (SOA) current limits based on ambient temperature and pulse duration. Ensure adequate thermal design - device mounted on TMCS1133xEVM or equivalent PCB design. Isolation barrier rated for 5000V RMS withstand voltage (UL 1577)."
+      }
+    },
+    "IN-": {
+      "name": "IN-",
+      "pin_id": "2",
+      "type": "ANALOG",
+      "direction": "INPUT",
+      "description": "Input current negative pin. Current flows from IN+ to IN- through an internal low-resistance conductor (0.7mΩ typ at 25°C). Provides return path for sensed current. Maximum continuous current: 80A RMS at 25°C, 44A RMS at 125°C.",
+      "implementation": {
+        "connectivity": "Connect to low-side current path. Route with heavy copper traces (4oz recommended) matching IN+ design.",
+        "components": "Match wire gauge or PCB trace width to IN+ connection.",
+        "precautions": "Maintain creepage and clearance ≥8mm between high-voltage input side (pins 1-2) and low-voltage output side (pins 3-10) on PCB. Use appropriate isolation barriers per system safety requirements."
+      }
+    },
+    "GND": {
+      "name": "GND",
+      "pin_id": "3",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Ground reference for low-voltage circuitry. Signal ground return for internal voltage reference and analog circuits.",
+      "implementation": {
+        "connectivity": "Connect to system ground plane on low-voltage side. Place decoupling capacitors between VS and GND as close to device pins as possible.",
+        "components": "Use low-impedance connection to ground plane.",
+        "precautions": "Keep ground path separate from high-current power ground to minimize noise coupling. Maintain isolation barrier clearance from high-voltage input pins."
+      }
+    },
+    "ALERT": {
+      "name": "ALERT",
+      "pin_id": "4",
+      "type": "DIGITAL",
+      "direction": "OUTPUT",
+      "output_type": "OPEN_DRAIN",
+      "polarity": "ACTIVE_LOW",
+      "description": "Sensor diagnostics PWM output, open-drain active low. Provides 8kHz PWM signal indicating device status: 100% duty = No Fault, 80% duty = Thermal Alert, 50% duty = Sensor Alert, 20% duty = Thermal and Sensor Alert. Pull-down voltage: 0.07V typ, 0.2V max at 3mA.",
+      "output_voltage": {
+        "min": 0.0,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to VS through external pull-up resistor if diagnostics monitoring is needed. Connect to GND if not used.",
+        "components": "Pull-up resistor to VS (value depends on desired rise time, typical 4.7kΩ to 10kΩ). Optional low-pass filter for PWM duty cycle measurement.",
+        "precautions": "Open-drain output requires external pull-up for logic high state. Maximum sink current should not exceed pull-down voltage specification limits (~3mA recommended)."
+      }
+    },
+    "NC": {
+      "name": "NC",
+      "pin_id": "5",
+      "type": "NC",
+      "direction": "NONE",
+      "description": "Reserved pin. No internal connection.",
+      "implementation": {
+        "connectivity": "Can be connected to GND or left floating.",
+        "components": "None required.",
+        "precautions": "Do not use for routing signals. Reserved for future use."
+      }
+    },
+    "VOUT": {
+      "name": "VOUT",
+      "pin_id": "6",
+      "type": "ANALOG",
+      "direction": "OUTPUT",
+      "description": "Analog output voltage proportional to input current. VOUT = IIN × S + VOUT,0A where S is device sensitivity (20-150mV/A depending on variant) and VOUT,0A is zero-current reference voltage (2.5V for Axx, 1.65V for Bxx, 0.33V for Cxx variants). Output swing: 5-10mV to VS-20mV (VS-50mV max over temperature). Bandwidth: 1.1MHz (-3dB). Slew rate: 8V/µs. Response time: 120ns. Propagation delay: 50ns. Short circuit output current: 50mA max.",
+      "output_voltage": {
+        "min": 0.005,
+        "max": 5.48,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to ADC input or comparator for current measurement. Route with care to minimize noise pickup.",
+        "components": "Optional RC low-pass filter for noise reduction (max capacitive load 4.7nF). Series resistor may be needed for ADC input protection.",
+        "precautions": "Do not exceed maximum capacitive load of 4.7nF. Output is short-circuit protected but avoid sustained short conditions. For best accuracy, use within linear output range (100mV to VS-100mV)."
+      }
+    },
+    "OC": {
+      "name": "OC",
+      "pin_id": "7",
+      "type": "DIGITAL",
+      "direction": "OUTPUT",
+      "output_type": "OPEN_DRAIN",
+      "polarity": "ACTIVE_LOW",
+      "description": "Overcurrent detection output, open-drain active low. Asserts low when |IIN| exceeds threshold set by VOC pin. Response time: 100ns typ, 250ns max for 120% of IOC step. Threshold error: ±2% typ, ±10% max over temperature. Hysteresis: variant-dependent (1.4A to 8.4A). Pull-down voltage: 0.07V typ, 0.2V max at 3mA.",
+      "output_voltage": {
+        "min": 0.0,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to VS through external pull-up resistor for overcurrent detection. Connect to GND if not used.",
+        "components": "Pull-up resistor to VS (typical 4.7kΩ to 10kΩ). Connect to MCU interrupt input or gate driver fault input for fast protection response.",
+        "precautions": "Open-drain output requires external pull-up. Response time is 100-250ns - faster than analog output processing for overcurrent protection applications."
+      }
+    },
+    "VOC": {
+      "name": "VOC",
+      "pin_id": "8",
+      "type": "ANALOG",
+      "direction": "INPUT",
+      "description": "Overcurrent threshold setting input. Sets overcurrent detection threshold via formula: VOC = S × IOC / 2.5, where S is sensitivity and IOC is desired overcurrent threshold. Valid range: 0.3V to VS. Input impedance: 120kΩ typ.",
+      "input_voltage": {
+        "min": 0.3,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to VS through resistor divider to set fixed threshold, or connect to DAC for programmable threshold. Connect directly to VS if overcurrent detection not used.",
+        "components": "Resistor divider from VS (R2 < 10kΩ to minimize input impedance effects). Example: For IOC = 50A with 75mV/A sensitivity, VOC = 0.075 × 50 / 2.5 = 1.5V.",
+        "precautions": "Do not leave floating. If OC function not used, connect to VS. Keep R2 of divider <10kΩ for accuracy."
+      }
+    },
+    "VS_9": {
+      "name": "VS",
+      "pin_id": "9",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Power supply input. Operating range: 3.0V to 5.5V. Quiescent current: 11mA typ at 25°C, 14.5mA max over temperature. Power-on time: 34ms from VS > 3V to valid output.",
+      "input_voltage": {
+        "min": 3.0,
+        "nom": 5.0,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to regulated 3.0V to 5.5V supply. Both VS pins (9 and 10) must be connected together.",
+        "components": "Place 0.1µF low-ESR ceramic decoupling capacitor between VS and GND as close to pins as possible. Additional bulk capacitance (1-10µF) recommended for noisy supplies. Optional ferrite bead in series for high-noise environments.",
+        "precautions": "Ensure supply voltage remains within 3.0V to 5.5V range. Supply sequencing is independent of input current - VS can be powered down while high-voltage input is active (within isolation limits). During power-on, output may transition between GND and VS before stabilizing."
+      }
+    },
+    "VS_10": {
+      "name": "VS",
+      "pin_id": "10",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Power supply input. Operating range: 3.0V to 5.5V. Connect to same supply as pin 9.",
+      "input_voltage": {
+        "min": 3.0,
+        "nom": 5.0,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to same supply as VS pin 9. Both VS pins must be connected together.",
+        "components": "Share decoupling capacitors with pin 9.",
+        "precautions": "Do not leave unconnected. Both VS pins must be tied to supply for proper operation."
+      }
+    }
+  },
+  "specifications": {
+    "isolation": {
+      "VIORM": {
+        "description": "Maximum repetitive peak isolation voltage",
+        "value": 1697,
+        "units": "VPK"
+      },
+      "VIOWM_reinforced_AC": {
+        "description": "Maximum reinforced isolation working voltage (AC)",
+        "value": 950,
+        "units": "VRMS"
+      },
+      "VIOWM_reinforced_DC": {
+        "description": "Maximum reinforced isolation working voltage (DC)",
+        "value": 1343,
+        "units": "VDC"
+      },
+      "VIOWM_basic_AC": {
+        "description": "Maximum basic isolation working voltage (AC)",
+        "value": 1200,
+        "units": "VRMS"
+      },
+      "VIOWM_basic_DC": {
+        "description": "Maximum basic isolation working voltage (DC)",
+        "value": 1697,
+        "units": "VDC"
+      },
+      "VIOTM": {
+        "description": "Maximum transient isolation voltage",
+        "value": 7071,
+        "units": "VPK"
+      },
+      "VIOSM": {
+        "description": "Maximum surge isolation voltage",
+        "value": 10000,
+        "units": "VPK"
+      },
+      "VISO_UL1577": {
+        "description": "Withstand isolation voltage (UL 1577)",
+        "value": 5000,
+        "units": "VRMS"
+      },
+      "creepage": {
+        "description": "External creepage distance",
+        "min": 8,
+        "units": "mm"
+      },
+      "clearance": {
+        "description": "External clearance distance",
+        "min": 8,
+        "units": "mm"
+      },
+      "CIO": {
+        "description": "Barrier capacitance, input to output",
+        "value": 0.6,
+        "units": "pF"
+      }
+    },
+    "input": {
+      "RIN": {
+        "description": "Input conductor resistance at 25°C",
+        "value": 0.7,
+        "units": "mΩ"
+      },
+      "RIN_tempco": {
+        "description": "Input conductor resistance temperature coefficient",
+        "value": 2.1,
+        "units": "µΩ/°C"
+      },
+      "IIN_MAX_25C": {
+        "description": "Maximum continuous input current at 25°C",
+        "value": 80,
+        "units": "ARMS"
+      },
+      "IIN_MAX_125C": {
+        "description": "Maximum continuous input current at 125°C",
+        "value": 44,
+        "units": "ARMS"
+      }
+    },
+    "accuracy": {
+      "sensitivity_error": {
+        "description": "Sensitivity error",
+        "typ": 0.1,
+        "max": 0.4,
+        "units": "%"
+      },
+      "sensitivity_thermal_drift": {
+        "description": "Sensitivity thermal drift",
+        "typ": 20,
+        "max": 50,
+        "units": "ppm/°C"
+      },
+      "sensitivity_lifetime_drift": {
+        "description": "Sensitivity lifetime drift",
+        "typ": 0.2,
+        "max": 0.5,
+        "units": "%"
+      },
+      "nonlinearity": {
+        "description": "Nonlinearity error",
+        "max": 0.1,
+        "units": "%"
+      },
+      "PSRR": {
+        "description": "Power supply rejection ratio (input referred)",
+        "typ": 15,
+        "max": 50,
+        "units": "mA/V"
+      },
+      "CMRR": {
+        "description": "Common mode rejection ratio (input referred)",
+        "value": 5,
+        "units": "µA/V"
+      },
+      "CMFR": {
+        "description": "Common mode field rejection",
+        "value": 10,
+        "units": "mA/mT"
+      },
+      "CMTI": {
+        "description": "Common mode transient immunity",
+        "value": 150,
+        "units": "kV/µs"
+      }
+    },
+    "bandwidth_response": {
+      "bandwidth": {
+        "description": "Analog bandwidth (-3dB)",
+        "value": 1.1,
+        "units": "MHz"
+      },
+      "slew_rate": {
+        "description": "Output slew rate",
+        "value": 8,
+        "units": "V/µs"
+      },
+      "response_time": {
+        "description": "Response time (to 90% of final value)",
+        "value": 120,
+        "units": "ns"
+      },
+      "propagation_delay": {
+        "description": "Propagation delay (to 10% of final value)",
+        "value": 50,
+        "units": "ns"
+      },
+      "overload_recovery": {
+        "description": "Current overload recovery time",
+        "value": 300,
+        "units": "ns"
+      }
+    },
+    "power_supply": {
+      "VS_range": {
+        "description": "Supply voltage range",
+        "min": 3.0,
+        "max": 5.5,
+        "units": "V"
+      },
+      "IQ_25C": {
+        "description": "Quiescent current at 25°C",
+        "typ": 11,
+        "max": 14,
+        "units": "mA"
+      },
+      "IQ_max": {
+        "description": "Quiescent current over temperature",
+        "max": 14.5,
+        "units": "mA"
+      },
+      "power_on_time": {
+        "description": "Power-on time to valid output",
+        "value": 34,
+        "units": "ms"
+      }
+    },
+    "thermal": {
+      "RthJA": {
+        "description": "Junction-to-ambient thermal resistance",
+        "value": 27.9,
+        "units": "°C/W"
+      },
+      "RthJC_top": {
+        "description": "Junction-to-case (top) thermal resistance",
+        "value": 26.8,
+        "units": "°C/W"
+      },
+      "RthJB": {
+        "description": "Junction-to-board thermal resistance",
+        "value": 10.1,
+        "units": "°C/W"
+      },
+      "TJ_max": {
+        "description": "Maximum junction temperature",
+        "value": 165,
+        "units": "°C"
+      },
+      "TA_operating": {
+        "description": "Operating temperature range",
+        "min": -40,
+        "max": 125,
+        "units": "°C"
+      }
+    },
+    "esd": {
+      "HBM": {
+        "description": "Human body model ESD rating",
+        "value": 4000,
+        "units": "V"
+      },
+      "CDM": {
+        "description": "Charged device model ESD rating",
+        "value": 1000,
+        "units": "V"
+      }
+    }
+  },
+  "variant_specifications": {
+    "offset_voltage_error": {
+      "x7A": {
+        "typ": 0.2,
+        "max": 1,
+        "units": "mV"
+      },
+      "x1A": {
+        "typ": 0.2,
+        "max": 1,
+        "units": "mV"
+      },
+      "x8A": {
+        "typ": 0.2,
+        "max": 1,
+        "units": "mV"
+      },
+      "x2A": {
+        "typ": 0.3,
+        "max": 2,
+        "units": "mV"
+      },
+      "x9A": {
+        "typ": 0.3,
+        "max": 2,
+        "units": "mV"
+      },
+      "x3A": {
+        "typ": 0.4,
+        "max": 3,
+        "units": "mV"
+      },
+      "x4A": {
+        "typ": 0.5,
+        "max": 4,
+        "units": "mV"
+      },
+      "x5A": {
+        "typ": 0.6,
+        "max": 5,
+        "units": "mV"
+      }
+    },
+    "offset_thermal_drift": {
+      "x7A_x1A_x8A": {
+        "typ": 10,
+        "max": 25,
+        "units": "µV/°C"
+      },
+      "x2A_x9A_x3A": {
+        "typ": 10,
+        "max": 30,
+        "units": "µV/°C"
+      },
+      "x4A_x5A": {
+        "typ": 15,
+        "max": 40,
+        "units": "µV/°C"
+      }
+    },
+    "overcurrent_hysteresis": {
+      "x7A": {
+        "value": 8.4,
+        "units": "A"
+      },
+      "x1A": {
+        "value": 4.5,
+        "units": "A"
+      },
+      "x8A": {
+        "value": 3.4,
+        "units": "A"
+      },
+      "x2A": {
+        "value": 3.5,
+        "units": "A"
+      },
+      "x9A": {
+        "value": 2.5,
+        "units": "A"
+      },
+      "x3A": {
+        "value": 2.2,
+        "units": "A"
+      },
+      "x4A": {
+        "value": 1.4,
+        "units": "A"
+      },
+      "x5A": {
+        "value": 2.7,
+        "units": "A"
+      }
+    }
+  }
+}

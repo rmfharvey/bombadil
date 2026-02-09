@@ -1,0 +1,608 @@
+{
+  "high_level": {
+    "base_part_number": "DRV8838",
+    "device_type": 7,
+    "manufacturer": "Texas Instruments",
+    "packages": [
+      "WSON-8"
+    ],
+    "part_numbers": {
+      "DRV8838DSGR": {
+        "options": {
+          "DeviceMarking": "8838",
+          "EcoPlan": "RoHS & Green NIPDAU",
+          "MSLPeakTemp": "Level-3-260C-168 HR",
+          "OperatingTemperatureCelsius": "-40 to 85",
+          "PackageDrawing": "DSG",
+          "PackageType": "WSON",
+          "Pins": "8",
+          "BodySize": "2.00 mm × 2.00 mm",
+          "Status": "ACTIVE"
+        }
+      },
+      "DRV8838DSGRG4": {
+        "options": {
+          "DeviceMarking": "8838",
+          "EcoPlan": "RoHS & Green NIPDAU",
+          "MSLPeakTemp": "Level-3-260C-168 HR",
+          "OperatingTemperatureCelsius": "-40 to 85",
+          "PackageDrawing": "DSG",
+          "PackageType": "WSON",
+          "Pins": "8",
+          "BodySize": "2.00 mm × 2.00 mm",
+          "Status": "ACTIVE"
+        }
+      }
+    },
+    "serial_busses": [],
+    "description": "Low-voltage H-bridge motor driver with PH/EN interface. Drives DC motors or other loads like solenoids. Features integrated N-channel power MOSFETs, internal charge pump, low-power sleep mode, and protection circuits (UVLO, OCP, TSD).",
+    "features": [
+      "H-Bridge Motor Driver for DC Motors or Solenoids",
+      "Low MOSFET On-Resistance: HS + LS 280 mΩ typical",
+      "1.8 A Maximum Drive Current",
+      "Motor VM Supply: 0 to 11 V",
+      "Logic VCC Supply: 1.8 to 7 V",
+      "PH/EN Control Interface",
+      "Low-Power Sleep Mode: 120 nA Maximum Sleep Current",
+      "VCC Undervoltage Lockout (UVLO)",
+      "Overcurrent Protection (OCP)",
+      "Thermal Shutdown (TSD)",
+      "Small Package: 8-Pin WSON 2.0 × 2.0 mm"
+    ],
+    "applications": [
+      "Cameras",
+      "DSLR Lenses",
+      "Consumer Products",
+      "Toys",
+      "Robotics",
+      "Medical Devices"
+    ]
+  },
+  "pins": {
+    "VM": {
+      "name": "VM",
+      "pin_id": "1",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Motor power supply. Bypass this pin to GND with a 0.1 µF ceramic capacitor rated for VM. The path from VM pin to high frequency bypass capacitor and GND must be as short as possible. VM does not have UVLO protection - operation is possible down to 0V as long as VCC > 1.8V, though load cannot be sufficiently driven at low VM voltages.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 12.0,
+        "units": "V"
+      },
+      "operating_voltage": {
+        "min": 0.0,
+        "max": 11.0,
+        "units": "V"
+      },
+      "sleep_current": {
+        "typ": 30,
+        "max": 95,
+        "units": "nA",
+        "conditions": "VM = 5V, VCC = 3V, nSLEEP = 0"
+      },
+      "operating_current_no_pwm": {
+        "typ": 40,
+        "max": 100,
+        "units": "µA",
+        "conditions": "VM = 5V, VCC = 3V"
+      },
+      "operating_current_pwm": {
+        "typ": 0.8,
+        "max": 1.5,
+        "units": "mA",
+        "conditions": "VM = 5V, VCC = 3V, 50 kHz PWM"
+      },
+      "implementation": {
+        "connectivity": "Connect to motor power supply (0V to 11V). VM and VCC can be connected together if supply voltage is between 1.8V and 7V.",
+        "bypass_capacitor": "0.1 µF ceramic capacitor to GND, placed as close to pin as possible",
+        "bulk_capacitor": "Recommended for motor drive applications to handle current transients",
+        "notes": "VM can be applied/removed in any order relative to VCC. When VCC is removed, device enters low-power state drawing minimal current from VM."
+      }
+    },
+    "OUT1": {
+      "name": "OUT1",
+      "pin_id": "2",
+      "type": "POWER",
+      "direction": "OUTPUT",
+      "description": "Motor output 1. Connect to one terminal of the motor winding. Internally connected to H-bridge high-side and low-side MOSFETs.",
+      "output_voltage": {
+        "min": -0.3,
+        "max": 12.0,
+        "units": "V"
+      },
+      "output_current": {
+        "max": 1.8,
+        "units": "A",
+        "notes": "Peak drive current, internally limited by OCP"
+      },
+      "rds_on": {
+        "typ": 280,
+        "max": 330,
+        "units": "mΩ",
+        "conditions": "HS + LS, VM = 5V, VCC = 3V, IO = 800 mA, TJ = 25°C"
+      },
+      "off_state_leakage": {
+        "min": -200,
+        "max": 200,
+        "units": "nA",
+        "conditions": "VOUT = 0V"
+      },
+      "implementation": {
+        "connectivity": "Connect to DC motor winding terminal or solenoid. For independent half-bridge control, connect load between VM and OUT1.",
+        "layout": "Keep trace to motor short to minimize inductance",
+        "notes": "Output state controlled by PH and EN inputs according to truth table"
+      }
+    },
+    "OUT2": {
+      "name": "OUT2",
+      "pin_id": "3",
+      "type": "POWER",
+      "direction": "OUTPUT",
+      "description": "Motor output 2. Connect to other terminal of the motor winding. Internally connected to H-bridge high-side and low-side MOSFETs.",
+      "output_voltage": {
+        "min": -0.3,
+        "max": 12.0,
+        "units": "V"
+      },
+      "output_current": {
+        "max": 1.8,
+        "units": "A",
+        "notes": "Peak drive current, internally limited by OCP"
+      },
+      "rds_on": {
+        "typ": 280,
+        "max": 330,
+        "units": "mΩ",
+        "conditions": "HS + LS, VM = 5V, VCC = 3V, IO = 800 mA, TJ = 25°C"
+      },
+      "off_state_leakage": {
+        "min": -200,
+        "max": 200,
+        "units": "nA",
+        "conditions": "VOUT = 0V"
+      },
+      "implementation": {
+        "connectivity": "Connect to DC motor winding terminal or solenoid. For independent half-bridge control, connect load between VM and OUT2.",
+        "layout": "Keep trace to motor short to minimize inductance",
+        "notes": "Output state controlled by PH and EN inputs according to truth table"
+      }
+    },
+    "GND": {
+      "name": "GND",
+      "pin_id": "4",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Device ground. This pin must be connected to ground. Return for internal voltage reference and analog circuits.",
+      "implementation": {
+        "connectivity": "Connect to system ground plane",
+        "layout": "Use thick trace or ground plane connection. Bypass capacitors for VM and VCC should have short return path to this pin.",
+        "thermal_pad": "Package thermal pad must be soldered to PCB thermal pad connected to ground for thermal and mechanical performance",
+        "notes": "Critical for proper device operation and thermal dissipation"
+      }
+    },
+    "EN": {
+      "name": "EN",
+      "pin_id": "5",
+      "type": "DIGITAL",
+      "direction": "INPUT",
+      "description": "ENABLE input for PH/EN control interface. When EN is high, H-bridge outputs are enabled and direction is controlled by PH pin. When EN is low, both outputs are driven low (brake mode). Internal pulldown resistor to ground.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 7.0,
+        "units": "V"
+      },
+      "vil": {
+        "max_factor": 0.38,
+        "reference": "VCC",
+        "units": "V",
+        "notes": "Falling threshold"
+      },
+      "vih": {
+        "min_factor": 0.46,
+        "reference": "VCC",
+        "units": "V",
+        "notes": "Rising threshold"
+      },
+      "hysteresis": {
+        "typ_factor": 0.08,
+        "reference": "VCC",
+        "units": "V"
+      },
+      "input_current_low": {
+        "min": -5,
+        "max": 5,
+        "units": "µA",
+        "conditions": "VIN = 0V"
+      },
+      "input_current_high": {
+        "max": 50,
+        "units": "µA",
+        "conditions": "VIN = 3.3V"
+      },
+      "pulldown_resistance": {
+        "typ": 100,
+        "units": "kΩ"
+      },
+      "implementation": {
+        "connectivity": "Connect to PWM signal from microcontroller for speed control, or to logic high/low for on/off control",
+        "logic_levels": "Compatible with 1.8V to 5.5V logic levels",
+        "pwm_frequency": "0 to 250 kHz supported",
+        "notes": "EN=0 puts H-bridge in brake mode (both outputs LOW). EN=1 enables motor drive with direction set by PH."
+      }
+    },
+    "PH": {
+      "name": "PH",
+      "pin_id": "6",
+      "type": "DIGITAL",
+      "direction": "INPUT",
+      "description": "PHASE input for PH/EN control interface. Controls the direction of the H-bridge output when EN is high. PH=0 drives forward (OUT1=H, OUT2=L), PH=1 drives reverse (OUT1=L, OUT2=H). Internal pulldown resistor to ground.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 7.0,
+        "units": "V"
+      },
+      "vil": {
+        "max_factor": 0.38,
+        "reference": "VCC",
+        "units": "V",
+        "notes": "Falling threshold"
+      },
+      "vih": {
+        "min_factor": 0.46,
+        "reference": "VCC",
+        "units": "V",
+        "notes": "Rising threshold"
+      },
+      "hysteresis": {
+        "typ_factor": 0.08,
+        "reference": "VCC",
+        "units": "V"
+      },
+      "input_current_low": {
+        "min": -5,
+        "max": 5,
+        "units": "µA",
+        "conditions": "VIN = 0V"
+      },
+      "input_current_high": {
+        "max": 50,
+        "units": "µA",
+        "conditions": "VIN = 3.3V"
+      },
+      "pulldown_resistance": {
+        "typ": 100,
+        "units": "kΩ"
+      },
+      "implementation": {
+        "connectivity": "Connect to microcontroller GPIO for direction control",
+        "logic_levels": "Compatible with 1.8V to 5.5V logic levels",
+        "notes": "PH only affects output when EN=1. PH=0: Forward (OUT1=H, OUT2=L). PH=1: Reverse (OUT1=L, OUT2=H)."
+      }
+    },
+    "nSLEEP": {
+      "name": "nSLEEP",
+      "pin_id": "7",
+      "type": "DIGITAL",
+      "direction": "INPUT",
+      "polarity": "ACTIVE_LOW",
+      "description": "Sleep mode input, active low. When this pin is logic low, the device enters low-power sleep mode with H-bridge outputs in Hi-Z (coast) state. Device operates normally when this pin is logic high. Internal pulldown resistor to ground.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 7.0,
+        "units": "V"
+      },
+      "vil": {
+        "max_factor": 0.38,
+        "reference": "VCC",
+        "units": "V",
+        "notes": "Falling threshold"
+      },
+      "vih": {
+        "min_factor": 0.46,
+        "reference": "VCC",
+        "units": "V",
+        "notes": "Rising threshold"
+      },
+      "hysteresis": {
+        "typ_factor": 0.08,
+        "reference": "VCC",
+        "units": "V"
+      },
+      "input_current_low": {
+        "min": -5,
+        "max": 5,
+        "units": "µA",
+        "conditions": "VIN = 0V"
+      },
+      "input_current_high": {
+        "max": 60,
+        "units": "µA",
+        "conditions": "VIN = 3.3V"
+      },
+      "pulldown_resistance": {
+        "typ": 55,
+        "units": "kΩ"
+      },
+      "wake_time": {
+        "typ": 30,
+        "units": "µs",
+        "notes": "Time from nSLEEP rising edge to part active"
+      },
+      "implementation": {
+        "connectivity": "Connect to microcontroller GPIO for sleep control, or tie to VCC if sleep mode not needed",
+        "do_not_float": false,
+        "notes": "Internal pulldown ensures device enters sleep mode if pin is left floating. When entering sleep mode, set all inputs low to minimize system power. In sleep mode, H-bridge outputs are Hi-Z (coast mode)."
+      }
+    },
+    "VCC": {
+      "name": "VCC",
+      "pin_id": "8",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Logic power supply. Powers internal logic, control circuits, and charge pump. Bypass to GND with 0.1 µF ceramic capacitor rated for VCC.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 7.0,
+        "units": "V"
+      },
+      "operating_voltage": {
+        "min": 1.8,
+        "max": 7.0,
+        "units": "V"
+      },
+      "uvlo_falling": {
+        "typ": 1.7,
+        "units": "V"
+      },
+      "uvlo_rising": {
+        "typ": 1.8,
+        "units": "V"
+      },
+      "sleep_current": {
+        "typ": 5,
+        "max": 25,
+        "units": "nA",
+        "conditions": "VM = 5V, VCC = 3V, nSLEEP = 0"
+      },
+      "operating_current_no_pwm": {
+        "typ": 300,
+        "max": 500,
+        "units": "µA",
+        "conditions": "VM = 5V, VCC = 3V"
+      },
+      "operating_current_pwm": {
+        "typ": 0.7,
+        "max": 1.5,
+        "units": "mA",
+        "conditions": "VM = 5V, VCC = 3V, 50 kHz PWM"
+      },
+      "implementation": {
+        "connectivity": "Connect to logic supply (1.8V to 7V). VCC and VM can be connected together if supply is between 1.8V and 7V.",
+        "bypass_capacitor": "0.1 µF ceramic capacitor to GND, placed as close to pin as possible",
+        "notes": "VCC and VM can be applied/removed in any order. When VCC is removed, device enters low-power state. Internal logic remains active as long as VCC > UVLO threshold."
+      }
+    },
+    "THERMAL_PAD": {
+      "name": "THERMAL_PAD",
+      "pin_id": "9",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Exposed thermal pad on bottom of package. Must be soldered to PCB thermal pad for proper thermal and mechanical performance.",
+      "implementation": {
+        "connectivity": "Solder to PCB ground plane thermal pad",
+        "thermal_vias": "Use thermal vias under pad to conduct heat to inner/bottom copper layers",
+        "notes": "Critical for thermal management. Junction-to-case (bottom) thermal resistance is 9.8°C/W. Junction-to-ambient thermal resistance is 60.9°C/W."
+      }
+    }
+  },
+  "control_logic": {
+    "description": "DRV8838 PH/EN control interface truth table",
+    "truth_table": [
+      {
+        "nSLEEP": "0",
+        "PH": "X",
+        "EN": "X",
+        "OUT1": "Hi-Z",
+        "OUT2": "Hi-Z",
+        "function": "Coast (Sleep Mode)"
+      },
+      {
+        "nSLEEP": "1",
+        "PH": "X",
+        "EN": "0",
+        "OUT1": "L",
+        "OUT2": "L",
+        "function": "Brake"
+      },
+      {
+        "nSLEEP": "1",
+        "PH": "0",
+        "EN": "1",
+        "OUT1": "H",
+        "OUT2": "L",
+        "function": "Forward"
+      },
+      {
+        "nSLEEP": "1",
+        "PH": "1",
+        "EN": "1",
+        "OUT1": "L",
+        "OUT2": "H",
+        "function": "Reverse"
+      }
+    ]
+  },
+  "timing": {
+    "phase_to_out1_low": {
+      "parameter": "t1",
+      "description": "Delay time, PHASE high to OUT1 low",
+      "max": 160,
+      "units": "ns"
+    },
+    "phase_to_out2_high": {
+      "parameter": "t2",
+      "description": "Delay time, PHASE high to OUT2 high",
+      "max": 200,
+      "units": "ns"
+    },
+    "phase_low_to_out1_high": {
+      "parameter": "t3",
+      "description": "Delay time, PHASE low to OUT1 high",
+      "max": 200,
+      "units": "ns"
+    },
+    "phase_low_to_out2_low": {
+      "parameter": "t4",
+      "description": "Delay time, PHASE low to OUT2 low",
+      "max": 160,
+      "units": "ns"
+    },
+    "enable_high_to_out_high": {
+      "parameter": "t5",
+      "description": "Delay time, ENBL high to OUTx high",
+      "max": 200,
+      "units": "ns"
+    },
+    "enable_low_to_out_low": {
+      "parameter": "t6",
+      "description": "Delay time, ENBL low to OUTx low",
+      "max": 160,
+      "units": "ns"
+    },
+    "output_enable_time": {
+      "parameter": "t7",
+      "description": "Output enable time",
+      "max": 300,
+      "units": "ns"
+    },
+    "output_disable_time": {
+      "parameter": "t8",
+      "description": "Output disable time",
+      "max": 300,
+      "units": "ns"
+    },
+    "output_rise_time": {
+      "parameter": "t11",
+      "description": "Output rise time",
+      "min": 30,
+      "max": 188,
+      "units": "ns"
+    },
+    "output_fall_time": {
+      "parameter": "t12",
+      "description": "Output fall time",
+      "min": 30,
+      "max": 188,
+      "units": "ns"
+    },
+    "wake_time": {
+      "parameter": "twake",
+      "description": "Wake time, nSLEEP rising edge to part active",
+      "typ": 30,
+      "units": "µs"
+    }
+  },
+  "protection": {
+    "uvlo": {
+      "name": "VCC Undervoltage Lockout",
+      "description": "If VCC falls below UVLO threshold, all H-bridge FETs are disabled. Operation resumes when VCC rises above threshold.",
+      "falling_threshold": {
+        "typ": 1.7,
+        "units": "V"
+      },
+      "rising_threshold": {
+        "typ": 1.8,
+        "units": "V"
+      },
+      "recovery": "Automatic when VCC > 1.8V"
+    },
+    "ocp": {
+      "name": "Overcurrent Protection",
+      "description": "Analog current limit on each FET limits current by removing gate drive. If current limit persists longer than deglitch time, all H-bridge FETs are disabled. Detects shorts to VM, GND, or OUT1-to-OUT2.",
+      "trip_level": {
+        "min": 1.9,
+        "max": 3.5,
+        "units": "A"
+      },
+      "deglitch_time": {
+        "typ": 1,
+        "units": "µs"
+      },
+      "retry_time": {
+        "typ": 1,
+        "units": "ms"
+      },
+      "recovery": "Automatic after retry time elapses"
+    },
+    "tsd": {
+      "name": "Thermal Shutdown",
+      "description": "If die temperature exceeds safe limits, all H-bridge FETs are disabled. Operation resumes automatically when temperature falls to safe level.",
+      "shutdown_temperature": {
+        "min": 150,
+        "typ": 160,
+        "max": 180,
+        "units": "°C"
+      },
+      "recovery": "Automatic when TJ < 150°C"
+    }
+  },
+  "thermal": {
+    "junction_to_ambient": {
+      "parameter": "RθJA",
+      "value": 60.9,
+      "units": "°C/W"
+    },
+    "junction_to_case_top": {
+      "parameter": "RθJC(top)",
+      "value": 71.4,
+      "units": "°C/W"
+    },
+    "junction_to_case_bottom": {
+      "parameter": "RθJC(bot)",
+      "value": 9.8,
+      "units": "°C/W"
+    },
+    "junction_to_board": {
+      "parameter": "RθJB",
+      "value": 32.2,
+      "units": "°C/W"
+    },
+    "psi_jt": {
+      "parameter": "ψJT",
+      "value": 1.6,
+      "units": "°C/W"
+    },
+    "psi_jb": {
+      "parameter": "ψJB",
+      "value": 32.8,
+      "units": "°C/W"
+    },
+    "operating_junction_temperature": {
+      "min": -40,
+      "max": 150,
+      "units": "°C"
+    },
+    "storage_temperature": {
+      "min": -60,
+      "max": 150,
+      "units": "°C"
+    },
+    "power_dissipation_equation": "P_TOT = rDS(on) × (I_OUT(RMS))²"
+  },
+  "esd_ratings": {
+    "hbm": {
+      "parameter": "Human Body Model",
+      "value": 3000,
+      "units": "V",
+      "standard": "ANSI/ESDA/JEDEC JS-001"
+    },
+    "cdm": {
+      "parameter": "Charged Device Model",
+      "value": 1500,
+      "units": "V",
+      "standard": "JEDEC JESD22-C101"
+    }
+  },
+  "serial_bus": null
+}
