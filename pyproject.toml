@@ -9,6 +9,7 @@ dependencies = [
     "colorama>=0.4.6",
     "google>=3.0.0",
     "google-genai>=1.60.0",
+    "linear-api>=0.2.0",
     "pymupdf4llm>=0.2.9",
     "pyside6>=6.9.1",
 ]
