@@ -1,18 +1,3377 @@
 {
-  "high_level":{
-    "base_part_number":"BQ25756",
-    "device_type":"REGULATOR_OTHER",
-    "manufacturer":"Texas Instruments",
-    "packages":[
+  "high_level": {
+    "base_part_number": "BQ25756",
+    "device_type": 6,
+    "manufacturer": "Texas Instruments",
+    "packages": [
       "VQFN-36"
     ],
-    "part_numbers":{
-      "BQ25756RRVR":{
-        "options":{}
+    "part_numbers": {
+      "BQ25756RRVR": {
+        "options": {
+          "PackageType": "VQFN",
+          "PackageDrawing": "RRV",
+          "Pins": "36",
+          "BodySize": "5.0 x 6.0 mm",
+          "OperatingTemperatureCelsius": "-40 to 125",
+          "Status": "ACTIVE"
+        }
       }
     },
-    "serial_busses":[
-      "I2C"
+    "serial_busses": [
+      1
+    ]
+  },
+  "pins": {
+    "SCL": {
+      "name": "SCL",
+      "pin_id": "1",
+      "direction": "INPUT",
+      "type": "DIGITAL",
+      "description": "I2C Interface Clock. Connect SCL to the logic rail through a 10-kOhm resistor. I2C target address is 0x6B. Supports standard mode (100kbit/s), fast mode (400kbit/s), and fast mode plus (1Mbit/s).",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 6.0,
+        "units": "V"
+      },
+      "vih": {
+        "min": 1.3,
+        "units": "V"
+      },
+      "vil": {
+        "max": 0.4,
+        "units": "V"
+      }
+    },
+    "SDA": {
+      "name": "SDA",
+      "pin_id": "2",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "I2C Interface Data. Connect SDA to the logic rail through a 10-kOhm resistor. Open-drain output. I2C target address is 0x6B.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 6.0,
+        "units": "V"
+      },
+      "vih": {
+        "min": 1.3,
+        "units": "V"
+      },
+      "vil": {
+        "max": 0.4,
+        "units": "V"
+      },
+      "vol": {
+        "max": 0.4,
+        "units": "V"
+      },
+      "output_type": "OPEN_DRAIN"
+    },
+    "INT": {
+      "name": "INT",
+      "pin_id": "3",
+      "direction": "OUTPUT",
+      "type": "DIGITAL",
+      "description": "Open Drain Interrupt Output. Connect the INT pin to a logic rail via 10-kOhm resistor. The INT pin sends an active low, 256-us pulse to host to report charger device status and faults.",
+      "output_type": "OPEN_DRAIN",
+      "polarity": "ACTIVE_LOW",
+      "output_voltage": {
+        "min": -0.3,
+        "max": 6.0,
+        "units": "V"
+      },
+      "vol": {
+        "max": 0.4,
+        "units": "V"
+      }
+    },
+    "STAT1": {
+      "name": "STAT1",
+      "pin_id": "4",
+      "direction": "OUTPUT",
+      "type": "DIGITAL",
+      "description": "Open Drain Charge Status 1 Output. STAT1 and STAT2 indicate various charger operations. Connect to the pull up rail via 10-kOhm resistor. Pin function can be disabled via DIS_STAT_PINS bit. When disabled, can be used as general purpose indicator via FORCE_STAT1_ON bit.",
+      "output_type": "OPEN_DRAIN",
+      "output_voltage": {
+        "min": -0.3,
+        "max": 6.0,
+        "units": "V"
+      },
+      "vol": {
+        "max": 0.4,
+        "units": "V"
+      }
+    },
+    "STAT2": {
+      "name": "STAT2",
+      "pin_id": "5",
+      "direction": "OUTPUT",
+      "type": "DIGITAL",
+      "description": "Open Drain Charge Status 2 Output. STAT1 and STAT2 indicate various charger operations. Connect to the pull up rail via 10-kOhm resistor. Pin function can be disabled via DIS_STAT_PINS bit. When disabled, can be used as general purpose indicator via FORCE_STAT2_ON bit.",
+      "output_type": "OPEN_DRAIN",
+      "output_voltage": {
+        "min": -0.3,
+        "max": 6.0,
+        "units": "V"
+      },
+      "vol": {
+        "max": 0.4,
+        "units": "V"
+      }
+    },
+    "PG": {
+      "name": "PG",
+      "pin_id": "6",
+      "direction": "OUTPUT",
+      "type": "DIGITAL",
+      "description": "Open Drain Active Low Power Good Indicator. Connect to the pull up rail via 10-kOhm resistor. LOW indicates a good input source if VAC is within the programmed ACUV/ACOV operating window. Pin function can be disabled via DIS_PG_PIN bit.",
+      "output_type": "OPEN_DRAIN",
+      "polarity": "ACTIVE_LOW",
+      "output_voltage": {
+        "min": -0.3,
+        "max": 40.0,
+        "units": "V"
+      },
+      "vol": {
+        "max": 0.4,
+        "units": "V"
+      }
+    },
+    "CE": {
+      "name": "CE",
+      "pin_id": "7",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Active Low Charge Enable Pin. Battery charging is enabled when EN_CHG bit is 1 and CE pin is LOW. CE pin must be pulled HIGH or LOW, do not leave floating. Pin function can be disabled via DIS_CE_PIN bit. When disabled, can be used as general purpose indicator via FORCE_STAT4_ON bit.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 6.0,
+        "units": "V"
+      },
+      "output_type": "OPEN_DRAIN",
+      "polarity": "ACTIVE_LOW",
+      "vih": {
+        "min": 1.3,
+        "units": "V"
+      },
+      "vil": {
+        "max": 0.4,
+        "units": "V"
+      },
+      "vol": {
+        "max": 0.4,
+        "units": "V"
+      }
+    },
+    "TS": {
+      "name": "TS",
+      "pin_id": "8",
+      "direction": "INPUT",
+      "type": "ANALOG",
+      "description": "Temperature Qualification Voltage Input. Connect a negative temperature coefficient thermistor. Program temperature window with a resistor divider from REGN to TS to PGND. Charge suspends when TS pin voltage is out of range. Recommend 103AT-2 10-kOhm thermistor.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 6.0,
+        "units": "V"
+      }
+    },
+    "ICHG": {
+      "name": "ICHG",
+      "pin_id": "9",
+      "direction": "INPUT",
+      "type": "ANALOG",
+      "description": "Charge Current Limit Setting. ICHG pin sets the maximum charge current and can be used to monitor charge current. A programming resistor to PGND sets charge current limit as ICHG = KICHG / RICHG (KICHG typ 50 A*kOhm). Actual charge current limit is the lower of ICHG pin or ICHG_REG register bits. Pin function can be disabled via EN_ICHG_PIN bit. If not used, pull to PGND, do not leave floating.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 6.0,
+        "units": "V"
+      }
+    },
+    "ILIM_HIZ": {
+      "name": "ILIM_HIZ",
+      "pin_id": "10",
+      "direction": "INPUT",
+      "type": "ANALOG",
+      "description": "Input Current Limit Setting and HIZ Mode Control Pin. ILIM_HIZ pin sets the maximum input current limit, can monitor input current, and can be pulled HIGH to force device into HIZ mode (VIH = 3.7V). A programming resistor to PGND sets input current limit as ILIM = KILIM / RILIM (KILIM typ 50 A*kOhm). Actual input current limit is the lower of ILIM_HIZ pin or IAC_DPM register bits. Pin function can be disabled via EN_ILIM_HIZ_PIN bit. If not used, pull to PGND, do not leave floating.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 6.0,
+        "units": "V"
+      }
+    },
+    "FBG": {
+      "name": "FBG",
+      "pin_id": "11",
+      "direction": "INPUT",
+      "type": "ANALOG",
+      "description": "Voltage Feedback Divider Return. Connect to the bottom of battery feedback resistor. When charging, this pin is driven to PGND internally. When input voltage is outside of the ACUV/ACOV operating window, this pin is high-impedance, minimizing battery leakage current. RFBG to PGND: 33-55 Ohm.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 85.0,
+        "units": "V"
+      }
+    },
+    "FB": {
+      "name": "FB",
+      "pin_id": "12",
+      "direction": "INPUT",
+      "type": "ANALOG",
+      "description": "Charge Voltage Analog Feedback Adjustment. Connect the output of a resistive voltage divider from the battery terminals to this node to adjust the output battery regulation voltage. Nominal feedback voltage: 1.536V (default). Range: 1.504V to 1.566V. Accuracy: +/-0.5% (0 to 85C).",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 85.0,
+        "units": "V"
+      }
+    },
+    "SRN": {
+      "name": "SRN",
+      "pin_id": "13",
+      "direction": "INPUT",
+      "type": "ANALOG",
+      "description": "Charge Current-Sense Resistor, Negative Input. A 0.47-uF ceramic capacitor is placed from SRN to SRP for differential-mode filtering. An optional 0.1-uF ceramic capacitor from SRN to PGND for common-mode filtering. Recommended RBAT_SNS = 5 mOhm.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 85.0,
+        "units": "V"
+      }
+    },
+    "SRP": {
+      "name": "SRP",
+      "pin_id": "14",
+      "direction": "INPUT",
+      "type": "ANALOG",
+      "description": "Charge Current-Sense Resistor, Positive Input. A 0.47-uF ceramic capacitor is placed from SRN to SRP for differential-mode filtering. A 0.1-uF ceramic capacitor from SRP to PGND for common-mode filtering. Differential voltage (SRP-SRN) abs max: -0.3V to 0.3V.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 85.0,
+        "units": "V"
+      }
+    },
+    "NC_15": {
+      "name": "NC",
+      "pin_id": "15",
+      "direction": "NONE",
+      "type": "NC",
+      "description": "No Connect. Leave this pin floating, do not tie to PGND."
+    },
+    "NC_16": {
+      "name": "NC",
+      "pin_id": "16",
+      "direction": "NONE",
+      "type": "NC",
+      "description": "No Connect. Leave this pin floating, do not tie to PGND."
+    },
+    "PGND_17": {
+      "name": "PGND",
+      "pin_id": "17",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "Tie this pin directly to PGND."
+    },
+    "SW2": {
+      "name": "SW2",
+      "pin_id": "18",
+      "direction": "OUTPUT",
+      "type": "POWER",
+      "description": "Boost Side Half Bridge Switching Node. Connect to the source of boost HS FET and the drain of boost LS FET. Connect the inductor between SW1 and SW2.",
+      "output_voltage": {
+        "min": -2.0,
+        "max": 85.0,
+        "units": "V"
+      }
+    },
+    "HIDRV2": {
+      "name": "HIDRV2",
+      "pin_id": "19",
+      "direction": "OUTPUT",
+      "type": "ANALOG",
+      "description": "Boost Side High-Side Gate Driver. Connect to the boost high-side N-channel MOSFET gate. Turn-on resistance: 3.4 Ohm typ. Turn-off resistance: 1.0 Ohm typ."
+    },
+    "BTST2": {
+      "name": "BTST2",
+      "pin_id": "20",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "Boost Side High-Side Power MOSFET Gate Driver Power Supply. Connect a capacitor between BTST2 and SW2 to provide bias to the high-side MOSFET gate driver. Bootstrap refresh threshold: 2.7V min, 3.1V typ, 3.9V max. Abs max BTST2 with respect to SW2: -0.3V to 14V.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 14.0,
+        "units": "V"
+      }
+    },
+    "LODRV2": {
+      "name": "LODRV2",
+      "pin_id": "21",
+      "direction": "OUTPUT",
+      "type": "ANALOG",
+      "description": "Boost Side Low-Side Gate Driver. Connect to the boost low-side N-channel MOSFET gate. Turn-on resistance: 3.4 Ohm typ. Turn-off resistance: 1.0 Ohm typ. Dead time: 45ns typ.",
+      "output_voltage": {
+        "min": -0.3,
+        "max": 14.0,
+        "units": "V"
+      }
+    },
+    "PGND_22": {
+      "name": "PGND",
+      "pin_id": "22",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "Power Ground Return. The high current ground connection for the low-side gate drivers."
+    },
+    "DRV_SUP": {
+      "name": "DRV_SUP",
+      "pin_id": "23",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "Charger Gate Drive Supply Input. Voltage on this pin drives the gates of buck-boost converter switching FETs. Connect a 4.7-uF ceramic capacitor from DRV_SUP to power ground. REGN LDO voltage can be used as gate driver supply by connecting REGN to DRV_SUP pin. In high-voltage applications, an external supply up to 12V can be used for higher efficiency. Under-voltage threshold: 3.7V typ rising. Over-voltage threshold: 12.8-13.6V rising.",
+      "input_voltage": {
+        "min": 4.0,
+        "max": 12.0,
+        "units": "V"
+      }
+    },
+    "REGN": {
+      "name": "REGN",
+      "pin_id": "24",
+      "direction": "OUTPUT",
+      "type": "POWER",
+      "description": "Charger Internal Linear Regulator Output. Connect a 4.7-uF ceramic capacitor from REGN to power ground. REGN LDO output voltage: 4.8V min, 5.0V typ, 5.2V max (at 20mA). Current limit: 70mA typ. REGN can be used as gate driver supply by connecting to DRV_SUP. REGN OK threshold: 3.55V rising.",
+      "output_voltage": {
+        "min": 4.8,
+        "max": 5.2,
+        "nom": 5.0,
+        "units": "V"
+      }
+    },
+    "LODRV1": {
+      "name": "LODRV1",
+      "pin_id": "25",
+      "direction": "OUTPUT",
+      "type": "ANALOG",
+      "description": "Buck Side Low-Side Gate Driver. Connect to the buck low-side N-channel MOSFET gate. Turn-on resistance: 3.4 Ohm typ. Turn-off resistance: 1.0 Ohm typ. Dead time: 45ns typ.",
+      "output_voltage": {
+        "min": -0.3,
+        "max": 14.0,
+        "units": "V"
+      }
+    },
+    "BTST1": {
+      "name": "BTST1",
+      "pin_id": "26",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "Buck Side High-Side Power MOSFET Gate Driver Power Supply. Connect a capacitor between BTST1 and SW1 to provide bias to the high-side MOSFET gate driver. Bootstrap refresh threshold: 2.7V min, 3.1V typ, 3.9V max. Abs max BTST1 with respect to SW1: -0.3V to 14V.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 14.0,
+        "units": "V"
+      }
+    },
+    "HIDRV1": {
+      "name": "HIDRV1",
+      "pin_id": "27",
+      "direction": "OUTPUT",
+      "type": "ANALOG",
+      "description": "Buck Side High-Side Gate Driver. Connect to the buck high-side N-channel MOSFET gate. Turn-on resistance: 3.4 Ohm typ. Turn-off resistance: 1.0 Ohm typ."
+    },
+    "SW1": {
+      "name": "SW1",
+      "pin_id": "28",
+      "direction": "OUTPUT",
+      "type": "POWER",
+      "description": "Buck Side Half Bridge Switching Node. Connect to the source of buck HS FET and the drain of buck LS FET. Connect the inductor between SW1 and SW2.",
+      "output_voltage": {
+        "min": -2.0,
+        "max": 85.0,
+        "units": "V"
+      }
+    },
+    "ACN": {
+      "name": "ACN",
+      "pin_id": "29",
+      "direction": "INPUT",
+      "type": "ANALOG",
+      "description": "Adapter Current-Sense Resistor, Negative Input. A 0.47-uF ceramic capacitor from ACN to ACP for differential-mode filtering. An optional 0.1-uF ceramic capacitor from ACN to PGND for common-mode filtering. Differential voltage (ACP-ACN) abs max: -0.3V to 0.3V. Recommended RAC_SNS = 5 mOhm (2 mOhm for higher current).",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 85.0,
+        "units": "V"
+      }
+    },
+    "ACP": {
+      "name": "ACP",
+      "pin_id": "30",
+      "direction": "INPUT",
+      "type": "ANALOG",
+      "description": "Adapter Current-Sense Resistor, Positive Input. A 0.47-uF ceramic capacitor from ACN to ACP for differential-mode filtering. A 0.1-uF ceramic capacitor from ACP to PGND for common-mode filtering.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 85.0,
+        "units": "V"
+      }
+    },
+    "NC_31": {
+      "name": "NC",
+      "pin_id": "31",
+      "direction": "NONE",
+      "type": "NC",
+      "description": "No Connect. Leave this pin floating, do not tie to PGND."
+    },
+    "VAC_32": {
+      "name": "VAC",
+      "pin_id": "32",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "Input Voltage Detection and Power. Connect a 1-uF capacitor from pin to PGND. When Reverse Mode is enabled, pin 32 is regulated to VAC_REV. Operating range: 4.2V to 70V.",
+      "input_voltage": {
+        "min": 4.2,
+        "max": 70.0,
+        "units": "V"
+      }
+    },
+    "VAC_33": {
+      "name": "VAC",
+      "pin_id": "33",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "Input Voltage Detection and Power. Pin 33 is the input bias to power the IC. ACOV/ACUV resistor divider should be connected relative to pin 33. Operating range: 4.2V to 70V.",
+      "input_voltage": {
+        "min": 4.2,
+        "max": 70.0,
+        "units": "V"
+      }
+    },
+    "ACUV": {
+      "name": "ACUV",
+      "pin_id": "34",
+      "direction": "INPUT",
+      "type": "ANALOG",
+      "description": "AC Undervoltage Comparator Input. Connect a resistor divider from VAC to PGND to program undervoltage protection. When this pin falls below VREF_ACUV (1.095-1.106V), the device stops charging. The hardware limit for input voltage regulation is VACUV_DPM (1.198-1.222V). If ACUV programming is not used, pull this pin to VAC, do not leave floating.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 85.0,
+        "units": "V"
+      }
+    },
+    "ACOV": {
+      "name": "ACOV",
+      "pin_id": "35",
+      "direction": "INPUT",
+      "type": "ANALOG",
+      "description": "AC Overvoltage Comparator Input. Connect a resistor divider from VAC to PGND to program overvoltage protection. When this pin rises above VREF_ACOV (1.184-1.206V), the device stops charging. If ACOV programming is not used, pull this pin to PGND, do not leave floating.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 85.0,
+        "units": "V"
+      }
+    },
+    "FSW_SYNC": {
+      "name": "FSW_SYNC",
+      "pin_id": "36",
+      "direction": "INPUT",
+      "type": "ANALOG",
+      "description": "Switching Frequency and Synchronization Input. An external resistor to PGND sets the nominal switching frequency (200-600 kHz). RFSW_SYNC = 133kOhm for 250kHz, 50kOhm for 500kHz. This pin can also synchronize the PWM controller to an external clock with 200-600kHz frequency. SYNC VIH: 1.3V, VIL: 0.4V, pulse width: 80ns min.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 6.0,
+        "units": "V"
+      }
+    },
+    "ThermalPad": {
+      "name": "Thermal Pad",
+      "pin_id": "37",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "Exposed pad beneath the IC. Always solder the thermal pad to the board, and have vias on the thermal pad plane star-connecting to PGND and ground plane for high-current power converter. Also serves as a thermal pad to dissipate heat. RthetaJC(bot): 2.5 C/W."
+    }
+  },
+  "serial_bus": {
+    "registers": {
+      "0": {
+        "address": 0,
+        "bit_width": 16,
+        "init_value": 16,
+        "name": "Charge_Voltage_Limit"
+      },
+      "2": {
+        "address": 2,
+        "bit_width": 16,
+        "init_value": 1600,
+        "name": "Charge_Current_Limit"
+      },
+      "6": {
+        "address": 6,
+        "bit_width": 16,
+        "init_value": 1600,
+        "name": "Input_Current_DPM_Limit"
+      },
+      "8": {
+        "address": 8,
+        "bit_width": 16,
+        "init_value": 840,
+        "name": "Input_Voltage_DPM_Limit"
+      },
+      "10": {
+        "address": 10,
+        "bit_width": 16,
+        "init_value": 1600,
+        "name": "Reverse_Mode_Input_Current_Limit"
+      },
+      "12": {
+        "address": 12,
+        "bit_width": 16,
+        "init_value": 1000,
+        "name": "Reverse_Mode_Input_Voltage_Limit"
+      },
+      "16": {
+        "address": 16,
+        "bit_width": 16,
+        "init_value": 320,
+        "name": "Precharge_Current_Limit"
+      },
+      "18": {
+        "address": 18,
+        "bit_width": 16,
+        "init_value": 160,
+        "name": "Termination_Current_Limit"
+      },
+      "20": {
+        "address": 20,
+        "bit_width": 8,
+        "init_value": 15,
+        "name": "Precharge_and_Termination_Control"
+      },
+      "21": {
+        "address": 21,
+        "bit_width": 8,
+        "init_value": 29,
+        "name": "Timer_Control"
+      },
+      "22": {
+        "address": 22,
+        "bit_width": 8,
+        "init_value": 0,
+        "name": "Three_Stage_Charge_Control"
+      },
+      "23": {
+        "address": 23,
+        "bit_width": 8,
+        "init_value": 201,
+        "name": "Charger_Control"
+      },
+      "24": {
+        "address": 24,
+        "bit_width": 8,
+        "init_value": 192,
+        "name": "Pin_Control"
+      },
+      "25": {
+        "address": 25,
+        "bit_width": 8,
+        "init_value": 32,
+        "name": "Power_Path_and_Reverse_Mode_Control"
+      },
+      "26": {
+        "address": 26,
+        "bit_width": 8,
+        "init_value": 32,
+        "name": "MPPT_Control"
+      },
+      "27": {
+        "address": 27,
+        "bit_width": 8,
+        "init_value": 150,
+        "name": "TS_Charging_Threshold_Control"
+      },
+      "28": {
+        "address": 28,
+        "bit_width": 8,
+        "init_value": 87,
+        "name": "TS_Charging_Region_Behavior_Control"
+      },
+      "29": {
+        "address": 29,
+        "bit_width": 8,
+        "init_value": 64,
+        "name": "TS_Reverse_Mode_Threshold_Control"
+      },
+      "30": {
+        "address": 30,
+        "bit_width": 8,
+        "init_value": 0,
+        "name": "Reverse_Undervoltage_Control"
+      },
+      "31": {
+        "address": 31,
+        "bit_width": 16,
+        "init_value": 0,
+        "name": "VAC_Max_Power_Point_Detected",
+        "read_only": true
+      },
+      "33": {
+        "address": 33,
+        "bit_width": 8,
+        "init_value": 0,
+        "name": "Charger_Status_1",
+        "read_only": true
+      },
+      "34": {
+        "address": 34,
+        "bit_width": 8,
+        "init_value": 0,
+        "name": "Charger_Status_2",
+        "read_only": true
+      },
+      "35": {
+        "address": 35,
+        "bit_width": 8,
+        "init_value": 0,
+        "name": "Charger_Status_3",
+        "read_only": true
+      },
+      "36": {
+        "address": 36,
+        "bit_width": 8,
+        "init_value": 0,
+        "name": "Fault_Status",
+        "read_only": true
+      },
+      "37": {
+        "address": 37,
+        "bit_width": 8,
+        "init_value": 0,
+        "name": "Charger_Flag_1",
+        "read_only": true
+      },
+      "38": {
+        "address": 38,
+        "bit_width": 8,
+        "init_value": 0,
+        "name": "Charger_Flag_2",
+        "read_only": true
+      },
+      "39": {
+        "address": 39,
+        "bit_width": 8,
+        "init_value": 0,
+        "name": "Fault_Flag",
+        "read_only": true
+      },
+      "40": {
+        "address": 40,
+        "bit_width": 8,
+        "init_value": 0,
+        "name": "Charger_Mask_1"
+      },
+      "41": {
+        "address": 41,
+        "bit_width": 8,
+        "init_value": 0,
+        "name": "Charger_Mask_2"
+      },
+      "42": {
+        "address": 42,
+        "bit_width": 8,
+        "init_value": 0,
+        "name": "Fault_Mask"
+      },
+      "43": {
+        "address": 43,
+        "bit_width": 8,
+        "init_value": 96,
+        "name": "ADC_Control"
+      },
+      "44": {
+        "address": 44,
+        "bit_width": 8,
+        "init_value": 10,
+        "name": "ADC_Channel_Control"
+      },
+      "45": {
+        "address": 45,
+        "bit_width": 16,
+        "init_value": 0,
+        "name": "IAC_ADC",
+        "read_only": true
+      },
+      "47": {
+        "address": 47,
+        "bit_width": 16,
+        "init_value": 0,
+        "name": "IBAT_ADC",
+        "read_only": true
+      },
+      "49": {
+        "address": 49,
+        "bit_width": 16,
+        "init_value": 0,
+        "name": "VAC_ADC",
+        "read_only": true
+      },
+      "51": {
+        "address": 51,
+        "bit_width": 16,
+        "init_value": 0,
+        "name": "VBAT_ADC",
+        "read_only": true
+      },
+      "55": {
+        "address": 55,
+        "bit_width": 16,
+        "init_value": 0,
+        "name": "TS_ADC",
+        "read_only": true
+      },
+      "57": {
+        "address": 57,
+        "bit_width": 16,
+        "init_value": 0,
+        "name": "VFB_ADC",
+        "read_only": true
+      },
+      "59": {
+        "address": 59,
+        "bit_width": 8,
+        "init_value": 0,
+        "name": "Gate_Driver_Strength_Control"
+      },
+      "60": {
+        "address": 60,
+        "bit_width": 8,
+        "init_value": 0,
+        "name": "Gate_Driver_Dead_Time_Control"
+      },
+      "61": {
+        "address": 61,
+        "bit_width": 8,
+        "init_value": 18,
+        "name": "Part_Information",
+        "read_only": true
+      },
+      "98": {
+        "address": 98,
+        "bit_width": 8,
+        "init_value": 2,
+        "name": "Reverse_Mode_Battery_Discharge_Current"
+      }
+    },
+    "fields": [
+      {
+        "name": "RESERVED_0x00_15_5",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 0,
+            "reg_start_bit": 5,
+            "reg_end_bit": 15,
+            "field_start_bit": 5,
+            "field_end_bit": 15
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "VFB_REG",
+        "description": "FB Voltage Regulation Limit. POR: 1536mV (10h). Range: 1504mV-1566mV. Step: 2mV. Offset: 1504mV.",
+        "register_location": [
+          {
+            "register_address": 0,
+            "reg_start_bit": 0,
+            "reg_end_bit": 4,
+            "field_start_bit": 0,
+            "field_end_bit": 4
+          }
+        ],
+        "digital_physical_map": {
+          "-1": "VFB = 1504 + VALUE * 2 mV, where VALUE is the 5-bit VFB_REG value (0-31)."
+        }
+      },
+      {
+        "name": "RESERVED_0x02_15_11",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 2,
+            "reg_start_bit": 11,
+            "reg_end_bit": 15,
+            "field_start_bit": 11,
+            "field_end_bit": 15
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "ICHG_REG",
+        "description": "Fast Charge Current Regulation Limit with 5mOhm RBAT_SNS. Actual charge current is the lower of ICHG_REG and ICHG pin. POR: 20000mA (190h). Range: 400mA-20000mA. Step: 50mA.",
+        "register_location": [
+          {
+            "register_address": 2,
+            "reg_start_bit": 2,
+            "reg_end_bit": 10,
+            "field_start_bit": 2,
+            "field_end_bit": 10
+          }
+        ],
+        "digital_physical_map": {
+          "-1": "ICHG = (VALUE + 8) * 50 mA, where VALUE is the 9-bit ICHG_REG code. Clamped to 400-20000mA."
+        }
+      },
+      {
+        "name": "RESERVED_0x02_1_0",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 2,
+            "reg_start_bit": 0,
+            "reg_end_bit": 1,
+            "field_start_bit": 0,
+            "field_end_bit": 1
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "RESERVED_0x06_15_11",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 6,
+            "reg_start_bit": 11,
+            "reg_end_bit": 15,
+            "field_start_bit": 11,
+            "field_end_bit": 15
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "IAC_DPM",
+        "description": "Input Current DPM Regulation Limit with 5mOhm RAC_SNS. Actual input current limit is the lower of IAC_DPM and ILIM_HIZ pin. POR: 20000mA (190h). Range: 400mA-20000mA. Step: 50mA.",
+        "register_location": [
+          {
+            "register_address": 6,
+            "reg_start_bit": 2,
+            "reg_end_bit": 10,
+            "field_start_bit": 2,
+            "field_end_bit": 10
+          }
+        ],
+        "digital_physical_map": {
+          "-1": "IAC = (VALUE + 8) * 50 mA, where VALUE is the 9-bit IAC_DPM code. Clamped to 400-20000mA."
+        }
+      },
+      {
+        "name": "RESERVED_0x06_1_0",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 6,
+            "reg_start_bit": 0,
+            "reg_end_bit": 1,
+            "field_start_bit": 0,
+            "field_end_bit": 1
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "RESERVED_0x08_15_14",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 8,
+            "reg_start_bit": 14,
+            "reg_end_bit": 15,
+            "field_start_bit": 14,
+            "field_end_bit": 15
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "VAC_DPM",
+        "description": "Input Voltage Regulation Limit. If EN_MPPT=1, Full Sweep uses this as lower search window. POR: 4200mV (D2h). Range: 4200mV-65000mV. Step: 20mV.",
+        "register_location": [
+          {
+            "register_address": 8,
+            "reg_start_bit": 2,
+            "reg_end_bit": 13,
+            "field_start_bit": 2,
+            "field_end_bit": 13
+          }
+        ],
+        "digital_physical_map": {
+          "-1": "VAC_DPM = VALUE * 20 mV, where VALUE is the 12-bit VAC_DPM code. Clamped to 4200-65000mV."
+        }
+      },
+      {
+        "name": "RESERVED_0x08_1_0",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 8,
+            "reg_start_bit": 0,
+            "reg_end_bit": 1,
+            "field_start_bit": 0,
+            "field_end_bit": 1
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "RESERVED_0x0A_15_11",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 10,
+            "reg_start_bit": 11,
+            "reg_end_bit": 15,
+            "field_start_bit": 11,
+            "field_end_bit": 15
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "IAC_REV",
+        "description": "Input Current Regulation in Reverse Mode with 5mOhm RAC_SNS. POR: 20000mA (190h). Range: 400mA-20000mA. Step: 50mA.",
+        "register_location": [
+          {
+            "register_address": 10,
+            "reg_start_bit": 2,
+            "reg_end_bit": 10,
+            "field_start_bit": 2,
+            "field_end_bit": 10
+          }
+        ],
+        "digital_physical_map": {
+          "-1": "IAC_REV = (VALUE + 8) * 50 mA. Clamped to 400-20000mA."
+        }
+      },
+      {
+        "name": "RESERVED_0x0A_1_0",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 10,
+            "reg_start_bit": 0,
+            "reg_end_bit": 1,
+            "field_start_bit": 0,
+            "field_end_bit": 1
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "RESERVED_0x0C_15_14",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 12,
+            "reg_start_bit": 14,
+            "reg_end_bit": 15,
+            "field_start_bit": 14,
+            "field_end_bit": 15
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "VAC_REV",
+        "description": "VAC Voltage Regulation in Reverse Mode. POR: 5000mV (FAh). Range: 3300mV-65000mV. Step: 20mV.",
+        "register_location": [
+          {
+            "register_address": 12,
+            "reg_start_bit": 2,
+            "reg_end_bit": 13,
+            "field_start_bit": 2,
+            "field_end_bit": 13
+          }
+        ],
+        "digital_physical_map": {
+          "-1": "VAC_REV = VALUE * 20 mV. Clamped to 3300-65000mV."
+        }
+      },
+      {
+        "name": "RESERVED_0x0C_1_0",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 12,
+            "reg_start_bit": 0,
+            "reg_end_bit": 1,
+            "field_start_bit": 0,
+            "field_end_bit": 1
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "RESERVED_0x10_15_10",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 16,
+            "reg_start_bit": 10,
+            "reg_end_bit": 15,
+            "field_start_bit": 10,
+            "field_end_bit": 15
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "IPRECHG",
+        "description": "Pre-charge current regulation limit with 5mOhm RBAT_SNS. Actual pre-charge current is the lower of IPRECHG and ICHG pin. POR: 4000mA (50h). Range: 250mA-10000mA. Step: 50mA.",
+        "register_location": [
+          {
+            "register_address": 16,
+            "reg_start_bit": 2,
+            "reg_end_bit": 9,
+            "field_start_bit": 2,
+            "field_end_bit": 9
+          }
+        ],
+        "digital_physical_map": {
+          "-1": "IPRECHG = (VALUE + 5) * 50 mA. Clamped to 250-10000mA."
+        }
+      },
+      {
+        "name": "RESERVED_0x10_1_0",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 16,
+            "reg_start_bit": 0,
+            "reg_end_bit": 1,
+            "field_start_bit": 0,
+            "field_end_bit": 1
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "RESERVED_0x12_15_10",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 18,
+            "reg_start_bit": 10,
+            "reg_end_bit": 15,
+            "field_start_bit": 10,
+            "field_end_bit": 15
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "ITERM",
+        "description": "Termination Current Threshold with 5mOhm RBAT_SNS. Actual termination current is the lower of ITERM and ICHG pin if both enabled. POR: 2000mA (28h). Range: 250mA-10000mA. Step: 50mA.",
+        "register_location": [
+          {
+            "register_address": 18,
+            "reg_start_bit": 2,
+            "reg_end_bit": 9,
+            "field_start_bit": 2,
+            "field_end_bit": 9
+          }
+        ],
+        "digital_physical_map": {
+          "-1": "ITERM = (VALUE + 5) * 50 mA. Clamped to 250-10000mA."
+        }
+      },
+      {
+        "name": "RESERVED_0x12_1_0",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 18,
+            "reg_start_bit": 0,
+            "reg_end_bit": 1,
+            "field_start_bit": 0,
+            "field_end_bit": 1
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "RESERVED_0x14_7_4",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 20,
+            "reg_start_bit": 4,
+            "reg_end_bit": 7
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "EN_TERM",
+        "description": "Enable termination control.",
+        "register_location": [
+          {
+            "register_address": 20,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Disable",
+          "1": "Enable"
+        }
+      },
+      {
+        "name": "VBAT_LOWV",
+        "description": "Battery threshold for PRECHG to FASTCHG transition, as percentage of VFB_REG.",
+        "register_location": [
+          {
+            "register_address": 20,
+            "reg_start_bit": 1,
+            "reg_end_bit": 2
+          }
+        ],
+        "digital_physical_map": {
+          "0": "30% x VFB_REG",
+          "1": "55% x VFB_REG",
+          "2": "66.7% x VFB_REG",
+          "3": "71.4% x VFB_REG"
+        }
+      },
+      {
+        "name": "EN_PRECHG",
+        "description": "Enable pre-charge and trickle charge functions.",
+        "register_location": [
+          {
+            "register_address": 20,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Disable",
+          "1": "Enable"
+        }
+      },
+      {
+        "name": "TOPOFF_TMR",
+        "description": "Top-off timer control.",
+        "register_location": [
+          {
+            "register_address": 21,
+            "reg_start_bit": 6,
+            "reg_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Disable",
+          "1": "15 mins",
+          "2": "30 mins",
+          "3": "45 mins"
+        }
+      },
+      {
+        "name": "WATCHDOG",
+        "description": "Watchdog timer control.",
+        "register_location": [
+          {
+            "register_address": 21,
+            "reg_start_bit": 4,
+            "reg_end_bit": 5
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Disable",
+          "1": "40s",
+          "2": "80s",
+          "3": "160s"
+        }
+      },
+      {
+        "name": "EN_CHG_TMR",
+        "description": "Enable charge safety timer.",
+        "register_location": [
+          {
+            "register_address": 21,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Disable",
+          "1": "Enable"
+        }
+      },
+      {
+        "name": "CHG_TMR",
+        "description": "Charge safety timer setting.",
+        "register_location": [
+          {
+            "register_address": 21,
+            "reg_start_bit": 1,
+            "reg_end_bit": 2
+          }
+        ],
+        "digital_physical_map": {
+          "0": "5hr",
+          "1": "8hr",
+          "2": "12hr",
+          "3": "24hr"
+        }
+      },
+      {
+        "name": "EN_TMR2X",
+        "description": "Charge safety timer speed in DPM.",
+        "register_location": [
+          {
+            "register_address": 21,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Timer always counts normally",
+          "1": "Timer slowed by 2x during input DPM"
+        }
+      },
+      {
+        "name": "RESERVED_0x16_7_4",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 22,
+            "reg_start_bit": 4,
+            "reg_end_bit": 7
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "CV_TMR",
+        "description": "CV timer setting. 0=disable, 1-15 = 1hr to 15hr.",
+        "register_location": [
+          {
+            "register_address": 22,
+            "reg_start_bit": 0,
+            "reg_end_bit": 3
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Disable",
+          "1": "1hr",
+          "5": "5hr",
+          "10": "10hr",
+          "15": "15hr"
+        }
+      },
+      {
+        "name": "VRECHG",
+        "description": "Battery auto-recharge threshold, as percentage of VFB_REG.",
+        "register_location": [
+          {
+            "register_address": 23,
+            "reg_start_bit": 6,
+            "reg_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "93.0% x VFB_REG",
+          "1": "94.3% x VFB_REG",
+          "2": "95.2% x VFB_REG",
+          "3": "97.6% x VFB_REG"
+        }
+      },
+      {
+        "name": "WD_RST",
+        "description": "I2C Watchdog timer reset control.",
+        "register_location": [
+          {
+            "register_address": 23,
+            "reg_start_bit": 5,
+            "reg_end_bit": 5
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Normal",
+          "1": "Reset (bit goes back to 0 after timer reset)"
+        }
+      },
+      {
+        "name": "DIS_CE_PIN",
+        "description": "/CE pin function disable.",
+        "register_location": [
+          {
+            "register_address": 23,
+            "reg_start_bit": 4,
+            "reg_end_bit": 4
+          }
+        ],
+        "digital_physical_map": {
+          "0": "/CE pin enabled",
+          "1": "/CE pin disabled"
+        }
+      },
+      {
+        "name": "EN_CHG_BIT_RESET_BEHAVIOR",
+        "description": "Controls EN_CHG bit behavior when WATCHDOG expires.",
+        "register_location": [
+          {
+            "register_address": 23,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3
+          }
+        ],
+        "digital_physical_map": {
+          "0": "EN_CHG bit resets to 0",
+          "1": "EN_CHG bit resets to 1"
+        }
+      },
+      {
+        "name": "EN_HIZ",
+        "description": "HIZ mode enable.",
+        "register_location": [
+          {
+            "register_address": 23,
+            "reg_start_bit": 2,
+            "reg_end_bit": 2
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Disable",
+          "1": "Enable"
+        }
+      },
+      {
+        "name": "EN_IBAT_LOAD",
+        "description": "Battery Load (IBAT_LOAD) Enable. Sinks current from SRN to GND. Recommend to disable IBAT ADC while active.",
+        "register_location": [
+          {
+            "register_address": 23,
+            "reg_start_bit": 1,
+            "reg_end_bit": 1
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Disabled",
+          "1": "Enabled"
+        }
+      },
+      {
+        "name": "EN_CHG",
+        "description": "Charge enable control.",
+        "register_location": [
+          {
+            "register_address": 23,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Disable",
+          "1": "Enable"
+        }
+      },
+      {
+        "name": "EN_ICHG_PIN",
+        "description": "ICHG pin function enable.",
+        "register_location": [
+          {
+            "register_address": 24,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "ICHG pin disabled",
+          "1": "ICHG pin enabled"
+        }
+      },
+      {
+        "name": "EN_ILIM_HIZ_PIN",
+        "description": "ILIM_HIZ pin function enable.",
+        "register_location": [
+          {
+            "register_address": 24,
+            "reg_start_bit": 6,
+            "reg_end_bit": 6
+          }
+        ],
+        "digital_physical_map": {
+          "0": "ILIM_HIZ pin disabled",
+          "1": "ILIM_HIZ pin enabled"
+        }
+      },
+      {
+        "name": "DIS_PG_PIN",
+        "description": "PG pin function disable.",
+        "register_location": [
+          {
+            "register_address": 24,
+            "reg_start_bit": 5,
+            "reg_end_bit": 5
+          }
+        ],
+        "digital_physical_map": {
+          "0": "PG pin enabled",
+          "1": "PG pin disabled"
+        }
+      },
+      {
+        "name": "DIS_STAT_PINS",
+        "description": "STAT1, STAT2 pin function disable.",
+        "register_location": [
+          {
+            "register_address": 24,
+            "reg_start_bit": 4,
+            "reg_end_bit": 4
+          }
+        ],
+        "digital_physical_map": {
+          "0": "STAT pins enabled",
+          "1": "STAT pins disabled"
+        }
+      },
+      {
+        "name": "FORCE_STAT4_ON",
+        "description": "CE_STAT4 pin override. Can only be forced on if DIS_CE_PIN=1.",
+        "register_location": [
+          {
+            "register_address": 24,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3
+          }
+        ],
+        "digital_physical_map": {
+          "0": "CE_STAT4 open-drain off",
+          "1": "CE_STAT4 pulls LOW"
+        }
+      },
+      {
+        "name": "FORCE_STAT3_ON",
+        "description": "PG_STAT3 pin override. Can only be forced on if DIS_PG_PIN=1.",
+        "register_location": [
+          {
+            "register_address": 24,
+            "reg_start_bit": 2,
+            "reg_end_bit": 2
+          }
+        ],
+        "digital_physical_map": {
+          "0": "PG_STAT3 open-drain off",
+          "1": "PG_STAT3 pulls LOW"
+        }
+      },
+      {
+        "name": "FORCE_STAT2_ON",
+        "description": "STAT2 pin override. Can only be forced on if DIS_STAT_PINS=1.",
+        "register_location": [
+          {
+            "register_address": 24,
+            "reg_start_bit": 1,
+            "reg_end_bit": 1
+          }
+        ],
+        "digital_physical_map": {
+          "0": "STAT2 open-drain off",
+          "1": "STAT2 pulls LOW"
+        }
+      },
+      {
+        "name": "FORCE_STAT1_ON",
+        "description": "STAT1 pin override. Can only be forced on if DIS_STAT_PINS=1.",
+        "register_location": [
+          {
+            "register_address": 24,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0
+          }
+        ],
+        "digital_physical_map": {
+          "0": "STAT1 open-drain off",
+          "1": "STAT1 pulls LOW"
+        }
+      },
+      {
+        "name": "REG_RST",
+        "description": "Register reset to default values.",
+        "register_location": [
+          {
+            "register_address": 25,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Not reset",
+          "1": "Reset (bit goes back to 0 after register reset)"
+        }
+      },
+      {
+        "name": "EN_IAC_LOAD",
+        "description": "VAC Load (IAC_LOAD) Enable.",
+        "register_location": [
+          {
+            "register_address": 25,
+            "reg_start_bit": 6,
+            "reg_end_bit": 6
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Disabled",
+          "1": "Enabled"
+        }
+      },
+      {
+        "name": "EN_PFM",
+        "description": "Enable PFM mode in light-load. Note this bit is reset upon valid SYNC signal detection on FSW_SYNC pin.",
+        "register_location": [
+          {
+            "register_address": 25,
+            "reg_start_bit": 5,
+            "reg_end_bit": 5
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Disable (Fixed-frequency DCM operation)",
+          "1": "Enable (PFM operation)"
+        }
+      },
+      {
+        "name": "RESERVED_0x19_4_1",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 25,
+            "reg_start_bit": 1,
+            "reg_end_bit": 4
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "EN_REV",
+        "description": "Reverse Mode control.",
+        "register_location": [
+          {
+            "register_address": 25,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Disable",
+          "1": "Enable"
+        }
+      },
+      {
+        "name": "FORCE_SWEEP",
+        "description": "Force Full Panel Sweep and reset MPPT timers.",
+        "register_location": [
+          {
+            "register_address": 26,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Normal",
+          "1": "Start Full Panel Sweep (auto-clears)"
+        }
+      },
+      {
+        "name": "P_AND_O_TMR",
+        "description": "Perturb and Observe timer control.",
+        "register_location": [
+          {
+            "register_address": 26,
+            "reg_start_bit": 5,
+            "reg_end_bit": 6
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Disable Perturb & Observe",
+          "1": "0.5s",
+          "2": "1s",
+          "3": "10s"
+        }
+      },
+      {
+        "name": "RESERVED_0x1A_4_3",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 26,
+            "reg_start_bit": 3,
+            "reg_end_bit": 4
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "FULL_SWEEP_TMR",
+        "description": "Full Panel Sweep timer control.",
+        "register_location": [
+          {
+            "register_address": 26,
+            "reg_start_bit": 1,
+            "reg_end_bit": 2
+          }
+        ],
+        "digital_physical_map": {
+          "0": "3 min",
+          "1": "10 min",
+          "2": "15 min",
+          "3": "20 min"
+        }
+      },
+      {
+        "name": "EN_MPPT",
+        "description": "MPPT algorithm control. When enabled, ADC is controlled by device and writes to REG2A are ignored.",
+        "register_location": [
+          {
+            "register_address": 26,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Disable MPPT",
+          "1": "Enable MPPT"
+        }
+      },
+      {
+        "name": "TS_T5",
+        "description": "TS T5 (HOT) threshold control.",
+        "register_location": [
+          {
+            "register_address": 27,
+            "reg_start_bit": 6,
+            "reg_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "41.2% (50C)",
+          "1": "37.7% (55C)",
+          "2": "34.375% (60C)",
+          "3": "31.25% (65C)"
+        }
+      },
+      {
+        "name": "TS_T3",
+        "description": "JEITA TS T3 (WARM) threshold control.",
+        "register_location": [
+          {
+            "register_address": 27,
+            "reg_start_bit": 4,
+            "reg_end_bit": 5
+          }
+        ],
+        "digital_physical_map": {
+          "0": "48.4% (40C)",
+          "1": "44.8% (45C)",
+          "2": "41.2% (50C)",
+          "3": "37.7% (55C)"
+        }
+      },
+      {
+        "name": "TS_T2",
+        "description": "JEITA TS T2 (COOL) threshold control.",
+        "register_location": [
+          {
+            "register_address": 27,
+            "reg_start_bit": 2,
+            "reg_end_bit": 3
+          }
+        ],
+        "digital_physical_map": {
+          "0": "71.1% (5C)",
+          "1": "68.4% (10C)",
+          "2": "65.5% (15C)",
+          "3": "62.4% (20C)"
+        }
+      },
+      {
+        "name": "TS_T1",
+        "description": "TS T1 (COLD) threshold control.",
+        "register_location": [
+          {
+            "register_address": 27,
+            "reg_start_bit": 0,
+            "reg_end_bit": 1
+          }
+        ],
+        "digital_physical_map": {
+          "0": "77.15% (-10C)",
+          "1": "75.32% (-5C)",
+          "2": "73.25% (0C)",
+          "3": "71.1% (5C)"
+        }
+      },
+      {
+        "name": "RESERVED_0x1C_7",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 28,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "JEITA_VSET",
+        "description": "JEITA Warm (T3<TS<T5) regulation voltage setting, as % of VFB_REG.",
+        "register_location": [
+          {
+            "register_address": 28,
+            "reg_start_bit": 5,
+            "reg_end_bit": 6
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Charge Suspend",
+          "1": "94.3% x VFB_REG",
+          "2": "97.6% x VFB_REG",
+          "3": "100% x VFB_REG"
+        }
+      },
+      {
+        "name": "JEITA_ISETH",
+        "description": "JEITA Warm (T3<TS<T5) regulation current setting, as % of ICHG_REG.",
+        "register_location": [
+          {
+            "register_address": 28,
+            "reg_start_bit": 4,
+            "reg_end_bit": 4
+          }
+        ],
+        "digital_physical_map": {
+          "0": "40% x ICHG_REG",
+          "1": "100% x ICHG_REG"
+        }
+      },
+      {
+        "name": "JEITA_ISETC",
+        "description": "JEITA Cool (T1<TS<T2) regulation current setting, as % of ICHG_REG.",
+        "register_location": [
+          {
+            "register_address": 28,
+            "reg_start_bit": 2,
+            "reg_end_bit": 3
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Charge Suspend",
+          "1": "20% x ICHG_REG",
+          "2": "40% x ICHG_REG",
+          "3": "100% x ICHG_REG"
+        }
+      },
+      {
+        "name": "EN_JEITA",
+        "description": "JEITA profile control.",
+        "register_location": [
+          {
+            "register_address": 28,
+            "reg_start_bit": 1,
+            "reg_end_bit": 1
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Disabled (COLD/HOT control only)",
+          "1": "Enabled (COLD/COOL/WARM/HOT control)"
+        }
+      },
+      {
+        "name": "EN_TS",
+        "description": "TS pin function control (applies to forward charging and reverse discharging modes).",
+        "register_location": [
+          {
+            "register_address": 28,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Disabled (ignore TS pin)",
+          "1": "Enabled"
+        }
+      },
+      {
+        "name": "BHOT",
+        "description": "Reverse Mode TS HOT temperature threshold control.",
+        "register_location": [
+          {
+            "register_address": 29,
+            "reg_start_bit": 6,
+            "reg_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "37.7% (55C)",
+          "1": "34.2% (60C)",
+          "2": "31.25% (65C)",
+          "3": "Disable"
+        }
+      },
+      {
+        "name": "BCOLD",
+        "description": "Reverse Mode TS COLD temperature threshold control.",
+        "register_location": [
+          {
+            "register_address": 29,
+            "reg_start_bit": 5,
+            "reg_end_bit": 5
+          }
+        ],
+        "digital_physical_map": {
+          "0": "77.15% (-10C)",
+          "1": "80% (-20C)"
+        }
+      },
+      {
+        "name": "RESERVED_0x1D_4_0",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 29,
+            "reg_start_bit": 0,
+            "reg_end_bit": 4
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "RESERVED_0x1E_7",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 30,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "RESERVED_0x1E_6",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 30,
+            "reg_start_bit": 6,
+            "reg_end_bit": 6
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "SYSREV_UV",
+        "description": "Reverse Mode System UVP.",
+        "register_location": [
+          {
+            "register_address": 30,
+            "reg_start_bit": 5,
+            "reg_end_bit": 5
+          }
+        ],
+        "digital_physical_map": {
+          "0": "80% of VSYS_REV target",
+          "1": "Fixed at 3.3V"
+        }
+      },
+      {
+        "name": "RESERVED_0x1E_4_0",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 30,
+            "reg_start_bit": 0,
+            "reg_end_bit": 4
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "RESERVED_0x1F_15_14",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 31,
+            "reg_start_bit": 14,
+            "reg_end_bit": 15,
+            "field_start_bit": 14,
+            "field_end_bit": 15
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "VAC_MPP",
+        "description": "Input Voltage for Max Power Point detected. POR: 0mV. Range: 0-60000mV. Step: 20mV.",
+        "register_location": [
+          {
+            "register_address": 31,
+            "reg_start_bit": 2,
+            "reg_end_bit": 13,
+            "field_start_bit": 2,
+            "field_end_bit": 13
+          }
+        ],
+        "digital_physical_map": {
+          "-1": "VAC_MPP = VALUE * 20 mV. Clamped high at 60000mV."
+        }
+      },
+      {
+        "name": "RESERVED_0x1F_1_0",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 31,
+            "reg_start_bit": 0,
+            "reg_end_bit": 1,
+            "field_start_bit": 0,
+            "field_end_bit": 1
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "ADC_DONE_STAT",
+        "description": "ADC conversion status (one-shot mode only).",
+        "register_location": [
+          {
+            "register_address": 33,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Conversion not complete",
+          "1": "Conversion complete"
+        }
+      },
+      {
+        "name": "IAC_DPM_STAT",
+        "description": "Input Current regulation status.",
+        "register_location": [
+          {
+            "register_address": 33,
+            "reg_start_bit": 6,
+            "reg_end_bit": 6
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Normal",
+          "1": "In Input Current regulation (ILIM pin or IAC_DPM)"
+        }
+      },
+      {
+        "name": "VAC_DPM_STAT",
+        "description": "Input Voltage regulation status.",
+        "register_location": [
+          {
+            "register_address": 33,
+            "reg_start_bit": 5,
+            "reg_end_bit": 5
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Normal",
+          "1": "In Input Voltage regulation (VAC_DPM or VSYS_REV)"
+        }
+      },
+      {
+        "name": "RESERVED_0x21_4",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 33,
+            "reg_start_bit": 4,
+            "reg_end_bit": 4
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "WD_STAT",
+        "description": "I2C Watchdog timer status.",
+        "register_location": [
+          {
+            "register_address": 33,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Normal",
+          "1": "WD timer expired"
+        }
+      },
+      {
+        "name": "CHARGE_STAT",
+        "description": "Charge cycle status.",
+        "register_location": [
+          {
+            "register_address": 33,
+            "reg_start_bit": 0,
+            "reg_end_bit": 2
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Not charging",
+          "1": "Trickle Charge (VBAT < VBAT_SHORT)",
+          "2": "Pre-Charge (VBAT < VBAT_LOWV)",
+          "3": "Fast Charge (CC mode)",
+          "4": "Taper Charge (CV mode)",
+          "5": "Reserved",
+          "6": "Top-off Timer Charge",
+          "7": "Charge Termination Done"
+        }
+      },
+      {
+        "name": "PG_STAT",
+        "description": "Input Power Good status.",
+        "register_location": [
+          {
+            "register_address": 34,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Not Power Good",
+          "1": "Power Good"
+        }
+      },
+      {
+        "name": "TS_STAT",
+        "description": "TS (Battery NTC) status.",
+        "register_location": [
+          {
+            "register_address": 34,
+            "reg_start_bit": 4,
+            "reg_end_bit": 6
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Normal",
+          "1": "TS Warm",
+          "2": "TS Cool",
+          "3": "TS Cold",
+          "4": "TS Hot"
+        }
+      },
+      {
+        "name": "RESERVED_0x22_3_2",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 34,
+            "reg_start_bit": 2,
+            "reg_end_bit": 3
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "MPPT_STAT",
+        "description": "Max Power Point Tracking Algorithm status.",
+        "register_location": [
+          {
+            "register_address": 34,
+            "reg_start_bit": 0,
+            "reg_end_bit": 1
+          }
+        ],
+        "digital_physical_map": {
+          "0": "MPPT Disabled",
+          "1": "MPPT Enabled But Not Running",
+          "2": "Full Panel Sweep In Progress",
+          "3": "Max Power Voltage Detected"
+        }
+      },
+      {
+        "name": "RESERVED_0x23_7_6",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 35,
+            "reg_start_bit": 6,
+            "reg_end_bit": 7
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "FSW_SYNC_STAT",
+        "description": "FSW_SYNC pin status.",
+        "register_location": [
+          {
+            "register_address": 35,
+            "reg_start_bit": 4,
+            "reg_end_bit": 5
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Normal, no external clock detected",
+          "1": "Valid ext. clock detected",
+          "2": "Pin fault (frequency out-of-range)",
+          "3": "Reserved"
+        }
+      },
+      {
+        "name": "CV_TMR_STAT",
+        "description": "CV Timer status.",
+        "register_location": [
+          {
+            "register_address": 35,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Normal",
+          "1": "CV Timer Expired"
+        }
+      },
+      {
+        "name": "REVERSE_STAT",
+        "description": "Converter Reverse Mode status.",
+        "register_location": [
+          {
+            "register_address": 35,
+            "reg_start_bit": 2,
+            "reg_end_bit": 2
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Reverse Mode off",
+          "1": "Reverse Mode On"
+        }
+      },
+      {
+        "name": "RESERVED_0x23_1_0",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 35,
+            "reg_start_bit": 0,
+            "reg_end_bit": 1
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "VAC_UV_STAT",
+        "description": "Input under-voltage status.",
+        "register_location": [
+          {
+            "register_address": 36,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Input Normal",
+          "1": "Device in Input under-voltage protection"
+        }
+      },
+      {
+        "name": "VAC_OV_STAT",
+        "description": "Input over-voltage status.",
+        "register_location": [
+          {
+            "register_address": 36,
+            "reg_start_bit": 6,
+            "reg_end_bit": 6
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Input Normal",
+          "1": "Device in Input over-voltage protection"
+        }
+      },
+      {
+        "name": "IBAT_OCP_STAT",
+        "description": "Battery over-current status.",
+        "register_location": [
+          {
+            "register_address": 36,
+            "reg_start_bit": 5,
+            "reg_end_bit": 5
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Battery current normal",
+          "1": "Battery over-current detected"
+        }
+      },
+      {
+        "name": "VBAT_OV_STAT",
+        "description": "Battery over-voltage status.",
+        "register_location": [
+          {
+            "register_address": 36,
+            "reg_start_bit": 4,
+            "reg_end_bit": 4
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Normal",
+          "1": "Device in Battery over-voltage protection"
+        }
+      },
+      {
+        "name": "TSHUT_STAT",
+        "description": "Thermal shutdown status.",
+        "register_location": [
+          {
+            "register_address": 36,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Normal",
+          "1": "Device in thermal shutdown protection"
+        }
+      },
+      {
+        "name": "CHG_TMR_STAT",
+        "description": "Charge safety timer status.",
+        "register_location": [
+          {
+            "register_address": 36,
+            "reg_start_bit": 2,
+            "reg_end_bit": 2
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Normal",
+          "1": "Charge safety timer expired"
+        }
+      },
+      {
+        "name": "DRV_OKZ_STAT",
+        "description": "DRV_SUP pin voltage status. In battery-only mode with ADC disabled, this bit always reads 1.",
+        "register_location": [
+          {
+            "register_address": 36,
+            "reg_start_bit": 1,
+            "reg_end_bit": 1
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Normal",
+          "1": "DRV_SUP pin voltage is out of valid range"
+        }
+      },
+      {
+        "name": "RESERVED_0x24_0",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 36,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "ADC_DONE_FLAG",
+        "description": "ADC conversion INT flag (one-shot mode only). ClearOnRead.",
+        "register_location": [
+          {
+            "register_address": 37,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7
+          }
+        ]
+      },
+      {
+        "name": "IAC_DPM_FLAG",
+        "description": "Input Current regulation INT flag. ClearOnRead.",
+        "register_location": [
+          {
+            "register_address": 37,
+            "reg_start_bit": 6,
+            "reg_end_bit": 6
+          }
+        ]
+      },
+      {
+        "name": "VAC_DPM_FLAG",
+        "description": "Input Voltage regulation INT flag. ClearOnRead.",
+        "register_location": [
+          {
+            "register_address": 37,
+            "reg_start_bit": 5,
+            "reg_end_bit": 5
+          }
+        ]
+      },
+      {
+        "name": "RESERVED_0x25_4",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 37,
+            "reg_start_bit": 4,
+            "reg_end_bit": 4
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "WD_FLAG",
+        "description": "I2C Watchdog timer INT flag. ClearOnRead.",
+        "register_location": [
+          {
+            "register_address": 37,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3
+          }
+        ]
+      },
+      {
+        "name": "RESERVED_0x25_2",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 37,
+            "reg_start_bit": 2,
+            "reg_end_bit": 2
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "CV_TMR_FLAG",
+        "description": "CV timer INT flag. ClearOnRead.",
+        "register_location": [
+          {
+            "register_address": 37,
+            "reg_start_bit": 1,
+            "reg_end_bit": 1
+          }
+        ]
+      },
+      {
+        "name": "CHARGE_FLAG",
+        "description": "Charge cycle INT flag. ClearOnRead. Set when CHARGE_STAT bits changed.",
+        "register_location": [
+          {
+            "register_address": 37,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0
+          }
+        ]
+      },
+      {
+        "name": "PG_FLAG",
+        "description": "Input Power Good INT flag. ClearOnRead.",
+        "register_location": [
+          {
+            "register_address": 38,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7
+          }
+        ]
+      },
+      {
+        "name": "RESERVED_0x26_6_5",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 38,
+            "reg_start_bit": 5,
+            "reg_end_bit": 6
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "TS_FLAG",
+        "description": "TS (Battery NTC) INT flag. ClearOnRead.",
+        "register_location": [
+          {
+            "register_address": 38,
+            "reg_start_bit": 4,
+            "reg_end_bit": 4
+          }
+        ]
+      },
+      {
+        "name": "REVERSE_FLAG",
+        "description": "Reverse Mode INT flag. ClearOnRead.",
+        "register_location": [
+          {
+            "register_address": 38,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3
+          }
+        ]
+      },
+      {
+        "name": "RESERVED_0x26_2",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 38,
+            "reg_start_bit": 2,
+            "reg_end_bit": 2
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "FSW_SYNC_FLAG",
+        "description": "FSW_SYNC pin signal INT flag. ClearOnRead.",
+        "register_location": [
+          {
+            "register_address": 38,
+            "reg_start_bit": 1,
+            "reg_end_bit": 1
+          }
+        ]
+      },
+      {
+        "name": "MPPT_FLAG",
+        "description": "Max Power Point Tracking INT flag. ClearOnRead.",
+        "register_location": [
+          {
+            "register_address": 38,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0
+          }
+        ]
+      },
+      {
+        "name": "VAC_UV_FLAG",
+        "description": "Input under-voltage INT flag. ClearOnRead.",
+        "register_location": [
+          {
+            "register_address": 39,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7
+          }
+        ]
+      },
+      {
+        "name": "VAC_OV_FLAG",
+        "description": "Input over-voltage INT flag. ClearOnRead.",
+        "register_location": [
+          {
+            "register_address": 39,
+            "reg_start_bit": 6,
+            "reg_end_bit": 6
+          }
+        ]
+      },
+      {
+        "name": "IBAT_OCP_FLAG",
+        "description": "Battery over-current INT flag. ClearOnRead.",
+        "register_location": [
+          {
+            "register_address": 39,
+            "reg_start_bit": 5,
+            "reg_end_bit": 5
+          }
+        ]
+      },
+      {
+        "name": "VBAT_OV_FLAG",
+        "description": "Battery over-voltage INT flag. ClearOnRead.",
+        "register_location": [
+          {
+            "register_address": 39,
+            "reg_start_bit": 4,
+            "reg_end_bit": 4
+          }
+        ]
+      },
+      {
+        "name": "TSHUT_FLAG",
+        "description": "Thermal shutdown INT flag. ClearOnRead.",
+        "register_location": [
+          {
+            "register_address": 39,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3
+          }
+        ]
+      },
+      {
+        "name": "CHG_TMR_FLAG",
+        "description": "Charge safety timer INT flag. ClearOnRead.",
+        "register_location": [
+          {
+            "register_address": 39,
+            "reg_start_bit": 2,
+            "reg_end_bit": 2
+          }
+        ]
+      },
+      {
+        "name": "DRV_OKZ_FLAG",
+        "description": "DRV_SUP pin voltage INT flag. ClearOnRead.",
+        "register_location": [
+          {
+            "register_address": 39,
+            "reg_start_bit": 1,
+            "reg_end_bit": 1
+          }
+        ]
+      },
+      {
+        "name": "RESERVED_0x27_0",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 39,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "ADC_DONE_MASK",
+        "description": "ADC conversion INT mask (one-shot mode).",
+        "register_location": [
+          {
+            "register_address": 40,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "ADC_DONE produces INT pulse",
+          "1": "ADC_DONE does not produce INT pulse"
+        }
+      },
+      {
+        "name": "IAC_DPM_MASK",
+        "description": "Input Current regulation INT mask.",
+        "register_location": [
+          {
+            "register_address": 40,
+            "reg_start_bit": 6,
+            "reg_end_bit": 6
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Produces INT pulse",
+          "1": "Does not produce INT pulse"
+        }
+      },
+      {
+        "name": "VAC_DPM_MASK",
+        "description": "Input Voltage regulation INT mask.",
+        "register_location": [
+          {
+            "register_address": 40,
+            "reg_start_bit": 5,
+            "reg_end_bit": 5
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Produces INT pulse",
+          "1": "Does not produce INT pulse"
+        }
+      },
+      {
+        "name": "RESERVED_0x28_4",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 40,
+            "reg_start_bit": 4,
+            "reg_end_bit": 4
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "WD_MASK",
+        "description": "I2C Watchdog timer INT mask.",
+        "register_location": [
+          {
+            "register_address": 40,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3
+          }
+        ],
+        "digital_physical_map": {
+          "0": "WD expiration produces INT pulse",
+          "1": "Does not produce INT pulse"
+        }
+      },
+      {
+        "name": "RESERVED_0x28_2",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 40,
+            "reg_start_bit": 2,
+            "reg_end_bit": 2
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "CV_TMR_MASK",
+        "description": "CV timer INT mask.",
+        "register_location": [
+          {
+            "register_address": 40,
+            "reg_start_bit": 1,
+            "reg_end_bit": 1
+          }
+        ],
+        "digital_physical_map": {
+          "0": "CV Timer expired produces INT pulse",
+          "1": "Does not produce INT pulse"
+        }
+      },
+      {
+        "name": "CHARGE_MASK",
+        "description": "Charge cycle INT mask.",
+        "register_location": [
+          {
+            "register_address": 40,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0
+          }
+        ],
+        "digital_physical_map": {
+          "0": "CHARGE_STAT change produces INT pulse",
+          "1": "Does not produce INT pulse"
+        }
+      },
+      {
+        "name": "PG_MASK",
+        "description": "Input Power Good INT mask.",
+        "register_location": [
+          {
+            "register_address": 41,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "PG toggle produces INT pulse",
+          "1": "Does not produce INT pulse"
+        }
+      },
+      {
+        "name": "RESERVED_0x29_6_5",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 41,
+            "reg_start_bit": 5,
+            "reg_end_bit": 6
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "TS_MASK",
+        "description": "TS (Battery NTC) INT mask.",
+        "register_location": [
+          {
+            "register_address": 41,
+            "reg_start_bit": 4,
+            "reg_end_bit": 4
+          }
+        ],
+        "digital_physical_map": {
+          "0": "TS_STAT change produces INT pulse",
+          "1": "Does not produce INT pulse"
+        }
+      },
+      {
+        "name": "REVERSE_MASK",
+        "description": "Reverse Mode INT mask.",
+        "register_location": [
+          {
+            "register_address": 41,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3
+          }
+        ],
+        "digital_physical_map": {
+          "0": "REVERSE_STAT toggle produces INT pulse",
+          "1": "Does not produce INT pulse"
+        }
+      },
+      {
+        "name": "RESERVED_0x29_2",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 41,
+            "reg_start_bit": 2,
+            "reg_end_bit": 2
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "FSW_SYNC_MASK",
+        "description": "FSW_SYNC pin signal INT mask.",
+        "register_location": [
+          {
+            "register_address": 41,
+            "reg_start_bit": 1,
+            "reg_end_bit": 1
+          }
+        ],
+        "digital_physical_map": {
+          "0": "FSW_SYNC status change produces INT pulse",
+          "1": "Does not produce INT pulse"
+        }
+      },
+      {
+        "name": "MPPT_MASK",
+        "description": "Max Power Point Tracking INT mask.",
+        "register_location": [
+          {
+            "register_address": 41,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0
+          }
+        ],
+        "digital_physical_map": {
+          "0": "MPPT_STAT rising edge produces INT pulse",
+          "1": "Does not produce INT pulse"
+        }
+      },
+      {
+        "name": "VAC_UV_MASK",
+        "description": "Input under-voltage INT mask.",
+        "register_location": [
+          {
+            "register_address": 42,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Produces INT pulse",
+          "1": "Does not produce INT pulse"
+        }
+      },
+      {
+        "name": "VAC_OV_MASK",
+        "description": "Input over-voltage INT mask.",
+        "register_location": [
+          {
+            "register_address": 42,
+            "reg_start_bit": 6,
+            "reg_end_bit": 6
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Produces INT pulse",
+          "1": "Does not produce INT pulse"
+        }
+      },
+      {
+        "name": "IBAT_OCP_MASK",
+        "description": "Battery over-current INT mask.",
+        "register_location": [
+          {
+            "register_address": 42,
+            "reg_start_bit": 5,
+            "reg_end_bit": 5
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Produces INT pulse",
+          "1": "Does not produce INT pulse"
+        }
+      },
+      {
+        "name": "VBAT_OV_MASK",
+        "description": "Battery over-voltage INT mask.",
+        "register_location": [
+          {
+            "register_address": 42,
+            "reg_start_bit": 4,
+            "reg_end_bit": 4
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Produces INT pulse",
+          "1": "Does not produce INT pulse"
+        }
+      },
+      {
+        "name": "TSHUT_MASK",
+        "description": "Thermal shutdown INT mask.",
+        "register_location": [
+          {
+            "register_address": 42,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Produces INT pulse",
+          "1": "Does not produce INT pulse"
+        }
+      },
+      {
+        "name": "CHG_TMR_MASK",
+        "description": "Charge safety timer INT mask.",
+        "register_location": [
+          {
+            "register_address": 42,
+            "reg_start_bit": 2,
+            "reg_end_bit": 2
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Produces INT pulse",
+          "1": "Does not produce INT pulse"
+        }
+      },
+      {
+        "name": "DRV_OKZ_MASK",
+        "description": "DRV_SUP pin voltage INT mask.",
+        "register_location": [
+          {
+            "register_address": 42,
+            "reg_start_bit": 1,
+            "reg_end_bit": 1
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Produces INT pulse",
+          "1": "Does not produce INT pulse"
+        }
+      },
+      {
+        "name": "RESERVED_0x2A_0",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 42,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "ADC_EN",
+        "description": "ADC control. When EN_VREG_TEMP_COMP=1, ADC is automatically enabled regardless.",
+        "register_location": [
+          {
+            "register_address": 43,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Disable ADC",
+          "1": "Enable ADC"
+        }
+      },
+      {
+        "name": "ADC_RATE",
+        "description": "ADC conversion rate control.",
+        "register_location": [
+          {
+            "register_address": 43,
+            "reg_start_bit": 6,
+            "reg_end_bit": 6
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Continuous conversion",
+          "1": "One-shot conversion"
+        }
+      },
+      {
+        "name": "ADC_SAMPLE",
+        "description": "ADC sample speed.",
+        "register_location": [
+          {
+            "register_address": 43,
+            "reg_start_bit": 4,
+            "reg_end_bit": 5
+          }
+        ],
+        "digital_physical_map": {
+          "0": "15 bit effective resolution",
+          "1": "14 bit effective resolution",
+          "2": "13 bit effective resolution",
+          "3": "Reserved"
+        }
+      },
+      {
+        "name": "ADC_AVG",
+        "description": "ADC average control.",
+        "register_location": [
+          {
+            "register_address": 43,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Single value",
+          "1": "Running average"
+        }
+      },
+      {
+        "name": "ADC_AVG_INIT",
+        "description": "ADC average initial value control.",
+        "register_location": [
+          {
+            "register_address": 43,
+            "reg_start_bit": 2,
+            "reg_end_bit": 2
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Start average using existing register value",
+          "1": "Start average using new ADC conversion"
+        }
+      },
+      {
+        "name": "RESERVED_0x2B_1_0",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 43,
+            "reg_start_bit": 0,
+            "reg_end_bit": 1
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "IAC_ADC_DIS",
+        "description": "IAC ADC control.",
+        "register_location": [
+          {
+            "register_address": 44,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Enable",
+          "1": "Disable"
+        }
+      },
+      {
+        "name": "IBAT_ADC_DIS",
+        "description": "IBAT ADC control. Recommend to disable when EN_IBAT_LOAD=1.",
+        "register_location": [
+          {
+            "register_address": 44,
+            "reg_start_bit": 6,
+            "reg_end_bit": 6
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Enable",
+          "1": "Disable"
+        }
+      },
+      {
+        "name": "VAC_ADC_DIS",
+        "description": "VAC ADC control.",
+        "register_location": [
+          {
+            "register_address": 44,
+            "reg_start_bit": 5,
+            "reg_end_bit": 5
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Enable",
+          "1": "Disable"
+        }
+      },
+      {
+        "name": "VBAT_ADC_DIS",
+        "description": "VBAT ADC control.",
+        "register_location": [
+          {
+            "register_address": 44,
+            "reg_start_bit": 4,
+            "reg_end_bit": 4
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Enable",
+          "1": "Disable"
+        }
+      },
+      {
+        "name": "RESERVED_0x2C_3",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 44,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "TS_ADC_DIS",
+        "description": "TS ADC control.",
+        "register_location": [
+          {
+            "register_address": 44,
+            "reg_start_bit": 2,
+            "reg_end_bit": 2
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Enable",
+          "1": "Disable"
+        }
+      },
+      {
+        "name": "VFB_ADC_DIS",
+        "description": "VFB ADC control. Recommend to disable when charging is enabled.",
+        "register_location": [
+          {
+            "register_address": 44,
+            "reg_start_bit": 1,
+            "reg_end_bit": 1
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Enable",
+          "1": "Disable"
+        }
+      },
+      {
+        "name": "RESERVED_0x2C_0",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 44,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "IAC_ADC",
+        "description": "IAC ADC reading with 5mOhm RAC_SNS. 2s complement. Range: -20000mA to 20000mA. Step: 0.8mA.",
+        "register_location": [
+          {
+            "register_address": 45,
+            "reg_start_bit": 0,
+            "reg_end_bit": 15,
+            "field_start_bit": 0,
+            "field_end_bit": 15
+          }
+        ],
+        "digital_physical_map": {
+          "-1": "IAC = VALUE * 0.8 mA (2s complement), where VALUE is the 16-bit register value."
+        }
+      },
+      {
+        "name": "IBAT_ADC",
+        "description": "IBAT ADC reading with 5mOhm RBAT_SNS. 2s complement. Range: -20000mA to 20000mA. Step: 2mA.",
+        "register_location": [
+          {
+            "register_address": 47,
+            "reg_start_bit": 0,
+            "reg_end_bit": 15,
+            "field_start_bit": 0,
+            "field_end_bit": 15
+          }
+        ],
+        "digital_physical_map": {
+          "-1": "IBAT = VALUE * 2 mA (2s complement), where VALUE is the 16-bit register value."
+        }
+      },
+      {
+        "name": "VAC_ADC",
+        "description": "VAC ADC reading. Unsigned integer. Range: 0-65534mV. Step: 2mV.",
+        "register_location": [
+          {
+            "register_address": 49,
+            "reg_start_bit": 0,
+            "reg_end_bit": 15,
+            "field_start_bit": 0,
+            "field_end_bit": 15
+          }
+        ],
+        "digital_physical_map": {
+          "-1": "VAC = VALUE * 2 mV, where VALUE is the 16-bit register value."
+        }
+      },
+      {
+        "name": "VBAT_ADC",
+        "description": "VBAT ADC reading. Unsigned integer. Range: 0-65534mV. Step: 2mV.",
+        "register_location": [
+          {
+            "register_address": 51,
+            "reg_start_bit": 0,
+            "reg_end_bit": 15,
+            "field_start_bit": 0,
+            "field_end_bit": 15
+          }
+        ],
+        "digital_physical_map": {
+          "-1": "VBAT = VALUE * 2 mV, where VALUE is the 16-bit register value."
+        }
+      },
+      {
+        "name": "TS_ADC",
+        "description": "TS ADC reading as percentage of REGN. Unsigned integer. Range: 0-99.9%. Step: 0.098%.",
+        "register_location": [
+          {
+            "register_address": 55,
+            "reg_start_bit": 0,
+            "reg_end_bit": 15,
+            "field_start_bit": 0,
+            "field_end_bit": 15
+          }
+        ],
+        "digital_physical_map": {
+          "-1": "TS = VALUE * 0.09765625 %, where VALUE is the 16-bit register value (only 10 bits used)."
+        }
+      },
+      {
+        "name": "VFB_ADC",
+        "description": "VFB ADC reading. Range: 0-2047mV. Step: 1mV.",
+        "register_location": [
+          {
+            "register_address": 57,
+            "reg_start_bit": 0,
+            "reg_end_bit": 15,
+            "field_start_bit": 0,
+            "field_end_bit": 15
+          }
+        ],
+        "digital_physical_map": {
+          "-1": "VFB = VALUE * 1 mV, where VALUE is the 16-bit register value (only 11 bits used)."
+        }
+      },
+      {
+        "name": "BOOST_HS_DRV",
+        "description": "Boost High Side FET Gate Driver Strength.",
+        "register_location": [
+          {
+            "register_address": 59,
+            "reg_start_bit": 6,
+            "reg_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Fastest",
+          "1": "Faster",
+          "2": "Slower",
+          "3": "Slowest"
+        }
+      },
+      {
+        "name": "BUCK_HS_DRV",
+        "description": "Buck High Side FET Gate Driver Strength.",
+        "register_location": [
+          {
+            "register_address": 59,
+            "reg_start_bit": 4,
+            "reg_end_bit": 5
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Fastest",
+          "1": "Faster",
+          "2": "Slower",
+          "3": "Slowest"
+        }
+      },
+      {
+        "name": "BOOST_LS_DRV",
+        "description": "Boost Low Side FET Gate Driver Strength.",
+        "register_location": [
+          {
+            "register_address": 59,
+            "reg_start_bit": 2,
+            "reg_end_bit": 3
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Fastest",
+          "1": "Faster",
+          "2": "Slower",
+          "3": "Slowest"
+        }
+      },
+      {
+        "name": "BUCK_LS_DRV",
+        "description": "Buck Low Side FET Gate Driver Strength.",
+        "register_location": [
+          {
+            "register_address": 59,
+            "reg_start_bit": 0,
+            "reg_end_bit": 1
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Fastest",
+          "1": "Faster",
+          "2": "Slower",
+          "3": "Slowest"
+        }
+      },
+      {
+        "name": "RESERVED_0x3C_7_4",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 60,
+            "reg_start_bit": 4,
+            "reg_end_bit": 7
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "BOOST_DEAD_TIME",
+        "description": "Boost Side FETs Dead Time Control.",
+        "register_location": [
+          {
+            "register_address": 60,
+            "reg_start_bit": 2,
+            "reg_end_bit": 3
+          }
+        ],
+        "digital_physical_map": {
+          "0": "45ns",
+          "1": "75ns",
+          "2": "105ns",
+          "3": "135ns"
+        }
+      },
+      {
+        "name": "BUCK_DEAD_TIME",
+        "description": "Buck Side FETs Dead Time Control.",
+        "register_location": [
+          {
+            "register_address": 60,
+            "reg_start_bit": 0,
+            "reg_end_bit": 1
+          }
+        ],
+        "digital_physical_map": {
+          "0": "45ns",
+          "1": "75ns",
+          "2": "105ns",
+          "3": "135ns"
+        }
+      },
+      {
+        "name": "RESERVED_0x3D_7",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 61,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "PART_NUM",
+        "description": "Part Number: 010 = BQ25756.",
+        "register_location": [
+          {
+            "register_address": 61,
+            "reg_start_bit": 3,
+            "reg_end_bit": 6
+          }
+        ]
+      },
+      {
+        "name": "DEV_REV",
+        "description": "Device Revision.",
+        "register_location": [
+          {
+            "register_address": 61,
+            "reg_start_bit": 0,
+            "reg_end_bit": 2
+          }
+        ]
+      },
+      {
+        "name": "IBAT_REV",
+        "description": "Reverse mode battery discharge current limit.",
+        "register_location": [
+          {
+            "register_address": 98,
+            "reg_start_bit": 6,
+            "reg_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "20A",
+          "1": "15A",
+          "2": "10A",
+          "3": "5A"
+        }
+      },
+      {
+        "name": "RESERVED_0x62_5_2",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 98,
+            "reg_start_bit": 2,
+            "reg_end_bit": 5
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "name": "EN_CONV_FAST_TRANSIENT",
+        "description": "Enable converter fast transient response in reverse mode only.",
+        "register_location": [
+          {
+            "register_address": 98,
+            "reg_start_bit": 1,
+            "reg_end_bit": 1
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Disable",
+          "1": "Enable"
+        }
+      },
+      {
+        "name": "RESERVED_0x62_0",
+        "description": "Reserved",
+        "register_location": [
+          {
+            "register_address": 98,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0
+          }
+        ],
+        "reserved": true
+      }
     ]
   }
 }
