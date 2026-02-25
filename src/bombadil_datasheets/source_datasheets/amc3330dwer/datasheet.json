@@ -1,0 +1,737 @@
+{
+  "high_level": {
+    "base_part_number": "AMC3330",
+    "device_type": "ISOLATED_AMPLIFIER",
+    "manufacturer": "Texas Instruments",
+    "packages": [
+      "SOIC-16 (DWE)"
+    ],
+    "part_numbers": {
+      "AMC3330DWER": {
+        "options": {
+          "PackageType": "SOIC (DWE)",
+          "Pins": "16",
+          "InputVoltageRange": "+/-1V",
+          "Gain": "2.0 V/V",
+          "IsolationType": "Reinforced",
+          "IntegratedDCDC": true,
+          "OperatingTemperatureCelsius": "-40 to 125"
+        }
+      }
+    },
+    "serial_busses": [],
+    "description": "Precision, +/-1V input, reinforced isolated amplifier with integrated DC/DC converter. Uses a delta-sigma modulator and capacitive SiO2-based isolation barrier with on-off keying (OOK) modulation. Provides fully differential analog output with nominal gain of 2. Integrated isolated DC/DC converter enables single-supply operation from 3.3V or 5V on the low side."
+  },
+  "pins": {
+    "DCDC_OUT": {
+      "name": "DCDC_OUT",
+      "pin_id": "1",
+      "type": "POWER",
+      "direction": "OUTPUT",
+      "description": "High-side output of the isolated DC/DC converter. This pin provides the unregulated DC/DC output voltage (3.1V to 4.65V typ) to the HGND reference. Must be connected to the HLDO_IN pin.",
+      "output_voltage": {
+        "min": 3.1,
+        "typ": 3.5,
+        "max": 4.65,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect this pin to the HLDO_IN pin (pin 3). Place a 1-nF low-ESR ceramic capacitor (C3) as close as possible between DCDC_OUT and DCDC_HGND, followed by a 1-uF bulk capacitor (C2).",
+        "components": "C3: 1 nF +/-10%, X7R, 50V (e.g., Kemet C0603C102K5RACTU). C2: 1 uF +/-10%, X7R, 25V (e.g., TDK CGA3E1X7R1E105K080AC).",
+        "precautions": "Do not connect any external load directly to this pin. The output is intended solely to feed the high-side LDO via HLDO_IN."
+      }
+    },
+    "DCDC_HGND": {
+      "name": "DCDC_HGND",
+      "pin_id": "2",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "High-side ground reference for the isolated DC/DC converter. Must be connected to the HGND pin (pin 8).",
+      "implementation": {
+        "connectivity": "Connect this pin directly to the HGND pin (pin 8) at the device. The DCDC decoupling capacitors (C2, C3) connect between DCDC_OUT and this pin.",
+        "components": "None required beyond the decoupling capacitors shared with DCDC_OUT.",
+        "precautions": "Short this pin directly to HGND at the device pins for best performance. Use low-impedance connection."
+      }
+    },
+    "HLDO_IN": {
+      "name": "HLDO_IN",
+      "pin_id": "3",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Input of the high-side low-dropout (LDO) regulator. Must be connected to the DCDC_OUT pin (pin 1).",
+      "implementation": {
+        "connectivity": "Connect this pin to DCDC_OUT (pin 1). The high-side LDO regulates the DCDC output down to a stable 3.2V (typ) for the high-side analog circuitry.",
+        "components": "No additional components needed between DCDC_OUT and HLDO_IN; connect directly.",
+        "precautions": "Do not connect external supply voltage to this pin. Input is driven internally by the DC/DC converter output."
+      }
+    },
+    "NC": {
+      "name": "NC",
+      "pin_id": "4",
+      "type": "NC",
+      "direction": "NONE",
+      "description": "No internal connection. Connect this pin to the high-side ground (HGND) or leave unconnected (floating).",
+      "implementation": {
+        "connectivity": "Connect to HGND or leave floating.",
+        "components": "None required.",
+        "precautions": "Do not use for routing signals."
+      }
+    },
+    "HLDO_OUT": {
+      "name": "HLDO_OUT",
+      "pin_id": "5",
+      "type": "POWER",
+      "direction": "OUTPUT",
+      "description": "Output of the high-side LDO. Provides a regulated voltage (3.0V to 3.4V, typ 3.2V) referenced to HGND. Can source up to 1 mA (VDD 3.0-4.5V) or 4.3 mA (VDD 4.5-5.5V) of additional current for optional auxiliary high-side circuitry such as an active filter, pre-amplifier, or comparator.",
+      "output_voltage": {
+        "min": 3.0,
+        "typ": 3.2,
+        "max": 3.4,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Decouple with a low-ESR 1-nF capacitor (C6) placed as close as possible to the device, followed by a 100-nF NP0 capacitor (C5). Connect a 100-nF capacitor (C1) from HLDO_OUT to HGND as additional decoupling.",
+        "components": "C6: 1 nF +/-10%, X7R, 50V (e.g., AVX 12065C102KAT2A). C5: 100 nF +/-5%, NP0, 50V (e.g., TDK C3216NP01H104J160AA). C1: 100 nF +/-10%, X7R, 50V (e.g., Kemet C0603C104K5RACAUTO).",
+        "precautions": "Do not overload the high-side LDO. Maximum external current is 1 mA (3V <= VDD < 4.5V) or 4.3 mA (4.5V <= VDD <= 5.5V) for non-switching loads. The HLDO undervoltage detection threshold (VHLDOUV) is 2.4-2.6V falling."
+      }
+    },
+    "INP": {
+      "name": "INP",
+      "pin_id": "6",
+      "type": "ANALOG",
+      "direction": "INPUT",
+      "description": "Noninverting analog input. The input feeds a second-order, switched-capacitor, feed-forward delta-sigma modulator. High input impedance (0.1-0.8 GOhm single-ended, 0.1-1.2 GOhm differential) supports low gain-error signal sensing with high-impedance resistor dividers. Input bias current is +/-10 nA max (2.5 nA typ). Specified linear full-scale differential input range (INP - INN) is +/-1V, with clipping at +/-1.25V.",
+      "input_voltage": {
+        "min": -6.0,
+        "max": "VHLDOout + 0.5",
+        "units": "V",
+        "note": "Absolute max relative to HGND. For linear operation: differential (INP-INN) = +/-1V, common-mode (VCM) = -1.4V to 1.6V at 0V differential."
+      },
+      "implementation": {
+        "connectivity": "Connect to the voltage-sensing resistor divider network or voltage signal source. Place an RC input filter in front of the device for improved SNR. Ensure impedances measured from INP and INN are equal. For voltage sensing applications, a single differential capacitor across INP and INN (with the divider resistors providing the R) forms the filter.",
+        "components": "Sense resistor (RSNS) connected between INP and INN for voltage sensing applications. Optional differential filter capacitor (e.g., 1 nF to 100 nF depending on bandwidth requirements). Cutoff frequency should be at least one order of magnitude below the 20 MHz internal modulator sampling frequency.",
+        "precautions": "Do not leave floating when the device is powered up on the high-side. Bias current may generate a negative input voltage exceeding the specified range, causing invalid output. If input voltage exceeds Absolute Maximum Ratings, limit input current to 10 mA (ESD diodes will turn on). Linearity and noise performance are guaranteed only within VFSR (+/-1V differential) and VCM specifications."
+      }
+    },
+    "INN": {
+      "name": "INN",
+      "pin_id": "7",
+      "type": "ANALOG",
+      "direction": "INPUT",
+      "description": "Inverting analog input. Connect this pin to HGND either directly or through a resistive path. A DC current path between INN and HGND is required to define the input common-mode voltage.",
+      "input_voltage": {
+        "min": -6.0,
+        "max": "VHLDOout + 0.5",
+        "units": "V",
+        "note": "Absolute max relative to HGND."
+      },
+      "implementation": {
+        "connectivity": "Connect to HGND either directly or through a resistive path. The HGND reference is derived from the terminal of the sense resistor connected to INN. For best DC accuracy, use a separate trace to connect HGND to the sense resistor terminal, but shorting HGND to INN directly at the device is also acceptable.",
+        "components": "Match the impedance on INN to that on INP for optimal CMRR performance.",
+        "precautions": "Do not leave floating when the device is powered. A DC current path between INN and HGND is mandatory to define the input common-mode voltage. Take care not to exceed the input common-mode range."
+      }
+    },
+    "HGND": {
+      "name": "HGND",
+      "pin_id": "8",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "High-side analog ground. Connect this pin to the DCDC_HGND pin (pin 2). This is the ground reference for all high-side circuitry including the analog input, DC/DC rectifier, and high-side LDO.",
+      "implementation": {
+        "connectivity": "Connect to DCDC_HGND (pin 2) directly at the device pins. Also connect to INN either directly or through a resistive path. The HGND reference is derived from the terminal of the sense resistor connected to INN.",
+        "components": "None required.",
+        "precautions": "Maintain creepage and clearance >= 8 mm between high-side pins (1-8) and low-side pins (9-16) on the PCB. Keep the clearance area free of any conductive materials."
+      }
+    },
+    "GND": {
+      "name": "GND",
+      "pin_id": "9",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Low-side analog ground. Connect this pin to the DCDC_GND pin (pin 15). This is the ground reference for all low-side circuitry including the analog output, low-side LDO, and DC/DC inverter.",
+      "implementation": {
+        "connectivity": "Connect to DCDC_GND (pin 15). Use a low-impedance connection to the low-side ground plane. Place VDD decoupling capacitors between VDD and GND as close as possible to the device pins.",
+        "components": "None required.",
+        "precautions": "Keep the low-side ground plane separate from the high-side ground to maintain isolation. Maintain creepage and clearance >= 8 mm between high-side and low-side pins on the PCB."
+      }
+    },
+    "OUTN": {
+      "name": "OUTN",
+      "pin_id": "10",
+      "type": "ANALOG",
+      "direction": "OUTPUT",
+      "description": "Inverting analog output. Part of the fully differential output pair. At zero differential input (INP shorted to INN), OUTN outputs VCMout (1.39-1.49V typ 1.44V). For a positive differential input, OUTN decreases below VCMout. Output resistance is 0.2 Ohm. Short-circuit current is 14 mA (sourcing or sinking). Bandwidth is 300-375 kHz. The failsafe differential output voltage (OUTP - OUTN) is -2.57V to -2.5V when the DC/DC or HLDO output is below its undervoltage threshold.",
+      "output_voltage": {
+        "min": "GND - 0.5",
+        "max": "VDD + 0.5",
+        "units": "V",
+        "note": "Absolute max. Nominal output swing is within VDD and GND rails."
+      },
+      "implementation": {
+        "connectivity": "Connect to the ADC input or difference amplifier (e.g., TLV6001) for differential-to-single-ended conversion. For single-ended ADCs, use a resistor network with VREF to convert the differential output.",
+        "components": "Maximum capacitive load: 500 pF to GND, 250 pF differential (OUTP to OUTN), without series resistance. Minimum resistive load: 10 kOhm to GND. For single-ended conversion: R1=R2=R3=R4=10 kOhm, C1=C2=1000 pF using NP0-type capacitors for best performance.",
+        "precautions": "Do not exceed maximum capacitive load specifications without series resistance. Output is short-circuit protected but avoid sustained short conditions. Monitor the failsafe output (negative differential) to detect high-side power supply failures."
+      }
+    },
+    "OUTP": {
+      "name": "OUTP",
+      "pin_id": "11",
+      "type": "ANALOG",
+      "direction": "OUTPUT",
+      "description": "Noninverting analog output. Part of the fully differential output pair. At zero differential input (INP shorted to INN), OUTP outputs VCMout (1.39-1.49V typ 1.44V). For a positive differential input, OUTP increases above VCMout. The differential output (OUTP - OUTN) has a nominal gain of 2 V/V. For +/-1V differential input, the output is +/-2V differential. Clipping differential output voltage is +/-2.49V.",
+      "output_voltage": {
+        "min": "GND - 0.5",
+        "max": "VDD + 0.5",
+        "units": "V",
+        "note": "Absolute max. Nominal output swing is within VDD and GND rails."
+      },
+      "implementation": {
+        "connectivity": "Connect to the ADC input or difference amplifier for differential-to-single-ended conversion. Route symmetrically with OUTN for best common-mode rejection.",
+        "components": "Same load and filter requirements as OUTN. Use matched resistors and NP0 capacitors in the output filter stage.",
+        "precautions": "Same as OUTN. The differential output saturates (clips) when the differential input exceeds +/-1.25V."
+      }
+    },
+    "VDD": {
+      "name": "VDD",
+      "pin_id": "12",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Low-side power supply. Operating range: 3.0V to 5.5V (nominal 3.3V or 5V). Powers the low-side analog circuitry, reconstruction filter, and drives the isolated DC/DC converter. Supply current: 28.5-41 mA (no external HLDO load) or 30.5-43 mA (1 mA external HLDO load). VDD analog undervoltage detection threshold: 2.9V rising, 2.8V falling. VDD digital reset threshold: 2.5V rising, 2.4V falling.",
+      "input_voltage": {
+        "min": 3.0,
+        "nom": 3.3,
+        "max": 5.5,
+        "abs_max": 6.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to regulated 3.3V or 5V supply. Place decoupling capacitors between VDD and GND as close as possible to the device pins.",
+        "components": "C8: 1 nF +/-10%, X7R, 50V low-ESR ceramic capacitor placed closest to device (e.g., AVX 12065C102KAT2A). C9: 1 uF +/-10%, X7R, 25V bulk capacitor (e.g., AVX 12063C105KAT2A). Both connected between VDD and GND.",
+        "precautions": "Ensure supply voltage remains within 3.0V to 5.5V range. Exceeding 6.5V absolute maximum may cause permanent damage. During power-up, the DIAG pin is held low and outputs are in failsafe state until the high-side supply is in regulation. Analog settling time from VDD reaching 3.0V to valid outputs is 0.6-1.1 ms."
+      }
+    },
+    "LDO_OUT": {
+      "name": "LDO_OUT",
+      "pin_id": "13",
+      "type": "POWER",
+      "direction": "OUTPUT",
+      "description": "Output of the low-side LDO. This LDO stabilizes the supply voltage that drives the low-side of the DC/DC converter. Must be connected to the DCDC_IN pin (pin 16). The low-side LDO does not output a constant voltage and is not intended for powering any external circuitry.",
+      "implementation": {
+        "connectivity": "Connect this pin directly to DCDC_IN (pin 16). Do not connect any external load.",
+        "components": "No external decoupling capacitors needed on this pin; the DCDC_IN decoupling handles filtering.",
+        "precautions": "Do not connect any external load to this pin. The output voltage is not constant and is not designed for external use."
+      }
+    },
+    "DIAG": {
+      "name": "DIAG",
+      "pin_id": "14",
+      "type": "DIGITAL",
+      "direction": "OUTPUT",
+      "output_type": "OPEN_DRAIN",
+      "polarity": "ACTIVE_LOW",
+      "description": "Active-low, open-drain diagnostic status indicator output. During normal operation, the DIAG pin is in a high-impedance state (leakage: 5-100 nA at VDD=5V). DIAG is actively pulled low (VOL: 80 mV typ, 250 mV max at 4 mA sink) when: (1) the low-side does not receive data from the high-side (e.g., loss of high-side power), or (2) the high-side DCDC output or HLDO output drops below their undervoltage detection thresholds. During power-up, DIAG is held low until the high-side supply is in regulation.",
+      "output_voltage": {
+        "min": "GND - 0.5",
+        "max": 6.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to VDD (or other pull-up supply up to VDD) through a pull-up resistor, or leave floating if diagnostics are not used. Route to MCU GPIO for monitoring device health.",
+        "components": "Pull-up resistor to VDD (typical 4.7 kOhm to 10 kOhm). Optional low-pass filter capacitor for noise rejection.",
+        "precautions": "Open-drain output requires external pull-up for logic high state. Maximum pull-up supply voltage is VDD. Sink current should not exceed the level that causes VOL to exceed 250 mV (4 mA specified). When DIAG is asserted low, the amplifier outputs are driven to negative full-scale (failsafe mode)."
+      }
+    },
+    "DCDC_GND": {
+      "name": "DCDC_GND",
+      "pin_id": "15",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Low-side ground reference for the isolated DC/DC converter. Must be connected to the GND pin (pin 9).",
+      "implementation": {
+        "connectivity": "Connect this pin directly to GND (pin 9). The low-side DC/DC decoupling capacitor (C4) connects between DCDC_IN and this pin.",
+        "components": "None required beyond the decoupling capacitor shared with DCDC_IN.",
+        "precautions": "Use a low-impedance connection to GND. Short directly at the device pins."
+      }
+    },
+    "DCDC_IN": {
+      "name": "DCDC_IN",
+      "pin_id": "16",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Low-side input of the isolated DC/DC converter. Must be connected to the LDO_OUT pin (pin 13). The internal low-side LDO stabilizes VDD to feed the DC/DC converter.",
+      "implementation": {
+        "connectivity": "Connect this pin to LDO_OUT (pin 13). Decouple with a 100-nF capacitor (C4) between DCDC_IN and DCDC_GND, placed as close as possible to the device.",
+        "components": "C4: 100 nF +/-10%, X7R, 50V low-ESR ceramic capacitor (e.g., Kemet C0603C104K5RACAUTO).",
+        "precautions": "Do not connect external supply voltage to this pin. Input is driven by the internal low-side LDO output."
+      }
+    }
+  },
+  "specifications": {
+    "isolation": {
+      "VIORM": {
+        "description": "Maximum repetitive peak isolation voltage",
+        "value": 1700,
+        "units": "VPK"
+      },
+      "VIOWM_AC": {
+        "description": "Maximum-rated isolation working voltage (AC, sine wave)",
+        "value": 1200,
+        "units": "VRMS"
+      },
+      "VIOWM_DC": {
+        "description": "Maximum-rated isolation working voltage (DC)",
+        "value": 1700,
+        "units": "VDC"
+      },
+      "VIOTM": {
+        "description": "Maximum transient isolation voltage",
+        "value": 6000,
+        "units": "VPK"
+      },
+      "VIMP": {
+        "description": "Maximum impulse voltage (tested in air, 1.2/50us waveform per IEC 62368-1)",
+        "value": 7700,
+        "units": "VPK"
+      },
+      "VIOSM": {
+        "description": "Maximum surge isolation voltage (tested in oil, 1.2/50us waveform per IEC 62368-1)",
+        "value": 10000,
+        "units": "VPK"
+      },
+      "VISO_UL1577": {
+        "description": "Withstand isolation voltage (UL 1577, 60s qualification / 1.2x 1s production)",
+        "value": 4250,
+        "units": "VRMS"
+      },
+      "clearance": {
+        "description": "External clearance (shortest pin-to-pin distance through air)",
+        "min": 8,
+        "units": "mm"
+      },
+      "creepage": {
+        "description": "External creepage (shortest pin-to-pin distance across package surface)",
+        "min": 8,
+        "units": "mm"
+      },
+      "DTI_signal": {
+        "description": "Distance through insulation - capacitive signal isolation minimum internal gap",
+        "min": 21,
+        "units": "um"
+      },
+      "DTI_power": {
+        "description": "Distance through insulation - transformer power isolation minimum internal gap",
+        "min": 120,
+        "units": "um"
+      },
+      "CIO": {
+        "description": "Barrier capacitance, input to output (VIO = 0.5 VPP at 1 MHz)",
+        "value": 4.5,
+        "units": "pF"
+      },
+      "RIO_25C": {
+        "description": "Insulation resistance, input to output (VIO = 500V at 25C)",
+        "min": 1e12,
+        "units": "Ohm"
+      },
+      "CTI": {
+        "description": "Comparative tracking index (DIN EN 60112 / IEC 60112)",
+        "min": 600,
+        "units": "V"
+      },
+      "material_group": "I",
+      "pollution_degree": 2,
+      "climatic_category": "40/125/21"
+    },
+    "analog_input": {
+      "RIN": {
+        "description": "Single-ended input resistance (INN = HGND)",
+        "min": 0.1,
+        "typ": 0.8,
+        "units": "GOhm"
+      },
+      "RIND": {
+        "description": "Differential input resistance",
+        "min": 0.1,
+        "typ": 1.2,
+        "units": "GOhm"
+      },
+      "IIB": {
+        "description": "Input bias current (INP = INN = HGND)",
+        "min": -10,
+        "typ": 2.5,
+        "max": 10,
+        "units": "nA"
+      },
+      "TCIIB": {
+        "description": "Input bias current drift",
+        "typ": -14,
+        "units": "pA/C"
+      },
+      "IIO": {
+        "description": "Input offset current (IINP - IINN)",
+        "min": -10,
+        "typ": -0.8,
+        "max": 10,
+        "units": "nA"
+      },
+      "CIN": {
+        "description": "Single-ended input capacitance (INN = HGND, fIN = 310 kHz)",
+        "typ": 2,
+        "units": "pF"
+      },
+      "CIND": {
+        "description": "Differential input capacitance (fIN = 310 kHz)",
+        "typ": 2,
+        "units": "pF"
+      },
+      "VFSR": {
+        "description": "Specified linear differential full-scale voltage",
+        "min": -1,
+        "max": 1,
+        "units": "V"
+      },
+      "VClipping": {
+        "description": "Differential input voltage before clipping output",
+        "value": 1.25,
+        "units": "V"
+      }
+    },
+    "analog_output": {
+      "gain": {
+        "description": "Nominal gain",
+        "value": 2,
+        "units": "V/V"
+      },
+      "VCMout": {
+        "description": "Common-mode output voltage",
+        "min": 1.39,
+        "typ": 1.44,
+        "max": 1.49,
+        "units": "V"
+      },
+      "VCLIPout": {
+        "description": "Clipping differential output voltage",
+        "value": 2.49,
+        "units": "V"
+      },
+      "VFailsafe": {
+        "description": "Failsafe differential output voltage (when DCDC or HLDO below UV threshold)",
+        "min": -2.57,
+        "max": -2.5,
+        "units": "V"
+      },
+      "BWOUT": {
+        "description": "Output bandwidth (-3 dB)",
+        "typ": 300,
+        "max": 375,
+        "units": "kHz"
+      },
+      "ROUT": {
+        "description": "Output resistance (on OUTP or OUTN)",
+        "typ": 0.2,
+        "units": "Ohm"
+      },
+      "short_circuit_current": {
+        "description": "Output short-circuit current (sourcing or sinking, outputs shorted to GND or VDD)",
+        "typ": 14,
+        "units": "mA"
+      }
+    },
+    "accuracy": {
+      "VOS": {
+        "description": "Input offset voltage (at 25C, input referred)",
+        "min": -0.3,
+        "typ": 0.05,
+        "max": 0.3,
+        "units": "mV"
+      },
+      "TCVOS": {
+        "description": "Input offset drift (input referred)",
+        "min": -4,
+        "typ": 1,
+        "max": 4,
+        "units": "uV/C"
+      },
+      "EG": {
+        "description": "Gain error (at 25C)",
+        "min": "-0.2%",
+        "typ": "-0.08%",
+        "max": "0.2%"
+      },
+      "TCEG": {
+        "description": "Gain error drift",
+        "min": -45,
+        "typ": 7,
+        "max": 45,
+        "units": "ppm/C"
+      },
+      "nonlinearity": {
+        "description": "Nonlinearity",
+        "min": "-0.02%",
+        "typ": "0.01%",
+        "max": "0.02%"
+      },
+      "nonlinearity_drift": {
+        "description": "Nonlinearity drift",
+        "typ": 0.4,
+        "units": "ppm/C"
+      },
+      "SNR_10kHz_BW": {
+        "description": "Signal-to-noise ratio (VIN = 2VPP, fIN = 1kHz, BW = 10kHz)",
+        "min": 81,
+        "typ": 85,
+        "units": "dB"
+      },
+      "SNR_100kHz_BW": {
+        "description": "Signal-to-noise ratio (VIN = 2VPP, fIN = 10kHz, BW = 100kHz)",
+        "typ": 72,
+        "units": "dB"
+      },
+      "THD": {
+        "description": "Total harmonic distortion (VIN = 2VPP, fIN = 10kHz, BW = 100kHz)",
+        "typ": -84,
+        "units": "dB"
+      },
+      "output_noise": {
+        "description": "Output noise (INP = INN = HGND, BW = 100kHz)",
+        "typ": 250,
+        "units": "uVRMS"
+      },
+      "CMRR_DC": {
+        "description": "Common-mode rejection ratio (DC)",
+        "typ": -100,
+        "units": "dB"
+      },
+      "CMRR_10kHz": {
+        "description": "Common-mode rejection ratio (10kHz)",
+        "typ": -86,
+        "units": "dB"
+      },
+      "PSRR_DC": {
+        "description": "Power-supply rejection ratio (DC, input referred, VDD 3.0V to 5.5V)",
+        "typ": -98,
+        "units": "dB"
+      },
+      "PSRR_10kHz": {
+        "description": "Power-supply rejection ratio (10kHz/100mV ripple, input referred)",
+        "typ": -86,
+        "units": "dB"
+      },
+      "CMTI": {
+        "description": "Common-mode transient immunity (|HGND - GND| = 2kV)",
+        "min": 85,
+        "typ": 135,
+        "units": "kV/us"
+      }
+    },
+    "switching": {
+      "tr": {
+        "description": "Output signal rise time",
+        "typ": 1.3,
+        "units": "us"
+      },
+      "tf": {
+        "description": "Output signal fall time",
+        "typ": 1.3,
+        "units": "us"
+      },
+      "signal_delay_50_10": {
+        "description": "VINx to VOUTx signal delay (50% - 10%, unfiltered output)",
+        "typ": 1.2,
+        "max": 1.3,
+        "units": "us"
+      },
+      "signal_delay_50_50": {
+        "description": "VINx to VOUTx signal delay (50% - 50%, unfiltered output)",
+        "typ": 1.6,
+        "max": 2.1,
+        "units": "us"
+      },
+      "signal_delay_50_90": {
+        "description": "VINx to VOUTx signal delay (50% - 90%, unfiltered output)",
+        "typ": 2.2,
+        "max": 2.6,
+        "units": "us"
+      }
+    },
+    "power_supply": {
+      "VDD_range": {
+        "description": "Low-side supply voltage range",
+        "min": 3.0,
+        "nom": 3.3,
+        "max": 5.5,
+        "units": "V"
+      },
+      "IDD_no_load": {
+        "description": "Low-side supply current (no external HLDO load)",
+        "typ": 28.5,
+        "max": 41,
+        "units": "mA"
+      },
+      "IDD_1mA_load": {
+        "description": "Low-side supply current (1 mA external HLDO load)",
+        "typ": 30.5,
+        "max": 43,
+        "units": "mA"
+      },
+      "VDDUV_rising": {
+        "description": "VDD analog undervoltage detection threshold (rising)",
+        "typ": 2.9,
+        "units": "V"
+      },
+      "VDDUV_falling": {
+        "description": "VDD analog undervoltage detection threshold (falling)",
+        "typ": 2.8,
+        "units": "V"
+      },
+      "VDDPOR_rising": {
+        "description": "VDD digital reset threshold (rising)",
+        "typ": 2.5,
+        "units": "V"
+      },
+      "VDDPOR_falling": {
+        "description": "VDD digital reset threshold (falling)",
+        "typ": 2.4,
+        "units": "V"
+      },
+      "tAS": {
+        "description": "Analog settling time (VDD step to 3.0V, to valid output, 0.1% settling)",
+        "typ": 0.6,
+        "max": 1.1,
+        "units": "ms"
+      },
+      "PD_5V5": {
+        "description": "Maximum power dissipation (VDD = 5.5V)",
+        "max": 236.5,
+        "units": "mW"
+      },
+      "PD_3V6": {
+        "description": "Maximum power dissipation (VDD = 3.6V)",
+        "max": 155,
+        "units": "mW"
+      }
+    },
+    "high_side_power": {
+      "VDCDC_OUT": {
+        "description": "DC/DC output voltage (DCDC_OUT to HGND)",
+        "min": 3.1,
+        "typ": 3.5,
+        "max": 4.65,
+        "units": "V"
+      },
+      "VDCDCUV": {
+        "description": "DC/DC output undervoltage detection threshold (falling)",
+        "typ": 2.1,
+        "max": 2.25,
+        "units": "V"
+      },
+      "VHLDO_OUT": {
+        "description": "High-side LDO output voltage (up to 1 mA external load)",
+        "min": 3.0,
+        "typ": 3.2,
+        "max": 3.4,
+        "units": "V"
+      },
+      "VHLDOUV": {
+        "description": "High-side LDO output undervoltage detection threshold (falling)",
+        "typ": 2.4,
+        "max": 2.6,
+        "units": "V"
+      },
+      "IH_low_VDD": {
+        "description": "High-side supply current for auxiliary circuitry (3V <= VDD < 4.5V)",
+        "max": 1,
+        "units": "mA"
+      },
+      "IH_high_VDD": {
+        "description": "High-side supply current for auxiliary circuitry (4.5V <= VDD <= 5.5V)",
+        "max": 4.3,
+        "units": "mA"
+      }
+    },
+    "thermal": {
+      "RthJA": {
+        "description": "Junction-to-ambient thermal resistance",
+        "value": 73.5,
+        "units": "C/W"
+      },
+      "RthJC_top": {
+        "description": "Junction-to-case (top) thermal resistance",
+        "value": 31,
+        "units": "C/W"
+      },
+      "RthJB": {
+        "description": "Junction-to-board thermal resistance",
+        "value": 44,
+        "units": "C/W"
+      },
+      "psiJT": {
+        "description": "Junction-to-top characterization parameter",
+        "value": 16.7,
+        "units": "C/W"
+      },
+      "psiJB": {
+        "description": "Junction-to-board characterization parameter",
+        "value": 42.8,
+        "units": "C/W"
+      },
+      "TJ_max": {
+        "description": "Maximum junction temperature",
+        "value": 150,
+        "units": "C"
+      },
+      "TA_operating": {
+        "description": "Operating ambient temperature range",
+        "min": -40,
+        "max": 125,
+        "units": "C"
+      },
+      "TS_max": {
+        "description": "Maximum safety temperature",
+        "value": 150,
+        "units": "C"
+      }
+    },
+    "safety_limiting": {
+      "IS_5V5": {
+        "description": "Safety input/output/supply current (RthJA=73.5C/W, VDD=5.5V, TJ=150C, TA=25C)",
+        "max": 309,
+        "units": "mA"
+      },
+      "IS_3V6": {
+        "description": "Safety input/output/supply current (RthJA=73.5C/W, VDD=3.6V, TJ=150C, TA=25C)",
+        "max": 472,
+        "units": "mA"
+      },
+      "PS": {
+        "description": "Safety input/output/total power (RthJA=73.5C/W, TJ=150C, TA=25C)",
+        "max": 1700,
+        "units": "mW"
+      }
+    },
+    "esd": {
+      "HBM": {
+        "description": "Human body model ESD rating (ANSI/ESDA/JEDEC JS-001)",
+        "value": 2000,
+        "units": "V"
+      },
+      "CDM": {
+        "description": "Charged device model ESD rating (ANSI/ESDA/JEDEC JS-002)",
+        "value": 1000,
+        "units": "V"
+      }
+    }
+  },
+  "certifications": {
+    "VDE": {
+      "standard": "DIN EN IEC 60747-17 (VDE 0884-17), EN IEC 60747-17, DIN EN IEC 62368-1 (VDE 0868-1), EN IEC 62368-1, IEC 62368-1",
+      "insulation_type": "Reinforced",
+      "certificate_number": "40040142"
+    },
+    "UL": {
+      "standard": "UL 1577 component recognition and CSA component acceptance NO 5 programs",
+      "insulation_type": "Single protection",
+      "file_number": "E181974"
+    }
+  }
+}

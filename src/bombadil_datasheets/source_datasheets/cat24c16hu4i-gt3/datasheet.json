@@ -1,0 +1,386 @@
+{
+  "high_level": {
+    "base_part_number": "CAT24C16",
+    "device_type": "EEPROM",
+    "manufacturer": "onsemi",
+    "packages": [
+      "UDFN8-EP (HU4)"
+    ],
+    "part_numbers": {
+      "CAT24C16WI-GT3": {
+        "options": {
+          "Package": "SOIC-8",
+          "TemperatureRange": "Industrial (-40 to +85 C)",
+          "LeadFinish": "NiPdAu"
+        }
+      },
+      "CAT24C16YI-GT3": {
+        "options": {
+          "Package": "TSSOP-8",
+          "TemperatureRange": "Industrial (-40 to +85 C)",
+          "LeadFinish": "NiPdAu"
+        }
+      },
+      "CAT24C16C4UTR": {
+        "options": {
+          "Package": "WLCSP-4",
+          "TemperatureRange": "Industrial (-40 to +85 C)",
+          "LeadFinish": "N/A"
+        }
+      },
+      "CAT24C16C4ATR": {
+        "options": {
+          "Package": "WLCSP-4",
+          "TemperatureRange": "Industrial (-40 to +85 C)",
+          "LeadFinish": "N/A"
+        }
+      },
+      "CAT24C16C5ATR": {
+        "options": {
+          "Package": "WLCSP-5",
+          "TemperatureRange": "Industrial (-40 to +85 C)",
+          "LeadFinish": "N/A"
+        }
+      },
+      "CAT24C16TDI-GT3": {
+        "options": {
+          "Package": "TSOT-23-5",
+          "TemperatureRange": "Industrial (-40 to +85 C)",
+          "LeadFinish": "NiPdAu"
+        }
+      },
+      "CAT24C16HU4I-GT3": {
+        "options": {
+          "Package": "UDFN8-EP",
+          "TemperatureRange": "Industrial (-40 to +85 C)",
+          "LeadFinish": "NiPdAu"
+        }
+      },
+      "CAT24C16HU4E-GT3": {
+        "options": {
+          "Package": "UDFN8-EP",
+          "TemperatureRange": "Extended (-40 to +125 C)",
+          "LeadFinish": "NiPdAu"
+        }
+      }
+    },
+    "serial_busses": [
+      "I2C"
+    ]
+  },
+  "pins": {
+    "NC_1": {
+      "name": "NC",
+      "pin_id": "1",
+      "direction": "OTHER",
+      "type": "OTHER",
+      "description": "No Connect. For the CAT24C16, pin 1 is not internally connected. On lower-density variants (CAT24C02), this pin serves as address input A0.",
+      "implementation": {
+        "connected_components": [],
+        "connectivity": "Leave unconnected (floating) for the CAT24C16. Do not connect to any voltage, ground, or signal trace.",
+        "detailed_description": "This pin is not internally connected to any circuitry within the CAT24C16. It is designated No Connect because the CAT24C16 uses the full 2 Kb (16 Kb) address space and does not require external address pins.",
+        "functionality": "No electrical function for the CAT24C16.",
+        "precautions": [
+          "Leave this pin floating. Do not connect to any net."
+        ]
+      }
+    },
+    "NC_2": {
+      "name": "NC",
+      "pin_id": "2",
+      "direction": "OTHER",
+      "type": "OTHER",
+      "description": "No Connect. For the CAT24C16, pin 2 is not internally connected. On lower-density variants (CAT24C04 and below), this pin serves as address input A1.",
+      "implementation": {
+        "connected_components": [],
+        "connectivity": "Leave unconnected (floating) for the CAT24C16. Do not connect to any voltage, ground, or signal trace.",
+        "detailed_description": "This pin is not internally connected to any circuitry within the CAT24C16. It is designated No Connect because the CAT24C16 uses the full 2 Kb (16 Kb) address space and does not require external address pins.",
+        "functionality": "No electrical function for the CAT24C16.",
+        "precautions": [
+          "Leave this pin floating. Do not connect to any net."
+        ]
+      }
+    },
+    "NC_3": {
+      "name": "NC",
+      "pin_id": "3",
+      "direction": "OTHER",
+      "type": "OTHER",
+      "description": "No Connect. For the CAT24C16, pin 3 is not internally connected. On lower-density variants (CAT24C08 and below), this pin serves as address input A2.",
+      "implementation": {
+        "connected_components": [],
+        "connectivity": "Leave unconnected (floating) for the CAT24C16. Do not connect to any voltage, ground, or signal trace.",
+        "detailed_description": "This pin is not internally connected to any circuitry within the CAT24C16. It is designated No Connect because the CAT24C16 uses the full 2 Kb (16 Kb) address space and does not require external address pins.",
+        "functionality": "No electrical function for the CAT24C16.",
+        "precautions": [
+          "Leave this pin floating. Do not connect to any net."
+        ]
+      }
+    },
+    "VSS": {
+      "name": "VSS",
+      "pin_id": "4",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "Ground. Device ground reference.",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "System Ground Plane",
+            "description": "The VSS pin must be connected to the system ground plane to establish the 0 V reference for the device."
+          }
+        ],
+        "connectivity": "Connect VSS directly to the system ground plane. Use a low-impedance path and place decoupling capacitor ground connection close to this pin.",
+        "detailed_description": "The VSS pin is the ground reference for the CAT24C16. It provides the 0 V reference potential for all internal circuitry including the EEPROM charge pump, I2C interface logic, and voltage regulators.",
+        "functionality": "Primary ground connection for the device. Required for proper operation.",
+        "precautions": [
+          "Ensure a low-impedance connection to ground to minimize noise.",
+          "Place the bypass capacitor ground terminal close to this pin for effective decoupling."
+        ]
+      }
+    },
+    "SDA": {
+      "name": "SDA",
+      "pin_id": "5",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Serial Data I/O. Receives input data and transmits EEPROM data. Open-drain output in transmit mode. Data is acquired on the positive edge of SCL and delivered on the negative edge of SCL.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "vih": {
+        "min_ratio": "0.7 x VCC",
+        "max": 5.5,
+        "units": "V"
+      },
+      "vil": {
+        "min": -0.5,
+        "max_ratio": "0.3 x VCC",
+        "units": "V"
+      },
+      "vol": {
+        "max": 0.4,
+        "condition": "VCC > 2.5 V, IOL = 3 mA",
+        "units": "V"
+      },
+      "output_type": "OPEN_DRAIN",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Pull-up Resistor",
+            "description": "An external pull-up resistor to VCC is required on the SDA line. Typical values are 2.2 kOhm to 10 kOhm depending on bus speed and capacitance. The I2C specification recommends selecting the pull-up value based on the bus capacitance and desired rise time."
+          },
+          {
+            "component_name": "I2C Master Device",
+            "description": "Connect to the SDA pin of the I2C master (e.g., microcontroller). The master drives SDA low to transmit '0' and releases it (pulled high by the external resistor) to transmit '1'."
+          }
+        ],
+        "connectivity": "Connect to the I2C SDA bus line with an external pull-up resistor to VCC. The SDA pin has Schmitt trigger inputs and noise suppression filters for improved noise immunity.",
+        "detailed_description": "The SDA pin is the bidirectional serial data line for the I2C interface. In receive mode, data is latched on the rising edge of SCL. In transmit mode, the pin operates as an open-drain output, pulling the bus low to transmit '0' and releasing it to transmit '1'. The pin includes Schmitt trigger inputs and noise suppression filters that reject pulses shorter than 100 ns.",
+        "functionality": "Bidirectional I2C data line used for all read and write operations to the EEPROM. Supports byte write, page write (16 bytes), immediate read, selective read, and sequential read operations.",
+        "precautions": [
+          "An external pull-up resistor is mandatory since SDA is open-drain in transmit mode.",
+          "SDA pin capacitance is 8 pF max. Account for total bus capacitance when selecting pull-up resistor value.",
+          "The SDA line must remain stable while SCL is high, except during START and STOP conditions.",
+          "The I/O pins do not obstruct the SDA line if VCC is switched off."
+        ]
+      }
+    },
+    "SCL": {
+      "name": "SCL",
+      "pin_id": "6",
+      "direction": "INPUT",
+      "type": "DIGITAL",
+      "description": "Serial Clock Input. Accepts the serial clock generated by the I2C master. Supports Standard mode (100 kHz) and Fast mode (400 kHz).",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "vih": {
+        "min_ratio": "0.7 x VCC",
+        "max": 5.5,
+        "units": "V"
+      },
+      "vil": {
+        "min": -0.5,
+        "max_ratio": "0.3 x VCC",
+        "units": "V"
+      },
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Pull-up Resistor",
+            "description": "An external pull-up resistor to VCC is required on the SCL line. Typical values are 2.2 kOhm to 10 kOhm depending on bus speed and capacitance."
+          },
+          {
+            "component_name": "I2C Master Device",
+            "description": "Connect to the SCL pin of the I2C master (e.g., microcontroller). The master generates the clock signal."
+          }
+        ],
+        "connectivity": "Connect to the I2C SCL bus line with an external pull-up resistor to VCC. The SCL pin has Schmitt trigger inputs and noise suppression filters for improved noise immunity.",
+        "detailed_description": "The SCL pin accepts the serial clock from the I2C master device. All data transfers on SDA are synchronized to this clock. The pin includes Schmitt trigger inputs and noise suppression filters that reject pulses shorter than 100 ns.",
+        "functionality": "Receives the I2C clock signal from the master. Data is acquired on the rising edge of SCL and delivered on the falling edge. The clock frequency determines the data transfer speed: up to 100 kHz in Standard mode or 400 kHz in Fast mode.",
+        "precautions": [
+          "An external pull-up resistor is required.",
+          "Pin capacitance is 6 pF max on non-SDA pins.",
+          "The I/O pins do not obstruct the SCL line if VCC is switched off.",
+          "Clock stretching is not supported; the master must respect the write cycle time (tWR = 5 ms max) by using acknowledge polling or a fixed delay after write operations."
+        ]
+      }
+    },
+    "WP": {
+      "name": "WP",
+      "pin_id": "7",
+      "direction": "INPUT",
+      "type": "DIGITAL",
+      "description": "Write Protect Input. When held HIGH, the entire memory is write-protected. When left floating or grounded, write operations are permitted. Has an internal pull-down.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "vih": {
+        "min_ratio": "0.7 x VCC",
+        "max_ratio": "VCC + 0.5",
+        "units": "V"
+      },
+      "vil": {
+        "min": -0.5,
+        "max_ratio": "0.3 x VCC",
+        "units": "V"
+      },
+      "internal_pull": {
+        "direction": "DOWN",
+        "type": "CURRENT_SOURCE",
+        "description": "Internal pull-down with relatively strong current when VIN < trip point (~0.5 x VCC), reverting to weak current source once input exceeds trip point. Max pull-down current: 130 uA at VCC = 5.5 V, 120 uA at VCC = 3.3 V, 80 uA at VCC = 1.7 V."
+      },
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Logic Control Signal or Tie to GND/VCC",
+            "description": "To enable write protection, connect WP to VCC or a logic HIGH signal. To disable write protection, leave WP floating (internal pull-down pulls it LOW) or connect it to GND. For dynamic control, connect to a GPIO output from a microcontroller."
+          }
+        ],
+        "connectivity": "Connect to VCC to permanently write-protect the memory. Leave floating or connect to GND to allow write operations. Connect to a GPIO for dynamic write-protection control.",
+        "detailed_description": "The WP pin controls write access to the entire EEPROM memory array. The state of WP is sampled on the last falling edge of SCL immediately preceding the first data byte during a write operation. If WP is HIGH at this moment, the device will not acknowledge the data byte and the write request is rejected. When not driven externally, the internal pull-down holds the pin LOW, permitting write operations.",
+        "functionality": "Hardware write protection for the entire 16 Kb (2048 bytes) EEPROM memory. Active HIGH to protect, LOW to allow writes.",
+        "precautions": [
+          "The internal pull-down is relatively strong. The external driver must supply sufficient current to overcome the pull-down when driving HIGH (up to 130 uA at VCC = 5.5 V).",
+          "WP state is sampled on the last falling edge of SCL before the first data byte. Ensure WP is stable at the correct level before the write data phase begins.",
+          "WP protects the entire memory; partial write protection is not supported on the CAT24C16."
+        ]
+      }
+    },
+    "VCC": {
+      "name": "VCC",
+      "pin_id": "8",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "Power Supply. Operating range 1.7 V to 5.5 V (TA = -40 to +85 C) or 1.8 V to 5.5 V (TA = -40 to +125 C).",
+      "input_voltage": {
+        "min": 1.7,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Bypass Capacitor",
+            "description": "A 0.1 uF ceramic bypass capacitor should be placed as close as possible between the VCC pin and VSS pin to filter high-frequency noise and provide local charge during write cycles."
+          },
+          {
+            "component_name": "Power Supply",
+            "description": "Connect to a stable DC voltage supply within the 1.7 V to 5.5 V operating range."
+          }
+        ],
+        "connectivity": "Connect to the system power supply with a 0.1 uF ceramic bypass capacitor placed close to the VCC and VSS pins.",
+        "detailed_description": "The VCC pin provides the power supply for all internal circuitry including the EEPROM memory array, I2C interface, charge pump for programming, and internal voltage regulators. The device incorporates Power-On Reset (POR) circuitry that protects internal logic during power-up and power-down transitions. The device enters Standby mode when VCC exceeds the POR trigger level and enters Reset mode when VCC drops below it.",
+        "functionality": "Primary power supply input. The device supports 1.7 V to 5.5 V for industrial temperature range (-40 to +85 C) and 1.8 V to 5.5 V for extended temperature range (-40 to +125 C).",
+        "precautions": [
+          "Do not exceed the absolute maximum voltage of 6.5 V on any pin with respect to ground.",
+          "The device requires up to 1 ms (tPU) from when VCC is stable until the device is ready to accept commands.",
+          "Standby current is 1 uA max at VCC <= 3.3 V, 3 uA max at VCC > 3.3 V (TA = -40 to +85 C), and 5 uA max (TA = -40 to +125 C).",
+          "Write current is 2 mA max at fSCL = 400 kHz. Read current is 1 mA max at fSCL = 400 kHz.",
+          "A bypass capacitor close to VCC and VSS is strongly recommended."
+        ]
+      }
+    },
+    "EP": {
+      "name": "EP",
+      "pin_id": "EP",
+      "direction": "OTHER",
+      "type": "OTHER",
+      "description": "Exposed Pad (UDFN8-EP package only). Can be left floating or connected to ground.",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Ground Plane (optional)",
+            "description": "The exposed pad can optionally be connected to the ground plane for improved thermal performance, or left floating."
+          }
+        ],
+        "connectivity": "The exposed pad can be left floating or connected to VSS (ground). Connecting to ground provides improved thermal dissipation.",
+        "detailed_description": "The exposed pad on the bottom of the UDFN8-EP package is not electrically required for device operation. It may be connected to ground for thermal benefits or left unconnected.",
+        "functionality": "Optional thermal pad. No required electrical function.",
+        "precautions": [
+          "If connected, connect only to ground (VSS). Do not connect to any other potential."
+        ]
+      }
+    }
+  },
+  "serial_bus": {
+    "type": "I2C",
+    "slave_address": {
+      "fixed_bits": "1010",
+      "description": "The slave address is 1010 followed by three internal memory page-select bits (a10, a9, a8) and the R/W bit. For the CAT24C16, all three bits following 1010 are used as internal high-order address bits (block select), not as external device address pins. This means only one CAT24C16 can exist on a single I2C bus. The 11-bit memory address is formed as: {a10, a9, a8} from the slave address byte and {a7..a0} from the byte address.",
+      "address_range": "0x50 to 0x57 (block addresses for 2048-byte memory space)"
+    },
+    "speed_modes": {
+      "standard": {
+        "max_frequency_khz": 100,
+        "description": "Standard I2C mode"
+      },
+      "fast": {
+        "max_frequency_khz": 400,
+        "description": "Fast I2C mode"
+      }
+    },
+    "memory_organization": {
+      "total_size_bytes": 2048,
+      "total_size_kbit": 16,
+      "page_size_bytes": 16,
+      "number_of_pages": 128,
+      "address_width_bits": 11,
+      "endurance_cycles": 1000000,
+      "data_retention_years": 100,
+      "write_cycle_time_ms": 5,
+      "power_up_ready_time_ms": 1,
+      "delivery_state": "0xFF (erased)"
+    },
+    "write_operations": {
+      "byte_write": {
+        "description": "Write a single byte. Master sends START, slave address (R/W=0), byte address, data byte, then STOP. Device begins internal write cycle (up to 5 ms)."
+      },
+      "page_write": {
+        "description": "Write up to 16 contiguous bytes in a single write cycle. Same initiation as byte write, but master sends up to 15 additional bytes. The four low-order address bits auto-increment; high-order page address bits remain unchanged. If more than 16 bytes are sent, the address wraps to the page start and earlier data is overwritten."
+      },
+      "acknowledge_polling": {
+        "description": "After issuing STOP to end a write operation, the master can poll the device by repeatedly sending START + slave address (write). If the device returns NoACK, the internal write cycle is still in progress. An ACK response indicates the write is complete and the device is ready."
+      }
+    },
+    "read_operations": {
+      "immediate_read": {
+        "description": "Master sends START, slave address (R/W=1). Device ACKs and shifts out data at the current internal address pointer. Master responds with NoACK + STOP to end."
+      },
+      "selective_read": {
+        "description": "Random address read. Master performs a dummy write (START, slave address R/W=0, byte address) to set the address pointer, then re-sends START with slave address (R/W=1). Device ACKs and shifts out the data byte at the selected address. Master responds with NoACK + STOP."
+      },
+      "sequential_read": {
+        "description": "After the first data byte in a read, if the master ACKs, the device continues transmitting data from sequential addresses. The address auto-increments and wraps at end of memory (not end of page, unlike page write). Master sends NoACK + STOP to terminate."
+      }
+    },
+    "registers": {}
+  }
+}

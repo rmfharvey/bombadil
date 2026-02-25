@@ -1,0 +1,522 @@
+{
+  "high_level": {
+    "base_part_number": "LTC4372",
+    "device_type": "IDEAL_DIODE_CONTROLLER",
+    "manufacturer": "Analog Devices",
+    "description": "Low Quiescent Current Ideal Diode Controller. The LTC4372 is a positive high voltage ideal diode controller that drives an external N-channel MOSFET to replace a Schottky diode. It controls the forward voltage drop across the MOSFET to ensure current delivery or current transfer from one path to the other even at light loads. A 5uA operating current achieves high efficiency for intermittent load applications or always-on backup power supplies. If a power source fails or is shorted, a fast turnoff minimizes reverse current transients. The LTC4372 controls back-to-back N-channel MOSFETs for inrush current control and load switching. The SHDN pin keeps the MOSFET off and reduces quiescent current to 3.5uA. Wide operating voltage range of 2.5V to 80V with reverse supply protection to -28V.",
+    "packages": [
+      "8-Lead (3mm x 3mm) Plastic DFN (DD)",
+      "8-Lead Plastic MSOP (MS8)"
+    ],
+    "part_numbers": {
+      "LTC4372CDD#PBF": {
+        "options": {
+          "PartMarking": "LHGR",
+          "PackageType": "8-Lead (3mm x 3mm) Plastic DFN",
+          "TemperatureRange": "0C to 70C",
+          "Grade": "Commercial"
+        }
+      },
+      "LTC4372IDD#PBF": {
+        "options": {
+          "PartMarking": "LHGR",
+          "PackageType": "8-Lead (3mm x 3mm) Plastic DFN",
+          "TemperatureRange": "-40C to 85C",
+          "Grade": "Industrial"
+        }
+      },
+      "LTC4372HDD#PBF": {
+        "options": {
+          "PartMarking": "LHGR",
+          "PackageType": "8-Lead (3mm x 3mm) Plastic DFN",
+          "TemperatureRange": "-40C to 125C",
+          "Grade": "High Temperature"
+        }
+      },
+      "LTC4372CMS8#PBF": {
+        "options": {
+          "PartMarking": "LTHGS",
+          "PackageType": "8-Lead Plastic MSOP",
+          "TemperatureRange": "0C to 70C",
+          "Grade": "Commercial"
+        }
+      },
+      "LTC4372IMS8#PBF": {
+        "options": {
+          "PartMarking": "LTHGS",
+          "PackageType": "8-Lead Plastic MSOP",
+          "TemperatureRange": "-40C to 85C",
+          "Grade": "Industrial"
+        }
+      },
+      "LTC4372HMS8#PBF": {
+        "options": {
+          "PartMarking": "LTHGS",
+          "PackageType": "8-Lead Plastic MSOP",
+          "TemperatureRange": "-40C to 125C",
+          "Grade": "High Temperature"
+        }
+      }
+    },
+    "serial_busses": [],
+    "thermal_info": {
+      "RthetaJA_DFN": {
+        "value": 43,
+        "units": "C/W",
+        "description": "Junction-to-ambient thermal resistance, DD (DFN) package"
+      },
+      "RthetaJA_MSOP": {
+        "value": 163,
+        "units": "C/W",
+        "description": "Junction-to-ambient thermal resistance, MS8 (MSOP) package"
+      },
+      "TJ_MAX": {
+        "value": 150,
+        "units": "C",
+        "description": "Maximum junction temperature"
+      }
+    }
+  },
+  "pins": {
+    "OUT": {
+      "name": "OUT",
+      "pin_id": "1",
+      "type": "ANALOG",
+      "direction": "INPUT",
+      "description": "MOSFET Drain Voltage Sense. OUT is the cathode of the ideal diode and the common output when multiple LTC4372s are configured as an ideal diode-OR. It connects to the drain of the N-channel MOSFET. The voltage sensed at this pin is used to control the MOSFET gate for forward voltage regulation and reverse current turn-off. OUT is used as the supply to hold the MOSFET off when IN is not available (below UVLO). Connect a 10uF or larger capacitor to this pin.",
+      "input_voltage": {
+        "min": -2.0,
+        "max": 100.0,
+        "units": "V",
+        "description": "Absolute maximum rating"
+      },
+      "electrical_characteristics": {
+        "IOUT_forward": {
+          "min": -0.5,
+          "typ": 1.8,
+          "units": "uA",
+          "conditions": "IN - OUT = 4V",
+          "description": "OUT pin current in forward condition"
+        },
+        "IOUT_reverse": {
+          "min": -10.0,
+          "typ": 5.0,
+          "units": "uA",
+          "conditions": "IN - OUT = -4V",
+          "description": "OUT pin current in reverse condition"
+        },
+        "IOUT_reverse_battery": {
+          "typ": 0.3,
+          "max": 0.5,
+          "units": "mA",
+          "conditions": "IN = SOURCE = -24V, OUT = 24V",
+          "description": "OUT current during reverse battery"
+        }
+      },
+      "implementation": {
+        "connectivity": "Connect directly to the Drain pin of the external N-channel MOSFET M1. Also connect output bypass capacitor (COUT, 10uF minimum, low ESR ceramic or electrolytic) between OUT and GND, placed close to the MOSFET drain.",
+        "component_recommendations": "COUT: 10uF minimum low ESR ceramic or electrolytic capacitor. D1: Optional TVS diode (e.g., SMAJ28A/SMAJ33A) at output for transient protection during input short-circuit events.",
+        "design_notes": "During an input short-circuit, reverse current flowing through parasitic output inductance LOUT causes OUT to spike positive. COUT clamps this spike. If the transient causes too large a delta-V at OUT, increase COUT capacitance or add a TVS diode. The VS pin can be powered from OUT for self-biased operation in some configurations.",
+        "precautions": "Do not exceed -2V to 100V absolute maximum. Ensure sufficient capacitance to absorb reverse recovery energy during input fault conditions."
+      }
+    },
+    "GATE": {
+      "name": "GATE",
+      "pin_id": "2",
+      "type": "ANALOG",
+      "direction": "OUTPUT",
+      "description": "MOSFET Gate Drive Output. The LTC4372 controls the gate of the MOSFET to maintain the voltage drop between 0mV to 30mV using a pulsed control method. If reverse current flows, a fast pull-down circuit connects GATE to SOURCE within 0.5us, turning off the MOSFET. An internal charge pump delivers 20uA to GATE. An internal clamp limits GATE to 16V maximum above SOURCE.",
+      "electrical_characteristics": {
+        "delta_VGATE_H_low_VIN": {
+          "min": 4.5,
+          "typ": 6.5,
+          "max": 10.0,
+          "units": "V",
+          "conditions": "IN <= 5V, delta_VSD = 0.1V, IGATE = 0 to -1uA",
+          "description": "Maximum GATE drive (GATE - SOURCE) at low input voltage"
+        },
+        "delta_VGATE_H_high_VIN": {
+          "min": 10.0,
+          "typ": 11.7,
+          "max": 16.0,
+          "units": "V",
+          "conditions": "IN > 5V, delta_VSD = 0.1V, IGATE = 0 to -1uA",
+          "description": "Maximum GATE drive (GATE - SOURCE) at high input voltage"
+        },
+        "IGATE_UP": {
+          "min": -15.0,
+          "typ": -20.0,
+          "max": -25.0,
+          "units": "uA",
+          "conditions": "GATE = IN, delta_VSD = 0.1V",
+          "description": "GATE pull-up current (charge pump output)"
+        },
+        "IGATE_DOWN_shutdown": {
+          "min": 0.5,
+          "typ": 1.0,
+          "max": 3.0,
+          "units": "mA",
+          "conditions": "SHDN = 2V, UV = 0V, delta_VGATE = 5V",
+          "description": "GATE pull-down current in shutdown mode"
+        },
+        "IGATE_DOWN_reverse": {
+          "min": 70.0,
+          "typ": 130.0,
+          "max": 230.0,
+          "units": "mA",
+          "conditions": "delta_VSD = -0.1V, delta_VGATE = 5V",
+          "description": "GATE pull-down current during reverse current detection"
+        },
+        "IGATE_DOWN_reverse_battery": {
+          "min": 70.0,
+          "typ": 130.0,
+          "max": 230.0,
+          "units": "mA",
+          "conditions": "IN = SOURCE = -7V, GATE = -3V",
+          "description": "GATE pull-down current during reverse battery"
+        },
+        "VGATE_NEG": {
+          "min": -28.0,
+          "typ": -32.0,
+          "max": -35.0,
+          "units": "V",
+          "conditions": "IGATE = 10mA",
+          "description": "GND-GATE clamp voltage"
+        },
+        "tOFF": {
+          "typ": 0.5,
+          "max": 1.5,
+          "units": "us",
+          "conditions": "delta_VSD = step 0.1V to -0.8V, CGATE = 0pF, delta_VGATE < 1V",
+          "description": "Gate turn-off delay time"
+        },
+        "tON": {
+          "min": 100.0,
+          "typ": 500.0,
+          "max": 1200.0,
+          "units": "us",
+          "conditions": "IN = 12V, SOURCE = OUT = 0V, delta_VGATE > 4.5V, CGATE = 0pF, SHDN = 2V to 0V, UV = 0V to 1.25V",
+          "description": "Gate turn-on delay time"
+        }
+      },
+      "implementation": {
+        "connectivity": "Connect directly to the Gate pin of the external N-channel MOSFET M1. For back-to-back MOSFET configurations, GATE connects to both M1 and M2 gates, with R1 (10 ohm) placed in series with M2 gate to prevent parasitic oscillations.",
+        "component_recommendations": "External MOSFET: Logic-level N-channel MOSFET with VGS(TH) compatible with gate drive. For IN <= 5V, use 4.5V logic-level MOSFETs. For IN > 5V, standard 10V threshold MOSFETs may be used. Example: BSC026N08NS5 for 12V/20A applications. Optional: 1nF capacitor between GATE and SOURCE to ensure moderate gate capacitance for lowest average IQ. R1: 10 ohm series resistor to M2 gate to prevent parasitic oscillations in back-to-back configurations. R2/C2: 1k/10nF for inrush current control.",
+        "design_notes": "Gate drive is compatible with 4.5V logic-level MOSFETs over the entire 2.5V to 80V operating range. Internal clamp limits gate drive to 16V maximum between GATE and SOURCE. The pulsed control method creates a voltage ripple at OUT, dependent on gate leakage, GATE capacitance, load condition, and OUT bypass capacitance. At no-load, ripple can reach 30mVpk-pk. To achieve lowest average IQ, minimize GATE leakage and ensure GATE has >= 1nF capacitance.",
+        "precautions": "An internal clamp limits the GATE pin to a minimum of 10V above SOURCE or 100V above GND. A second internal clamp limits the GATE pin to a minimum of 28V below GND. Driving this pin to voltages beyond the clamp may damage the device. Keep trace to MOSFET gate short to minimize parasitic inductance."
+      }
+    },
+    "SOURCE": {
+      "name": "SOURCE",
+      "pin_id": "3",
+      "type": "ANALOG",
+      "direction": "INPUT",
+      "description": "MOSFET Source Connection. SOURCE is the return path of the GATE fast pull-down. Connect this pin as close as possible to the source of the external N-channel MOSFET. For single MOSFET configurations, SOURCE is typically connected to IN. For back-to-back MOSFET configurations, SOURCE connects to the common source node between M1 and M2.",
+      "input_voltage": {
+        "min": -28.0,
+        "max": 100.0,
+        "units": "V",
+        "description": "Absolute maximum rating"
+      },
+      "electrical_characteristics": {
+        "VSOURCE_TH": {
+          "min": -0.9,
+          "typ": -1.8,
+          "max": -2.7,
+          "units": "V",
+          "conditions": "GATE = 0V",
+          "description": "Reverse SOURCE threshold for GATE off. SOURCE <= -1.8V triggers 130mA pull-down current from GATE to SOURCE."
+        }
+      },
+      "implementation": {
+        "connectivity": "Connect directly to the Source pin of the external N-channel MOSFET M1. For single MOSFET configurations, also connect to IN. For back-to-back MOSFET configurations, connect to the midpoint between M1 source and M2 source.",
+        "component_recommendations": "Keep trace short and low inductance. Place LTC4372 as close as possible to the MOSFET source pin.",
+        "design_notes": "SOURCE is the return path for the fast GATE pull-down during reverse current events. The negative comparator detects negative input potentials at SOURCE and quickly connects GATE to SOURCE, turning off the MOSFET and isolating the load. For single MOSFET configurations where IN is connected to SOURCE, the supply current IQ = IIN + ISOURCE + IOUT.",
+        "precautions": "SOURCE pin can see fast slew rates during input short-circuit recovery. Adding RGND (100 ohm for VIN <= 13.2V, 1k for VIN > 13.2V) between GND pin and ground plane limits shoot-through current from SOURCE to GND. For IN > 13.2V with 1k RGND, place a 1N4148W fast recovery diode in parallel with RGND to keep GND from going too negative when GND-GATE clamp activates. RGND is not needed for back-to-back MOSFET configurations."
+      }
+    },
+    "IN": {
+      "name": "IN",
+      "pin_id": "4",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Voltage Sense and Supply Voltage. IN is the anode of the ideal diode. The voltage sensed at this pin is used to control the MOSFET gate for forward voltage regulation and reverse current turn-off. The positive supply input ranges from 2.5V to 80V for normal operation. It can go below GND by up to 28V during a reverse battery condition without damaging the part.",
+      "input_voltage": {
+        "min": -28.0,
+        "max": 100.0,
+        "units": "V",
+        "description": "Absolute maximum rating"
+      },
+      "operating_voltage": {
+        "min": 2.5,
+        "max": 80.0,
+        "units": "V",
+        "description": "Input supply voltage range"
+      },
+      "electrical_characteristics": {
+        "VIN_UVL": {
+          "min": 1.9,
+          "typ": 2.1,
+          "max": 2.45,
+          "units": "V",
+          "conditions": "IN Rising",
+          "description": "Input supply undervoltage lockout threshold"
+        },
+        "delta_VIN_HYST": {
+          "typ": 80.0,
+          "units": "mV",
+          "description": "Input supply undervoltage lockout hysteresis"
+        },
+        "IQ_diode_control_CI": {
+          "typ": 5.0,
+          "max": 10.0,
+          "units": "uA",
+          "conditions": "Diode control, IGATE = -0.1uA, single or back-to-back MOSFETs, C-Grade and I-Grade",
+          "description": "Total supply current in diode control mode (IQ = IIN + ISOURCE + IOUT)"
+        },
+        "IQ_diode_control_H": {
+          "typ": 5.0,
+          "max": 20.0,
+          "units": "uA",
+          "conditions": "Diode control, IGATE = -0.1uA, single or back-to-back MOSFETs, H-Grade",
+          "description": "Total supply current in diode control mode (IQ = IIN + ISOURCE + IOUT), H-Grade"
+        },
+        "IQ_shutdown_single": {
+          "typ": 3.5,
+          "units": "uA",
+          "conditions": "SHDN = 2V, UV = 0V, single MOSFET",
+          "description": "Total supply current in shutdown with single MOSFET"
+        },
+        "IQ_shutdown_backtoback": {
+          "typ": 0.5,
+          "units": "uA",
+          "conditions": "SHDN = 2V, UV = 0V, back-to-back MOSFETs",
+          "description": "Total supply current in shutdown with back-to-back MOSFETs"
+        },
+        "IQ_reverse_single": {
+          "typ": 10.0,
+          "max": 30.0,
+          "units": "uA",
+          "conditions": "delta_VSD = -0.1V, IN = 12V, single MOSFET",
+          "description": "Total supply current during reverse current, single MOSFET"
+        },
+        "IQ_reverse_backtoback": {
+          "typ": 2.5,
+          "max": 20.0,
+          "units": "uA",
+          "conditions": "delta_VSD = -0.1V, IN = 12V, back-to-back MOSFETs",
+          "description": "Total supply current during reverse current, back-to-back MOSFETs"
+        },
+        "INEG": {
+          "typ": -1.0,
+          "max": -5.0,
+          "units": "mA",
+          "conditions": "IN = SOURCE = -24V, OUT = 24V",
+          "description": "IN + SOURCE current during reverse battery"
+        },
+        "delta_VSD_T": {
+          "min": 20.0,
+          "typ": 30.0,
+          "max": 45.0,
+          "units": "mV",
+          "conditions": "Low to High, activates IGATE(UP)",
+          "description": "Source-Drain threshold (IN - OUT) for GATE activation"
+        }
+      },
+      "implementation": {
+        "connectivity": "Connect to the input power supply. For single MOSFET configurations, also connect to the Source pin of M1 and to the SOURCE pin of the LTC4372. For back-to-back MOSFET configurations, connect to the Source of M2 (the switch MOSFET).",
+        "component_recommendations": "CIN: Input bypass capacitor (10uF recommended). For automotive applications, ensure voltage rating exceeds highest system voltage. RGND: 100 ohm (VIN <= 13.2V) or 1k (VIN > 13.2V) between GND pin and ground to limit shoot-through current during short-circuit recovery. D_clamp: 1N4148W in parallel with 1k RGND for VIN > 13.2V applications.",
+        "design_notes": "The LTC4372 operates from 2.5V to 80V and withstands -28V to 100V absolute maximum without damage. In automotive applications it can operate through load dump, cold crank, and two-battery jump starts while surviving reverse battery connections. The UVLO threshold is 2.1V typical (rising) with 80mV hysteresis.",
+        "precautions": "IN-OUT absolute maximum is -100V to 100V. IN-SOURCE absolute maximum is -1V to 100V. Protect against transients that may exceed absolute maximum ratings."
+      }
+    },
+    "INTVCC": {
+      "name": "INTVCC",
+      "pin_id": "5",
+      "type": "POWER",
+      "direction": "OUTPUT",
+      "description": "Internal 3V Supply Decoupling Output. Connect a 0.1uF or larger capacitor to this pin. An external load of less than 10uA can be connected at this pin.",
+      "output_voltage": {
+        "min": 2.5,
+        "typ": 3.5,
+        "max": 4.5,
+        "units": "V",
+        "conditions": "IINTVCC = 0 to -10uA",
+        "description": "Internal regulator voltage"
+      },
+      "input_voltage": {
+        "min": -0.3,
+        "max": 6.0,
+        "units": "V",
+        "description": "Absolute maximum rating"
+      },
+      "implementation": {
+        "connectivity": "Connect a 0.1uF or larger ceramic decoupling capacitor from INTVCC to GND, placed close to the pin.",
+        "component_recommendations": "C_INTVCC: 0.1uF minimum ceramic capacitor to GND.",
+        "design_notes": "This is the internal 3.5V LDO regulator output used to power internal circuitry. Can supply up to 10uA to an external load. The 2UPU pin provides a 2uA pull-up to INTVCC. If SHDN is not needed, connect it to GND. For higher pull-up currents on SHDN, connect a resistor from SHDN to INTVCC (up to 10uA) or to IN.",
+        "precautions": "Do not exceed 10uA external load. Do not exceed 6V absolute maximum rating."
+      }
+    },
+    "GND": {
+      "name": "GND",
+      "pin_id": "6",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Device Ground. Ground return for all internal circuitry.",
+      "implementation": {
+        "connectivity": "Connect to the system ground plane. For applications where VIN > 13.2V with single MOSFET configuration, place RGND (1k) in series between this pin and the ground plane, with a 1N4148W fast recovery diode in parallel. For VIN <= 13.2V single MOSFET applications, use RGND = 100 ohm. For back-to-back MOSFET applications, RGND is not needed.",
+        "component_recommendations": "RGND: 100 ohm (VIN <= 13.2V) or 1k (VIN > 13.2V) series resistor to ground plane for single MOSFET applications. D_GND: 1N4148W fast recovery diode in parallel with 1k RGND for VIN > 13.2V. Use wide, short PCB traces for low-impedance ground path.",
+        "design_notes": "The GND-GATE internal clamp limits the GATE pin to 32V below GND. During input short-circuit events, fast slew rates at SOURCE can cause shoot-through current from SOURCE to GND. RGND limits this current. The polarity of the 1N4148W diode should keep GND from going too negative when the GND-GATE clamp activates.",
+        "precautions": "RGND is critical for single MOSFET configurations driven by low-impedance power supplies. Without RGND, large shoot-through currents from SOURCE to GND can potentially damage the device. For back-to-back MOSFET configurations or high-impedance supply sources, RGND may be omitted."
+      }
+    },
+    "2UPU": {
+      "name": "2UPU",
+      "pin_id": "7",
+      "type": "DIGITAL",
+      "direction": "OUTPUT",
+      "description": "2uA Pull-Up Output (LTC4372 only). This pin has a 2uA pull-up to INTVCC. It can be connected to SHDN to facilitate on/off control of the LTC4372 by a microcontroller's open-drain output. If unused, leave open or connect to INTVCC.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 100.0,
+        "units": "V",
+        "description": "Absolute maximum rating"
+      },
+      "electrical_characteristics": {
+        "I2UPU": {
+          "min": -1.0,
+          "typ": -2.0,
+          "max": -3.0,
+          "units": "uA",
+          "description": "2UPU pull-up current to INTVCC"
+        }
+      },
+      "implementation": {
+        "connectivity": "Connect to SHDN pin if on/off control via microcontroller open-drain output is desired. Otherwise leave open or connect to INTVCC.",
+        "component_recommendations": "No external components required. When connected to SHDN, the microcontroller open-drain output pulls SHDN low to enable, and releases to allow 2UPU pull-up to drive SHDN high for shutdown.",
+        "design_notes": "The 2uA pull-up to INTVCC (~3.5V) provides a convenient way to implement on/off control using a microcontroller open-drain or open-collector output without requiring an external pull-up resistor. For higher pull-up currents, connect a resistor from SHDN to INTVCC (up to 10uA capability) or to IN.",
+        "precautions": "This pin is specific to the LTC4372 variant. The LTC4373 has the UV pin at this position instead."
+      }
+    },
+    "SHDN": {
+      "name": "SHDN",
+      "pin_id": "8",
+      "type": "DIGITAL",
+      "direction": "INPUT",
+      "description": "Shutdown Control Input (LTC4372 only). The LTC4372 can be shut down to a low current mode by pulling SHDN above 1.215V. In shutdown, a 1mA pull-down between GATE and SOURCE turns off the external MOSFET, and most internal circuitry is disabled. Connect to GND if unused.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 100.0,
+        "units": "V",
+        "description": "Absolute maximum rating"
+      },
+      "electrical_characteristics": {
+        "VSHDN": {
+          "min": 1.0,
+          "typ": 1.2,
+          "max": 1.4,
+          "units": "V",
+          "conditions": "SHDN Falling",
+          "description": "SHDN threshold voltage"
+        },
+        "VSHDN_HYST": {
+          "min": 2.0,
+          "typ": 15.0,
+          "max": 40.0,
+          "units": "mV",
+          "description": "SHDN threshold hysteresis"
+        },
+        "ISHDN": {
+          "typ": 1.0,
+          "max": 50.0,
+          "units": "nA",
+          "conditions": "SHDN = 1.2V",
+          "description": "SHDN leakage current (magnitude)"
+        }
+      },
+      "implementation": {
+        "connectivity": "Connect to GND if shutdown function is not required. For on/off control, drive with 3.3V or 5V logic signal, open-drain or open-collector output (with 2UPU connected to SHDN for pull-up), or any signal that can drive above 1.4V for shutdown and below 1.0V for normal operation.",
+        "component_recommendations": "No external components required when driven by logic. Connect to 2UPU for open-drain control.",
+        "design_notes": "When SHDN goes high, GATE is pulled down to SOURCE with 1mA. IQ reduces to 0.5uA for back-to-back MOSFET configuration. GATE is held low with 3uA pull-down to GND. Shutting down does not interrupt forward current flow through M1 body diode. With back-to-back MOSFETs, SHDN serves as on/off control for forward path and blocks forward path completely. When SHDN goes low, the LTC4372 ramps GATE up to re-enter ideal diode operation.",
+        "precautions": "This pin is specific to the LTC4372 variant. The LTC4373 has the UV pin at this position instead. Even in shutdown, current still flows through the MOSFET body diode in a single MOSFET configuration."
+      }
+    },
+    "EXPOSED_PAD": {
+      "name": "EXPOSED_PAD",
+      "pin_id": "9",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Exposed Pad (DD/DFN Package Only). May be left open or connected to device ground. PCB connection to GND is optional.",
+      "implementation": {
+        "connectivity": "Connect to GND or leave unconnected. Connection to GND is optional but recommended for improved thermal performance.",
+        "component_recommendations": "Use thermal vias under the exposed pad if connecting to GND plane for improved heat dissipation.",
+        "design_notes": "The exposed pad is only present on the DD (DFN) package, not on the MS8 (MSOP) package. Connecting to GND improves thermal performance (theta_JA = 43 C/W for DFN vs 163 C/W for MSOP).",
+        "precautions": "If connecting to GND, ensure the pad is properly soldered to avoid intermittent connections."
+      }
+    }
+  },
+  "serial_bus": {
+    "note": "This device does not have a serial bus interface. Control is achieved through the analog SHDN pin and the device operates autonomously based on sensed voltages at IN, OUT, and SOURCE pins."
+  },
+  "application_info": {
+    "typical_application": {
+      "description": "12V/20A Ideal Diode with Reverse Input Protection. Replaces a Schottky diode with an N-channel MOSFET for reduced voltage drop and power dissipation. The LTC4372 drives the MOSFET gate to regulate forward voltage drop to less than 30mV.",
+      "input_voltage_range": {
+        "min": 2.5,
+        "max": 80.0,
+        "units": "V"
+      },
+      "reverse_voltage_protection": {
+        "max": -28.0,
+        "units": "V",
+        "description": "Maximum reverse supply voltage at IN/SOURCE without damage"
+      },
+      "absolute_maximum_range": {
+        "min": -28.0,
+        "max": 100.0,
+        "units": "V",
+        "description": "Absolute maximum voltage at IN and SOURCE pins"
+      }
+    },
+    "mosfet_selection_guidelines": {
+      "gate_threshold": "For IN <= 5V, use 4.5V logic-level MOSFETs. For IN > 5V, standard 10V threshold MOSFETs may be used.",
+      "RDS_ON_recommendation": "Choose RDS(ON) < VFWD / ILOAD. A forward voltage drop of 50mV is a good starting point. Since LTC4372 regulates at least 30mV across the MOSFET, very low RDS(ON) may be wasted.",
+      "BVDSS_requirement": "Must be higher than supply voltage. If reverse battery is possible with held-up output, BVDSS must exceed VOUT + |VIN|. During short-circuit transients, VDS sees |VGND| + |VGATE(NEG)| + VTH(M1) + VOUT.",
+      "power_dissipation": "Pd = ILOAD^2 * RDS(ON)",
+      "example_mosfets": "BSC026N08NS5 (80V, 2.6mohm), IPB107N20N3G (200V), Si4190ADY, FDMS86101"
+    },
+    "key_operating_parameters": {
+      "forward_voltage_regulation": {
+        "value": 30,
+        "units": "mV",
+        "description": "The LTC4372 regulates the MOSFET VSD to less than 30mV"
+      },
+      "operating_quiescent_current": {
+        "typ": 5.0,
+        "units": "uA",
+        "description": "Total supply current in diode control mode"
+      },
+      "shutdown_quiescent_current": {
+        "typ": 0.5,
+        "units": "uA",
+        "description": "Total supply current in shutdown with back-to-back MOSFETs"
+      },
+      "reverse_current_turnoff_time": {
+        "typ": 0.5,
+        "max": 1.5,
+        "units": "us",
+        "description": "Gate turn-off delay time for reverse current detection"
+      },
+      "charge_pump_frequency": {
+        "value": 2,
+        "units": "MHz",
+        "description": "Internal charge pump operating frequency"
+      }
+    },
+    "design_configurations": {
+      "single_mosfet": "Basic ideal diode. IN connected to SOURCE. Load current flows through body diode when MOSFET is off. RGND required between GND pin and ground.",
+      "back_to_back_mosfets": "Load switching with inrush control and reverse input protection. Body diodes of M1 and M2 prohibit current flow when MOSFETs are off. M1 serves as ideal diode, M2 acts as switch. No RGND needed. IQ(shutdown) = 0.5uA.",
+      "redundant_supplies": "Multiple LTC4372s combine outputs of two or more supplies for redundancy or droop sharing. The supply with highest output voltage sources most or all load current."
+    }
+  }
+}

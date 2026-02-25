@@ -1,0 +1,307 @@
+{
+  "high_level": {
+    "base_part_number": "LTC6908",
+    "device_type": "OSCILLATOR",
+    "manufacturer": "Analog Devices",
+    "packages": [
+      "DFN (2mm x 3mm, 6-Lead)",
+      "TSOT-23 (6-Lead)"
+    ],
+    "part_numbers": {
+      "LTC6908CDCB-1": {
+        "options": {
+          "Package": "DFN (2mm x 3mm, 6-Lead)",
+          "Output_Phase": "Complementary (0/180)",
+          "Temperature_Range": "0C to 70C"
+        }
+      },
+      "LTC6908IDCB-1": {
+        "options": {
+          "Package": "DFN (2mm x 3mm, 6-Lead)",
+          "Output_Phase": "Complementary (0/180)",
+          "Temperature_Range": "-40C to 85C"
+        }
+      },
+      "LTC6908CDCB-2": {
+        "options": {
+          "Package": "DFN (2mm x 3mm, 6-Lead)",
+          "Output_Phase": "Quadrature (0/90)",
+          "Temperature_Range": "0C to 70C"
+        }
+      },
+      "LTC6908IDCB-2": {
+        "options": {
+          "Package": "DFN (2mm x 3mm, 6-Lead)",
+          "Output_Phase": "Quadrature (0/90)",
+          "Temperature_Range": "-40C to 85C"
+        }
+      },
+      "LTC6908CS6-1": {
+        "options": {
+          "Package": "TSOT-23 (6-Lead)",
+          "Output_Phase": "Complementary (0/180)",
+          "Temperature_Range": "0C to 70C"
+        }
+      },
+      "LTC6908IS6-1": {
+        "options": {
+          "Package": "TSOT-23 (6-Lead)",
+          "Output_Phase": "Complementary (0/180)",
+          "Temperature_Range": "-40C to 85C"
+        }
+      },
+      "LTC6908HS6-1": {
+        "options": {
+          "Package": "TSOT-23 (6-Lead)",
+          "Output_Phase": "Complementary (0/180)",
+          "Temperature_Range": "-40C to 125C"
+        }
+      },
+      "LTC6908CS6-2": {
+        "options": {
+          "Package": "TSOT-23 (6-Lead)",
+          "Output_Phase": "Quadrature (0/90)",
+          "Temperature_Range": "0C to 70C"
+        }
+      },
+      "LTC6908IS6-2": {
+        "options": {
+          "Package": "TSOT-23 (6-Lead)",
+          "Output_Phase": "Quadrature (0/90)",
+          "Temperature_Range": "-40C to 85C"
+        }
+      },
+      "LTC6908HS6-2": {
+        "options": {
+          "Package": "TSOT-23 (6-Lead)",
+          "Output_Phase": "Quadrature (0/90)",
+          "Temperature_Range": "-40C to 125C"
+        }
+      }
+    }
+  },
+  "pins": {
+    "SET": {
+      "description": "Frequency-Setting Resistor Input. The value of the resistor connected between this pin and V+ determines the oscillator frequency. The voltage on this pin is held by the LTC6908 to approximately 1.1V below the V+ voltage.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "RSET (Frequency-Setting Resistor)",
+            "description": "A precision metal film resistor connected between the SET pin and V+ sets the output frequency according to fOUT = 10MHz * 10k / RSET. The resistor value should be between 10k and 2M (20k to 400k for best accuracy). RSET tolerance directly shifts the output frequency."
+          }
+        ],
+        "connectivity": "Connect a resistor (RSET) between the SET pin and V+. The resistor value determines the oscillator output frequency. For best performance, use a precision metal film resistor with a value between 20k and 400k and limit the capacitance on this pin to less than 10pF.",
+        "detailed_description": "The SET pin is the frequency-setting input for the LTC6908 oscillator. An internal PMOS transistor holds the voltage on this pin to approximately 1.1V below V+. The current flowing through the external RSET resistor (ISET) is used to control the master oscillator frequency. The relationship is: fOUT = 10MHz * 10k / RSET. When spread spectrum frequency modulation is enabled, ISET is modulated by a filtered pseudorandom noise signal, causing the frequency to vary between 0.9 * fOUT and 1.1 * fOUT.",
+        "functionality": "Programs the oscillator output frequency via a single external resistor. The current flowing into this pin sets the master oscillator speed. Can also be driven by a programmable current source for voltage-controlled or current-controlled oscillator configurations.",
+        "precautions": [
+          "Use a precision metal film resistor for best frequency accuracy.",
+          "Limit the capacitance on this pin to less than 10pF to minimize jitter.",
+          "Recommended RSET range for best accuracy: 20k to 400k (250kHz to 5MHz output).",
+          "RSET values from 10k to 20k (5MHz to 10MHz) require V+ greater than 4V for full accuracy.",
+          "RSET can range up to 2M for the lowest output frequencies (50kHz), but accuracy degrades above 400k."
+        ]
+      },
+      "name": "SET",
+      "pin_id": "1",
+      "type": "ANALOG"
+    },
+    "V+": {
+      "description": "Voltage Supply (2.7V to 5.5V). This supply must be kept free from noise and ripple. It should be bypassed directly to a ground plane with a 0.1uF capacitor.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Bypass Capacitor (CBYP)",
+            "description": "A 0.1uF ceramic capacitor should be connected between V+ and GND as close to the device as possible. This decouples the power supply and minimizes noise on the supply rail."
+          },
+          {
+            "component_name": "Input Voltage Source",
+            "description": "The main power supply providing 2.7V to 5.5V to the device."
+          },
+          {
+            "component_name": "RSET (Frequency-Setting Resistor)",
+            "description": "One end of the frequency-setting resistor connects to V+, the other end connects to the SET pin."
+          }
+        ],
+        "connectivity": "Connect to the 2.7V to 5.5V supply. Bypass directly to a ground plane with a 0.1uF ceramic capacitor placed as close to the pin as possible. The RSET resistor connects between V+ and the SET pin.",
+        "detailed_description": "The V+ pin is the positive supply input for the LTC6908. It powers all internal circuitry including the master oscillator, output drivers, SSFM modulation engine, and the PMOS transistor that establishes the SET pin voltage. The supply voltage also serves as the high-level output voltage for OUT1 and OUT2 (rail-to-rail outputs).",
+        "functionality": "Powers the entire device and establishes the output high-level voltage. The oscillator outputs swing rail-to-rail between GND and V+.",
+        "precautions": [
+          "Supply voltage must be within 2.7V to 5.5V for proper operation. Absolute maximum is 6V.",
+          "Supply must be kept free from noise and ripple. Ripple frequency components near the programmed output frequency in excess of 30mVp-p could create additional 0.2% frequency error.",
+          "In applications where the LTC6908 output clock synchronizes the same switching regulator that provides V+, noticeable jitter may occur if ripple exceeds 30mVp-p.",
+          "Bypass with a 0.1uF capacitor directly to a ground plane."
+        ]
+      },
+      "input_voltage": {
+        "max": 5.5,
+        "min": 2.7,
+        "units": "V"
+      },
+      "name": "V+",
+      "pin_id": "2",
+      "type": "POWER"
+    },
+    "GND": {
+      "description": "Ground. Should be tied to a ground plane for best performance.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "System Ground Plane",
+            "description": "The GND pin should be connected to the system ground plane for best performance. The bypass capacitor ground should also connect to this same ground plane."
+          }
+        ],
+        "connectivity": "Connect to the system ground plane. The bypass capacitor between V+ and GND should be placed as close to the device as possible.",
+        "detailed_description": "The GND pin is the ground reference for the LTC6908. It provides the common ground for the oscillator, output drivers, and all internal circuitry.",
+        "functionality": "Provides the ground reference for the device. The output low-level voltage is referenced to this pin.",
+        "precautions": [
+          "Should be tied to a ground plane for best performance.",
+          "Ensure a low-impedance connection to minimize noise."
+        ]
+      },
+      "name": "GND",
+      "pin_id": "3",
+      "type": "POWER"
+    },
+    "OUT1": {
+      "description": "Oscillator Output 1. Rail-to-rail CMOS output with 50% duty cycle. For the LTC6908-1, OUT1 is the 0-degree reference output. For the LTC6908-2, OUT1 is the 0-degree reference output.",
+      "direction": "OUTPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Load / Switching Regulator SYNC Input",
+            "description": "OUT1 can drive digital logic circuits or the synchronization input of switching regulators (e.g., SYNC, PLLIN, SYNC/MODE, EXTCLK pins). The output can drive 5k resistive loads and/or 10pF capacitive loads."
+          }
+        ],
+        "connectivity": "Connect to the clock input of a switching regulator, digital logic, or other load. Can optionally be connected to the MOD pin to disable spread spectrum frequency modulation.",
+        "detailed_description": "OUT1 is one of the two oscillator outputs. It provides a rail-to-rail CMOS square wave with 50% duty cycle. For the LTC6908-1, OUT1 and OUT2 are complementary (180 degrees out of phase). For the LTC6908-2, OUT1 leads OUT2 by 90 degrees. The outputs are muted (OUT1 = Low, OUT2 = High) for the first 64 clock cycles after power-up to ensure the first clock cycle is close to the desired operating frequency. Rise time is typically 6ns at 5V and 11ns at 3V.",
+        "functionality": "Provides a 50% duty cycle square wave output at the programmed frequency. Phase relationship to OUT2 depends on the device variant (-1 or -2).",
+        "precautions": [
+          "Can drive 5k resistive and/or 10pF capacitive loads. Larger loads may cause inaccuracies due to supply bounce at high frequencies.",
+          "Output short circuit duration is indefinite (absolute maximum rating).",
+          "Rise time is typically 6ns (V+ = 5V) or 11ns (V+ = 2.7V).",
+          "Fall time is typically 5ns (V+ = 5V) or 9ns (V+ = 2.7V)."
+        ]
+      },
+      "output_voltage": {
+        "voh": {
+          "min": 4.75,
+          "typ": 4.9,
+          "units": "V",
+          "conditions": "V+ = 5V, IOH = -0.3mA"
+        },
+        "vol": {
+          "typ": 0.05,
+          "max": 0.15,
+          "units": "V",
+          "conditions": "V+ = 5V, IOL = 0.3mA"
+        }
+      },
+      "name": "OUT1",
+      "pin_id": "4",
+      "type": "DIGITAL"
+    },
+    "OUT2": {
+      "description": "Oscillator Output 2. Rail-to-rail CMOS output with 50% duty cycle. For the LTC6908-1, OUT2 is 180 degrees out of phase with OUT1. For the LTC6908-2, OUT2 lags OUT1 by 90 degrees.",
+      "direction": "OUTPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Load / Switching Regulator SYNC Input",
+            "description": "OUT2 can drive digital logic circuits or the synchronization input of a second switching regulator. The output can drive 5k resistive loads and/or 10pF capacitive loads."
+          }
+        ],
+        "connectivity": "Connect to the clock input of a switching regulator, digital logic, or other load. Can optionally be connected to the MOD pin to disable spread spectrum frequency modulation.",
+        "detailed_description": "OUT2 is the second oscillator output. It provides a rail-to-rail CMOS square wave with 50% duty cycle. For the LTC6908-1, OUT2 is the complement of OUT1 (180 degrees phase shift). For the LTC6908-2, OUT2 lags OUT1 by 90 degrees. The outputs are muted (OUT1 = Low, OUT2 = High) for the first 64 clock cycles after power-up.",
+        "functionality": "Provides a phase-shifted 50% duty cycle square wave output at the programmed frequency. The LTC6908-1 provides complementary outputs ideal for two single-output switching regulators. The LTC6908-2 provides quadrature outputs for four-phase regulator control.",
+        "precautions": [
+          "Can drive 5k resistive and/or 10pF capacitive loads. Larger loads may cause inaccuracies due to supply bounce at high frequencies.",
+          "Output short circuit duration is indefinite (absolute maximum rating).",
+          "Rise time is typically 6ns (V+ = 5V) or 11ns (V+ = 2.7V).",
+          "Fall time is typically 5ns (V+ = 5V) or 9ns (V+ = 2.7V)."
+        ]
+      },
+      "output_voltage": {
+        "voh": {
+          "min": 4.75,
+          "typ": 4.9,
+          "units": "V",
+          "conditions": "V+ = 5V, IOH = -0.3mA"
+        },
+        "vol": {
+          "typ": 0.05,
+          "max": 0.15,
+          "units": "V",
+          "conditions": "V+ = 5V, IOL = 0.3mA"
+        }
+      },
+      "name": "OUT2",
+      "pin_id": "5",
+      "type": "DIGITAL"
+    },
+    "MOD": {
+      "description": "Modulation-Setting Input. This three-state input selects among four modulation rate settings: GND = fOUT/16, FLOAT = fOUT/32, V+ = fOUT/64, connected to OUT1 or OUT2 = SSFM disabled.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Bypass Capacitor (when floating)",
+            "description": "When the MOD pin is left floating to select the fOUT/32 modulation rate, it must be bypassed by a 1nF capacitor to ground. Any AC signal coupling to the MOD pin could potentially be detected and stop the frequency modulation."
+          }
+        ],
+        "connectivity": "Tie to GND for fOUT/16 modulation rate (best EMC performance). Leave floating (with 1nF cap to GND) for fOUT/32 modulation rate. Tie to V+ for fOUT/64 modulation rate. Connect to OUT1 or OUT2 to disable spread spectrum frequency modulation entirely.",
+        "detailed_description": "The MOD pin is a three-state input that configures the spread spectrum frequency modulation (SSFM) feature. The LTC6908 uses internal current sources (2uA each, one to V+ and one to GND) to detect whether the pin is floating, driven high, or driven low. When connected to one of the outputs, an AC detector circuit detects the clock signal and disables the SSFM. The modulation spreads the output frequency by +/-10% of the center frequency using a pseudorandom noise signal.",
+        "functionality": "Selects the SSFM modulation rate divider (N) or disables SSFM entirely. The modulation rate equals fOUT/N. The modulation rate determines how quickly the frequency hops between values in the +/-10% spread band.",
+        "precautions": [
+          "When floating the MOD pin, a 1nF bypass capacitor to GND is required to prevent AC coupling from disabling modulation.",
+          "Driving MOD high requires sourcing approximately 2uA. Driving MOD low requires sinking approximately 2uA.",
+          "MOD pin input current is +/-4uA maximum over temperature.",
+          "VIH (high level) is V+ - 0.4V minimum. VIL (low level) is 0.4V maximum."
+        ]
+      },
+      "input_voltage": {
+        "max": 5.5,
+        "min": 0.0,
+        "units": "V"
+      },
+      "vih": {
+        "min_expression": "V+ - 0.4",
+        "units": "V"
+      },
+      "vil": {
+        "max": 0.4,
+        "units": "V"
+      },
+      "name": "MOD",
+      "pin_id": "6",
+      "type": "DIGITAL"
+    },
+    "EXPOSED_PAD": {
+      "description": "Ground. The Exposed Pad must be soldered to the PCB. DCB package only.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "PCB Ground Plane",
+            "description": "The exposed pad must be soldered to the PCB ground plane. This provides both the electrical ground connection and thermal dissipation path."
+          }
+        ],
+        "connectivity": "Solder directly to the PCB ground plane.",
+        "detailed_description": "The exposed pad on the bottom of the DCB (DFN) package serves as a ground connection and thermal pad. It must be soldered to the PCB for proper electrical and thermal performance.",
+        "functionality": "Provides an additional ground connection and thermal dissipation path for the DCB package.",
+        "precautions": [
+          "Must be soldered to the PCB. Do not leave unsoldered.",
+          "Connect to the ground plane for proper electrical and thermal performance."
+        ]
+      },
+      "name": "EXPOSED_PAD",
+      "pin_id": "7",
+      "type": "POWER"
+    }
+  },
+  "serial_bus": {
+    "registers": {}
+  }
+}
