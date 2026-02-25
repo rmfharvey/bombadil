@@ -91,7 +91,7 @@ This is the critical step. You must:
 
 Key data to extract (based on standard Bombadil schema, but always defer to the example_datasheet.json structure):
 - **High-level info**: manufacturer, device type, description, serial buses
-- **Pin information**: pin names, numbers, types, descriptions, implementation details
+- **Pin information**: pin names, numbers, types, descriptions, implementation details.  Make sure to focus on different types of connections that pins may need to make and if they connect to multiple components.
 - **Serial bus registers**: I2C/SPI/UART register maps, field definitions
 - **Pin connectivity details**
 

@@ -1,7 +1,7 @@
 {
   "high_level": {
     "base_part_number": "BQ25756",
-    "device_type": 6,
+    "device_type": "CHARGER_BUCK_BOOST",
     "manufacturer": "Texas Instruments",
     "packages": [
       "VQFN-36"
@@ -19,7 +19,7 @@
       }
     },
     "serial_busses": [
-      1
+      "I2C"
     ]
   },
   "pins": {
@@ -41,6 +41,28 @@
       "vil": {
         "max": 0.4,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect SCL to the I2C bus clock line with a 10-kOhm external pull-up resistor to the logic rail (typically 3.3 V). The I2C target address is 0x6B (7-bit).",
+        "detailed_description": "The SCL pin is the I2C serial bus clock input. It provides the clock for all I2C data transfers between the BQ25756 and the host microcontroller. The device supports standard mode (100 kbit/s), fast mode (400 kbit/s), and fast mode plus (1 Mbit/s). The pin features integrated spike suppression and Schmitt trigger inputs for noise immunity.",
+        "functionality": "Clock input for the I2C serial interface. All register reads and writes to configure charger parameters, read ADC measurements, and monitor status/faults are clocked by this signal.",
+        "connected_components": [
+          {
+            "component_name": "Pull-up Resistor",
+            "description": "10-kOhm resistor from SCL to the I2C logic rail (typically 3.3 V). Required for proper I2C bus operation."
+          },
+          {
+            "component_name": "I2C Master (Microcontroller or PD Controller)",
+            "description": "Connected to the SCL pin of the host processor (e.g., TPS26750 USB-PD controller) for charger configuration and monitoring."
+          }
+        ],
+        "precautions": [
+          "An external 10-kOhm pull-up resistor to the logic rail is required.",
+          "Absolute maximum voltage on SCL is 6 V.",
+          "Route I2C traces away from high-power switching nodes (SW1, SW2) to avoid noise coupling.",
+          "High-level input leakage current is 1 uA with 3.3 V pull-up rail."
+        ]
       }
     },
     "SDA": {
@@ -66,7 +88,30 @@
         "max": 0.4,
         "units": "V"
       },
-      "output_type": "OPEN_DRAIN"
+      "output_type": "OPEN_DRAIN",
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect SDA to the I2C bus data line with a 10-kOhm external pull-up resistor to the logic rail (typically 3.3 V). Open-drain output requires external pull-up.",
+        "detailed_description": "The SDA pin is the bidirectional I2C serial bus data line. It is used for transmitting and receiving data between the BQ25756 and the host controller. The output is open-drain, requiring an external pull-up resistor. The pin features integrated spike suppression and Schmitt trigger inputs.",
+        "functionality": "Bidirectional data line for I2C communication. Used to read/write all configuration registers, ADC measurement results, status registers, and fault registers. The device target address is 0x6B.",
+        "connected_components": [
+          {
+            "component_name": "Pull-up Resistor",
+            "description": "10-kOhm resistor from SDA to the I2C logic rail (typically 3.3 V). Required because SDA is an open-drain output."
+          },
+          {
+            "component_name": "I2C Master (Microcontroller or PD Controller)",
+            "description": "Connected to the SDA pin of the host processor (e.g., TPS26750 USB-PD controller) for charger configuration and monitoring."
+          }
+        ],
+        "precautions": [
+          "An external 10-kOhm pull-up resistor to the logic rail is required.",
+          "SDA is open-drain; do not drive with a push-pull output.",
+          "Absolute maximum voltage on SDA is 6 V.",
+          "Route I2C traces away from high-power switching nodes to avoid noise coupling.",
+          "VOL is 0.4 V max at 5 mA sink current."
+        ]
+      }
     },
     "INT": {
       "name": "INT",
@@ -84,6 +129,28 @@
       "vol": {
         "max": 0.4,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the logic rail via a 10-kOhm pull-up resistor. Connect to a GPIO interrupt input on the host microcontroller for real-time fault and status notification.",
+        "detailed_description": "The INT pin is an active-low, open-drain interrupt output that sends a 256-us pulse to the host when charger status changes or faults occur. It notifies the host of charge state transitions (trickle, pre-charge, fast-charge, taper, termination), input voltage events (ACUV, ACOV), NTC temperature events, safety timer expiration, CV timer expiration, and all fault conditions. The interrupt source can be identified by reading the Flag and Status registers. Individual interrupt sources can be masked via the Charger_Mask and Fault_Mask registers.",
+        "functionality": "Provides real-time notification to the host processor when any charger status or fault condition changes. The host should read the Flag registers (REG0x25, REG0x26, REG0x27) upon receiving an INT pulse to identify the interrupt source. Reading the flag registers clears the flags.",
+        "connected_components": [
+          {
+            "component_name": "Pull-up Resistor",
+            "description": "10-kOhm resistor from INT to the logic rail. Required because INT is an open-drain output."
+          },
+          {
+            "component_name": "Host Microcontroller GPIO",
+            "description": "Connected to an interrupt-capable GPIO input on the host for immediate response to charger events."
+          }
+        ],
+        "precautions": [
+          "INT is open-drain and requires an external pull-up resistor.",
+          "The INT pulse width is 256 us; ensure the host GPIO can detect this pulse duration.",
+          "Absolute maximum voltage is 6 V.",
+          "Individual interrupt sources can be masked via REG0x28, REG0x29, REG0x2A."
+        ]
       }
     },
     "STAT1": {
@@ -101,6 +168,29 @@
       "vol": {
         "max": 0.4,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the pull-up rail (REGN or logic rail) via a 10-kOhm resistor. Can drive an LED for visual charge status indication. The pull-up rail can be REGN to ensure the LED turns off when REGN is disabled.",
+        "detailed_description": "STAT1 is an open-drain charge status output that, together with STAT2, indicates charger operating states including charging, pre-charge, fast-charge, CV mode, termination, and fault conditions per Table 8-6 in the datasheet. The pin function can be disabled by setting the DIS_STAT_PINS bit to 1. When disabled, the pin can be repurposed as a general-purpose indicator controlled by the FORCE_STAT1_ON register bit.",
+        "functionality": "Indicates charger operation status. STAT1/STAT2 encoding: 00 = Not Charging, 01 = Pre-charge/Trickle Charge, 10 = Fast Charge (CC/CV), 11 = Charge Done. In fault conditions, STAT1 blinks. Can be used to drive a status LED or provide a digital status signal to the host.",
+        "connected_components": [
+          {
+            "component_name": "Pull-up Resistor",
+            "description": "10-kOhm resistor from STAT1 to the pull-up rail (REGN or 3.3 V). Required because STAT1 is open-drain."
+          },
+          {
+            "component_name": "Status LED (optional)",
+            "description": "An LED with current-limiting resistor can be connected between the pull-up rail and STAT1 for visual charge status indication."
+          }
+        ],
+        "precautions": [
+          "STAT1 is open-drain and requires an external pull-up resistor.",
+          "Absolute maximum voltage is 6 V.",
+          "Maximum sink current is 5 mA.",
+          "If using REGN as pull-up rail, STAT1 will be HIGH (LED off) when REGN LDO is disabled.",
+          "Pin function can be disabled via DIS_STAT_PINS bit in REG0x18 (Pin_Control)."
+        ]
       }
     },
     "STAT2": {
@@ -118,6 +208,29 @@
       "vol": {
         "max": 0.4,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the pull-up rail (REGN or logic rail) via a 10-kOhm resistor. Can drive an LED for visual charge status indication. The pull-up rail can be REGN to ensure the LED turns off when REGN is disabled.",
+        "detailed_description": "STAT2 is an open-drain charge status output that, together with STAT1, indicates charger operating states per Table 8-6. The pin function can be disabled by setting the DIS_STAT_PINS bit to 1. When disabled, the pin can be repurposed as a general-purpose indicator controlled by the FORCE_STAT2_ON register bit.",
+        "functionality": "Indicates charger operation status in combination with STAT1. STAT1/STAT2 encoding: 00 = Not Charging, 01 = Pre-charge/Trickle Charge, 10 = Fast Charge (CC/CV), 11 = Charge Done. In fault conditions, STAT2 blinks. Can be used to drive a status LED or provide a digital status signal to the host.",
+        "connected_components": [
+          {
+            "component_name": "Pull-up Resistor",
+            "description": "10-kOhm resistor from STAT2 to the pull-up rail (REGN or 3.3 V). Required because STAT2 is open-drain."
+          },
+          {
+            "component_name": "Status LED (optional)",
+            "description": "An LED with current-limiting resistor can be connected between the pull-up rail and STAT2 for visual charge status indication."
+          }
+        ],
+        "precautions": [
+          "STAT2 is open-drain and requires an external pull-up resistor.",
+          "Absolute maximum voltage is 6 V.",
+          "Maximum sink current is 5 mA.",
+          "If using REGN as pull-up rail, STAT2 will be HIGH (LED off) when REGN LDO is disabled.",
+          "Pin function can be disabled via DIS_STAT_PINS bit in REG0x18 (Pin_Control)."
+        ]
       }
     },
     "PG": {
@@ -136,6 +249,29 @@
       "vol": {
         "max": 0.4,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the pull-up rail via a 10-kOhm resistor. LOW indicates a good input source (VAC within ACUV/ACOV window). Can drive an LED or signal to downstream load switches, system PMICs, or the host processor.",
+        "detailed_description": "The PG (Power Good) pin is an active-low, open-drain output that indicates whether the input voltage (VAC) is within the programmed ACUV/ACOV operating window. When a valid input source is detected, PG pulls LOW. When VAC falls outside the ACUV/ACOV window, PG goes HIGH (open-drain, pulled up by external resistor). The pin function can be disabled by setting DIS_PG_PIN bit. When disabled, it can be repurposed as a general-purpose indicator controlled by FORCE_STAT3_ON.",
+        "functionality": "Indicates input source power good status. LOW = valid input source present (VAC within ACUV/ACOV window). HIGH = no valid input or VAC outside operating window. Can be used to signal downstream power management ICs, load switches, or the host processor that the input source is present.",
+        "connected_components": [
+          {
+            "component_name": "Pull-up Resistor",
+            "description": "10-kOhm resistor from PG to the pull-up rail (REGN or system rail). Required because PG is open-drain."
+          },
+          {
+            "component_name": "Power Good LED or Logic Input (optional)",
+            "description": "Can drive an LED for visual input power indication, or connect to an enable pin of a downstream regulator or load switch."
+          }
+        ],
+        "precautions": [
+          "PG is open-drain and requires an external pull-up resistor.",
+          "Absolute maximum voltage is 40 V (higher than other digital pins).",
+          "Maximum sink current is 5 mA.",
+          "PG goes HIGH when VAC is outside the ACUV/ACOV window or when converter is stopped.",
+          "Pin function can be disabled via DIS_PG_PIN bit in REG0x18 (Pin_Control)."
+        ]
       }
     },
     "CE": {
@@ -162,6 +298,29 @@
       "vol": {
         "max": 0.4,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to a GPIO output on the host processor for software control of charge enable/disable, or tie directly to GND to always enable charging (when EN_CHG = 1). Must be pulled HIGH or LOW; do not leave floating. Toggling CE restarts the charge cycle and resets safety timers.",
+        "detailed_description": "The CE pin is an active-low charge enable control. Charging is enabled when both the EN_CHG register bit is 1 AND the CE pin is LOW. The pin is bidirectional: it acts as a digital input for charge enable control, but can also be configured as an open-drain general-purpose output when DIS_CE_PIN is set. Toggling CE (LOW-HIGH-LOW) initiates a new charge cycle and resets all safety timers.",
+        "functionality": "Hardware charge enable/disable control. LOW = charging enabled (if EN_CHG = 1). HIGH = charging disabled. Toggling CE or the EN_CHG bit restarts the charge cycle and resets safety timers. When DIS_CE_PIN is set, the pin function switches to a general-purpose open-drain output controlled by FORCE_STAT4_ON.",
+        "connected_components": [
+          {
+            "component_name": "Host Microcontroller GPIO or Pull-down Resistor",
+            "description": "Connect to a host GPIO for dynamic charge enable control, or tie to GND via a low-value resistor to permanently enable charging."
+          },
+          {
+            "component_name": "Pull-up Resistor (optional)",
+            "description": "If hardware charge disable is the default state, connect a pull-up resistor to the logic rail so charging is disabled until the host actively drives CE LOW."
+          }
+        ],
+        "precautions": [
+          "Do NOT leave CE floating. It must be pulled HIGH or LOW at all times.",
+          "Absolute maximum voltage is 6 V.",
+          "Maximum sink current is 5 mA when used as open-drain output.",
+          "Toggling CE restarts the charging cycle and resets all timers.",
+          "Pin function can be disabled via DIS_CE_PIN bit in REG0x18 (Pin_Control)."
+        ]
       }
     },
     "TS": {
@@ -174,6 +333,33 @@
         "min": -0.3,
         "max": 6.0,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect via a resistor divider network from REGN (pin 24) to PGND with the NTC thermistor. The divider consists of an upper resistor (RT1) from REGN to TS, the NTC thermistor from TS to the bottom node, and a lower resistor (RT2) from the bottom node to PGND. The NTC thermistor is physically located on the battery pack.",
+        "detailed_description": "The TS pin monitors the battery pack temperature using an external NTC thermistor in a voltage divider from REGN to PGND. The device compares the TS voltage against programmable JEITA-compliant temperature thresholds (T1=0C, T2=10C, T3=45C, T5=60C for charge mode; BCOLD and BHOT for reverse mode). In charge mode, the device reduces charge current or voltage, or suspends charging entirely based on the temperature zone. In reverse mode, the device suspends operation if temperature is outside the BCOLD/BHOT range. The TS voltage is also monitored by the internal ADC (TS_ADC register).",
+        "functionality": "Battery temperature monitoring for charge safety. The TS voltage as a percentage of REGN determines the operating temperature zone per JEITA guidelines. T1-T2 (cool): charge current can be reduced to 20%, 40%, or 100% via JEITA_ISETC. T2-T3 (normal): full charge. T3-T5 (warm): charge voltage can be reduced via JEITA_VSET and current via JEITA_ISETH. Outside T1-T5: charging suspends.",
+        "connected_components": [
+          {
+            "component_name": "NTC Thermistor",
+            "description": "10-kOhm NTC thermistor (recommended: 103AT-2) placed on the battery pack. Connected between the TS node and the lower resistor node."
+          },
+          {
+            "component_name": "Upper Resistor (RT1)",
+            "description": "Resistor from REGN to TS pin. Value selected to set the T1 cold temperature threshold. Together with RT2 and the NTC, forms the voltage divider."
+          },
+          {
+            "component_name": "Lower Resistor (RT2)",
+            "description": "Resistor from the NTC-RT2 junction to PGND. Value selected to set the T5 hot temperature threshold."
+          }
+        ],
+        "precautions": [
+          "Absolute maximum voltage is 6 V.",
+          "The TS divider is powered from REGN; when REGN is off, TS voltage is zero.",
+          "TS threshold crossings have a 25-ms deglitch time.",
+          "If NTC monitoring is not desired, connect TS to mid-point of a fixed divider from REGN to PGND that keeps TS voltage within the T2-T3 normal range.",
+          "Route TS traces away from switching nodes to avoid noise injection."
+        ]
       }
     },
     "ICHG": {
@@ -186,6 +372,26 @@
         "min": -0.3,
         "max": 6.0,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect a programming resistor from ICHG to PGND to set the hardware charge current limit. If hardware current programming is not needed, short ICHG directly to PGND and disable the pin function by setting EN_ICHG_PIN = 0. The ICHG pin voltage can also be read to monitor the actual charge current when not in current regulation.",
+        "detailed_description": "The ICHG pin provides a hardware-programmable charge current limit using a pull-down resistor to PGND. The charge current limit is ICHG = KICHG / RICHG, where KICHG is typically 50 A*kOhm with a 5-mOhm RBAT_SNS sense resistor. The pin voltage is regulated to VREF_ICHG (2.0 V) when in charge current regulation. The precharge current is automatically set to 20% of the ICHG pin limit, and the termination current is 10% of the ICHG pin limit. The actual charge current is the lower of the ICHG pin setting and the ICHG_REG register setting.",
+        "functionality": "Sets hardware maximum charge current limit. Also provides charge current monitoring: when not in current regulation, VICHG is proportional to actual charge current per IBAT = KICHG x VICHG / (RICHG x VREF_ICHG). The pin automatically sets precharge (20% of ICHG) and termination (10% of ICHG) current thresholds.",
+        "connected_components": [
+          {
+            "component_name": "Programming Resistor (RICHG)",
+            "description": "Resistor from ICHG to PGND. For 5-A hardware limit: RICHG = KICHG / ICHG = 50/5 = 10 kOhm. For 10-A: 5 kOhm. For 15-A: 3.33 kOhm. Use 0.1% resistor for best accuracy."
+          }
+        ],
+        "precautions": [
+          "Do NOT leave ICHG floating. Pull to PGND if not used.",
+          "Absolute maximum voltage is 6 V.",
+          "Requires 5-mOhm RBAT_SNS sense resistor for correct operation.",
+          "RICHG range: 0 to 100 kOhm. When shorted to PGND, hardware limit is disabled.",
+          "Minimize ground return path from RICHG to the IC PGND pin to avoid noise affecting regulation accuracy.",
+          "When EN_ICHG_PIN = 0, ICHG pin current monitoring is not available."
+        ]
       }
     },
     "ILIM_HIZ": {
@@ -198,6 +404,27 @@
         "min": -0.3,
         "max": 6.0,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect a programming resistor from ILIM_HIZ to PGND to set the hardware input current limit. If hardware current programming is not needed, short ILIM_HIZ directly to PGND. To force HIZ mode via hardware, pull above 3.7 V. The pin voltage can be read to monitor the actual input current when not in current regulation.",
+        "detailed_description": "The ILIM_HIZ pin serves a dual function: it programs the hardware input current limit and provides a hardware HIZ mode entry. A pull-down resistor to PGND sets the input current limit as ILIM = KILIM / RILIM, where KILIM is typically 50 A*kOhm with a 2-mOhm RAC_SNS. When the pin voltage rises above VIH_ILIM_HIZ (3.7 V), the device enters HIZ mode: switching stops and REGN LDO is disabled. The actual input current limit is the lower of the ILIM_HIZ pin setting and the IAC_DPM register setting. With a 5-mOhm RAC_SNS, scale KILIM by 2/5.",
+        "functionality": "Sets hardware maximum input current limit and provides hardware HIZ mode control. Also provides input current monitoring: when not in current regulation, VILIM is proportional to actual input current. HIZ mode disables switching, REGN LDO, and forces system load to be supplied by battery only.",
+        "connected_components": [
+          {
+            "component_name": "Programming Resistor (RILIM)",
+            "description": "Resistor from ILIM_HIZ to PGND. For 10-A hardware limit with 2-mOhm RAC_SNS: RILIM = KILIM / ILIM = 50/10 = 5 kOhm. For 5-mOhm RAC_SNS, scale KILIM by 2/5 (e.g., 6-A limit: RILIM = 50*(2/5)/6 = 3.3 kOhm). Use 0.1% resistor for best accuracy."
+          }
+        ],
+        "precautions": [
+          "Do NOT leave ILIM_HIZ floating. Pull to PGND if not used.",
+          "Absolute maximum voltage is 6 V.",
+          "HIZ mode is entered when pin voltage exceeds 3.7 V.",
+          "RILIM range: 0 to 50 kOhm. When shorted to PGND, hardware limit is disabled.",
+          "Minimize ground return path from RILIM to the IC PGND pin.",
+          "If using 5-mOhm RAC_SNS instead of default 2 mOhm, scale KILIM by 2/5.",
+          "Device exits HIZ mode when pin voltage falls below 0.4 V."
+        ]
       }
     },
     "FBG": {
@@ -205,11 +432,24 @@
       "pin_id": "11",
       "direction": "INPUT",
       "type": "ANALOG",
-      "description": "Voltage Feedback Divider Return. Connect to the bottom of battery feedback resistor. When charging, this pin is driven to PGND internally. When input voltage is outside of the ACUV/ACOV operating window, this pin is high-impedance, minimizing battery leakage current. RFBG to PGND: 33-55 Ohm.",
-      "input_voltage": {
-        "min": -0.3,
-        "max": 85.0,
-        "units": "V"
+      "description": "Voltage Feedback Divider Return. Connect to the bottom of battery feedback resistor. When charging, this pin is driven to PGND internally. When input voltage is outside of the ACUV/ACOV operating window, this pin is high-impedance, minimizing battery leakage current.",
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the bottom of the battery voltage feedback resistor divider (between the lower resistor and the battery negative terminal). The internal FBG pull-down resistance (RFBG) to PGND is 33-55 Ohm when charging.",
+        "detailed_description": "FBG is the return path for the battery voltage feedback resistor divider. During charging, the device internally connects FBG to PGND through a low-impedance switch (RFBG = 33-55 Ohm), enabling the feedback divider to sense the battery voltage. When the input voltage is outside the ACUV/ACOV window (no valid input source), FBG becomes high-impedance, disconnecting the feedback divider and minimizing battery leakage current through the feedback resistors.",
+        "functionality": "Provides a controlled ground return for the battery voltage feedback divider. The high-impedance state when no input source is present prevents battery drain through the feedback resistor divider, which is important for preserving battery charge during storage or when the charger is unpowered.",
+        "connected_components": [
+          {
+            "component_name": "Bottom Feedback Resistor (RFB_BOT)",
+            "description": "The lower resistor of the voltage divider from battery to FBG. Typical value 24.88 kOhm (for 16.8 V / 4s Li-Ion). Connected between FB pin and FBG pin. Use 0.1% accuracy for best charge voltage precision."
+          }
+        ],
+        "precautions": [
+          "The internal RFBG resistance (33-55 Ohm) is in series with the lower feedback resistor and should be accounted for in the voltage divider calculation per Equation 10 in the datasheet.",
+          "FBG goes high-impedance when input is outside ACUV/ACOV window.",
+          "Absolute maximum voltage is 85 V.",
+          "Route FBG trace away from high-power switching nodes."
+        ]
       }
     },
     "FB": {
@@ -217,11 +457,34 @@
       "pin_id": "12",
       "direction": "INPUT",
       "type": "ANALOG",
-      "description": "Charge Voltage Analog Feedback Adjustment. Connect the output of a resistive voltage divider from the battery terminals to this node to adjust the output battery regulation voltage. Nominal feedback voltage: 1.536V (default). Range: 1.504V to 1.566V. Accuracy: +/-0.5% (0 to 85C).",
+      "description": "Charge Voltage Analog Feedback Adjustment. Connect the output of a resistive voltage divider from the battery terminals to this node to adjust the output battery regulation voltage.",
       "input_voltage": {
         "min": -0.3,
         "max": 85.0,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the midpoint of a resistive voltage divider from the battery positive terminal to FBG. The top resistor connects from the battery positive terminal to FB, and the bottom resistor connects from FB to FBG. The divider ratio sets the battery regulation voltage based on the internal reference (default VFB = 1.536 V, adjustable via VFB_REG register).",
+        "detailed_description": "The FB pin is the analog feedback input for battery voltage regulation. A resistive voltage divider from the battery positive terminal to FBG creates a scaled version of the battery voltage. The charger regulates the FB pin voltage to the internal VFB_REG reference (default 1.536 V, adjustable in 2-mV steps). The battery regulation voltage is: VBAT_REG = VFB_REG x (RTOP + RBOT + RFBG) / (RBOT + RFBG). The FB voltage is also monitored by the internal ADC (VFB_ADC register, 0-2047 mV range, 1 mV LSB).",
+        "functionality": "Sets the battery charge regulation voltage via an external resistor divider. The FB voltage determines the charge state transitions: VBAT_LOWV (pre-charge to fast-charge), VRECHG (recharge threshold), and VBAT_OV (overvoltage protection) are all referenced as percentages of VFB_REG. The VFB_REG register can fine-tune the reference voltage.",
+        "connected_components": [
+          {
+            "component_name": "Top Feedback Resistor (RTOP)",
+            "description": "Resistor from battery positive terminal to FB pin. Typical value 249 kOhm. Use 0.1% accuracy for best charge voltage precision."
+          },
+          {
+            "component_name": "Bottom Feedback Resistor (RBOT)",
+            "description": "Resistor from FB pin to FBG pin. Value calculated using Equation 10: RBOT = RTOP x VFB / (VBATREG - VFB) + RFBG. For 16.8V battery: ~24.88 kOhm. Use 0.1% accuracy."
+          }
+        ],
+        "precautions": [
+          "Absolute maximum voltage on FB is 85 V.",
+          "Use 0.1% accurate resistors for RTOP and RBOT to maximize charge voltage accuracy (+/-0.5% at 0-85C).",
+          "Route the top of the divider (RTOP) to the battery regulation point. Avoid routing close to high power switching nodes.",
+          "The internal RFBG (33-55 Ohm) must be included in the divider calculation.",
+          "The FB voltage range is 1.504 V to 1.566 V (adjustable via VFB_REG register)."
+        ]
       }
     },
     "SRN": {
@@ -229,11 +492,43 @@
       "pin_id": "13",
       "direction": "INPUT",
       "type": "ANALOG",
-      "description": "Charge Current-Sense Resistor, Negative Input. A 0.47-uF ceramic capacitor is placed from SRN to SRP for differential-mode filtering. An optional 0.1-uF ceramic capacitor from SRN to PGND for common-mode filtering. Recommended RBAT_SNS = 5 mOhm.",
+      "description": "Charge Current-Sense Resistor, Negative Input. A 0.47-uF ceramic capacitor is placed from SRN to SRP to provide differential-mode filtering. An optional 0.1-uF ceramic capacitor is placed from the SRN pin to PGND for common-mode filtering.",
       "input_voltage": {
         "min": -0.3,
         "max": 85.0,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the battery-side terminal of the battery current sense resistor (RBAT_SNS). Use Kelvin sensing: connect the SRN trace to the center of the RBAT_SNS pad on the battery side. A 0.47-uF differential filter capacitor is placed from SRN to SRP, and an optional 0.1-uF common-mode filter capacitor from SRN to PGND.",
+        "detailed_description": "SRN is the negative input of the battery current sense amplifier. The voltage difference between SRP and SRN across the RBAT_SNS sense resistor is used to regulate charge current, detect termination, and measure battery current via the ADC. SRN also serves as the battery voltage sense point for the internal bias circuits and the battery power-up detection. When only the battery is present (no VAC), the device powers up from SRN when it exceeds 3 V. The battery discharge load current on SRN is 16 mA for VAC/SRN balancing.",
+        "functionality": "Battery current sensing (negative terminal of sense resistor). Together with SRP, provides the differential signal for charge current regulation (ICHG), pre-charge current, termination current detection, battery overcurrent protection (VICHG_OC = 120-170 mV), and ADC battery current measurement (IBAT_ADC).",
+        "connected_components": [
+          {
+            "component_name": "Battery Current Sense Resistor (RBAT_SNS)",
+            "description": "5-mOhm sense resistor between SRN and the battery. Fixed at 5 mOhm; using a different value is not recommended."
+          },
+          {
+            "component_name": "Differential Filter Capacitor",
+            "description": "0.47-uF ceramic capacitor from SRN to SRP for differential-mode noise filtering."
+          },
+          {
+            "component_name": "Common-Mode Filter Capacitor (optional)",
+            "description": "0.1-uF ceramic capacitor from SRN to PGND for common-mode noise filtering."
+          },
+          {
+            "component_name": "Output Bulk Capacitors",
+            "description": "Place bulk output capacitors equally distributed on either side of RBAT_SNS."
+          }
+        ],
+        "precautions": [
+          "Absolute maximum voltage is 85 V.",
+          "Maximum differential voltage (SRP - SRN) is +/-0.3 V.",
+          "Use Kelvin sensing: connect SRN trace to the center of the RBAT_SNS pad, not the current-carrying trace.",
+          "Run SRN and SRP traces as a differential pair, away from switching nodes (SW1, SW2).",
+          "RBAT_SNS must be 5 mOhm. Using a different value is not recommended.",
+          "SRN provides the battery power-up path; ensure a clean connection to the battery."
+        ]
       }
     },
     "SRP": {
@@ -241,94 +536,291 @@
       "pin_id": "14",
       "direction": "INPUT",
       "type": "ANALOG",
-      "description": "Charge Current-Sense Resistor, Positive Input. A 0.47-uF ceramic capacitor is placed from SRN to SRP for differential-mode filtering. A 0.1-uF ceramic capacitor from SRP to PGND for common-mode filtering. Differential voltage (SRP-SRN) abs max: -0.3V to 0.3V.",
+      "description": "Charge Current-Sense Resistor, Positive Input. A 0.47-uF ceramic capacitor is placed from SRN to SRP to provide differential-mode filtering. A 0.1-uF ceramic capacitor is placed from the SRP pin to PGND for common-mode filtering.",
       "input_voltage": {
         "min": -0.3,
         "max": 85.0,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the charger-output-side terminal of the battery current sense resistor (RBAT_SNS). Use Kelvin sensing: connect the SRP trace to the center of the RBAT_SNS pad on the charger output side. A 0.47-uF differential filter capacitor is placed from SRN to SRP, and a 0.1-uF common-mode filter capacitor from SRP to PGND.",
+        "detailed_description": "SRP is the positive input of the battery current sense amplifier. The voltage difference SRP - SRN across RBAT_SNS determines the battery charge current. SRP connects to the charger output side (boost half-bridge output through the output capacitors and sense resistor). The ADC measures VBAT via SRP and SRN for battery voltage monitoring.",
+        "functionality": "Battery current sensing (positive terminal of sense resistor). Together with SRN, provides the differential signal for charge current regulation, pre-charge current, termination current, battery overcurrent protection, and ADC battery current measurement.",
+        "connected_components": [
+          {
+            "component_name": "Battery Current Sense Resistor (RBAT_SNS)",
+            "description": "5-mOhm sense resistor between SRP and the charger output. Fixed at 5 mOhm."
+          },
+          {
+            "component_name": "Differential Filter Capacitor",
+            "description": "0.47-uF ceramic capacitor from SRN to SRP for differential-mode noise filtering."
+          },
+          {
+            "component_name": "Common-Mode Filter Capacitor",
+            "description": "0.1-uF ceramic capacitor from SRP to PGND for common-mode noise filtering."
+          }
+        ],
+        "precautions": [
+          "Absolute maximum voltage is 85 V.",
+          "Maximum differential voltage (SRP - SRN) is +/-0.3 V.",
+          "Use Kelvin sensing: connect SRP trace to the center of the RBAT_SNS pad.",
+          "Run SRP and SRN traces as a differential pair, away from switching nodes.",
+          "RBAT_SNS must be 5 mOhm."
+        ]
       }
     },
     "NC_15": {
       "name": "NC",
       "pin_id": "15",
-      "direction": "NONE",
-      "type": "NC",
-      "description": "No Connect. Leave this pin floating, do not tie to PGND."
+      "direction": "OTHER",
+      "type": "OTHER",
+      "description": "No Connect. Leave this pin floating, do not tie to PGND.",
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Leave unconnected (floating). Do not connect to any signal, voltage, or ground.",
+        "detailed_description": "This pin is not internally connected to any functional circuitry. It is a no-connect pin in the VQFN-36 package.",
+        "functionality": "No function. Reserved/not connected.",
+        "connected_components": [],
+        "precautions": [
+          "Leave floating. Do NOT tie to PGND or any other net.",
+          "Can be used for trace routing escape if needed, but should not be electrically connected."
+        ]
+      }
     },
     "NC_16": {
       "name": "NC",
       "pin_id": "16",
-      "direction": "NONE",
-      "type": "NC",
-      "description": "No Connect. Leave this pin floating, do not tie to PGND."
+      "direction": "OTHER",
+      "type": "OTHER",
+      "description": "No Connect. Leave this pin floating, do not tie to PGND.",
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Leave unconnected (floating). Do not connect to any signal, voltage, or ground.",
+        "detailed_description": "This pin is not internally connected to any functional circuitry. It is a no-connect pin in the VQFN-36 package.",
+        "functionality": "No function. Reserved/not connected.",
+        "connected_components": [],
+        "precautions": [
+          "Leave floating. Do NOT tie to PGND or any other net."
+        ]
+      }
     },
     "PGND_17": {
       "name": "PGND",
       "pin_id": "17",
-      "direction": "INPUT",
+      "direction": "OTHER",
       "type": "POWER",
-      "description": "Tie this pin directly to PGND."
+      "description": "Tie this pin directly to PGND.",
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect directly to the power ground plane. This pin provides additional ground connectivity for the IC.",
+        "detailed_description": "Pin 17 is a power ground (PGND) connection that provides a low-impedance path to the ground plane. Together with pin 22 (PGND) and pin 37 (thermal pad), these pins carry the high-current return path for the gate drivers and power stage.",
+        "functionality": "Power ground return. Provides ground connectivity for the device internal circuitry and gate drivers.",
+        "connected_components": [
+          {
+            "component_name": "Ground Plane",
+            "description": "Connect directly to the PCB power ground plane with short, wide traces or direct via connection."
+          }
+        ],
+        "precautions": [
+          "Must be connected to the PGND plane. Do not leave floating.",
+          "Use wide traces or direct copper pour connection to minimize parasitic inductance.",
+          "The ground plane should be tied to the thermal pad (pin 37) underneath the IC."
+        ]
+      }
     },
     "SW2": {
       "name": "SW2",
       "pin_id": "18",
-      "direction": "OUTPUT",
+      "direction": "OTHER",
       "type": "POWER",
       "description": "Boost Side Half Bridge Switching Node. Connect to the source of boost HS FET and the drain of boost LS FET. Connect the inductor between SW1 and SW2.",
-      "output_voltage": {
+      "input_voltage": {
         "min": -2.0,
         "max": 85.0,
+        "abs_max_transient": "-4 V to 85 V (40 ns)",
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the junction of the boost-side high-side MOSFET source and low-side MOSFET drain. The power inductor connects between SW1 (pin 28) and SW2 (pin 18). The BTST2 bootstrap capacitor connects between BTST2 (pin 20) and SW2.",
+        "detailed_description": "SW2 is the boost-side switching node of the buck-boost converter. During boost mode, this node switches between the battery voltage (via the inductor) and PGND. During buck mode, the boost HS FET is forced ON and SW2 carries the continuous inductor current to the output. The HIDRV2 gate driver return current flows through SW2. The bootstrap capacitor (BTST2 to SW2) provides the floating gate drive supply for the boost HS FET.",
+        "functionality": "Boost-side half-bridge switching node. In boost mode: SW2 switches at fSW between VBAT and PGND. In buck mode: SW2 is connected to the output through the always-on boost HS FET. In buck-boost mode: SW2 switches interleaved with SW1.",
+        "connected_components": [
+          {
+            "component_name": "Boost High-Side MOSFET (Q3)",
+            "description": "Source of the boost HS N-channel MOSFET connects to SW2. Recommended: AONS66614 (60V, 3.1 mOhm) or SiR880BDP (80V, 6.2 mOhm)."
+          },
+          {
+            "component_name": "Boost Low-Side MOSFET (Q4)",
+            "description": "Drain of the boost LS N-channel MOSFET connects to SW2."
+          },
+          {
+            "component_name": "Power Inductor (L1)",
+            "description": "One terminal of the inductor connects to SW2, the other to SW1. Typical value 10 uH, 2.2-15 uH range. Inductor saturation current must exceed peak inductor current."
+          },
+          {
+            "component_name": "Bootstrap Capacitor (CBTST2)",
+            "description": "Ceramic capacitor between BTST2 (pin 20) and SW2 (pin 18). Provides floating gate drive supply for boost HS FET."
+          }
+        ],
+        "precautions": [
+          "SW2 carries high dv/dt and di/dt switching currents. Minimize the SW2 copper area to reduce radiated EMI.",
+          "Absolute maximum voltage: -2 V to 85 V steady state; -4 V to 85 V for 40 ns transients.",
+          "Place output ceramic capacitors close to the boost switching FETs to minimize the high-frequency loop area.",
+          "Route HIDRV2/SW2 traces as a pair next to each other for low gate drive parasitic inductance.",
+          "Total switch node capacitance CSW (nF) should be < 160/VIN for proper operation."
+        ]
       }
     },
     "HIDRV2": {
       "name": "HIDRV2",
       "pin_id": "19",
       "direction": "OUTPUT",
-      "type": "ANALOG",
-      "description": "Boost Side High-Side Gate Driver. Connect to the boost high-side N-channel MOSFET gate. Turn-on resistance: 3.4 Ohm typ. Turn-off resistance: 1.0 Ohm typ."
+      "type": "OTHER",
+      "description": "Boost Side High-Side Gate Driver. Connect to the boost high-side N-channel MOSFET gate.",
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the gate of the boost-side high-side N-channel MOSFET. The gate driver is powered by the BTST2 bootstrap supply (referenced to SW2).",
+        "detailed_description": "HIDRV2 is the gate drive output for the boost-side high-side MOSFET. The driver swings between BTST2 and SW2 to turn the HS FET on and off. The turn-on resistance is 3.4 Ohm and turn-off resistance is 1.0 Ohm (at VBTST2 - VSW2 = 5V). The bootstrap supply is refreshed when the low-side FET turns on, pulling SW2 to PGND.",
+        "functionality": "Drives the gate of the boost high-side N-channel MOSFET. In boost mode, HIDRV2 switches at fSW. In buck mode, HIDRV2 drives the HS FET continuously ON. Gate drive voltage is VBTST2 - VSW2 (typically 5V from REGN, or up to 12V from external DRV_SUP).",
+        "connected_components": [
+          {
+            "component_name": "Boost High-Side MOSFET Gate (Q3)",
+            "description": "Gate of the boost-side high-side N-channel MOSFET."
+          }
+        ],
+        "precautions": [
+          "Absolute maximum voltage: BTST2 to SW2 must not exceed 14 V.",
+          "Minimize gate drive trace length. Aim for at least 20-mil trace width.",
+          "Route HIDRV2 and SW2 (pin trace) as a pair next to each other to reduce parasitic inductance.",
+          "Do not place decoupling capacitors on the HIDRV2 trace.",
+          "Gate drive strength can be adjusted via the REG0x3B (Gate_Driver_Strength_Control) register."
+        ]
+      }
     },
     "BTST2": {
       "name": "BTST2",
       "pin_id": "20",
-      "direction": "INPUT",
+      "direction": "OTHER",
       "type": "POWER",
-      "description": "Boost Side High-Side Power MOSFET Gate Driver Power Supply. Connect a capacitor between BTST2 and SW2 to provide bias to the high-side MOSFET gate driver. Bootstrap refresh threshold: 2.7V min, 3.1V typ, 3.9V max. Abs max BTST2 with respect to SW2: -0.3V to 14V.",
+      "description": "Boost Side High-Side Power MOSFET Gate Driver Power Supply. Connect a capacitor between BTST2 and SW2 to provide bias to the high-side MOSFET gate driver.",
       "input_voltage": {
         "min": -0.3,
-        "max": 14.0,
+        "max_note": "SW2 + 14 V",
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect a ceramic bootstrap capacitor between BTST2 (pin 20) and SW2 (pin 18). The bootstrap circuit charges from DRV_SUP through an internal diode when the low-side MOSFET is ON (SW2 near PGND).",
+        "detailed_description": "BTST2 provides the floating high-side gate drive supply for the boost HS MOSFET. The bootstrap capacitor stores charge when the low-side FET pulls SW2 to ground. When the HS FET turns on, BTST2 floats up with SW2 to provide sufficient gate drive above the source voltage. The bootstrap refresh comparator threshold (VBTST2_REFRESH) is 2.7-3.9 V (BTST2 falling relative to SW2); if the bootstrap voltage drops below this level, a low-side refresh pulse is generated.",
+        "functionality": "Provides the floating power supply for the boost-side high-side gate driver (HIDRV2). The BTST2-SW2 voltage supplies the gate drive for the boost HS MOSFET.",
+        "connected_components": [
+          {
+            "component_name": "Bootstrap Capacitor (CBTST2)",
+            "description": "0.1-uF to 1-uF ceramic capacitor between BTST2 and SW2. Place as close as possible to the IC pins 18 and 20."
+          }
+        ],
+        "precautions": [
+          "BTST2 to SW2 voltage must not exceed 14 V.",
+          "Place the bootstrap capacitor as close as possible to the IC between pins 18 and 20.",
+          "Use a small ceramic capacitor (0402 or 0603) to minimize parasitic inductance.",
+          "If the bootstrap voltage drops below the refresh threshold (2.7-3.9 V), a low-side refresh pulse is automatically generated."
+        ]
       }
     },
     "LODRV2": {
       "name": "LODRV2",
       "pin_id": "21",
       "direction": "OUTPUT",
-      "type": "ANALOG",
-      "description": "Boost Side Low-Side Gate Driver. Connect to the boost low-side N-channel MOSFET gate. Turn-on resistance: 3.4 Ohm typ. Turn-off resistance: 1.0 Ohm typ. Dead time: 45ns typ.",
-      "output_voltage": {
-        "min": -0.3,
-        "max": 14.0,
-        "units": "V"
+      "type": "OTHER",
+      "description": "Boost Side Low-Side Gate Driver. Connect to the boost low-side N-channel MOSFET gate.",
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the gate of the boost-side low-side N-channel MOSFET. The gate driver is powered by DRV_SUP (referenced to PGND).",
+        "detailed_description": "LODRV2 is the gate drive output for the boost-side low-side MOSFET. The driver swings between DRV_SUP and PGND. The turn-on resistance is 3.4 Ohm and turn-off resistance is 1.0 Ohm (at VREGN = 5V). The dead time between HIDRV2 and LODRV2 is 45 ns default, programmable via BOOST_DEAD_TIME register bits (45/75/105/135 ns).",
+        "functionality": "Drives the gate of the boost low-side N-channel MOSFET. In boost mode, LODRV2 switches at fSW. In buck mode, the boost LS FET is OFF. The return path for LODRV2 gate drive current is PGND; a ground plane close to the low-side gate drive traces is recommended.",
+        "connected_components": [
+          {
+            "component_name": "Boost Low-Side MOSFET Gate (Q4)",
+            "description": "Gate of the boost-side low-side N-channel MOSFET."
+          }
+        ],
+        "precautions": [
+          "Absolute maximum voltage: DRV_SUP must not exceed 14 V.",
+          "LODRV2 return current flows through PGND. Ensure a ground plane close to the low-side gate drive traces.",
+          "Minimize gate drive trace length. Aim for at least 20-mil trace width.",
+          "Dead time is programmable via REG0x3C (Gate_Driver_Dead_Time_Control).",
+          "Gate drive strength can be adjusted via the REG0x3B register."
+        ]
       }
     },
     "PGND_22": {
       "name": "PGND",
       "pin_id": "22",
-      "direction": "INPUT",
+      "direction": "OTHER",
       "type": "POWER",
-      "description": "Power Ground Return. The high current ground connection for the low-side gate drivers."
+      "description": "Power Ground Return. The high current ground connection for the low-side gate drivers.",
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect directly to the power ground plane. This is the primary high-current ground return for the low-side gate drivers (LODRV1, LODRV2).",
+        "detailed_description": "Pin 22 is the primary power ground return for the low-side gate driver current. The LODRV1 and LODRV2 gate drive return currents flow through this pin. It should have the lowest impedance connection possible to the ground plane to ensure clean gate drive signals and prevent ground bounce.",
+        "functionality": "Power ground return for low-side MOSFET gate drivers. Carries the pulsating return current from LODRV1 and LODRV2.",
+        "connected_components": [
+          {
+            "component_name": "Ground Plane",
+            "description": "Connect directly to the PCB power ground plane. Use wide traces and multiple vias."
+          }
+        ],
+        "precautions": [
+          "This is a high-current ground pin. Minimize trace impedance to the ground plane.",
+          "A ground plane close to the low-side gate drive traces (LODRV1, LODRV2) is essential.",
+          "Connected to the thermal pad ground plane underneath the IC for best performance.",
+          "Gate drive return current is pulsating; poor ground connection causes gate drive ringing."
+        ]
+      }
     },
     "DRV_SUP": {
       "name": "DRV_SUP",
       "pin_id": "23",
-      "direction": "INPUT",
+      "direction": "OTHER",
       "type": "POWER",
-      "description": "Charger Gate Drive Supply Input. Voltage on this pin drives the gates of buck-boost converter switching FETs. Connect a 4.7-uF ceramic capacitor from DRV_SUP to power ground. REGN LDO voltage can be used as gate driver supply by connecting REGN to DRV_SUP pin. In high-voltage applications, an external supply up to 12V can be used for higher efficiency. Under-voltage threshold: 3.7V typ rising. Over-voltage threshold: 12.8-13.6V rising.",
+      "description": "Charger Gate Drive Supply Input. Voltage on this pin is used to drive the gates of buck-boost converter switching FET. Connect a 4.7-uF ceramic capacitor from DRV_SUP to power ground. REGN LDO voltage can be used as the gate driver supply by connecting REGN to DRV_SUP. In high-voltage applications, an external supply up to 12 V can directly provide DRV_SUP for higher switching efficiency.",
       "input_voltage": {
-        "min": 4.0,
-        "max": 12.0,
+        "min": -0.3,
+        "max": 14.0,
+        "recommended_min": 4.0,
+        "recommended_max": 12.0,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect a 4.7-uF ceramic capacitor from DRV_SUP to PGND. For simple designs, connect DRV_SUP directly to REGN (pin 24) to use the internal 5V LDO as the gate driver supply. For high-voltage or high-efficiency applications, connect an external high-efficiency supply (4.0-12.0 V) directly to DRV_SUP to reduce gate drive power dissipation.",
+        "detailed_description": "DRV_SUP provides the power supply for all four gate drivers (HIDRV1, LODRV1, HIDRV2, LODRV2 via bootstrap). The LODRV1/LODRV2 drivers swing between DRV_SUP and PGND. The bootstrap capacitors on BTST1/BTST2 are charged from DRV_SUP. When DRV_SUP is connected to REGN, the gate drive power is: PREGN = (VAC - VREGN) x QG(TOT) x fSW, which can be excessive at high input voltages. An external supply eliminates this LDO power loss. The DRV_SUP voltage has overvoltage protection (12.8-13.6 V) and undervoltage protection (3.7 V rising threshold).",
+        "functionality": "Supplies power to all four MOSFET gate drivers. Determines the gate drive voltage and directly impacts switching efficiency. Higher DRV_SUP voltage reduces MOSFET RDS(ON) but increases gate charge losses. DRV_SUP can range from 4.0 V (minimum for proper FET enhancement) to 12.0 V.",
+        "connected_components": [
+          {
+            "component_name": "DRV_SUP Decoupling Capacitor",
+            "description": "4.7-uF ceramic capacitor from DRV_SUP to PGND. Place as close as possible to the IC."
+          },
+          {
+            "component_name": "REGN Connection (simple design)",
+            "description": "Short trace from REGN (pin 24) to DRV_SUP (pin 23) to use the internal 5 V LDO as gate drive supply."
+          },
+          {
+            "component_name": "External Gate Drive Supply (optional, high-efficiency design)",
+            "description": "A high-efficiency external supply (4.0-12.0 V, 50+ mA) can directly drive DRV_SUP to reduce REGN LDO power dissipation. This is recommended when VAC is high and/or total gate charge is large."
+          }
+        ],
+        "precautions": [
+          "Absolute maximum voltage is 14 V.",
+          "Recommended operating range: 4.0 V to 12.0 V.",
+          "DRV_SUP OVP trips at 12.8-13.6 V, disabling switching.",
+          "DRV_SUP UVP threshold is 3.7 V; switching is not allowed below this.",
+          "Place the 4.7-uF capacitor as close to the IC as possible.",
+          "If using external supply, it must provide at least 50 mA for gate drive current.",
+          "REGN LDO SOA: limit PREGN to 1 W (check Figure 8-2 in datasheet)."
+        ]
       }
     },
     "REGN": {
@@ -336,55 +828,168 @@
       "pin_id": "24",
       "direction": "OUTPUT",
       "type": "POWER",
-      "description": "Charger Internal Linear Regulator Output. Connect a 4.7-uF ceramic capacitor from REGN to power ground. REGN LDO output voltage: 4.8V min, 5.0V typ, 5.2V max (at 20mA). Current limit: 70mA typ. REGN can be used as gate driver supply by connecting to DRV_SUP. REGN OK threshold: 3.55V rising.",
+      "description": "Charger Internal Linear Regulator Output. Connect a 4.7-uF ceramic capacitor from REGN to power ground. REGN LDO voltage can be used as the gate driver supply by connecting REGN to DRV_SUP. In high-voltage applications, an external supply up to 12 V can directly provide DRV_SUP for higher switching efficiency.",
       "output_voltage": {
         "min": 4.8,
+        "typ": 5.0,
         "max": 5.2,
-        "nom": 5.0,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect a 4.7-uF ceramic capacitor from REGN to PGND. REGN can be connected to DRV_SUP for simple designs. REGN can also supply the pull-up rail for PG, STAT1, STAT2 pins and the TS thermistor divider.",
+        "detailed_description": "REGN is the output of an internal linear regulator (LDO) that provides a regulated 5 V bias supply for the IC and external circuitry. The REGN LDO is enabled when VAC exceeds VVAC_OK and charge is enabled (forward mode), or when battery exceeds 3 V and reverse mode is enabled (EN_REV = 1). The LDO is powered from VAC in forward mode. The REGN OK threshold (3.55 V rising) must be met before switching is allowed. Current limit is 70 mA at VREGN = 4.5 V.",
+        "functionality": "Provides regulated 5 V bias supply for internal circuitry, TS thermistor divider, and optionally the gate drivers (via DRV_SUP connection). REGN powers the TS resistor divider for battery temperature monitoring. REGN can be used as the pull-up rail for open-drain outputs (PG, STAT1, STAT2).",
+        "connected_components": [
+          {
+            "component_name": "REGN Decoupling Capacitor",
+            "description": "4.7-uF ceramic capacitor from REGN to PGND. Place as close as possible to the IC."
+          },
+          {
+            "component_name": "TS Thermistor Divider",
+            "description": "The upper resistor (RT1) of the TS thermistor divider connects from REGN to the TS pin."
+          },
+          {
+            "component_name": "DRV_SUP Connection (optional)",
+            "description": "Direct connection from REGN to DRV_SUP to use REGN as the gate driver supply."
+          },
+          {
+            "component_name": "Status Pin Pull-up (optional)",
+            "description": "Pull-up resistors for PG, STAT1, STAT2 can be connected to REGN."
+          }
+        ],
+        "precautions": [
+          "Always connect a 4.7-uF ceramic capacitor from REGN to PGND.",
+          "REGN LDO current limit is 70 mA. Do not exceed this.",
+          "REGN is disabled when no valid input source and reverse mode is not enabled, to minimize quiescent current.",
+          "Check REGN LDO SOA (Figure 8-2) when using REGN for gate drive: PREGN = (VAC - VREGN) x QG(TOT) x fSW must be < 1 W.",
+          "REGN voltage drops to ~4.35-4.6 V when VAC = 5 V and IREGN = 20 mA.",
+          "Place capacitor as close to pin as possible."
+        ]
       }
     },
     "LODRV1": {
       "name": "LODRV1",
       "pin_id": "25",
       "direction": "OUTPUT",
-      "type": "ANALOG",
-      "description": "Buck Side Low-Side Gate Driver. Connect to the buck low-side N-channel MOSFET gate. Turn-on resistance: 3.4 Ohm typ. Turn-off resistance: 1.0 Ohm typ. Dead time: 45ns typ.",
-      "output_voltage": {
-        "min": -0.3,
-        "max": 14.0,
-        "units": "V"
+      "type": "OTHER",
+      "description": "Buck Side Low-Side Gate Driver. Connect to the buck low-side N-channel MOSFET gate.",
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the gate of the buck-side low-side N-channel MOSFET. The gate driver is powered by DRV_SUP (referenced to PGND).",
+        "detailed_description": "LODRV1 is the gate drive output for the buck-side low-side MOSFET. The driver swings between DRV_SUP and PGND. The turn-on resistance is 3.4 Ohm and turn-off resistance is 1.0 Ohm (at VREGN = 5V). The dead time between HIDRV1 and LODRV1 is 45 ns default, programmable via BUCK_DEAD_TIME register bits (45/75/105/135 ns).",
+        "functionality": "Drives the gate of the buck low-side N-channel MOSFET. In buck mode, LODRV1 switches at fSW as the complementary signal to HIDRV1. In boost mode, the buck LS FET is OFF. The return path for LODRV1 gate drive current is PGND.",
+        "connected_components": [
+          {
+            "component_name": "Buck Low-Side MOSFET Gate (Q2)",
+            "description": "Gate of the buck-side low-side N-channel MOSFET."
+          }
+        ],
+        "precautions": [
+          "Absolute maximum voltage: DRV_SUP must not exceed 14 V.",
+          "LODRV1 return current flows through PGND. Ensure a ground plane close to the low-side gate drive traces.",
+          "Minimize gate drive trace length. Aim for at least 20-mil trace width.",
+          "Dead time is programmable via REG0x3C (Gate_Driver_Dead_Time_Control).",
+          "Gate drive strength can be adjusted via the REG0x3B register."
+        ]
       }
     },
     "BTST1": {
       "name": "BTST1",
       "pin_id": "26",
-      "direction": "INPUT",
+      "direction": "OTHER",
       "type": "POWER",
-      "description": "Buck Side High-Side Power MOSFET Gate Driver Power Supply. Connect a capacitor between BTST1 and SW1 to provide bias to the high-side MOSFET gate driver. Bootstrap refresh threshold: 2.7V min, 3.1V typ, 3.9V max. Abs max BTST1 with respect to SW1: -0.3V to 14V.",
+      "description": "Buck Side High-Side Power MOSFET Gate Driver Power Supply. Connect a capacitor between BTST1 and SW1 to provide bias to the high-side MOSFET gate driver.",
       "input_voltage": {
         "min": -0.3,
-        "max": 14.0,
+        "max_note": "SW1 + 14 V",
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect a ceramic bootstrap capacitor between BTST1 (pin 26) and SW1 (pin 28). The bootstrap circuit charges from DRV_SUP through an internal diode when the low-side MOSFET is ON (SW1 near PGND).",
+        "detailed_description": "BTST1 provides the floating high-side gate drive supply for the buck HS MOSFET. The bootstrap capacitor stores charge when the low-side FET pulls SW1 to ground. When the HS FET turns on, BTST1 floats up with SW1. The bootstrap refresh comparator threshold (VBTST1_REFRESH) is 2.7-3.9 V; if the bootstrap voltage drops below this level, a low-side refresh pulse is generated.",
+        "functionality": "Provides the floating power supply for the buck-side high-side gate driver (HIDRV1). The BTST1-SW1 voltage supplies the gate drive for the buck HS MOSFET.",
+        "connected_components": [
+          {
+            "component_name": "Bootstrap Capacitor (CBTST1)",
+            "description": "0.1-uF to 1-uF ceramic capacitor between BTST1 and SW1. Place as close as possible to the IC pins 26 and 28."
+          }
+        ],
+        "precautions": [
+          "BTST1 to SW1 voltage must not exceed 14 V.",
+          "Place the bootstrap capacitor as close as possible to the IC between pins 26 and 28.",
+          "Use a small ceramic capacitor (0402 or 0603) to minimize parasitic inductance."
+        ]
       }
     },
     "HIDRV1": {
       "name": "HIDRV1",
       "pin_id": "27",
       "direction": "OUTPUT",
-      "type": "ANALOG",
-      "description": "Buck Side High-Side Gate Driver. Connect to the buck high-side N-channel MOSFET gate. Turn-on resistance: 3.4 Ohm typ. Turn-off resistance: 1.0 Ohm typ."
+      "type": "OTHER",
+      "description": "Buck Side High-Side Gate Driver. Connect to the buck high-side N-channel MOSFET gate.",
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the gate of the buck-side high-side N-channel MOSFET. The gate driver is powered by the BTST1 bootstrap supply (referenced to SW1).",
+        "detailed_description": "HIDRV1 is the gate drive output for the buck-side high-side MOSFET. The driver swings between BTST1 and SW1 to turn the HS FET on and off. The turn-on resistance is 3.4 Ohm and turn-off resistance is 1.0 Ohm (at VBTST1 - VSW1 = 5V).",
+        "functionality": "Drives the gate of the buck high-side N-channel MOSFET. In buck mode, HIDRV1 switches at fSW. In boost mode, the buck HS FET is continuously ON. Gate drive voltage is VBTST1 - VSW1.",
+        "connected_components": [
+          {
+            "component_name": "Buck High-Side MOSFET Gate (Q1)",
+            "description": "Gate of the buck-side high-side N-channel MOSFET."
+          }
+        ],
+        "precautions": [
+          "Absolute maximum voltage: BTST1 to SW1 must not exceed 14 V.",
+          "Minimize gate drive trace length. Aim for at least 20-mil trace width.",
+          "Route HIDRV1 and SW1 (pin trace) as a pair next to each other to reduce parasitic inductance.",
+          "Gate drive strength can be adjusted via the REG0x3B register."
+        ]
+      }
     },
     "SW1": {
       "name": "SW1",
       "pin_id": "28",
-      "direction": "OUTPUT",
+      "direction": "OTHER",
       "type": "POWER",
       "description": "Buck Side Half Bridge Switching Node. Connect to the source of buck HS FET and the drain of buck LS FET. Connect the inductor between SW1 and SW2.",
-      "output_voltage": {
+      "input_voltage": {
         "min": -2.0,
         "max": 85.0,
+        "abs_max_transient": "-4 V to 85 V (40 ns)",
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the junction of the buck-side high-side MOSFET source and low-side MOSFET drain. The power inductor connects between SW1 (pin 28) and SW2 (pin 18). The BTST1 bootstrap capacitor connects between BTST1 (pin 26) and SW1.",
+        "detailed_description": "SW1 is the buck-side switching node of the buck-boost converter. During buck mode, SW1 switches between the input voltage (VAC, via the buck HS FET) and PGND (via the buck LS FET). During boost mode, the buck HS FET is forced ON and SW1 carries the continuous inductor current from the input. At startup, the device toggles SW1 or SW2 for about 40 ms to determine the correct compensation values.",
+        "functionality": "Buck-side half-bridge switching node. In buck mode: SW1 switches at fSW between VAC and PGND. In boost mode: SW1 is connected to the input through the always-on buck HS FET. In buck-boost mode: SW1 switches interleaved with SW2.",
+        "connected_components": [
+          {
+            "component_name": "Buck High-Side MOSFET (Q1)",
+            "description": "Source of the buck HS N-channel MOSFET connects to SW1. Recommended: AONS66614 (60V) or SiR880BDP (80V)."
+          },
+          {
+            "component_name": "Buck Low-Side MOSFET (Q2)",
+            "description": "Drain of the buck LS N-channel MOSFET connects to SW1."
+          },
+          {
+            "component_name": "Power Inductor (L1)",
+            "description": "One terminal of the inductor connects to SW1, the other to SW2. Typical value 10 uH, 2.2-15 uH range."
+          },
+          {
+            "component_name": "Bootstrap Capacitor (CBTST1)",
+            "description": "Ceramic capacitor between BTST1 (pin 26) and SW1 (pin 28). Provides floating gate drive supply for buck HS FET."
+          }
+        ],
+        "precautions": [
+          "SW1 carries high dv/dt and di/dt switching currents. Minimize the SW1 copper area to reduce radiated EMI.",
+          "Absolute maximum voltage: -2 V to 85 V steady state; -4 V to 85 V for 40 ns transients.",
+          "Place input ceramic capacitors close to the buck switching FETs to minimize the high-frequency loop area.",
+          "Route HIDRV1/SW1 traces as a pair next to each other for low gate drive parasitic inductance.",
+          "Total switch node capacitance CSW (nF) should be < 160/VIN."
+        ]
       }
     },
     "ACN": {
@@ -392,11 +997,42 @@
       "pin_id": "29",
       "direction": "INPUT",
       "type": "ANALOG",
-      "description": "Adapter Current-Sense Resistor, Negative Input. A 0.47-uF ceramic capacitor from ACN to ACP for differential-mode filtering. An optional 0.1-uF ceramic capacitor from ACN to PGND for common-mode filtering. Differential voltage (ACP-ACN) abs max: -0.3V to 0.3V. Recommended RAC_SNS = 5 mOhm (2 mOhm for higher current).",
+      "description": "Adapter Current-Sense Resistor, Negative Input. A 0.47-uF ceramic capacitor is placed from ACN to ACP to provide differential-mode filtering. An optional 0.1-uF ceramic capacitor is placed from the ACN pin to PGND for common-mode filtering.",
       "input_voltage": {
         "min": -0.3,
         "max": 85.0,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the charger-input-side terminal of the input current sense resistor (RAC_SNS). Use Kelvin sensing: connect the ACN trace to the center of the RAC_SNS pad on the charger input side. A 0.47-uF differential filter capacitor is placed from ACN to ACP, and an optional 0.1-uF common-mode filter capacitor from ACN to PGND.",
+        "detailed_description": "ACN is the negative input of the adapter current sense amplifier. The voltage difference between ACP and ACN across RAC_SNS is used for input current regulation (IAC_DPM), input current limiting, reverse mode current regulation (IAC_REV), and ADC input current measurement. If input current limiting is not desired, ACP and ACN can be shorted together.",
+        "functionality": "Input (adapter) current sensing, negative terminal. Together with ACP, provides the differential signal for input current DPM regulation, hardware input current limit (ILIM_HIZ pin), reverse mode input current regulation, and ADC input current measurement (IAC_ADC).",
+        "connected_components": [
+          {
+            "component_name": "Input Current Sense Resistor (RAC_SNS)",
+            "description": "Typical value 2 mOhm (default) or 5 mOhm (for USB-PD EPR applications). Connected between ACP and ACN (adapter to charger input)."
+          },
+          {
+            "component_name": "Differential Filter Capacitor",
+            "description": "0.47-uF ceramic capacitor from ACN to ACP for differential-mode noise filtering."
+          },
+          {
+            "component_name": "Common-Mode Filter Capacitor (optional)",
+            "description": "0.1-uF ceramic capacitor from ACN to PGND for common-mode noise filtering."
+          },
+          {
+            "component_name": "Input Bulk Capacitors",
+            "description": "Place bulk input capacitors equally distributed on either side of RAC_SNS."
+          }
+        ],
+        "precautions": [
+          "Absolute maximum voltage is 85 V.",
+          "Maximum differential voltage (ACP - ACN) is +/-0.3 V.",
+          "Use Kelvin sensing: connect ACN trace to the center of the RAC_SNS pad.",
+          "Run ACN and ACP traces as a differential pair, away from switching nodes.",
+          "If using 5-mOhm RAC_SNS, scale IAC_DPM register values by 2/5."
+        ]
       }
     },
     "ACP": {
@@ -404,42 +1040,122 @@
       "pin_id": "30",
       "direction": "INPUT",
       "type": "ANALOG",
-      "description": "Adapter Current-Sense Resistor, Positive Input. A 0.47-uF ceramic capacitor from ACN to ACP for differential-mode filtering. A 0.1-uF ceramic capacitor from ACP to PGND for common-mode filtering.",
+      "description": "Adapter Current-Sense Resistor, Positive Input. A 0.47-uF ceramic capacitor is placed from ACN to ACP to provide differential-mode filtering. A 0.1-uF ceramic capacitor is placed from the ACP pin to PGND for common-mode filtering.",
       "input_voltage": {
         "min": -0.3,
         "max": 85.0,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the adapter-side terminal of the input current sense resistor (RAC_SNS). Use Kelvin sensing: connect the ACP trace to the center of the RAC_SNS pad on the adapter side. A 0.47-uF differential filter capacitor is placed from ACN to ACP, and a 0.1-uF common-mode filter capacitor from ACP to PGND.",
+        "detailed_description": "ACP is the positive input of the adapter current sense amplifier. The voltage difference ACP - ACN across RAC_SNS determines the adapter input current. ACP connects to the adapter/input supply side of the current sense resistor.",
+        "functionality": "Input (adapter) current sensing, positive terminal. Together with ACN, provides the differential signal for input current regulation, hardware input current limit, reverse mode current regulation, and ADC input current measurement.",
+        "connected_components": [
+          {
+            "component_name": "Input Current Sense Resistor (RAC_SNS)",
+            "description": "Typical value 2 mOhm (default) or 5 mOhm. Connected between ACP and the input supply."
+          },
+          {
+            "component_name": "Differential Filter Capacitor",
+            "description": "0.47-uF ceramic capacitor from ACN to ACP for differential-mode noise filtering."
+          },
+          {
+            "component_name": "Common-Mode Filter Capacitor",
+            "description": "0.1-uF ceramic capacitor from ACP to PGND for common-mode noise filtering."
+          }
+        ],
+        "precautions": [
+          "Absolute maximum voltage is 85 V.",
+          "Maximum differential voltage (ACP - ACN) is +/-0.3 V.",
+          "Use Kelvin sensing: connect ACP trace to the center of the RAC_SNS pad.",
+          "Run ACP and ACN traces as a differential pair, away from switching nodes."
+        ]
       }
     },
     "NC_31": {
       "name": "NC",
       "pin_id": "31",
-      "direction": "NONE",
-      "type": "NC",
-      "description": "No Connect. Leave this pin floating, do not tie to PGND."
+      "direction": "OTHER",
+      "type": "OTHER",
+      "description": "No Connect. Leave this pin floating, do not tie to PGND.",
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Leave unconnected (floating). Do not connect to any signal, voltage, or ground.",
+        "detailed_description": "This pin is not internally connected to any functional circuitry. It is a no-connect pin in the VQFN-36 package.",
+        "functionality": "No function. Reserved/not connected.",
+        "connected_components": [],
+        "precautions": [
+          "Leave floating. Do NOT tie to PGND or any other net."
+        ]
+      }
     },
     "VAC_32": {
       "name": "VAC",
       "pin_id": "32",
-      "direction": "INPUT",
+      "direction": "OTHER",
       "type": "POWER",
-      "description": "Input Voltage Detection and Power. Connect a 1-uF capacitor from pin to PGND. When Reverse Mode is enabled, pin 32 is regulated to VAC_REV. Operating range: 4.2V to 70V.",
+      "description": "Input Voltage Detection and Power. Connect a 1-uF capacitor from pin to PGND. When Reverse Mode is enabled, pin 32 is regulated to VAC_REV.",
       "input_voltage": {
         "min": 4.2,
         "max": 70.0,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect a 1-uF ceramic capacitor from VAC (pin 32) to PGND. Pin 32 and pin 33 are both VAC pins. Pin 33 is the primary input bias pin; pin 32 provides additional connectivity and is the regulated output in reverse mode.",
+        "detailed_description": "VAC pin 32 is one of two VAC input pins. During forward (charging) mode, VAC pins provide the input voltage for the charger. During reverse mode, pin 32 is the regulated output terminal where the converter delivers power from the battery to the input port. The VAC voltage is monitored by the ADC (VAC_ADC register). The VAC discharge load current is 16 mA for VAC/SRN balancing.",
+        "functionality": "Input power and voltage sensing. In forward mode: input supply detection and power. In reverse mode: regulated output voltage terminal (VAC_REV, programmable 3.3 V to 65 V). Provides VAC voltage to the internal ACUV/ACOV comparators and ADC.",
+        "connected_components": [
+          {
+            "component_name": "VAC Decoupling Capacitor",
+            "description": "1-uF ceramic capacitor from VAC (pin 32) to PGND."
+          },
+          {
+            "component_name": "Input Supply",
+            "description": "Connected to the input power source (adapter, solar panel, USB-PD port) through RAC_SNS and input capacitors."
+          }
+        ],
+        "precautions": [
+          "VAC operating range: 4.2 V to 70 V.",
+          "Absolute maximum voltage is 85 V.",
+          "Always connect a 1-uF capacitor from VAC to PGND.",
+          "In reverse mode, pin 32 outputs the regulated VAC_REV voltage."
+        ]
       }
     },
     "VAC_33": {
       "name": "VAC",
       "pin_id": "33",
-      "direction": "INPUT",
+      "direction": "OTHER",
       "type": "POWER",
-      "description": "Input Voltage Detection and Power. Pin 33 is the input bias to power the IC. ACOV/ACUV resistor divider should be connected relative to pin 33. Operating range: 4.2V to 70V.",
+      "description": "Input Voltage Detection and Power. Pin 33 is the input bias to power the IC. ACOV/ACUV resistor divider should be connected relative to pin 33.",
       "input_voltage": {
         "min": 4.2,
         "max": 70.0,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Pin 33 is the primary input bias power pin. Connect to the input supply rail. The ACOV and ACUV resistor divider should be referenced from pin 33. The internal REGN LDO derives its power from pin 33.",
+        "detailed_description": "VAC pin 33 is the primary input bias pin for the IC. It provides the supply voltage for the internal REGN LDO and the ACOV/ACUV protection comparators. The ACOV/ACUV resistor divider should be connected relative to this pin for accurate input voltage window detection.",
+        "functionality": "Primary input power pin for IC bias. Powers the internal REGN LDO. Provides the reference point for the ACUV/ACOV resistor divider network for input voltage window programming.",
+        "connected_components": [
+          {
+            "component_name": "ACOV/ACUV Resistor Divider",
+            "description": "Three-resistor divider from VAC (pin 33) to PGND with tap points for ACUV (pin 34) and ACOV (pin 35). Top resistor RAC1 typically 1000 kOhm."
+          },
+          {
+            "component_name": "Input Supply",
+            "description": "Connected to the input power source through RAC_SNS."
+          }
+        ],
+        "precautions": [
+          "VAC operating range: 4.2 V to 70 V.",
+          "Absolute maximum voltage is 85 V.",
+          "ACOV/ACUV divider should be connected relative to pin 33 (not pin 32).",
+          "The IC powers on when VAC exceeds VVAC_OK (4.2 V)."
+        ]
       }
     },
     "ACUV": {
@@ -447,11 +1163,31 @@
       "pin_id": "34",
       "direction": "INPUT",
       "type": "ANALOG",
-      "description": "AC Undervoltage Comparator Input. Connect a resistor divider from VAC to PGND to program undervoltage protection. When this pin falls below VREF_ACUV (1.095-1.106V), the device stops charging. The hardware limit for input voltage regulation is VACUV_DPM (1.198-1.222V). If ACUV programming is not used, pull this pin to VAC, do not leave floating.",
+      "description": "AC Undervoltage Comparator Input. Connect a resistor divider from VAC to PGND to program the undervoltage protection. When this pin falls below VREF_ACUV, the device stops charging. The hardware limit for input voltage regulation reference is VACUV_DPM. The actual input voltage regulation is the higher of the pin-programmed value and the VAC_DPM register value. If ACUV programming is not used, pull this pin to VAC, do not leave floating.",
       "input_voltage": {
         "min": -0.3,
         "max": 85.0,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the midpoint of the ACUV/ACOV resistor divider (between RAC2 and RAC3, counting from VAC). The ACUV threshold is set by VREF_ACUV (1.1 V typ). When ACUV falls below VREF_ACUV, the device stops charging and PG goes HIGH. ACUV also sets the hardware input voltage DPM limit (VACUV_DPM = 1.21 V). If ACUV is not used, pull directly to VAC.",
+        "detailed_description": "The ACUV pin provides hardware-programmable input undervoltage protection. A three-resistor divider from VAC (pin 33) to PGND creates scaled voltages for ACUV and ACOV. The ACUV target voltage is: VACUV_TARGET = VREF_ACUV x (RAC1 + RAC2 + RAC3) / (RAC2 + RAC3). When ACUV voltage falls below VREF_ACUV (1.1 V), the device enters VAC_UVP and stops charging. The ACUV pin also provides a hardware input voltage DPM reference (VACUV_DPM = 1.21 V); the actual input voltage regulation is the higher of this and the VAC_DPM register value.",
+        "functionality": "Programs the input undervoltage protection threshold. Also sets the hardware input voltage DPM (dynamic power management) regulation floor. The device reduces charge current when approaching VACUV_DPM and stops charging entirely when below VREF_ACUV.",
+        "connected_components": [
+          {
+            "component_name": "ACUV/ACOV Resistor Divider (RAC1, RAC2, RAC3)",
+            "description": "Three-resistor divider from VAC to PGND. ACUV connects at the RAC2/RAC3 junction. ACOV connects at the RAC1/RAC2 junction. RAC1 typically 1000 kOhm."
+          }
+        ],
+        "precautions": [
+          "Do NOT leave ACUV floating. Pull to VAC if not used.",
+          "Absolute maximum voltage is 85 V.",
+          "VREF_ACUV = 1.095-1.106 V. ACUV has 50-mV hysteresis.",
+          "Enter ACUV deglitch time is 100 us. Exit ACUV deglitch time is 12 ms.",
+          "If unused, tie ACUV to VAC and ACOV to PGND for the internal VAC operating window.",
+          "Route ACUV trace away from high-power switching nodes."
+        ]
       }
     },
     "ACOV": {
@@ -459,11 +1195,31 @@
       "pin_id": "35",
       "direction": "INPUT",
       "type": "ANALOG",
-      "description": "AC Overvoltage Comparator Input. Connect a resistor divider from VAC to PGND to program overvoltage protection. When this pin rises above VREF_ACOV (1.184-1.206V), the device stops charging. If ACOV programming is not used, pull this pin to PGND, do not leave floating.",
+      "description": "AC Overvoltage Comparator Input. Connect a resistor divider from VAC to PGND to program the overvoltage protection. When this pin rises above VREF_ACOV, the device stops charging. If ACOV programming is not used, pull this pin to PGND, do not leave floating.",
       "input_voltage": {
         "min": -0.3,
         "max": 85.0,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the midpoint of the ACUV/ACOV resistor divider (between RAC1 and RAC2, counting from VAC). The ACOV threshold is set by VREF_ACOV (1.2 V typ). When ACOV rises above VREF_ACOV, the device stops charging and PG goes HIGH. If ACOV is not used, pull directly to PGND.",
+        "detailed_description": "The ACOV pin provides hardware-programmable input overvoltage protection. Using the same three-resistor divider as ACUV, the ACOV target voltage is: VACOV_TARGET = VREF_ACOV x (RAC1 + RAC2 + RAC3) / RAC3. When ACOV voltage rises above VREF_ACOV (1.2 V), the device enters VAC_OVP and stops charging. There is also an internal overvoltage threshold (VVAC_INT_OV = 72-76 V) that provides absolute maximum input protection.",
+        "functionality": "Programs the input overvoltage protection threshold. Protects the charger and battery from excessive input voltage. The device also has an internal OVP at 72-76 V as a backup.",
+        "connected_components": [
+          {
+            "component_name": "ACUV/ACOV Resistor Divider (RAC1, RAC2, RAC3)",
+            "description": "Three-resistor divider from VAC to PGND. ACOV connects at the RAC1/RAC2 junction. RAC1 typically 1000 kOhm."
+          }
+        ],
+        "precautions": [
+          "Do NOT leave ACOV floating. Pull to PGND if not used.",
+          "Absolute maximum voltage is 85 V.",
+          "VREF_ACOV = 1.184-1.206 V. ACOV has 50-mV hysteresis.",
+          "Enter ACOV deglitch time is 100 us. Exit ACOV deglitch time is 12 ms.",
+          "If unused, tie ACOV to PGND and ACUV to VAC for the internal VAC operating window.",
+          "Route ACOV trace away from high-power switching nodes."
+        ]
       }
     },
     "FSW_SYNC": {
@@ -471,19 +1227,67 @@
       "pin_id": "36",
       "direction": "INPUT",
       "type": "ANALOG",
-      "description": "Switching Frequency and Synchronization Input. An external resistor to PGND sets the nominal switching frequency (200-600 kHz). RFSW_SYNC = 133kOhm for 250kHz, 50kOhm for 500kHz. This pin can also synchronize the PWM controller to an external clock with 200-600kHz frequency. SYNC VIH: 1.3V, VIL: 0.4V, pulse width: 80ns min.",
+      "description": "Switching Frequency and Synchronization Input. An external resistor is connected to the FSW_SYNC pin and PGND to set the nominal switching frequency. This pin can also be used to synchronize the PWM controller to an external clock with 200-kHz to 600-kHz frequency.",
       "input_voltage": {
         "min": -0.3,
         "max": 6.0,
         "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect a resistor from FSW_SYNC to PGND to set the switching frequency. The resistor value determines the frequency per: RFSW = 1 / (fSW * some_constant). Common values: 200 kOhm = 200 kHz, 133 kOhm = 250 kHz, 100 kOhm = 300 kHz, 50 kOhm = 500 kHz. Alternatively, an external clock (200-600 kHz) can be applied to synchronize the converter.",
+        "detailed_description": "The FSW_SYNC pin serves a dual function: it programs the nominal switching frequency via a pull-down resistor to PGND, and it can accept an external clock for synchronization. The switching frequency range is 200 kHz to 600 kHz. When a sync clock is detected, the internal oscillator locks to the external frequency. Higher switching frequency allows smaller inductor and capacitor values but increases switching losses. The EN_PFM bit is automatically cleared when a valid SYNC clock is detected.",
+        "functionality": "Sets the PWM switching frequency of the buck-boost converter. The frequency affects the inductor ripple current, converter efficiency, EMI spectrum, and passive component sizing. External synchronization enables frequency coordination with other converters in the system.",
+        "connected_components": [
+          {
+            "component_name": "Frequency Set Resistor (RFSW)",
+            "description": "Resistor from FSW_SYNC to PGND. 133 kOhm for 250 kHz, 50 kOhm for 500 kHz. Use 0.1% standard resistor for frequency accuracy. Must always be present even when using sync."
+          },
+          {
+            "component_name": "External Sync Clock Source (optional)",
+            "description": "Square wave clock signal (200-600 kHz) from an external oscillator or other converter sync output. VIH > 1.3 V, VIL < 0.4 V, minimum pulse width 80 ns."
+          }
+        ],
+        "precautions": [
+          "Do NOT leave FSW_SYNC floating. Must be pulled to PGND via RFSW.",
+          "Absolute maximum voltage is 6 V.",
+          "RFSW range: 40 kOhm (600 kHz) to 200 kOhm (200 kHz).",
+          "Minimize ground return from RFSW to the IC PGND pin to avoid frequency jitter.",
+          "When sync clock is present, EN_PFM is automatically cleared to ensure fixed-frequency operation.",
+          "Sync clock input pulse width must be at least 80 ns."
+        ]
       }
     },
     "ThermalPad": {
       "name": "Thermal Pad",
       "pin_id": "37",
-      "direction": "INPUT",
+      "direction": "OTHER",
       "type": "POWER",
-      "description": "Exposed pad beneath the IC. Always solder the thermal pad to the board, and have vias on the thermal pad plane star-connecting to PGND and ground plane for high-current power converter. Also serves as a thermal pad to dissipate heat. RthetaJC(bot): 2.5 C/W."
+      "description": "Exposed pad beneath the IC. Always solder the thermal pad to the board, and have vias on the thermal pad plane star-connecting to PGND and ground plane for high-current power converter. It also serves as a thermal pad to dissipate the heat.",
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Always solder to the PCB. Connect to the PGND ground plane using multiple thermal vias in a star pattern. The thermal pad provides both the primary electrical ground connection and thermal heat dissipation path.",
+        "detailed_description": "The exposed thermal pad on the bottom of the VQFN-36 package serves as both the primary power ground connection and the thermal heat sink for the IC. The junction-to-case (bottom) thermal resistance is 2.5 C/W, making this the dominant heat dissipation path. The thermal pad ground plane should connect all analog grounds (dedicated low-impedance copper plane) to power ground underneath the IC.",
+        "functionality": "Primary power ground (PGND) connection and thermal heat dissipation path. All ground-referenced signals and return currents ultimately connect through the thermal pad ground plane.",
+        "connected_components": [
+          {
+            "component_name": "Thermal Vias",
+            "description": "Multiple vias (10-mil drill, 1 oz copper) in a star pattern connecting the thermal pad to internal and bottom ground planes. Estimate 1-2 A per via for thermal via current capacity."
+          },
+          {
+            "component_name": "Ground Plane",
+            "description": "Large copper ground plane on the PCB inner and bottom layers for heat spreading and low-impedance ground return."
+          }
+        ],
+        "precautions": [
+          "The thermal pad MUST be soldered to the board. Do not leave unsoldered.",
+          "Use multiple thermal vias in a star pattern for both electrical and thermal connectivity.",
+          "The analog ground plane (for small-signal components) should be tied to the power ground underneath the IC exposed pad.",
+          "RthetaJC(bot) = 2.5 C/W; RthetaJA = 29.4 C/W. Adequate copper area is needed for thermal management.",
+          "Connect all ground pins (17, 22, 37) to a common low-impedance ground plane.",
+          "Ensure solder paste coverage is adequate for reliable thermal and electrical connection."
+        ]
+      }
     }
   },
   "serial_bus": {

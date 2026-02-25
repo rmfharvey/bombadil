@@ -4,7 +4,7 @@
 - No `example_datasheet.json` files exist in the repo; use existing `datasheet.json` files as reference
 - Good references: `lmr38025sdrrr` (buck regulator), `tps22917dbvr` (load switch), `bq25756` (charger with I2C)
 - `high_level.device_type` uses strings like "REGULATOR_BUCK", "HIGH_SIDE_DRIVER", "OSCILLATOR"
-- `high_level.serial_busses` uses strings like "I2C", "PMBus" (but bq25756 uses numeric `1`)
+- `high_level.serial_busses` uses strings like "I2C", "PMBus"
 - Pins with multiple pin numbers: use comma-separated string e.g. "1, 2, 3, 34"
 - NC pins with different pin numbers: use unique keys like "NC_8", "NC_9", "NC_10"
 - `serial_bus.registers` follows PMBus/I2C command map with address, type, data_format, default_value, description, fields
@@ -34,3 +34,4 @@
 - **I/O Expanders** (TCA9535): Device type: "IO_EXPANDER". Use `serial_bus` with type/base_address/address_pins/address_range/max_clock_frequency_kHz. Registers are simple 8-bit per-port (input/output/polarity/config). Fields are individual bits (64 total for 16-bit expander). Pin numbers use TSSOP-24 (PW) package pinout. TCA9535 has no internal pull-ups (unlike TCA9555). I2C base address 0x20, 3 hardware address pins (A0-A2).
 - **DC-DC controllers** (LTC7890): Device type: "CONTROLLER_BUCK". No serial bus; `serial_bus.registers` is empty `{}`. Split gate drivers (TGUP/TGDN/BGUP/BGDN) have absolute max warning: "Do not apply a voltage or current source; capacitive loads only." GaN FET controllers have smart bootstrap and dead time control pins. Pin count can be high (40-pin QFN with exposed pad = 41 pins).
 - **Ethernet switches** (RTL8367S): Device type: "ETHERNET_SWITCH". 128-pin LQFP. Multi-function pins with GPIO/RGMII/MII/SPI/UART overlays -- use composite key names (e.g. "GPIO01_RG2_TXD3"). Serial bus is PCS PHY registers (IEEE 802.3 standard registers 0-15) accessed via SMI/MDIO. Strapping pins configure EEPROM mode, 8051 enable, SPI flash, EEE, PHY enable, management interface selection. Internal switching regulator (EN_SWR/LX/HV_SWR) generates 1.1V from 3.3V. 40 MDI pins across 5 PHY ports (8 per port: 4 differential pairs).
+- **Battery chargers** (BQ25756): Device type: "CHARGER_BUCK_BOOST". Register keys use decimal address strings ("0", "2", "6" etc.). Register fields stored as list (not dict) in `serial_bus.fields`. Registers have: address, bit_width, init_value, name, description, optional read_only. Fields have: name, description, register_location (list of {register_address, reg_start_bit, reg_end_bit, field_start_bit, field_end_bit}), optional reserved, digital_physical_map. 42 registers, 182 fields, 37 pins. VQFN-36 package with exposed thermal pad (pin 37). I2C address 0x6B. Reset values stored as decimal integers (e.g., 0x0010 stored as 16).
