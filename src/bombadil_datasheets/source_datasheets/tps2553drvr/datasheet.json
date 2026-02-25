@@ -1,0 +1,250 @@
+{
+  "high_level": {
+    "base_part_number": "TPS2553",
+    "device_type": "HIGH_SIDE_DRIVER",
+    "manufacturer": "Texas Instruments",
+    "packages": [
+      "SOT-23 (DBV)",
+      "WSON (DRV)"
+    ],
+    "part_numbers": {
+      "TPS2552": {
+        "options": {
+          "Package": "SOT-23 (DBV), WSON (DRV)",
+          "Enable": "Active Low",
+          "Overcurrent": "Constant Current"
+        }
+      },
+      "TPS2553": {
+        "options": {
+          "Package": "SOT-23 (DBV), WSON (DRV)",
+          "Enable": "Active High",
+          "Overcurrent": "Constant Current"
+        }
+      },
+      "TPS2552-1": {
+        "options": {
+          "Package": "SOT-23 (DBV), WSON (DRV)",
+          "Enable": "Active Low",
+          "Overcurrent": "Latch Off"
+        }
+      },
+      "TPS2553-1": {
+        "options": {
+          "Package": "SOT-23 (DBV), WSON (DRV)",
+          "Enable": "Active High",
+          "Overcurrent": "Latch Off"
+        }
+      }
+    }
+  },
+  "pins": {
+    "IN": {
+      "name": "IN",
+      "pin_id": "6",
+      "description": "Input voltage; connect a 0.1 uF or greater ceramic capacitor from IN to GND as close to the IC as possible.",
+      "direction": "INPUT",
+      "type": "POWER",
+      "input_voltage": {
+        "min": 2.5,
+        "max": 6.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Input Capacitor (CIN)",
+            "description": "A 0.1 uF or greater ceramic bypass capacitor is required between IN and GND, placed as close to the device as possible. This reduces ringing on the input due to power-supply transients. Additional input capacitance may be needed to reduce voltage overshoot during heavy transient conditions."
+          },
+          {
+            "component_name": "Input Voltage Source",
+            "description": "The main power supply for the application providing voltage to the IN pin. Operating range is 2.5 V to 6.5 V."
+          }
+        ],
+        "connectivity": "The IN pin should be connected directly to the input voltage supply. A 0.1 uF or greater ceramic capacitor must be placed between IN and GND as close to the IC as possible for local noise decoupling. Additional input capacitance may be needed to reduce voltage overshoot from exceeding the absolute maximum rating (7 V) during heavy transient conditions.",
+        "detailed_description": "The IN pin is the power input to the TPS2553 power-distribution switch. It provides the source voltage that is switched through the internal N-channel MOSFET to the OUT pin. The device incorporates an internal charge pump that operates from this input to drive the gate of the N-channel MOSFET above the source voltage.",
+        "functionality": "The IN pin serves as the primary power input for the device. It supplies the input voltage to the internal N-channel MOSFET switch and also powers the internal charge pump, gate driver, current-sense amplifier, and control circuitry. The device has an undervoltage lockout (UVLO) circuit that disables the power switch until VIN reaches approximately 2.35 V (typical rising threshold).",
+        "precautions": [
+          "Ensure that the voltage applied to the IN pin is within the recommended operating range (2.5 V to 6.5 V). The absolute maximum rating is 7 V.",
+          "Place a 0.1 uF or greater ceramic bypass capacitor between IN and GND as close to the IC as possible.",
+          "Additional input capacitance may be needed to reduce voltage overshoot during heavy transient conditions, especially when long inductive cables are used to connect the board to the power supply.",
+          "The UVLO circuit disables the power switch until VIN reaches approximately 2.35 V with 25 mV of hysteresis to prevent unwanted on/off cycling."
+        ]
+      }
+    },
+    "OUT": {
+      "name": "OUT",
+      "pin_id": "1",
+      "description": "Power-switch output.",
+      "direction": "OUTPUT",
+      "type": "POWER",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Load",
+            "description": "The OUT pin is connected to the positive terminal of the load being powered by the TPS2553. Maximum continuous output current is 1.5 A (TJ <= 105C) or 1.2 A (TJ <= 125C)."
+          },
+          {
+            "component_name": "Output Capacitor (COUT)",
+            "description": "TI recommends placing a high-value electrolytic capacitor on the output pin when large transient currents are expected on the output. Output capacitance improves performance and must be optimized for the particular application."
+          }
+        ],
+        "connectivity": "The OUT pin should be connected to the load. An output capacitor may be placed between OUT and GND to improve transient response. During normal operation, VOUT = VIN - (IOUT x rDS(on)).",
+        "detailed_description": "The OUT pin is the output of the internal N-channel MOSFET power switch. During normal operation (load current below current-limit threshold), the MOSFET is fully enhanced and the output voltage closely tracks the input voltage with only a small drop due to rDS(on). During an overcurrent condition, the TPS2553 operates in constant-current mode and reduces the output voltage accordingly. The output has built-in soft-start with controlled rise and fall times to minimize current surges.",
+        "functionality": "The OUT pin provides the switched output voltage to the load. The device controls the rise time (1.1 ms typical at VIN=6.5V) and fall time (0.2 ms typical) to limit large current and voltage surges during turn-on and turn-off. The reverse-voltage protection feature turns off the MOSFET if VOUT exceeds VIN by approximately 135 mV (typical), protecting devices on the input side.",
+        "precautions": [
+          "The maximum continuous output current is 1.5 A (TJ <= 105C) or 1.2 A (TJ <= 125C).",
+          "Ensure that the voltage and current on the OUT pin do not exceed the absolute maximum ratings.",
+          "TI recommends placing a high-value electrolytic capacitor on the output when large transient currents are expected.",
+          "The reverse-voltage protection feature turns off the MOSFET if VOUT exceeds VIN by 135 mV (typical) for 4 ms (typical). A reverse current of (VOUT - VIN)/rDS(on) is present during this time.",
+          "During an overcurrent condition, VOUT decreases proportionally: VOUT = IOS x RLOAD."
+        ]
+      }
+    },
+    "EN": {
+      "name": "EN",
+      "pin_id": "4",
+      "description": "Enable input, logic high turns on power switch (TPS2553). Compatible with TTL and CMOS logic levels.",
+      "direction": "INPUT",
+      "type": "DIGITAL",
+      "input_voltage": {
+        "min": 0.0,
+        "max": 6.5,
+        "units": "V"
+      },
+      "vih": {
+        "min": 1.1,
+        "units": "V"
+      },
+      "vil": {
+        "max": 0.66,
+        "units": "V"
+      },
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Digital Control Signal",
+            "description": "A GPIO output from a microcontroller, a logic gate, or any other digital signal source that can drive the EN pin to the required logic levels. The EN input is compatible with both TTL and CMOS logic levels."
+          }
+        ],
+        "connectivity": "The EN pin should be connected to a digital control signal (e.g., from a microcontroller GPIO). For the TPS2553, a logic HIGH (above 1.1 V) enables the power switch. A logic LOW (below 0.66 V) disables the switch and reduces supply current to less than 1 uA. For the TPS2552 variant, the enable logic is inverted (active low). Do not leave floating.",
+        "detailed_description": "The EN pin controls the on/off state of the power switch. It also controls bias for the charge pump, driver, and other internal circuits. When the device is disabled, supply current is reduced to less than 1 uA. The enable input is compatible with both TTL and CMOS logic levels. The input current is less than 0.5 uA.",
+        "functionality": "The EN pin enables or disables the power switch and all internal circuits. For the TPS2553 (active-high version), a logic HIGH enables the device and a logic LOW disables it. The enable also controls the charge pump, gate driver, and control circuits to minimize supply current when disabled.",
+        "precautions": [
+          "The EN pin voltage must be within the recommended operating range (0 V to 6.5 V). The absolute maximum is 7 V.",
+          "For the TPS2553, use a logic HIGH to enable the switch. For the TPS2552, use a logic LOW to enable.",
+          "The turnon time from enable assertion is approximately 3 ms (typical) with CL = 1 uF, RL = 100 ohm.",
+          "The turnoff time from enable de-assertion is approximately 3 ms (typical) with CL = 1 uF, RL = 100 ohm.",
+          "Do not leave the EN pin floating. Connect it to a defined logic level."
+        ]
+      }
+    },
+    "FAULT": {
+      "name": "FAULT",
+      "pin_id": "3",
+      "description": "Active-low open-drain output, asserted during overcurrent, overtemperature, or reverse-voltage conditions.",
+      "direction": "OUTPUT",
+      "type": "DIGITAL",
+      "output_type": "OPEN_DRAIN",
+      "vol": {
+        "max": 180,
+        "units": "mV"
+      },
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Pull-up Resistor",
+            "description": "An external pull-up resistor is required to connect between the FAULT pin and the microcontroller's supply voltage. This pulls the FAULT pin high when no fault is present. Maximum continuous FAULT sink current is 10 mA (recommended), 25 mA (absolute maximum)."
+          },
+          {
+            "component_name": "Microcontroller Input",
+            "description": "The FAULT pin should be connected to a digital input pin on a microcontroller to monitor fault conditions (overcurrent, overtemperature, reverse-voltage)."
+          }
+        ],
+        "connectivity": "The FAULT pin is an open-drain output. It requires an external pull-up resistor to a logic supply voltage. The FAULT output is asserted low during an overcurrent, overtemperature, or reverse-voltage condition. Off-state leakage is less than 1 uA at 6.5 V. VOL is 180 mV max at 1 mA sink current.",
+        "detailed_description": "The FAULT pin is an active-low, open-drain fault indicator. It asserts during three types of fault conditions: overcurrent (after 7.5 ms typical deglitch), overtemperature (immediate, no deglitch), and reverse-voltage (after 4 ms typical deglitch). The internal deglitch circuit prevents false FAULT reporting during normal operation such as starting into a heavy capacitive load. For TPS2553 (constant-current version), FAULT de-asserts when the fault condition is removed and normal operation resumes. For TPS2553-1 (latch-off version), FAULT remains asserted until power is cycled or enable is toggled.",
+        "functionality": "The FAULT pin reports three fault conditions: (1) Overcurrent - asserted after 7.5 ms deglitch when load exceeds current-limit threshold; (2) Overtemperature - asserted immediately when junction temperature exceeds thermal shutdown threshold (155C ambient or 135C during current limit); (3) Reverse-voltage - asserted after 4 ms deglitch when VOUT exceeds VIN by 135 mV typical.",
+        "precautions": [
+          "An external pull-up resistor is required for the FAULT pin to function as a fault indicator.",
+          "The continuous FAULT sink current should not exceed 10 mA (recommended operating condition) or 25 mA (absolute maximum).",
+          "The deglitch times are: 5-10 ms (7.5 ms typical) for overcurrent, 2-6 ms (4 ms typical) for reverse-voltage, and immediate for overtemperature.",
+          "The FAULT output reflects both assertion and de-assertion deglitch delays for overcurrent and reverse-voltage conditions.",
+          "For TPS2553-1 (latch-off version), FAULT remains asserted even after the fault is removed until power is cycled or enable is toggled."
+        ]
+      }
+    },
+    "ILIM": {
+      "name": "ILIM",
+      "pin_id": "2",
+      "description": "External resistor used to set current-limit threshold; recommended 15 kOhm <= RILIM <= 232 kOhm.",
+      "direction": "OUTPUT",
+      "type": "ANALOG",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Current-Limit Resistor (RILIM)",
+            "description": "An external 1% tolerance resistor connected from ILIM to GND sets the current-limit threshold. Recommended range is 15 kOhm to 232 kOhm, providing a programmable current limit from approximately 130 mA to 1700 mA (typical). Use the equations: IOS_nom(mA) = 23950 / RILIM(kOhm)^0.977, IOS_max(mA) = 22980 / RILIM(kOhm)^0.94, IOS_min(mA) = 25230 / RILIM(kOhm)^1.016."
+          }
+        ],
+        "connectivity": "Connect a resistor (RILIM) from the ILIM pin to GND to set the desired current-limit threshold. The recommended 1% resistor range is 15 kOhm <= RILIM <= 232 kOhm. Alternatively, ILIM can be connected directly to IN to provide a 75 mA (typical) current-limit threshold; additional low-ESR ceramic capacitance may be needed from IN to GND in this configuration. Keep traces to the RILIM resistor as short as possible to reduce parasitic effects on current-limit accuracy.",
+        "detailed_description": "The ILIM pin uses an internal regulation loop that provides a regulated voltage. The current-limit threshold is proportional to the current sourced out of the ILIM pin. The external resistor determines the current flowing from the ILIM pin, which in turn sets the overcurrent threshold. The current-limit accuracy is as tight as +/-6% at higher current-limit settings (e.g., RILIM = 20 kOhm gives 1295 mA typical with min 1215 mA, max 1375 mA).",
+        "functionality": "The ILIM pin provides a programmable current-limit threshold for the power switch. The overcurrent threshold is inversely proportional to RILIM. Common configurations: RILIM = 20 kOhm for 1295 mA (typical, USB high-power), RILIM = 49.9 kOhm for 520 mA (typical, USB low-power), RILIM = 210 kOhm for 130 mA. Shorting ILIM to IN provides the lowest threshold of 75 mA (typical).",
+        "precautions": [
+          "ILIM must never be driven directly with an external signal. Only passive resistors should be connected.",
+          "The recommended resistor range is 15 kOhm to 232 kOhm for stability of the internal regulation loop.",
+          "Use 1% or tighter tolerance resistors when precision current limiting is desired. Resistor tolerance directly affects current-limit threshold accuracy.",
+          "Keep traces routing the RILIM resistor to the device as short as possible to reduce parasitic effects on current-limit accuracy.",
+          "The absolute maximum ILIM source current is 1 mA.",
+          "When ILIM is shorted to IN for the 75 mA threshold, additional low-ESR ceramic capacitance may be needed from IN to GND to prevent noise coupling."
+        ]
+      }
+    },
+    "GND": {
+      "name": "GND",
+      "pin_id": "5",
+      "description": "Ground connection; connect externally to PowerPAD.",
+      "direction": "INPUT",
+      "type": "POWER",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "System Ground Plane",
+            "description": "The GND pin must be connected to the system's ground plane. Also connect to the PowerPAD externally for proper thermal dissipation and electrical grounding."
+          }
+        ],
+        "connectivity": "The GND pin must be connected to the system's ground plane. It must also be connected externally to the PowerPAD (thermal pad) for proper operation and thermal dissipation.",
+        "detailed_description": "The GND pin is the ground reference for the device. All voltages are referenced to GND unless otherwise noted. The GND pin must be connected to the PowerPAD externally.",
+        "functionality": "The GND pin serves as the primary ground connection for the TPS2553. It provides the common 0 V reference for all internal circuits including the charge pump, gate driver, current-sense amplifier, and control logic.",
+        "precautions": [
+          "Ensure a low-impedance connection to ground to minimize noise and ensure proper operation.",
+          "Connect the GND pin externally to the PowerPAD for thermal performance and electrical grounding.",
+          "In multi-layer PCB designs, use thermal vias to connect to the ground plane for improved thermal dissipation."
+        ]
+      }
+    },
+    "PowerPAD": {
+      "name": "PowerPAD",
+      "pin_id": "PAD",
+      "description": "Internally connected to GND; used to heat-sink the part to the circuit board traces. Connect PowerPAD to GND pin externally. Only present on WSON (DRV) package.",
+      "direction": "OTHER",
+      "type": "POWER",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Ground Plane",
+            "description": "The PowerPAD is internally connected to device GND. On the PCB, it should be connected to the ground plane using thermal vias for effective heat dissipation. This is critical for the DRV (WSON) package which has RthJA = 72 C/W (vs 182.6 C/W for the SOT-23 DBV package without exposed pad)."
+          }
+        ],
+        "connectivity": "The PowerPAD must be connected externally to the GND pin and the ground plane of the PCB. Use thermal vias underneath the pad to connect to inner ground planes for optimal thermal dissipation.",
+        "detailed_description": "The PowerPAD is an exposed thermal pad on the bottom of the WSON (DRV) package. It is internally connected to the device GND. It provides a low-thermal-resistance path from the die to the PCB, significantly improving thermal performance (RthJA = 72 C/W for DRV vs 182.6 C/W for DBV).",
+        "functionality": "The PowerPAD serves as the primary thermal dissipation path for the device and provides a low-impedance ground connection. It significantly reduces the junction-to-ambient thermal resistance, enabling higher continuous output current capability.",
+        "precautions": [
+          "The PowerPAD must be soldered to the PCB ground plane for proper thermal and electrical performance.",
+          "Use multiple thermal vias under the pad to connect to inner ground layers.",
+          "Maximize copper coverage around the thermal pad area for improved heat spreading.",
+          "The PowerPAD is only present on the WSON (DRV) package, not on the SOT-23 (DBV) package."
+        ]
+      }
+    }
+  }
+}

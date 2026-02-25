@@ -1,0 +1,1543 @@
+{
+  "high_level": {
+    "base_part_number": "TCA9535",
+    "device_type": "IO_EXPANDER",
+    "manufacturer": "Texas Instruments",
+    "packages": [
+      "TSSOP-24 (PW)",
+      "SSOP-24 (DB)",
+      "WQFN-24 (RTW)",
+      "VQFN-24 (RGE)"
+    ],
+    "part_numbers": {
+      "TCA9535PWR": {
+        "options": {
+          "Package": "TSSOP-24 (PW)",
+          "BodySize": "7.80 mm x 4.40 mm"
+        }
+      },
+      "TCA9535DBR": {
+        "options": {
+          "Package": "SSOP-24 (DB)",
+          "BodySize": "6.20 mm x 5.30 mm"
+        }
+      },
+      "TCA9535RTWR": {
+        "options": {
+          "Package": "WQFN-24 (RTW)",
+          "BodySize": "4.00 mm x 4.00 mm"
+        }
+      },
+      "TCA9535RGER": {
+        "options": {
+          "Package": "VQFN-24 (RGE)",
+          "BodySize": "4.00 mm x 4.00 mm"
+        }
+      }
+    },
+    "serial_busses": [
+      "I2C"
+    ],
+    "description": "Low-Voltage 16-Bit I2C and SMBus Low-Power I/O Expander with Interrupt Output and Configuration Registers. Provides 16 bits of general purpose parallel I/O expansion via I2C bus. No internal pull-up resistors on I/O pins (unlike TCA9555). Supports up to 8 devices on the same bus via 3 hardware address pins (A0, A1, A2). I2C address range: 0x20-0x27."
+  },
+  "pins": {
+    "INT": {
+      "name": "INT",
+      "pin_id": "1",
+      "direction": "OUTPUT",
+      "type": "DIGITAL",
+      "description": "Open-drain active-low interrupt output. Activated when any input state differs from its corresponding Input Port register state. Reset by reading the port that generated the interrupt. Connect to VCC through an external pull-up resistor (typically 10 kOhm).",
+      "output_type": "OPEN_DRAIN",
+      "polarity": "ACTIVE_LOW",
+      "implementation": {
+        "connectivity": "Connect INT to VCC through a pull-up resistor (typically 10 kOhm). Connect to the interrupt input of the host microcontroller.",
+        "detailed_description": "The INT output is activated when any input state differs from its corresponding Input Port register state. It is used to signal the host controller that an input state has changed without polling via I2C. Resetting the interrupt circuit is achieved when data on the port is changed to the original setting or data is read from the port that generated the interrupt. Each 8-bit port is read independently; an interrupt caused by port 0 is not cleared by a read of port 1.",
+        "precautions": [
+          "INT has an open-drain structure and requires an external pull-up resistor to VCC (typically 10 kOhm).",
+          "Interrupts that occur during the ACK clock pulse can be lost or be very short because of resetting during this pulse.",
+          "Changing an I/O from output to input may cause a false interrupt if the state of the pin does not match the contents of the Input Port register.",
+          "An interrupt caused by port 0 is not cleared by a read of port 1, and vice versa."
+        ]
+      }
+    },
+    "A1": {
+      "name": "A1",
+      "pin_id": "2",
+      "direction": "INPUT",
+      "type": "DIGITAL",
+      "description": "Hardware address input 1. Connect directly to VCC or GND. Must not be left floating. Sets bit 1 of the I2C target address (base address 0x20).",
+      "implementation": {
+        "connectivity": "Connect directly to VCC or GND to set the I2C address bit. Must not be left floating.",
+        "detailed_description": "Hardware address pin for I2C address configuration. Together with A0 and A2, allows up to 8 TCA9535 devices on the same I2C bus. The I2C address is 0100[A2][A1][A0] (0x20-0x27).",
+        "precautions": [
+          "Must be tied to VCC or GND. Cannot be left floating.",
+          "The voltage on the pin must not change while the device is powered up to prevent possible I2C glitches."
+        ]
+      }
+    },
+    "A2": {
+      "name": "A2",
+      "pin_id": "3",
+      "direction": "INPUT",
+      "type": "DIGITAL",
+      "description": "Hardware address input 2. Connect directly to VCC or GND. Must not be left floating. Sets bit 2 of the I2C target address (base address 0x20).",
+      "implementation": {
+        "connectivity": "Connect directly to VCC or GND to set the I2C address bit. Must not be left floating.",
+        "detailed_description": "Hardware address pin for I2C address configuration. Together with A0 and A1, allows up to 8 TCA9535 devices on the same I2C bus. The I2C address is 0100[A2][A1][A0] (0x20-0x27).",
+        "precautions": [
+          "Must be tied to VCC or GND. Cannot be left floating.",
+          "The voltage on the pin must not change while the device is powered up to prevent possible I2C glitches."
+        ]
+      }
+    },
+    "P00": {
+      "name": "P00",
+      "pin_id": "4",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Port 0 bit 0 I/O. Push-pull design structure. 5-V tolerant. At power on, configured as an input. Direction controlled by Configuration register 0 bit 0.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Can be connected to LEDs (with current-limiting resistor), switches, enable/reset signals, or other digital I/O. If unused, must be tied to VCC or GND through a resistor of moderate value (about 10 kOhm).",
+        "detailed_description": "General-purpose bidirectional I/O pin. Push-pull output structure with high-current drive capability for directly driving LEDs. No internal pull-up resistor (unlike TCA9555). Configured as input at power-on. Direction, polarity, and output value controlled via I2C registers.",
+        "precautions": [
+          "If port is unused and configured as input, it must be tied to either VCC or GND through a resistor of moderate value (about 10 kOhm).",
+          "No internal pull-up resistor is present on the I/O pins.",
+          "Maximum IOL is 25 mA at Tj <= 65C, 18 mA at Tj <= 85C, 11 mA at Tj <= 100C.",
+          "Maximum IOH is -10 mA."
+        ]
+      }
+    },
+    "P01": {
+      "name": "P01",
+      "pin_id": "5",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Port 0 bit 1 I/O. Push-pull design structure. 5-V tolerant. At power on, configured as an input. Direction controlled by Configuration register 0 bit 1.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Can be connected to LEDs, switches, enable/reset signals, or other digital I/O. If unused, must be tied to VCC or GND through a resistor (about 10 kOhm).",
+        "detailed_description": "General-purpose bidirectional I/O pin. Push-pull output structure. No internal pull-up resistor.",
+        "precautions": [
+          "If unused and configured as input, must be tied to VCC or GND through a resistor (about 10 kOhm)."
+        ]
+      }
+    },
+    "P02": {
+      "name": "P02",
+      "pin_id": "6",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Port 0 bit 2 I/O. Push-pull design structure. 5-V tolerant. At power on, configured as an input. Direction controlled by Configuration register 0 bit 2.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Can be connected to LEDs, switches, enable/reset signals, or other digital I/O. If unused, must be tied to VCC or GND through a resistor (about 10 kOhm).",
+        "detailed_description": "General-purpose bidirectional I/O pin. Push-pull output structure. No internal pull-up resistor.",
+        "precautions": [
+          "If unused and configured as input, must be tied to VCC or GND through a resistor (about 10 kOhm)."
+        ]
+      }
+    },
+    "P03": {
+      "name": "P03",
+      "pin_id": "7",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Port 0 bit 3 I/O. Push-pull design structure. 5-V tolerant. At power on, configured as an input. Direction controlled by Configuration register 0 bit 3.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Can be connected to LEDs, switches, enable/reset signals, or other digital I/O. If unused, must be tied to VCC or GND through a resistor (about 10 kOhm).",
+        "detailed_description": "General-purpose bidirectional I/O pin. Push-pull output structure. No internal pull-up resistor.",
+        "precautions": [
+          "If unused and configured as input, must be tied to VCC or GND through a resistor (about 10 kOhm)."
+        ]
+      }
+    },
+    "P04": {
+      "name": "P04",
+      "pin_id": "8",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Port 0 bit 4 I/O. Push-pull design structure. 5-V tolerant. At power on, configured as an input. Direction controlled by Configuration register 0 bit 4.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Can be connected to LEDs, switches, enable/reset signals, or other digital I/O. If unused, must be tied to VCC or GND through a resistor (about 10 kOhm).",
+        "detailed_description": "General-purpose bidirectional I/O pin. Push-pull output structure. No internal pull-up resistor.",
+        "precautions": [
+          "If unused and configured as input, must be tied to VCC or GND through a resistor (about 10 kOhm)."
+        ]
+      }
+    },
+    "P05": {
+      "name": "P05",
+      "pin_id": "9",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Port 0 bit 5 I/O. Push-pull design structure. 5-V tolerant. At power on, configured as an input. Direction controlled by Configuration register 0 bit 5.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Can be connected to LEDs, switches, enable/reset signals, or other digital I/O. If unused, must be tied to VCC or GND through a resistor (about 10 kOhm).",
+        "detailed_description": "General-purpose bidirectional I/O pin. Push-pull output structure. No internal pull-up resistor.",
+        "precautions": [
+          "If unused and configured as input, must be tied to VCC or GND through a resistor (about 10 kOhm)."
+        ]
+      }
+    },
+    "P06": {
+      "name": "P06",
+      "pin_id": "10",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Port 0 bit 6 I/O. Push-pull design structure. 5-V tolerant. At power on, configured as an input. Direction controlled by Configuration register 0 bit 6.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Can be connected to LEDs, switches, enable/reset signals, or other digital I/O. If unused, must be tied to VCC or GND through a resistor (about 10 kOhm).",
+        "detailed_description": "General-purpose bidirectional I/O pin. Push-pull output structure. No internal pull-up resistor.",
+        "precautions": [
+          "If unused and configured as input, must be tied to VCC or GND through a resistor (about 10 kOhm)."
+        ]
+      }
+    },
+    "P07": {
+      "name": "P07",
+      "pin_id": "11",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Port 0 bit 7 I/O. Push-pull design structure. 5-V tolerant. At power on, configured as an input. Direction controlled by Configuration register 0 bit 7.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Can be connected to LEDs, switches, enable/reset signals, or other digital I/O. If unused, must be tied to VCC or GND through a resistor (about 10 kOhm).",
+        "detailed_description": "General-purpose bidirectional I/O pin. Push-pull output structure. No internal pull-up resistor.",
+        "precautions": [
+          "If unused and configured as input, must be tied to VCC or GND through a resistor (about 10 kOhm)."
+        ]
+      }
+    },
+    "GND": {
+      "name": "GND",
+      "pin_id": "12",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "Device ground.",
+      "implementation": {
+        "connectivity": "Connect to system ground plane.",
+        "detailed_description": "Ground reference for the device.",
+        "precautions": [
+          "Ensure a low-impedance connection to ground."
+        ]
+      }
+    },
+    "P10": {
+      "name": "P10",
+      "pin_id": "13",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Port 1 bit 0 I/O. Push-pull design structure. 5-V tolerant. At power on, configured as an input. Direction controlled by Configuration register 1 bit 0.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Can be connected to LEDs, switches, enable/reset signals, or other digital I/O. If unused, must be tied to VCC or GND through a resistor (about 10 kOhm).",
+        "detailed_description": "General-purpose bidirectional I/O pin. Push-pull output structure. No internal pull-up resistor.",
+        "precautions": [
+          "If unused and configured as input, must be tied to VCC or GND through a resistor (about 10 kOhm)."
+        ]
+      }
+    },
+    "P11": {
+      "name": "P11",
+      "pin_id": "14",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Port 1 bit 1 I/O. Push-pull design structure. 5-V tolerant. At power on, configured as an input. Direction controlled by Configuration register 1 bit 1.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Can be connected to LEDs, switches, enable/reset signals, or other digital I/O. If unused, must be tied to VCC or GND through a resistor (about 10 kOhm).",
+        "detailed_description": "General-purpose bidirectional I/O pin. Push-pull output structure. No internal pull-up resistor.",
+        "precautions": [
+          "If unused and configured as input, must be tied to VCC or GND through a resistor (about 10 kOhm)."
+        ]
+      }
+    },
+    "P12": {
+      "name": "P12",
+      "pin_id": "15",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Port 1 bit 2 I/O. Push-pull design structure. 5-V tolerant. At power on, configured as an input. Direction controlled by Configuration register 1 bit 2.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Can be connected to LEDs, switches, enable/reset signals, or other digital I/O. If unused, must be tied to VCC or GND through a resistor (about 10 kOhm).",
+        "detailed_description": "General-purpose bidirectional I/O pin. Push-pull output structure. No internal pull-up resistor.",
+        "precautions": [
+          "If unused and configured as input, must be tied to VCC or GND through a resistor (about 10 kOhm)."
+        ]
+      }
+    },
+    "P13": {
+      "name": "P13",
+      "pin_id": "16",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Port 1 bit 3 I/O. Push-pull design structure. 5-V tolerant. At power on, configured as an input. Direction controlled by Configuration register 1 bit 3.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Can be connected to LEDs, switches, enable/reset signals, or other digital I/O. If unused, must be tied to VCC or GND through a resistor (about 10 kOhm).",
+        "detailed_description": "General-purpose bidirectional I/O pin. Push-pull output structure. No internal pull-up resistor.",
+        "precautions": [
+          "If unused and configured as input, must be tied to VCC or GND through a resistor (about 10 kOhm)."
+        ]
+      }
+    },
+    "P14": {
+      "name": "P14",
+      "pin_id": "17",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Port 1 bit 4 I/O. Push-pull design structure. 5-V tolerant. At power on, configured as an input. Direction controlled by Configuration register 1 bit 4.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Can be connected to LEDs, switches, enable/reset signals, or other digital I/O. If unused, must be tied to VCC or GND through a resistor (about 10 kOhm).",
+        "detailed_description": "General-purpose bidirectional I/O pin. Push-pull output structure. No internal pull-up resistor.",
+        "precautions": [
+          "If unused and configured as input, must be tied to VCC or GND through a resistor (about 10 kOhm)."
+        ]
+      }
+    },
+    "P15": {
+      "name": "P15",
+      "pin_id": "18",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Port 1 bit 5 I/O. Push-pull design structure. 5-V tolerant. At power on, configured as an input. Direction controlled by Configuration register 1 bit 5.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Can be connected to LEDs, switches, enable/reset signals, or other digital I/O. If unused, must be tied to VCC or GND through a resistor (about 10 kOhm).",
+        "detailed_description": "General-purpose bidirectional I/O pin. Push-pull output structure. No internal pull-up resistor.",
+        "precautions": [
+          "If unused and configured as input, must be tied to VCC or GND through a resistor (about 10 kOhm)."
+        ]
+      }
+    },
+    "P16": {
+      "name": "P16",
+      "pin_id": "19",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Port 1 bit 6 I/O. Push-pull design structure. 5-V tolerant. At power on, configured as an input. Direction controlled by Configuration register 1 bit 6.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Can be connected to LEDs, switches, enable/reset signals, or other digital I/O. If unused, must be tied to VCC or GND through a resistor (about 10 kOhm).",
+        "detailed_description": "General-purpose bidirectional I/O pin. Push-pull output structure. No internal pull-up resistor.",
+        "precautions": [
+          "If unused and configured as input, must be tied to VCC or GND through a resistor (about 10 kOhm)."
+        ]
+      }
+    },
+    "P17": {
+      "name": "P17",
+      "pin_id": "20",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Port 1 bit 7 I/O. Push-pull design structure. 5-V tolerant. At power on, configured as an input. Direction controlled by Configuration register 1 bit 7.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Can be connected to LEDs, switches, enable/reset signals, or other digital I/O. If unused, must be tied to VCC or GND through a resistor (about 10 kOhm).",
+        "detailed_description": "General-purpose bidirectional I/O pin. Push-pull output structure. No internal pull-up resistor.",
+        "precautions": [
+          "If unused and configured as input, must be tied to VCC or GND through a resistor (about 10 kOhm)."
+        ]
+      }
+    },
+    "A0": {
+      "name": "A0",
+      "pin_id": "21",
+      "direction": "INPUT",
+      "type": "DIGITAL",
+      "description": "Hardware address input 0. Connect directly to VCC or GND. Must not be left floating. Sets bit 0 of the I2C target address (base address 0x20).",
+      "implementation": {
+        "connectivity": "Connect directly to VCC or GND to set the I2C address bit. Must not be left floating.",
+        "detailed_description": "Hardware address pin for I2C address configuration. Together with A1 and A2, allows up to 8 TCA9535 devices on the same I2C bus. The I2C address is 0100[A2][A1][A0] (0x20-0x27).",
+        "precautions": [
+          "Must be tied to VCC or GND. Cannot be left floating.",
+          "The voltage on the pin must not change while the device is powered up to prevent possible I2C glitches."
+        ]
+      }
+    },
+    "SCL": {
+      "name": "SCL",
+      "pin_id": "22",
+      "direction": "INPUT",
+      "type": "DIGITAL",
+      "description": "I2C serial clock bus input. Supports standard mode (100 kbit/s) and fast mode (400 kbit/s). Connect to VCC through a pull-up resistor.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "vih": {
+        "min": "0.7 x VCC",
+        "units": "V"
+      },
+      "vil": {
+        "max": "0.3 x VCC",
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to I2C bus SCL line. Requires external pull-up resistor to VCC. Pull-up resistor value depends on bus capacitance.",
+        "detailed_description": "I2C serial clock input. The SCL line must be connected to VCC through a pull-up resistor. The size of the pull-up resistor is determined by the amount of capacitance on the I2C lines.",
+        "precautions": [
+          "Requires external pull-up resistor to VCC.",
+          "Input leakage current is +/-1 uA."
+        ]
+      }
+    },
+    "SDA": {
+      "name": "SDA",
+      "pin_id": "23",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "I2C serial data bus. Open-drain output for data transfer. Supports standard mode (100 kbit/s) and fast mode (400 kbit/s). Connect to VCC through a pull-up resistor.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 5.5,
+        "units": "V"
+      },
+      "vih": {
+        "min": "0.7 x VCC",
+        "units": "V"
+      },
+      "vil": {
+        "max": "0.3 x VCC",
+        "units": "V"
+      },
+      "vol": {
+        "max": 0.4,
+        "units": "V",
+        "conditions": "IOL = 3 mA"
+      },
+      "output_type": "OPEN_DRAIN",
+      "implementation": {
+        "connectivity": "Connect to I2C bus SDA line. Requires external pull-up resistor to VCC. Pull-up resistor value depends on bus capacitance.",
+        "detailed_description": "I2C serial data line. Bidirectional open-drain output. The SDA line must be connected to VCC through a pull-up resistor.",
+        "precautions": [
+          "Requires external pull-up resistor to VCC.",
+          "Input leakage current is +/-1 uA.",
+          "IOL = 3 mA at VOL = 0.4 V."
+        ]
+      }
+    },
+    "VCC": {
+      "name": "VCC",
+      "pin_id": "24",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "Supply voltage. Operating range 1.65 V to 5.5 V.",
+      "input_voltage": {
+        "min": 1.65,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to power supply (1.65 V to 5.5 V). Place a 0.1 uF bypass capacitor close to VCC and GND pins.",
+        "detailed_description": "Main power supply for the device. Operating voltage range is 1.65 V to 5.5 V. The device includes a power-on reset circuit that initializes all registers to their default states when VCC reaches VPORR (typ 1.2 V).",
+        "precautions": [
+          "Do not exceed 6 V absolute maximum rating.",
+          "Place a 0.1 uF decoupling capacitor as close as possible to the VCC and GND pins.",
+          "Standby current is typically 1.5 uA at VCC = 5.5 V."
+        ]
+      }
+    }
+  },
+  "serial_bus": {
+    "type": "I2C",
+    "base_address": "0x20",
+    "address_pins": ["A0", "A1", "A2"],
+    "address_range": "0x20-0x27",
+    "max_clock_frequency_kHz": 400,
+    "registers": {
+      "0": {
+        "address": 0,
+        "name": "Input_Port_0",
+        "bit_width": 8,
+        "init_value": null,
+        "read_only": true,
+        "description": "Reflects the incoming logic levels of Port 0 pins (P07-P00), regardless of whether the pin is defined as input or output. Writes have no effect. Default value is determined by externally applied logic level."
+      },
+      "1": {
+        "address": 1,
+        "name": "Input_Port_1",
+        "bit_width": 8,
+        "init_value": null,
+        "read_only": true,
+        "description": "Reflects the incoming logic levels of Port 1 pins (P17-P10), regardless of whether the pin is defined as input or output. Writes have no effect. Default value is determined by externally applied logic level."
+      },
+      "2": {
+        "address": 2,
+        "name": "Output_Port_0",
+        "bit_width": 8,
+        "init_value": 255,
+        "description": "Outgoing logic levels of Port 0 pins (P07-P00) defined as outputs by Configuration register 0. Bit values have no effect on pins defined as inputs. Reads reflect the value in the flip-flop, not the actual pin value. Default: 0xFF (all high)."
+      },
+      "3": {
+        "address": 3,
+        "name": "Output_Port_1",
+        "bit_width": 8,
+        "init_value": 255,
+        "description": "Outgoing logic levels of Port 1 pins (P17-P10) defined as outputs by Configuration register 1. Bit values have no effect on pins defined as inputs. Reads reflect the value in the flip-flop, not the actual pin value. Default: 0xFF (all high)."
+      },
+      "4": {
+        "address": 4,
+        "name": "Polarity_Inversion_Port_0",
+        "bit_width": 8,
+        "init_value": 0,
+        "description": "Polarity inversion for Port 0 pins defined as inputs. If a bit is set (1), the corresponding pin's polarity is inverted in the Input Port register. If cleared (0), original polarity is retained. Default: 0x00 (no inversion)."
+      },
+      "5": {
+        "address": 5,
+        "name": "Polarity_Inversion_Port_1",
+        "bit_width": 8,
+        "init_value": 0,
+        "description": "Polarity inversion for Port 1 pins defined as inputs. If a bit is set (1), the corresponding pin's polarity is inverted in the Input Port register. If cleared (0), original polarity is retained. Default: 0x00 (no inversion)."
+      },
+      "6": {
+        "address": 6,
+        "name": "Configuration_Port_0",
+        "bit_width": 8,
+        "init_value": 255,
+        "description": "Configures the direction of Port 0 I/O pins (P07-P00). Bit set to 1: corresponding pin is input (high-impedance output driver). Bit set to 0: corresponding pin is output. Default: 0xFF (all inputs)."
+      },
+      "7": {
+        "address": 7,
+        "name": "Configuration_Port_1",
+        "bit_width": 8,
+        "init_value": 255,
+        "description": "Configures the direction of Port 1 I/O pins (P17-P10). Bit set to 1: corresponding pin is input (high-impedance output driver). Bit set to 0: corresponding pin is output. Default: 0xFF (all inputs)."
+      }
+    },
+    "fields": [
+      {
+        "name": "I0.0",
+        "description": "Input Port 0 bit 0 (P00). Reflects logic level of P00 pin.",
+        "register_location": [
+          {
+            "register_address": 0,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0,
+            "field_start_bit": 0,
+            "field_end_bit": 0
+          }
+        ]
+      },
+      {
+        "name": "I0.1",
+        "description": "Input Port 0 bit 1 (P01). Reflects logic level of P01 pin.",
+        "register_location": [
+          {
+            "register_address": 0,
+            "reg_start_bit": 1,
+            "reg_end_bit": 1,
+            "field_start_bit": 1,
+            "field_end_bit": 1
+          }
+        ]
+      },
+      {
+        "name": "I0.2",
+        "description": "Input Port 0 bit 2 (P02). Reflects logic level of P02 pin.",
+        "register_location": [
+          {
+            "register_address": 0,
+            "reg_start_bit": 2,
+            "reg_end_bit": 2,
+            "field_start_bit": 2,
+            "field_end_bit": 2
+          }
+        ]
+      },
+      {
+        "name": "I0.3",
+        "description": "Input Port 0 bit 3 (P03). Reflects logic level of P03 pin.",
+        "register_location": [
+          {
+            "register_address": 0,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3,
+            "field_start_bit": 3,
+            "field_end_bit": 3
+          }
+        ]
+      },
+      {
+        "name": "I0.4",
+        "description": "Input Port 0 bit 4 (P04). Reflects logic level of P04 pin.",
+        "register_location": [
+          {
+            "register_address": 0,
+            "reg_start_bit": 4,
+            "reg_end_bit": 4,
+            "field_start_bit": 4,
+            "field_end_bit": 4
+          }
+        ]
+      },
+      {
+        "name": "I0.5",
+        "description": "Input Port 0 bit 5 (P05). Reflects logic level of P05 pin.",
+        "register_location": [
+          {
+            "register_address": 0,
+            "reg_start_bit": 5,
+            "reg_end_bit": 5,
+            "field_start_bit": 5,
+            "field_end_bit": 5
+          }
+        ]
+      },
+      {
+        "name": "I0.6",
+        "description": "Input Port 0 bit 6 (P06). Reflects logic level of P06 pin.",
+        "register_location": [
+          {
+            "register_address": 0,
+            "reg_start_bit": 6,
+            "reg_end_bit": 6,
+            "field_start_bit": 6,
+            "field_end_bit": 6
+          }
+        ]
+      },
+      {
+        "name": "I0.7",
+        "description": "Input Port 0 bit 7 (P07). Reflects logic level of P07 pin.",
+        "register_location": [
+          {
+            "register_address": 0,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7,
+            "field_start_bit": 7,
+            "field_end_bit": 7
+          }
+        ]
+      },
+      {
+        "name": "I1.0",
+        "description": "Input Port 1 bit 0 (P10). Reflects logic level of P10 pin.",
+        "register_location": [
+          {
+            "register_address": 1,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0,
+            "field_start_bit": 0,
+            "field_end_bit": 0
+          }
+        ]
+      },
+      {
+        "name": "I1.1",
+        "description": "Input Port 1 bit 1 (P11). Reflects logic level of P11 pin.",
+        "register_location": [
+          {
+            "register_address": 1,
+            "reg_start_bit": 1,
+            "reg_end_bit": 1,
+            "field_start_bit": 1,
+            "field_end_bit": 1
+          }
+        ]
+      },
+      {
+        "name": "I1.2",
+        "description": "Input Port 1 bit 2 (P12). Reflects logic level of P12 pin.",
+        "register_location": [
+          {
+            "register_address": 1,
+            "reg_start_bit": 2,
+            "reg_end_bit": 2,
+            "field_start_bit": 2,
+            "field_end_bit": 2
+          }
+        ]
+      },
+      {
+        "name": "I1.3",
+        "description": "Input Port 1 bit 3 (P13). Reflects logic level of P13 pin.",
+        "register_location": [
+          {
+            "register_address": 1,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3,
+            "field_start_bit": 3,
+            "field_end_bit": 3
+          }
+        ]
+      },
+      {
+        "name": "I1.4",
+        "description": "Input Port 1 bit 4 (P14). Reflects logic level of P14 pin.",
+        "register_location": [
+          {
+            "register_address": 1,
+            "reg_start_bit": 4,
+            "reg_end_bit": 4,
+            "field_start_bit": 4,
+            "field_end_bit": 4
+          }
+        ]
+      },
+      {
+        "name": "I1.5",
+        "description": "Input Port 1 bit 5 (P15). Reflects logic level of P15 pin.",
+        "register_location": [
+          {
+            "register_address": 1,
+            "reg_start_bit": 5,
+            "reg_end_bit": 5,
+            "field_start_bit": 5,
+            "field_end_bit": 5
+          }
+        ]
+      },
+      {
+        "name": "I1.6",
+        "description": "Input Port 1 bit 6 (P16). Reflects logic level of P16 pin.",
+        "register_location": [
+          {
+            "register_address": 1,
+            "reg_start_bit": 6,
+            "reg_end_bit": 6,
+            "field_start_bit": 6,
+            "field_end_bit": 6
+          }
+        ]
+      },
+      {
+        "name": "I1.7",
+        "description": "Input Port 1 bit 7 (P17). Reflects logic level of P17 pin.",
+        "register_location": [
+          {
+            "register_address": 1,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7,
+            "field_start_bit": 7,
+            "field_end_bit": 7
+          }
+        ]
+      },
+      {
+        "name": "O0.0",
+        "description": "Output Port 0 bit 0 (P00). Controls output level of P00 when configured as output.",
+        "register_location": [
+          {
+            "register_address": 2,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0,
+            "field_start_bit": 0,
+            "field_end_bit": 0
+          }
+        ]
+      },
+      {
+        "name": "O0.1",
+        "description": "Output Port 0 bit 1 (P01). Controls output level of P01 when configured as output.",
+        "register_location": [
+          {
+            "register_address": 2,
+            "reg_start_bit": 1,
+            "reg_end_bit": 1,
+            "field_start_bit": 1,
+            "field_end_bit": 1
+          }
+        ]
+      },
+      {
+        "name": "O0.2",
+        "description": "Output Port 0 bit 2 (P02). Controls output level of P02 when configured as output.",
+        "register_location": [
+          {
+            "register_address": 2,
+            "reg_start_bit": 2,
+            "reg_end_bit": 2,
+            "field_start_bit": 2,
+            "field_end_bit": 2
+          }
+        ]
+      },
+      {
+        "name": "O0.3",
+        "description": "Output Port 0 bit 3 (P03). Controls output level of P03 when configured as output.",
+        "register_location": [
+          {
+            "register_address": 2,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3,
+            "field_start_bit": 3,
+            "field_end_bit": 3
+          }
+        ]
+      },
+      {
+        "name": "O0.4",
+        "description": "Output Port 0 bit 4 (P04). Controls output level of P04 when configured as output.",
+        "register_location": [
+          {
+            "register_address": 2,
+            "reg_start_bit": 4,
+            "reg_end_bit": 4,
+            "field_start_bit": 4,
+            "field_end_bit": 4
+          }
+        ]
+      },
+      {
+        "name": "O0.5",
+        "description": "Output Port 0 bit 5 (P05). Controls output level of P05 when configured as output.",
+        "register_location": [
+          {
+            "register_address": 2,
+            "reg_start_bit": 5,
+            "reg_end_bit": 5,
+            "field_start_bit": 5,
+            "field_end_bit": 5
+          }
+        ]
+      },
+      {
+        "name": "O0.6",
+        "description": "Output Port 0 bit 6 (P06). Controls output level of P06 when configured as output.",
+        "register_location": [
+          {
+            "register_address": 2,
+            "reg_start_bit": 6,
+            "reg_end_bit": 6,
+            "field_start_bit": 6,
+            "field_end_bit": 6
+          }
+        ]
+      },
+      {
+        "name": "O0.7",
+        "description": "Output Port 0 bit 7 (P07). Controls output level of P07 when configured as output.",
+        "register_location": [
+          {
+            "register_address": 2,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7,
+            "field_start_bit": 7,
+            "field_end_bit": 7
+          }
+        ]
+      },
+      {
+        "name": "O1.0",
+        "description": "Output Port 1 bit 0 (P10). Controls output level of P10 when configured as output.",
+        "register_location": [
+          {
+            "register_address": 3,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0,
+            "field_start_bit": 0,
+            "field_end_bit": 0
+          }
+        ]
+      },
+      {
+        "name": "O1.1",
+        "description": "Output Port 1 bit 1 (P11). Controls output level of P11 when configured as output.",
+        "register_location": [
+          {
+            "register_address": 3,
+            "reg_start_bit": 1,
+            "reg_end_bit": 1,
+            "field_start_bit": 1,
+            "field_end_bit": 1
+          }
+        ]
+      },
+      {
+        "name": "O1.2",
+        "description": "Output Port 1 bit 2 (P12). Controls output level of P12 when configured as output.",
+        "register_location": [
+          {
+            "register_address": 3,
+            "reg_start_bit": 2,
+            "reg_end_bit": 2,
+            "field_start_bit": 2,
+            "field_end_bit": 2
+          }
+        ]
+      },
+      {
+        "name": "O1.3",
+        "description": "Output Port 1 bit 3 (P13). Controls output level of P13 when configured as output.",
+        "register_location": [
+          {
+            "register_address": 3,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3,
+            "field_start_bit": 3,
+            "field_end_bit": 3
+          }
+        ]
+      },
+      {
+        "name": "O1.4",
+        "description": "Output Port 1 bit 4 (P14). Controls output level of P14 when configured as output.",
+        "register_location": [
+          {
+            "register_address": 3,
+            "reg_start_bit": 4,
+            "reg_end_bit": 4,
+            "field_start_bit": 4,
+            "field_end_bit": 4
+          }
+        ]
+      },
+      {
+        "name": "O1.5",
+        "description": "Output Port 1 bit 5 (P15). Controls output level of P15 when configured as output.",
+        "register_location": [
+          {
+            "register_address": 3,
+            "reg_start_bit": 5,
+            "reg_end_bit": 5,
+            "field_start_bit": 5,
+            "field_end_bit": 5
+          }
+        ]
+      },
+      {
+        "name": "O1.6",
+        "description": "Output Port 1 bit 6 (P16). Controls output level of P16 when configured as output.",
+        "register_location": [
+          {
+            "register_address": 3,
+            "reg_start_bit": 6,
+            "reg_end_bit": 6,
+            "field_start_bit": 6,
+            "field_end_bit": 6
+          }
+        ]
+      },
+      {
+        "name": "O1.7",
+        "description": "Output Port 1 bit 7 (P17). Controls output level of P17 when configured as output.",
+        "register_location": [
+          {
+            "register_address": 3,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7,
+            "field_start_bit": 7,
+            "field_end_bit": 7
+          }
+        ]
+      },
+      {
+        "name": "N0.0",
+        "description": "Polarity Inversion Port 0 bit 0. 1 = P00 input polarity inverted, 0 = retained.",
+        "register_location": [
+          {
+            "register_address": 4,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0,
+            "field_start_bit": 0,
+            "field_end_bit": 0
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Original polarity retained",
+          "1": "Polarity inverted"
+        }
+      },
+      {
+        "name": "N0.1",
+        "description": "Polarity Inversion Port 0 bit 1. 1 = P01 input polarity inverted, 0 = retained.",
+        "register_location": [
+          {
+            "register_address": 4,
+            "reg_start_bit": 1,
+            "reg_end_bit": 1,
+            "field_start_bit": 1,
+            "field_end_bit": 1
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Original polarity retained",
+          "1": "Polarity inverted"
+        }
+      },
+      {
+        "name": "N0.2",
+        "description": "Polarity Inversion Port 0 bit 2. 1 = P02 input polarity inverted, 0 = retained.",
+        "register_location": [
+          {
+            "register_address": 4,
+            "reg_start_bit": 2,
+            "reg_end_bit": 2,
+            "field_start_bit": 2,
+            "field_end_bit": 2
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Original polarity retained",
+          "1": "Polarity inverted"
+        }
+      },
+      {
+        "name": "N0.3",
+        "description": "Polarity Inversion Port 0 bit 3. 1 = P03 input polarity inverted, 0 = retained.",
+        "register_location": [
+          {
+            "register_address": 4,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3,
+            "field_start_bit": 3,
+            "field_end_bit": 3
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Original polarity retained",
+          "1": "Polarity inverted"
+        }
+      },
+      {
+        "name": "N0.4",
+        "description": "Polarity Inversion Port 0 bit 4. 1 = P04 input polarity inverted, 0 = retained.",
+        "register_location": [
+          {
+            "register_address": 4,
+            "reg_start_bit": 4,
+            "reg_end_bit": 4,
+            "field_start_bit": 4,
+            "field_end_bit": 4
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Original polarity retained",
+          "1": "Polarity inverted"
+        }
+      },
+      {
+        "name": "N0.5",
+        "description": "Polarity Inversion Port 0 bit 5. 1 = P05 input polarity inverted, 0 = retained.",
+        "register_location": [
+          {
+            "register_address": 4,
+            "reg_start_bit": 5,
+            "reg_end_bit": 5,
+            "field_start_bit": 5,
+            "field_end_bit": 5
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Original polarity retained",
+          "1": "Polarity inverted"
+        }
+      },
+      {
+        "name": "N0.6",
+        "description": "Polarity Inversion Port 0 bit 6. 1 = P06 input polarity inverted, 0 = retained.",
+        "register_location": [
+          {
+            "register_address": 4,
+            "reg_start_bit": 6,
+            "reg_end_bit": 6,
+            "field_start_bit": 6,
+            "field_end_bit": 6
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Original polarity retained",
+          "1": "Polarity inverted"
+        }
+      },
+      {
+        "name": "N0.7",
+        "description": "Polarity Inversion Port 0 bit 7. 1 = P07 input polarity inverted, 0 = retained.",
+        "register_location": [
+          {
+            "register_address": 4,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7,
+            "field_start_bit": 7,
+            "field_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Original polarity retained",
+          "1": "Polarity inverted"
+        }
+      },
+      {
+        "name": "N1.0",
+        "description": "Polarity Inversion Port 1 bit 0. 1 = P10 input polarity inverted, 0 = retained.",
+        "register_location": [
+          {
+            "register_address": 5,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0,
+            "field_start_bit": 0,
+            "field_end_bit": 0
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Original polarity retained",
+          "1": "Polarity inverted"
+        }
+      },
+      {
+        "name": "N1.1",
+        "description": "Polarity Inversion Port 1 bit 1. 1 = P11 input polarity inverted, 0 = retained.",
+        "register_location": [
+          {
+            "register_address": 5,
+            "reg_start_bit": 1,
+            "reg_end_bit": 1,
+            "field_start_bit": 1,
+            "field_end_bit": 1
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Original polarity retained",
+          "1": "Polarity inverted"
+        }
+      },
+      {
+        "name": "N1.2",
+        "description": "Polarity Inversion Port 1 bit 2. 1 = P12 input polarity inverted, 0 = retained.",
+        "register_location": [
+          {
+            "register_address": 5,
+            "reg_start_bit": 2,
+            "reg_end_bit": 2,
+            "field_start_bit": 2,
+            "field_end_bit": 2
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Original polarity retained",
+          "1": "Polarity inverted"
+        }
+      },
+      {
+        "name": "N1.3",
+        "description": "Polarity Inversion Port 1 bit 3. 1 = P13 input polarity inverted, 0 = retained.",
+        "register_location": [
+          {
+            "register_address": 5,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3,
+            "field_start_bit": 3,
+            "field_end_bit": 3
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Original polarity retained",
+          "1": "Polarity inverted"
+        }
+      },
+      {
+        "name": "N1.4",
+        "description": "Polarity Inversion Port 1 bit 4. 1 = P14 input polarity inverted, 0 = retained.",
+        "register_location": [
+          {
+            "register_address": 5,
+            "reg_start_bit": 4,
+            "reg_end_bit": 4,
+            "field_start_bit": 4,
+            "field_end_bit": 4
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Original polarity retained",
+          "1": "Polarity inverted"
+        }
+      },
+      {
+        "name": "N1.5",
+        "description": "Polarity Inversion Port 1 bit 5. 1 = P15 input polarity inverted, 0 = retained.",
+        "register_location": [
+          {
+            "register_address": 5,
+            "reg_start_bit": 5,
+            "reg_end_bit": 5,
+            "field_start_bit": 5,
+            "field_end_bit": 5
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Original polarity retained",
+          "1": "Polarity inverted"
+        }
+      },
+      {
+        "name": "N1.6",
+        "description": "Polarity Inversion Port 1 bit 6. 1 = P16 input polarity inverted, 0 = retained.",
+        "register_location": [
+          {
+            "register_address": 5,
+            "reg_start_bit": 6,
+            "reg_end_bit": 6,
+            "field_start_bit": 6,
+            "field_end_bit": 6
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Original polarity retained",
+          "1": "Polarity inverted"
+        }
+      },
+      {
+        "name": "N1.7",
+        "description": "Polarity Inversion Port 1 bit 7. 1 = P17 input polarity inverted, 0 = retained.",
+        "register_location": [
+          {
+            "register_address": 5,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7,
+            "field_start_bit": 7,
+            "field_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Original polarity retained",
+          "1": "Polarity inverted"
+        }
+      },
+      {
+        "name": "C0.0",
+        "description": "Configuration Port 0 bit 0. 1 = P00 is input (high-impedance), 0 = P00 is output.",
+        "register_location": [
+          {
+            "register_address": 6,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0,
+            "field_start_bit": 0,
+            "field_end_bit": 0
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Pin configured as output",
+          "1": "Pin configured as input (high-impedance)"
+        }
+      },
+      {
+        "name": "C0.1",
+        "description": "Configuration Port 0 bit 1. 1 = P01 is input (high-impedance), 0 = P01 is output.",
+        "register_location": [
+          {
+            "register_address": 6,
+            "reg_start_bit": 1,
+            "reg_end_bit": 1,
+            "field_start_bit": 1,
+            "field_end_bit": 1
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Pin configured as output",
+          "1": "Pin configured as input (high-impedance)"
+        }
+      },
+      {
+        "name": "C0.2",
+        "description": "Configuration Port 0 bit 2. 1 = P02 is input (high-impedance), 0 = P02 is output.",
+        "register_location": [
+          {
+            "register_address": 6,
+            "reg_start_bit": 2,
+            "reg_end_bit": 2,
+            "field_start_bit": 2,
+            "field_end_bit": 2
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Pin configured as output",
+          "1": "Pin configured as input (high-impedance)"
+        }
+      },
+      {
+        "name": "C0.3",
+        "description": "Configuration Port 0 bit 3. 1 = P03 is input (high-impedance), 0 = P03 is output.",
+        "register_location": [
+          {
+            "register_address": 6,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3,
+            "field_start_bit": 3,
+            "field_end_bit": 3
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Pin configured as output",
+          "1": "Pin configured as input (high-impedance)"
+        }
+      },
+      {
+        "name": "C0.4",
+        "description": "Configuration Port 0 bit 4. 1 = P04 is input (high-impedance), 0 = P04 is output.",
+        "register_location": [
+          {
+            "register_address": 6,
+            "reg_start_bit": 4,
+            "reg_end_bit": 4,
+            "field_start_bit": 4,
+            "field_end_bit": 4
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Pin configured as output",
+          "1": "Pin configured as input (high-impedance)"
+        }
+      },
+      {
+        "name": "C0.5",
+        "description": "Configuration Port 0 bit 5. 1 = P05 is input (high-impedance), 0 = P05 is output.",
+        "register_location": [
+          {
+            "register_address": 6,
+            "reg_start_bit": 5,
+            "reg_end_bit": 5,
+            "field_start_bit": 5,
+            "field_end_bit": 5
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Pin configured as output",
+          "1": "Pin configured as input (high-impedance)"
+        }
+      },
+      {
+        "name": "C0.6",
+        "description": "Configuration Port 0 bit 6. 1 = P06 is input (high-impedance), 0 = P06 is output.",
+        "register_location": [
+          {
+            "register_address": 6,
+            "reg_start_bit": 6,
+            "reg_end_bit": 6,
+            "field_start_bit": 6,
+            "field_end_bit": 6
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Pin configured as output",
+          "1": "Pin configured as input (high-impedance)"
+        }
+      },
+      {
+        "name": "C0.7",
+        "description": "Configuration Port 0 bit 7. 1 = P07 is input (high-impedance), 0 = P07 is output.",
+        "register_location": [
+          {
+            "register_address": 6,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7,
+            "field_start_bit": 7,
+            "field_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Pin configured as output",
+          "1": "Pin configured as input (high-impedance)"
+        }
+      },
+      {
+        "name": "C1.0",
+        "description": "Configuration Port 1 bit 0. 1 = P10 is input (high-impedance), 0 = P10 is output.",
+        "register_location": [
+          {
+            "register_address": 7,
+            "reg_start_bit": 0,
+            "reg_end_bit": 0,
+            "field_start_bit": 0,
+            "field_end_bit": 0
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Pin configured as output",
+          "1": "Pin configured as input (high-impedance)"
+        }
+      },
+      {
+        "name": "C1.1",
+        "description": "Configuration Port 1 bit 1. 1 = P11 is input (high-impedance), 0 = P11 is output.",
+        "register_location": [
+          {
+            "register_address": 7,
+            "reg_start_bit": 1,
+            "reg_end_bit": 1,
+            "field_start_bit": 1,
+            "field_end_bit": 1
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Pin configured as output",
+          "1": "Pin configured as input (high-impedance)"
+        }
+      },
+      {
+        "name": "C1.2",
+        "description": "Configuration Port 1 bit 2. 1 = P12 is input (high-impedance), 0 = P12 is output.",
+        "register_location": [
+          {
+            "register_address": 7,
+            "reg_start_bit": 2,
+            "reg_end_bit": 2,
+            "field_start_bit": 2,
+            "field_end_bit": 2
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Pin configured as output",
+          "1": "Pin configured as input (high-impedance)"
+        }
+      },
+      {
+        "name": "C1.3",
+        "description": "Configuration Port 1 bit 3. 1 = P13 is input (high-impedance), 0 = P13 is output.",
+        "register_location": [
+          {
+            "register_address": 7,
+            "reg_start_bit": 3,
+            "reg_end_bit": 3,
+            "field_start_bit": 3,
+            "field_end_bit": 3
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Pin configured as output",
+          "1": "Pin configured as input (high-impedance)"
+        }
+      },
+      {
+        "name": "C1.4",
+        "description": "Configuration Port 1 bit 4. 1 = P14 is input (high-impedance), 0 = P14 is output.",
+        "register_location": [
+          {
+            "register_address": 7,
+            "reg_start_bit": 4,
+            "reg_end_bit": 4,
+            "field_start_bit": 4,
+            "field_end_bit": 4
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Pin configured as output",
+          "1": "Pin configured as input (high-impedance)"
+        }
+      },
+      {
+        "name": "C1.5",
+        "description": "Configuration Port 1 bit 5. 1 = P15 is input (high-impedance), 0 = P15 is output.",
+        "register_location": [
+          {
+            "register_address": 7,
+            "reg_start_bit": 5,
+            "reg_end_bit": 5,
+            "field_start_bit": 5,
+            "field_end_bit": 5
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Pin configured as output",
+          "1": "Pin configured as input (high-impedance)"
+        }
+      },
+      {
+        "name": "C1.6",
+        "description": "Configuration Port 1 bit 6. 1 = P16 is input (high-impedance), 0 = P16 is output.",
+        "register_location": [
+          {
+            "register_address": 7,
+            "reg_start_bit": 6,
+            "reg_end_bit": 6,
+            "field_start_bit": 6,
+            "field_end_bit": 6
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Pin configured as output",
+          "1": "Pin configured as input (high-impedance)"
+        }
+      },
+      {
+        "name": "C1.7",
+        "description": "Configuration Port 1 bit 7. 1 = P17 is input (high-impedance), 0 = P17 is output.",
+        "register_location": [
+          {
+            "register_address": 7,
+            "reg_start_bit": 7,
+            "reg_end_bit": 7,
+            "field_start_bit": 7,
+            "field_end_bit": 7
+          }
+        ],
+        "digital_physical_map": {
+          "0": "Pin configured as output",
+          "1": "Pin configured as input (high-impedance)"
+        }
+      }
+    ]
+  }
+}

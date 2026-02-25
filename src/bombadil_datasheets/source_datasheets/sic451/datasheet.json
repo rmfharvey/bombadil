@@ -1,0 +1,1658 @@
+{
+  "high_level": {
+    "base_part_number": "SiC451",
+    "device_type": "REGULATOR_BUCK",
+    "manufacturer": "Vishay Siliconix",
+    "packages": [
+      "PowerPAK MLP34-57 (5 mm x 7 mm)"
+    ],
+    "part_numbers": {
+      "SiC450ED-T1-GE3": {
+        "options": {
+          "MaximumCurrent": "40 A",
+          "Package": "PowerPAK MLP34-57"
+        }
+      },
+      "SiC451ED-T1-GE3": {
+        "options": {
+          "MaximumCurrent": "25 A",
+          "Package": "PowerPAK MLP34-57"
+        }
+      },
+      "SiC453ED-T1-GE3": {
+        "options": {
+          "MaximumCurrent": "15 A",
+          "Package": "PowerPAK MLP34-57"
+        }
+      }
+    },
+    "serial_busses": [
+      "PMBus"
+    ]
+  },
+  "pins": {
+    "PVIN": {
+      "name": "PVIN",
+      "pin_id": "1, 2, 3, 34",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "Input voltage for power stage. Supply voltage for the integrated high-side and low-side power MOSFETs.",
+      "input_voltage": {
+        "min": 4.5,
+        "max": 20.0,
+        "abs_max": 28.0,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the main input power supply. Place high-quality ceramic decoupling capacitors directly between PVIN and PGND pins with short and wide traces. VIN (pin 23) shall be directly connected to PVIN.",
+        "detailed_description": "PVIN is the power input voltage for the integrated synchronous buck power stage. It supplies the high-side and low-side MOSFETs. The input voltage can range from 4.5 V to 20 V.",
+        "functionality": "Provides the main power supply for the buck converter power stage. The integrated MOSFETs switch between PVIN and PGND to generate the regulated output voltage through the external inductor.",
+        "connected_components": [
+          {
+            "component_name": "Input Ceramic Capacitors",
+            "description": "Multiple ceramic capacitors should be placed directly between PVIN and PGND. Different values and packages (e.g., 1210 and 0603) should be used to cover the entire decoupling spectrum. Smaller capacitance values should be placed closer to the PVIN pins for better high-frequency noise absorption."
+          }
+        ],
+        "precautions": [
+          "Do not exceed 28 V absolute maximum rating.",
+          "Ensure the input voltage is within the 4.5 V to 20 V recommended operating range.",
+          "Use short and wide traces for the PVIN to PGND decoupling path to minimize parasitic inductance.",
+          "Layout VIN and PGND planes close together for best decoupling effect."
+        ]
+      }
+    },
+    "PHASE": {
+      "name": "PHASE",
+      "pin_id": "4",
+      "direction": "OTHER",
+      "type": "POWER",
+      "description": "Phase node, return path of high side gate driver.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 28.0,
+        "abs_max_ac": "-8 to +33 V (100 ns)",
+        "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connected internally to the source of the high-side MOSFET. The bootstrap capacitor is connected between BOOT (pin 6) and PHASE (pin 4).",
+        "detailed_description": "The PHASE pin is the switch node of the synchronous buck converter. It swings between approximately PVIN (when the high-side FET is on) and PGND (when the low-side FET is on). It serves as the return path for the high-side gate driver bootstrap circuit.",
+        "functionality": "Provides the reference for the high-side gate driver bootstrap supply. The BOOT capacitor is charged when the low-side FET is on (PHASE near ground) and provides the gate drive voltage for the high-side FET when it turns on.",
+        "connected_components": [
+          {
+            "component_name": "Bootstrap Capacitor (CBOOT)",
+            "description": "Connected between BOOT (pin 6) and PHASE (pin 4). Place very close to the IC, right between pins 4 and 6. Chip size 0402 can be used to reduce parasitic inductance."
+          },
+          {
+            "component_name": "Bootstrap Resistor (optional)",
+            "description": "An optional series resistor in the bootstrap charging path for high-side gate drive tuning."
+          }
+        ],
+        "precautions": [
+          "The PHASE node carries high dv/dt and di/dt switching currents. Keep this trace area minimized and away from sensitive analog signals.",
+          "Place bootstrap components very close to the IC between pins 4 and 6.",
+          "Do not place vias on the VSWH (switch node) pad as it is a noise source."
+        ]
+      }
+    },
+    "GH": {
+      "name": "GH",
+      "pin_id": "5",
+      "direction": "OUTPUT",
+      "type": "OTHER",
+      "description": "High side MOSFET gate monitor. Allows monitoring of the high-side gate drive signal.",
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "This is a monitor output for the high-side MOSFET gate. Can be used for debug or test purposes.",
+        "detailed_description": "GH provides visibility into the high-side MOSFET gate drive signal. This pin is primarily used for monitoring and diagnostic purposes.",
+        "functionality": "Outputs the gate drive signal of the internal high-side MOSFET for monitoring and debug.",
+        "connected_components": [],
+        "precautions": [
+          "This is a monitoring pin. Do not load it with external circuitry that could affect gate drive operation."
+        ]
+      }
+    },
+    "BOOT": {
+      "name": "BOOT",
+      "pin_id": "6",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "Bootstrap voltage for high side gate driver (referenced to PH). Provides the floating supply voltage for the high-side gate driver.",
+      "input_voltage": {
+        "min": -0.3,
+        "max_note": "VPH + PVCC",
+        "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect a bootstrap capacitor from BOOT (pin 6) to PHASE (pin 4). The bootstrap circuit is internally charged from PVCC when the low-side MOSFET is on.",
+        "detailed_description": "The BOOT pin provides the floating high-side gate drive supply. A bootstrap capacitor connected between BOOT and PHASE stores charge that is used to drive the high-side MOSFET gate above the switch node voltage.",
+        "functionality": "The bootstrap capacitor is charged through an internal diode from PVCC when the low-side MOSFET is on and the PHASE pin is near ground. When the high-side MOSFET turns on, the BOOT voltage rises above PVIN to provide sufficient gate drive voltage.",
+        "connected_components": [
+          {
+            "component_name": "Bootstrap Capacitor",
+            "description": "Ceramic capacitor connected between BOOT (pin 6) and PHASE (pin 4). Place very close to the IC. 0402 chip size recommended to reduce parasitic inductance."
+          },
+          {
+            "component_name": "Bootstrap Resistor (optional)",
+            "description": "Optional series resistor for gate drive slew rate control."
+          }
+        ],
+        "precautions": [
+          "BOOT to SW voltage must not exceed 6 V.",
+          "Place the bootstrap capacitor as close as possible to pins 4 and 6.",
+          "Use 0402 chip size components to minimize parasitic inductance."
+        ]
+      }
+    },
+    "AGND": {
+      "name": "AGND",
+      "pin_id": "7, 16",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "Analog signal return ground. Reference ground for all analog and digital control circuitry.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 0.3,
+        "note": "AGND to PGND",
+        "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to system ground. Pin 16 is the primary analog ground reference and should have a single connection to power ground. The AGND ground plane connected with pin 16 helps keep AGND quiet and improve noise immunity.",
+        "detailed_description": "AGND serves as the ground reference for all analog and digital control signals within the device. It is separate from PGND to minimize noise coupling from the high-current power stage into sensitive control circuits.",
+        "functionality": "Provides a clean ground reference for the internal control loops, ADC, PMBus interface, and all analog signal processing. VSET, ADDR, and RT/SYNC resistors are referenced to AGND.",
+        "connected_components": [
+          {
+            "component_name": "VDD Decoupling Capacitor",
+            "description": "A 1 uF decoupling capacitor from VDD to AGND."
+          }
+        ],
+        "precautions": [
+          "AGND to PGND voltage difference must stay within -0.3 V to +0.3 V.",
+          "Separate the analog ground plane from the power ground plane with a single point connection.",
+          "Keep all small analog signal components close to the IC with minimum trace length.",
+          "All small analog signals should be on the opposite side of the IC from the high-current switching paths."
+        ]
+      }
+    },
+    "NC_8": {
+      "name": "NC",
+      "pin_id": "8",
+      "direction": "OTHER",
+      "type": "OTHER",
+      "description": "Not used in Vishay device.",
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Leave unconnected.",
+        "detailed_description": "This pin is not internally connected to any functional circuitry.",
+        "functionality": "No function. Reserved/not connected.",
+        "connected_components": [],
+        "precautions": [
+          "Do not connect to any signal, voltage, or ground."
+        ]
+      }
+    },
+    "NC_9": {
+      "name": "NC",
+      "pin_id": "9",
+      "direction": "OTHER",
+      "type": "OTHER",
+      "description": "Not used in Vishay device.",
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Leave unconnected.",
+        "detailed_description": "This pin is not internally connected to any functional circuitry.",
+        "functionality": "No function. Reserved/not connected.",
+        "connected_components": [],
+        "precautions": [
+          "Do not connect to any signal, voltage, or ground."
+        ]
+      }
+    },
+    "NC_10": {
+      "name": "NC",
+      "pin_id": "10",
+      "direction": "OTHER",
+      "type": "OTHER",
+      "description": "Not used in Vishay device.",
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Leave unconnected.",
+        "detailed_description": "This pin is not internally connected to any functional circuitry.",
+        "functionality": "No function. Reserved/not connected.",
+        "connected_components": [],
+        "precautions": [
+          "Do not connect to any signal, voltage, or ground."
+        ]
+      }
+    },
+    "VSEN-": {
+      "name": "VSEN-",
+      "pin_id": "11",
+      "direction": "INPUT",
+      "type": "ANALOG",
+      "description": "Remote sense amplifier negative input. Connect to output ground at the load for differential output voltage sensing.",
+      "input_voltage": {
+        "min": -0.2,
+        "max": 0.2,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the output ground at the load point. Route as a differential pair with VSEN+ using minimum clearance. Keep the trace far away from the switch node (VSWH) and other noisy signals.",
+        "detailed_description": "VSEN- is the negative input of the differential remote sense amplifier. It connects to the output ground at the load to provide accurate output voltage measurement by eliminating errors from PCB trace resistance in the ground path.",
+        "functionality": "Provides the negative reference for differential output voltage sensing, improving regulation accuracy under load by compensating for IR drop in the ground path between the converter and the load.",
+        "connected_components": [
+          {
+            "component_name": "Output Ground (at load)",
+            "description": "Connect directly to the output ground at or near the load. This provides the remote sense ground reference."
+          }
+        ],
+        "precautions": [
+          "Route VSEN- as a differential pair with VSEN+ with minimum clearance.",
+          "Keep the differential pair far from the switch node and other noise sources throughout the entire trace length.",
+          "Ground shielding of the differential pair is highly recommended.",
+          "Common mode range is -200 mV to +200 mV."
+        ]
+      }
+    },
+    "VSEN+": {
+      "name": "VSEN+",
+      "pin_id": "12",
+      "direction": "INPUT",
+      "type": "ANALOG",
+      "description": "Remote sense amplifier positive input. Connect to output voltage at the load for differential output voltage sensing.",
+      "input_voltage": {
+        "min": -0.2,
+        "max": 12.0,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the output voltage at the load point. Route as a differential pair with VSEN- using minimum clearance.",
+        "detailed_description": "VSEN+ is the positive input of the differential remote sense amplifier. It connects to the output voltage at the load to provide accurate output voltage measurement by eliminating errors from PCB trace resistance in the output path.",
+        "functionality": "Provides the positive input for differential output voltage sensing, allowing the controller to accurately regulate the voltage at the load rather than at the converter output terminals. Also used for pre-bias detection during startup.",
+        "connected_components": [
+          {
+            "component_name": "Output Voltage (at load)",
+            "description": "Connect directly to the output voltage at or near the load. This provides the remote sense voltage reference."
+          }
+        ],
+        "precautions": [
+          "Route VSEN+ as a differential pair with VSEN- with minimum clearance.",
+          "Keep the differential pair far from the switch node and other noise sources.",
+          "Ground shielding of the differential pair is highly recommended.",
+          "Common mode range is -0.2 V to 12 V."
+        ]
+      }
+    },
+    "PGOOD": {
+      "name": "PGOOD",
+      "pin_id": "13",
+      "direction": "OUTPUT",
+      "type": "DIGITAL",
+      "description": "Power good; open-drain output indicating VOUT is within set limits. Connect a pull up resistor typically 10 kohm to VDD.",
+      "output_type": "OPEN_DRAIN",
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect a 10 kohm pull-up resistor from PGOOD to VDD (up to 5 V). The PGOOD signal goes high when output voltage is within the programmed good limits and low when out of regulation.",
+        "detailed_description": "PGOOD is an open-drain output that indicates whether the output voltage is within its programmed regulation window. The rising threshold defaults to 90% of VOUT and the falling threshold defaults to 85% of VOUT. PGOOD also goes low when the output voltage exceeds the overvoltage threshold (VOFL).",
+        "functionality": "Provides a power good status signal for system sequencing and health monitoring. The thresholds are adjustable via PMBus commands VOUT_PGOOD_ON (5Eh) and VOUT_PGOOD_OFF (5Fh).",
+        "connected_components": [
+          {
+            "component_name": "Pull-up Resistor",
+            "description": "10 kohm resistor from PGOOD to VDD (5 V). Required because PGOOD is an open-drain output."
+          }
+        ],
+        "precautions": [
+          "An external pull-up resistor is required as this is an open-drain output.",
+          "Pull-up voltage should not exceed 5 V.",
+          "Power good rising delay is typically 25 us and falling delay is typically 100 us.",
+          "On-resistance of the open-drain output is typically 5.5 ohm."
+        ]
+      },
+      "vol": {
+        "note": "RPG typ 5.5 ohm",
+        "units": "V"
+      }
+    },
+    "ADDR": {
+      "name": "ADDR",
+      "pin_id": "14",
+      "direction": "INPUT",
+      "type": "ANALOG",
+      "description": "PMBus address programming pin. A resistor from ADDR to AGND sets the PMBus address offset from the base address.",
+      "input_voltage": {
+        "min": -0.3,
+        "max_note": "VDD + 0.3",
+        "units": "V"
+      },
+      "internal_pull": null,
+      "vih": {
+        "min": 2.0,
+        "units": "V"
+      },
+      "vil": {
+        "max": 0.8,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect a resistor from ADDR to AGND. The resistor value determines the PMBus address offset from the factory-programmed base address. Up to 15 unique addresses are supported.",
+        "detailed_description": "The ADDR pin programs the 7-bit PMBus address of the device. A resistor value between ADDR and AGND sets an offset from the default pre-configured MFR base address stored in NVM. Up to 15 different offsets can be set, allowing 15 SiC45x devices with unique addresses in a single system. The resistor value is read by the internal ADC during the initialization sequence.",
+        "functionality": "Sets the PMBus slave address using a resistor divider. The ADC reads the voltage during initialization to determine the address offset. Uses the same standard resistor values as the VSET and RT/SYNC pins (0.845 kohm through 11 kohm).",
+        "connected_components": [
+          {
+            "component_name": "Address Resistor",
+            "description": "Resistor from ADDR to AGND. Values: 0.845K (offset 1), 1.3K (offset 2), 1.78K (offset 3), 2.32K (offset 4), 2.87K (offset 5), 3.48K (offset 6), 4.12K (offset 7), 4.75K (offset 8), 5.49K (offset 9), 6.19K (offset 10), 6.98K (offset 11), 7.87K (offset 12), 8.87K (offset 13), 10K (offset 14), 11K (offset 15)."
+          }
+        ],
+        "precautions": [
+          "Do not leave the ADDR pin open or shorted.",
+          "Use the specified standard resistor values for reliable address detection.",
+          "The address is read during initialization and cannot be changed during operation."
+        ]
+      }
+    },
+    "VSET": {
+      "name": "VSET",
+      "pin_id": "15",
+      "direction": "INPUT",
+      "type": "ANALOG",
+      "description": "Output voltage set point by connecting a resistor from VSET to AGND. Sets the default output voltage and related warning/fault limits.",
+      "input_voltage": {
+        "min": -0.3,
+        "max_note": "VDD + 0.3",
+        "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect a resistor from VSET to AGND to set the output voltage. Alternatively, short to AGND or leave open for PMBus-controlled voltage setting (defaults to 0.6 V).",
+        "detailed_description": "The VSET pin programs the default output voltage using a resistor to AGND. It also automatically sets eight VOUT-related warning and fault voltage limits and the VOUT_SCALE_LOOP value. If the output voltage is to be set by PMBus, the VSET pin should be shorted to AGND or left open, in which case the output defaults to 0.6 V.",
+        "functionality": "Sets the default output voltage and automatically configures protection thresholds. Resistor values: 0.845K (0.60V), 1.3K (0.90V), 1.78K (0.95V), 2.32K (1.00V), 2.87K (1.05V), 3.48K (1.20V), 4.12K (1.25V), 4.75K (1.50V), 5.49K (1.80V), 6.19K (2.10V), 6.98K (2.50V), 7.87K (3.30V), 8.87K (5.00V), 11.0K (12.00V).",
+        "connected_components": [
+          {
+            "component_name": "VSET Resistor",
+            "description": "Resistor from VSET to AGND. The value determines the default output voltage per the lookup table. Use specified standard resistor values only."
+          }
+        ],
+        "precautions": [
+          "Use only the specified standard resistor values for reliable voltage detection.",
+          "If using PMBus to set VOUT, short VSET to AGND or leave open (defaults to 0.6 V).",
+          "The VSET value also sets related warnings (OV, UV) and fault limits automatically.",
+          "If a voltage not in the table is needed without PMBus, a resistor divider on VSEN+/VSEN- can be used but with reduced accuracy. Contact Vishay for details."
+        ]
+      }
+    },
+    "RT/SYNC": {
+      "name": "RT/SYNC",
+      "pin_id": "17",
+      "direction": "BIDIRECTIONAL",
+      "type": "ANALOG",
+      "description": "Clock synchronization pin. Frequency can be set by connecting a resistor to AGND. Depending on master/slave configuration, a clock can be sent/received via this pin.",
+      "input_voltage": {
+        "min": -0.3,
+        "max_note": "VDD + 0.3",
+        "units": "V"
+      },
+      "internal_pull": null,
+      "vih": {
+        "min": 2.0,
+        "units": "V"
+      },
+      "vil": {
+        "max": 0.8,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect a resistor (RRT) from RT/SYNC to AGND to set the default switching frequency. During power up, less than 1 mA DC current is injected into the resistor to determine the frequency. In master mode, the pin outputs a 50% duty cycle clock signal. In slave mode, the pin receives an external clock for synchronization.",
+        "detailed_description": "The RT/SYNC pin has dual functionality: setting the switching frequency via a resistor and providing clock synchronization between master and slave devices. Four modes are supported: standalone, master (outputs clock in phase with switching), slave in phase (synchronizes to external clock with 0 degree phase), and slave 180 degree out of phase. The mode is configured via the PMBus INTERLEAVE command.",
+        "functionality": "Programs the switching frequency and enables multi-device synchronization. Resistor values: 0.845K (300kHz), 1.3K (400kHz), 1.78K (500kHz), 2.32K (550kHz), 2.87K (600kHz), 3.48K (650kHz), 4.12K (700kHz), 4.75K (750kHz), 5.49K (800kHz), 6.19K (850kHz), 6.98K (900kHz), 7.87K (950kHz), 8.87K (1000kHz), 10K (1250kHz), 11K (1500kHz). The frequency set by the external resistor can be overridden by PMBus FREQUENCY_SWITCH command with 50 kHz resolution.",
+        "connected_components": [
+          {
+            "component_name": "Frequency Setting Resistor (RRT)",
+            "description": "Resistor from RT/SYNC to AGND. The value determines the default switching frequency. Must always be present regardless of operating mode."
+          },
+          {
+            "component_name": "External Clock Source (slave mode)",
+            "description": "In slave mode, an external clock signal is connected to this pin. The input minimum pulse width is 100 ns. Logic high level is above 2 V, logic low level is below 0.8 V."
+          }
+        ],
+        "precautions": [
+          "Do not leave the RT/SYNC resistor open or shorted.",
+          "In slave mode, if the external clock signal comes from a SiC45x master, the RRT resistor should match the master's RRT value.",
+          "The default mode is master (INTERLEAVE = 0x0100).",
+          "Synchronization frequency range is 300 kHz to 1500 kHz."
+        ]
+      }
+    },
+    "SALRT": {
+      "name": "SALRT",
+      "pin_id": "18",
+      "direction": "OUTPUT",
+      "type": "DIGITAL",
+      "description": "PMBus alert. Open-drain output. Connect to external host interface if desired for fault/warning notification.",
+      "output_type": "OPEN_DRAIN",
+      "internal_pull": null,
+      "vih": {
+        "min": 2.0,
+        "units": "V"
+      },
+      "vil": {
+        "max": 0.8,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to the PMBus host's SMBALERT# input with a pull-up resistor to the logic supply. Can be masked using the SMBALERT_MASK (1Bh) command.",
+        "detailed_description": "SALRT is an open-drain alert output that asserts (goes low) when a fault or warning condition occurs. It supports the SMBus Alert Response Protocol. The alert can be masked for specific conditions using the SMBALERT_MASK command. The alert is cleared by the CLEAR_FAULTS command.",
+        "functionality": "Provides asynchronous notification to the PMBus host when fault or warning conditions occur, supporting the SMBus Alert Response Protocol for efficient interrupt-driven host communication.",
+        "connected_components": [
+          {
+            "component_name": "Pull-up Resistor",
+            "description": "External pull-up resistor to the PMBus logic supply voltage. Required because SALRT is an open-drain output."
+          }
+        ],
+        "precautions": [
+          "An external pull-up resistor is required.",
+          "Pin capacitance is typically 5 pF.",
+          "The SMBALERT_MASK command can be used to selectively block specific conditions from asserting the alert."
+        ]
+      }
+    },
+    "SDA": {
+      "name": "SDA",
+      "pin_id": "19",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "PMBus data. Connect to external host interface. Open-drain bidirectional data line for PMBus/I2C communication.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 5.5,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "vih": {
+        "min": 2.0,
+        "units": "V"
+      },
+      "vil": {
+        "max": 0.8,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to the PMBus/I2C data bus with an external pull-up resistor to the logic supply. Supports PMBus 1.3 protocol with bus speeds up to 1 MHz.",
+        "detailed_description": "SDA is the bidirectional data pin for PMBus/I2C communication. The device supports PMBus 1.3 compliant protocol with packet error checking (PEC). Over 50 PMBus commands are supported for configuration, monitoring, and fault management.",
+        "functionality": "Bidirectional data line for PMBus communication. Used for reading telemetry (VIN, IIN, VOUT, IOUT, temperature, duty cycle, power), configuring operating parameters (voltage, frequency, protection limits), and managing fault responses.",
+        "connected_components": [
+          {
+            "component_name": "Pull-up Resistor",
+            "description": "External pull-up resistor to the PMBus logic supply. Typical value depends on bus loading and speed requirements."
+          }
+        ],
+        "precautions": [
+          "Pin capacitance is typically 5 pF.",
+          "Maximum bus speed is 1 MHz.",
+          "Supports packet error checking (PEC) for data integrity.",
+          "Logic levels: VIH >= 2 V, VIL <= 0.8 V."
+        ]
+      }
+    },
+    "SCL": {
+      "name": "SCL",
+      "pin_id": "20",
+      "direction": "INPUT",
+      "type": "DIGITAL",
+      "description": "PMBus clock. Connect to external host interface. Clock input for PMBus/I2C communication.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 5.5,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "vih": {
+        "min": 2.0,
+        "units": "V"
+      },
+      "vil": {
+        "max": 0.8,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to the PMBus/I2C clock bus with an external pull-up resistor to the logic supply. Maximum supported bus speed is 1 MHz.",
+        "detailed_description": "SCL is the clock input for PMBus/I2C communication. The device operates as a PMBus slave and receives the clock from the bus master.",
+        "functionality": "Receives the clock signal for PMBus/I2C communication from the bus master.",
+        "connected_components": [
+          {
+            "component_name": "Pull-up Resistor",
+            "description": "External pull-up resistor to the PMBus logic supply. Typical value depends on bus loading and speed requirements."
+          }
+        ],
+        "precautions": [
+          "Pin capacitance is typically 5 pF.",
+          "Maximum bus speed is 1 MHz.",
+          "Logic levels: VIH >= 2 V, VIL <= 0.8 V."
+        ]
+      }
+    },
+    "EN": {
+      "name": "EN",
+      "pin_id": "21",
+      "direction": "INPUT",
+      "type": "DIGITAL",
+      "description": "Enable pin. Active high 5 V logic level input. Driving high enables the device, grounding it turns it off.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 5.5,
+        "units": "V"
+      },
+      "internal_pull": {
+        "direction": "DOWN",
+        "pull_value": {
+          "nom": 5.0,
+          "units": "Mohm"
+        },
+        "type": "RESISTANCE"
+      },
+      "vih": {
+        "min": 2.0,
+        "units": "V"
+      },
+      "vil": {
+        "max": 0.8,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to a digital control signal or power sequencing logic. Active high. Can be tied to VDD for always-on operation, or driven by a GPIO or sequencing circuit. There are no sequencing requirements with respect to input/output supplies.",
+        "detailed_description": "The EN pin controls the on/off state of the converter. Driving this pin high enables the device, while grounding it turns it off. The pin has an internal 5 Mohm pull-down resistor. The EN pin works in conjunction with the OPERATION PMBus command and ON_OFF_CONFIGURATION settings to determine when the converter starts.",
+        "functionality": "Hardware enable/disable control. The EN pin polarity (active high/low) and its interaction with PMBus commands can be configured via the ON_OFF_CONFIGURATION (02h) register. Default configuration requires both EN asserted and OPERATION command bit 7 set to start conversion.",
+        "connected_components": [
+          {
+            "component_name": "Enable Signal Source",
+            "description": "Digital control signal, GPIO output, power sequencing circuit, or direct connection to VDD for always-on operation."
+          }
+        ],
+        "precautions": [
+          "There are no sequencing requirements between EN and any input/output supply.",
+          "The internal pull-down resistance is approximately 5 Mohm.",
+          "Default configuration requires both EN pin asserted AND PMBus OPERATION command to start.",
+          "EN polarity can be changed via ON_OFF_CONFIGURATION command.",
+          "Input hysteresis is typically 0.1 V."
+        ]
+      }
+    },
+    "VDD": {
+      "name": "VDD",
+      "pin_id": "22",
+      "direction": "OUTPUT",
+      "type": "POWER",
+      "description": "Internal 5 V circuits supply voltage. VDD is a LDO output. Connect a 1 uF decoupling capacitor to AGND.",
+      "input_voltage": {
+        "min": 4.5,
+        "max": 5.5,
+        "nom": 5.0,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect a 1 uF ceramic decoupling capacitor from VDD to AGND. VDD is an internal LDO regulator output that provides the logic supply voltage for internal circuits.",
+        "detailed_description": "VDD is the output of an internal LDO regulator that generates the 5 V logic supply for the device's internal digital and analog control circuits. The PVCC UVLO threshold (typical 3.6 V) monitors this supply.",
+        "functionality": "Provides the regulated 5 V logic supply voltage for internal control circuits. VDD can also be used as a pull-up supply for the PGOOD pin and other external logic-level signals.",
+        "connected_components": [
+          {
+            "component_name": "Decoupling Capacitor (CVDD)",
+            "description": "1 uF ceramic capacitor from VDD to AGND. Must be placed close to the IC to filter noise and provide stable supply for internal circuits."
+          }
+        ],
+        "precautions": [
+          "Always connect a 1 uF decoupling capacitor from VDD to AGND.",
+          "Place the capacitor close to the IC.",
+          "Do not apply external voltage to this pin; it is an LDO output.",
+          "VDD nominal output is 5 V (range 4.5 V to 5.5 V).",
+          "The bias supply UVLO threshold is typically 3.6 V."
+        ]
+      }
+    },
+    "VIN": {
+      "name": "VIN",
+      "pin_id": "23",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "Internal driver supply voltage. VIN is used to implement on-time of the COT control. VIN shall be directly connected to PVIN.",
+      "input_voltage": {
+        "min": 4.5,
+        "max": 20.0,
+        "abs_max": 28.0,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect directly to PVIN. Place a decoupling capacitor close to this pin. VIN is the input pin for both the internal LDO and the tON timing block.",
+        "detailed_description": "VIN is the internal supply voltage pin used by the internal LDO regulators (VDD and PVCC) and the COT on-time generation block. The on-time varies based on the input voltage sensed at this pin. VIN must be connected directly to PVIN.",
+        "functionality": "Supplies the internal LDO regulators and provides the input voltage reference for the constant on-time (COT) control loop. The on-time is calculated based on the voltage at this pin to maintain the correct duty cycle.",
+        "connected_components": [
+          {
+            "component_name": "Decoupling Capacitor",
+            "description": "Place a decoupling capacitor close to this pin to filter noise from the internal LDO and tON sensing circuits."
+          }
+        ],
+        "precautions": [
+          "VIN must be directly connected to PVIN.",
+          "Place a decoupling capacitor close to this pin.",
+          "Do not exceed the 28 V absolute maximum rating."
+        ]
+      }
+    },
+    "PVCC": {
+      "name": "PVCC",
+      "pin_id": "24",
+      "direction": "OUTPUT",
+      "type": "POWER",
+      "description": "Supply voltage for internal gate drive. PVCC is a LDO output. Connect a 4.7 uF decoupling capacitor to PGND.",
+      "input_voltage": {
+        "min": 4.5,
+        "max": 5.5,
+        "nom": 5.0,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect a 4.7 uF ceramic decoupling capacitor from PVCC to PGND. PVCC is an internal LDO regulator output that provides the gate drive supply voltage.",
+        "detailed_description": "PVCC is the output of an internal LDO regulator that generates the 5 V gate drive supply. It powers the high-side and low-side MOSFET gate drivers. The PVCC UVLO threshold is typically 3.6 V with 300 mV hysteresis.",
+        "functionality": "Provides the regulated 5 V supply voltage for the internal high-side and low-side MOSFET gate drivers. Adequate decoupling is critical to provide sufficient instantaneous current during switching transitions.",
+        "connected_components": [
+          {
+            "component_name": "Decoupling Capacitor (CPVCC)",
+            "description": "4.7 uF ceramic capacitor from PVCC to PGND. Must be placed close to the IC to filter noise and provide maximum instantaneous driver current for the low-side MOSFET during switching cycles."
+          }
+        ],
+        "precautions": [
+          "Always connect a 4.7 uF decoupling capacitor from PVCC to PGND.",
+          "Place the capacitor close to the IC.",
+          "Do not apply external voltage to this pin; it is an LDO output.",
+          "PVCC UVLO threshold is typically 3.6 V with 300 mV hysteresis.",
+          "PVCC nominal output is 5 V (range 4.5 V to 5.5 V)."
+        ]
+      }
+    },
+    "GL": {
+      "name": "GL",
+      "pin_id": "25",
+      "direction": "OUTPUT",
+      "type": "OTHER",
+      "description": "Low side MOSFET gate monitor. Allows monitoring of the low-side gate drive signal.",
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "This is a monitor output for the low-side MOSFET gate. Can be used for debug or test purposes.",
+        "detailed_description": "GL provides visibility into the low-side MOSFET gate drive signal. This pin is primarily used for monitoring and diagnostic purposes.",
+        "functionality": "Outputs the gate drive signal of the internal low-side MOSFET for monitoring and debug.",
+        "connected_components": [],
+        "precautions": [
+          "This is a monitoring pin. Do not load it with external circuitry that could affect gate drive operation."
+        ]
+      }
+    },
+    "SW": {
+      "name": "SW",
+      "pin_id": "26, 27, 28, 29, 30, 31",
+      "direction": "OTHER",
+      "type": "POWER",
+      "description": "Switch node. Output of the half-bridge power stage. Connect to the power inductor.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 28.0,
+        "abs_max_ac": "-8 to +33 V (100 ns)",
+        "units": "V"
+      },
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to one terminal of the output power inductor using a large copper plane to lower resistance. The other terminal of the inductor connects to the output voltage (VOUT). A snubber network may be placed on the bottom side of the PCB if required.",
+        "detailed_description": "The SW pin is the output of the internal half-bridge consisting of the high-side and low-side MOSFETs. It swings between PVIN and PGND during normal switching operation. The switch node is connected to the output through an external power inductor. The integrated power stage features a 4 mohm high-side MOSFET and a 1.4 mohm low-side MOSFET.",
+        "functionality": "Provides the switched output from the internal power stage to the external inductor. During the on-time, the high-side MOSFET connects SW to PVIN. During the off-time, the low-side MOSFET connects SW to PGND.",
+        "connected_components": [
+          {
+            "component_name": "Power Inductor",
+            "description": "External power inductor connected from SW to VOUT. Select inductance value based on desired ripple current, switching frequency, input/output voltages, and transient response requirements."
+          },
+          {
+            "component_name": "Snubber Network (optional)",
+            "description": "Optional RC snubber placed on the bottom side of the PCB between SW and PGND if needed to reduce voltage ringing."
+          }
+        ],
+        "precautions": [
+          "The SW node carries high-frequency, high-current switching and generates significant dv/dt and di/dt. Keep the SW plane area minimized.",
+          "Use a large copper plane for the SW to inductor connection to lower resistance.",
+          "Place the inductor close to the SW pins.",
+          "Do not place vias on the SW pad as it is a noise source.",
+          "Route sensitive analog signals (especially VSEN+/VSEN-) far from the SW node.",
+          "Keep the high-current switching paths on one side of the IC and small control signals on the opposite side."
+        ]
+      }
+    },
+    "PGND": {
+      "name": "PGND",
+      "pin_id": "32, 33",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "Power ground. Common return for internal MOSFETs.",
+      "internal_pull": null,
+      "implementation": {
+        "connectivity": "Connect to the system power ground plane. Place input decoupling capacitors and the PVCC decoupling capacitor between their respective supply pins and PGND with short, wide traces.",
+        "detailed_description": "PGND is the power ground return path for the internal high-side and low-side MOSFETs. It carries the high-frequency switching currents and must have a low-impedance connection to the input capacitor ground and output capacitor ground.",
+        "functionality": "Provides the power ground return path for all high-current switching within the converter. The PGND plane should be designed for minimal impedance to reduce losses and noise.",
+        "connected_components": [
+          {
+            "component_name": "System Ground Plane",
+            "description": "Connect to a dedicated power ground plane. Use thermal relief vias to utilize inner layers for high current and thermal dissipation."
+          },
+          {
+            "component_name": "Input Decoupling Capacitors",
+            "description": "Ceramic capacitors placed between PVIN and PGND with short, wide traces."
+          },
+          {
+            "component_name": "PVCC Decoupling Capacitor",
+            "description": "4.7 uF ceramic capacitor from PVCC to PGND."
+          }
+        ],
+        "precautions": [
+          "Use thermal relief vias on PGND pads to utilize inner layers for current carrying and thermal dissipation.",
+          "Duplicate the VIN and ground plane at the bottom layer to maximize power dissipation capability.",
+          "The ground plane can be broken into power ground and analog ground sections with a single connection point.",
+          "Use short, wide traces for all PGND connections to minimize parasitic inductance."
+        ]
+      }
+    }
+  },
+  "serial_bus": {
+    "type": "PMBus",
+    "version": "1.3",
+    "max_bus_speed_mhz": 1.0,
+    "supports_pec": true,
+    "supports_alert": true,
+    "address_note": "7-bit address set by ADDR pin resistor + MFR_BASE_ADDRESS in NVM. Default base addresses: 0x10 (MFR_BASE_ADDRESS) or 0x50 (MFR_BASE_ADDRESS_2).",
+    "registers": {
+      "OPERATION": {
+        "address": "0x01",
+        "type": "R/W",
+        "data_format": "Byte",
+        "default_value": "0x88",
+        "description": "Sets the operational state of the regulator. Controls on/off, margin, and fault behavior.",
+        "fields": {
+          "On_off": {
+            "bits": "7",
+            "default": "1",
+            "description": "1: Output enabled, 0: Output disabled"
+          },
+          "Off_B": {
+            "bits": "6",
+            "default": "0",
+            "description": "0: Off immediately ignoring sequence, 1: Off following TOFF_DELAY and TOFF_FALL"
+          },
+          "Margin": {
+            "bits": "5:4",
+            "default": "00",
+            "description": "00: VOUT set by VOUT_COMMAND, 01: VOUT_MARGIN_LOW, 10: VOUT_MARGIN_HIGH, 11: Not supported"
+          },
+          "MRGNFLT": {
+            "bits": "3:2",
+            "default": "10",
+            "description": "00: Not supported, 01: Margin faults ignored, 10: Margin faults acted upon per OV/UV response, 11: Not supported"
+          }
+        }
+      },
+      "ON_OFF_CONFIGURATION": {
+        "address": "0x02",
+        "type": "R/W",
+        "data_format": "Byte",
+        "default_value": "0x1F",
+        "description": "Configures the combination of EN pin input and PMBus commands needed to turn the unit on and off.",
+        "fields": {
+          "PU": {
+            "bits": "4",
+            "default": "1",
+            "description": "0: Power up anytime, 1: Requires EN and OPERATION command"
+          },
+          "CMD": {
+            "bits": "3",
+            "default": "1",
+            "description": "0: Ignore OPERATION on bit, 1: Respond to OPERATION on bit"
+          },
+          "EN": {
+            "bits": "2",
+            "default": "1",
+            "description": "0: Ignore EN pin, 1: Require EN pin asserted"
+          },
+          "ENPOL": {
+            "bits": "1",
+            "default": "1",
+            "description": "0: EN active low, 1: EN active high"
+          },
+          "OFFB1": {
+            "bits": "0",
+            "default": "1",
+            "description": "0: Off following tOFF_DELAY/tOFF_FALL, 1: Off immediately"
+          }
+        }
+      },
+      "CLEAR_FAULTS": {
+        "address": "0x03",
+        "type": "Write",
+        "data_format": "None",
+        "default_value": null,
+        "description": "Clears all fault bits in all status registers and releases SALRT ALERT# signal."
+      },
+      "WRITE_PROTECT": {
+        "address": "0x10",
+        "type": "Write",
+        "data_format": "Byte",
+        "default_value": "0x00",
+        "description": "Controls writing to PMBus device for accidental change protection.",
+        "fields": {
+          "WTPRT": {
+            "bits": "7:5",
+            "default": "000",
+            "description": "000: All writes enabled, 100: Only WRITE_PROTECT, 010: WRITE_PROTECT+OPERATION, 001: WRITE_PROTECT+OPERATION+ON_OFF_CONFIG+VOUT_COMMAND"
+          }
+        }
+      },
+      "STORE_USER_ALL": {
+        "address": "0x15",
+        "type": "Write",
+        "data_format": "None",
+        "default_value": null,
+        "description": "Copies entire operating memory to non-volatile User Store memory."
+      },
+      "RESTORE_USER_ALL": {
+        "address": "0x16",
+        "type": "Write",
+        "data_format": "None",
+        "default_value": null,
+        "description": "Copies entire non-volatile user store memory (NVM) to operating memory. Protected by EEPROM_PASSWORD (DBh) command."
+      },
+      "CAPABILITY": {
+        "address": "0x19",
+        "type": "Read",
+        "data_format": "Byte",
+        "default_value": "0xD0",
+        "description": "Reports key capabilities: PEC supported, 1 MHz max speed, ALERT# supported, LINEAR data format.",
+        "fields": {
+          "PEC": {
+            "bits": "7",
+            "default": "1",
+            "description": "Packet error checking supported"
+          },
+          "SPD": {
+            "bits": "6:5",
+            "default": "10",
+            "description": "Maximum bus speed: 1 MHz"
+          },
+          "ALRT": {
+            "bits": "4",
+            "default": "1",
+            "description": "ALERT# pin supported"
+          },
+          "NFMT": {
+            "bits": "3",
+            "default": "0",
+            "description": "LINEAR11/LINEAR16/DIRECT format"
+          }
+        }
+      },
+      "SMBALERT_MASK": {
+        "address": "0x1B",
+        "type": "R/W",
+        "data_format": "Block",
+        "default_value": "0x0000",
+        "description": "Masks specific warning or fault conditions from asserting the SMBALERT# signal."
+      },
+      "VOUT_MODE": {
+        "address": "0x20",
+        "type": "Read",
+        "data_format": "Byte",
+        "default_value": "0x17",
+        "description": "Reports output voltage data format: ULINEAR16 with exponent -9.",
+        "fields": {
+          "Mode": {
+            "bits": "7:5",
+            "default": "000",
+            "description": "ULINEAR16 format for VOUT related commands"
+          },
+          "EXP": {
+            "bits": "4:0",
+            "default": "10111",
+            "description": "Exponent = -9 (twos complement)"
+          }
+        }
+      },
+      "VOUT_COMMAND": {
+        "address": "0x21",
+        "type": "R/W",
+        "data_format": "ULINEAR16 (V)",
+        "default_value": "0x0133",
+        "description": "Sets the output voltage. Default 0.6 V. Range 0.3 V to 14 V, 1.953 mV resolution."
+      },
+      "VOUT_TRIM": {
+        "address": "0x22",
+        "type": "R/W",
+        "data_format": "SLINEAR16 (V)",
+        "default_value": "factory trim",
+        "description": "Applies a fixed offset voltage to the output voltage command. Deviates from standard PMBus 1.3. Range -2 V to 2 V, 1.953 mV resolution."
+      },
+      "VOUT_MAX": {
+        "address": "0x24",
+        "type": "R/W",
+        "data_format": "ULINEAR16 (V)",
+        "default_value": "0x1C00",
+        "description": "Sets upper limit on commanded output voltage (safeguard). Default 14 V. Range 0.3 V to 14 V, 1.953 mV resolution."
+      },
+      "VOUT_MARGIN_HIGH": {
+        "address": "0x25",
+        "type": "R/W",
+        "data_format": "ULINEAR16 (V)",
+        "default_value": "0x0142",
+        "description": "Sets the output voltage for margin high operation. Default 0.63 V. Range 0.3 V to 14 V, 1.953 mV resolution."
+      },
+      "VOUT_MARGIN_LOW": {
+        "address": "0x26",
+        "type": "R/W",
+        "data_format": "ULINEAR16 (V)",
+        "default_value": "0x0123",
+        "description": "Sets the output voltage for margin low operation. Default 0.57 V. Range 0.3 V to 14 V, 1.953 mV resolution."
+      },
+      "VOUT_TRANSITION_RATE": {
+        "address": "0x27",
+        "type": "R/W",
+        "data_format": "LINEAR11 (mV/us)",
+        "default_value": "0xE002",
+        "description": "Sets the rate at which output voltage changes during margining. Default 0.125 mV/us. Range 0.0625 to 2 mV/us, 0.0625 mV/us resolution."
+      },
+      "VOUT_SCALE_LOOP": {
+        "address": "0x29",
+        "type": "R/W",
+        "data_format": "LINEAR11 (V/V)",
+        "default_value": "0xE808",
+        "description": "Scales VOUT_COMMAND and sense voltage to extend operational range to 12 V. Deviates from PMBus 1.3. Options: 1.0 (VOUT<1.8V), 0.5 (1.8-3.3V), 0.25 (3.3-5V), 0.125 (5-12V)."
+      },
+      "FREQUENCY_SWITCH": {
+        "address": "0x33",
+        "type": "R/W",
+        "data_format": "LINEAR11 (kHz)",
+        "default_value": "0x0258",
+        "description": "Sets the switching frequency. Default 600 kHz. Range 300 kHz to 1500 kHz, 50 kHz resolution."
+      },
+      "VIN_ON": {
+        "address": "0x35",
+        "type": "R/W",
+        "data_format": "LINEAR11 (V)",
+        "default_value": "0xF814",
+        "description": "Sets the input voltage at which power conversion starts. Default 10 V. Range 1 V to 80 V, 0.5 V resolution."
+      },
+      "VIN_OFF": {
+        "address": "0x36",
+        "type": "R/W",
+        "data_format": "LINEAR11 (V)",
+        "default_value": "0xF812",
+        "description": "Sets the input voltage at which power conversion stops. Default 9 V. Range 1 V to 80 V, 0.5 V resolution."
+      },
+      "INTERLEAVE": {
+        "address": "0x37",
+        "type": "R/W",
+        "data_format": "Word",
+        "default_value": "0x0100",
+        "description": "Sets mode of switching configuration: 0x0000 Standalone, 0x0100 Master (default), 0x0120 Slave in phase, 0x0121 Slave 180 deg out of phase. Deviates from PMBus 1.3."
+      },
+      "VOUT_OV_FAULT_LIMIT": {
+        "address": "0x40",
+        "type": "R/W",
+        "data_format": "ULINEAR16 (V)",
+        "default_value": "0x0161",
+        "description": "Sets output overvoltage fault threshold. Default 0.69 V (115% of default VOUT). Range 0.3 V to 14 V, 1.953 mV resolution."
+      },
+      "VOUT_OV_FAULT_RESPONSE": {
+        "address": "0x41",
+        "type": "R/W",
+        "data_format": "Byte",
+        "default_value": "0xF8",
+        "description": "Configures action on output overvoltage fault. Default: disable output, restart continuously when fault clears."
+      },
+      "VOUT_OV_WARN_LIMIT": {
+        "address": "0x42",
+        "type": "R/W",
+        "data_format": "ULINEAR16 (V)",
+        "default_value": "0x0151",
+        "description": "Sets output overvoltage warning threshold. Default 0.66 V (110% of default VOUT). Range 0.3 V to 14 V, 1.953 mV resolution."
+      },
+      "VOUT_UV_WARN_LIMIT": {
+        "address": "0x43",
+        "type": "R/W",
+        "data_format": "ULINEAR16 (V)",
+        "default_value": "0x0114",
+        "description": "Sets output undervoltage warning threshold. Default 0.54 V (90% of default VOUT). Range 0 V to 14 V, 1.953 mV resolution."
+      },
+      "VOUT_UV_FAULT_LIMIT": {
+        "address": "0x44",
+        "type": "R/W",
+        "data_format": "ULINEAR16 (V)",
+        "default_value": "0x00F5",
+        "description": "Sets output undervoltage fault threshold. Default 0.48 V (80% of default VOUT). Range 0 V to 14 V, 1.953 mV resolution."
+      },
+      "VOUT_UV_FAULT_RESPONSE": {
+        "address": "0x45",
+        "type": "R/W",
+        "data_format": "Byte",
+        "default_value": "0xB9",
+        "description": "Configures action on output undervoltage fault. Default: shutdown, restart continuously with 20 ms delay."
+      },
+      "IOUT_OC_FAULT_LIMIT": {
+        "address": "0x46",
+        "type": "R/W",
+        "data_format": "LINEAR11 (A)",
+        "default_value": "0xF846",
+        "description": "Sets overcurrent fault threshold (valley current limit). SiC451 default: 35 A. Range 0 A to 127 A, 0.5 A resolution."
+      },
+      "IOUT_OC_FAULT_RESPONSE": {
+        "address": "0x47",
+        "type": "R/W",
+        "data_format": "Byte",
+        "default_value": "0xA1",
+        "description": "Configures OCP response. Default: continue for 128 consecutive OC cycles then shutdown, hiccup with 20 ms delay. Deviates from PMBus 1.3."
+      },
+      "IOUT_OC_WARN_LIMIT": {
+        "address": "0x4A",
+        "type": "R/W",
+        "data_format": "LINEAR11 (A)",
+        "default_value": "0xF841",
+        "description": "Sets overcurrent warning threshold. SiC451 default: 32.5 A. Range 0 A to 127 A, 0.5 A resolution."
+      },
+      "OT_FAULT_LIMIT": {
+        "address": "0x4F",
+        "type": "R/W",
+        "data_format": "LINEAR11 (deg C)",
+        "default_value": "0x007D",
+        "description": "Sets overtemperature fault threshold. Default 125 deg C. Range 0 to 150 deg C, 1 deg C resolution."
+      },
+      "OT_FAULT_RESPONSE": {
+        "address": "0x50",
+        "type": "R/W",
+        "data_format": "Byte",
+        "default_value": "0xF9",
+        "description": "Configures action on overtemperature fault. Default: disable output, restart continuously when fault clears."
+      },
+      "OT_WARN_LIMIT": {
+        "address": "0x51",
+        "type": "R/W",
+        "data_format": "LINEAR11 (deg C)",
+        "default_value": "0x0069",
+        "description": "Sets overtemperature warning threshold. Default 105 deg C. Range 0 to 150 deg C, 1 deg C resolution."
+      },
+      "VIN_OV_FAULT_LIMIT": {
+        "address": "0x55",
+        "type": "R/W",
+        "data_format": "LINEAR11 (V)",
+        "default_value": "0xF81E",
+        "description": "Sets input overvoltage fault threshold. Default 15 V. Range 1 V to 80 V, 0.5 V resolution."
+      },
+      "VIN_OV_FAULT_RESPONSE": {
+        "address": "0x56",
+        "type": "R/W",
+        "data_format": "Byte",
+        "default_value": "0xB8",
+        "description": "Configures action on input overvoltage fault. Default: disable output, output remains disabled until fault cleared. Deviates from PMBus 1.3."
+      },
+      "VIN_UV_WARN_LIMIT": {
+        "address": "0x58",
+        "type": "R/W",
+        "data_format": "LINEAR11 (V)",
+        "default_value": "0xF812",
+        "description": "Sets input undervoltage warning threshold. Default 9 V. Range 1 V to 80 V, 0.5 V resolution."
+      },
+      "IIN_OC_WARN_LIMIT": {
+        "address": "0x5D",
+        "type": "R/W",
+        "data_format": "LINEAR11 (A)",
+        "default_value": "0xF80A",
+        "description": "Sets input overcurrent warning threshold. Default 5 A. Range 0 A to 127 A, 0.5 A resolution."
+      },
+      "POWER_GOOD_ON": {
+        "address": "0x5E",
+        "type": "R/W",
+        "data_format": "ULINEAR16 (V)",
+        "default_value": "0x0114",
+        "description": "Sets the output voltage at which PGOOD asserts (rising threshold). Default 0.54 V (90% of 0.6V). Range 0.24 V to 14 V, 1.953 mV resolution."
+      },
+      "POWER_GOOD_OFF": {
+        "address": "0x5F",
+        "type": "R/W",
+        "data_format": "ULINEAR16 (V)",
+        "default_value": "0x0105",
+        "description": "Sets the output voltage at which PGOOD de-asserts (falling threshold). Default 0.51 V (85% of 0.6V). Range 0.24 V to 14 V, 1.953 mV resolution."
+      },
+      "TON_DELAY": {
+        "address": "0x60",
+        "type": "R/W",
+        "data_format": "LINEAR11 (ms)",
+        "default_value": "0x0000",
+        "description": "Sets the turn-on delay time. Default 0 ms. Range 0 to 127 ms, 1 ms resolution."
+      },
+      "TON_RISE": {
+        "address": "0x61",
+        "type": "R/W",
+        "data_format": "LINEAR11 (ms)",
+        "default_value": "0x0005",
+        "description": "Sets the soft-start rise time. Default 5 ms. Range 0 to 127 ms, 1 ms resolution."
+      },
+      "TON_MAX_FAULT_LIMIT": {
+        "address": "0x62",
+        "type": "R/W",
+        "data_format": "LINEAR11 (ms)",
+        "default_value": "0x0014",
+        "description": "Sets the maximum power-up time before fault. Default 20 ms. Range 0 to 127 ms, 1 ms resolution."
+      },
+      "TON_MAX_FAULT_RESPONSE": {
+        "address": "0x63",
+        "type": "R/W",
+        "data_format": "Byte",
+        "default_value": "0xB9",
+        "description": "Configures action on TON_MAX fault. Default: shutdown, restart continuously with 20 ms delay."
+      },
+      "TOFF_DELAY": {
+        "address": "0x64",
+        "type": "R/W",
+        "data_format": "LINEAR11 (ms)",
+        "default_value": "0x0000",
+        "description": "Sets the turn-off delay time. Default 0 ms. Range 0 to 127 ms, 1 ms resolution."
+      },
+      "TOFF_FALL": {
+        "address": "0x65",
+        "type": "R/W",
+        "data_format": "LINEAR11 (ms)",
+        "default_value": "0x0005",
+        "description": "Sets the soft-stop fall time. Default 5 ms. Range 0 to 127 ms, 1 ms resolution."
+      },
+      "TOFF_MAX_WARN_LIMIT": {
+        "address": "0x66",
+        "type": "R/W",
+        "data_format": "LINEAR11 (ms)",
+        "default_value": "0x003C",
+        "description": "Sets the maximum turn-off time warning. Default 60 ms. Range 0 to 127 ms, 1 ms resolution."
+      },
+      "STATUS_BYTE": {
+        "address": "0x78",
+        "type": "Read",
+        "data_format": "Byte",
+        "default_value": "0x00",
+        "description": "Summary status byte. Reports fault/warning conditions.",
+        "fields": {
+          "BUSY": {
+            "bits": "7",
+            "default": "0",
+            "description": "A fault was declared because the device was busy and unable to respond"
+          },
+          "OFF": {
+            "bits": "6",
+            "default": "0",
+            "description": "Asserted if the unit is not providing power to the output, regardless of the reason, including simply not being enabled"
+          },
+          "VOUT_OV_FAULT": {
+            "bits": "5",
+            "default": "0",
+            "description": "An output overvoltage fault has occurred"
+          },
+          "IOUT_OC_FAULT": {
+            "bits": "4",
+            "default": "0",
+            "description": "An output overcurrent fault has occurred"
+          },
+          "VIN_UV_FAULT": {
+            "bits": "3",
+            "default": "0",
+            "description": "An input undervoltage fault has occurred"
+          },
+          "Temperature": {
+            "bits": "2",
+            "default": "0",
+            "description": "A temperature fault or warning has occurred"
+          },
+          "CML": {
+            "bits": "1",
+            "default": "0",
+            "description": "A communications, memory or logic fault has occurred"
+          },
+          "None_of_above": {
+            "bits": "0",
+            "default": "0",
+            "description": "A fault or warning not listed in bits 7 to 1 has occurred"
+          }
+        }
+      },
+      "STATUS_WORD": {
+        "address": "0x79",
+        "type": "Read",
+        "data_format": "Word",
+        "default_value": "0x0000",
+        "description": "Extended summary status word. Reports fault/warning conditions. Low byte is same as STATUS_BYTE.",
+        "fields": {
+          "VOUT": {
+            "bits": "15",
+            "default": "0",
+            "description": "An output voltage fault or warning has occurred"
+          },
+          "IOUT_POUT": {
+            "bits": "14",
+            "default": "0",
+            "description": "An output current or output power fault or warning has occurred"
+          },
+          "Input": {
+            "bits": "13",
+            "default": "0",
+            "description": "An input voltage, input current, or input power fault or warning has occurred"
+          },
+          "MFR_specific": {
+            "bits": "12",
+            "default": "0",
+            "description": "A manufacturer specific fault or warning has occurred"
+          },
+          "PG_status": {
+            "bits": "11",
+            "default": "0",
+            "description": "The power good signal, if present, is negated"
+          },
+          "Fans": {
+            "bits": "10",
+            "default": "0",
+            "description": "Not available"
+          },
+          "Other": {
+            "bits": "9",
+            "default": "0",
+            "description": "Not available"
+          },
+          "Unknown": {
+            "bits": "8",
+            "default": "0",
+            "description": "Not available"
+          },
+          "BUSY": {
+            "bits": "7",
+            "default": "0",
+            "description": "A fault was declared because the device was busy and unable to respond"
+          },
+          "OFF": {
+            "bits": "6",
+            "default": "0",
+            "description": "Asserted if the unit is not providing power to the output, regardless of the reason"
+          },
+          "VOUT_OV_FAULT": {
+            "bits": "5",
+            "default": "0",
+            "description": "An output overvoltage fault has occurred"
+          },
+          "IOUT_OC_FAULT": {
+            "bits": "4",
+            "default": "0",
+            "description": "An output overcurrent fault has occurred"
+          },
+          "VIN_UV_FAULT": {
+            "bits": "3",
+            "default": "0",
+            "description": "An input undervoltage fault has occurred"
+          },
+          "Temperature": {
+            "bits": "2",
+            "default": "0",
+            "description": "A temperature fault or warning has occurred"
+          },
+          "CML": {
+            "bits": "1",
+            "default": "0",
+            "description": "A communications, memory or logic fault has occurred"
+          },
+          "None_of_above": {
+            "bits": "0",
+            "default": "0",
+            "description": "A fault or warning not listed in bits 7 to 1 has occurred"
+          }
+        }
+      },
+      "STATUS_VOUT": {
+        "address": "0x7A",
+        "type": "Read",
+        "data_format": "Byte",
+        "default_value": "0x00",
+        "description": "Output voltage fault/warning status.",
+        "fields": {
+          "VOUT_OV_FAULT": {
+            "bits": "7",
+            "default": "0",
+            "description": "Output overvoltage fault"
+          },
+          "VOUT_OV_WARN": {
+            "bits": "6",
+            "default": "0",
+            "description": "Output overvoltage warning"
+          },
+          "VOUT_UV_WARN": {
+            "bits": "5",
+            "default": "0",
+            "description": "Output undervoltage warning"
+          },
+          "VOUT_UV_FAULT": {
+            "bits": "4",
+            "default": "0",
+            "description": "Output undervoltage fault"
+          },
+          "VOUT_MAX_MIN": {
+            "bits": "3",
+            "default": "0",
+            "description": "An attempt has been made to set the output voltage to a value higher than allowed by VOUT_MAX or lower than VOUT_MIN"
+          },
+          "TON_MAX_FAULT": {
+            "bits": "2",
+            "default": "0",
+            "description": "TON max fault"
+          },
+          "TOFF_MAX_WARN": {
+            "bits": "1",
+            "default": "0",
+            "description": "TOFF max warning"
+          },
+          "RESERVED_0": {
+            "bits": "0",
+            "default": "0",
+            "description": "Not available"
+          }
+        }
+      },
+      "STATUS_IOUT": {
+        "address": "0x7B",
+        "type": "Read",
+        "data_format": "Byte",
+        "default_value": "0x00",
+        "description": "Output current fault/warning status.",
+        "fields": {
+          "IOUT_OC_FAULT": {
+            "bits": "7",
+            "default": "0",
+            "description": "Output overcurrent fault"
+          },
+          "RESERVED_6": {
+            "bits": "6",
+            "default": "0",
+            "description": "Not available"
+          },
+          "IOUT_OC_WARN": {
+            "bits": "5",
+            "default": "0",
+            "description": "Output overcurrent warning"
+          },
+          "RESERVED_4_0": {
+            "bits": "4:0",
+            "default": "00000",
+            "description": "Not available"
+          }
+        }
+      },
+      "STATUS_INPUT": {
+        "address": "0x7C",
+        "type": "Read",
+        "data_format": "Byte",
+        "default_value": "0x00",
+        "description": "Input fault/warning status.",
+        "fields": {
+          "VIN_OV_FAULT": {
+            "bits": "7",
+            "default": "0",
+            "description": "Input overvoltage fault"
+          },
+          "RESERVED_6": {
+            "bits": "6",
+            "default": "0",
+            "description": "Not available"
+          },
+          "VIN_UV_WARN": {
+            "bits": "5",
+            "default": "0",
+            "description": "Input undervoltage warning"
+          },
+          "RESERVED_4": {
+            "bits": "4",
+            "default": "0",
+            "description": "Not available"
+          },
+          "VIN_INSUFF": {
+            "bits": "3",
+            "default": "0",
+            "description": "Unit off for insufficient input voltage"
+          },
+          "RESERVED_2": {
+            "bits": "2",
+            "default": "0",
+            "description": "Not available"
+          },
+          "IIN_OC_WARN": {
+            "bits": "1",
+            "default": "0",
+            "description": "Input overcurrent warning"
+          },
+          "RESERVED_0": {
+            "bits": "0",
+            "default": "0",
+            "description": "Not available"
+          }
+        }
+      },
+      "STATUS_TEMPERATURE": {
+        "address": "0x7D",
+        "type": "Read",
+        "data_format": "Byte",
+        "default_value": "0x00",
+        "description": "Temperature fault/warning status.",
+        "fields": {
+          "OT_FAULT": {
+            "bits": "7",
+            "default": "0",
+            "description": "Overtemperature fault"
+          },
+          "OT_WARN": {
+            "bits": "6",
+            "default": "0",
+            "description": "Overtemperature warning"
+          },
+          "RESERVED_5_0": {
+            "bits": "5:0",
+            "default": "000000",
+            "description": "Not available"
+          }
+        }
+      },
+      "STATUS_CML": {
+        "address": "0x7E",
+        "type": "Read",
+        "data_format": "Byte",
+        "default_value": "0x00",
+        "description": "Communication, memory, and logic fault status.",
+        "fields": {
+          "INVALID_CMD": {
+            "bits": "7",
+            "default": "0",
+            "description": "Invalid or unsupported command received"
+          },
+          "INVALID_DATA": {
+            "bits": "6",
+            "default": "0",
+            "description": "Invalid or unsupported data received"
+          },
+          "PEC_FAILED": {
+            "bits": "5",
+            "default": "0",
+            "description": "Packet error check failed"
+          },
+          "MEMORY_FAULT": {
+            "bits": "4",
+            "default": "0",
+            "description": "Memory fault detected"
+          },
+          "RESERVED_3": {
+            "bits": "3",
+            "default": "0",
+            "description": "Not available"
+          },
+          "RESERVED_2": {
+            "bits": "2",
+            "default": "0",
+            "description": "Reserved"
+          },
+          "OTHER_COMM_FAULT": {
+            "bits": "1",
+            "default": "0",
+            "description": "A communication fault other than the ones listed in this register has occurred"
+          },
+          "RESERVED_0": {
+            "bits": "0",
+            "default": "0",
+            "description": "Not available"
+          }
+        }
+      },
+      "STATUS_MFR_SPECIFIC": {
+        "address": "0x80",
+        "type": "Read",
+        "data_format": "Byte",
+        "default_value": "0x00",
+        "description": "Manufacturer-specific fault status.",
+        "fields": {
+          "RESERVED_7_4": {
+            "bits": "7:4",
+            "default": "0000",
+            "description": "Not available"
+          },
+          "IL_MASTER_FAULT": {
+            "bits": "3",
+            "default": "0",
+            "description": "IL master fault"
+          },
+          "YF_VERIFY_FAULT": {
+            "bits": "2",
+            "default": "0",
+            "description": "YF verify fault"
+          },
+          "YF_ERASE_FAULT": {
+            "bits": "1",
+            "default": "0",
+            "description": "YF erase fault"
+          },
+          "YF_PGM_FAULT": {
+            "bits": "0",
+            "default": "0",
+            "description": "YF PGM fault"
+          }
+        }
+      },
+      "READ_VIN": {
+        "address": "0x88",
+        "type": "Read",
+        "data_format": "LINEAR11 (V)",
+        "default_value": null,
+        "description": "Reads the input voltage. Range 0 V to 80 V."
+      },
+      "READ_IIN": {
+        "address": "0x89",
+        "type": "Read",
+        "data_format": "ULINEAR11 (A)",
+        "default_value": null,
+        "description": "Reads the input current."
+      },
+      "READ_VOUT": {
+        "address": "0x8B",
+        "type": "Read",
+        "data_format": "ULINEAR16 (V)",
+        "default_value": null,
+        "description": "Reads the output voltage. Range 0 V to 48 V."
+      },
+      "READ_IOUT": {
+        "address": "0x8C",
+        "type": "Read",
+        "data_format": "ULINEAR11 (A)",
+        "default_value": null,
+        "description": "Reads the output current."
+      },
+      "READ_TEMPERATURE": {
+        "address": "0x8D",
+        "type": "Read",
+        "data_format": "LINEAR11 (deg C)",
+        "default_value": null,
+        "description": "Reads the device temperature. Range -50 to 150 deg C."
+      },
+      "READ_DUTY_CYCLE": {
+        "address": "0x94",
+        "type": "Read",
+        "data_format": "LINEAR11 (%)",
+        "default_value": null,
+        "description": "Reads the duty cycle. Range 0% to 100%."
+      },
+      "READ_POUT": {
+        "address": "0x96",
+        "type": "Read",
+        "data_format": "ULINEAR11 (W)",
+        "default_value": null,
+        "description": "Reads the output power."
+      },
+      "READ_PIN": {
+        "address": "0x97",
+        "type": "Read",
+        "data_format": "ULINEAR11 (W)",
+        "default_value": null,
+        "description": "Reads the input power."
+      },
+      "PMBUS_REVISION": {
+        "address": "0x98",
+        "type": "Read",
+        "data_format": "Byte",
+        "default_value": "0x33",
+        "description": "Reports PMBus revision: Part I rev 1.3, Part II rev 1.3."
+      },
+      "MFR_SERIAL": {
+        "address": "0x9E",
+        "type": "R/W",
+        "data_format": "Block",
+        "default_value": null,
+        "description": "User-writable field for storing customized information."
+      },
+      "IC_DEVICE_ID": {
+        "address": "0xAD",
+        "type": "R/W",
+        "data_format": "Block",
+        "default_value": "0x0000",
+        "description": "IC device identification register."
+      },
+      "EEPROM_PASSWORD": {
+        "address": "0xDB",
+        "type": "Write",
+        "data_format": "Word",
+        "default_value": null,
+        "description": "Unlocks write access to internal NVM. Must be sent before STORE_USER_ALL command. Default password is 0x1234. Access automatically disabled on power-cycle or by sending any other data.",
+        "fields": {
+          "PASSWORD": {
+            "bits": "15:0",
+            "default": null,
+            "description": "Send 0x1234 to unlock NVM write access before STORE_USER_ALL command"
+          }
+        }
+      },
+      "MFR_BASE_ADDRESS": {
+        "address": "0xD7",
+        "type": "Pins program",
+        "data_format": "7-bit",
+        "default_value": "0x10",
+        "description": "Factory-programmed PMBus base address. Default 0x10. Offset set by ADDR pin resistor."
+      },
+      "MFR_BASE_ADDRESS_2": {
+        "address": "0xE2",
+        "type": "Pins program",
+        "data_format": "7-bit",
+        "default_value": "0x50",
+        "description": "Alternate PMBus base address option. Default 0x50. Contact Vishay to select this option."
+      }
+    }
+  }
+}

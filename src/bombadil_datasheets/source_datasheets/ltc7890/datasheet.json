@@ -1,0 +1,1243 @@
+{
+  "high_level": {
+    "base_part_number": "LTC7890",
+    "device_type": "CONTROLLER_BUCK",
+    "manufacturer": "Analog Devices",
+    "packages": [
+      "RUJM (QFN, 40-Lead, 6mm x 6mm, Side Wettable)"
+    ],
+    "part_numbers": {
+      "LTC7890RUJM#PBF": {},
+      "LTC7890RUJM#TRPBF": {}
+    }
+  },
+  "pins": {
+    "FREQ": {
+      "description": "Frequency Control Pin for the Internal Voltage Controlled Oscillator (VCO). Connect FREQ to GND for a fixed frequency of 370 kHz. Connect FREQ to INTVCC for a fixed frequency of 2.25 MHz. Program frequencies between 100 kHz and 3 MHz by using a resistor between FREQ and GND. Minimize the capacitance on FREQ.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Frequency Setting Resistor (RFREQ)",
+            "description": "A resistor placed between FREQ and GND programs the switching frequency between 100 kHz and 3 MHz. The relationship is RFREQ (kOhm) = 37 MHz / fOSC. Connect FREQ to GND for 370 kHz or to INTVCC for 2.25 MHz."
+          }
+        ],
+        "connectivity": "Connect to GND for 370 kHz, to INTVCC for 2.25 MHz, or use a resistor to GND to program a custom frequency between 100 kHz and 3 MHz.",
+        "detailed_description": "Frequency Control Pin for the Internal Voltage Controlled Oscillator (VCO). Sets the free running switching frequency of the LTC7890.",
+        "functionality": "Programs the switching frequency. Tying FREQ to GND selects 370 kHz, tying to INTVCC selects 2.25 MHz. A resistor between FREQ and GND programs frequencies between 100 kHz and 3 MHz.",
+        "precautions": [
+          "Minimize the capacitance on the FREQ pin.",
+          "Do not exceed INTVCC voltage on this pin."
+        ]
+      },
+      "input_voltage": {
+        "max": 6.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "FREQ",
+      "pin_id": "1",
+      "type": "ANALOG"
+    },
+    "MODE": {
+      "description": "Mode Select Input. Determines how the LTC7890 operates at light loads. Connect MODE to GND to select Burst Mode operation. An internal 100 kOhm resistor to GND also invokes Burst Mode operation when MODE is floating. Connect MODE to INTVCC to force continuous inductor current operation. Tying MODE to INTVCC through a 100 kOhm resistor selects pulse skipping operation.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "GND (for Burst Mode)",
+            "description": "Connect MODE to GND to select Burst Mode operation for highest light load efficiency."
+          },
+          {
+            "component_name": "INTVCC (for Forced Continuous Mode)",
+            "description": "Connect MODE to INTVCC to force continuous inductor current operation."
+          },
+          {
+            "component_name": "100 kOhm Resistor to INTVCC (for Pulse Skipping)",
+            "description": "Tie MODE to INTVCC through an external 100 kOhm resistor to select pulse skipping mode."
+          }
+        ],
+        "connectivity": "Connect to GND for Burst Mode, to INTVCC for forced continuous mode, or to INTVCC through 100 kOhm resistor for pulse skipping mode. Can be left floating for Burst Mode (internal 100 kOhm pull-down).",
+        "detailed_description": "Mode Select Input. This input determines how the LTC7890 operates at light loads, selecting between Burst Mode operation, pulse skipping mode, or forced continuous conduction mode.",
+        "functionality": "Controls the light load operating mode of both channels. Burst Mode provides highest light load efficiency. Forced continuous mode provides lowest output ripple. Pulse skipping mode provides a balance between efficiency and output ripple.",
+        "precautions": [
+          "When synchronized to an external clock, Burst Mode is not available; the controller switches to forced continuous mode.",
+          "Do not exceed INTVCC voltage on this pin."
+        ]
+      },
+      "input_voltage": {
+        "max": 6.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": "100 kOhm pull-down to GND",
+      "name": "MODE",
+      "pin_id": "2",
+      "type": "DIGITAL"
+    },
+    "PLLIN/SPREAD": {
+      "description": "External Synchronization Input to Phase Detector/Spread Spectrum Enable. When an external clock is applied, the PLL forces the rising TGxx1 signal to synchronize with the rising edge of the external clock. Tie to INTVCC to enable spread spectrum dithering, or to GND to disable it.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "External Clock Source (for PLL synchronization)",
+            "description": "An external clock signal (100 kHz to 3 MHz) applied to this pin synchronizes the internal oscillator via the PLL. The pin is TTL-compatible with thresholds of 1.6 V (rising) and 1.1 V (falling), and is guaranteed to operate with a clock signal swing of 0.5 V to 2.2 V."
+          }
+        ],
+        "connectivity": "Connect to GND to disable spread spectrum, to INTVCC to enable spread spectrum dithering (0% to +20% of fOSC), or apply an external clock (100 kHz to 3 MHz) for PLL synchronization.",
+        "detailed_description": "External Synchronization Input to Phase Detector/Spread Spectrum Enable. Provides PLL synchronization to an external clock or enables spread spectrum frequency modulation for improved EMI.",
+        "functionality": "When an external clock is applied, the PLL synchronizes TGxx1 to the rising edge of the external clock, with TGxx2 180 degrees out of phase. When tied to INTVCC, spread spectrum modulation dithers the switching frequency from fOSC to fOSC + 20%. When tied to GND, spread spectrum is disabled.",
+        "precautions": [
+          "Burst Mode operation cannot be synchronized to an external clock. If Burst Mode is selected and an external clock is applied, the LTC7890 switches to forced continuous mode.",
+          "Do not exceed INTVCC voltage on this pin."
+        ]
+      },
+      "input_voltage": {
+        "max": 6.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "PLLIN/SPREAD",
+      "pin_id": "3",
+      "type": "DIGITAL",
+      "vih": {
+        "nom": 1.6,
+        "units": "V"
+      },
+      "vil": {
+        "nom": 1.1,
+        "units": "V"
+      }
+    },
+    "RUN1": {
+      "description": "Run Control Input for Channel 1. Forcing RUN1 less than 1.08 V disables controller switching. Forcing RUN1 and RUN2 less than 0.7 V shuts down the LTC7890, reducing IQ to approximately 1 uA. Tie to VIN for always on operation.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "VIN (for always on)",
+            "description": "Tie RUN1 directly to VIN for always on operation where the controller is enabled continuously."
+          },
+          {
+            "component_name": "Resistive Divider from VIN (for UVLO)",
+            "description": "A resistor divider from VIN to RUN1 can set a precise input UVLO threshold so the power supply does not operate below a user-adjustable level."
+          }
+        ],
+        "connectivity": "Tie to VIN for always on operation, or use a resistor divider from VIN to set an input UVLO threshold. Can also be driven directly by logic.",
+        "detailed_description": "Run Control Input for Channel 1. Controls the enable/disable state of Channel 1. Can tolerate up to 100 V (absolute maximum).",
+        "functionality": "Pulling RUN1 below 1.08 V disables Channel 1 switching. Pulling both RUN1 and RUN2 below 0.7 V shuts down the entire LTC7890, reducing IQ to approximately 1 uA.",
+        "precautions": [
+          "The RUN1 pin must be externally pulled up or driven directly by logic.",
+          "Do not exceed 100 V on this pin."
+        ]
+      },
+      "input_voltage": {
+        "max": 100.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "RUN1",
+      "pin_id": "4",
+      "type": "DIGITAL",
+      "vih": {
+        "min": 1.15,
+        "nom": 1.20,
+        "max": 1.25,
+        "units": "V"
+      }
+    },
+    "RUN2": {
+      "description": "Run Control Input for Channel 2. Forcing RUN2 less than 1.08 V disables controller switching. Forcing RUN1 and RUN2 less than 0.7 V shuts down the LTC7890, reducing IQ to approximately 1 uA. Tie to VIN for always on operation.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "VIN (for always on)",
+            "description": "Tie RUN2 directly to VIN for always on operation where the controller is enabled continuously."
+          },
+          {
+            "component_name": "Resistive Divider from VIN (for UVLO)",
+            "description": "A resistor divider from VIN to RUN2 can set a precise input UVLO threshold."
+          }
+        ],
+        "connectivity": "Tie to VIN for always on operation, or use a resistor divider from VIN to set an input UVLO threshold. Can also be driven directly by logic.",
+        "detailed_description": "Run Control Input for Channel 2. Controls the enable/disable state of Channel 2. Can tolerate up to 100 V (absolute maximum).",
+        "functionality": "Pulling RUN2 below 1.08 V disables Channel 2 switching. Pulling both RUN1 and RUN2 below 0.7 V shuts down the entire LTC7890.",
+        "precautions": [
+          "The RUN2 pin must be externally pulled up or driven directly by logic.",
+          "Do not exceed 100 V on this pin."
+        ]
+      },
+      "input_voltage": {
+        "max": 100.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "RUN2",
+      "pin_id": "5",
+      "type": "DIGITAL",
+      "vih": {
+        "min": 1.15,
+        "nom": 1.20,
+        "max": 1.25,
+        "units": "V"
+      }
+    },
+    "GND": {
+      "description": "Ground. The GND pin and the exposed pad must be soldered to PCB ground for rated electrical and thermal performance.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "System Ground Plane",
+            "description": "The GND pin must be soldered to the PCB ground plane. Ensure a robust ground connection with short, wide traces for proper electrical and thermal performance."
+          }
+        ],
+        "connectivity": "Connect to system ground plane. Must be soldered to PCB ground along with the exposed pad for rated electrical and thermal performance.",
+        "detailed_description": "Ground pin. All electrical parameters are measured with respect to this pin. The GND pin must be soldered to PCB ground for rated performance.",
+        "functionality": "Primary ground reference for the LTC7890. All internal circuitry references to this pin.",
+        "precautions": [
+          "Must be soldered to PCB ground for rated electrical and thermal performance.",
+          "Ensure short and wide traces for proper grounding."
+        ]
+      },
+      "internal_pull": null,
+      "name": "GND",
+      "pin_id": "6",
+      "type": "POWER"
+    },
+    "DRVUV": {
+      "description": "DRVCC UVLO and EXTVCC Switchover Program Pin. DRVUV determines the INTVCC UVLO and EXTVCC switchover rising and falling thresholds.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "GND, INTVCC, or floating",
+            "description": "Connect DRVUV to GND, INTVCC, or leave floating to select from three different UVLO and EXTVCC switchover threshold sets. DRVUV=INTVCC: UVLO rising 5.0V, falling 4.75V, EXTVCC switchover 5.95V/4.76V. DRVUV=0V: UVLO rising 3.8V, falling 3.6V, EXTVCC switchover 4.6V/3.6V. DRVUV=floating: UVLO rising 4.4V, falling 4.18V, EXTVCC switchover 5.95V/4.76V."
+          }
+        ],
+        "connectivity": "Connect to GND, INTVCC, or leave floating to select the desired UVLO and EXTVCC switchover thresholds.",
+        "detailed_description": "DRVCC UVLO and EXTVCC Switchover Program Pin. Programs the INTVCC UVLO threshold and the EXTVCC LDO switchover voltage.",
+        "functionality": "Determines the DRVCC undervoltage lockout rising and falling thresholds, and the EXTVCC switchover rising and falling thresholds. Three configurations are available based on the pin state.",
+        "precautions": [
+          "Do not exceed INTVCC voltage on this pin."
+        ]
+      },
+      "input_voltage": {
+        "max": 6.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "DRVUV",
+      "pin_id": "7",
+      "type": "ANALOG"
+    },
+    "DRVSET": {
+      "description": "INTVCC Regulation Program Pin. DRVSET sets the regulation point for the INTVCC LDO linear regulators. Connect to GND for 5 V, to INTVCC for 5.5 V, or use a resistor (50 kOhm to 110 kOhm) to GND to program voltages between 4 V and 5.5 V.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "GND (for 5.0V INTVCC)",
+            "description": "Connect DRVSET to GND to set INTVCC to 5.0 V."
+          },
+          {
+            "component_name": "INTVCC (for 5.5V INTVCC)",
+            "description": "Connect DRVSET to INTVCC to set INTVCC to 5.5 V."
+          },
+          {
+            "component_name": "Resistor to GND (for adjustable INTVCC)",
+            "description": "Place a resistor (50 kOhm to 110 kOhm) between DRVSET and GND to program INTVCC voltage between 4 V and 5.5 V. The resistor and an internal 20 uA source current create a voltage used by the INTVCC LDO regulator to set the regulation point."
+          }
+        ],
+        "connectivity": "Connect to GND for 5.0 V INTVCC, to INTVCC for 5.5 V INTVCC, or use a resistor (50 kOhm to 110 kOhm) to GND for adjustable INTVCC between 4 V and 5.5 V.",
+        "detailed_description": "INTVCC Regulation Program Pin. Sets the regulation voltage for the internal INTVCC LDO regulators which power the gate drivers.",
+        "functionality": "Programs the output voltage of the INTVCC LDO regulators. This directly determines the gate drive voltage for the external GaN FETs or MOSFETs. The adjustable range of 4 V to 5.5 V allows optimization for different FET types.",
+        "precautions": [
+          "Do not exceed INTVCC voltage on this pin.",
+          "When using a resistor, the allowable range is 50 kOhm to 110 kOhm."
+        ]
+      },
+      "input_voltage": {
+        "max": 6.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "DRVSET",
+      "pin_id": "8",
+      "type": "ANALOG"
+    },
+    "DTCA": {
+      "description": "Dead Time Control Pin for Bottom FET Off to Top FET On Delay. Connect to GND for adaptive dead time (~20 ns). Connect to INTVCC for smart near zero dead time. Use a 10 kOhm to 200 kOhm resistor to GND for adjustable additional delay (7 ns to 60 ns). Applies to both channels.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "GND (for adaptive dead time)",
+            "description": "Connect DTCA to GND for adaptive dead time control with approximately 20 ns delay between BGx falling and TGx rising."
+          },
+          {
+            "component_name": "INTVCC (for smart near zero dead time)",
+            "description": "Connect DTCA to INTVCC to program smart near zero delay between BGUPx falling and SWx rising."
+          },
+          {
+            "component_name": "Resistor to GND (for adjustable dead time)",
+            "description": "Connect a 10 kOhm to 200 kOhm resistor between DTCA and GND to add additional delay (7 ns to 60 ns) between BGUPx falling and SWx rising."
+          }
+        ],
+        "connectivity": "Connect to GND for adaptive dead time (~20 ns), to INTVCC for smart near zero dead time, or use a resistor (10 kOhm to 200 kOhm) to GND for adjustable delay.",
+        "detailed_description": "Dead Time Control Pin for Bottom FET Off to Top FET On Delay. Controls the delay between the bottom FET turning off and the top FET turning on for both channels.",
+        "functionality": "Programs the dead time associated with the bottom FET turning off and the top FET turning on. Smart near zero dead time significantly improves efficiency. This setting applies to both channels simultaneously.",
+        "precautions": [
+          "Do not exceed INTVCC voltage on this pin.",
+          "This setting applies to both channels."
+        ]
+      },
+      "input_voltage": {
+        "max": 6.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "DTCA",
+      "pin_id": "9",
+      "type": "ANALOG"
+    },
+    "DTCB": {
+      "description": "Dead Time Control Pin for Top FET Off to Bottom FET On Delay. Connect to GND for adaptive dead time (~20 ns). Connect to INTVCC for smart near zero dead time. Use a 10 kOhm to 200 kOhm resistor to GND for adjustable additional delay (7 ns to 60 ns). Applies to both channels.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "GND (for adaptive dead time)",
+            "description": "Connect DTCB to GND for adaptive dead time control with approximately 20 ns delay between TGx falling and BGx rising."
+          },
+          {
+            "component_name": "INTVCC (for smart near zero dead time)",
+            "description": "Connect DTCB to INTVCC to program smart near zero delay between SWx falling and BGDNx rising."
+          },
+          {
+            "component_name": "Resistor to GND (for adjustable dead time)",
+            "description": "Connect a 10 kOhm to 200 kOhm resistor between DTCB and GND to add additional delay (7 ns to 60 ns) between SWx falling and BGDNx rising."
+          }
+        ],
+        "connectivity": "Connect to GND for adaptive dead time (~20 ns), to INTVCC for smart near zero dead time, or use a resistor (10 kOhm to 200 kOhm) to GND for adjustable delay.",
+        "detailed_description": "Dead Time Control Pin for Top FET Off to Bottom FET On Delay. Controls the delay between the top FET turning off and the bottom FET turning on for both channels.",
+        "functionality": "Programs the dead time associated with the top FET turning off and the bottom FET turning on. This setting applies to both channels simultaneously.",
+        "precautions": [
+          "Do not exceed INTVCC voltage on this pin.",
+          "This setting applies to both channels."
+        ]
+      },
+      "input_voltage": {
+        "max": 6.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "DTCB",
+      "pin_id": "10",
+      "type": "ANALOG"
+    },
+    "SENSE2-": {
+      "description": "Negative Input to the Differential Current Comparator for Channel 2. The SENSE2- pin supplies current to the current comparator of Channel 2 when SENSE2- is greater than INTVCC.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Current Sense Resistor or Inductor DCR Network",
+            "description": "Connect to the negative side of the current sense element (either a discrete sense resistor or the inductor DCR sensing network). For DCR sensing, connect through an RC filter network. Filter components must be placed close to the LTC7890."
+          }
+        ],
+        "connectivity": "Connect to the output side of the inductor or the negative terminal of the current sense resistor for Channel 2. For DCR sensing, connect through the appropriate RC filter network.",
+        "detailed_description": "Negative Input to the Differential Current Comparator for Channel 2. Used in conjunction with SENSE2+ to measure the inductor current for the current mode control loop.",
+        "functionality": "Provides the negative reference for the differential current comparator on Channel 2. When SENSE2- is greater than INTVCC + 0.5 V, approximately 700 uA flows into the pin. When less than INTVCC - 0.5 V, approximately 1 uA flows.",
+        "precautions": [
+          "Filter components must be placed close to the LTC7890.",
+          "Sense lines must run close together to a Kelvin connection underneath the current sense element.",
+          "Do not exceed 65 V on this pin."
+        ]
+      },
+      "input_voltage": {
+        "max": 65.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "SENSE2-",
+      "pin_id": "11",
+      "type": "ANALOG"
+    },
+    "SENSE2+": {
+      "description": "Positive Input to the Differential Current Comparator for Channel 2. The ITH2 pin voltage and controlled offset between the SENSE2- and SENSE2+ pins, in conjunction with RSENSE, set the current trip threshold.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Current Sense Resistor or Inductor DCR Network",
+            "description": "Connect to the positive side (switch node side) of the current sense element for Channel 2. For DCR sensing, connect through the appropriate RC filter network. The pin is high impedance, drawing less than approximately 1 uA."
+          }
+        ],
+        "connectivity": "Connect to the switch node side of the current sense resistor or inductor DCR sensing network for Channel 2.",
+        "detailed_description": "Positive Input to the Differential Current Comparator for Channel 2. The high impedance of this pin allows it to be used with inductor DCR sensing.",
+        "functionality": "Provides the positive input for the differential current comparator on Channel 2. The ITH2 pin voltage and the controlled offset between SENSE2- and SENSE2+ set the current trip threshold.",
+        "precautions": [
+          "Filter components must be placed close to the LTC7890.",
+          "Do not exceed 65 V on this pin."
+        ]
+      },
+      "input_voltage": {
+        "max": 65.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "SENSE2+",
+      "pin_id": "12",
+      "type": "ANALOG"
+    },
+    "VFB2": {
+      "description": "Error Amplifier Feedback Input for Channel 2. Receives the remotely sensed feedback voltage from an external resistive divider across the output. Tie VFB2 to INTVCC for a 2-phase single output application sharing VFB1, ITH1, and TRACK/SS1.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Feedback Resistor Divider",
+            "description": "An external resistor divider from VOUT2 to GND sets the output voltage. The LTC7890 regulates VFB2 to the internal 0.8 V reference. VOUT2 = 0.8V x (1 + RFBT/RFBB). Use 1% tolerance resistors for best accuracy."
+          },
+          {
+            "component_name": "INTVCC (for 2-phase single output)",
+            "description": "Tie VFB2 to INTVCC when using a 2-phase single output configuration, where both channels share VFB1, ITH1, and TRACK/SS1."
+          }
+        ],
+        "connectivity": "Connect to the midpoint of a resistor divider from VOUT2 to GND for independent Channel 2 regulation, or tie to INTVCC for 2-phase single output operation.",
+        "detailed_description": "Error Amplifier Feedback Input for Channel 2. The internal error amplifier compares VFB2 to the 0.8 V reference voltage to regulate the output.",
+        "functionality": "Receives the feedback voltage for Channel 2 regulation. The error amplifier compares VFB2 to the 0.8 V reference and adjusts ITH2 to maintain regulation. For 2-phase single output, tie to INTVCC to disable Channel 2 independent regulation.",
+        "precautions": [
+          "Do not float this pin.",
+          "Use 1% tolerance resistors for the feedback divider.",
+          "Do not exceed 6 V on this pin."
+        ]
+      },
+      "input_voltage": {
+        "max": 6.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "VFB2",
+      "pin_id": "13",
+      "type": "ANALOG"
+    },
+    "ITH2": {
+      "description": "Error Amplifier Output and Switching Regulator Compensation Point for Channel 2. The current comparator trip point increases with this control voltage.",
+      "direction": "BIDIRECTIONAL",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Compensation Network (RC)",
+            "description": "An RC compensation network from ITH2 to GND sets the loop bandwidth and phase margin for Channel 2. Typical values include a series resistor and capacitor, with an optional additional capacitor for high-frequency roll-off."
+          }
+        ],
+        "connectivity": "Connect a series RC compensation network from ITH2 to GND to set the loop bandwidth and phase margin for Channel 2.",
+        "detailed_description": "Error Amplifier Output and Switching Regulator Compensation Point for Channel 2. This pin provides external access to the error amplifier output for loop compensation.",
+        "functionality": "The voltage on ITH2 controls the peak inductor current trip point for Channel 2. It is the output of the internal error amplifier and is used for external loop compensation.",
+        "precautions": [
+          "Proper compensation is critical for loop stability.",
+          "Do not exceed INTVCC voltage on this pin."
+        ]
+      },
+      "input_voltage": {
+        "max": 6.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "ITH2",
+      "pin_id": "14",
+      "type": "ANALOG"
+    },
+    "TRACK/SS2": {
+      "description": "External Tracking/Soft Start Input for Channel 2. Regulates VFB2 to the lesser of 0.8 V or the TRACK/SS2 voltage. An internal 12 uA pull-up current source charges a capacitor to GND for soft start. Ramp time is 1 ms per 12.5 nF. Alternatively, a resistor divider from another supply allows output tracking during startup.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Soft Start Capacitor (CSS2)",
+            "description": "A capacitor from TRACK/SS2 to GND sets the soft start ramp time. The internal 12 uA current source charges the capacitor, providing a ramp time of 1 ms per 12.5 nF of capacitance."
+          },
+          {
+            "component_name": "Tracking Resistor Divider",
+            "description": "A resistor divider from another voltage supply to TRACK/SS2 allows the output to track the other supply during startup."
+          }
+        ],
+        "connectivity": "Connect a capacitor to GND for soft start, or a resistor divider from another supply for output tracking during startup.",
+        "detailed_description": "External Tracking/Soft Start Input for Channel 2. Provides soft start functionality to limit inrush current during startup, or allows the output to track another supply.",
+        "functionality": "Regulates VFB2 to the lesser of 0.8 V or the TRACK/SS2 pin voltage. An internal 12 uA pull-up current source is connected to this pin. A capacitor to GND creates a smooth voltage ramp for soft start.",
+        "precautions": [
+          "Do not exceed INTVCC voltage on this pin."
+        ]
+      },
+      "input_voltage": {
+        "max": 6.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": "12 uA pull-up current source",
+      "name": "TRACK/SS2",
+      "pin_id": "15",
+      "type": "ANALOG"
+    },
+    "ILIM": {
+      "description": "Current Comparator Sense Voltage Range Input. Tying ILIM to GND, INTVCC, or floating sets the maximum current sense threshold to 25 mV, 75 mV, or 50 mV, respectively.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "GND (for 25 mV threshold)",
+            "description": "Connect ILIM to GND to set the maximum current sense threshold to 25 mV."
+          },
+          {
+            "component_name": "INTVCC (for 75 mV threshold)",
+            "description": "Connect ILIM to INTVCC to set the maximum current sense threshold to 75 mV."
+          },
+          {
+            "component_name": "Floating (for 50 mV threshold)",
+            "description": "Leave ILIM floating to set the maximum current sense threshold to 50 mV (default)."
+          }
+        ],
+        "connectivity": "Connect to GND for 25 mV, to INTVCC for 75 mV, or leave floating for 50 mV maximum current sense threshold.",
+        "detailed_description": "Current Comparator Sense Voltage Range Input. Sets the maximum current sense threshold voltage, which determines the peak inductor current limit.",
+        "functionality": "Programs the maximum current sense threshold to one of three levels: 25 mV (ILIM=GND), 50 mV (ILIM=floating), or 75 mV (ILIM=INTVCC). This threshold, combined with the sense resistance, determines the maximum inductor current.",
+        "precautions": [
+          "Do not exceed INTVCC voltage on this pin.",
+          "Choose the appropriate threshold based on the sense resistance and desired maximum current."
+        ]
+      },
+      "input_voltage": {
+        "max": 6.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "ILIM",
+      "pin_id": "16",
+      "type": "ANALOG"
+    },
+    "PGOOD2": {
+      "description": "Power-Good Open-Drain Logic Output for Channel 2. Pulled to GND when VFB2 is not within +/-10% of its set point.",
+      "direction": "OUTPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Pull-Up Resistor",
+            "description": "An external pull-up resistor to a supply no greater than 6 V (such as INTVCC) is required. Typical value is 100 kOhm."
+          }
+        ],
+        "connectivity": "Connect through a pull-up resistor to a supply no greater than 6 V (such as INTVCC). Can be left open if not used.",
+        "detailed_description": "Power-Good Open-Drain Logic Output for Channel 2. Indicates whether the Channel 2 output voltage is within regulation.",
+        "functionality": "The internal NMOS pulls PGOOD2 low when VFB2 is not within +/-10% of the 0.8 V reference, or when RUN2 is low (shutdown). When VFB2 is within the +/-10% window, the MOSFET turns off and the pin is pulled high by the external pull-up resistor.",
+        "precautions": [
+          "Do not exceed 6 V on this pin.",
+          "Requires an external pull-up resistor.",
+          "There is a 25 us delay for reporting a fault."
+        ]
+      },
+      "input_voltage": {
+        "max": 6.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "PGOOD2",
+      "output_type": "OPEN_DRAIN",
+      "pin_id": "17",
+      "type": "DIGITAL",
+      "vol": {
+        "max": 0.4,
+        "units": "V"
+      }
+    },
+    "TGUP2": {
+      "description": "High Current Gate Driver Pull-Up for Top FET for Channel 2. Pulls up to BOOST2. Tie directly to top FET gate for maximum transition speed, or use a resistor to adjust gate rising slew rate.",
+      "direction": "OUTPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Top GaN FET Gate (Channel 2)",
+            "description": "Connect directly to the gate of the top (high-side) GaN FET for Channel 2 for maximum drive speed on the rising edge. Alternatively, place a resistor between TGUP2 and the gate to adjust the rising slew rate."
+          }
+        ],
+        "connectivity": "Connect directly to the top FET gate for maximum drive speed, or through a resistor for adjustable rising slew rate.",
+        "detailed_description": "High Current Gate Driver Pull-Up for Top FET for Channel 2. This is the pull-up portion of the split gate driver for the high-side FET, pulling up to the BOOST2 supply.",
+        "functionality": "Provides the gate pull-up current for the top (high-side) FET on Channel 2. The split driver architecture allows independent control of turn-on and turn-off gate drive strength.",
+        "precautions": [
+          "Do not apply a voltage or current source to this pin. Must be connected to capacitive loads only.",
+          "Permanent damage can occur if driven externally."
+        ]
+      },
+      "internal_pull": null,
+      "name": "TGUP2",
+      "pin_id": "18",
+      "type": "POWER"
+    },
+    "TGDN2": {
+      "description": "High Current Gate Driver Pull-Down for Top FET for Channel 2. Pulls down to SW2. Tie directly to top FET gate for maximum transition speed, or use a resistor to adjust gate falling slew rate.",
+      "direction": "OUTPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Top GaN FET Gate (Channel 2)",
+            "description": "Connect directly to the gate of the top (high-side) GaN FET for Channel 2 for maximum drive speed on the falling edge. Alternatively, place a resistor between TGDN2 and the gate to adjust the falling slew rate."
+          }
+        ],
+        "connectivity": "Connect directly to the top FET gate for maximum drive speed, or through a resistor for adjustable falling slew rate.",
+        "detailed_description": "High Current Gate Driver Pull-Down for Top FET for Channel 2. This is the pull-down portion of the split gate driver for the high-side FET, pulling down to SW2.",
+        "functionality": "Provides the gate pull-down current for the top (high-side) FET on Channel 2. The split driver architecture allows independent control of turn-on and turn-off gate drive strength.",
+        "precautions": [
+          "Do not apply a voltage or current source to this pin. Must be connected to capacitive loads only.",
+          "Permanent damage can occur if driven externally."
+        ]
+      },
+      "internal_pull": null,
+      "name": "TGDN2",
+      "pin_id": "19",
+      "type": "POWER"
+    },
+    "SW2": {
+      "description": "Switch Node Connection to Inductor for Channel 2.",
+      "direction": "OTHER",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Power Inductor (Channel 2)",
+            "description": "Connect to one side of the power inductor for Channel 2. The other side connects to the output voltage (VOUT2)."
+          },
+          {
+            "component_name": "Bootstrap Capacitor (CB2)",
+            "description": "The bootstrap capacitor connects between the BOOST2 and SW2 pins."
+          }
+        ],
+        "connectivity": "Connect to the power inductor for Channel 2. Also serves as the return path for the bootstrap capacitor (CB2) connected between BOOST2 and SW2.",
+        "detailed_description": "Switch Node Connection to Inductor for Channel 2. This is the connection point between the internal power stage and the external inductor.",
+        "functionality": "The SW2 pin swings between approximately VIN (when the top FET is on) and ground (when the bottom FET is on), driving the inductor for Channel 2.",
+        "precautions": [
+          "Keep the SW node trace as short and wide as possible to minimize parasitic inductance and reduce radiated EMI.",
+          "Do not exceed 100 V on this pin.",
+          "SW can go to -5 V during transient ringing."
+        ]
+      },
+      "input_voltage": {
+        "max": 100.0,
+        "min": -5.0,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "SW2",
+      "pin_id": "20",
+      "type": "POWER"
+    },
+    "BOOST2": {
+      "description": "Bootstrapped Supply to the Top Side Floating Driver for Channel 2. Connect a capacitor between BOOST2 and SW2. An internal switch provides power from DRVCC when the bottom FET turns on. Voltage swing is from DRVCC to (VIN + DRVCC).",
+      "direction": "OTHER",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Bootstrap Capacitor (CB2)",
+            "description": "A ceramic capacitor (typically 0.1 uF to 0.47 uF) connected between BOOST2 and SW2 pins. This capacitor provides the floating supply voltage for the high-side gate driver. Use a high-quality ceramic capacitor rated for the BOOST voltage swing."
+          }
+        ],
+        "connectivity": "Connect a bootstrap capacitor between the BOOST2 and SW2 pins. The internal bootstrap switch charges this capacitor from DRVCC when the bottom FET is on.",
+        "detailed_description": "Bootstrapped Supply to the Top Side Floating Driver for Channel 2. Provides the floating supply voltage for the high-side gate drivers. The internal smart bootstrap switch prevents overcharging, protecting the top GaN FET gate.",
+        "functionality": "Supplies power to the top-side floating gate driver for Channel 2. The internal switch charges the bootstrap capacitor from DRVCC when the bottom FET turns on. The smart bootstrap switch prevents overcharging during dead times.",
+        "precautions": [
+          "Use a high-quality ceramic capacitor for the bootstrap function.",
+          "Do not exceed 106 V on this pin.",
+          "BOOST to SW voltage must not exceed 6 V."
+        ]
+      },
+      "input_voltage": {
+        "max": 106.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "BOOST2",
+      "pin_id": "21",
+      "type": "POWER"
+    },
+    "BGDN2": {
+      "description": "High Current Gate Driver Pull-Down for Bottom FET for Channel 2. Pulls down to GND. Tie directly to bottom FET gate for maximum transition speed, or use a resistor to adjust gate falling slew rate. Also serves as Kelvin sense of the bottom FET gate during turn on.",
+      "direction": "OUTPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Bottom GaN FET Gate (Channel 2)",
+            "description": "Connect directly to the gate of the bottom (low-side) GaN FET for Channel 2 for maximum drive speed on the falling edge. Alternatively, place a resistor between BGDN2 and the gate to adjust the falling slew rate. Also serves as Kelvin sense of the bottom FET gate during turn on."
+          }
+        ],
+        "connectivity": "Connect directly to the bottom FET gate for maximum drive speed, or through a resistor for adjustable falling slew rate.",
+        "detailed_description": "High Current Gate Driver Pull-Down for Bottom FET for Channel 2. Pulls down to GND. Also provides Kelvin sensing of the bottom FET gate voltage during turn on for the smart dead time feature.",
+        "functionality": "Provides the gate pull-down current for the bottom (low-side) FET on Channel 2. Also serves as the Kelvin sense input for the bottom FET gate during turn on, enabling the smart dead time control feature.",
+        "precautions": [
+          "Do not apply a voltage or current source to this pin. Must be connected to capacitive loads only.",
+          "Permanent damage can occur if driven externally."
+        ]
+      },
+      "internal_pull": null,
+      "name": "BGDN2",
+      "pin_id": "22",
+      "type": "POWER"
+    },
+    "BGUP2": {
+      "description": "High Current Gate Driver Pull-Up for Bottom FET for Channel 2. Pulls up to DRVCC. Tie directly to bottom FET gate for maximum transition speed, or use a resistor to adjust gate rising slew rate. Also serves as Kelvin sense of the bottom FET gate during turn off.",
+      "direction": "OUTPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Bottom GaN FET Gate (Channel 2)",
+            "description": "Connect directly to the gate of the bottom (low-side) GaN FET for Channel 2 for maximum drive speed on the rising edge. Alternatively, place a resistor between BGUP2 and the gate to adjust the rising slew rate. Also serves as Kelvin sense of the bottom FET gate during turn off."
+          }
+        ],
+        "connectivity": "Connect directly to the bottom FET gate for maximum drive speed, or through a resistor for adjustable rising slew rate.",
+        "detailed_description": "High Current Gate Driver Pull-Up for Bottom FET for Channel 2. Pulls up to DRVCC. Also provides Kelvin sensing of the bottom FET gate voltage during turn off for the smart dead time feature.",
+        "functionality": "Provides the gate pull-up current for the bottom (low-side) FET on Channel 2. Also serves as the Kelvin sense input for the bottom FET gate during turn off, enabling the smart dead time control feature.",
+        "precautions": [
+          "Do not apply a voltage or current source to this pin. Must be connected to capacitive loads only.",
+          "Permanent damage can occur if driven externally."
+        ]
+      },
+      "internal_pull": null,
+      "name": "BGUP2",
+      "pin_id": "23",
+      "type": "POWER"
+    },
+    "DRVCC": {
+      "description": "Gate Driver Power Supply Pin. The gate drivers are powered from DRVCC. Connect DRVCC to INTVCC by a separate trace to the INTVCC bypass capacitor.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "INTVCC Bypass Capacitor",
+            "description": "Connect DRVCC to INTVCC via a separate trace to the INTVCC bypass capacitor. The DRVCC pin powers the gate drivers from the INTVCC supply."
+          }
+        ],
+        "connectivity": "Connect to INTVCC by a separate trace to the INTVCC bypass capacitor.",
+        "detailed_description": "Gate Driver Power Supply Pin. The gate drivers are powered from DRVCC, which must be connected to INTVCC. The DRVCC voltage determines the gate drive voltage for the external FETs.",
+        "functionality": "Supplies power to all gate drivers (TGUP, TGDN, BGUP, BGDN) for both channels. The DRVCC voltage can be programmed from 4 V to 5.5 V via the DRVSET pin.",
+        "precautions": [
+          "Must be connected to INTVCC.",
+          "Do not exceed 6 V on this pin.",
+          "Use a separate trace to the INTVCC bypass capacitor for proper decoupling."
+        ]
+      },
+      "input_voltage": {
+        "max": 6.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "DRVCC",
+      "pin_id": "24",
+      "type": "POWER"
+    },
+    "INTVCC": {
+      "description": "Output of the Internal LDO Regulator. The INTVCC voltage regulation point is set by the DRVSET pin. Must be decoupled to GND with a 4.7 uF to 10 uF ceramic or other low ESR capacitor.",
+      "direction": "OUTPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Bypass Capacitor (CINTVCC)",
+            "description": "A 4.7 uF to 10 uF ceramic or other low ESR capacitor must be connected from INTVCC to GND for proper regulation and stability. Place as close to the pin as possible."
+          }
+        ],
+        "connectivity": "Decouple to GND with a 4.7 uF to 10 uF ceramic or low ESR capacitor. Connect to DRVCC via a separate trace.",
+        "detailed_description": "Output of the Internal LDO Regulator. INTVCC is the regulated supply derived from either VIN or EXTVCC through internal LDO regulators. The voltage is programmable from 4 V to 5.5 V via the DRVSET pin.",
+        "functionality": "Provides the regulated internal supply voltage for the gate drivers and most internal circuitry. The voltage is programmed by the DRVSET pin. Two LDO regulators (VIN LDO and EXTVCC LDO) can supply INTVCC, with automatic switchover based on the EXTVCC pin voltage.",
+        "precautions": [
+          "Must be decoupled with a 4.7 uF to 10 uF capacitor to GND.",
+          "Do not exceed 6 V on this pin.",
+          "Load regulation is approximately 1% for 0 mA to 100 mA."
+        ]
+      },
+      "input_voltage": {
+        "max": 6.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "INTVCC",
+      "pin_id": "25",
+      "type": "POWER"
+    },
+    "EXTVCC": {
+      "description": "External Power Input to an Internal LDO Regulator connected to DRVCC. This LDO supplies INTVCC power, bypassing the VIN LDO whenever EXTVCC exceeds its switchover voltage. Connect to GND if not used. Do not exceed 30 V.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "External Supply or Output Voltage",
+            "description": "Connect to an external supply or to the switching regulator output (e.g., VOUT1) to improve efficiency by avoiding the power dissipation of the VIN LDO. When EXTVCC exceeds the switchover voltage, the VIN LDO turns off and the EXTVCC LDO supplies INTVCC."
+          },
+          {
+            "component_name": "GND (if not used)",
+            "description": "Connect EXTVCC to GND if the EXTVCC LDO regulator is not used."
+          }
+        ],
+        "connectivity": "Connect to an external supply or regulator output to improve efficiency, or tie to GND if not used.",
+        "detailed_description": "External Power Input to an Internal LDO Regulator. Allows INTVCC power to be derived from a high efficiency external source (such as the LTC7890 switching regulator output) instead of the VIN LDO, improving overall system efficiency.",
+        "functionality": "When EXTVCC exceeds its switchover voltage (programmable via DRVUV pin), the VIN LDO turns off and the EXTVCC LDO turns on, supplying INTVCC from the more efficient external source. This reduces power dissipation at high VIN.",
+        "precautions": [
+          "Do not exceed 30 V on EXTVCC.",
+          "Connect EXTVCC to GND if not used.",
+          "The switchover voltage is determined by the DRVUV pin configuration."
+        ]
+      },
+      "input_voltage": {
+        "max": 30.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "EXTVCC",
+      "pin_id": "26",
+      "type": "POWER"
+    },
+    "VIN": {
+      "description": "Main Supply Pin. A bypass capacitor must be tied between VIN and GND.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Input Bypass Capacitors (CIN)",
+            "description": "High-quality ceramic capacitors must be connected between VIN and GND. Use short, wide traces. Multiple capacitors may be needed depending on the application current and voltage requirements. Low ESR capacitors are recommended."
+          }
+        ],
+        "connectivity": "Connect to the input power supply. Bypass with high-quality ceramic capacitors to GND using short, wide traces.",
+        "detailed_description": "Main Supply Pin. Provides the primary power source for the LTC7890 and the VIN LDO regulator.",
+        "functionality": "The VIN pin provides the main input supply for the LTC7890. The VIN LDO regulator derives INTVCC from VIN when EXTVCC is below its switchover voltage. The operating range is 4 V to 100 V.",
+        "precautions": [
+          "A bypass capacitor must be tied between VIN and GND.",
+          "Do not exceed 100 V on this pin.",
+          "Operating range is 4 V to 100 V."
+        ]
+      },
+      "input_voltage": {
+        "max": 100.0,
+        "min": 4.0,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "VIN",
+      "pin_id": "27",
+      "type": "POWER"
+    },
+    "BGUP1": {
+      "description": "High Current Gate Driver Pull-Up for Bottom FET for Channel 1. Pulls up to DRVCC. Tie directly to bottom FET gate for maximum transition speed, or use a resistor to adjust gate rising slew rate. Also serves as Kelvin sense of the bottom FET gate during turn off.",
+      "direction": "OUTPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Bottom GaN FET Gate (Channel 1)",
+            "description": "Connect directly to the gate of the bottom (low-side) GaN FET for Channel 1 for maximum drive speed on the rising edge. Alternatively, place a resistor between BGUP1 and the gate to adjust the rising slew rate."
+          }
+        ],
+        "connectivity": "Connect directly to the bottom FET gate for maximum drive speed, or through a resistor for adjustable rising slew rate.",
+        "detailed_description": "High Current Gate Driver Pull-Up for Bottom FET for Channel 1. Pulls up to DRVCC. Also provides Kelvin sensing of the bottom FET gate voltage during turn off for the smart dead time feature.",
+        "functionality": "Provides the gate pull-up current for the bottom (low-side) FET on Channel 1. Also serves as the Kelvin sense input for the bottom FET gate during turn off.",
+        "precautions": [
+          "Do not apply a voltage or current source to this pin. Must be connected to capacitive loads only.",
+          "Permanent damage can occur if driven externally."
+        ]
+      },
+      "internal_pull": null,
+      "name": "BGUP1",
+      "pin_id": "28",
+      "type": "POWER"
+    },
+    "BGDN1": {
+      "description": "High Current Gate Driver Pull-Down for Bottom FET for Channel 1. Pulls down to GND. Tie directly to bottom FET gate for maximum transition speed, or use a resistor to adjust gate falling slew rate. Also serves as Kelvin sense of the bottom FET gate during turn on.",
+      "direction": "OUTPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Bottom GaN FET Gate (Channel 1)",
+            "description": "Connect directly to the gate of the bottom (low-side) GaN FET for Channel 1 for maximum drive speed on the falling edge. Alternatively, place a resistor between BGDN1 and the gate to adjust the falling slew rate."
+          }
+        ],
+        "connectivity": "Connect directly to the bottom FET gate for maximum drive speed, or through a resistor for adjustable falling slew rate.",
+        "detailed_description": "High Current Gate Driver Pull-Down for Bottom FET for Channel 1. Pulls down to GND. Also provides Kelvin sensing of the bottom FET gate voltage during turn on for the smart dead time feature.",
+        "functionality": "Provides the gate pull-down current for the bottom (low-side) FET on Channel 1. Also serves as the Kelvin sense input for the bottom FET gate during turn on.",
+        "precautions": [
+          "Do not apply a voltage or current source to this pin. Must be connected to capacitive loads only.",
+          "Permanent damage can occur if driven externally."
+        ]
+      },
+      "internal_pull": null,
+      "name": "BGDN1",
+      "pin_id": "29",
+      "type": "POWER"
+    },
+    "BOOST1": {
+      "description": "Bootstrapped Supply to the Top Side Floating Driver for Channel 1. Connect a capacitor between BOOST1 and SW1. An internal switch provides power from DRVCC when the bottom FET turns on. Voltage swing is from DRVCC to (VIN + DRVCC).",
+      "direction": "OTHER",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Bootstrap Capacitor (CB1)",
+            "description": "A ceramic capacitor (typically 0.1 uF to 0.47 uF) connected between BOOST1 and SW1 pins. Provides the floating supply voltage for the high-side gate driver. Use a high-quality ceramic capacitor rated for the BOOST voltage swing."
+          }
+        ],
+        "connectivity": "Connect a bootstrap capacitor between the BOOST1 and SW1 pins.",
+        "detailed_description": "Bootstrapped Supply to the Top Side Floating Driver for Channel 1. Provides the floating supply voltage for the high-side gate drivers. The internal smart bootstrap switch prevents overcharging, protecting the top GaN FET gate.",
+        "functionality": "Supplies power to the top-side floating gate driver for Channel 1. The internal switch charges the bootstrap capacitor from DRVCC when the bottom FET turns on.",
+        "precautions": [
+          "Use a high-quality ceramic capacitor for the bootstrap function.",
+          "Do not exceed 106 V on this pin.",
+          "BOOST to SW voltage must not exceed 6 V."
+        ]
+      },
+      "input_voltage": {
+        "max": 106.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "BOOST1",
+      "pin_id": "30",
+      "type": "POWER"
+    },
+    "SW1": {
+      "description": "Switch Node Connection to Inductor for Channel 1.",
+      "direction": "OTHER",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Power Inductor (Channel 1)",
+            "description": "Connect to one side of the power inductor for Channel 1. The other side connects to the output voltage (VOUT1)."
+          },
+          {
+            "component_name": "Bootstrap Capacitor (CB1)",
+            "description": "The bootstrap capacitor connects between the BOOST1 and SW1 pins."
+          }
+        ],
+        "connectivity": "Connect to the power inductor for Channel 1. Also serves as the return path for the bootstrap capacitor (CB1) connected between BOOST1 and SW1.",
+        "detailed_description": "Switch Node Connection to Inductor for Channel 1. This is the connection point between the internal power stage and the external inductor.",
+        "functionality": "The SW1 pin swings between approximately VIN (when the top FET is on) and ground (when the bottom FET is on), driving the inductor for Channel 1.",
+        "precautions": [
+          "Keep the SW node trace as short and wide as possible to minimize parasitic inductance and reduce radiated EMI.",
+          "Do not exceed 100 V on this pin.",
+          "SW can go to -5 V during transient ringing."
+        ]
+      },
+      "input_voltage": {
+        "max": 100.0,
+        "min": -5.0,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "SW1",
+      "pin_id": "31",
+      "type": "POWER"
+    },
+    "TGDN1": {
+      "description": "High Current Gate Driver Pull-Down for Top FET for Channel 1. Pulls down to SW1. Tie directly to top FET gate for maximum transition speed, or use a resistor to adjust gate falling slew rate.",
+      "direction": "OUTPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Top GaN FET Gate (Channel 1)",
+            "description": "Connect directly to the gate of the top (high-side) GaN FET for Channel 1 for maximum drive speed on the falling edge. Alternatively, place a resistor between TGDN1 and the gate to adjust the falling slew rate."
+          }
+        ],
+        "connectivity": "Connect directly to the top FET gate for maximum drive speed, or through a resistor for adjustable falling slew rate.",
+        "detailed_description": "High Current Gate Driver Pull-Down for Top FET for Channel 1. This is the pull-down portion of the split gate driver for the high-side FET, pulling down to SW1.",
+        "functionality": "Provides the gate pull-down current for the top (high-side) FET on Channel 1.",
+        "precautions": [
+          "Do not apply a voltage or current source to this pin. Must be connected to capacitive loads only.",
+          "Permanent damage can occur if driven externally."
+        ]
+      },
+      "internal_pull": null,
+      "name": "TGDN1",
+      "pin_id": "32",
+      "type": "POWER"
+    },
+    "TGUP1": {
+      "description": "High Current Gate Driver Pull-Up for Top FET for Channel 1. Pulls up to BOOST1. Tie directly to top FET gate for maximum transition speed, or use a resistor to adjust gate rising slew rate.",
+      "direction": "OUTPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Top GaN FET Gate (Channel 1)",
+            "description": "Connect directly to the gate of the top (high-side) GaN FET for Channel 1 for maximum drive speed on the rising edge. Alternatively, place a resistor between TGUP1 and the gate to adjust the rising slew rate."
+          }
+        ],
+        "connectivity": "Connect directly to the top FET gate for maximum drive speed, or through a resistor for adjustable rising slew rate.",
+        "detailed_description": "High Current Gate Driver Pull-Up for Top FET for Channel 1. This is the pull-up portion of the split gate driver for the high-side FET, pulling up to the BOOST1 supply.",
+        "functionality": "Provides the gate pull-up current for the top (high-side) FET on Channel 1.",
+        "precautions": [
+          "Do not apply a voltage or current source to this pin. Must be connected to capacitive loads only.",
+          "Permanent damage can occur if driven externally."
+        ]
+      },
+      "internal_pull": null,
+      "name": "TGUP1",
+      "pin_id": "33",
+      "type": "POWER"
+    },
+    "PGOOD1": {
+      "description": "Power-Good Open-Drain Logic Output for Channel 1. Pulled to GND when VFB1 is not within +/-10% of its set point.",
+      "direction": "OUTPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Pull-Up Resistor",
+            "description": "An external pull-up resistor to a supply no greater than 6 V (such as INTVCC) is required. Typical value is 100 kOhm."
+          }
+        ],
+        "connectivity": "Connect through a pull-up resistor to a supply no greater than 6 V (such as INTVCC). Can be left open if not used.",
+        "detailed_description": "Power-Good Open-Drain Logic Output for Channel 1. Indicates whether the Channel 1 output voltage is within regulation.",
+        "functionality": "The internal NMOS pulls PGOOD1 low when VFB1 is not within +/-10% of the 0.8 V reference, or when RUN1 is low (shutdown). When VFB1 is within the +/-10% window, the MOSFET turns off and the pin is pulled high by the external pull-up resistor.",
+        "precautions": [
+          "Do not exceed 6 V on this pin.",
+          "Requires an external pull-up resistor.",
+          "There is a 25 us delay for reporting a fault."
+        ]
+      },
+      "input_voltage": {
+        "max": 6.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "PGOOD1",
+      "output_type": "OPEN_DRAIN",
+      "pin_id": "34",
+      "type": "DIGITAL",
+      "vol": {
+        "max": 0.4,
+        "units": "V"
+      }
+    },
+    "VPRG1": {
+      "description": "Output Voltage Control Pin for Channel 1. Sets the adjustable output mode using external feedback resistors or the fixed 12 V or 5 V output mode. Floating programs output from 0.8 V to 60 V with an external resistor divider (VFB1 regulates to 0.8 V). Connect to INTVCC for 12 V or GND for 5 V through internal resistor divider on VFB1.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Floating (for adjustable output 0.8V to 60V)",
+            "description": "Leave VPRG1 floating to program the output voltage from 0.8 V to 60 V using an external resistor divider on VFB1. VFB1 regulates to 0.8 V."
+          },
+          {
+            "component_name": "INTVCC (for fixed 12V output)",
+            "description": "Connect VPRG1 to INTVCC to set Channel 1 output to 12 V using an internal resistor divider on VFB1."
+          },
+          {
+            "component_name": "GND (for fixed 5V output)",
+            "description": "Connect VPRG1 to GND to set Channel 1 output to 5 V using an internal resistor divider on VFB1."
+          }
+        ],
+        "connectivity": "Leave floating for adjustable output (0.8V to 60V) with external resistor divider, connect to INTVCC for fixed 12V output, or connect to GND for fixed 5V output.",
+        "detailed_description": "Output Voltage Control Pin for Channel 1. Provides three modes for setting the Channel 1 output voltage: adjustable (floating), fixed 12 V (INTVCC), or fixed 5 V (GND).",
+        "functionality": "When floating, VFB1 receives the feedback voltage from an external resistor divider and regulates to 0.8 V. When tied to INTVCC or GND, VFB1 receives the output voltage directly through an internal resistor divider, and the output is set to 12 V or 5 V respectively.",
+        "precautions": [
+          "When VPRG1 is tied to GND or INTVCC, VFB1 receives the output voltage directly (no external divider needed for Channel 1).",
+          "Do not exceed INTVCC voltage on this pin."
+        ]
+      },
+      "input_voltage": {
+        "max": 6.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "VPRG1",
+      "pin_id": "35",
+      "type": "ANALOG"
+    },
+    "TRACK/SS1": {
+      "description": "External Tracking/Soft Start Input for Channel 1. Regulates VFB1 to the lesser of 0.8 V or the TRACK/SS1 voltage. An internal 12 uA pull-up current source charges a capacitor to GND for soft start. Ramp time is 1 ms per 12.5 nF. Alternatively, a resistor divider from another supply allows output tracking during startup.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Soft Start Capacitor (CSS1)",
+            "description": "A capacitor from TRACK/SS1 to GND sets the soft start ramp time. The internal 12 uA current source charges the capacitor, providing a ramp time of 1 ms per 12.5 nF of capacitance."
+          },
+          {
+            "component_name": "Tracking Resistor Divider",
+            "description": "A resistor divider from another voltage supply to TRACK/SS1 allows the output to track the other supply during startup."
+          }
+        ],
+        "connectivity": "Connect a capacitor to GND for soft start, or a resistor divider from another supply for output tracking during startup.",
+        "detailed_description": "External Tracking/Soft Start Input for Channel 1. Provides soft start functionality to limit inrush current during startup, or allows the output to track another supply.",
+        "functionality": "Regulates VFB1 to the lesser of 0.8 V or the TRACK/SS1 pin voltage. An internal 12 uA pull-up current source is connected to this pin. A capacitor to GND creates a smooth voltage ramp for soft start.",
+        "precautions": [
+          "Do not exceed INTVCC voltage on this pin."
+        ]
+      },
+      "input_voltage": {
+        "max": 6.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": "12 uA pull-up current source",
+      "name": "TRACK/SS1",
+      "pin_id": "36",
+      "type": "ANALOG"
+    },
+    "ITH1": {
+      "description": "Error Amplifier Output and Switching Regulator Compensation Point for Channel 1. The current comparator trip point increases with this control voltage.",
+      "direction": "BIDIRECTIONAL",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Compensation Network (RC)",
+            "description": "An RC compensation network from ITH1 to GND sets the loop bandwidth and phase margin for Channel 1. Typical values include a series resistor and capacitor, with an optional additional capacitor for high-frequency roll-off."
+          }
+        ],
+        "connectivity": "Connect a series RC compensation network from ITH1 to GND to set the loop bandwidth and phase margin for Channel 1.",
+        "detailed_description": "Error Amplifier Output and Switching Regulator Compensation Point for Channel 1. This pin provides external access to the error amplifier output for loop compensation.",
+        "functionality": "The voltage on ITH1 controls the peak inductor current trip point for Channel 1. It is the output of the internal error amplifier and is used for external loop compensation.",
+        "precautions": [
+          "Proper compensation is critical for loop stability.",
+          "Do not exceed INTVCC voltage on this pin."
+        ]
+      },
+      "input_voltage": {
+        "max": 6.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "ITH1",
+      "pin_id": "37",
+      "type": "ANALOG"
+    },
+    "VFB1": {
+      "description": "Error Amplifier Feedback Input for Channel 1. If VPRG1 is floating, VFB1 receives the remotely sensed feedback voltage from an external resistive divider. If VPRG1 is tied to GND or INTVCC, VFB1 receives the output voltage directly.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Feedback Resistor Divider (when VPRG1 floating)",
+            "description": "When VPRG1 is floating, an external resistor divider from VOUT1 to GND sets the output voltage. The LTC7890 regulates VFB1 to 0.8 V. VOUT1 = 0.8V x (1 + RFBT/RFBB). Use 1% tolerance resistors."
+          },
+          {
+            "component_name": "Direct VOUT1 connection (when VPRG1 = GND or INTVCC)",
+            "description": "When VPRG1 is tied to GND (5V output) or INTVCC (12V output), connect VFB1 directly to VOUT1. An internal resistor divider provides the feedback."
+          }
+        ],
+        "connectivity": "Connect to the midpoint of an external resistor divider from VOUT1 to GND when VPRG1 is floating, or connect directly to VOUT1 when VPRG1 is tied to GND or INTVCC.",
+        "detailed_description": "Error Amplifier Feedback Input for Channel 1. The feedback configuration depends on the VPRG1 pin setting.",
+        "functionality": "Receives the feedback voltage for Channel 1 regulation. In adjustable mode (VPRG1 floating), the error amplifier compares VFB1 to the 0.8 V reference. In fixed output mode (VPRG1 = GND or INTVCC), an internal resistor divider provides the feedback scaling.",
+        "precautions": [
+          "Do not float this pin.",
+          "Do not exceed 15 V on this pin (absolute maximum).",
+          "Use 1% tolerance resistors for the feedback divider when in adjustable mode."
+        ]
+      },
+      "input_voltage": {
+        "max": 15.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "VFB1",
+      "pin_id": "38",
+      "type": "ANALOG"
+    },
+    "SENSE1+": {
+      "description": "Positive Input to the Differential Current Comparator for Channel 1. The ITH1 pin voltage and controlled offset between SENSE1- and SENSE1+ pins, in conjunction with RSENSE, set the current trip threshold.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Current Sense Resistor or Inductor DCR Network",
+            "description": "Connect to the positive side (switch node side) of the current sense element for Channel 1. The pin is high impedance, drawing less than approximately 1 uA, allowing it to be used with inductor DCR sensing."
+          }
+        ],
+        "connectivity": "Connect to the switch node side of the current sense resistor or inductor DCR sensing network for Channel 1.",
+        "detailed_description": "Positive Input to the Differential Current Comparator for Channel 1. The high impedance of this pin allows it to be used with inductor DCR sensing.",
+        "functionality": "Provides the positive input for the differential current comparator on Channel 1. The ITH1 pin voltage and the controlled offset between SENSE1- and SENSE1+ set the current trip threshold.",
+        "precautions": [
+          "Filter components must be placed close to the LTC7890.",
+          "Do not exceed 65 V on this pin."
+        ]
+      },
+      "input_voltage": {
+        "max": 65.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "SENSE1+",
+      "pin_id": "39",
+      "type": "ANALOG"
+    },
+    "SENSE1-": {
+      "description": "Negative Input to the Differential Current Comparator for Channel 1. Supplies current to the current comparator when SENSE1- is greater than INTVCC. When SENSE1- is 3.2 V or greater, supplies the majority of the sleep mode IQ instead of VIN, further reducing input referred IQ.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Current Sense Resistor or Inductor DCR Network",
+            "description": "Connect to the negative side of the current sense element (either a discrete sense resistor or the inductor DCR sensing network) for Channel 1. Filter components must be placed close to the LTC7890."
+          }
+        ],
+        "connectivity": "Connect to the output side of the inductor or the negative terminal of the current sense resistor for Channel 1. For DCR sensing, connect through the appropriate RC filter network.",
+        "detailed_description": "Negative Input to the Differential Current Comparator for Channel 1. Has special functionality: when SENSE1- is 3.2 V or higher, it supplies the majority of the sleep mode IQ instead of VIN, reducing input referred quiescent current.",
+        "functionality": "Provides the negative reference for the differential current comparator on Channel 1. When SENSE1- is greater than INTVCC + 0.5 V, approximately 725 uA flows into the pin. When less than 3 V, approximately 75 uA flows. Additionally, when SENSE1- is above 3.2 V, internal circuitry is biased from this pin instead of VIN, reducing the input referred IQ.",
+        "precautions": [
+          "Filter components must be placed close to the LTC7890.",
+          "Sense lines must run close together to a Kelvin connection underneath the current sense element.",
+          "Do not exceed 65 V on this pin."
+        ]
+      },
+      "input_voltage": {
+        "max": 65.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "SENSE1-",
+      "pin_id": "40",
+      "type": "ANALOG"
+    },
+    "GND_EPAD": {
+      "description": "Ground (Exposed Pad). The exposed pad must be soldered to PCB ground for rated electrical and thermal performance.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "System Ground Plane",
+            "description": "The exposed pad must be soldered to the PCB ground plane. This connection is critical for both electrical grounding and thermal dissipation. The thermal resistance is 34 deg C/W for the 40-lead QFN package."
+          }
+        ],
+        "connectivity": "Solder to PCB ground plane for rated electrical and thermal performance.",
+        "detailed_description": "Ground (Exposed Pad). Provides the primary thermal path for heat dissipation from the IC to the PCB.",
+        "functionality": "Provides electrical ground connection and the primary thermal dissipation path. The exposed pad must be soldered to the PCB ground plane.",
+        "precautions": [
+          "Must be soldered to PCB ground for rated electrical and thermal performance.",
+          "Ensure adequate copper area and thermal vias for proper heat dissipation.",
+          "Theta_JA = 34 deg C/W for the 40-lead QFN package."
+        ]
+      },
+      "internal_pull": null,
+      "name": "GND (EPAD)",
+      "pin_id": "41",
+      "type": "POWER"
+    }
+  },
+  "serial_bus": {
+    "registers": {}
+  }
+}

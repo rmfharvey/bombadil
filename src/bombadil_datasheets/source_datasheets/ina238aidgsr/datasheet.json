@@ -1,0 +1,1095 @@
+{
+  "high_level": {
+    "base_part_number": "INA238",
+    "device_type": "POWER_MONITOR",
+    "manufacturer": "Texas Instruments",
+    "packages": [
+      "VSSOP-10"
+    ],
+    "serial_busses": [
+      "I2C"
+    ]
+  },
+  "pins": {
+    "A1": {
+      "description": "I2C address pin. Connect to GND, SCL, SDA, or VS. Table 6-2 lists the pin settings and corresponding addresses.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": "The A1 pin is connected to one of four possible nodes: GND, VS, SDA, or SCL. The selection determines the upper bit of the 4-bit I2C address field. Together with the A0 pin, it allows selection of 16 unique secondary device addresses.",
+        "connectivity": "Connect the A1 pin to GND, VS, SDA, or SCL to set the desired I2C secondary device address. The state of this pin must be established before any I2C bus communication occurs.",
+        "detailed_description": "The A1 pin is an address pin that, together with A0, provides 16 selectable I2C addresses. The device samples the state of the A1 pin on every bus communication.",
+        "functionality": "Address selection pin for the I2C interface. When combined with the A0 pin, up to 16 unique secondary addresses are available, allowing multiple INA238 devices on the same I2C bus.",
+        "precautions": "The state of the A1 pin must be set before any I2C communication begins, as the device samples this pin on every bus communication. When connecting A1 to SDA or SCL, an additional hold time of 100 ns on the MSB of the I2C address is recommended to ensure correct device addressing."
+      },
+      "internal_pull": null,
+      "name": "A1",
+      "pin_id": "1",
+      "type": "DIGITAL"
+    },
+    "A0": {
+      "description": "I2C address pin. Connect to GND, SCL, SDA, or VS. Table 6-2 lists the pin settings and corresponding addresses.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": "The A0 pin is connected to one of four possible nodes: GND, VS, SDA, or SCL. The selection determines the lower bit of the 4-bit I2C address field. Together with the A1 pin, it allows selection of 16 unique secondary device addresses.",
+        "connectivity": "Connect the A0 pin to GND, VS, SDA, or SCL to set the desired I2C secondary device address. The state of this pin must be established before any I2C bus communication occurs.",
+        "detailed_description": "The A0 pin is an address pin that, together with A1, provides 16 selectable I2C addresses. The device samples the state of the A0 pin on every bus communication.",
+        "functionality": "Address selection pin for the I2C interface. When combined with the A1 pin, up to 16 unique secondary addresses are available, allowing multiple INA238 devices on the same I2C bus.",
+        "precautions": "The state of the A0 pin must be set before any I2C communication begins, as the device samples this pin on every bus communication. When connecting A0 to SDA or SCL, an additional hold time of 100 ns on the MSB of the I2C address is recommended to ensure correct device addressing."
+      },
+      "internal_pull": null,
+      "name": "A0",
+      "pin_id": "2",
+      "type": "DIGITAL"
+    },
+    "ALERT": {
+      "description": "Open-drain alert output, default state is active low. Multipurpose alert pin for reporting fault conditions or conversion complete events.",
+      "direction": "OUTPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Pull-up Resistor",
+            "connection_details": "Connected between the ALERT pin and VS or the I2C bus pull-up rail. Typical value 1 kohm to 10 kohm."
+          }
+        ],
+        "connectivity": "The ALERT pin is an open-drain output and requires an external pull-up resistor. Connect to the desired pull-up voltage rail via a resistor.",
+        "detailed_description": "The ALERT pin is a multipurpose, open-drain output that can report multiple diagnostics including shunt overvoltage, shunt undervoltage, bus overvoltage, bus undervoltage, temperature over-limit, power over-limit, and conversion ready events. The ALERT pin behavior is configured through the DIAG_ALRT register.",
+        "functionality": "The ALERT pin can be configured to assert on: shunt overvoltage (overcurrent), shunt undervoltage (undercurrent), bus overvoltage, bus undervoltage, over temperature, power over-limit, or conversion complete. Alert polarity can be inverted via the APOL bit. Alert latching can be enabled via the ALATCH bit. Slow alert mode (comparison on averaged value) can be enabled via the SLOWALERT bit.",
+        "precautions": [
+          "The ALERT pin is open-drain and requires an external pull-up resistor.",
+          "If not used, the ALERT pin can be left floating.",
+          "When ALATCH is set to Latch mode, the ALERT pin remains asserted until the DIAG_ALRT register is read.",
+          "The fast alert response time is 75 us."
+        ]
+      },
+      "internal_pull": null,
+      "name": "ALERT",
+      "output_type": "OPEN_DRAIN",
+      "pin_id": "3",
+      "type": "DIGITAL",
+      "vol": {
+        "max": 0.4,
+        "min": 0.0,
+        "units": "V"
+      }
+    },
+    "SDA": {
+      "description": "Open-drain bidirectional I2C data.",
+      "direction": "BIDIRECTIONAL",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Pull-up Resistor",
+            "connection_details": "Connected between the SDA pin and the I2C bus voltage rail. Typical value 1 kohm to 10 kohm depending on bus speed and capacitance."
+          },
+          {
+            "component_name": "I2C Master (Microcontroller)",
+            "connection_details": "Connected to the SDA pin of the I2C master device for data communication."
+          }
+        ],
+        "connectivity": "The SDA pin should be connected to the SDA line of the I2C bus with an external pull-up resistor to the I2C bus voltage.",
+        "detailed_description": "The SDA pin is the serial bus data line for the I2C/SMBus interface. It is used for transmitting and receiving data between the INA238 and the master controller. The pin features integrated spike suppression filters and Schmitt triggers.",
+        "functionality": "Bidirectional data line for I2C communication. Supports fast mode (up to 400 kHz) and high-speed mode (up to 2.94 MHz). Open-drain output requiring external pull-up.",
+        "precautions": [
+          "The SDA pin is open-drain and requires an external pull-up resistor.",
+          "Ensure proper PCB layout to minimize noise coupling into the SDA line.",
+          "When connecting to A0 or A1 for address selection, an additional 100 ns hold time on the MSB of the I2C address is required."
+        ]
+      },
+      "input_voltage": {
+        "max": 6.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "SDA",
+      "output_type": "OPEN_DRAIN",
+      "pin_id": "4",
+      "type": "DIGITAL",
+      "vih": {
+        "min": 1.2,
+        "units": "V"
+      },
+      "vil": {
+        "max": 0.4,
+        "units": "V"
+      },
+      "vol": {
+        "max": 0.4,
+        "min": 0.0,
+        "units": "V"
+      }
+    },
+    "SCL": {
+      "description": "I2C clock input.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Pull-up Resistor",
+            "connection_details": "Connected between the SCL pin and the I2C bus voltage rail. Typical value 1 kohm to 10 kohm depending on bus speed and capacitance."
+          },
+          {
+            "component_name": "I2C Master (Microcontroller)",
+            "connection_details": "Connected to the SCL pin of the I2C master device for clock generation."
+          }
+        ],
+        "connectivity": "The SCL pin should be connected to the SCL line of the I2C bus with an external pull-up resistor to the I2C bus voltage.",
+        "detailed_description": "The SCL pin is the serial bus clock line for the I2C/SMBus interface. It provides the clock signal for data transfer. The pin features integrated spike suppression filters and Schmitt triggers.",
+        "functionality": "Clock input for I2C communication. Supports fast mode (1 kHz to 400 kHz) and high-speed mode (1 kHz to 2.94 MHz).",
+        "precautions": [
+          "The SCL pin requires an external pull-up resistor for proper I2C bus operation.",
+          "Ensure the pull-up resistor value is chosen for the desired I2C bus speed and total bus capacitance.",
+          "For high-speed mode, the main device must first send the HS main device code at fast mode speed before switching to high-speed."
+        ]
+      },
+      "input_voltage": {
+        "max": 6.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "SCL",
+      "pin_id": "5",
+      "type": "DIGITAL",
+      "vih": {
+        "min": 1.2,
+        "units": "V"
+      },
+      "vil": {
+        "max": 0.4,
+        "units": "V"
+      }
+    },
+    "VS": {
+      "description": "Power supply, 2.7V to 5.5V.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Bypass Capacitor",
+            "connection_details": "A 0.1 uF bypass capacitor should be connected between the VS pin and GND pin, placed as close as possible to the device pins."
+          }
+        ],
+        "connectivity": "The VS pin should be connected to the system's 2.7V to 5.5V power supply rail with a bypass capacitor placed close to the VS and GND pins.",
+        "detailed_description": "VS is the power supply pin for the INA238. It provides the operating voltage for the device. The supply voltage is independent of the common-mode input voltage, so the bus voltage can be present with VS off and vice versa without damaging the device.",
+        "functionality": "Primary power supply input. Operating range is 2.7V to 5.5V. Typical quiescent current is 640 uA in active mode and 2.8 uA in shutdown mode.",
+        "precautions": [
+          "Do not exceed the absolute maximum rating of 6V on the VS pin.",
+          "Place a 0.1 uF bypass capacitor as close as possible to the VS and GND pins.",
+          "Power-on reset occurs when VS drops below 1.26V (typical).",
+          "Device start-up time from power-up is approximately 300 us."
+        ]
+      },
+      "input_voltage": {
+        "max": 5.5,
+        "min": 2.7,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "VS",
+      "pin_id": "6",
+      "type": "POWER"
+    },
+    "GND": {
+      "description": "Ground.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "System Ground",
+            "description": "The GND pin should be connected to the main ground plane of the system."
+          },
+          {
+            "component_name": "Bypass Capacitor",
+            "description": "A 0.1 uF bypass capacitor connected between VS and GND should be placed as close as possible to the device."
+          }
+        ],
+        "connectivity": "Connect the GND pin directly to the system ground plane.",
+        "detailed_description": "The GND pin is the ground reference for the INA238 device. Bus voltage measurements through the VBUS pin are made with respect to device ground.",
+        "functionality": "Ground reference for the device. All measurements are referenced to this pin.",
+        "precautions": [
+          "Ensure a solid connection to the system ground plane to avoid ground bounce or noise issues.",
+          "Keep the bypass capacitor between VS and GND as close as possible to the device pins."
+        ]
+      },
+      "input_voltage": {
+        "max": 0.0,
+        "min": 0.0,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "GND",
+      "pin_id": "7",
+      "type": "POWER"
+    },
+    "VBUS": {
+      "description": "Bus voltage input. Monitors bus voltages from 0V to 85V.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Bus Voltage Rail",
+            "description": "Connect VBUS directly to the bus voltage being monitored. The VBUS pin has an internal resistive divider with approximately 1 Mohm impedance in active mode."
+          }
+        ],
+        "connectivity": "Connect the VBUS pin directly to the bus voltage node to be monitored. The voltage must be in the range of 0V to 85V.",
+        "detailed_description": "The VBUS pin is an analog input that measures the bus supply voltage with respect to device ground. It has an internal impedance of approximately 1 Mohm in active mode and leakage current of 10 nA in shutdown mode at VBUS = 85V.",
+        "functionality": "Bus voltage measurement input. The voltage is measured with respect to device GND through an internal resistive divider. The measurement resolution is 3.125 mV/LSB with 16-bit output.",
+        "precautions": [
+          "The VBUS pin input range is 0V to 85V. Absolute maximum is -0.3V to 85V.",
+          "In active mode, the VBUS pin input impedance is approximately 0.8 to 1.2 Mohm.",
+          "In shutdown mode, leakage current is 10 nA at VBUS = 85V."
+        ]
+      },
+      "input_voltage": {
+        "max": 85.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "VBUS",
+      "pin_id": "8",
+      "type": "ANALOG"
+    },
+    "IN-": {
+      "description": "Negative input to the device. For high-side applications, connect to load side of sense resistor. For low-side applications, connect to ground side of sense resistor.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Shunt Resistor",
+            "connection_type": "Direct",
+            "description": "The IN- pin connects to the load side (high-side sensing) or ground side (low-side sensing) of the external shunt resistor."
+          }
+        ],
+        "connectivity": "For high-side current sensing, connect IN- to the load side of the sense resistor. For low-side current sensing, connect IN- to the ground side of the sense resistor.",
+        "detailed_description": "Current sensing negative input. The differential voltage between IN+ and IN- is measured to determine current flow through the shunt resistor. The common-mode voltage range is -0.3V to +85V.",
+        "functionality": "Negative input for differential shunt voltage measurement. Supports bidirectional current sensing with full-scale differential ranges of +/-163.84 mV or +/-40.96 mV.",
+        "precautions": [
+          "Ensure proper Kelvin connections to the sense resistor to minimize contact and trace resistance effects.",
+          "The common-mode input range is -0.3V to +85V.",
+          "The differential input range is -40V to +40V (absolute maximum).",
+          "Input bias current is typically 0.1 nA, maximum 2.5 nA at VCM = 85V."
+        ]
+      },
+      "input_voltage": {
+        "max": 85.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "IN-",
+      "pin_id": "9",
+      "type": "ANALOG"
+    },
+    "IN+": {
+      "description": "Positive input to the device. For high-side applications, connect to power supply side of sense resistor. For low-side applications, connect to load side of sense resistor.",
+      "direction": "INPUT",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Shunt Resistor",
+            "connection_type": "Direct",
+            "description": "The IN+ pin connects to the bus voltage side (high-side sensing) or load side (low-side sensing) of the external shunt resistor."
+          }
+        ],
+        "connectivity": "For high-side current sensing, connect IN+ to the bus voltage side of the sense resistor. For low-side current sensing, connect IN+ to the load side of the sense resistor.",
+        "detailed_description": "Current sensing positive input. Together with IN-, the differential voltage across the shunt resistor is measured. The common-mode voltage range is -0.3V to +85V.",
+        "functionality": "Positive input for differential shunt voltage measurement. The INA238 measures the voltage difference (VIN+ - VIN-) across an external shunt resistor. Supports bidirectional current sensing.",
+        "precautions": [
+          "Ensure proper Kelvin connections to the sense resistor to minimize contact and trace resistance effects.",
+          "The common-mode input range is -0.3V to +85V.",
+          "The differential input range is -40V to +40V (absolute maximum).",
+          "Input bias current is typically 0.1 nA, maximum 2.5 nA at VCM = 85V.",
+          "Differential impedance in active mode is approximately 92 kohm."
+        ]
+      },
+      "input_voltage": {
+        "max": 85.0,
+        "min": -0.3,
+        "units": "V"
+      },
+      "internal_pull": null,
+      "name": "IN+",
+      "pin_id": "10",
+      "type": "ANALOG"
+    }
+  },
+  "serial_bus": {
+    "fields": [
+      {
+        "description": "Reset Bit. Setting this bit to '1' generates a system reset that is the same as power-on reset. Resets all registers to default values. This bit self-clears.\n0h = Normal Operation\n1h = System Reset sets registers to default values",
+        "name": "RST",
+        "register_location": [
+          {
+            "reg_end_bit": 15,
+            "reg_start_bit": 15,
+            "register_address": 0
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Reserved. Always reads 0.",
+        "name": "Reserved",
+        "register_location": [
+          {
+            "reg_end_bit": 14,
+            "reg_start_bit": 14,
+            "register_address": 0
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "description": "Sets the Delay for initial ADC conversion in steps of 2 ms.\n0h = 0 s\n1h = 2 ms\nFFh = 510 ms",
+        "name": "CONVDLY",
+        "register_location": [
+          {
+            "reg_end_bit": 6,
+            "reg_start_bit": 13,
+            "register_address": 0
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Reserved. Always reads 0.",
+        "name": "Reserved",
+        "register_location": [
+          {
+            "reg_end_bit": 5,
+            "reg_start_bit": 5,
+            "register_address": 0
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "description": "Shunt full scale range selection across IN+ and IN-.\n0h = +/-163.84 mV\n1h = +/-40.96 mV",
+        "digital_physical_map": {
+          "0": "+/-163.84 mV",
+          "1": "+/-40.96 mV"
+        },
+        "name": "ADCRANGE",
+        "register_location": [
+          {
+            "reg_end_bit": 4,
+            "reg_start_bit": 4,
+            "register_address": 0
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Reserved. Always reads 0.",
+        "name": "Reserved",
+        "register_location": [
+          {
+            "reg_end_bit": 0,
+            "reg_start_bit": 3,
+            "register_address": 0
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "description": "The user can set the MODE bits for continuous or triggered mode on bus voltage, shunt voltage or temperature measurement.\n0h = Shutdown\n1h = Triggered bus voltage, single shot\n2h = Triggered shunt voltage, single shot\n3h = Triggered shunt voltage and bus voltage, single shot\n4h = Triggered temperature, single shot\n5h = Triggered temperature and bus voltage, single shot\n6h = Triggered temperature and shunt voltage, single shot\n7h = Triggered bus voltage, shunt voltage and temperature, single shot\n8h = Shutdown\n9h = Continuous bus voltage only\nAh = Continuous shunt voltage only\nBh = Continuous shunt and bus voltage\nCh = Continuous temperature only\nDh = Continuous bus voltage and temperature\nEh = Continuous temperature and shunt voltage\nFh = Continuous bus voltage, shunt voltage and temperature",
+        "digital_physical_map": {
+          "0": "Shutdown",
+          "1": "Triggered bus voltage, single shot",
+          "2": "Triggered shunt voltage, single shot",
+          "3": "Triggered shunt voltage and bus voltage, single shot",
+          "4": "Triggered temperature, single shot",
+          "5": "Triggered temperature and bus voltage, single shot",
+          "6": "Triggered temperature and shunt voltage, single shot",
+          "7": "Triggered bus voltage, shunt voltage and temperature, single shot",
+          "8": "Shutdown",
+          "9": "Continuous bus voltage only",
+          "10": "Continuous shunt voltage only",
+          "11": "Continuous shunt and bus voltage",
+          "12": "Continuous temperature only",
+          "13": "Continuous bus voltage and temperature",
+          "14": "Continuous temperature and shunt voltage",
+          "15": "Continuous bus voltage, shunt voltage and temperature"
+        },
+        "name": "MODE",
+        "register_location": [
+          {
+            "reg_end_bit": 12,
+            "reg_start_bit": 15,
+            "register_address": 1
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Sets the conversion time of the bus voltage measurement:\n0h = 50 us\n1h = 84 us\n2h = 150 us\n3h = 280 us\n4h = 540 us\n5h = 1052 us\n6h = 2074 us\n7h = 4120 us",
+        "digital_physical_map": {
+          "0": "50 us",
+          "1": "84 us",
+          "2": "150 us",
+          "3": "280 us",
+          "4": "540 us",
+          "5": "1052 us",
+          "6": "2074 us",
+          "7": "4120 us"
+        },
+        "name": "VBUSCT",
+        "register_location": [
+          {
+            "reg_end_bit": 9,
+            "reg_start_bit": 11,
+            "register_address": 1
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Sets the conversion time of the shunt voltage measurement:\n0h = 50 us\n1h = 84 us\n2h = 150 us\n3h = 280 us\n4h = 540 us\n5h = 1052 us\n6h = 2074 us\n7h = 4120 us",
+        "digital_physical_map": {
+          "0": "50 us",
+          "1": "84 us",
+          "2": "150 us",
+          "3": "280 us",
+          "4": "540 us",
+          "5": "1052 us",
+          "6": "2074 us",
+          "7": "4120 us"
+        },
+        "name": "VSHCT",
+        "register_location": [
+          {
+            "reg_end_bit": 6,
+            "reg_start_bit": 8,
+            "register_address": 1
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Sets the conversion time of the temperature measurement:\n0h = 50 us\n1h = 84 us\n2h = 150 us\n3h = 280 us\n4h = 540 us\n5h = 1052 us\n6h = 2074 us\n7h = 4120 us",
+        "digital_physical_map": {
+          "0": "50 us",
+          "1": "84 us",
+          "2": "150 us",
+          "3": "280 us",
+          "4": "540 us",
+          "5": "1052 us",
+          "6": "2074 us",
+          "7": "4120 us"
+        },
+        "name": "VTCT",
+        "register_location": [
+          {
+            "reg_end_bit": 3,
+            "reg_start_bit": 5,
+            "register_address": 1
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Selects ADC sample averaging count. The averaging setting applies to all active inputs. When >0h, the output registers are updated after the averaging has completed.\n0h = 1\n1h = 4\n2h = 16\n3h = 64\n4h = 128\n5h = 256\n6h = 512\n7h = 1024",
+        "digital_physical_map": {
+          "0": "1",
+          "1": "4",
+          "2": "16",
+          "3": "64",
+          "4": "128",
+          "5": "256",
+          "6": "512",
+          "7": "1024"
+        },
+        "name": "AVG",
+        "register_location": [
+          {
+            "reg_end_bit": 0,
+            "reg_start_bit": 2,
+            "register_address": 1
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Reserved. Always reads 0.",
+        "name": "Reserved",
+        "register_location": [
+          {
+            "reg_end_bit": 15,
+            "reg_start_bit": 15,
+            "register_address": 2
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "description": "The register provides the device with a conversion constant value that represents shunt resistance used to calculate current value in Amperes. This also sets the resolution for the CURRENT register. SHUNT_CAL = 819.2 x 10^6 x CURRENT_LSB x RSHUNT (for ADCRANGE = 0). Multiply by 4 for ADCRANGE = 1.",
+        "name": "SHUNT_CAL",
+        "register_location": [
+          {
+            "reg_end_bit": 0,
+            "reg_start_bit": 14,
+            "register_address": 2
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Differential voltage measured across the shunt output. Two's complement value.\nConversion factor: 5 uV/LSB when ADCRANGE = 0, 1.25 uV/LSB when ADCRANGE = 1.",
+        "name": "VSHUNT",
+        "register_location": [
+          {
+            "reg_end_bit": 0,
+            "reg_start_bit": 15,
+            "register_address": 4
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Bus voltage output. Two's complement value, however always positive.\nConversion factor: 3.125 mV/LSB.",
+        "name": "VBUS",
+        "register_location": [
+          {
+            "reg_end_bit": 0,
+            "reg_start_bit": 15,
+            "register_address": 5
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Internal die temperature measurement. Two's complement value.\nConversion factor: 125 m-degC/LSB.",
+        "name": "DIETEMP",
+        "register_location": [
+          {
+            "reg_end_bit": 4,
+            "reg_start_bit": 15,
+            "register_address": 6
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Reserved. Always reads 0.",
+        "name": "Reserved",
+        "register_location": [
+          {
+            "reg_end_bit": 0,
+            "reg_start_bit": 3,
+            "register_address": 6
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "description": "Calculated current output in Amperes. Two's complement value. Value depends on SHUNT_CAL register programming.",
+        "name": "CURRENT",
+        "register_location": [
+          {
+            "reg_end_bit": 0,
+            "reg_start_bit": 15,
+            "register_address": 7
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Calculated power output. Output value in watts. Unsigned representation, positive value. 24-bit register. Power(W) = 0.2 x CURRENT_LSB x POWER.",
+        "name": "POWER",
+        "register_location": [
+          {
+            "reg_end_bit": 0,
+            "reg_start_bit": 23,
+            "register_address": 8
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "When the Alert Latch Enable bit is set to Transparent mode, the Alert pin and Flag bit reset to the idle state when the fault has been cleared. When set to Latch mode, the Alert pin and Alert Flag bit remain active following a fault until the DIAG_ALRT Register has been read.\n0h = Transparent\n1h = Latched",
+        "digital_physical_map": {
+          "0": "Transparent",
+          "1": "Latched"
+        },
+        "name": "ALATCH",
+        "register_location": [
+          {
+            "reg_end_bit": 15,
+            "reg_start_bit": 15,
+            "register_address": 11
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Setting this bit high configures the Alert pin to be asserted when the Conversion Ready Flag (bit 1) is asserted, indicating that a conversion cycle has completed.\n0h = Disable conversion ready flag on ALERT pin\n1h = Enables conversion ready flag on ALERT pin",
+        "digital_physical_map": {
+          "0": "Disable conversion ready flag on ALERT pin",
+          "1": "Enables conversion ready flag on ALERT pin"
+        },
+        "name": "CNVR",
+        "register_location": [
+          {
+            "reg_end_bit": 14,
+            "reg_start_bit": 14,
+            "register_address": 11
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "When enabled, ALERT function is asserted on the completed averaged value.\n0h = ALERT comparison on non-averaged (ADC) value\n1h = ALERT comparison on averaged value",
+        "digital_physical_map": {
+          "0": "ALERT comparison on non-averaged (ADC) value",
+          "1": "ALERT comparison on averaged value"
+        },
+        "name": "SLOWALERT",
+        "register_location": [
+          {
+            "reg_end_bit": 13,
+            "reg_start_bit": 13,
+            "register_address": 11
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Alert Polarity bit sets the Alert pin polarity.\n0h = Normal (Active-low, open-drain)\n1h = Inverted (active-high, open-drain)",
+        "digital_physical_map": {
+          "0": "Normal (Active-low, open-drain)",
+          "1": "Inverted (active-high, open-drain)"
+        },
+        "name": "APOL",
+        "register_location": [
+          {
+            "reg_end_bit": 12,
+            "reg_start_bit": 12,
+            "register_address": 11
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Reserved. Always read 0.",
+        "name": "Reserved",
+        "register_location": [
+          {
+            "reg_end_bit": 10,
+            "reg_start_bit": 11,
+            "register_address": 11
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "description": "This bit is set to 1 if an arithmetic operation resulted in an overflow error. The bit indicates that current and power data can be invalid.\n0h = Normal\n1h = Overflow\nMust be manually cleared by triggering another conversion.",
+        "digital_physical_map": {
+          "0": "Normal",
+          "1": "Overflow"
+        },
+        "name": "MATHOF",
+        "register_location": [
+          {
+            "reg_end_bit": 9,
+            "reg_start_bit": 9,
+            "register_address": 11
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Reserved. Always reads 0.",
+        "name": "Reserved",
+        "register_location": [
+          {
+            "reg_end_bit": 8,
+            "reg_start_bit": 8,
+            "register_address": 11
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "description": "This bit is set to 1 if the temperature measurement exceeds the threshold limit in the temperature over-limit register.\n0h = Normal\n1h = Over Temp Event\nWhen ALATCH = 1 this bit is cleared by reading or writing to this register.",
+        "digital_physical_map": {
+          "0": "Normal",
+          "1": "Over Temp Event"
+        },
+        "name": "TMPOL",
+        "register_location": [
+          {
+            "reg_end_bit": 7,
+            "reg_start_bit": 7,
+            "register_address": 11
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "This bit is set to 1 if the shunt voltage measurement exceeds the threshold limit in the shunt over-limit register.\n0h = Normal\n1h = Over Shunt Voltage Event\nWhen ALATCH = 1 this bit is cleared by reading or writing to this register.",
+        "digital_physical_map": {
+          "0": "Normal",
+          "1": "Over Shunt Voltage Event"
+        },
+        "name": "SHNTOL",
+        "register_location": [
+          {
+            "reg_end_bit": 6,
+            "reg_start_bit": 6,
+            "register_address": 11
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "This bit is set to 1 if the shunt voltage measurement falls below the threshold limit in the shunt under-limit register.\n0h = Normal\n1h = Under Shunt Voltage Event\nWhen ALATCH = 1 this bit is cleared by reading or writing to this register.",
+        "digital_physical_map": {
+          "0": "Normal",
+          "1": "Under Shunt Voltage Event"
+        },
+        "name": "SHNTUL",
+        "register_location": [
+          {
+            "reg_end_bit": 5,
+            "reg_start_bit": 5,
+            "register_address": 11
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "This bit is set to 1 if the bus voltage measurement exceeds the threshold limit in the bus over-limit register.\n0h = Normal\n1h = Bus Over-Limit Event\nWhen ALATCH = 1 this bit is cleared by reading or writing to this register.",
+        "digital_physical_map": {
+          "0": "Normal",
+          "1": "Bus Over-Limit Event"
+        },
+        "name": "BUSOL",
+        "register_location": [
+          {
+            "reg_end_bit": 4,
+            "reg_start_bit": 4,
+            "register_address": 11
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "This bit is set to 1 if the bus voltage measurement falls below the threshold limit in the bus under-limit register.\n0h = Normal\n1h = Bus Under-Limit Event\nWhen ALATCH = 1 this bit is cleared by reading or writing to this register.",
+        "digital_physical_map": {
+          "0": "Normal",
+          "1": "Bus Under-Limit Event"
+        },
+        "name": "BUSUL",
+        "register_location": [
+          {
+            "reg_end_bit": 3,
+            "reg_start_bit": 3,
+            "register_address": 11
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "This bit is set to 1 if the power measurement exceeds the threshold limit in the power limit register.\n0h = Normal\n1h = Power Over-Limit Event\nWhen ALATCH = 1 this bit is cleared by reading or writing to this register.",
+        "digital_physical_map": {
+          "0": "Normal",
+          "1": "Power Over-Limit Event"
+        },
+        "name": "POL",
+        "register_location": [
+          {
+            "reg_end_bit": 2,
+            "reg_start_bit": 2,
+            "register_address": 11
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "This bit is set to 1 if the conversion is completed.\n0h = Normal\n1h = Conversion is complete\nWhen ALATCH = 1 this bit is cleared by reading or writing to this register, or starting a new triggered conversion.",
+        "digital_physical_map": {
+          "0": "Normal",
+          "1": "Conversion is complete"
+        },
+        "name": "CNVRF",
+        "register_location": [
+          {
+            "reg_end_bit": 1,
+            "reg_start_bit": 1,
+            "register_address": 11
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "This bit is set to 0 if a checksum error is detected in the device trim memory space.\n0h = Memory Checksum Error\n1h = Normal Operation",
+        "digital_physical_map": {
+          "0": "Memory Checksum Error",
+          "1": "Normal Operation"
+        },
+        "name": "MEMSTAT",
+        "register_location": [
+          {
+            "reg_end_bit": 0,
+            "reg_start_bit": 0,
+            "register_address": 11
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Sets the threshold for comparison of the value to detect Shunt Overvoltage (overcurrent protection). Two's complement value.\nConversion Factor: 5 uV/LSB when ADCRANGE = 0, 1.25 uV/LSB when ADCRANGE = 1.",
+        "name": "SOVL",
+        "register_location": [
+          {
+            "reg_end_bit": 0,
+            "reg_start_bit": 15,
+            "register_address": 12
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Sets the threshold for comparison of the value to detect Shunt Undervoltage (undercurrent protection). Two's complement value.\nConversion Factor: 5 uV/LSB when ADCRANGE = 0, 1.25 uV/LSB when ADCRANGE = 1.",
+        "name": "SUVL",
+        "register_location": [
+          {
+            "reg_end_bit": 0,
+            "reg_start_bit": 15,
+            "register_address": 13
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Reserved. Always reads 0.",
+        "name": "Reserved",
+        "register_location": [
+          {
+            "reg_end_bit": 15,
+            "reg_start_bit": 15,
+            "register_address": 14
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "description": "Sets the threshold for comparison of the value to detect Bus Overvoltage (overvoltage protection). Unsigned representation, positive value only. Conversion factor: 3.125 mV/LSB.",
+        "name": "BOVL",
+        "register_location": [
+          {
+            "reg_end_bit": 0,
+            "reg_start_bit": 14,
+            "register_address": 14
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Reserved. Always reads 0.",
+        "name": "Reserved",
+        "register_location": [
+          {
+            "reg_end_bit": 15,
+            "reg_start_bit": 15,
+            "register_address": 15
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "description": "Sets the threshold for comparison of the value to detect Bus Undervoltage (undervoltage protection). Unsigned representation, positive value only. Conversion factor: 3.125 mV/LSB.",
+        "name": "BUVL",
+        "register_location": [
+          {
+            "reg_end_bit": 0,
+            "reg_start_bit": 14,
+            "register_address": 15
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Sets the threshold for comparison of the value to detect over temperature measurements. Two's complement value. The value entered compares directly against the DIETEMP register value. Conversion factor: 125 m-degC/LSB.",
+        "name": "TOL",
+        "register_location": [
+          {
+            "reg_end_bit": 4,
+            "reg_start_bit": 15,
+            "register_address": 16
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Reserved. Always reads 0.",
+        "name": "Reserved",
+        "register_location": [
+          {
+            "reg_end_bit": 0,
+            "reg_start_bit": 3,
+            "register_address": 16
+          }
+        ],
+        "reserved": true
+      },
+      {
+        "description": "Sets the threshold for comparison of the value to detect power over-limit measurements. Unsigned representation, positive value only. The value entered compares directly against the POWER register. Conversion factor: 256 x Power LSB.",
+        "name": "POL_THRESHOLD",
+        "register_location": [
+          {
+            "reg_end_bit": 0,
+            "reg_start_bit": 15,
+            "register_address": 17
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Reads back TI in ASCII (0x5449).",
+        "digital_physical_map": {
+          "21577": "TI"
+        },
+        "name": "MANFID",
+        "register_location": [
+          {
+            "reg_end_bit": 0,
+            "reg_start_bit": 15,
+            "register_address": 62
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Stores the device identification bits. Reads 238h for the INA238.",
+        "name": "DIEID",
+        "register_location": [
+          {
+            "reg_end_bit": 4,
+            "reg_start_bit": 15,
+            "register_address": 63
+          }
+        ],
+        "reserved": false
+      },
+      {
+        "description": "Device revision identification.",
+        "name": "REV_ID",
+        "register_location": [
+          {
+            "reg_end_bit": 0,
+            "reg_start_bit": 3,
+            "register_address": 63
+          }
+        ],
+        "reserved": false
+      }
+    ],
+    "registers": {
+      "0": {
+        "address": 0,
+        "bit_width": 16,
+        "init_value": 0,
+        "name": "Configuration Register (CONFIG)"
+      },
+      "1": {
+        "address": 1,
+        "bit_width": 16,
+        "init_value": 64360,
+        "name": "ADC Configuration Register (ADC_CONFIG)"
+      },
+      "2": {
+        "address": 2,
+        "bit_width": 16,
+        "init_value": 4096,
+        "name": "Shunt Calibration Register (SHUNT_CAL)"
+      },
+      "4": {
+        "address": 4,
+        "bit_width": 16,
+        "init_value": 0,
+        "name": "Shunt Voltage Measurement Register (VSHUNT)"
+      },
+      "5": {
+        "address": 5,
+        "bit_width": 16,
+        "init_value": 0,
+        "name": "Bus Voltage Measurement Register (VBUS)"
+      },
+      "6": {
+        "address": 6,
+        "bit_width": 16,
+        "init_value": 0,
+        "name": "Temperature Measurement Register (DIETEMP)"
+      },
+      "7": {
+        "address": 7,
+        "bit_width": 16,
+        "init_value": 0,
+        "name": "Current Result Register (CURRENT)"
+      },
+      "8": {
+        "address": 8,
+        "bit_width": 24,
+        "init_value": 0,
+        "name": "Power Result Register (POWER)"
+      },
+      "11": {
+        "address": 11,
+        "bit_width": 16,
+        "init_value": 1,
+        "name": "Diagnostic Flags and Alert Register (DIAG_ALRT)"
+      },
+      "12": {
+        "address": 12,
+        "bit_width": 16,
+        "init_value": 32767,
+        "name": "Shunt Overvoltage Threshold Register (SOVL)"
+      },
+      "13": {
+        "address": 13,
+        "bit_width": 16,
+        "init_value": 32768,
+        "name": "Shunt Undervoltage Threshold Register (SUVL)"
+      },
+      "14": {
+        "address": 14,
+        "bit_width": 16,
+        "init_value": 32767,
+        "name": "Bus Overvoltage Threshold Register (BOVL)"
+      },
+      "15": {
+        "address": 15,
+        "bit_width": 16,
+        "init_value": 0,
+        "name": "Bus Undervoltage Threshold Register (BUVL)"
+      },
+      "16": {
+        "address": 16,
+        "bit_width": 16,
+        "init_value": 32767,
+        "name": "Temperature Over-Limit Threshold Register (TEMP_LIMIT)"
+      },
+      "17": {
+        "address": 17,
+        "bit_width": 16,
+        "init_value": 65535,
+        "name": "Power Over-Limit Threshold Register (PWR_LIMIT)"
+      },
+      "62": {
+        "address": 62,
+        "bit_width": 16,
+        "init_value": 21577,
+        "name": "Manufacturer ID Register (MANUFACTURER_ID)"
+      },
+      "63": {
+        "address": 63,
+        "bit_width": 16,
+        "init_value": 9089,
+        "name": "Device ID Register (DEVICE_ID)"
+      }
+    }
+  }
+}

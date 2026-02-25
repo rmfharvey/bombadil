@@ -1,0 +1,601 @@
+{
+  "high_level": {
+    "base_part_number": "FT231X",
+    "device_type": "USB_TO_UART",
+    "manufacturer": "FTDI (Future Technology Devices International)",
+    "packages": [
+      "QFN-20",
+      "SSOP-20"
+    ],
+    "part_numbers": {
+      "FT231XQ-R": {
+        "options": {
+          "Package": "QFN-20",
+          "Packing": "Tape and Reel (5000 pcs)"
+        }
+      },
+      "FT231XQ-T": {
+        "options": {
+          "Package": "QFN-20",
+          "Packing": "Tray (490 pcs)"
+        }
+      },
+      "FT231XS-R": {
+        "options": {
+          "Package": "SSOP-20",
+          "Packing": "Tape and Reel (2000 pcs)"
+        }
+      },
+      "FT231XS-U": {
+        "options": {
+          "Package": "SSOP-20",
+          "Packing": "Tube (50 pcs)"
+        }
+      }
+    },
+    "serial_busses": [
+      "USB",
+      "UART"
+    ]
+  },
+  "pins": {
+    "RXD": {
+      "name": "RXD",
+      "pin_id": "1",
+      "direction": "INPUT",
+      "type": "DIGITAL",
+      "description": "Receiving Asynchronous Data Input.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 5.8,
+        "units": "V"
+      },
+      "vih": {
+        "min": 2.0,
+        "units": "V"
+      },
+      "vil": {
+        "max": 0.8,
+        "units": "V"
+      },
+      "internal_pull": {
+        "direction": "UP",
+        "pull_value": {
+          "nom": 75,
+          "units": "kohm"
+        },
+        "type": "RESISTANCE"
+      },
+      "implementation": {
+        "connectivity": "Connect to the TXD output of the external UART device or RS232/RS422/RS485 level converter. This pin receives serial data from the external device to be transmitted over USB to the host.",
+        "detailed_description": "The RXD pin is the UART receive data input. Data received on this pin is buffered in the internal 512-byte TX FIFO and sent to the USB host. The pin is pulled to VCCIO via an internal 75 kohm resistor.",
+        "functionality": "Receives asynchronous serial data from an external UART device. Supports 7 or 8 data bits, 1 or 2 stop bits, and various parity options.",
+        "precautions": [
+          "Input is 5V tolerant when powered from VCCIO.",
+          "During USB suspend, this pin can be configured to pull low via MTP memory settings.",
+          "Signal can be inverted by setting the Invert RXD option in MTP memory."
+        ]
+      }
+    },
+    "RI#": {
+      "name": "RI#",
+      "pin_id": "2",
+      "direction": "INPUT",
+      "type": "DIGITAL",
+      "description": "Ring Indicator input for remote wake up. Active low.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 5.8,
+        "units": "V"
+      },
+      "vih": {
+        "min": 2.0,
+        "units": "V"
+      },
+      "vil": {
+        "max": 0.8,
+        "units": "V"
+      },
+      "internal_pull": {
+        "direction": "UP",
+        "pull_value": {
+          "nom": 75,
+          "units": "kohm"
+        },
+        "type": "RESISTANCE"
+      },
+      "implementation": {
+        "connectivity": "Connect to the ring indicator signal from a modem or leave unconnected if not used (internal pull-up will hold high). Taking RI# low will wake the USB host from suspend.",
+        "detailed_description": "Ring Indicator control input. Active low signal used for modem handshaking and USB remote wakeup functionality.",
+        "functionality": "Indicates an incoming ring signal. Also used to trigger USB remote wake up from suspend mode.",
+        "precautions": [
+          "Active low signal. Internal pull-up to VCCIO ensures safe default state.",
+          "Signal can be inverted by setting the Invert RI# option in MTP memory."
+        ]
+      }
+    },
+    "GND_3": {
+      "name": "GND",
+      "pin_id": "3",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "0V Ground input.",
+      "implementation": {
+        "connectivity": "Connect to system ground plane. Both GND pins (3 and 13) must be connected.",
+        "detailed_description": "Power supply ground reference for the device.",
+        "functionality": "Provides the ground reference for all internal circuitry.",
+        "precautions": [
+          "Ensure low-impedance connection to ground plane.",
+          "Both GND pins must be connected for proper operation."
+        ]
+      }
+    },
+    "DSR#": {
+      "name": "DSR#",
+      "pin_id": "4",
+      "direction": "INPUT",
+      "type": "DIGITAL",
+      "description": "Data Set Ready Control Input / Handshake Signal. Active low.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 5.8,
+        "units": "V"
+      },
+      "vih": {
+        "min": 2.0,
+        "units": "V"
+      },
+      "vil": {
+        "max": 0.8,
+        "units": "V"
+      },
+      "internal_pull": {
+        "direction": "UP",
+        "pull_value": {
+          "nom": 75,
+          "units": "kohm"
+        },
+        "type": "RESISTANCE"
+      },
+      "implementation": {
+        "connectivity": "Connect to the DSR# output of the remote device or RS232 level converter. Leave unconnected if handshaking is not required.",
+        "detailed_description": "Data Set Ready input for modem handshaking. Active low. Paired with DTR# for DSR/DTR handshaking.",
+        "functionality": "Indicates the remote device is ready for communication. Used in DSR/DTR hardware handshaking.",
+        "precautions": [
+          "Internal pull-up to VCCIO holds pin high (inactive) when unconnected.",
+          "Signal can be inverted by setting the Invert DSR# option in MTP memory."
+        ]
+      }
+    },
+    "DCD#": {
+      "name": "DCD#",
+      "pin_id": "5",
+      "direction": "INPUT",
+      "type": "DIGITAL",
+      "description": "Data Carrier Detect Control Input. Active low.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 5.8,
+        "units": "V"
+      },
+      "vih": {
+        "min": 2.0,
+        "units": "V"
+      },
+      "vil": {
+        "max": 0.8,
+        "units": "V"
+      },
+      "internal_pull": {
+        "direction": "UP",
+        "pull_value": {
+          "nom": 75,
+          "units": "kohm"
+        },
+        "type": "RESISTANCE"
+      },
+      "implementation": {
+        "connectivity": "Connect to the DCD# output of the remote device or RS232 level converter. Leave unconnected if not used.",
+        "detailed_description": "Data Carrier Detect input. Active low. Indicates the presence of a carrier signal from the remote device.",
+        "functionality": "Reports carrier detection status to the USB host application.",
+        "precautions": [
+          "Internal pull-up to VCCIO holds pin high (inactive) when unconnected.",
+          "Signal can be inverted by setting the Invert DCD# option in MTP memory."
+        ]
+      }
+    },
+    "CTS#": {
+      "name": "CTS#",
+      "pin_id": "6",
+      "direction": "INPUT",
+      "type": "DIGITAL",
+      "description": "Clear To Send Control Input / Handshake Signal. Active low.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 5.8,
+        "units": "V"
+      },
+      "vih": {
+        "min": 2.0,
+        "units": "V"
+      },
+      "vil": {
+        "max": 0.8,
+        "units": "V"
+      },
+      "internal_pull": {
+        "direction": "UP",
+        "pull_value": {
+          "nom": 75,
+          "units": "kohm"
+        },
+        "type": "RESISTANCE"
+      },
+      "implementation": {
+        "connectivity": "Connect to the CTS# output of the remote device or RS232 level converter. For RTS/CTS hardware flow control, connect to the remote device's RTS# output.",
+        "detailed_description": "Clear To Send input for RTS/CTS hardware flow control. Active low. When asserted (low), the FT231X is permitted to transmit data on TXD.",
+        "functionality": "Controls UART data flow from the FT231X to the remote device. When CTS# is de-asserted (high), the FT231X pauses data transmission.",
+        "precautions": [
+          "Internal pull-up to VCCIO holds pin high when unconnected, which will pause transmission if flow control is enabled.",
+          "Signal can be inverted by setting the Invert CTS# option in MTP memory.",
+          "Handshaking is handled in hardware for fast response times."
+        ]
+      }
+    },
+    "CBUS2": {
+      "name": "CBUS2",
+      "pin_id": "7",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Configurable CBUS I/O Pin. Default configuration is TXLED# (transmit data LED drive, active low).",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 5.8,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to an LED (via current limiting resistor) for transmit activity indication, or configure for other CBUS functions via MTP memory. Default function is TXLED#.",
+        "detailed_description": "Configurable CBUS I/O pin. Function is set in the MTP memory. Available functions include: TRI-STATE, DRIVE 1, DRIVE 0, TXDEN, PWREN#, TXLED#, RXLED#, TX&RXLED#, SLEEP#, CLK24MHz, CLK12MHz, CLK6MHz, GPIO, BCD Charger, BCD Charger#, BitBang_WR#, BitBang_RD#, VBUS_Sense, Time Stamp, Keep_Awake#.",
+        "functionality": "Default: TXLED# - pulses low when data is transmitted on TXD (received from USB host). Can be reconfigured to other CBUS functions.",
+        "precautions": [
+          "Function must be configured in MTP memory using FT_PROG utility.",
+          "Drive strength (4/8/12/16 mA), slew rate, and Schmitt trigger input are configurable in MTP memory.",
+          "Clock outputs (CLK24/12/6MHz) are suspended during USB suspend mode."
+        ]
+      }
+    },
+    "USBDP": {
+      "name": "USBDP",
+      "pin_id": "8",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "USB Data Signal Plus. Requires a series 27 ohm resistor to USB connector.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 3.63,
+        "units": "V"
+      },
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Series Resistor",
+            "description": "A 27 ohm series resistor is required between the USBDP pin and the USB connector D+ line for impedance matching."
+          }
+        ],
+        "connectivity": "Connect to the USB connector D+ pin via a 27 ohm series resistor. An internal 1.5 kohm pull-up resistor to 3V3OUT identifies the device as a USB Full Speed device.",
+        "detailed_description": "USB Data Plus signal. Part of the differential USB data pair. Includes an internal 1.5 kohm pull-up resistor to 3V3OUT for full-speed device identification.",
+        "functionality": "Carries the positive USB differential data signal. Used for USB 2.0 Full Speed (12 Mbps) communication.",
+        "precautions": [
+          "Must use a 27 ohm series resistor to the USB connector.",
+          "Do not exceed absolute maximum voltage rating of 3.63V.",
+          "Route as a controlled impedance differential pair with USBDM.",
+          "Keep trace lengths matched and as short as possible."
+        ]
+      }
+    },
+    "USBDM": {
+      "name": "USBDM",
+      "pin_id": "9",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "USB Data Signal Minus. Requires a series 27 ohm resistor to USB connector.",
+      "input_voltage": {
+        "min": -0.5,
+        "max": 3.63,
+        "units": "V"
+      },
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Series Resistor",
+            "description": "A 27 ohm series resistor is required between the USBDM pin and the USB connector D- line for impedance matching."
+          }
+        ],
+        "connectivity": "Connect to the USB connector D- pin via a 27 ohm series resistor.",
+        "detailed_description": "USB Data Minus signal. Part of the differential USB data pair.",
+        "functionality": "Carries the negative USB differential data signal. Used for USB 2.0 Full Speed (12 Mbps) communication.",
+        "precautions": [
+          "Must use a 27 ohm series resistor to the USB connector.",
+          "Do not exceed absolute maximum voltage rating of 3.63V.",
+          "Route as a controlled impedance differential pair with USBDP.",
+          "Keep trace lengths matched and as short as possible."
+        ]
+      }
+    },
+    "3V3OUT": {
+      "name": "3V3OUT",
+      "pin_id": "10",
+      "direction": "OUTPUT",
+      "type": "POWER",
+      "description": "3.3V LDO regulator output at 50mA. May be used to power VCCIO. When VCC is 3V3, pin 10 is an input pin and should be connected to pin 12 (VCC).",
+      "output_voltage": {
+        "min": 2.97,
+        "typ": 3.3,
+        "max": 3.63,
+        "units": "V"
+      },
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Decoupling Capacitor",
+            "description": "An external 100nF decoupling capacitor is required on the 3V3OUT pin to ground."
+          }
+        ],
+        "connectivity": "Connect a 100nF decoupling capacitor from 3V3OUT to GND. Can optionally be connected to VCCIO to power the I/O cells at 3.3V. When VCC is 3.3V, this pin becomes an input and must be connected to VCC.",
+        "detailed_description": "Output of the internal 3.3V LDO regulator. Provides 3.3V at up to 50mA. Also provides power to the internal 1.5 kohm USB pull-up resistor on USBDP and the USB transceiver.",
+        "functionality": "Provides regulated 3.3V output from the internal LDO. Primary purpose is powering the USB transceiver and reset generator. Can supply external circuitry up to 50mA.",
+        "precautions": [
+          "Maximum output current is 50mA. Do not exceed this limit.",
+          "When VCC is 3.3V, this pin must be connected to VCC (pin 12) as an input.",
+          "Always requires a 100nF decoupling capacitor to ground.",
+          "VCC must be greater than 3V3OUT voltage, otherwise 3V3OUT becomes an input."
+        ]
+      }
+    },
+    "RESET#": {
+      "name": "RESET#",
+      "pin_id": "11",
+      "direction": "INPUT",
+      "type": "DIGITAL",
+      "description": "Reset input. Active low. Can be tied to VCCIO if not used.",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 5.8,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to VCCIO if external reset is not required. The device has an integrated power-on-reset circuit. For external reset control, drive low to reset the device.",
+        "detailed_description": "Active low reset input. An internal power-on-reset circuit is integrated, so external reset is optional. When reset is asserted, all UART I/O pins are tri-stated.",
+        "functionality": "Resets the device when driven low. Internal power-on-reset provides automatic reset at power-up.",
+        "precautions": [
+          "Can be tied to VCCIO if external reset is not needed.",
+          "When the FT231X is in reset, UART interface I/O pins are tri-stated with internal 200 kohm pull-ups to VCCIO.",
+          "Active low signal."
+        ]
+      }
+    },
+    "VCC": {
+      "name": "VCC",
+      "pin_id": "12",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "5V or 3V3 supply to IC. Main power input.",
+      "input_voltage": {
+        "min": 2.97,
+        "max": 5.5,
+        "units": "V"
+      },
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Decoupling Capacitor",
+            "description": "A 100nF decoupling capacitor should be placed close to the VCC pin to ground."
+          },
+          {
+            "component_name": "Ferrite Bead (bus-powered)",
+            "description": "For USB bus-powered designs, a ferrite bead in series with the USB VBUS to VCC is recommended for EMI reduction."
+          }
+        ],
+        "connectivity": "Connect to 5V USB VBUS (bus-powered) or external 3.3V-5.25V supply (self-powered). Place 100nF decoupling capacitor close to pin.",
+        "detailed_description": "Main power supply input for the FT231X. Supplies power to the internal LDO regulators and core logic.",
+        "functionality": "Provides main power to the device. Acceptable voltage range is 2.97V to 5.5V. When operated at 3.3V, the 3V3OUT pin must also be driven with 3.3V.",
+        "precautions": [
+          "Do not exceed absolute maximum of 5.5V.",
+          "When VCC is 3.3V, pin 10 (3V3OUT) must be connected to VCC.",
+          "Place decoupling capacitor as close to pin as possible.",
+          "For bus-powered designs, use ferrite bead in series with USB VBUS."
+        ]
+      }
+    },
+    "GND_13": {
+      "name": "GND",
+      "pin_id": "13",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "0V Ground input.",
+      "implementation": {
+        "connectivity": "Connect to system ground plane. Both GND pins (3 and 13) must be connected.",
+        "detailed_description": "Power supply ground reference for the device.",
+        "functionality": "Provides the ground reference for all internal circuitry.",
+        "precautions": [
+          "Ensure low-impedance connection to ground plane.",
+          "Both GND pins must be connected for proper operation."
+        ]
+      }
+    },
+    "CBUS1": {
+      "name": "CBUS1",
+      "pin_id": "14",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Configurable CBUS I/O Pin. Default configuration is RXLED# (receive data LED drive, active low).",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 5.8,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to an LED (via current limiting resistor) for receive activity indication, or configure for other CBUS functions via MTP memory. Default function is RXLED#.",
+        "detailed_description": "Configurable CBUS I/O pin. Function is set in the MTP memory. See CBUS2 for full list of available functions.",
+        "functionality": "Default: RXLED# - pulses low when data is received from USB host and transmitted on TXD. Can be reconfigured to other CBUS functions.",
+        "precautions": [
+          "Function must be configured in MTP memory using FT_PROG utility.",
+          "Drive strength, slew rate, and Schmitt trigger input are configurable."
+        ]
+      }
+    },
+    "CBUS0": {
+      "name": "CBUS0",
+      "pin_id": "15",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Configurable CBUS I/O Pin. Default configuration is TXDEN (transmit data enable for RS485).",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 5.8,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "For RS485 applications, connect to the DE (Driver Enable) pin of the RS485 transceiver. For other uses, configure via MTP memory. Default function is TXDEN.",
+        "detailed_description": "Configurable CBUS I/O pin. Function is set in the MTP memory. See CBUS2 for full list of available functions.",
+        "functionality": "Default: TXDEN - Transmit Data Enable output for RS485 transceiver control. Active high when the FT231X is transmitting data. Can be reconfigured to other CBUS functions.",
+        "precautions": [
+          "Function must be configured in MTP memory using FT_PROG utility.",
+          "Drive strength, slew rate, and Schmitt trigger input are configurable."
+        ]
+      }
+    },
+    "CBUS3": {
+      "name": "CBUS3",
+      "pin_id": "16",
+      "direction": "BIDIRECTIONAL",
+      "type": "DIGITAL",
+      "description": "Configurable CBUS I/O Pin. Default configuration is SLEEP# (logic low during USB suspend).",
+      "input_voltage": {
+        "min": -0.3,
+        "max": 5.8,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "For USB-to-RS232 designs, connect to the SHDN# pin of an RS232 level converter to power it down during USB suspend. For other uses, configure via MTP memory. Default function is SLEEP#.",
+        "detailed_description": "Configurable CBUS I/O pin. Function is set in the MTP memory. See CBUS2 for full list of available functions.",
+        "functionality": "Default: SLEEP# - Goes low during USB suspend mode. Typically used to power down an external TTL to RS232 level converter IC. Can be reconfigured to other CBUS functions.",
+        "precautions": [
+          "Function must be configured in MTP memory using FT_PROG utility.",
+          "Drive strength, slew rate, and Schmitt trigger input are configurable."
+        ]
+      }
+    },
+    "TXD": {
+      "name": "TXD",
+      "pin_id": "17",
+      "direction": "OUTPUT",
+      "type": "DIGITAL",
+      "description": "Transmit Asynchronous Data Output.",
+      "output_voltage": {
+        "min": 0,
+        "max": 3.63,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to the RXD input of the external UART device or RS232/RS422/RS485 level converter. This pin transmits serial data received from the USB host.",
+        "detailed_description": "UART transmit data output. Data received from the USB host is buffered in the 512-byte RX FIFO and output serially on this pin.",
+        "functionality": "Outputs asynchronous serial data to the external UART device. Supports 7 or 8 data bits, 1 or 2 stop bits, and various parity options. Data rates from 300 baud to 3 Mbaud.",
+        "precautions": [
+          "Output level is referenced to VCCIO.",
+          "Signal can be inverted by setting the Invert TXD option in MTP memory.",
+          "Drive strength is configurable: 4mA (default), 8mA, 12mA, or 16mA."
+        ]
+      }
+    },
+    "DTR#": {
+      "name": "DTR#",
+      "pin_id": "18",
+      "direction": "OUTPUT",
+      "type": "DIGITAL",
+      "description": "Data Terminal Ready Control Output / Handshake Signal. Active low.",
+      "output_voltage": {
+        "min": 0,
+        "max": 3.63,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to the DTR# input of the remote device or RS232 level converter. Used as part of DSR/DTR hardware handshaking.",
+        "detailed_description": "Data Terminal Ready output for modem handshaking. Active low. Paired with DSR# for DSR/DTR handshaking.",
+        "functionality": "Indicates that the FT231X (terminal) is ready for communication. Controlled by the USB host application.",
+        "precautions": [
+          "Output level is referenced to VCCIO.",
+          "Signal can be inverted by setting the Invert DTR# option in MTP memory."
+        ]
+      }
+    },
+    "RTS#": {
+      "name": "RTS#",
+      "pin_id": "19",
+      "direction": "OUTPUT",
+      "type": "DIGITAL",
+      "description": "Request to Send Control Output / Handshake Signal. Active low.",
+      "output_voltage": {
+        "min": 0,
+        "max": 3.63,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to the CTS# input of the remote device or RS232 level converter. Used as part of RTS/CTS hardware flow control.",
+        "detailed_description": "Request To Send output for RTS/CTS hardware flow control. Active low. When asserted (low), the FT231X requests to send data.",
+        "functionality": "Controls UART data flow from the remote device to the FT231X. Part of the RTS/CTS handshaking pair. Handshaking is handled in hardware for fast response.",
+        "precautions": [
+          "Output level is referenced to VCCIO.",
+          "Signal can be inverted by setting the Invert RTS# option in MTP memory."
+        ]
+      }
+    },
+    "VCCIO": {
+      "name": "VCCIO",
+      "pin_id": "20",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "1.8V to 3.3V supply for the IO cells. Sets the I/O voltage level for all UART and CBUS pins.",
+      "input_voltage": {
+        "min": 1.62,
+        "max": 3.63,
+        "units": "V"
+      },
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Decoupling Capacitor",
+            "description": "A 100nF decoupling capacitor should be placed close to the VCCIO pin to ground."
+          }
+        ],
+        "connectivity": "Connect to the desired I/O voltage rail (1.8V, 2.5V, or 3.3V). Can be connected to the 3V3OUT pin for 3.3V I/O operation. Place 100nF decoupling capacitor close to pin.",
+        "detailed_description": "I/O power supply for all UART and CBUS output buffers. Determines the output high voltage level and the input threshold levels. Separate from VCC to allow level-shifted I/O.",
+        "functionality": "Sets the I/O voltage level for UART interface and CBUS pins. Allows interfacing with 1.8V, 2.5V, or 3.3V logic without external level translators.",
+        "precautions": [
+          "VCCIO range is 1.62V to 3.63V. Do not exceed absolute maximum of 4.0V.",
+          "VCCIO should not be powered down when using PWREN# for power switching of external logic.",
+          "I/O pin characteristics (thresholds, drive strength) vary with VCCIO voltage.",
+          "Place decoupling capacitor as close to pin as possible."
+        ]
+      }
+    },
+    "GND_PAD": {
+      "name": "GND (Exposed Pad)",
+      "pin_id": "21",
+      "direction": "INPUT",
+      "type": "POWER",
+      "description": "Exposed pad on the bottom of the QFN package. Must be connected to GND.",
+      "implementation": {
+        "connectivity": "Connect the exposed pad to the system ground plane. Use multiple vias under the pad for thermal and electrical connection.",
+        "detailed_description": "The exposed pad on the bottom of the QFN-20 package provides the primary thermal path and ground connection.",
+        "functionality": "Ground and thermal pad. Provides enhanced thermal dissipation and ground connection.",
+        "precautions": [
+          "Must be soldered to the PCB ground plane.",
+          "Use thermal vias under the pad for best thermal performance.",
+          "This pad is present only on the QFN package variant."
+        ]
+      }
+    }
+  },
+  "serial_bus": {}
+}

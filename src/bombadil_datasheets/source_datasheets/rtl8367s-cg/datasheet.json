@@ -1,0 +1,1623 @@
+{
+  "high_level": {
+    "base_part_number": "RTL8367S",
+    "device_type": "ETHERNET_SWITCH",
+    "manufacturer": "Realtek Semiconductor",
+    "packages": [
+      "LQFP-128"
+    ],
+    "part_numbers": {
+      "RTL8367S-CG": {
+        "options": {
+          "Package": "LQFP-128",
+          "BodySize": "14mm x 14mm",
+          "Pins": "128"
+        }
+      }
+    },
+    "serial_busses": [
+      "SMI",
+      "MDIO",
+      "SPI",
+      "UART"
+    ],
+    "description": "Layer 2 Managed 5+2-Port 10/100/1000M Ethernet Switch Controller with embedded 5-Port Giga-PHY supporting 1000Base-T, 100Base-TX, and 10Base-T. Supports SGMII/HSGMII and RGMII/MII extension interfaces, 2K-entry L2 lookup table, 4K-entry VLAN table, 96-entry ACL, 802.1Q VLAN, QoS, IGMP/MLD snooping, IEEE 802.3az EEE, and embedded 8051 MCU."
+  },
+  "pins": {
+    "GND": {
+      "pin_name": "GND",
+      "pin_number": "1, 18, 24, 32, 43, 44, 57, 68, 85, 89, 96, 99, 105, 111, 119, 125",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Digital Ground.",
+      "implementation": {
+        "connectivity": "All GND pins must be connected to the system ground plane. Use multiple vias and wide traces for low-impedance ground connections.",
+        "detailed_description": "Primary digital ground reference for the device. All 16 GND pins must be connected to ensure proper operation and thermal dissipation.",
+        "precautions": [
+          "Ensure all GND pins are connected to a solid ground plane.",
+          "Use multiple vias under the device for thermal relief and low-impedance grounding."
+        ]
+      }
+    },
+    "AGND": {
+      "pin_name": "AGND",
+      "pin_number": "12",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Analog Ground.",
+      "implementation": {
+        "connectivity": "Connect to the analog ground plane. Should be tied to the main GND plane at a single point or under the IC.",
+        "detailed_description": "Analog ground reference for the PHY analog circuitry.",
+        "precautions": [
+          "Keep analog ground clean and separate from noisy digital signals where possible.",
+          "Connect to the main ground plane with a low-impedance path."
+        ]
+      }
+    },
+    "SGND": {
+      "pin_name": "SGND",
+      "pin_number": "34, 40",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Ser-Des Ground.",
+      "implementation": {
+        "connectivity": "Connect to the ground plane. Provides ground reference for the high-speed serial interface (SGMII/HSGMII).",
+        "detailed_description": "SerDes analog ground for the SGMII/HSGMII high-speed serial interface.",
+        "precautions": [
+          "Ensure clean, low-impedance ground connections for SerDes signal integrity."
+        ]
+      }
+    },
+    "GND_SWR": {
+      "pin_name": "GND_SWR",
+      "pin_number": "61, 62",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Internal Switching Regulator Ground.",
+      "implementation": {
+        "connectivity": "Connect to the ground plane. Ground return for the internal 1.1V switching regulator.",
+        "detailed_description": "Ground reference for the internal switching regulator that generates the 1.1V core supply from the 3.3V input.",
+        "precautions": [
+          "Route switching regulator ground separately and tie to main ground plane near the IC to minimize noise coupling."
+        ]
+      }
+    },
+    "PLLGND": {
+      "pin_name": "PLLGND",
+      "pin_number": "115",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "PLL Ground.",
+      "implementation": {
+        "connectivity": "Connect to the ground plane. Provides ground reference for the internal PLL.",
+        "detailed_description": "Dedicated PLL ground pin for clock generation circuitry.",
+        "precautions": [
+          "Keep PLL ground clean to avoid clock jitter."
+        ]
+      }
+    },
+    "DVDDIO": {
+      "pin_name": "DVDDIO",
+      "pin_number": "67",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Digital I/O High Voltage Power for LED, Management Interface, and nRESET.",
+      "input_voltage": {
+        "min": 2.375,
+        "typ": 3.3,
+        "max": 3.465,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to 3.3V or 2.5V power supply with appropriate decoupling capacitors.",
+        "detailed_description": "Supplies power to the digital I/O pins including LED outputs, management interface (SCK/SDA or MDC/MDIO), and the nRESET pin. Supports 3.3V or 2.5V operation.",
+        "precautions": [
+          "Place decoupling capacitors as close to the pin as possible.",
+          "The voltage level of this pin determines the I/O voltage levels for the LED and management interface pins."
+        ]
+      }
+    },
+    "DVDDIO_2": {
+      "pin_name": "DVDDIO_2",
+      "pin_number": "42, 59",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Digital I/O High Voltage Power for Extension Port 2 General Purpose Interface.",
+      "input_voltage": {
+        "min": 2.375,
+        "typ": 3.3,
+        "max": 3.465,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to 3.3V or 2.5V power supply with appropriate decoupling capacitors.",
+        "detailed_description": "Supplies power to the Extension GMAC2 interface pins (RGMII/MII/GPIO pins 45-56). Supports 3.3V or 2.5V operation.",
+        "precautions": [
+          "The voltage level must match the I/O voltage requirements of the connected external PHY, MAC, or CPU.",
+          "Place decoupling capacitors close to these pins."
+        ]
+      }
+    },
+    "DVDDL": {
+      "pin_name": "DVDDL",
+      "pin_number": "20, 58, 69",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Digital Low Voltage Power (1.1V core).",
+      "input_voltage": {
+        "min": 1.045,
+        "typ": 1.1,
+        "max": 1.155,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to 1.1V supply. Can be sourced from the internal switching regulator (EN_SWR=high) or an external 1.1V supply.",
+        "detailed_description": "Core digital logic supply voltage at 1.1V nominal.",
+        "precautions": [
+          "Ensure supply is within the recommended operating range of 1.045V to 1.155V.",
+          "Place decoupling capacitors close to each DVDDL pin."
+        ]
+      }
+    },
+    "AVDDH": {
+      "pin_name": "AVDDH",
+      "pin_number": "11, 17, 21, 33, 82, 90, 102, 116, 128",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Analog High Voltage Power (3.3V).",
+      "input_voltage": {
+        "min": 3.135,
+        "typ": 3.3,
+        "max": 3.465,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to 3.3V analog power supply with decoupling capacitors at each pin.",
+        "detailed_description": "Analog 3.3V supply for the embedded PHY analog front-end circuitry. Multiple pins distributed around the package for each PHY port.",
+        "precautions": [
+          "Use ferrite beads or separate analog power plane to isolate from noisy digital supplies.",
+          "Place 100nF decoupling capacitors at each AVDDH pin."
+        ]
+      }
+    },
+    "AVDDL": {
+      "pin_name": "AVDDL",
+      "pin_number": "6, 14, 27, 95, 108, 122",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Analog Low Voltage Power (1.1V).",
+      "input_voltage": {
+        "min": 1.045,
+        "typ": 1.1,
+        "max": 1.155,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to 1.1V analog power supply. Can share the same 1.1V source as DVDDL but filtered with ferrite beads.",
+        "detailed_description": "Analog 1.1V supply for the embedded PHY analog circuitry.",
+        "precautions": [
+          "Keep analog 1.1V supply clean. Use ferrite bead filtering if sharing supply with digital DVDDL.",
+          "Place 100nF decoupling capacitors at each AVDDL pin."
+        ]
+      }
+    },
+    "SVDDH": {
+      "pin_name": "SVDDH",
+      "pin_number": "41",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Ser-Des High Voltage Power (3.3V).",
+      "input_voltage": {
+        "min": 3.135,
+        "typ": 3.3,
+        "max": 3.465,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to 3.3V supply with decoupling capacitor.",
+        "detailed_description": "3.3V supply for the SGMII/HSGMII SerDes high-speed serial interface.",
+        "precautions": [
+          "Use a clean, well-decoupled 3.3V supply for optimal SerDes performance."
+        ]
+      }
+    },
+    "SVDDL": {
+      "pin_name": "SVDDL",
+      "pin_number": "37",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Ser-Des Low Voltage Power (1.1V).",
+      "input_voltage": {
+        "min": 1.045,
+        "typ": 1.1,
+        "max": 1.155,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to 1.1V supply with decoupling capacitor.",
+        "detailed_description": "1.1V supply for the SGMII/HSGMII SerDes high-speed serial interface.",
+        "precautions": [
+          "Use a clean, well-decoupled 1.1V supply for optimal SerDes signal integrity."
+        ]
+      }
+    },
+    "PLLVDDL": {
+      "pin_name": "PLLVDDL",
+      "pin_number": "114",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "PLL Low Voltage Power (1.1V).",
+      "input_voltage": {
+        "min": 1.045,
+        "typ": 1.1,
+        "max": 1.155,
+        "units": "V"
+      },
+      "implementation": {
+        "connectivity": "Connect to 1.1V supply with dedicated decoupling capacitor.",
+        "detailed_description": "Dedicated 1.1V supply for the internal PLL clock generation circuitry.",
+        "precautions": [
+          "Use a clean, well-decoupled 1.1V supply to minimize PLL jitter."
+        ]
+      }
+    },
+    "HV_SWR": {
+      "pin_name": "HV_SWR",
+      "pin_number": "65, 66",
+      "type": "POWER",
+      "direction": "INPUT",
+      "description": "Internal Switching Regulator Power. Connect to a bulk capacitor 10uF to GND.",
+      "input_voltage": {
+        "min": 3.135,
+        "typ": 3.3,
+        "max": 3.465,
+        "units": "V"
+      },
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Bulk Capacitor",
+            "description": "10uF capacitor connected between HV_SWR and GND. This provides input energy storage for the internal switching regulator."
+          }
+        ],
+        "connectivity": "Connect to 3.3V supply with a 10uF bulk capacitor to GND.",
+        "detailed_description": "3.3V input supply for the internal buck switching regulator that generates the 1.1V core voltage.",
+        "precautions": [
+          "A 10uF bulk capacitor to GND is required.",
+          "When EN_SWR is pulled low (internal regulator disabled), this pin should still be connected to 3.3V but the regulator will not operate."
+        ]
+      }
+    },
+    "LX": {
+      "pin_name": "LX",
+      "pin_number": "63, 64",
+      "type": "POWER",
+      "direction": "OUTPUT",
+      "description": "Internal Switching Regulator LX output. Connect to an inductor 2.2uH and capacitor 10uF to generate 1.1V power.",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Inductor",
+            "description": "2.2uH inductor connected from LX to the 1.1V output rail."
+          },
+          {
+            "component_name": "Output Capacitor",
+            "description": "10uF capacitor connected from the 1.1V output rail to GND."
+          }
+        ],
+        "connectivity": "Connect to 2.2uH inductor. The other end of the inductor connects to a 10uF output capacitor to GND, forming the 1.1V core supply output.",
+        "detailed_description": "Switch node output of the internal buck regulator. When EN_SWR is high, the internal regulator generates 1.1V from 3.3V via this pin.",
+        "precautions": [
+          "Keep the LX trace short and wide to minimize parasitic inductance and EMI.",
+          "The inductor and output capacitor values (2.2uH, 10uF) are specified by the datasheet and must be used.",
+          "When EN_SWR is pulled low, an external 1.1V supply must be provided to the DVDDL/AVDDL/SVDDL/PLLVDDL pins."
+        ]
+      }
+    },
+    "EN_SWR": {
+      "pin_name": "EN_SWR",
+      "pin_number": "60",
+      "type": "ANALOG",
+      "direction": "INPUT",
+      "description": "Enable Internal Switching Regulator. Pull Up: Enable Internal Switching Regulator. Pull Down: Disable Internal Switching Regulator. This pin must be pulled high or low via an external 1k ohm resistor.",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Pull-up or Pull-down Resistor",
+            "description": "1k ohm resistor to either 3.3V (enable) or GND (disable) to configure the internal switching regulator."
+          }
+        ],
+        "connectivity": "Pull high via 1k ohm resistor to 3.3V to enable the internal switching regulator, or pull low via 1k ohm resistor to GND to disable it and use an external 1.1V supply.",
+        "detailed_description": "Configuration pin that enables or disables the internal 1.1V switching regulator. When enabled, the LX pin outputs the regulator switch node. When disabled, all 1.1V supplies must be provided externally.",
+        "precautions": [
+          "This pin must be pulled high or low via an external 1k ohm resistor during normal operation. Do not leave floating.",
+          "When disabled, ensure an external 1.1V supply is provided to DVDDL, AVDDL, SVDDL, and PLLVDDL pins."
+        ]
+      }
+    },
+    "P0MDIAP": {
+      "pin_name": "P0MDIAP",
+      "pin_number": "91",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 0 Media Dependent Interface A Positive. Differential pair A positive for 10/100/1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P0MDIAN": {
+      "pin_name": "P0MDIAN",
+      "pin_number": "92",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 0 Media Dependent Interface A Negative. Differential pair A negative for 10/100/1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P0MDIBP": {
+      "pin_name": "P0MDIBP",
+      "pin_number": "93",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 0 Media Dependent Interface B Positive. Differential pair B positive for 10/100/1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P0MDIBN": {
+      "pin_name": "P0MDIBN",
+      "pin_number": "94",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 0 Media Dependent Interface B Negative. Differential pair B negative for 10/100/1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P0MDICP": {
+      "pin_name": "P0MDICP",
+      "pin_number": "97",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 0 Media Dependent Interface C Positive. Differential pair C positive for 1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P0MDICN": {
+      "pin_name": "P0MDICN",
+      "pin_number": "98",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 0 Media Dependent Interface C Negative. Differential pair C negative for 1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P0MDIDP": {
+      "pin_name": "P0MDIDP",
+      "pin_number": "100",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 0 Media Dependent Interface D Positive. Differential pair D positive for 1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P0MDIDN": {
+      "pin_name": "P0MDIDN",
+      "pin_number": "101",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 0 Media Dependent Interface D Negative. Differential pair D negative for 1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P1MDIAP": {
+      "pin_name": "P1MDIAP",
+      "pin_number": "103",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 1 Media Dependent Interface A Positive. Differential pair A positive for 10/100/1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P1MDIAN": {
+      "pin_name": "P1MDIAN",
+      "pin_number": "104",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 1 Media Dependent Interface A Negative. Differential pair A negative for 10/100/1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P1MDIBP": {
+      "pin_name": "P1MDIBP",
+      "pin_number": "106",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 1 Media Dependent Interface B Positive. Differential pair B positive for 10/100/1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P1MDIBN": {
+      "pin_name": "P1MDIBN",
+      "pin_number": "107",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 1 Media Dependent Interface B Negative. Differential pair B negative for 10/100/1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P1MDICP": {
+      "pin_name": "P1MDICP",
+      "pin_number": "109",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 1 Media Dependent Interface C Positive. Differential pair C positive for 1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P1MDICN": {
+      "pin_name": "P1MDICN",
+      "pin_number": "110",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 1 Media Dependent Interface C Negative. Differential pair C negative for 1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P1MDIDP": {
+      "pin_name": "P1MDIDP",
+      "pin_number": "112",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 1 Media Dependent Interface D Positive. Differential pair D positive for 1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P1MDIDN": {
+      "pin_name": "P1MDIDN",
+      "pin_number": "113",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 1 Media Dependent Interface D Negative. Differential pair D negative for 1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P2MDIAP": {
+      "pin_name": "P2MDIAP",
+      "pin_number": "117",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 2 Media Dependent Interface A Positive. Differential pair A positive for 10/100/1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P2MDIAN": {
+      "pin_name": "P2MDIAN",
+      "pin_number": "118",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 2 Media Dependent Interface A Negative. Differential pair A negative for 10/100/1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P2MDIBP": {
+      "pin_name": "P2MDIBP",
+      "pin_number": "120",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 2 Media Dependent Interface B Positive. Differential pair B positive for 10/100/1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P2MDIBN": {
+      "pin_name": "P2MDIBN",
+      "pin_number": "121",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 2 Media Dependent Interface B Negative. Differential pair B negative for 10/100/1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P2MDICP": {
+      "pin_name": "P2MDICP",
+      "pin_number": "123",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 2 Media Dependent Interface C Positive. Differential pair C positive for 1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P2MDICN": {
+      "pin_name": "P2MDICN",
+      "pin_number": "124",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 2 Media Dependent Interface C Negative. Differential pair C negative for 1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P2MDIDP": {
+      "pin_name": "P2MDIDP",
+      "pin_number": "126",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 2 Media Dependent Interface D Positive. Differential pair D positive for 1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P2MDIDN": {
+      "pin_name": "P2MDIDN",
+      "pin_number": "127",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 2 Media Dependent Interface D Negative. Differential pair D negative for 1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P3MDIAP": {
+      "pin_name": "P3MDIAP",
+      "pin_number": "2",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 3 Media Dependent Interface A Positive. Differential pair A positive for 10/100/1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P3MDIAN": {
+      "pin_name": "P3MDIAN",
+      "pin_number": "3",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 3 Media Dependent Interface A Negative. Differential pair A negative for 10/100/1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P3MDIBP": {
+      "pin_name": "P3MDIBP",
+      "pin_number": "4",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 3 Media Dependent Interface B Positive. Differential pair B positive for 10/100/1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P3MDIBN": {
+      "pin_name": "P3MDIBN",
+      "pin_number": "5",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 3 Media Dependent Interface B Negative. Differential pair B negative for 10/100/1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P3MDICP": {
+      "pin_name": "P3MDICP",
+      "pin_number": "7",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 3 Media Dependent Interface C Positive. Differential pair C positive for 1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P3MDICN": {
+      "pin_name": "P3MDICN",
+      "pin_number": "8",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 3 Media Dependent Interface C Negative. Differential pair C negative for 1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P3MDIDP": {
+      "pin_name": "P3MDIDP",
+      "pin_number": "9",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 3 Media Dependent Interface D Positive. Differential pair D positive for 1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P3MDIDN": {
+      "pin_name": "P3MDIDN",
+      "pin_number": "10",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 3 Media Dependent Interface D Negative. Differential pair D negative for 1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P4MDIAP": {
+      "pin_name": "P4MDIAP",
+      "pin_number": "22",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 4 Media Dependent Interface A Positive. Differential pair A positive for 10/100/1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P4MDIAN": {
+      "pin_name": "P4MDIAN",
+      "pin_number": "23",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 4 Media Dependent Interface A Negative. Differential pair A negative for 10/100/1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P4MDIBP": {
+      "pin_name": "P4MDIBP",
+      "pin_number": "25",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 4 Media Dependent Interface B Positive. Differential pair B positive for 10/100/1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P4MDIBN": {
+      "pin_name": "P4MDIBN",
+      "pin_number": "26",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 4 Media Dependent Interface B Negative. Differential pair B negative for 10/100/1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P4MDICP": {
+      "pin_name": "P4MDICP",
+      "pin_number": "28",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 4 Media Dependent Interface C Positive. Differential pair C positive for 1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P4MDICN": {
+      "pin_name": "P4MDICN",
+      "pin_number": "29",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 4 Media Dependent Interface C Negative. Differential pair C negative for 1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P4MDIDP": {
+      "pin_name": "P4MDIDP",
+      "pin_number": "30",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 4 Media Dependent Interface D Positive. Differential pair D positive for 1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "P4MDIDN": {
+      "pin_name": "P4MDIDN",
+      "pin_number": "31",
+      "type": "ANALOG",
+      "direction": "BIDIRECTIONAL",
+      "description": "Port 4 Media Dependent Interface D Negative. Differential pair D negative for 1000Base-T operation. Internal 100-ohm termination resistor."
+    },
+    "HSOP": {
+      "pin_name": "HSOP",
+      "pin_number": "36",
+      "type": "ANALOG",
+      "direction": "OUTPUT",
+      "description": "High Speed Serial Output Positive. 1.25GHz/3.125GHz differential serial interface to transmit data (SGMII/HSGMII). Keep floating when unused.",
+      "implementation": {
+        "connectivity": "Connect to the SGMII/HSGMII receiver of the external device via AC coupling capacitors. Keep floating when the SerDes interface is not used.",
+        "detailed_description": "Positive differential output of the high-speed SerDes transmitter. Supports SGMII (1.25GHz) and HSGMII (3.125GHz) modes.",
+        "precautions": [
+          "Keep floating when unused.",
+          "Route as a controlled-impedance differential pair with HSON.",
+          "Use AC coupling capacitors between transmitter and receiver."
+        ]
+      }
+    },
+    "HSON": {
+      "pin_name": "HSON",
+      "pin_number": "35",
+      "type": "ANALOG",
+      "direction": "OUTPUT",
+      "description": "High Speed Serial Output Negative. 1.25GHz/3.125GHz differential serial interface to transmit data (SGMII/HSGMII). Keep floating when unused.",
+      "implementation": {
+        "connectivity": "Connect to the SGMII/HSGMII receiver of the external device via AC coupling capacitors. Keep floating when the SerDes interface is not used.",
+        "detailed_description": "Negative differential output of the high-speed SerDes transmitter.",
+        "precautions": [
+          "Keep floating when unused.",
+          "Route as a controlled-impedance differential pair with HSOP."
+        ]
+      }
+    },
+    "HSIP": {
+      "pin_name": "HSIP",
+      "pin_number": "38",
+      "type": "ANALOG",
+      "direction": "INPUT",
+      "description": "High Speed Serial Input Positive. 1.25GHz/3.125GHz differential serial interface to receive data (SGMII/HSGMII). Keep floating when unused.",
+      "implementation": {
+        "connectivity": "Connect to the SGMII/HSGMII transmitter of the external device via AC coupling capacitors. Keep floating when the SerDes interface is not used.",
+        "detailed_description": "Positive differential input of the high-speed SerDes receiver.",
+        "precautions": [
+          "Keep floating when unused.",
+          "Route as a controlled-impedance differential pair with HSIN."
+        ]
+      }
+    },
+    "HSIN": {
+      "pin_name": "HSIN",
+      "pin_number": "39",
+      "type": "ANALOG",
+      "direction": "INPUT",
+      "description": "High Speed Serial Input Negative. 1.25GHz/3.125GHz differential serial interface to receive data (SGMII/HSGMII). Keep floating when unused.",
+      "implementation": {
+        "connectivity": "Connect to the SGMII/HSGMII transmitter of the external device via AC coupling capacitors. Keep floating when the SerDes interface is not used.",
+        "detailed_description": "Negative differential input of the high-speed SerDes receiver.",
+        "precautions": [
+          "Keep floating when unused.",
+          "Route as a controlled-impedance differential pair with HSIP."
+        ]
+      }
+    },
+    "GPIO01_RG2_TXD3": {
+      "pin_name": "GPIO01/RG2_TXD3/M2M_TXD3/M2P_RXD3/UART_RX",
+      "pin_number": "45",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPIO01 (General Purpose I/O), RG2_TXD3 (RGMII TX Data 3), M2M_TXD3 (MII MAC Mode TX Data 3), M2P_RXD3 (MII PHY Mode RX Data 3), UART_RX (UART Receive). Function selected via register configuration.",
+      "implementation": {
+        "connectivity": "Connect based on configured interface mode. In RGMII mode: connects to external PHY/MAC RXD3. In MII MAC mode: connects to external PHY RXD3. In UART mode: connects to external UART TX. As GPIO: general purpose I/O.",
+        "detailed_description": "Multi-function pin supporting five different functions depending on register configuration. Default function after reset depends on the interface mode selected."
+      }
+    },
+    "GPIO02_RG2_TXD2": {
+      "pin_name": "GPIO02/RG2_TXD2/M2M_TXD2/M2P_RXD2/UART_TX",
+      "pin_number": "46",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPIO02 (General Purpose I/O), RG2_TXD2 (RGMII TX Data 2), M2M_TXD2 (MII MAC Mode TX Data 2), M2P_RXD2 (MII PHY Mode RX Data 2), UART_TX (UART Transmit). Function selected via register configuration."
+    },
+    "GPIO03_RG2_TXD1": {
+      "pin_name": "GPIO03/RG2_TXD1/M2M_TXD1/M2P_RXD1",
+      "pin_number": "47",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPIO03 (General Purpose I/O), RG2_TXD1 (RGMII TX Data 1), M2M_TXD1 (MII MAC Mode TX Data 1), M2P_RXD1 (MII PHY Mode RX Data 1). Function selected via register configuration."
+    },
+    "GPIO04_RG2_TXD0": {
+      "pin_name": "GPIO04/RG2_TXD0/M2M_TXD0/M2P_RXD0/SPIF_CLK",
+      "pin_number": "48",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPIO04 (General Purpose I/O), RG2_TXD0 (RGMII TX Data 0), M2M_TXD0 (MII MAC Mode TX Data 0), M2P_RXD0 (MII PHY Mode RX Data 0), SPIF_CLK (SPI Flash Clock). Function selected via register configuration."
+    },
+    "GPIO05_RG2_TXCTL": {
+      "pin_name": "GPIO05/RG2_TXCTL/M2M_TXEN/M2P_RXDV/SPIF_D0",
+      "pin_number": "49",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPIO05 (General Purpose I/O), RG2_TXCTL (RGMII TX Control), M2M_TXEN (MII MAC Mode TX Enable), M2P_RXDV (MII PHY Mode RX Data Valid), SPIF_D0 (SPI Flash Data 0). Function selected via register configuration."
+    },
+    "GPIO06_RG2_TXCLK": {
+      "pin_name": "GPIO06/RG2_TXCLK/M2M_TXCLK/M2P_RXCLK",
+      "pin_number": "50",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPIO06 (General Purpose I/O), RG2_TXCLK (RGMII TX Clock, 125MHz/25MHz/2.5MHz), M2M_TXCLK (MII MAC Mode TX Clock Input), M2P_RXCLK (MII PHY Mode RX Clock Output). Function selected via register configuration.",
+      "implementation": {
+        "precautions": [
+          "Must be pulled low with a 1K ohm resistor when not used (in MII MAC/PHY mode)."
+        ]
+      }
+    },
+    "GPIO07_RG2_RXCLK": {
+      "pin_name": "GPIO07/RG2_RXCLK/M2M_RXCLK/M2P_TXCLK",
+      "pin_number": "51",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPIO07 (General Purpose I/O), RG2_RXCLK (RGMII RX Clock Input), M2M_RXCLK (MII MAC Mode RX Clock Input), M2P_TXCLK (MII PHY Mode TX Clock Output). Function selected via register configuration.",
+      "implementation": {
+        "precautions": [
+          "Must be pulled low with a 1K ohm resistor when not used."
+        ]
+      }
+    },
+    "GPIO08_RG2_RXCTL": {
+      "pin_name": "GPIO08/RG2_RXCTL/M2M_RXDV/M2P_TXEN",
+      "pin_number": "52",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPIO08 (General Purpose I/O), RG2_RXCTL (RGMII RX Control Input), M2M_RXDV (MII MAC Mode RX Data Valid Input), M2P_TXEN (MII PHY Mode TX Enable Input). Function selected via register configuration.",
+      "implementation": {
+        "precautions": [
+          "Must be pulled low with a 1K ohm resistor when not used."
+        ]
+      }
+    },
+    "GPIO09_RG2_RXD0": {
+      "pin_name": "GPIO09/RG2_RXD0/M2M_RXD0/M2P_TXD0/SPIF_D1",
+      "pin_number": "53",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPIO09 (General Purpose I/O), RG2_RXD0 (RGMII RX Data 0 Input), M2M_RXD0 (MII MAC Mode RX Data 0 Input), M2P_TXD0 (MII PHY Mode TX Data 0 Input), SPIF_D1 (SPI Flash Data 1). Function selected via register configuration.",
+      "implementation": {
+        "precautions": [
+          "Must be pulled low with a 1K ohm resistor when not used (in MII mode)."
+        ]
+      }
+    },
+    "GPIO10_RG2_RXD1": {
+      "pin_name": "GPIO10/RG2_RXD1/M2M_RXD1/M2P_TXD1/SPIF_CS",
+      "pin_number": "54",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPIO10 (General Purpose I/O), RG2_RXD1 (RGMII RX Data 1 Input), M2M_RXD1 (MII MAC Mode RX Data 1 Input), M2P_TXD1 (MII PHY Mode TX Data 1 Input), SPIF_CS (SPI Flash Chip Select). Function selected via register configuration."
+    },
+    "GPIO11_RG2_RXD2": {
+      "pin_name": "GPIO11/RG2_RXD2/M2M_RXD2/M2P_TXD2",
+      "pin_number": "55",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPIO11 (General Purpose I/O), RG2_RXD2 (RGMII RX Data 2 Input), M2M_RXD2 (MII MAC Mode RX Data 2 Input), M2P_TXD2 (MII PHY Mode TX Data 2 Input). Function selected via register configuration."
+    },
+    "GPIO12_RG2_RXD3": {
+      "pin_name": "GPIO12/RG2_RXD3/M2M_RXD3/M2P_TXD3",
+      "pin_number": "56",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPIO12 (General Purpose I/O), RG2_RXD3 (RGMII RX Data 3 Input), M2M_RXD3 (MII MAC Mode RX Data 3 Input), M2P_TXD3 (MII PHY Mode TX Data 3 Input). Function selected via register configuration."
+    },
+    "LAN4LED0_EEPROM_MOD": {
+      "pin_name": "GPO39/LAN4LED0/EEPROM_MOD",
+      "pin_number": "70",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPO39 (General Purpose Output), LAN4LED0 (LAN Port 4 LED 0 output), EEPROM_MOD (EEPROM Mode Selection strapping pin). Pull Up: EEPROM 24Cxx Size > 16Kbits. Pull Down: EEPROM 24Cxx Size <= 16Kbits.",
+      "internal_pull": {
+        "direction": "UP",
+        "pull_value": {
+          "nom": 75,
+          "units": "kOhm"
+        },
+        "type": "RESISTANCE"
+      },
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Strapping Resistor",
+            "description": "4.7k ohm pull-up or pull-down resistor to set EEPROM size mode. Also functions as LED polarity configuration (pull low = high active, pull high = low active)."
+          }
+        ],
+        "connectivity": "This pin must be kept floating, or pulled high or low via an external 4.7k ohm resistor upon power on or reset.",
+        "detailed_description": "Configuration strapping pin at power-on/reset to select EEPROM size. After reset, functions as LAN Port 4 LED 0 output or general purpose output."
+      }
+    },
+    "LAN4LED1": {
+      "pin_name": "GPIO40/LAN4LED1",
+      "pin_number": "71",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPIO40 (General Purpose I/O), LAN4LED1 (LAN Port 4 LED 1 output). LED indicates information defined by register or EEPROM.",
+      "internal_pull": {
+        "direction": "UP",
+        "pull_value": {
+          "nom": 75,
+          "units": "kOhm"
+        },
+        "type": "RESISTANCE"
+      }
+    },
+    "LAN3LED1": {
+      "pin_name": "GPIO41/LAN3LED1",
+      "pin_number": "72",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPIO41 (General Purpose I/O), LAN3LED1 (LAN Port 3 LED 1 output). LED indicates information defined by register or EEPROM.",
+      "internal_pull": {
+        "direction": "UP",
+        "pull_value": {
+          "nom": 75,
+          "units": "kOhm"
+        },
+        "type": "RESISTANCE"
+      }
+    },
+    "EN_PWRLIGHT": {
+      "pin_name": "GPO42/EN_PWRLIGHT",
+      "pin_number": "73",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPO42 (General Purpose Output), EN_PWRLIGHT (Enable Power on Light strapping pin). Pull Up: Enable Power on Light. Pull Down: Disable Power on Light.",
+      "internal_pull": {
+        "direction": "UP",
+        "pull_value": {
+          "nom": 75,
+          "units": "kOhm"
+        },
+        "type": "RESISTANCE"
+      },
+      "implementation": {
+        "connectivity": "This pin must be kept floating, or pulled high or low via an external 4.7k ohm resistor upon power on or reset."
+      }
+    },
+    "LAN3LED0_EN_SPIF": {
+      "pin_name": "GPO43/LAN3LED0/EN_SPIF",
+      "pin_number": "74",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPO43 (General Purpose Output), LAN3LED0 (LAN Port 3 LED 0 output), EN_SPIF (Enable SPI Flash Interface strapping pin). Pull Up: Enable FLASH interface. Pull Down: Disable FLASH interface.",
+      "internal_pull": {
+        "direction": "UP",
+        "pull_value": {
+          "nom": 75,
+          "units": "kOhm"
+        },
+        "type": "RESISTANCE"
+      },
+      "implementation": {
+        "connectivity": "This pin must be kept floating, or pulled high or low via an external 4.7k ohm resistor upon power on or reset. See DISAUTOLOAD/DIS_8051/EN_SPIF strapping table for configuration."
+      }
+    },
+    "LAN2LED0_DIS_8051": {
+      "pin_name": "GPO44/LAN2LED0/DIS_8051",
+      "pin_number": "75",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPO44 (General Purpose Output), LAN2LED0 (LAN Port 2 LED 0 output), DIS_8051 (Disable Embedded 8051 strapping pin). Pull Up: Disable embedded 8051. Pull Down: Enable embedded 8051.",
+      "internal_pull": {
+        "direction": "UP",
+        "pull_value": {
+          "nom": 75,
+          "units": "kOhm"
+        },
+        "type": "RESISTANCE"
+      },
+      "implementation": {
+        "connectivity": "This pin must be kept floating, or pulled high or low via an external 4.7k ohm resistor upon power on or reset. See DISAUTOLOAD/DIS_8051/EN_SPIF strapping table for configuration."
+      }
+    },
+    "DISAUTOLOAD": {
+      "pin_name": "GPO45/DISAUTOLOAD",
+      "pin_number": "76",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPO45 (General Purpose Output), DISAUTOLOAD (Disable EEPROM/FLASH Autoload strapping pin). Pull Up: Disable EEPROM/FLASH autoload. Pull Down: Enable EEPROM/FLASH autoload.",
+      "internal_pull": {
+        "direction": "UP",
+        "pull_value": {
+          "nom": 75,
+          "units": "kOhm"
+        },
+        "type": "RESISTANCE"
+      },
+      "implementation": {
+        "connectivity": "This pin must be kept floating, or pulled high or low via an external 4.7k ohm resistor upon power on or reset. See DISAUTOLOAD/DIS_8051/EN_SPIF strapping table for configuration."
+      }
+    },
+    "LAN2LED1": {
+      "pin_name": "GPIO46/LAN2LED1",
+      "pin_number": "77",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPIO46 (General Purpose I/O), LAN2LED1 (LAN Port 2 LED 1 output). LED indicates information defined by register or EEPROM.",
+      "internal_pull": {
+        "direction": "UP",
+        "pull_value": {
+          "nom": 75,
+          "units": "kOhm"
+        },
+        "type": "RESISTANCE"
+      }
+    },
+    "LAN1LED1": {
+      "pin_name": "GPIO49/LAN1LED1",
+      "pin_number": "78",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPIO49 (General Purpose I/O), LAN1LED1 (LAN Port 1 LED 1 output). LED indicates information defined by register or EEPROM.",
+      "internal_pull": {
+        "direction": "UP",
+        "pull_value": {
+          "nom": 75,
+          "units": "kOhm"
+        },
+        "type": "RESISTANCE"
+      }
+    },
+    "LAN1LED0_EN_PHY": {
+      "pin_name": "GPO50/LAN1LED0/EN_PHY",
+      "pin_number": "79",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPO50 (General Purpose Output), LAN1LED0 (LAN Port 1 LED 0 output), EN_PHY (Enable Embedded PHY strapping pin). Pull Up: Enable embedded PHY. Pull Down: Disable embedded PHY.",
+      "internal_pull": {
+        "direction": "UP",
+        "pull_value": {
+          "nom": 75,
+          "units": "kOhm"
+        },
+        "type": "RESISTANCE"
+      },
+      "implementation": {
+        "connectivity": "This pin must be kept floating, or pulled high or low via an external 4.7k ohm resistor upon power on or reset."
+      }
+    },
+    "LAN0LED1_LED_DA": {
+      "pin_name": "GPO51/LAN0LED1/LED_DA",
+      "pin_number": "80",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPO51 (General Purpose Output), LAN0LED1 (LAN Port 0 LED 1 output), LED_DA (Serial LED Data output in serial LED mode).",
+      "internal_pull": {
+        "direction": "UP",
+        "pull_value": {
+          "nom": 75,
+          "units": "kOhm"
+        },
+        "type": "RESISTANCE"
+      }
+    },
+    "LAN0LED0_LED_CK_SMI_SEL": {
+      "pin_name": "GPO52/LAN0LED0/LED_CK/SMI_SEL",
+      "pin_number": "81",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPO52 (General Purpose Output), LAN0LED0 (LAN Port 0 LED 0 output), LED_CK (Serial LED Clock output in serial LED mode), SMI_SEL (EEPROM SMI/MII Management Interface Selection strapping pin). Pull Up: EEPROM SMI interface. Pull Down: MII Management interface.",
+      "internal_pull": {
+        "direction": "UP",
+        "pull_value": {
+          "nom": 75,
+          "units": "kOhm"
+        },
+        "type": "RESISTANCE"
+      },
+      "implementation": {
+        "connectivity": "This pin must be kept floating, or pulled high or low via an external 4.7k ohm resistor upon power on or reset. Selects between EEPROM SMI and MII Management (MDIO) interface for pins 87/88."
+      }
+    },
+    "SCK_MDC_EN_EEE": {
+      "pin_name": "GPIO54/SCK/MDC/EN_EEE",
+      "pin_number": "87",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPIO54 (General Purpose I/O), SCK (EEPROM SMI Interface Clock), MDC (MII Management Interface Clock), EN_EEE (Enable IEEE 802.3az Energy Efficient Ethernet strapping pin). Pull Up: Enable EEE function. Pull Down: Disable EEE function.",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Strapping Resistor",
+            "description": "4.7k ohm pull-up or pull-down resistor to enable/disable EEE at power-on/reset."
+          }
+        ],
+        "connectivity": "This pin must be pulled high or low via an external 4.7k ohm resistor upon power on or reset. After reset, functions as SCK (when SMI_SEL=high) or MDC (when SMI_SEL=low).",
+        "detailed_description": "Configuration strapping pin at power-on/reset to enable/disable Energy Efficient Ethernet. After reset, functions as EEPROM SMI clock (SCK) or MII Management Interface clock (MDC) depending on pin 81 (SMI_SEL) strapping."
+      }
+    },
+    "SDA_MDIO": {
+      "pin_name": "GPIO55/SDA/MDIO",
+      "pin_number": "88",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPIO55 (General Purpose I/O), SDA (EEPROM SMI Interface Data), MDIO (MII Management Interface Data). Function selected by SMI_SEL strapping on pin 81.",
+      "implementation": {
+        "connectivity": "When SMI_SEL (pin 81) is pulled high, this pin functions as SDA (EEPROM SMI data). When SMI_SEL is pulled low, this pin functions as MDIO (MII Management data).",
+        "detailed_description": "Bidirectional data pin for either EEPROM SMI or MDIO management interface, selected by the SMI_SEL strapping pin."
+      }
+    },
+    "GPIO57_INTERRUPT": {
+      "pin_name": "GPIO57/INTERRUPT",
+      "pin_number": "19",
+      "type": "DIGITAL",
+      "direction": "BIDIRECTIONAL",
+      "description": "Multi-function pin. GPIO57 (General Purpose I/O with pull-down), INTERRUPT (Interrupt output when interrupt event occurs). Active High by pull-down to GND via 1K resistor. Active Low by pull-up to DVDDIO via 4.7K resistor.",
+      "internal_pull": {
+        "direction": "DOWN",
+        "pull_value": {
+          "nom": 75,
+          "units": "kOhm"
+        },
+        "type": "RESISTANCE"
+      },
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Pull-up or Pull-down Resistor",
+            "description": "1K ohm pull-down to GND for active-high interrupt, or 4.7K ohm pull-up to DVDDIO for active-low interrupt."
+          }
+        ],
+        "connectivity": "Connect to an interrupt input on the host CPU/MCU. Use external pull-down (1K to GND) for active-high polarity, or pull-up (4.7K to DVDDIO) for active-low polarity.",
+        "detailed_description": "Interrupt output pin that signals the host CPU when an interrupt event occurs (e.g., link status change). Also configurable as a general-purpose I/O."
+      }
+    },
+    "MDIREF": {
+      "pin_name": "MDIREF",
+      "pin_number": "13",
+      "type": "ANALOG",
+      "direction": "OUTPUT",
+      "description": "Reference Resistor pin. A 2.49K ohm (1%) resistor must be connected between MDIREF and GND.",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Reference Resistor",
+            "description": "2.49K ohm, 1% tolerance resistor connected between MDIREF and GND. Sets the reference current for the PHY analog circuitry."
+          }
+        ],
+        "connectivity": "Connect a 2.49K ohm (1% tolerance) resistor from this pin to GND.",
+        "detailed_description": "Provides a precision reference current for the embedded PHY analog front-end via an external precision resistor.",
+        "precautions": [
+          "The 2.49K ohm resistor must be 1% tolerance for proper PHY operation.",
+          "Place the resistor as close to the pin as possible to minimize noise."
+        ]
+      }
+    },
+    "nRESET": {
+      "pin_name": "nRESET",
+      "pin_number": "86",
+      "type": "DIGITAL",
+      "direction": "INPUT",
+      "description": "System Reset Input Pin. Active low. When low, resets the RTL8367S.",
+      "internal_pull": {
+        "direction": "UP",
+        "pull_value": {
+          "nom": 75,
+          "units": "kOhm"
+        },
+        "type": "RESISTANCE"
+      },
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Reset Circuit",
+            "description": "Connect to a power-on reset circuit or RC delay network. Can also be connected to a manual reset button with debounce circuit."
+          }
+        ],
+        "connectivity": "Connect to a reset source (power-on reset IC, RC network, or microcontroller reset output). Has an internal pull-up resistor.",
+        "detailed_description": "Active-low system reset input. When driven low, the RTL8367S performs a full hardware reset. All registers return to default values and strapping pins are re-sampled.",
+        "precautions": [
+          "Ensure reset is held low long enough for proper initialization.",
+          "Has an internal 75K ohm pull-up resistor, but an external pull-up or reset IC is recommended for reliable power-on reset."
+        ]
+      }
+    },
+    "XTALO": {
+      "pin_name": "XTALO",
+      "pin_number": "83",
+      "type": "ANALOG",
+      "direction": "OUTPUT",
+      "description": "25MHz Crystal Clock Output Pin. 25MHz +/-50ppm tolerance crystal output. When using a crystal, series connect a 150 ohm resistor between XTALO and crystal, connect a loading capacitor between crystal pin and ground.",
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Series Resistor",
+            "description": "150 ohm resistor connected in series between XTALO and the crystal."
+          },
+          {
+            "component_name": "Loading Capacitor",
+            "description": "Loading capacitor between the crystal pin and ground. Value depends on the crystal specification."
+          },
+          {
+            "component_name": "25MHz Crystal",
+            "description": "25MHz +/-50ppm crystal oscillator."
+          }
+        ],
+        "connectivity": "Connect to the 25MHz crystal via a 150 ohm series resistor. Add a loading capacitor from the crystal pin to ground.",
+        "detailed_description": "Crystal oscillator output pin. Drives the 25MHz crystal that provides the system reference clock.",
+        "precautions": [
+          "When using an external oscillator or driving a 25MHz clock from another device, XTALO should be kept floating.",
+          "A 150 ohm series resistor is required between XTALO and the crystal."
+        ]
+      }
+    },
+    "XTALI": {
+      "pin_name": "XTALI",
+      "pin_number": "84",
+      "type": "ANALOG",
+      "direction": "INPUT",
+      "description": "25MHz Crystal Clock Input and Feedback Pin. 25MHz +/-50ppm tolerance crystal reference or oscillator input. When using a crystal, connect a loading capacitor between crystal pin and ground. When using an oscillator or external 25MHz clock, XTALO should be kept floating. Maximum XTALI input voltage is 3.3V.",
+      "input_voltage": {
+        "max": 3.3,
+        "units": "V"
+      },
+      "implementation": {
+        "connected_components": [
+          {
+            "component_name": "Loading Capacitor",
+            "description": "Loading capacitor between the crystal pin and ground. Value depends on the crystal specification."
+          },
+          {
+            "component_name": "25MHz Crystal or Oscillator",
+            "description": "25MHz +/-50ppm crystal or external oscillator."
+          }
+        ],
+        "connectivity": "Connect to the 25MHz crystal with a loading capacitor to ground, or connect to an external 25MHz oscillator output (max 3.3V).",
+        "detailed_description": "Crystal oscillator input and feedback pin. Accepts the 25MHz reference clock from either a crystal or an external oscillator.",
+        "precautions": [
+          "Maximum input voltage is 3.3V.",
+          "When using an external oscillator, keep XTALO floating."
+        ]
+      }
+    },
+    "RTT1": {
+      "pin_name": "RTT1",
+      "pin_number": "15",
+      "type": "OTHER",
+      "direction": "OUTPUT",
+      "description": "Reserved for Internal Use. Must be left floating.",
+      "implementation": {
+        "connectivity": "Must be left floating. Do not connect to any signal or power rail.",
+        "detailed_description": "Test pin reserved for internal factory use.",
+        "precautions": [
+          "Must be left floating for normal operation."
+        ]
+      }
+    },
+    "RTT2": {
+      "pin_name": "RTT2",
+      "pin_number": "16",
+      "type": "OTHER",
+      "direction": "OUTPUT",
+      "description": "Reserved for Internal Use. Must be left floating.",
+      "implementation": {
+        "connectivity": "Must be left floating. Do not connect to any signal or power rail.",
+        "detailed_description": "Test pin reserved for internal factory use.",
+        "precautions": [
+          "Must be left floating for normal operation."
+        ]
+      }
+    }
+  },
+  "serial_bus": {
+    "registers": {
+      "0": {
+        "address": "0x00",
+        "name": "Control Register",
+        "type": "RW",
+        "default_value": "0x1140",
+        "description": "PHY Control Register (PHY 0~4). Controls reset, loopback, speed selection, auto-negotiation, power down, isolation, duplex mode.",
+        "fields": {
+          "Reset": {
+            "bits": "15",
+            "mode": "RW/SC",
+            "default": "0",
+            "description": "PHY reset. 1: PHY reset, 0: Normal operation. Self-clearing."
+          },
+          "Loopback": {
+            "bits": "14",
+            "mode": "RW",
+            "default": "0",
+            "description": "Enable digital loopback. 1: Loopback TXD to RXD, 0: Normal operation. Usable in 10/100/1000 full duplex only."
+          },
+          "Speed_Selection_0": {
+            "bits": "13",
+            "mode": "RW",
+            "default": "0",
+            "description": "Speed Selection[0]. Combined with bit 6: 11=Reserved, 10=1000Mbps, 01=100Mbps, 00=10Mbps."
+          },
+          "Auto_Negotiation_Enable": {
+            "bits": "12",
+            "mode": "RW",
+            "default": "1",
+            "description": "Enable auto-negotiation process. 1: Enable, 0: Disable."
+          },
+          "Power_Down": {
+            "bits": "11",
+            "mode": "RW",
+            "default": "0",
+            "description": "Power down. 1: All functions disabled except SMI, 0: Normal operation."
+          },
+          "Isolate": {
+            "bits": "10",
+            "mode": "RW",
+            "default": "0",
+            "description": "Electrically isolates PHY from GMII. 1: Isolate (PHY responds to SMI only), 0: Normal operation."
+          },
+          "Restart_Auto_Negotiation": {
+            "bits": "9",
+            "mode": "RW/SC",
+            "default": "0",
+            "description": "Restart auto-negotiation process. Self-clearing."
+          },
+          "Duplex_Mode": {
+            "bits": "8",
+            "mode": "RW",
+            "default": "1",
+            "description": "Duplex mode. 1: Full duplex, 0: Half duplex."
+          },
+          "Collision_Test": {
+            "bits": "7",
+            "mode": "RO",
+            "default": "0",
+            "description": "Collision test enable."
+          },
+          "Speed_Selection_1": {
+            "bits": "6",
+            "mode": "RW",
+            "default": "1",
+            "description": "Speed Selection[1]. See bit 13."
+          },
+          "Reserved": {
+            "bits": "5:0",
+            "mode": "RO",
+            "default": "000000",
+            "description": "Reserved."
+          }
+        }
+      },
+      "1": {
+        "address": "0x01",
+        "name": "Status Register",
+        "type": "RO",
+        "default_value": "0x7949",
+        "description": "PHY Status Register (PHY 0~4). Reports PHY capabilities, link status, auto-negotiation status, jabber, and extended capability.",
+        "fields": {
+          "100Base_T4": {
+            "bits": "15",
+            "mode": "RO",
+            "default": "0",
+            "description": "100Base-T4 capability. Always 0 (not supported)."
+          },
+          "100Base_TX_FD": {
+            "bits": "14",
+            "mode": "RO",
+            "default": "1",
+            "description": "100Base-TX full duplex capable."
+          },
+          "100Base_TX_HD": {
+            "bits": "13",
+            "mode": "RO",
+            "default": "1",
+            "description": "100Base-TX half duplex capable."
+          },
+          "10Base_T_FD": {
+            "bits": "12",
+            "mode": "RO",
+            "default": "1",
+            "description": "10Base-T full duplex capable."
+          },
+          "10Base_T_HD": {
+            "bits": "11",
+            "mode": "RO",
+            "default": "1",
+            "description": "10Base-T half duplex capable."
+          },
+          "100Base_T2_FD": {
+            "bits": "10",
+            "mode": "RO",
+            "default": "0",
+            "description": "100Base-T2 full duplex. Always 0 (not supported)."
+          },
+          "100Base_T2_HD": {
+            "bits": "9",
+            "mode": "RO",
+            "default": "0",
+            "description": "100Base-T2 half duplex. Always 0 (not supported)."
+          },
+          "Extended_Status": {
+            "bits": "8",
+            "mode": "RO",
+            "default": "1",
+            "description": "Extended status information in Register 15. Always 1."
+          },
+          "Reserved_7": {
+            "bits": "7",
+            "mode": "RO",
+            "default": "0",
+            "description": "Reserved."
+          },
+          "MF_Preamble_Suppression": {
+            "bits": "6",
+            "mode": "RO",
+            "default": "1",
+            "description": "Management frame preamble suppression supported."
+          },
+          "Auto_Negotiate_Complete": {
+            "bits": "5",
+            "mode": "RO",
+            "default": "0",
+            "description": "Auto-negotiation process completed. 1: Complete, 0: Not completed."
+          },
+          "Remote_Fault": {
+            "bits": "4",
+            "mode": "RO/LH",
+            "default": "0",
+            "description": "Remote fault detected. Latched high until cleared by reading register 1."
+          },
+          "Auto_Negotiation_Ability": {
+            "bits": "3",
+            "mode": "RO",
+            "default": "1",
+            "description": "Auto-negotiation capable. Permanently 1."
+          },
+          "Link_Status": {
+            "bits": "2",
+            "mode": "RO/LL",
+            "default": "0",
+            "description": "Link status. 1: Link established, 0: Link failed since previous read. Latched low."
+          },
+          "Jabber_Detect": {
+            "bits": "1",
+            "mode": "RO/LH",
+            "default": "0",
+            "description": "Jabber detected (10Base-T mode only). Latched high."
+          },
+          "Extended_Capability": {
+            "bits": "0",
+            "mode": "RO",
+            "default": "1",
+            "description": "Extended register capable. Permanently 1."
+          }
+        }
+      },
+      "2": {
+        "address": "0x02",
+        "name": "PHY Identifier 1",
+        "type": "RO",
+        "default_value": "0x001C",
+        "description": "PHY Identifier Register 1. Contains bits 3-18 of the Organizationally Unique Identifier (OUI)."
+      },
+      "3": {
+        "address": "0x03",
+        "name": "PHY Identifier 2",
+        "type": "RO",
+        "default_value": "0xC980",
+        "description": "PHY Identifier Register 2. Contains OUI bits 19-24, manufacturer model number, and revision number.",
+        "fields": {
+          "OUI": {
+            "bits": "15:10",
+            "mode": "RO",
+            "default": "110010",
+            "description": "Bits 19-24 of the OUI."
+          },
+          "Model_Number": {
+            "bits": "9:4",
+            "mode": "RO",
+            "default": "011000",
+            "description": "Manufacturer's model number."
+          },
+          "Revision_Number": {
+            "bits": "3:0",
+            "mode": "RO",
+            "default": "0000",
+            "description": "Manufacturer's revision number."
+          }
+        }
+      },
+      "4": {
+        "address": "0x04",
+        "name": "Auto-Negotiation Advertisement",
+        "type": "RW",
+        "default_value": "0x0DE1",
+        "description": "Auto-Negotiation Advertisement Register. Contains the advertisement abilities transmitted to the Link Partner during auto-negotiation.",
+        "fields": {
+          "Next_Page": {
+            "bits": "15",
+            "mode": "RO",
+            "default": "0",
+            "description": "Next page exchange desired."
+          },
+          "Acknowledge": {
+            "bits": "14",
+            "mode": "RO",
+            "default": "0",
+            "description": "Permanently 0."
+          },
+          "Remote_Fault": {
+            "bits": "13",
+            "mode": "RW",
+            "default": "0",
+            "description": "Advertise remote fault detected."
+          },
+          "Pause": {
+            "bits": "10",
+            "mode": "RW",
+            "default": "1",
+            "description": "Advertise flow control capability."
+          },
+          "100Base_TX_FD": {
+            "bits": "8",
+            "mode": "RW",
+            "default": "1",
+            "description": "100Base-TX full duplex capable."
+          },
+          "100Base_TX": {
+            "bits": "7",
+            "mode": "RW",
+            "default": "1",
+            "description": "100Base-TX half duplex capable."
+          },
+          "10Base_T_FD": {
+            "bits": "6",
+            "mode": "RW",
+            "default": "1",
+            "description": "10Base-T full duplex capable."
+          },
+          "10Base_T": {
+            "bits": "5",
+            "mode": "RW",
+            "default": "1",
+            "description": "10Base-T half duplex capable."
+          },
+          "Selector_Field": {
+            "bits": "4:0",
+            "mode": "RO",
+            "default": "00001",
+            "description": "IEEE 802.3 selector field."
+          }
+        }
+      },
+      "5": {
+        "address": "0x05",
+        "name": "Auto-Negotiation Link Partner Ability",
+        "type": "RO",
+        "default_value": "0x0000",
+        "description": "Auto-Negotiation Link Partner Ability Register. Contains advertised abilities received from the Link Partner during auto-negotiation."
+      },
+      "6": {
+        "address": "0x06",
+        "name": "Auto-Negotiation Expansion",
+        "type": "RO",
+        "default_value": "0x0004",
+        "description": "Auto-Negotiation Expansion Register. Contains parallel detection fault, next page ability, and page received status."
+      },
+      "7": {
+        "address": "0x07",
+        "name": "Auto-Negotiation Page Transmit Register",
+        "type": "RW",
+        "default_value": "0x2001",
+        "description": "Auto-Negotiation Next Page Transmit Register."
+      },
+      "8": {
+        "address": "0x08",
+        "name": "Auto-Negotiation Link Partner Next Page Register",
+        "type": "RO",
+        "default_value": "0x0000",
+        "description": "Auto-Negotiation Link Partner Next Page Register. Contains received link code word from the link partner."
+      },
+      "9": {
+        "address": "0x09",
+        "name": "1000Base-T Control Register",
+        "type": "RW",
+        "default_value": "0x0E00",
+        "description": "1000Base-T Control Register. Controls test mode, master/slave configuration, and 1000Base-T advertisement.",
+        "fields": {
+          "Test_Mode": {
+            "bits": "15:13",
+            "mode": "RW",
+            "default": "000",
+            "description": "Test Mode Select. 000: Normal, 001: TX waveform test, 010: TX jitter MASTER, 011: TX jitter SLAVE, 100: TX distortion."
+          },
+          "MS_Manual_Config_Enable": {
+            "bits": "12",
+            "mode": "RW",
+            "default": "0",
+            "description": "Enable MASTER/SLAVE manual configuration."
+          },
+          "MS_Config_Value": {
+            "bits": "11",
+            "mode": "RW",
+            "default": "1",
+            "description": "MASTER/SLAVE configuration value. 1: MASTER, 0: SLAVE (only when bit 12 = 1)."
+          },
+          "Port_Type": {
+            "bits": "10",
+            "mode": "RW",
+            "default": "1",
+            "description": "Port type. 1: Multi-port device, 0: Single-port device."
+          },
+          "1000Base_T_FD": {
+            "bits": "9",
+            "mode": "RW",
+            "default": "1",
+            "description": "Advertise 1000Base-T full duplex capable."
+          },
+          "1000Base_T_HD": {
+            "bits": "8",
+            "mode": "RW",
+            "default": "0",
+            "description": "Advertise 1000Base-T half duplex capable."
+          }
+        }
+      },
+      "10": {
+        "address": "0x0A",
+        "name": "1000Base-T Status Register",
+        "type": "RO",
+        "default_value": "0x0000",
+        "description": "1000Base-T Status Register. Reports master/slave resolution, local/remote receiver status, and link partner 1000Base-T capability.",
+        "fields": {
+          "MS_Config_Fault": {
+            "bits": "15",
+            "mode": "RO/LH/SC",
+            "default": "0",
+            "description": "MASTER/SLAVE configuration fault detected."
+          },
+          "MS_Config_Resolution": {
+            "bits": "14",
+            "mode": "RO",
+            "default": "0",
+            "description": "1: Local PHY resolved to MASTER, 0: Resolved to SLAVE."
+          },
+          "Local_Receiver_Status": {
+            "bits": "13",
+            "mode": "RO",
+            "default": "0",
+            "description": "1: Local receiver OK, 0: Local receiver not OK."
+          },
+          "Remote_Receiver_Status": {
+            "bits": "12",
+            "mode": "RO",
+            "default": "0",
+            "description": "1: Remote receiver OK, 0: Remote receiver not OK."
+          },
+          "LP_1000Base_T_FD": {
+            "bits": "11",
+            "mode": "RO",
+            "default": "0",
+            "description": "Link partner 1000Base-T full duplex capable."
+          },
+          "LP_1000Base_T_HD": {
+            "bits": "10",
+            "mode": "RO",
+            "default": "0",
+            "description": "Link partner 1000Base-T half duplex capable."
+          },
+          "Idle_Error_Count": {
+            "bits": "7:0",
+            "mode": "RO/SC",
+            "default": "0x00",
+            "description": "Idle error counter. Stops at 0xFF."
+          }
+        }
+      },
+      "15": {
+        "address": "0x0F",
+        "name": "Extended Status",
+        "type": "RO",
+        "default_value": "0x2000",
+        "description": "Extended Status Register. Reports 1000Base-X and 1000Base-T capabilities.",
+        "fields": {
+          "1000Base_X_FD": {
+            "bits": "15",
+            "mode": "RO",
+            "default": "0",
+            "description": "1000Base-X full duplex capable."
+          },
+          "1000Base_X_HD": {
+            "bits": "14",
+            "mode": "RO",
+            "default": "0",
+            "description": "1000Base-X half duplex capable."
+          },
+          "1000Base_T_FD": {
+            "bits": "13",
+            "mode": "RO",
+            "default": "1",
+            "description": "1000Base-T full duplex capable."
+          },
+          "1000Base_T_HD": {
+            "bits": "12",
+            "mode": "RO",
+            "default": "0",
+            "description": "1000Base-T half duplex capable."
+          }
+        }
+      }
+    }
+  }
+}
